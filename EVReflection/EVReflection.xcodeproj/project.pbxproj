@@ -11,6 +11,8 @@
 		7F07C5881AF10437000DF1F3 /* EVReflection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F07C5841AF10284000DF1F3 /* EVReflection.swift */; };
 		7F07C58A1AF111FE000DF1F3 /* TestObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F07C5891AF111FE000DF1F3 /* TestObject.swift */; };
 		7F07C58C1AF11231000DF1F3 /* TestObject2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F07C58B1AF11231000DF1F3 /* TestObject2.swift */; };
+		7F07C58F1AF11861000DF1F3 /* EVReflection.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 7F07C58D1AF11861000DF1F3 /* EVReflection.podspec */; };
+		7F07C5901AF11861000DF1F3 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 7F07C58E1AF11861000DF1F3 /* LICENSE */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -21,6 +23,8 @@
 		7F07C5861AF10296000DF1F3 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		7F07C5891AF111FE000DF1F3 /* TestObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestObject.swift; sourceTree = "<group>"; };
 		7F07C58B1AF11231000DF1F3 /* TestObject2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestObject2.swift; sourceTree = "<group>"; };
+		7F07C58D1AF11861000DF1F3 /* EVReflection.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = EVReflection.podspec; path = ../EVReflection.podspec; sourceTree = "<group>"; };
+		7F07C58E1AF11861000DF1F3 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -38,6 +42,8 @@
 			isa = PBXGroup;
 			children = (
 				7F07C5861AF10296000DF1F3 /* README.md */,
+				7F07C58D1AF11861000DF1F3 /* EVReflection.podspec */,
+				7F07C58E1AF11861000DF1F3 /* LICENSE */,
 				7F07C5831AF10284000DF1F3 /* pod */,
 				7F07C5751AF101A9000DF1F3 /* EVReflectionTests */,
 				7F07C55E1AF101A9000DF1F3 /* Products */,
@@ -137,6 +143,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7F07C5901AF11861000DF1F3 /* LICENSE in Resources */,
+				7F07C58F1AF11861000DF1F3 /* EVReflection.podspec in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
