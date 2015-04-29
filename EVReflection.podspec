@@ -11,7 +11,7 @@ s.name         = "EVReflection"
 s.version      = "1.0.0"
 s.summary      = "iOS: Swift helper library with reflection functions"
 
-s.description  = "Swift helper library with reflection functions"
+s.description  = "Swift helper library with reflection functions including support for NSCoding, Printable, Hashable and Equatable"
 
 s.homepage     = "https://github.com/evermeer/EVReflection"
 
