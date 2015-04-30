@@ -9,5 +9,5 @@ before_install:
 - if brew outdated | grep -qx xctool; then brew upgrade xctool; fi
 
 script:
-- xctool clean build -project EVReflection/EVReflection.xcodeproj -scheme EVReflectionTests -sdk iphonesimulator8.1 ONLY_ACTIVE_ARCH=NO
+- xctool clean build -project EVReflection/EVReflection.xcodeproj -sdk iphonesimulator8.1 ONLY_ACTIVE_ARCH=NO
 
