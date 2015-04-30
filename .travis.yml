@@ -1,4 +1,4 @@
-language: objective-c
+language: objective-c 
 podfile: EVReflection/Podfile
 osx_image: xcode611
 
@@ -10,3 +10,4 @@ before_install:
 
 script:
 - xctool clean build -project EVReflection/EVReflection.xcodeproj -scheme EVRevlection -sdk iphonesimulator8.1 ONLY_ACTIVE_ARCH=NO
+
