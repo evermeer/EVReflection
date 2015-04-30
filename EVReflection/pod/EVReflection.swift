@@ -116,13 +116,13 @@ public class EVReflection {
         if className.hasPrefix("_TtC") {
             return NSClassFromString(className)
         }
-        if  var appName: String = NSBundle.mainBundle().objectForInfoDictionaryKey("CFBundleName") as! String? {
-            appName = appName.stringByReplacingOccurrencesOfString(" ", withString: "_", options: NSStringCompareOptions.CaseInsensitiveSearch, range: nil)
-            let classStringName = "\(appName).\(className)"
-            return NSClassFromString(classStringName)
-        } else {
-            return NSClassFromString(className)
+        var bundle = NSBundle.mainBundle().bundleIdentifier
+        if bundle == nil {
+            bundle = NSBundle(forClass: EVReflection().dynamicType).bundleIdentifier
         }
+        var appName = (split(bundle!){$0 == "."}).last!.stringByReplacingOccurrencesOfString(" ", withString: "_", options: NSStringCompareOptions.CaseInsensitiveSearch, range: nil)
+        let classStringName = "\(appName).\(className)"
+        return NSClassFromString(classStringName)
     }
 
     
@@ -148,14 +148,10 @@ public class EVReflection {
     :return: The string representation of the class (name of the bundle dot name of the class)
     */
     public class func swiftStringFromClass(theObject: NSObject) -> String! {
-        var x =  NSBundle.mainBundle()
-        if  var appName: String = NSBundle.mainBundle().objectForInfoDictionaryKey("CFBundleName") as! String? {
-            appName = appName.stringByReplacingOccurrencesOfString(" ", withString: "_", options: NSStringCompareOptions.CaseInsensitiveSearch, range: nil)
-            let classStringName: String = NSStringFromClass(theObject.dynamicType)
-            return classStringName.stringByReplacingOccurrencesOfString(appName + ".", withString: "", options: NSStringCompareOptions.CaseInsensitiveSearch, range: nil)
-        } else {
-            return NSStringFromClass(theObject.dynamicType)
-        }
+        var bundle = NSBundle(forClass: theObject.dynamicType).bundleIdentifier
+        var appName = (split(bundle!){$0 == "."}).last!.stringByReplacingOccurrencesOfString(" ", withString: "_", options: NSStringCompareOptions.CaseInsensitiveSearch, range: nil)
+        let classStringName: String = NSStringFromClass(theObject.dynamicType)
+        return classStringName.stringByReplacingOccurrencesOfString(appName + ".", withString: "", options: NSStringCompareOptions.CaseInsensitiveSearch, range: nil)
     }
 
     
