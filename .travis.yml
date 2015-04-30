@@ -1,5 +1,5 @@
 language: objective-c
-podfile: AppMessage/Podfile
+podfile: EVReflection/Podfile
 osx_image: xcode611
 
 before_install: 
@@ -11,4 +11,4 @@ before_install:
 
 
 script:
-- xctool clean build -workspace AppMessage/AppMessage.xcworkspace -scheme AppMessage -sdk iphonesimulator8.1 ONLY_ACTIVE_ARCH=NO
+- xctool clean build -workspace EVReflection/EVReflection.xcworkspace -scheme EVRevlection -sdk iphonesimulator8.1 ONLY_ACTIVE_ARCH=NO
