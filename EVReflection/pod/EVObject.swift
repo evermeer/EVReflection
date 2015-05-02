@@ -80,7 +80,7 @@ public class EVObject:NSObject, NSCoding, Printable, Hashable, Equatable {
     :return: Returns true if the object is the same otherwise false
     */
     public override func isEqual(object: AnyObject?) -> Bool { // for isEqual:
-        if let dataObject = object as? TestObject {
+        if let dataObject = object as? EVObject {
             return dataObject == self // just use our "==" function
         } else { return false }
     }
