@@ -13,6 +13,7 @@
 		7F07C58C1AF11231000DF1F3 /* TestObject2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F07C58B1AF11231000DF1F3 /* TestObject2.swift */; };
 		7F07C58F1AF11861000DF1F3 /* EVReflection.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 7F07C58D1AF11861000DF1F3 /* EVReflection.podspec */; };
 		7F07C5901AF11861000DF1F3 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 7F07C58E1AF11861000DF1F3 /* LICENSE */; };
+		7F0E5E5A1AF4D94000A10E51 /* EVObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F0E5E591AF4D94000A10E51 /* EVObject.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +26,7 @@
 		7F07C58B1AF11231000DF1F3 /* TestObject2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestObject2.swift; sourceTree = "<group>"; };
 		7F07C58D1AF11861000DF1F3 /* EVReflection.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = EVReflection.podspec; path = ../EVReflection.podspec; sourceTree = "<group>"; };
 		7F07C58E1AF11861000DF1F3 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
+		7F0E5E591AF4D94000A10E51 /* EVObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVObject.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +83,7 @@
 			isa = PBXGroup;
 			children = (
 				7F07C5841AF10284000DF1F3 /* EVReflection.swift */,
+				7F0E5E591AF4D94000A10E51 /* EVObject.swift */,
 			);
 			path = pod;
 			sourceTree = "<group>";
@@ -159,6 +162,7 @@
 				7F07C58C1AF11231000DF1F3 /* TestObject2.swift in Sources */,
 				7F07C5791AF101A9000DF1F3 /* EVReflectionTests.swift in Sources */,
 				7F07C5881AF10437000DF1F3 /* EVReflection.swift in Sources */,
+				7F0E5E5A1AF4D94000A10E51 /* EVObject.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -297,6 +301,7 @@
 				7F07C5811AF101A9000DF1F3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

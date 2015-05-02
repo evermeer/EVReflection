@@ -1,5 +1,4 @@
 # EVReflection
-Swift helper library with reflection functions
 
 This version is for Xcode 6.3. Travis-ci build is failing because it's running Xcode 6.1.1 Have to wait for the build to pass again when Travis-ci adds Xcode 6.3 as an option (planned for end May?)
 
@@ -53,7 +52,7 @@ Version 0.36 of cocoapods will make a dynamic framework of all the pods that you
 import EVReflection
 ```
 
-If you want support for older versions than iOS 8.0, then you can also just copy the EVReflection.swift to your app. 
+If you want support for older versions than iOS 8.0, then you can also just copy the EVReflection.swift and EVObject.swift to your app. 
 
 
 ## Sample code
@@ -61,6 +60,10 @@ If you want support for older versions than iOS 8.0, then you can also just copy
 ```
 public class TestObject:NSObject {
 var objectValue:String = ""
+}
+
+public class TestObject2:EVObject {
+var objectValue:String = ""    
 }
 ```
 

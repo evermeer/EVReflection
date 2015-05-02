@@ -1,15 +1,23 @@
 //
-//  TestObject2.swift
-//  EVReflection
+//  EVObject.swift
 //
-//  Created by Edwin Vermeer on 4/29/15.
+//  Created by Edwin Vermeer on 5/2/15.
 //  Copyright (c) 2015 evict. All rights reserved.
 //
 
 import Foundation
 
-public class TestObject2:NSObject, NSCoding, Printable, Hashable, Equatable {
-    var objectValue:String = ""
+/**
+Object that will support NSCoding, Printable, Hashable and Equeatable for all properties. Use this object as your base class instead of NSObject and you wil automatically have support for all these protocols.
+*/
+public class EVObject:NSObject, NSCoding, Printable, Hashable, Equatable {
+    
+    /**
+    Basic init override is needed so we can use EVObject as a base class.
+    */
+    public override init(){
+        super.init()
+    }
     
     /**
     Decode any object
@@ -17,7 +25,7 @@ public class TestObject2:NSObject, NSCoding, Printable, Hashable, Equatable {
     :param: theObject The object that we want to decode.
     :param: aDecoder The NSCoder that will be used for decoding the object.
     */
-    public required convenience init(coder: NSCoder) {
+    public convenience required init(coder: NSCoder) {
         self.init()
         EVReflection.decodeObjectWithCoder(self, aDecoder: coder)
     }
@@ -78,10 +86,18 @@ public class TestObject2:NSObject, NSCoding, Printable, Hashable, Equatable {
     }
 }
 
-public func ==(lhs: TestObject2, rhs: TestObject2) -> Bool {
+
+/**
+Implementation for Equatable ==
+*/
+public func ==(lhs: EVObject, rhs: EVObject) -> Bool {
     return EVReflection.areEqual(lhs, rhs: rhs)
 }
 
-public func !=(lhs: TestObject2, rhs: TestObject2) -> Bool {
+/**
+Implementation for Equatable !=
+*/
+public func !=(lhs: EVObject, rhs: EVObject) -> Bool {
     return !EVReflection.areEqual(lhs, rhs: rhs)
 }
+
