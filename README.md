@@ -90,6 +90,9 @@ class EVReflectionTests: XCTestCase {
         NSLog("toDictionary = \(toDict)")
         if var nsobject = EVReflection.fromDictionary(toDict, anyobjectTypeString: theObjectString) as? TestObject {
             NSLog("object = \(nsobject), objectValue = \(nsobject.objectValue)")
+            XCTAssert(true, "Pass")
+        } else {
+            XCTAssert(false, "Fail")
         }
     }
 
@@ -123,10 +126,14 @@ class EVReflectionTests: XCTestCase {
 
         let fileDirectory =  (NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as! NSString)
         var filePath = fileDirectory.stringByAppendingPathComponent("temp.dat")
+
+        // Write the object to a file
         NSKeyedArchiver.archiveRootObject(theObject, toFile: filePath)
 
+        // Read the object from the file
         var result = NSKeyedUnarchiver.unarchiveObjectWithFile(filePath) as! TestObject2
 
+        // Are those objects the same
         XCTAssert(theObject == result, "Pass")
     }
 }

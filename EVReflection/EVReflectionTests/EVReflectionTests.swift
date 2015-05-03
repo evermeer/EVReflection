@@ -78,10 +78,14 @@ class EVReflectionTests: XCTestCase {
 
         let fileDirectory =  (NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as! NSString)
         var filePath = fileDirectory.stringByAppendingPathComponent("temp.dat")
+        
+        // Write object to file
         NSKeyedArchiver.archiveRootObject(theObject, toFile: filePath)
         
+        // Read object from file
         var result = NSKeyedUnarchiver.unarchiveObjectWithFile(filePath) as! TestObject2
         
+        // Test if the objects are the same
         XCTAssert(theObject == result, "Pass")
         
     }
