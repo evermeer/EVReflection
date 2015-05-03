@@ -84,6 +84,16 @@ public class EVObject:NSObject, NSCoding, Printable, Hashable, Equatable {
             return dataObject == self // just use our "==" function
         } else { return false }
     }
+
+    /**
+    Implementation of the setValue forUndefinedKey so that we can catch exceptions for when we use an optional Type like Int? in our object. Instead of using Int? you should use NSNumber?
+    
+    :param: value The value that you wanted to set
+    :param: key The name of the property that you wanted to set
+    */
+    public override func setValue(value: AnyObject!, forUndefinedKey key: String) {
+        println("\nWARNING: The class '\(EVReflection.swiftStringFromClass(self))' is not key value coding-compliant for the key '\(key)' (There is no support for optional type)\n")
+    }
 }
 
 

@@ -8,5 +8,5 @@
 import Foundation
 
 public class TestObject2:EVObject {
-    var objectValue:String = ""    
+    var objectValue:String = ""
 }

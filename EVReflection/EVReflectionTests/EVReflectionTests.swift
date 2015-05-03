@@ -35,14 +35,14 @@ class EVReflectionTests: XCTestCase {
     }
 
     func testClassToAndFromDictionary() {
-        var theObject = TestObject()
+        var theObject = TestObject2()
         var theObjectString:String = EVReflection.swiftStringFromClass(theObject)
         theObject.objectValue = "testing"
         var toDict = EVReflection.toDictionary(theObject)
         NSLog("toDictionary = \(toDict)")
-        if var nsobject = EVReflection.fromDictionary(toDict, anyobjectTypeString: theObjectString) as? TestObject {
+        if var nsobject = EVReflection.fromDictionary(toDict, anyobjectTypeString: theObjectString) as? TestObject2 {
             NSLog("object = \(nsobject), objectValue = \(nsobject.objectValue)")
-            XCTAssert(true, "Pass")
+            XCTAssert(theObject == nsobject, "Pass")
         } else {
             XCTAssert(false, "Fail")
         }
