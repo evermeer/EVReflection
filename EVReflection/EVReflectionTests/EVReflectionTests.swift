@@ -42,6 +42,9 @@ class EVReflectionTests: XCTestCase {
         NSLog("toDictionary = \(toDict)")
         if var nsobject = EVReflection.fromDictionary(toDict, anyobjectTypeString: theObjectString) as? TestObject {
             NSLog("object = \(nsobject), objectValue = \(nsobject.objectValue)")
+            XCTAssert(true, "Pass")
+        } else {
+            XCTAssert(false, "Fail")
         }
     }
     
