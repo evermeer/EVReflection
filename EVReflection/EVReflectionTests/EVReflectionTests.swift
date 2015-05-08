@@ -132,4 +132,16 @@ class EVReflectionTests: XCTestCase {
         var result = TestObject2(dictionary: toDict)
         XCTAssert(theObject == result, "Pass")
     }
+
+    // You can initiate a diffrent type. Only the properties with matching dictionary keys will be set
+    func testClassToAndFromDictionaryDiffrentType() {
+        var theObject = TestObject3()
+        theObject.objectValue = "testing"
+        theObject.nullableType = 3
+        var toDict = theObject.toDictionary()
+        NSLog("toDictionary = \(toDict)")
+        var result = TestObject2(dictionary: toDict)
+        XCTAssert(theObject != result, "Pass") // The objects are not the same
+    }
+
 }

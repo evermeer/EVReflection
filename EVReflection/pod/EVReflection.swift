@@ -206,8 +206,15 @@ public class EVReflection {
     :return: true if the objects are the same, otherwise false
     */
     public class func areEqual(lhs:NSObject, rhs:NSObject) -> Bool {
+        
+        if swiftStringFromClass(lhs) != swiftStringFromClass(rhs) {
+            return false;
+        }
+        
         let lhsdict = toDictionary(lhs)
-        for (key, value) in toDictionary(rhs) {
+        let rhsdict = toDictionary(rhs)
+
+        for (key, value) in rhsdict {
             if let compareTo: AnyObject = lhsdict[key] {
                 if !compareTo.isEqual(value) {
                     return false
