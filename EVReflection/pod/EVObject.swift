@@ -31,6 +31,21 @@ public class EVObject:NSObject, NSCoding, Printable, Hashable, Equatable {
     }
     
     /**
+    Convenience init for creating an object whith the property values of a dictionary.
+    */
+    public convenience required init(dictionary:Dictionary<String, AnyObject?>) {
+        self.init()
+        EVReflection.setPropertiesfromDictionary(dictionary, anyObject: self)
+    }
+    
+    /**
+    Returns the dictionary representation of this object.
+    */
+    public func toDictionary() -> Dictionary<String, AnyObject?> {
+        return EVReflection.toDictionary(self)
+    }
+    
+    /**
     Encode this object using a NSCoder
     
     :param: aCoder The NSCoder that will be used for encoding the object

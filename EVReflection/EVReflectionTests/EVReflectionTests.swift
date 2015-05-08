@@ -87,6 +87,49 @@ class EVReflectionTests: XCTestCase {
         
         // Test if the objects are the same
         XCTAssert(theObject == result, "Pass")
+    }
+    
+    func testClassToAndFromDictionaryWithNullableType() {
+        var theObject = TestObject3()
+        var theObjectString:String = EVReflection.swiftStringFromClass(theObject)
+        theObject.objectValue = "testing"
+        theObject.nullableType = 3
+        var toDict = EVReflection.toDictionary(theObject)
+        NSLog("toDictionary = \(toDict)")
+        if var nsobject = EVReflection.fromDictionary(toDict, anyobjectTypeString: theObjectString) as? TestObject3 {
+            NSLog("object = \(nsobject), objectValue = \(nsobject.objectValue)")
+            XCTAssert(theObject == nsobject, "Pass")
+        } else {
+            XCTAssert(false, "Fail")
+        }
+    }
+    
+    func testNSCodingWithNullableType() {
+        var theObject = TestObject3()
+        theObject.objectValue = "value1"
+        theObject.nullableType = 3
         
+        let fileDirectory =  (NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as! NSString)
+        var filePath = fileDirectory.stringByAppendingPathComponent("temp.dat")
+        
+        // Write object to file
+        NSKeyedArchiver.archiveRootObject(theObject, toFile: filePath)
+        
+        // Read object from file
+        var result = NSKeyedUnarchiver.unarchiveObjectWithFile(filePath) as! TestObject3
+        NSLog("unarchived result object = \(result)")
+
+        // Test if the objects are the same
+        XCTAssert(theObject == result, "Pass")
+    }
+
+
+    func testClassToAndFromDictionaryConvenienceMethods() {
+        var theObject = TestObject2()
+        theObject.objectValue = "testing"
+        var toDict = theObject.toDictionary()
+        NSLog("toDictionary = \(toDict)")
+        var result = TestObject2(dictionary: toDict)
+        XCTAssert(theObject == result, "Pass")
     }
 }

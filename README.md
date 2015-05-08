@@ -28,7 +28,7 @@ EVReflection is used extensively in [EVCloudKitDao](https://github.com/evermeer/
 - Supporting Printable, Hashable and Equatable while using all properties. (Support for Set in Swift 1.2)
 
 ## Known issues
-It's not possible in Swift to use .setObjectForKey for nullable type fiels like Int?. Workaround is using NSNumber? instead
+It's not possible in Swift to use .setObjectForKey for nullable type fiels like Int?. Workaround is using NSNumber? instead or by overriding the setValue for key in the object itself (see the unit test for TestObject3)
 
 ## Using EVReflection in your own App 
 
@@ -136,6 +136,16 @@ class EVReflectionTests: XCTestCase {
         // Are those objects the same
         XCTAssert(theObject == result, "Pass")
     }
+
+    func testClassToAndFromDictionaryConvenienceMethods() {
+        var theObject = TestObject2()
+        theObject.objectValue = "testing"
+        var toDict = theObject.toDictionary()
+        NSLog("toDictionary = \(toDict)")
+        var result = TestObject2(dictionary: toDict)
+        XCTAssert(theObject == result, "Pass")
+    }
+
 }
 ```
 

@@ -22,19 +22,29 @@ public class EVReflection {
     */
     public class func fromDictionary(dictionary:Dictionary<String, AnyObject?>, anyobjectTypeString: String) -> NSObject? {
         if var nsobject = swiftClassFromString(anyobjectTypeString) {
-            var hasKeys = toDictionary(nsobject)
-            for (key: String, value: AnyObject?) in dictionary {
-                if (dictionary[key] != nil && hasKeys[key] != nil) {
-                    var newValue: AnyObject? = dictionary[key]!
-                    var error:NSError?
-                    if nsobject.validateValue(&newValue, forKey: key, error: &error) {
-                        nsobject.setValue(newValue, forKey: key)
-                    }
-                }
-            }
+            setPropertiesfromDictionary(dictionary, anyObject: nsobject)
             return nsobject
         }
         return nil
+    }
+    
+    /**
+    Set object properties from a dictionary
+    
+    :param: dictionary The dictionary that will be converted to an object
+    :param: anyObject The object where the properties will be set
+    */
+    public class func setPropertiesfromDictionary(dictionary:Dictionary<String, AnyObject?>, anyObject: NSObject)  {
+        var hasKeys = toDictionary(anyObject)
+        for (key: String, value: AnyObject?) in dictionary {
+            if (dictionary[key] != nil && hasKeys[key] != nil) {
+                var newValue: AnyObject? = dictionary[key]!
+                var error:NSError?
+                if anyObject.validateValue(&newValue, forKey: key, error: &error) {
+                    anyObject.setValue(newValue, forKey: key)
+                }
+            }
+        }
     }
     
     /**
