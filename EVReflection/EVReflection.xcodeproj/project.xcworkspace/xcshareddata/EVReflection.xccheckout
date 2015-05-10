@@ -7,18 +7,22 @@
 	<key>IDESourceControlProjectIdentifier</key>
 	<string>7DD701E3-ACC3-48B8-B944-AE4EA93A7FCE</string>
 	<key>IDESourceControlProjectName</key>
-	<string>EVReflection</string>
+	<string>project</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
 		<key>C340B50EE85733D3EA247F313D2350126F116920</key>
 		<string>https://github.com/evermeer/EVReflection.git</string>
+		<key>CFA6DED724379400FDB1C0AC745C4EA674D03A3C</key>
+		<string>https://github.com/evermeer/EVCloudKitDao.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>EVReflection/EVReflection.xcodeproj</string>
+	<string>EVReflection/EVReflection.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>C340B50EE85733D3EA247F313D2350126F116920</key>
 		<string>../../..</string>
+		<key>CFA6DED724379400FDB1C0AC745C4EA674D03A3C</key>
+		<string>../../../../EVCloudKitDao</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>https://github.com/evermeer/EVReflection.git</string>
@@ -28,6 +32,14 @@
 	<string>C340B50EE85733D3EA247F313D2350126F116920</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>CFA6DED724379400FDB1C0AC745C4EA674D03A3C</string>
+			<key>IDESourceControlWCCName</key>
+			<string>EVCloudKitDao</string>
+		</dict>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
