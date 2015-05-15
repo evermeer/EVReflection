@@ -7,6 +7,9 @@
 
 import Foundation
 
+/**
+Second test object where the base class is an EVObject so that we have support for the protocols NSObject, NSCoding, Printable, Hashable, Equatable plus convenience methods.
+*/
 public class TestObject2:EVObject {
     var objectValue:String = ""
 }

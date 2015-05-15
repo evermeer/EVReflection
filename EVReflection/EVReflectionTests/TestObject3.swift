@@ -7,6 +7,9 @@
 
 import Foundation
 
+/**
+Third test object where you can see how create a workaround for the swift limitation with setting a value for a key where the property is a nullable type.
+*/
 class TestObject3:EVObject {
     var objectValue:String = ""
     var nullableType:Int?

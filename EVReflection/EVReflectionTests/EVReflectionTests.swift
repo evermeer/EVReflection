@@ -8,18 +8,31 @@
 import UIKit
 import XCTest
 
+
+/**
+Testing EVReflection
+*/
 class EVReflectionTests: XCTestCase {
     
+    /**
+    For now nothing to setUp
+    */
     override func setUp() {
         super.setUp()
         // Put setup code here. This method is called before the invocation of each test method in the class.
     }
     
+    /**
+    For now nothing to tearDown
+    */
     override func tearDown() {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
         super.tearDown()
     }
     
+    /**
+    Get the string name for a clase and then generate a class based on that string
+    */
     func testClassToAndFromString() {
         // Test the EVReflection class - to and from string
         var theObject = TestObject()
@@ -34,6 +47,9 @@ class EVReflectionTests: XCTestCase {
         }
     }
 
+    /**
+    Create a dictionary from an object where each property has a key and then create an object and set all objects based on that directory.
+    */
     func testClassToAndFromDictionary() {
         var theObject = TestObject2()
         var theObjectString:String = EVReflection.swiftStringFromClass(theObject)
@@ -48,6 +64,9 @@ class EVReflectionTests: XCTestCase {
         }
     }
     
+    /**
+    Create 2 objects with the same property values. Then they should be equal. If you change a property then the objects are not equeal anymore.
+    */
     func testEquatable() {
         var theObjectA = TestObject2()
         theObjectA.objectValue = "value1"
@@ -59,6 +78,9 @@ class EVReflectionTests: XCTestCase {
         XCTAssert(theObjectA != theObjectB, "Pass")
     }
     
+    /**
+    Just get a hash from an object
+    */
     func testHashable() {
         var theObject = TestObject2()
         theObject.objectValue = "value1"
@@ -66,12 +88,18 @@ class EVReflectionTests: XCTestCase {
         NSLog("hash = \(hash)")
     }
     
+    /**
+    Print an object with all its properties.
+    */
     func testPrintable() {
         var theObject = TestObject2()
         theObject.objectValue = "value1"
         NSLog("theObject = \(theObject)")
     }
 
+    /**
+    Archive an object with NSKeyedArchiver and read it back with NSKeyedUnarchiver. Both objects should be equal
+    */
     func testNSCoding() {
         var theObject = TestObject2()
         theObject.objectValue = "value1"
@@ -89,6 +117,9 @@ class EVReflectionTests: XCTestCase {
         XCTAssert(theObject == result, "Pass")
     }
     
+    /**
+    Create a dictionary from an object that contains a nullable type. Then read it back. We are using the workaround in TestObject3 to solve the setvalue for key issue in Swift 1.2
+    */
     func testClassToAndFromDictionaryWithNullableType() {
         var theObject = TestObject3()
         var theObjectString:String = EVReflection.swiftStringFromClass(theObject)
@@ -104,6 +135,10 @@ class EVReflectionTests: XCTestCase {
         }
     }
     
+    /**
+    Archive an object that contains a nullable type with NSKeyedArchiver and read it back with NSKeyedUnarchiver. Both objects should be equal. We are using the workaround in TestObject3 to solve the setvalue for key issue in Swift 1.2
+
+    */
     func testNSCodingWithNullableType() {
         var theObject = TestObject3()
         theObject.objectValue = "value1"
@@ -123,7 +158,9 @@ class EVReflectionTests: XCTestCase {
         XCTAssert(theObject == result, "Pass")
     }
 
-
+    /**
+    Test the convenience methods for getting a dictionary and creating an object based on a dictionary.
+    */
     func testClassToAndFromDictionaryConvenienceMethods() {
         var theObject = TestObject2()
         theObject.objectValue = "testing"
@@ -133,7 +170,9 @@ class EVReflectionTests: XCTestCase {
         XCTAssert(theObject == result, "Pass")
     }
 
-    // You can initiate a diffrent type. Only the properties with matching dictionary keys will be set
+    /** 
+    Get a dictionary from an object, then create an object of a diffrent type and set the properties based on the dictionary from the first object. You can initiate a diffrent type. Only the properties with matching dictionary keys will be set.
+    */
     func testClassToAndFromDictionaryDiffrentType() {
         var theObject = TestObject3()
         theObject.objectValue = "testing"

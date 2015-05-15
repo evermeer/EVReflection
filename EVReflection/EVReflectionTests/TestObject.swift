@@ -7,6 +7,9 @@
 
 import Foundation
 
+/**
+First test object where the base class is just an NSObject
+*/
 public class TestObject:NSObject {
     var objectValue:String = ""
 }
