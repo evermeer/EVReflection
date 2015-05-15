@@ -30,6 +30,7 @@
 		7F07C58D1AF11861000DF1F3 /* EVReflection.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = EVReflection.podspec; path = ../EVReflection.podspec; sourceTree = "<group>"; };
 		7F07C58E1AF11861000DF1F3 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		7F09439F1AFD3277005DE178 /* TestObject3.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestObject3.swift; sourceTree = "<group>"; };
+		7F0B2A3B1B062CF20025165A /* circle.yml */ = {isa = PBXFileReference; lastKnownFileType = text; name = circle.yml; path = ../circle.yml; sourceTree = "<group>"; };
 		7F0E5E591AF4D94000A10E51 /* EVObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVObject.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -49,6 +50,7 @@
 			children = (
 				7F0636B21AFF413900595461 /* .gitignore */,
 				7F0636B31AFF413900595461 /* .travis.yml */,
+				7F0B2A3B1B062CF20025165A /* circle.yml */,
 				7F07C5861AF10296000DF1F3 /* README.md */,
 				7F07C58D1AF11861000DF1F3 /* EVReflection.podspec */,
 				7F07C58E1AF11861000DF1F3 /* LICENSE */,
