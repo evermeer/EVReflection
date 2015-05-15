@@ -75,15 +75,19 @@ class EVReflectionTests: XCTestCase {
     func testNSCoding() {
         var theObject = TestObject2()
         theObject.objectValue = "value1"
-
+NSLog("1")
         let fileDirectory =  (NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as! NSString) ?? ""
+NSLog("2")
         var filePath = fileDirectory.stringByAppendingPathComponent("temp.dat")
+NSLog("3")
         
         // Write object to file
         NSKeyedArchiver.archiveRootObject(theObject, toFile: filePath)
+NSLog("4")
         
         // Read object from file
         var result = NSKeyedUnarchiver.unarchiveObjectWithFile(filePath) as! TestObject2
+NSLog("5")
         
         // Test if the objects are the same
         XCTAssert(theObject == result, "Pass")
