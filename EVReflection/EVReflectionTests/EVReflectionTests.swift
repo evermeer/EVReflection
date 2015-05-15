@@ -76,7 +76,7 @@ class EVReflectionTests: XCTestCase {
         var theObject = TestObject2()
         theObject.objectValue = "value1"
 
-        let fileDirectory =  (NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as! NSString)
+        let fileDirectory =  (NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as! NSString) ?? ""
         var filePath = fileDirectory.stringByAppendingPathComponent("temp.dat")
         
         // Write object to file
@@ -109,7 +109,7 @@ class EVReflectionTests: XCTestCase {
         theObject.objectValue = "value1"
         theObject.nullableType = 3
         
-        let fileDirectory =  (NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as! NSString)
+        let fileDirectory =  (NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as! NSString) ?? ""
         var filePath = fileDirectory.stringByAppendingPathComponent("temp.dat")
         
         // Write object to file
