@@ -114,6 +114,10 @@ public class EVObject:NSObject, NSCoding, Printable, Hashable, Equatable {
 
 /**
 Implementation for Equatable ==
+
+:param: lhs The object at the left side of the ==
+:param: rhs The object at the right side of the ==
+:return: True if the objects are the same, otherwise false.
 */
 public func ==(lhs: EVObject, rhs: EVObject) -> Bool {
     return EVReflection.areEqual(lhs, rhs: rhs)
@@ -121,6 +125,10 @@ public func ==(lhs: EVObject, rhs: EVObject) -> Bool {
 
 /**
 Implementation for Equatable !=
+
+:param: lhs The object at the left side of the ==
+:param: rhs The object at the right side of the ==
+:return: False if the objects are the the same, otherwise true.
 */
 public func !=(lhs: EVObject, rhs: EVObject) -> Bool {
     return !EVReflection.areEqual(lhs, rhs: rhs)

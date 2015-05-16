@@ -59,6 +59,12 @@ public class EVReflection {
         return reflectedSub(reflected)
     }
     
+    /**
+    for parsing an object to a dictionary. including properties from it's super class (recursive)
+    
+    :param: reflected The object parsed using the reflect method.
+    :return: The dictionary that is created from the object.
+    */
     private class func reflectedSub(reflected:MirrorType) -> Dictionary<String, AnyObject> {
         var propertiesDictionary : Dictionary<String, AnyObject> = Dictionary<String, AnyObject>()
         for i in 0..<reflected.count {
@@ -83,7 +89,6 @@ public class EVReflection {
     Dump the content of this object
     
     :param: theObject The object that will be loged
-    :return: No return value
     */
     public class func logObject(theObject: NSObject) {
         NSLog(description(theObject))
