@@ -131,15 +131,27 @@ public class EVReflection {
         if className.hasPrefix("_TtC") {
             return NSClassFromString(className)
         }
-        var bundle = NSBundle.mainBundle().bundleIdentifier
-        if bundle == nil {
-            bundle = NSBundle(forClass: EVReflection().dynamicType).bundleIdentifier
-        }
-        var appName = (split(bundle!){$0 == "."}).last!.stringByReplacingOccurrencesOfString(" ", withString: "_", options: NSStringCompareOptions.CaseInsensitiveSearch, range: nil)
+        var appName = getCleanAppName()
         let classStringName = "\(appName).\(className)"
         return NSClassFromString(classStringName)
     }
 
+    /**
+    Get the app name from the 'Bundle name' and if that's empty, then from the 'Bundle identifier' otherwise we assume it's a EVReflection unit test and use that bundle identifier
+    :return: A cleaned up name of the app.
+    */
+    private class func getCleanAppName()-> String {
+        var bundle = NSBundle.mainBundle()
+        var appName = bundle.infoDictionary?["CFBundleName"] as? String ?? ""
+        if appName == "" {
+            if bundle.bundleIdentifier == nil {
+                bundle = NSBundle(forClass: EVReflection().dynamicType)
+            }
+            appName = (split(bundle.bundleIdentifier!){$0 == "."}).last ?? ""
+        }
+        var cleanAppName = appName.stringByReplacingOccurrencesOfString(" ", withString: "_", options: NSStringCompareOptions.CaseInsensitiveSearch, range: nil)
+        return cleanAppName
+    }
     
     /**
     Get the swift Class from a string
@@ -163,10 +175,15 @@ public class EVReflection {
     :return: The string representation of the class (name of the bundle dot name of the class)
     */
     public class func swiftStringFromClass(theObject: NSObject) -> String! {
-        var bundle = NSBundle(forClass: theObject.dynamicType).bundleIdentifier
-        var appName = (split(bundle!){$0 == "."}).last!.stringByReplacingOccurrencesOfString(" ", withString: "_", options: NSStringCompareOptions.CaseInsensitiveSearch, range: nil)
+        var appName = getCleanAppName()
         let classStringName: String = NSStringFromClass(theObject.dynamicType)
-        return classStringName.stringByReplacingOccurrencesOfString(appName + ".", withString: "", options: NSStringCompareOptions.CaseInsensitiveSearch, range: nil)
+        let classWithoutAppName:String = classStringName.stringByReplacingOccurrencesOfString(appName + ".", withString: "", options: NSStringCompareOptions.CaseInsensitiveSearch, range: nil)
+        if classWithoutAppName.rangeOfString(".") != nil {
+            NSLog("Warning! Your Bundle name should be the name of your target (set it to $(PRODUCT_NAME))")
+            return (split(classWithoutAppName){$0 == "."}).last!
+        }
+        
+        return classWithoutAppName
     }
 
     
