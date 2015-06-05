@@ -70,7 +70,7 @@ public class EVObject: NSObject, NSCoding, Printable, Hashable, Equatable {
 
     :return: The hashvalue of this object
     */
-    final override public var hashValue: Int {
+    public override var hashValue: Int {
         get {
             return EVReflection.hashValue(self)
         }
