@@ -41,7 +41,7 @@ public class EVObject: NSObject, NSCoding, Printable, Hashable, Equatable {
     /**
     Returns the dictionary representation of this object.
     */
-    public func toDictionary() -> Dictionary<String, AnyObject?> {
+    final public func toDictionary() -> Dictionary<String, AnyObject?> {
         return EVReflection.toDictionary(self)
     }
 
@@ -50,7 +50,7 @@ public class EVObject: NSObject, NSCoding, Printable, Hashable, Equatable {
 
     :param: aCoder The NSCoder that will be used for encoding the object
     */
-    public func encodeWithCoder(aCoder: NSCoder) {
+    final public func encodeWithCoder(aCoder: NSCoder) {
         EVReflection.encodeWithCoder(self, aCoder: aCoder)
     }
 
@@ -59,7 +59,7 @@ public class EVObject: NSObject, NSCoding, Printable, Hashable, Equatable {
 
     :return: The pritty description
     */
-    public override var description: String {
+    final public override var description: String {
         get {
             return EVReflection.description(self)
         }
@@ -70,7 +70,7 @@ public class EVObject: NSObject, NSCoding, Printable, Hashable, Equatable {
 
     :return: The hashvalue of this object
     */
-    override public var hashValue: Int {
+    final override public var hashValue: Int {
         get {
             return EVReflection.hashValue(self)
         }
@@ -81,7 +81,7 @@ public class EVObject: NSObject, NSCoding, Printable, Hashable, Equatable {
 
     :return: The hashvalue of this object
     */
-    public override var hash: Int {
+    final public override var hash: Int {
         get {
             return self.hashValue
         }
@@ -93,7 +93,7 @@ public class EVObject: NSObject, NSCoding, Printable, Hashable, Equatable {
     :param: object The object where you want to compare with
     :return: Returns true if the object is the same otherwise false
     */
-    public override func isEqual(object: AnyObject?) -> Bool { // for isEqual:
+    final public override func isEqual(object: AnyObject?) -> Bool { // for isEqual:
         if let dataObject = object as? EVObject {
             return dataObject == self // just use our "==" function
         } else { return false }

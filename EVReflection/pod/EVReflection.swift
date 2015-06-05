@@ -11,7 +11,7 @@ import CloudKit
 /**
 Reflection methods
 */
-public class EVReflection {
+final public class EVReflection {
 
     /**
     Create an object from a dictionary
