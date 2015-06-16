@@ -46,7 +46,7 @@ final public class EVReflection {
             }
         }
     }
-
+    
     /**
     Convert an object to a dictionary
 
@@ -59,6 +59,20 @@ final public class EVReflection {
         return reflectedSub(reflected)
     }
 
+    /**
+    Convert an object to a dictionary
+    
+    :param: theObject The object that will be converted to a dictionary
+    :return: The dictionary that is created from theObject
+    */
+    public class func toNSDictionary(theObject: NSObject) -> NSDictionary {
+        var dict = Dictionary<String, AnyObject>()
+        for (key: String, value: AnyObject) in toDictionary(theObject) {
+            dict[key] = value
+        }
+        return dict as NSDictionary
+    }
+    
     /**
     for parsing an object to a dictionary. including properties from it's super class (recursive)
 
@@ -108,6 +122,57 @@ final public class EVReflection {
         return description
     }
 
+    
+    /**
+    Return a Json string representation of this object
+    
+    :param: theObject The object that will be loged
+    :return: The string representation of the object
+    */
+    public class func toJsonString(theObject: NSObject) -> String {
+        var toNSDict = EVReflection.toNSDictionary(theObject)
+        var error:NSError? = nil
+        if var jsonData = NSJSONSerialization.dataWithJSONObject(toNSDict , options: .PrettyPrinted, error: &error) {
+            if var jsonString = NSString(data:jsonData, encoding:NSASCIIStringEncoding) {
+                return jsonString as String
+            }
+        }
+        return ""
+    }
+    
+    /**
+    Return a dictionary representation for the json string
+    
+    :param: json The json string that will be converted
+    :return: The dictionary representation of the json
+    */
+    public class func dictionaryFromJson(json: String) -> Dictionary<String, AnyObject> {
+        var error:NSError? = nil
+        if let jsonData = json.dataUsingEncoding(NSUTF8StringEncoding) {
+            if let jsonDic = NSJSONSerialization.JSONObjectWithData(jsonData, options: NSJSONReadingOptions.MutableContainers, error: &error) as? Dictionary<String, AnyObject> {
+                return jsonDic
+            }
+        }
+        return Dictionary<String, AnyObject>()
+    }
+
+    /**
+    Return an array representation for the json string
+    
+    :param: json The json string that will be converted
+    :return: The dictionary representation of the json
+    */
+    public class func arrayFromJson(json: String) -> [Dictionary<String, AnyObject>] {
+        var error:NSError? = nil
+        if let jsonData = json.dataUsingEncoding(NSUTF8StringEncoding) {
+            if let jsonDic: [Dictionary<String, AnyObject>] = NSJSONSerialization.JSONObjectWithData(jsonData, options: NSJSONReadingOptions.MutableContainers, error: &error) as? [Dictionary<String, AnyObject>] {
+                return jsonDic
+            }
+        }
+        return [Dictionary<String, AnyObject>]()
+    }
+    
+    
     /**
     Create a hashvalue for the object
 

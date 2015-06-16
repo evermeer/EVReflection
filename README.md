@@ -15,7 +15,7 @@
 [![eMail](https://img.shields.io/badge/email-edwin@evict.nl-blue.svg?style=flat)](mailto:edwin@evict.nl?SUBJECT=About EVReflection)
 
 
-Run the tests in EVReflectionTests.swift to see EVReflection in action.
+Run the tests in EVReflectionTests.swift and EVReflectionJsonTests.swift to see EVReflection in action.
 EVReflection is used extensively in [EVCloudKitDao](https://github.com/evermeer/EVCloudKitDao)
 
 ## Main features of EVReflection:
@@ -24,6 +24,7 @@ EVReflection is used extensively in [EVCloudKitDao](https://github.com/evermeer/
 - Creating a class from a string value and get the string value for a class.
 - Support NSCoding methods encodeWithCoder and decodeObjectWithCoder
 - Supporting Printable, Hashable and Equatable while using all properties. (Support for Set in Swift 1.2)
+- Parse an object to a JSON string and parse a JSON string to an object
 
 ## Known issues
 It's not possible in Swift to use .setObjectForKey for nullable type fiels like Int?. Workaround is using NSNumber? instead or by overriding the setValue for key in the object itself (see the unit test for TestObject3)
@@ -31,13 +32,9 @@ It's not possible in Swift to use .setObjectForKey for nullable type fiels like 
 ## Using EVReflection in your own App 
 
 'EVReflection' is now available through the dependency manager [CocoaPods](http://cocoapods.org). 
-You do have to use cocoapods version 0.36. At this moment this can be installed by executing:
+You do have to use cocoapods version 0.36 or later
 
-```
-[sudo] gem install cocoapods
-```
-
-If you have installed cocoapods version 0.36 or later, then you can just add EVReflection to your workspace by adding the folowing 2 lines to your Podfile:
+You can just add EVReflection to your workspace by adding the folowing 2 lines to your Podfile:
 
 ```
 use_frameworks!
@@ -146,5 +143,62 @@ class EVReflectionTests: XCTestCase {
 
 }
 ```
+
+There is now also support for JSON. Parsing JSON from and to objects is now as easy as:
+```
+class EVReflectionJsonTests: XCTestCase {
+    func testJsonObject(){
+        let jsonDictOriginal = [
+            "id": 24,
+            "name": "John Appleseed",
+            "email": "john@appleseed.com",
+            "company": [
+                "name": "Apple",
+                "address": "1 Infinite Loop, Cupertino, CA"
+            ],
+            "friends": [
+                ["id": 27, "full_name": "Bob Jefferson"],
+                ["id": 29, "full_name": "Jen Jackson"]
+            ]
+        ]
+        print("Initial dictionary:\n\(jsonDictOriginal)\n\n")
+
+        let userOriginal = User(dictionary: jsonDictOriginal)
+        print("Dictionary to an object: \n\(userOriginal)\n\n")
+
+        let jsonString = userOriginal.toJsonString()
+        print("JSON string from dictionary: \n\(jsonString)\n\n")
+
+        let userRegenerated = User(json:jsonString)
+        print("Object from json string: \n\(userRegenerated)\n\n")
+
+        if userOriginal == userRegenerated {
+            XCTAssert(true, "Success")
+        } else {
+            XCTAssert(false, "Faileure")
+        }
+    }
+
+    func testJsonArray() {
+        let jsonDictOriginal:String = "[{\"id\": 27, \"name\": \"Bob Jefferson\"}, {\"id\": 29, \"name\": \"Jen Jackson\"}]"
+        let array:[User] = EVReflection.arrayFromJson(jsonDictOriginal).map({User(dictionary: $0)})
+        print("Object array from json string: \n\(array)\n\n")
+    }
+}
+
+class User: EVObject {
+    var id: Int = 0
+    var name: String = ""
+    var email: String?
+    var company: Company?
+    var friends: [User] = []
+}
+
+class Company: EVObject {
+    var name: String = ""
+    var address: String?
+}
+```
+
 
 

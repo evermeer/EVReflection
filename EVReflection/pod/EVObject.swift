@@ -39,12 +39,40 @@ public class EVObject: NSObject, NSCoding, Printable, Hashable, Equatable {
     }
 
     /**
+    Convenience init for creating an object whith the property values of a dictionary.
+    */
+    public convenience required init(dictionary:NSDictionary) {
+        self.init()
+        EVReflection.setPropertiesfromDictionary(dictionary as! Dictionary<String, AnyObject>, anyObject: self)
+    }
+
+    /**
+    Convenience init for creating an object whith the contents of a json string.
+    */
+    public convenience required init(json:String) {
+        self.init()
+        var jsonDict = EVReflection.dictionaryFromJson(json)
+        EVReflection.setPropertiesfromDictionary(jsonDict, anyObject: self)
+    }
+    
+    /**
     Returns the dictionary representation of this object.
     */
     final public func toDictionary() -> Dictionary<String, AnyObject?> {
         return EVReflection.toDictionary(self)
     }
 
+    /**
+    Returns the dictionary representation of this object.
+    */
+    final public func toNSDictionary() -> NSDictionary {
+        return EVReflection.toNSDictionary(self)
+    }
+    
+    final public func toJsonString() -> String {
+        return EVReflection.toJsonString(self)
+    }
+    
     /**
     Encode this object using a NSCoder
 

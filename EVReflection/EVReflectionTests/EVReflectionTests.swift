@@ -180,5 +180,4 @@ class EVReflectionTests: XCTestCase {
         var result = TestObject2(dictionary: toDict)
         XCTAssert(theObject != result, "Pass") // The objects are not the same
     }
-
 }
