@@ -181,7 +181,7 @@ class EVReflectionJsonTests: XCTestCase {
 
     func testJsonArray() {
         let jsonDictOriginal:String = "[{\"id\": 27, \"name\": \"Bob Jefferson\"}, {\"id\": 29, \"name\": \"Jen Jackson\"}]"
-        let array:[User] = EVReflection.arrayFromJson(jsonDictOriginal).map({User(dictionary: $0)})
+        let array:[User] = EVReflection.arrayFromJson(User(), json: jsonDictOriginal)
         print("Object array from json string: \n\(array)\n\n")
     }
 }

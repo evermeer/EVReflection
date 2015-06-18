@@ -135,7 +135,7 @@ public class EVObject: NSObject, NSCoding, Printable, Hashable, Equatable {
     */
     public override func setValue(value: AnyObject!, forUndefinedKey key: String) {
         println("\nWARNING: The class '\(EVReflection.swiftStringFromClass(self))' is not key value coding-compliant for the key '\(key)' (There is no support for optional type)\n")
-    }
+    }    
 }
 
 

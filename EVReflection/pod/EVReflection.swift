@@ -162,14 +162,14 @@ final public class EVReflection {
     :param: json The json string that will be converted
     :return: The dictionary representation of the json
     */
-    public class func arrayFromJson(json: String) -> [Dictionary<String, AnyObject>] {
+    public class func arrayFromJson<T:EVObject>(type:T, json: String) -> [T] {
         var error:NSError? = nil
         if let jsonData = json.dataUsingEncoding(NSUTF8StringEncoding) {
             if let jsonDic: [Dictionary<String, AnyObject>] = NSJSONSerialization.JSONObjectWithData(jsonData, options: NSJSONReadingOptions.MutableContainers, error: &error) as? [Dictionary<String, AnyObject>] {
-                return jsonDic
+                return jsonDic.map({T(dictionary: $0)})
             }
         }
-        return [Dictionary<String, AnyObject>]()
+        return [T]()
     }
     
     
