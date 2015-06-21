@@ -333,9 +333,9 @@ final public class EVReflection {
         case let boolValue as Bool:
             return NSNumber(bool: boolValue)
         case let primitiveArrayValue as Array<String>:
-            return primitiveArrayValue as NSArray
+            return primitiveArrayValue as Array<String>
         case let primitiveArrayValue as Array<Int>:
-            return primitiveArrayValue as NSArray
+            return primitiveArrayValue as Array<Int>
         case let anyvalue as NSObject:
             return anyvalue as NSObject
         default:
