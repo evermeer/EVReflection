@@ -324,6 +324,8 @@ final public class EVReflection {
         }
 
         switch(theValue) {
+        case let longValue as Int64:
+            return NSNumber(long: CLong(longValue))
         case let intValue as Int:
             return NSNumber(int: CInt(intValue))
         case let doubleValue as Double:
