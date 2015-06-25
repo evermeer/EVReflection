@@ -41,8 +41,8 @@ class EVReflectionJsonTests: XCTestCase {
                 "address": "1 Infinite Loop, Cupertino, CA"
             ],
             "friends": [
-                ["id": 27, "full_name": "Bob Jefferson"],
-                ["id": 29, "full_name": "Jen Jackson"]
+                ["id": 27, "name": "Bob Jefferson"],
+                ["id": 29, "name": "Jen Jackson"]
             ]
         ]
         print("Initial dictionary:\n\(jsonDictOriginal)\n\n")
@@ -50,6 +50,16 @@ class EVReflectionJsonTests: XCTestCase {
         let userOriginal = User(dictionary: jsonDictOriginal)
         print("Dictionary to an object: \n\(userOriginal)\n\n")
 
+        print("------ Problem 1 is that we still need to ast to NSArray ------\n")
+        var friends:NSArray = userOriginal.friends as NSArray
+        print("friends = \(friends)\n")
+        print("friends count = \(friends.count)\n")
+
+        print("------ Array object are not set...  ------\n")
+        print("friend 1 = \(friends[0])\n")
+        print("friend 1 full_name = \(friends[0].name)\n")
+        
+        print("------ And the objects are NSObject. Therefore this will still crash ------\n")
         let jsonString = userOriginal.toJsonString()
         print("JSON string from dictionary: \n\(jsonString)\n\n")
 
