@@ -354,7 +354,10 @@ final public class EVReflection {
         var valueType = ""
         let mi: MirrorType = reflect(theValue)
         if mi.disposition == .Optional {
-          if mi.count == 0 { return (NSNull(), "NSObject") }
+          if mi.count == 0 {
+            var subtype: String = (split("\(mi)") {$0 == "<"} [1]).stringByReplacingOccurrencesOfString(">", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
+                return (NSNull(), subtype)
+            }
             let (name,some) = mi[0]
           theValue = some.value
         } else {
