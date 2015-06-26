@@ -40,7 +40,6 @@ final public class EVReflection {
             if let key = k as? String {
                 if dictionary[key] != nil && hasKeys[key] != nil {
                     var newValue: AnyObject? = dictionary[key]!
-                    NSLog("key \(key), value \(hasKeys[key]) type \(hasKeys[key].dynamicType) classtostring \(swiftStringFromClass(hasKeys[key]! as! NSObject))")
                     if hasKeys[key] as? NSDictionary == nil && newValue as? NSDictionary != nil {
                         newValue = dictToObject(hasTypes[key]!, original:hasKeys[key] as! NSObject ,dict: newValue as! NSDictionary)
                     } else if hasKeys[key] as? [NSObject] != nil && newValue as? [NSDictionary] != nil {
@@ -64,13 +63,12 @@ final public class EVReflection {
         return returnObject as! T
     }
     
-    private class func dictArrayToObjectArray<T where T:NSObject>(type:String, original:[T], array:[NSDictionary]) -> [T] {
-        NSLog("----> type = \(type), original = \(original), T = \(T()), dynamictype = \(T().dynamicType)")
+    private class func dictArrayToObjectArray(type:String, original:[NSObject], array:[NSDictionary]) -> [NSObject] {
         var subtype: String = (split(type) {$0 == "<"} [1]).stringByReplacingOccurrencesOfString(">", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
-        NSLog("-----> subtype = \(subtype)")
         var result = original
         for item in array {
-            result.append(self.dictToObject(subtype, original:T(), dict: item))
+            let arrayObject = self.dictToObject(subtype, original:swiftClassFromString(subtype), dict: item)
+            result.append(arrayObject)
         }
         return result
     }
@@ -106,11 +104,6 @@ final public class EVReflection {
             if key != "super" || i != 0 {
                 var (v: AnyObject, valueType: String) = valueForAny(value)
                 propertiesDictionary.setValue(v, forKey: key)
-//                if value as? AnyObject != nil {
-//                    valueType = NSStringFromClass((value as! AnyObject).dynamicType)
-//                } else {
-//                    valueType = NSStringFromClass(v.dynamicType)
-//                }
                 propertiesTypeDictionary[key] = valueType
             } else {
                 let superReflected = reflected[i].1
@@ -156,9 +149,9 @@ final public class EVReflection {
     :return: The string representation of the object
     */
     public class func toJsonString(theObject: NSObject) -> String {
-        var (toNSDict,_) = EVReflection.toDictionary(theObject)
+        var (dict,_) = EVReflection.toDictionary(theObject)
         var error:NSError? = nil
-        if var jsonData = NSJSONSerialization.dataWithJSONObject(toNSDict , options: .PrettyPrinted, error: &error) {
+        if var jsonData = NSJSONSerialization.dataWithJSONObject(dict , options: .PrettyPrinted, error: &error) {
             if var jsonString = NSString(data:jsonData, encoding:NSASCIIStringEncoding) {
                 return jsonString as String
             }
@@ -378,7 +371,7 @@ final public class EVReflection {
         case let anyvalue as NSObject:
             return (anyvalue, valueType)
         default:
-            NSLog("valueForAny unkown type \(theValue)")
+            NSLog("ERROR: valueForAny unkown type \(theValue)")
             return (NSNull(), "NSObject") // Could not happen
         }
     }

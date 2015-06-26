@@ -48,36 +48,41 @@ class EVReflectionJsonTests: XCTestCase {
         print("Initial dictionary:\n\(jsonDictOriginal)\n\n")
         
         let userOriginal = User(dictionary: jsonDictOriginal)
-        print("Dictionary to an object: \n\(userOriginal)\n\n")
-
-        print("company = \(userOriginal.company)\n")
-        var company:Company = userOriginal.company!
-        
-//        print("------ Problem 1 is that this will crash because it's actually an NSObject ------\n")
-//        print("company name = \(company.name)\n")
-
-        
-        print("------ Problem 2 is that we still need to ast to NSArray ------\n")
-        var friends:NSArray = userOriginal.friends as NSArray
-        print("friends = \(friends)\n")
-        print("friends count = \(friends.count)\n")
-
-        print("------ Array object are not set...  ------\n")
-        print("friend 1 = \(friends[0])\n")
-        print("friend 1 full_name = \(friends[0].name)\n")
+        validateUser(userOriginal)
         
         print("------ And the objects are NSObject. Therefore this will still crash ------\n")
         let jsonString = userOriginal.toJsonString()
         print("JSON string from dictionary: \n\(jsonString)\n\n")
 
         let userRegenerated = User(json:jsonString)
-        print("Object from json string: \n\(userRegenerated)\n\n")
+        validateUser(userRegenerated)
         
         if userOriginal == userRegenerated {
             XCTAssert(true, "Success")
         } else {
             XCTAssert(false, "Faileure")
         }
+    }
+    
+    func validateUser(user:User) {
+        print("Validat user: \n\(user)\n\n")
+        XCTAssertTrue(user.id == 24, "id should have been set to 24")
+        XCTAssertTrue(user.name == "John Appleseed", "name should have been set to John Appleseed")
+        XCTAssertTrue(user.email == "john@appleseed.com", "email should have been set to john@appleseed.com")
+        
+        XCTAssertNotNil(user.company, "company should not be nil")
+        print("company = \(user.company)\n")
+        XCTAssertTrue(user.company?.name == "Apple", "company name should have been set to Apple")
+        print("company name = \(user.company?.name)\n")
+        XCTAssertTrue(user.company?.address == "1 Infinite Loop, Cupertino, CA", "company address should have been set to 1 Infinite Loop, Cupertino, CA")
+        
+        XCTAssertNotNil(user.friends, "friends should not be nil")
+        XCTAssertTrue(user.friends.count == 2, "friends should have 2 Users")
+        
+        XCTAssertTrue(user.friends[0].id == 27, "day should not be nil")
+        XCTAssertTrue(user.friends[0].name == "Bob Jefferson", "day should not be nil")
+        XCTAssertTrue(user.friends[1].id == 29, "day should not be nil")
+        XCTAssertTrue(user.friends[1].name == "Jen Jackson", "day should not be nil")
     }
     
     func testJsonArray() {
