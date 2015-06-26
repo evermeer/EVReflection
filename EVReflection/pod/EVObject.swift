@@ -59,15 +59,16 @@ public class EVObject: NSObject, NSCoding, Printable, Hashable, Equatable {
     Returns the dictionary representation of this object.
     */
     final public func toDictionary() -> NSDictionary {
-        return EVReflection.toDictionary(self)
+        let (reflected, types) = EVReflection.toDictionary(self)
+        return reflected
     }
     
-    /**
-    Returns the dictionary representation of this object.
-    */
-    final public func toNSDictionary() -> NSDictionary {
-        return EVReflection.toNSDictionary(self)
-    }
+//    /**
+//    Returns the dictionary representation of this object.
+//    */
+//    final public func toNSDictionary() -> NSDictionary {
+//        return EVReflection.toNSDictionary(self)
+//    }
     
     final public func toJsonString() -> String {
         return EVReflection.toJsonString(self)

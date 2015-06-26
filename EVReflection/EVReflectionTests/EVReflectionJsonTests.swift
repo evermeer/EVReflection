@@ -50,7 +50,14 @@ class EVReflectionJsonTests: XCTestCase {
         let userOriginal = User(dictionary: jsonDictOriginal)
         print("Dictionary to an object: \n\(userOriginal)\n\n")
 
-        print("------ Problem 1 is that we still need to ast to NSArray ------\n")
+        print("company = \(userOriginal.company)\n")
+        var company:Company = userOriginal.company!
+        
+//        print("------ Problem 1 is that this will crash because it's actually an NSObject ------\n")
+//        print("company name = \(company.name)\n")
+
+        
+        print("------ Problem 2 is that we still need to ast to NSArray ------\n")
         var friends:NSArray = userOriginal.friends as NSArray
         print("friends = \(friends)\n")
         print("friends count = \(friends.count)\n")

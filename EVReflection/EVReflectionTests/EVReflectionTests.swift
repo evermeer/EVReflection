@@ -54,7 +54,7 @@ class EVReflectionTests: XCTestCase {
         var theObject = TestObject2()
         var theObjectString: String = EVReflection.swiftStringFromClass(theObject)
         theObject.objectValue = "testing"
-        var toDict = EVReflection.toDictionary(theObject)
+        var (toDict, types) = EVReflection.toDictionary(theObject)
         NSLog("toDictionary = \(toDict)")
         if var nsobject = EVReflection.fromDictionary(toDict, anyobjectTypeString: theObjectString) as? TestObject2 {
             NSLog("object = \(nsobject), objectValue = \(nsobject.objectValue)")
@@ -124,7 +124,7 @@ class EVReflectionTests: XCTestCase {
         var theObjectString: String = EVReflection.swiftStringFromClass(theObject)
         theObject.objectValue = "testing"
         theObject.nullableType = 3
-        var toDict = EVReflection.toDictionary(theObject)
+        var (toDict, types) = EVReflection.toDictionary(theObject)
         NSLog("toDictionary = \(toDict)")
         if var nsobject = EVReflection.fromDictionary(toDict, anyobjectTypeString: theObjectString) as? TestObject3 {
             NSLog("object = \(nsobject), objectValue = \(nsobject.objectValue)")
