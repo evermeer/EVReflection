@@ -75,7 +75,7 @@ class EVReflectionJsonTests: XCTestCase {
     }
     
     func validateUser(user:User) {
-        print("Validat user: \n\(user)\n\n")
+        print("Validate user: \n\(user)\n\n")
         XCTAssertTrue(user.id == 24, "id should have been set to 24")
         XCTAssertTrue(user.name == "John Appleseed", "name should have been set to John Appleseed")
         XCTAssertTrue(user.email == "john@appleseed.com", "email should have been set to john@appleseed.com")
@@ -89,10 +89,10 @@ class EVReflectionJsonTests: XCTestCase {
         XCTAssertNotNil(user.friends, "friends should not be nil")
         XCTAssertTrue(user.friends.count == 2, "friends should have 2 Users")
         
-        XCTAssertTrue(user.friends[0].id == 27, "day should not be nil")
-        XCTAssertTrue(user.friends[0].name == "Bob Jefferson", "day should not be nil")
-        XCTAssertTrue(user.friends[1].id == 29, "day should not be nil")
-        XCTAssertTrue(user.friends[1].name == "Jen Jackson", "day should not be nil")
+        XCTAssertTrue(user.friends[0].id == 27, "friend 1 id should be 27")
+        XCTAssertTrue(user.friends[0].name == "Bob Jefferson", "friend 1 name should be Bob Jefferson")
+        XCTAssertTrue(user.friends[1].id == 29, "friend 2 id should be 29")
+        XCTAssertTrue(user.friends[1].name == "Jen Jackson", "friend 2 name should be Jen Jackson")
     }
     
 }

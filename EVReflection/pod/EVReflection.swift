@@ -38,23 +38,20 @@ final public class EVReflection {
         var (hasKeys, hasTypes) = toDictionary(anyObject)
         for (k, value) in dictionary {
             if let key = k as? String {
-                if dictionary[key] != nil && hasKeys[key] != nil {
-                    var newValue: AnyObject? = dictionary[key]!
-                    if hasKeys[key] as? NSDictionary == nil && newValue as? NSDictionary != nil {
-                        newValue = dictToObject(hasTypes[key]!, original:hasKeys[key] as! NSObject ,dict: newValue as! NSDictionary)
-                    } else if hasKeys[key] as? [NSObject] != nil && newValue as? [NSDictionary] != nil {
-                        let type:String = hasTypes[key]!
-                        newValue = dictArrayToObjectArray(type, original:hasKeys[key] as! [NSObject], array: newValue as! [NSDictionary])
-                    }
-                    
-                    var error: NSError?
-                    if anyObject.validateValue(&newValue, forKey: key, error: &error) {
-                        anyObject.setValue(newValue, forKey: key)
-                    }
+                var newValue: AnyObject? = dictionary[key]!
+                if hasKeys[key] as? NSDictionary == nil && newValue as? NSDictionary != nil {
+                    newValue = dictToObject(hasTypes[key]!, original:hasKeys[key] as! NSObject ,dict: newValue as! NSDictionary)
+                } else if hasTypes[key]?.rangeOfString("<NSDictionary>") == nil && newValue as? [NSDictionary] != nil {
+                    let type:String = hasTypes[key]!
+                    newValue = dictArrayToObjectArray(type, array: newValue as! [NSDictionary])
+                }
+                
+                var error: NSError?
+                if anyObject.validateValue(&newValue, forKey: key, error: &error) {
+                    anyObject.setValue(newValue, forKey: key)
                 }
             }
         }
-        let x:NSTimer
     }
     
     private class func dictToObject<T where T:NSObject>(type:String, original:T ,dict:NSDictionary) -> T {
@@ -63,9 +60,9 @@ final public class EVReflection {
         return returnObject as! T
     }
     
-    private class func dictArrayToObjectArray(type:String, original:[NSObject], array:[NSDictionary]) -> [NSObject] {
+    private class func dictArrayToObjectArray(type:String, array:[NSDictionary]) -> [NSObject] {
         var subtype: String = (split(type) {$0 == "<"} [1]).stringByReplacingOccurrencesOfString(">", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
-        var result = original
+        var result = [NSObject]()
         for item in array {
             let arrayObject = self.dictToObject(subtype, original:swiftClassFromString(subtype), dict: item)
             result.append(arrayObject)
@@ -103,7 +100,19 @@ final public class EVReflection {
             var valueType:String = ""
             if key != "super" || i != 0 {
                 var (v: AnyObject, valueType: String) = valueForAny(value)
-                propertiesDictionary.setValue(v, forKey: key)
+                if v as? EVObject != nil {
+                    let (dict, _) = toDictionary(v as! NSObject)
+                    propertiesDictionary.setValue(dict, forKey: key)
+                } else if let array = v as? [EVObject] {
+                    var tv = [NSDictionary]()
+                    for av in array {
+                        let (d, t) = toDictionary(av)
+                        tv.append(d)
+                    }
+                    v = tv
+                } else {
+                    propertiesDictionary.setValue(v, forKey: key)
+                }
                 propertiesTypeDictionary[key] = valueType
             } else {
                 let superReflected = reflected[i].1
@@ -248,6 +257,7 @@ final public class EVReflection {
         if className == "NSObject" {
             return NSObject()
         }
+        let x: AnyClass! = swiftClassTypeFromString(className)
         if let anyobjectype : AnyObject.Type = swiftClassTypeFromString(className) {
             if let nsobjectype : NSObject.Type = anyobjectype as? NSObject.Type {
                 var nsobject: NSObject = nsobjectype()

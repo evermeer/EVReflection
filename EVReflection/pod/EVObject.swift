@@ -33,14 +33,6 @@ public class EVObject: NSObject, NSCoding, Printable, Hashable, Equatable {
     /**
     Convenience init for creating an object whith the property values of a dictionary.
     */
-    //    public convenience required init(dictionary:Dictionary<String, AnyObject?>) {
-    //        self.init()
-    //        EVReflection.setPropertiesfromDictionary(dictionary as! NSDictionary, anyObject: self)
-    //    }
-    
-    /**
-    Convenience init for creating an object whith the property values of a dictionary.
-    */
     public convenience required init(dictionary:NSDictionary) {
         self.init()
         EVReflection.setPropertiesfromDictionary(dictionary, anyObject: self)
