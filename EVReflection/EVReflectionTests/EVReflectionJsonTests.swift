@@ -30,6 +30,16 @@ class EVReflectionJsonTests: XCTestCase {
         super.tearDown()
     }
     
+    func testJsonArray() {
+        let jsonDictOriginal:String = "[{\"id\": 27, \"name\": \"Bob Jefferson\"}, {\"id\": 29, \"name\": \"Jen Jackson\"}]"
+        let array:[User] = EVReflection.arrayFromJson(User(), json: jsonDictOriginal)
+        print("Object array from json string: \n\(array)\n\n")
+        XCTAssertTrue(array.count == 2, "should have 2 Users")
+        XCTAssertTrue(array[0].id == 27, "id should have been set to 27")
+        XCTAssertTrue(array[0].name == "Bob Jefferson", "name should have been set to Bob Jefferson")
+        XCTAssertTrue(array[1].id == 29, "id should have been set to 29")
+        XCTAssertTrue(array[1].name == "Jen Jackson", "name should have been set to Jen Jackson")
+    }
     
     func testJsonObject(){
         let jsonDictOriginal = [
@@ -50,7 +60,7 @@ class EVReflectionJsonTests: XCTestCase {
         let userOriginal = User(dictionary: jsonDictOriginal)
         validateUser(userOriginal)
         
-        print("------ And the objects are NSObject. Therefore this will still crash ------\n")
+        print("------ The next line will crash on invalid type in JSON (User)------\n")
         let jsonString = userOriginal.toJsonString()
         print("JSON string from dictionary: \n\(jsonString)\n\n")
 
@@ -85,11 +95,6 @@ class EVReflectionJsonTests: XCTestCase {
         XCTAssertTrue(user.friends[1].name == "Jen Jackson", "day should not be nil")
     }
     
-    func testJsonArray() {
-        let jsonDictOriginal:String = "[{\"id\": 27, \"name\": \"Bob Jefferson\"}, {\"id\": 29, \"name\": \"Jen Jackson\"}]"
-        let array:[User] = EVReflection.arrayFromJson(User(), json: jsonDictOriginal)
-        print("Object array from json string: \n\(array)\n\n")
-    }    
 }
 
 class User: EVObject {
