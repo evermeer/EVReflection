@@ -133,7 +133,7 @@ final public class EVReflection {
         var toNSDict = EVReflection.toNSDictionary(theObject)
         var error:NSError? = nil
         if var jsonData = NSJSONSerialization.dataWithJSONObject(toNSDict , options: .PrettyPrinted, error: &error) {
-            if var jsonString = NSString(data:jsonData, encoding:NSASCIIStringEncoding) {
+            if var jsonString = NSString(data:jsonData, encoding:NSUTF8StringEncoding) {
                 return jsonString as String
             }
         }
