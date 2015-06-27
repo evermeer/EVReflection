@@ -22,7 +22,7 @@ final public class EVReflection {
     */
     public class func fromDictionary(dictionary:NSDictionary, anyobjectTypeString: String) -> NSObject? {
         if var nsobject = swiftClassFromString(anyobjectTypeString) {
-            setPropertiesfromDictionary(dictionary, anyObject: nsobject)
+            nsobject = setPropertiesfromDictionary(dictionary, anyObject: nsobject)
             return nsobject
         }
         return nil
@@ -34,7 +34,7 @@ final public class EVReflection {
     :param: dictionary The dictionary that will be converted to an object
     :param: anyObject The object where the properties will be set
     */
-    public class func setPropertiesfromDictionary<T where T:NSObject>(dictionary:NSDictionary, anyObject: T)  {
+    public class func setPropertiesfromDictionary<T where T:NSObject>(dictionary:NSDictionary, anyObject: T) -> T {
         var (hasKeys, hasTypes) = toDictionary(anyObject)
         for (k, value) in dictionary {
             if let key = k as? String {
@@ -43,20 +43,33 @@ final public class EVReflection {
                     newValue = dictToObject(hasTypes[key]!, original:hasKeys[key] as! NSObject ,dict: newValue as! NSDictionary)
                 } else if hasTypes[key]?.rangeOfString("<NSDictionary>") == nil && newValue as? [NSDictionary] != nil {
                     let type:String = hasTypes[key]!
-                    newValue = dictArrayToObjectArray(type, array: newValue as! [NSDictionary])
+                    newValue = dictArrayToObjectArray(type, array: newValue as! [NSDictionary]) as [NSObject]
                 }
                 
                 var error: NSError?
+                NSLog("setproperties --> key = \(key), newValue = \(newValue)")
                 if anyObject.validateValue(&newValue, forKey: key, error: &error) {
-                    anyObject.setValue(newValue, forKey: key)
+                    if hasTypes[key]?.rangeOfString("Swift.Array<") == nil {
+                        anyObject.setValue(newValue, forKey: key)
+                    } else {
+                        let temp = NSMutableArray()
+                        for t in newValue as! [NSObject] {
+                            temp.addObject(t)
+                        }
+                        anyObject.setValue(temp, forKey: key)
+                        let x = (anyObject as! User).friends
+                        NSLog("--->> setproperties user.friends value --> friends = \(x)")
+                    }
                 }
             }
         }
+        NSLog("===>> setPropertiesfromDictionary object = \(anyObject)")
+        return anyObject
     }
     
     private class func dictToObject<T where T:NSObject>(type:String, original:T ,dict:NSDictionary) -> T {
         var returnObject:NSObject = swiftClassFromString(type)
-        setPropertiesfromDictionary(dict, anyObject: returnObject)
+        returnObject = setPropertiesfromDictionary(dict, anyObject: returnObject)
         return returnObject as! T
     }
     

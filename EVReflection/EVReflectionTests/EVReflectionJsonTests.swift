@@ -60,7 +60,6 @@ class EVReflectionJsonTests: XCTestCase {
         let userOriginal = User(dictionary: jsonDictOriginal)
         validateUser(userOriginal)
         
-        print("------ The next line will crash on invalid type in JSON (User)------\n")
         let jsonString = userOriginal.toJsonString()
         print("JSON string from dictionary: \n\(jsonString)\n\n")
 
