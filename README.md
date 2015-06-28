@@ -146,46 +146,6 @@ class EVReflectionTests: XCTestCase {
 
 There is now also support for JSON. Parsing JSON from and to objects is now as easy as:
 ```
-class EVReflectionJsonTests: XCTestCase {
-    func testJsonObject(){
-        let jsonDictOriginal = [
-            "id": 24,
-            "name": "John Appleseed",
-            "email": "john@appleseed.com",
-            "company": [
-                "name": "Apple",
-                "address": "1 Infinite Loop, Cupertino, CA"
-            ],
-            "friends": [
-                ["id": 27, "full_name": "Bob Jefferson"],
-                ["id": 29, "full_name": "Jen Jackson"]
-            ]
-        ]
-        print("Initial dictionary:\n\(jsonDictOriginal)\n\n")
-
-        let userOriginal = User(dictionary: jsonDictOriginal)
-        print("Dictionary to an object: \n\(userOriginal)\n\n")
-
-        let jsonString = userOriginal.toJsonString()
-        print("JSON string from dictionary: \n\(jsonString)\n\n")
-
-        let userRegenerated = User(json:jsonString)
-        print("Object from json string: \n\(userRegenerated)\n\n")
-
-        if userOriginal == userRegenerated {
-            XCTAssert(true, "Success")
-        } else {
-            XCTAssert(false, "Faileure")
-        }
-    }
-
-    func testJsonArray() {
-        let jsonDictOriginal:String = "[{\"id\": 27, \"name\": \"Bob Jefferson\"}, {\"id\": 29, \"name\": \"Jen Jackson\"}]"
-        let array:[User] = EVReflection.arrayFromJson(User(), json: jsonDictOriginal)
-        print("Object array from json string: \n\(array)\n\n")
-    }
-}
-
 class User: EVObject {
     var id: Int = 0
     var name: String = ""
@@ -197,6 +157,74 @@ class User: EVObject {
 class Company: EVObject {
     var name: String = ""
     var address: String?
+}
+
+class EVReflectionJsonTests: XCTestCase {
+    func testJsonArray() {
+        let jsonDictOriginal:String = "[{\"id\": 27, \"name\": \"Bob Jefferson\"}, {\"id\": 29, \"name\": \"Jen Jackson\"}]"
+        let array:[User] = EVReflection.arrayFromJson(User(), json: jsonDictOriginal)
+        print("Object array from json string: \n\(array)\n\n")
+        XCTAssertTrue(array.count == 2, "should have 2 Users")
+        XCTAssertTrue(array[0].id == 27, "id should have been set to 27")
+        XCTAssertTrue(array[0].name == "Bob Jefferson", "name should have been set to Bob Jefferson")
+        XCTAssertTrue(array[1].id == 29, "id should have been set to 29")
+        XCTAssertTrue(array[1].name == "Jen Jackson", "name should have been set to Jen Jackson")
+    }
+
+    func testJsonObject(){
+        let jsonDictOriginal = [
+            "id": 24,
+            "name": "John Appleseed",
+            "email": "john@appleseed.com",
+            "company": [
+                "name": "Apple",
+                "address": "1 Infinite Loop, Cupertino, CA"
+            ],
+            "friends": [
+                ["id": 27, "name": "Bob Jefferson"],
+                ["id": 29, "name": "Jen Jackson"]
+            ]
+        ]
+        print("Initial dictionary:\n\(jsonDictOriginal)\n\n")
+
+        let userOriginal = User(dictionary: jsonDictOriginal)
+        validateUser(userOriginal)
+
+        let jsonString = userOriginal.toJsonString()
+        print("JSON string from dictionary: \n\(jsonString)\n\n")
+
+        let userRegenerated = User(json:jsonString)
+        validateUser(userRegenerated)
+
+        if userOriginal == userRegenerated {
+            XCTAssert(true, "Success")
+        } else {
+            XCTAssert(false, "Faileure")
+        }
+    }
+
+    func validateUser(user:User) {
+        print("Validate user: \n\(user)\n\n")
+        XCTAssertTrue(user.id == 24, "id should have been set to 24")
+        XCTAssertTrue(user.name == "John Appleseed", "name should have been set to John Appleseed")
+        XCTAssertTrue(user.email == "john@appleseed.com", "email should have been set to john@appleseed.com")
+
+        XCTAssertNotNil(user.company, "company should not be nil")
+        print("company = \(user.company)\n")
+        XCTAssertTrue(user.company?.name == "Apple", "company name should have been set to Apple")
+        print("company name = \(user.company?.name)\n")
+        XCTAssertTrue(user.company?.address == "1 Infinite Loop, Cupertino, CA", "company address should have been set to 1 Infinite Loop, Cupertino, CA")
+
+        XCTAssertNotNil(user.friends, "friends should not be nil")
+        XCTAssertTrue(user.friends.count == 2, "friends should have 2 Users")
+
+        if user.friends.count == 2 {
+            XCTAssertTrue(user.friends[0].id == 27, "friend 1 id should be 27")
+            XCTAssertTrue(user.friends[0].name == "Bob Jefferson", "friend 1 name should be Bob Jefferson")
+            XCTAssertTrue(user.friends[1].id == 29, "friend 2 id should be 29")
+            XCTAssertTrue(user.friends[1].name == "Jen Jackson", "friend 2 name should be Jen Jackson")            
+        }
+    }
 }
 ```
 
