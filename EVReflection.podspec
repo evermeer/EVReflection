@@ -8,7 +8,7 @@ Pod::Spec.new do |s|
 #
 
 s.name         = "EVReflection"
-s.version      = "2.1.0"
+s.version      = "2.2.0"
 s.summary      = "iOS: Swift helper library with reflection functions"
 
 s.description  = "Swift helper library with reflection functions including support for NSCoding, Printable, Hashable, Equatable and JSON"

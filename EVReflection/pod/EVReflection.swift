@@ -33,6 +33,7 @@ final public class EVReflection {
 
     :param: dictionary The dictionary that will be converted to an object
     :param: anyObject The object where the properties will be set
+    :return: The object that is created from the dictionary
     */
     public class func setPropertiesfromDictionary<T where T:NSObject>(dictionary:NSDictionary, anyObject: T) -> T {
         var (hasKeys, hasTypes) = toDictionary(anyObject)
@@ -59,12 +60,26 @@ final public class EVReflection {
         return anyObject
     }
     
+    /**
+    Set sub object properties from a dictionary
+    
+    :param: type The object type that will be created
+    :param: dict The dictionary that will be converted to an object
+    :return: The object that is created from the dictionary
+    */
     private class func dictToObject<T where T:NSObject>(type:String, original:T ,dict:NSDictionary) -> T {
         var returnObject:NSObject = swiftClassFromString(type)
         returnObject = setPropertiesfromDictionary(dict, anyObject: returnObject)
         return returnObject as! T
     }
     
+    /**
+    Create an Array of objects from an array of dictionaries
+    
+    :param: type The object type that will be created
+    :param: array The array of dictionaries that will be converted to the array of objects
+    :return: The array of objects that is created from the array of dictionaries
+    */
     private class func dictArrayToObjectArray(type:String, array:[NSDictionary]) -> [NSObject] {
         var subtype: String = (split(type) {$0 == "<"} [1]).stringByReplacingOccurrencesOfString(">", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
         var result = [NSObject]()
@@ -75,6 +90,11 @@ final public class EVReflection {
         return result
     }
     
+    /**
+    Helper function that let us get the actual type of an object that is used inside an array
+    
+    :param: array The array of objects where we want the type of the object
+    */
     private class func getArrayObjectType<T where T:NSObject>(array:[T]) -> String {
         return NSStringFromClass(T().dynamicType) as String
     }
@@ -83,7 +103,7 @@ final public class EVReflection {
     Convert an object to a dictionary
 
     :param: theObject The object that will be converted to a dictionary
-    :return: The dictionary that is created from theObject
+    :return: The dictionary that is created from theObject plus a dictionary of propery types.
     */
     public class func toDictionary(theObject: NSObject) -> (NSDictionary, Dictionary<String,String>) {
         let reflected = reflect(theObject)
@@ -94,7 +114,7 @@ final public class EVReflection {
     for parsing an object to a dictionary. including properties from it's super class (recursive)
 
     :param: reflected The object parsed using the reflect method.
-    :return: The dictionary that is created from the object.
+    :return: The dictionary that is created from the object plus an dictionary of property types.
     */
     private class func reflectedSub(reflected: MirrorType) -> (NSDictionary, Dictionary<String, String>) {
         var propertiesDictionary : NSMutableDictionary = NSMutableDictionary()
@@ -104,20 +124,20 @@ final public class EVReflection {
             let value = reflected[i].1.value
             var valueType:String = ""
             if key != "super" || i != 0 {
-                var (v: AnyObject, valueType: String) = valueForAny(value)
-                if v as? EVObject != nil {
-                    let (dict, _) = toDictionary(v as! NSObject)
+                var (unboxedValue: AnyObject, valueType: String) = valueForAny(value)
+                if unboxedValue as? EVObject != nil {
+                    let (dict, _) = toDictionary(unboxedValue as! NSObject)
                     propertiesDictionary.setValue(dict, forKey: key)
-                } else if let array = v as? [EVObject] {
-                    var tv = [NSDictionary]()
+                } else if let array = unboxedValue as? [EVObject] {
+                    var tempValue = [NSDictionary]()
                     for av in array {
-                        let (d, t) = toDictionary(av)
-                        tv.append(d)
+                        let (dict, type) = toDictionary(av)
+                        tempValue.append(dict)
                     }
-                    v = tv
-                    propertiesDictionary.setValue(v, forKey: key)
+                    unboxedValue = tempValue
+                    propertiesDictionary.setValue(unboxedValue, forKey: key)
                 } else {
-                    propertiesDictionary.setValue(v, forKey: key)
+                    propertiesDictionary.setValue(unboxedValue, forKey: key)
                 }
                 propertiesTypeDictionary[key] = valueType
             } else {
@@ -194,7 +214,7 @@ final public class EVReflection {
     Return an array representation for the json string
     
     :param: json The json string that will be converted
-    :return: The dictionary representation of the json
+    :return: The array of dictionaries representation of the json
     */
     public class func arrayFromJson<T where T:EVObject>(type:T, json: String) -> [T] {
         var error:NSError? = nil
@@ -356,7 +376,7 @@ final public class EVReflection {
     Helper function to convert an Any to AnyObject
 
     :param: anyValue Something of type Any is converted to a type NSObject
-    :return: The NSOBject that is created from the Any value
+    :return: The NSOBject that is created from the Any value plus the type of that value
     */
     public class func valueForAny(anyValue: Any) -> (AnyObject, String) {
         var theValue = anyValue

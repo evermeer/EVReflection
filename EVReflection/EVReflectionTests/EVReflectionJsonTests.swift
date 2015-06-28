@@ -9,6 +9,19 @@
 import UIKit
 import XCTest
 
+class User: EVObject {
+    var id: Int = 0
+    var name: String = ""
+    var email: String?
+    var company: Company?
+    var friends: [User] = []
+}
+
+class Company: EVObject {
+    var name: String = ""
+    var address: String?
+}
+
 /**
 Testing EVReflection for Json
 */
@@ -95,19 +108,6 @@ class EVReflectionJsonTests: XCTestCase {
             XCTAssertTrue(user.friends[1].name == "Jen Jackson", "friend 2 name should be Jen Jackson")            
         }
     }
-    
 }
 
-class User: EVObject {
-    var id: Int = 0
-    var name: String = ""
-    var email: String?
-    var company: Company?
-    var friends: [User] = []
-}
-
-class Company: EVObject {
-    var name: String = ""
-    var address: String?
-}
 
