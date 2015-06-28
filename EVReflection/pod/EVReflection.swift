@@ -47,23 +47,15 @@ final public class EVReflection {
                 }
                 
                 var error: NSError?
-                NSLog("setproperties --> key = \(key), newValue = \(newValue)")
                 if anyObject.validateValue(&newValue, forKey: key, error: &error) {
-                    if hasTypes[key]?.rangeOfString("Swift.Array<") == nil {
-                        anyObject.setValue(newValue, forKey: key)
+                    if newValue == nil || newValue as? NSNull != nil {
+                        anyObject.setValue(Optional.None, forKey: key)
                     } else {
-                        let temp = NSMutableArray()
-                        for t in newValue as! [NSObject] {
-                            temp.addObject(t)
-                        }
-                        anyObject.setValue(temp, forKey: key)
-                        let x = (anyObject as! User).friends
-                        NSLog("--->> setproperties user.friends value --> friends = \(x)")
+                        anyObject.setValue(newValue, forKey: key)
                     }
                 }
             }
         }
-        NSLog("===>> setPropertiesfromDictionary object = \(anyObject)")
         return anyObject
     }
     
@@ -123,6 +115,7 @@ final public class EVReflection {
                         tv.append(d)
                     }
                     v = tv
+                    propertiesDictionary.setValue(v, forKey: key)
                 } else {
                     propertiesDictionary.setValue(v, forKey: key)
                 }
