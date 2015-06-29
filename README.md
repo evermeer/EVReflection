@@ -145,6 +145,7 @@ class EVReflectionTests: XCTestCase {
 ```
 
 There is now also support for JSON. Parsing JSON from and to objects is now as easy as:
+
 ```
 class User: EVObject {
     var id: Int = 0
@@ -227,6 +228,7 @@ class EVReflectionJsonTests: XCTestCase {
     }
 }
 ```
+See also [AlamofireJsonToObjects](https://github.com/evermeer/AlamofireJsonToObjects)
 
 
 
