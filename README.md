@@ -16,7 +16,7 @@
 
 
 Run the tests in EVReflectionTests.swift and EVReflectionJsonTests.swift to see EVReflection in action.
-EVReflection is used extensively in [EVCloudKitDao](https://github.com/evermeer/EVCloudKitDao)
+EVReflection is used extensively in [EVCloudKitDao](https://github.com/evermeer/EVCloudKitDao) and [AlamofireJsonToObjects](https://github.com/evermeer/AlamofireJsonToObjects)
 
 ## Main features of EVReflection:
 - Parsing objects based on NSObject to a dictionary. 
