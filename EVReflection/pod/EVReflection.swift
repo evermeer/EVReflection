@@ -43,8 +43,9 @@ final public class EVReflection {
                 if hasKeys[key] as? NSDictionary == nil && newValue as? NSDictionary != nil {
                     newValue = dictToObject(hasTypes[key]!, original:hasKeys[key] as! NSObject ,dict: newValue as! NSDictionary)
                 } else if hasTypes[key]?.rangeOfString("<NSDictionary>") == nil && newValue as? [NSDictionary] != nil {
-                    let type:String = hasTypes[key]!
-                    newValue = dictArrayToObjectArray(type, array: newValue as! [NSDictionary]) as [NSObject]
+                    if let type:String = hasTypes[key] {
+                        newValue = dictArrayToObjectArray(type, array: newValue as! [NSDictionary]) as [NSObject]
+                    }
                 }
                 
                 var error: NSError?
