@@ -13,7 +13,7 @@ class User: EVObject {
     var id: Int = 0
     var name: String = ""
     var email: String?
-    var company: Company = Company()
+    var company: Company?
     var friends: [User] = []
 }
 
@@ -94,9 +94,9 @@ class EVReflectionJsonTests: XCTestCase {
         
         XCTAssertNotNil(user.company, "company should not be nil")
         print("company = \(user.company)\n", appendNewline: false)
-        XCTAssertTrue(user.company.name == "Apple", "company name should have been set to Apple")
-        print("company name = \(user.company.name)\n", appendNewline: false)
-        XCTAssertTrue(user.company.address == "1 Infinite Loop, Cupertino, CA", "company address should have been set to 1 Infinite Loop, Cupertino, CA")
+        XCTAssertTrue(user.company?.name == "Apple", "company name should have been set to Apple")
+        print("company name = \(user.company?.name)\n", appendNewline: false)
+        XCTAssertTrue(user.company?.address == "1 Infinite Loop, Cupertino, CA", "company address should have been set to 1 Infinite Loop, Cupertino, CA")
         
         XCTAssertNotNil(user.friends, "friends should not be nil")
         XCTAssertTrue(user.friends.count == 2, "friends should have 2 Users")
