@@ -40,11 +40,12 @@ final public class EVReflection {
         for (k, _) in dictionary {
             if let key = k as? String {
                 var newValue: AnyObject? = dictionary[key]!
-                if hasKeys[key] as? NSDictionary == nil && newValue as? NSDictionary != nil {
+                if hasTypes[key] != "NSDictionary" && newValue as? NSDictionary != nil {
                     newValue = dictToObject(hasTypes[key]!, original:hasKeys[key] as! NSObject ,dict: newValue as! NSDictionary)
                 } else if hasTypes[key]?.rangeOfString("<NSDictionary>") == nil && newValue as? [NSDictionary] != nil {
-                    let type:String = hasTypes[key]!
-                    newValue = dictArrayToObjectArray(type, array: newValue as! [NSDictionary]) as [NSObject]
+                    if let type:String = hasTypes[key] {
+                        newValue = dictArrayToObjectArray(type, array: newValue as! [NSDictionary]) as [NSObject]
+                    }
                 }
                 do {
                     try anyObject.validateValue(&newValue, forKey: key)
@@ -67,9 +68,13 @@ final public class EVReflection {
     :return: The object that is created from the dictionary
     */
     private class func dictToObject<T where T:NSObject>(type:String, original:T ,dict:NSDictionary) -> T {
-        var returnObject:NSObject = swiftClassFromString(type)
-        returnObject = setPropertiesfromDictionary(dict, anyObject: returnObject)
-        return returnObject as! T
+        if var returnObject:NSObject = swiftClassFromString(type) {
+            returnObject = setPropertiesfromDictionary(dict, anyObject: returnObject)
+            return returnObject as! T
+        } else {
+            let returnObject = setPropertiesfromDictionary(dict, anyObject: T())
+            return returnObject
+        }
     }
     
     /**
@@ -382,19 +387,19 @@ final public class EVReflection {
     */
     public class func valueForAny(anyValue: Any) -> (AnyObject, String) {
         var theValue = anyValue
-        var valueType = ""
         let mi: MirrorType = reflect(theValue)
         if mi.disposition == .Optional {
           if mi.count == 0 {
-            let subtype: String = (split("\(mi)".characters) {$0 == "<"}.map { String($0) } [1]).stringByReplacingOccurrencesOfString(">", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
-                return (NSNull(), subtype)
-            }
-            let (_,some) = mi[0]
+            let subtype: String = (split("\(mi.valueType)".characters) {$0 == "<"}
+                .map { String($0) } [1])
+                .stringByReplacingOccurrencesOfString(">", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
+            return (NSNull(), subtype)
+          }
+          let (_,some) = mi[0]
           theValue = some.value
-        } else {
-            valueType = "\(mi.valueType)"
         }
-        
+        let valueType = "\(mi.valueType)"
+
         switch(theValue) {
         case let longValue as Int64:
             return (NSNumber(long: CLong(longValue)), "NSNumber")
