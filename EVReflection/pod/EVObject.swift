@@ -15,7 +15,7 @@ public class EVObject: NSObject, NSCoding { //, CustomStringConvertible, Hashabl
     /**
     Basic init override is needed so we can use EVObject as a base class.
     */
-    public override init(){
+    public required override init(){
         super.init()
     }
     
