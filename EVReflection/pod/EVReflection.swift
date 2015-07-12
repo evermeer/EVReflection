@@ -38,14 +38,19 @@ final public class EVReflection {
     public class func setPropertiesfromDictionary<T where T:NSObject>(dictionary:NSDictionary, anyObject: T) -> T {
         var (hasKeys, hasTypes) = toDictionary(anyObject)
         for (k, _) in dictionary {
-            if let key = k as? String {
+            if var key = k as? String {
                 var newValue: AnyObject? = dictionary[key]!
                 if hasTypes[key] != "NSDictionary" && newValue as? NSDictionary != nil {
-                    newValue = dictToObject(hasTypes[key]!, original:hasKeys[key] as! NSObject ,dict: newValue as! NSDictionary)
+                    if let type = hasTypes[key] {
+                        newValue = dictToObject(type, original:hasKeys[key] as! NSObject ,dict: newValue as! NSDictionary)
+                    }
                 } else if hasTypes[key]?.rangeOfString("<NSDictionary>") == nil && newValue as? [NSDictionary] != nil {
                     if let type:String = hasTypes[key] {
                         newValue = dictArrayToObjectArray(type, array: newValue as! [NSDictionary]) as [NSObject]
                     }
+                }
+                if (["self", "description", "class", "deinit", "enum", "extension", "func", "import", "init", "let", "protocol", "static", "struct", "subscript", "typealias", "var", "break", "case", "continue", "default", "do", "else", "fallthrough", "if", "in", "for", "return", "switch", "where", "while", "as", "dynamicType", "is", "new", "super", "Self", "Type", "__COLUMN__", "__FILE__", "__FUNCTION__", "__LINE__", "associativity", "didSet", "get", "infix", "inout", "left", "mutating", "none", "nonmutating", "operator", "override", "postfix", "precedence", "prefix", "right", "set", "unowned", "unowned", "safe", "unowned", "unsafe", "weak", "willSet"].filter {$0 == key}).count > 0 {
+                    key = "_\(key)"
                 }
                 do {
                     try anyObject.validateValue(&newValue, forKey: key)
