@@ -87,7 +87,11 @@ final public class EVReflection {
     :return: The array of objects that is created from the array of dictionaries
     */
     private class func dictArrayToObjectArray(type:String, array:[NSDictionary]) -> [NSObject] {
-        var subtype: String = (split(type) {$0 == "<"} [1]).stringByReplacingOccurrencesOfString(">", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
+        var hasSubtype = split(type) {$0 == "<"}
+        var subtype = "EVObject"
+        if hasSubtype.count > 1 {
+            subtype = (hasSubtype [1]).stringByReplacingOccurrencesOfString(">", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
+        }
         var result = [NSObject]()
         for item in array {
             let arrayObject = self.dictToObject(subtype, original:swiftClassFromString(subtype), dict: item)
@@ -390,7 +394,9 @@ final public class EVReflection {
         let mi: MirrorType = reflect(theValue)
         if mi.disposition == .Optional {
             if mi.count == 0 {
-                var subtype: String = (split("\(mi)") {$0 == "<"} [1]).stringByReplacingOccurrencesOfString(">", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
+                var subtype: String = "\(mi)"
+                subtype = subtype.substringFromIndex((split(subtype) {$0 == "<"} [0] + "<").endIndex)
+                subtype = subtype.substringToIndex(subtype.endIndex.predecessor())
                 return (NSNull(), subtype)
             }
             let (name,some) = mi[0]
