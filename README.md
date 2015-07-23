@@ -40,7 +40,7 @@ There are 2 possible workarounds for this.
 - Instead of [MyObject?] use [MyObject]
 - Instead of 'var status: StatysType' use 'var status:Int' and save the rawValue
 
-2. By overriding the setValue for key in the object itself (see the unit test for TestObject3 or EnumTests)
+2. By overriding the setValue for key in the object itself (see WorkaroundsTests.swift to see the workaround for all these types in action)
 
 ## Using EVReflection in your own App 
 

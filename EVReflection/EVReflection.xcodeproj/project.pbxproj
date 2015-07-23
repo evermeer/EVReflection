@@ -17,7 +17,7 @@
 		7F0E5E5A1AF4D94000A10E51 /* EVObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F0E5E591AF4D94000A10E51 /* EVObject.swift */; };
 		7F143E001B2F5CEF002345AB /* EVReflectionJsonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F143DFF1B2F5CEF002345AB /* EVReflectionJsonTests.swift */; };
 		7F55CB691B5E2E4400813F4A /* ProfilePhotoUrlListTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F55CB681B5E2E4400813F4A /* ProfilePhotoUrlListTest.swift */; };
-		7FB6ADE31B611A0000001009 /* EnumTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FB6ADE21B611A0000001009 /* EnumTests.swift */; };
+		7FB6ADE31B611A0000001009 /* WorkaroundsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FB6ADE21B611A0000001009 /* WorkaroundsTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,7 +37,7 @@
 		7F0E5E591AF4D94000A10E51 /* EVObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVObject.swift; sourceTree = "<group>"; };
 		7F143DFF1B2F5CEF002345AB /* EVReflectionJsonTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVReflectionJsonTests.swift; sourceTree = "<group>"; };
 		7F55CB681B5E2E4400813F4A /* ProfilePhotoUrlListTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfilePhotoUrlListTest.swift; sourceTree = "<group>"; };
-		7FB6ADE21B611A0000001009 /* EnumTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnumTests.swift; sourceTree = "<group>"; };
+		7FB6ADE21B611A0000001009 /* WorkaroundsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkaroundsTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,7 +83,7 @@
 				7F07C5781AF101A9000DF1F3 /* EVReflectionTests.swift */,
 				7F143DFF1B2F5CEF002345AB /* EVReflectionJsonTests.swift */,
 				7F55CB681B5E2E4400813F4A /* ProfilePhotoUrlListTest.swift */,
-				7FB6ADE21B611A0000001009 /* EnumTests.swift */,
+				7FB6ADE21B611A0000001009 /* WorkaroundsTests.swift */,
 				7F07C5761AF101A9000DF1F3 /* Supporting Files */,
 			);
 			path = EVReflectionTests;
@@ -181,7 +181,7 @@
 				7F07C58C1AF11231000DF1F3 /* TestObject2.swift in Sources */,
 				7F55CB691B5E2E4400813F4A /* ProfilePhotoUrlListTest.swift in Sources */,
 				7F07C5791AF101A9000DF1F3 /* EVReflectionTests.swift in Sources */,
-				7FB6ADE31B611A0000001009 /* EnumTests.swift in Sources */,
+				7FB6ADE31B611A0000001009 /* WorkaroundsTests.swift in Sources */,
 				7F143E001B2F5CEF002345AB /* EVReflectionJsonTests.swift in Sources */,
 				7F07C5881AF10437000DF1F3 /* EVReflection.swift in Sources */,
 				7F0943A01AFD3277005DE178 /* TestObject3.swift in Sources */,
