@@ -27,7 +27,16 @@ EVReflection is used extensively in [EVCloudKitDao](https://github.com/evermeer/
 - Parse an object to a JSON string and parse a JSON string to an object
 
 ## Known issues
-It's not possible in Swift to use .setObjectForKey for nullable type fiels like Int? or a an Array of nullable objects like [MyObject?] Workaround is using NSNumber? or [MyObject] instead or by overriding the setValue for key in the object itself (see the unit test for TestObject3)
+It's not possible in Swift to use .setObjectForKey for:
+- nullable type fields like Int? 
+- properties based on an enum
+- an Array of nullable objects like [MyObject?] 
+There are 2 possible workarounds for this. 
+1. Using a difrent type like:
+- Instead of an Int? you could use NSNumber?
+- Instead of [MyObject?] use [MyObject]
+- Instead of 'var status: StatysType' use 'var status:Int' and save the rawValue
+2. By overriding the setValue for key in the object itself (see the unit test for TestObject3 or EnumTests)
 
 ## Using EVReflection in your own App 
 
