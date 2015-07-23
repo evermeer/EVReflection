@@ -120,7 +120,7 @@ public class EVObject: NSObject, NSCoding, Printable, Hashable, Equatable {
     :param: key The name of the property that you wanted to set
     */
     public override func setValue(value: AnyObject!, forUndefinedKey key: String) {
-        println("\nWARNING: The class '\(EVReflection.swiftStringFromClass(self))' is not key value coding-compliant for the key '\(key)' (There is no support for optional type and array of optionals) implement the function 'setValue forUndefinedKey' for this.\n")
+        println("\nWARNING: The class '\(EVReflection.swiftStringFromClass(self))' is not key value coding-compliant for the key '\(key)'\n There is no support for optional type, array of optionals or enum properties.\nAs a workaround you can implement the function 'setValue forUndefinedKey' for this. See the unit tests for more information\n")
     }
 }
 
