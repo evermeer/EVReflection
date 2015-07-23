@@ -35,6 +35,7 @@ It's not possible in Swift to use .setObjectForKey for:
 There are 2 possible workarounds for this.
 
 1. Using a difrent type like:
+
 - Instead of an Int? you could use NSNumber?
 - Instead of [MyObject?] use [MyObject]
 - Instead of 'var status: StatysType' use 'var status:Int' and save the rawValue
