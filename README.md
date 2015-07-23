@@ -32,7 +32,8 @@ It's not possible in Swift to use .setObjectForKey for:
 - properties based on an enum
 - an Array of nullable objects like [MyObject?] 
 
-There are 2 possible workarounds for this. 
+There are 2 possible workarounds for this.
+
 1. Using a difrent type like:
 - Instead of an Int? you could use NSNumber?
 - Instead of [MyObject?] use [MyObject]
