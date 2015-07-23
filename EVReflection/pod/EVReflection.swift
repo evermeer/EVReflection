@@ -37,15 +37,18 @@ final public class EVReflection {
     */
     public class func setPropertiesfromDictionary<T where T:NSObject>(dictionary:NSDictionary, anyObject: T) -> T {
         var (hasKeys, hasTypes) = toDictionary(anyObject)
-        for (k, value) in dictionary {
+        for (k, v) in dictionary {
             if var key = k as? String {
                 var newValue: AnyObject? = dictionary[key]!
-                if hasKeys[key] as? NSDictionary == nil && newValue as? NSDictionary != nil {
-                    if let type = hasTypes[key] {
+                if let type = hasTypes[key] {
+                    if type.hasPrefix("Swift.Array<") && newValue as? NSDictionary != nil {
+                        if var value = v as? [NSObject] {
+                            value.append(newValue! as! NSObject)
+                            newValue = value
+                        }
+                    } else if type != "NSDictionary" && newValue as? NSDictionary != nil {
                         newValue = dictToObject(type, original:hasKeys[key] as! NSObject ,dict: newValue as! NSDictionary)
-                    }
-                } else if hasTypes[key]?.rangeOfString("<NSDictionary>") == nil && newValue as? [NSDictionary] != nil {
-                    if let type:String = hasTypes[key] {
+                    } else if type.rangeOfString("<NSDictionary>") == nil && newValue as? [NSDictionary] != nil {
                         newValue = dictArrayToObjectArray(type, array: newValue as! [NSDictionary]) as [NSObject]
                     }
                 }
@@ -60,11 +63,11 @@ final public class EVReflection {
                     } else {
                         anyObject.setValue(newValue, forKey: key)
                     }
+                    
                 }
             }
         }
-        return anyObject
-    }
+        return anyObject    }
 
     /**
     Set sub object properties from a dictionary

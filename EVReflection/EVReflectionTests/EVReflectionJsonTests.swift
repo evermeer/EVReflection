@@ -53,6 +53,13 @@ class EVReflectionJsonTests: XCTestCase {
         XCTAssertTrue(array[1].id == 29, "id should have been set to 29")
         XCTAssertTrue(array[1].name == "Jen Jackson", "name should have been set to Jen Jackson")
     }
+
+    func testJsonUser() {
+        let json:String = "{\"id\": 24, \"friends\": {}}"
+        let user = User(json: json)
+        XCTAssertTrue(user.id == 24, "id should have been set to 24")
+        XCTAssertTrue(user.friends?.count == 0, "friends should have 0 users")
+    }
     
     func testJsonObject(){
         let jsonDictOriginal = [
