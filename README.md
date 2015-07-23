@@ -27,7 +27,7 @@ EVReflection is used extensively in [EVCloudKitDao](https://github.com/evermeer/
 - Parse an object to a JSON string and parse a JSON string to an object
 
 ## Known issues
-It's not possible in Swift to use .setObjectForKey for nullable type fiels like Int?. Workaround is using NSNumber? instead or by overriding the setValue for key in the object itself (see the unit test for TestObject3)
+It's not possible in Swift to use .setObjectForKey for nullable type fiels like Int? or a an Array of nullable objects like [MyObject?] Workaround is using NSNumber? or [MyObject] instead or by overriding the setValue for key in the object itself (see the unit test for TestObject3)
 
 ## Using EVReflection in your own App 
 

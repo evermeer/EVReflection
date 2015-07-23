@@ -72,5 +72,5 @@ class ProfilePhotoUrl : Base {
 
 class ProfilePhotoUrlList : EVObject {
     var meta: Meta?
-    var objects: [ProfilePhotoUrl]?
+    var objects: [ProfilePhotoUrl?]?
 }

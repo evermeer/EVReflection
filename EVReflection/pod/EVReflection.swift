@@ -87,11 +87,19 @@ final public class EVReflection {
     :return: The array of objects that is created from the array of dictionaries
     */
     private class func dictArrayToObjectArray(type:String, array:[NSDictionary]) -> [NSObject] {
-        var hasSubtype = split(type) {$0 == "<"}
         var subtype = "EVObject"
-        if hasSubtype.count > 1 {
-            subtype = (hasSubtype [1]).stringByReplacingOccurrencesOfString(">", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
+        if (split(type) {$0 == "<"}).count > 1 {
+            // Remove the Swift.Array prefix
+            subtype = type.substringFromIndex((split(type) {$0 == "<"} [0] + "<").endIndex)
+            subtype = subtype.substringToIndex(subtype.endIndex.predecessor())
+            
+            // Remove the optional prefix from the subtype
+            if subtype.hasPrefix("Swift.Optional<") {
+                subtype = subtype.substringFromIndex((split(subtype) {$0 == "<"} [0] + "<").endIndex)
+                subtype = subtype.substringToIndex(subtype.endIndex.predecessor())
+            }
         }
+
         var result = [NSObject]()
         for item in array {
             let arrayObject = self.dictToObject(subtype, original:swiftClassFromString(subtype), dict: item)
@@ -401,8 +409,15 @@ final public class EVReflection {
             }
             let (name,some) = mi[0]
             theValue = some.value
+            valueType = "\(some.valueType)"
         } else {
             valueType = "\(mi.valueType)"
+        }
+        
+        // solve casting issue
+        if valueType.hasPrefix("Swift.Array<Swift.Optional<") {
+            var y = Array<NSObject>()
+            return (y, valueType)
         }
         
         switch(theValue) {
@@ -419,7 +434,7 @@ final public class EVReflection {
         case let anyvalue as NSObject:
             return (anyvalue, valueType)
         default:
-            NSLog("ERROR: valueForAny unkown type \(theValue)")
+            NSLog("ERROR: valueForAny unkown type \(theValue), type \(valueType)")
             return (NSNull(), "NSObject") // Could not happen
         }
     }
