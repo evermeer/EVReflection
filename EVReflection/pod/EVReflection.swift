@@ -141,8 +141,10 @@ final public class EVReflection {
         var propertiesDictionary : NSMutableDictionary = NSMutableDictionary()
         var propertiesTypeDictionary : Dictionary<String,String> = Dictionary<String,String>()
         for i in 0..<reflected.count {
-            let key: String = reflected[i].0
-            let value = reflected[i].1.value
+            let property = reflected[i]
+            let key: String = property.0
+            let mirrorType = property.1
+            let value = mirrorType.value
             var valueType:String = ""
             if key != "super" || i != 0 {
                 var (unboxedValue: AnyObject, valueType: String) = valueForAny(value)
@@ -162,8 +164,7 @@ final public class EVReflection {
                 }
                 propertiesTypeDictionary[key] = valueType
             } else {
-                let superReflected = reflected[i].1
-                let (addProperties,_) = reflectedSub(superReflected)
+                let (addProperties,_) = reflectedSub(mirrorType)
                 for (k, v) in addProperties {
                     propertiesDictionary.setValue(v, forKey: k as! String)
                 }
@@ -413,6 +414,20 @@ final public class EVReflection {
             let (name,some) = mi[0]
             theValue = some.value
             valueType = "\(some.valueType)"
+        } else if mi.disposition == .Aggregate {
+            if let value = theValue as? EVRawString {
+                return (value.rawValue, "\(mi.valueType)")
+            }
+            if let value = theValue as? EVRawInt {
+                return (NSNumber(int: Int32(value.rawValue)), "\(mi.valueType)")
+            }
+            if let value = theValue as? EVRaw {
+                if let returnValue = value.anyRawValue as? String {
+                    return (returnValue, "\(mi.valueType)")
+                }
+            }
+            print("WARNING: valueForAny unkown type \(theValue), type \(valueType)")
+            return ("\(theValue)", "\(mi.valueType)")
         } else {
             valueType = "\(mi.valueType)"
         }
@@ -440,5 +455,6 @@ final public class EVReflection {
             NSLog("ERROR: valueForAny unkown type \(theValue), type \(valueType)")
             return (NSNull(), "NSObject") // Could not happen
         }
+        
     }
 }

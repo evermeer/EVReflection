@@ -125,6 +125,17 @@ public class EVObject: NSObject, NSCoding, Printable, Hashable, Equatable {
 }
 
 
+public protocol EVRawInt {
+    var rawValue: Int { get }
+}
+public protocol EVRawString {
+    var rawValue: String { get }
+}
+public protocol EVRaw {
+    var anyRawValue: AnyObject { get }
+}
+
+
 /**
 Implementation for Equatable ==
 
