@@ -53,7 +53,7 @@ class EVReflectionJsonTests: XCTestCase {
         XCTAssertTrue(array[1].id == 29, "id should have been set to 29")
         XCTAssertTrue(array[1].name == "Jen Jackson", "name should have been set to Jen Jackson")
     }
-    
+
     func testJsonUser() {
         let json:String = "{\"id\": 24, \"friends\": {}}"
         let user = User(json: json)
@@ -105,7 +105,7 @@ class EVReflectionJsonTests: XCTestCase {
         print("company name = \(user.company?.name)\n", appendNewline: false)
         XCTAssertTrue(user.company?.address == "1 Infinite Loop, Cupertino, CA", "company address should have been set to 1 Infinite Loop, Cupertino, CA")
         
- //       XCTAssertNotNil(user?.friends!, "friends should not be nil")
+        XCTAssertNotNil(user.friends, "friends should not be nil")
         XCTAssertTrue(user.friends!.count == 2, "friends should have 2 Users")
         
         if user.friends!.count == 2 {

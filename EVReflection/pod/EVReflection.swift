@@ -64,13 +64,13 @@ final public class EVReflection {
                     if newValue == nil || newValue as? NSNull != nil {
                         anyObject.setValue(Optional.None, forKey: key)
                     } else {
+                        // TODO: This will trigger setvalue for undefined key for specific types. 
                         anyObject.setValue(newValue, forKey: key)
                     }
                 } catch _ as NSError { }
             }
         }
-        return anyObject
-    }
+        return anyObject    }
 
     /**
     Set sub object properties from a dictionary
@@ -137,7 +137,7 @@ final public class EVReflection {
     */
     public class func toDictionary(theObject: NSObject) -> (NSDictionary, Dictionary<String,String>) {
         let reflected = Mirror(reflecting: theObject)
-        return reflectedSub(reflected)
+        return reflectedSub(theObject, reflected: reflected)
     }
     
     /**
@@ -147,14 +147,14 @@ final public class EVReflection {
     
     :return: The dictionary that is created from the object plus an dictionary of property types.
     */
-    private class func reflectedSub(reflected: Mirror) -> (NSDictionary, Dictionary<String, String>) {
+    private class func reflectedSub(theObject:Any, reflected: Mirror) -> (NSDictionary, Dictionary<String, String>) {
         let propertiesDictionary : NSMutableDictionary = NSMutableDictionary()
         var propertiesTypeDictionary : Dictionary<String,String> = Dictionary<String,String>()
         for property in reflected.children {
             if let key:String = property.label {
                 let value = property.value
                 if key != "super" {
-                    var (unboxedValue, valueType): (AnyObject, String) = valueForAny(value)
+                    var (unboxedValue, valueType): (AnyObject, String) = valueForAny(theObject, key: key, anyValue: value)
                     if unboxedValue as? EVObject != nil {
                         let (dict, _) = toDictionary(unboxedValue as! NSObject)
                         propertiesDictionary.setValue(dict, forKey: key)
@@ -172,7 +172,7 @@ final public class EVReflection {
                     propertiesTypeDictionary[key] = valueType
                 } else {
                     let superReflected = Mirror(reflecting: value)
-                    let (addProperties,_) = reflectedSub(superReflected)
+                    let (addProperties,_) = reflectedSub(value, reflected: superReflected)
                     for (k, v) in addProperties {
                         propertiesDictionary.setValue(v, forKey: k as! String)
                     }
@@ -422,7 +422,7 @@ final public class EVReflection {
 
     :return: The NSOBject that is created from the Any value plus the type of that value
     */
-    public class func valueForAny(anyValue: Any) -> (AnyObject, String) {
+    public class func valueForAny(parentObject:Any, key:String, anyValue: Any) -> (AnyObject, String) {
         var theValue = anyValue
         var valueType = "EVObject"
         let mi: Mirror = Mirror(reflecting: theValue)
@@ -442,11 +442,35 @@ final public class EVReflection {
                 subtype = subtype.substringToIndex(subtype.endIndex.predecessor())
                 return (NSNull(), subtype)
             }
-        }
-        
-        // solve casting issue
-        if valueType.hasPrefix("Swift.Array<Swift.Optional<") {
-            return (Array<NSObject>(), valueType)
+        } else if mi.displayStyle == .Enum {
+            //TODO: See if new Swift version can make using the EVRaw* protocols obsolete
+            if let value = theValue as? EVRawString {
+                return (value.rawValue, "\(mi.subjectType)")
+            }
+            if let value = theValue as? EVRawInt {
+                return (NSNumber(int: Int32(value.rawValue)), "\(mi.subjectType)")
+            }
+            if let value = theValue as? EVRaw {
+                if let returnValue = value.anyRawValue as? String {
+                    return (returnValue, "\(mi.subjectType)")
+                }
+            }
+            print("WARNING: valueForAny unkown type \(theValue), type \(valueType)")
+            return ("\(theValue)", "\(mi.subjectType)")
+        } else if mi.displayStyle == .Collection {
+            valueType = "\(mi.subjectType)"
+            if valueType.hasPrefix("Swift.Array<Swift.Optional<") {
+                //TODO: See if new Swift version can make using the EVArrayConvertable protocol obsolete
+                if let arrayConverter = parentObject as? EVArrayConvertable {
+                    let convertedValue = arrayConverter.convertArray(key, array: theValue)
+                    return (convertedValue, valueType)
+                } else {
+                    print("An object with a property of type Array with optional objects should implement the EVArrayConvertable protocol.")
+                }
+            }
+            print("WARNING: valueForAny unkown type \(theValue), type \(valueType)")
+        } else {
+            valueType = "\(mi.subjectType)"
         }
         
         switch(theValue) {
@@ -466,5 +490,6 @@ final public class EVReflection {
             NSLog("ERROR: valueForAny unkown type \(theValue), type \(valueType)")
             return (NSNull(), "NSObject") // Could not happen
         }
+        
     }
 }
