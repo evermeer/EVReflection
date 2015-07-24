@@ -16,7 +16,7 @@ Testing The 3 propery types that need a workaround.
 class WorkaroundsTests: XCTestCase {
     func testWorkaroundsSmoketest() {
         let json:String = "{\"nullableType\": 1,\"enumType\": 0, \"list\": [ {\"nullableType\": 2}, {\"nullableType\": 3}] }"
-        let status = Testobject(json: json)
+        let status = WorkaroundObject(json: json)
         XCTAssertTrue(status.nullableType == 1, "the nullableType should be 1")
         XCTAssertTrue(status.enumType == .NotOK, "the status should be NotOK")
         XCTAssertTrue(status.list.count == 2, "the list should have 2 items")
@@ -28,9 +28,9 @@ class WorkaroundsTests: XCTestCase {
 
     func testWorkaroundsToJson() {
         let initialJson:String = "{\"nullableType\": 1,\"enumType\": 0, \"list\": [ {\"nullableType\": 2}, {\"nullableType\": 3}] }"
-        let initialStatus = Testobject(json: initialJson)
+        let initialStatus = WorkaroundObject(json: initialJson)
         let json = initialStatus.toJsonString()
-        let status = Testobject(json: json)        
+        let status = WorkaroundObject(json: json)
         print("To JSON = \(json)")
         XCTAssertTrue(status.nullableType == 1, "the nullableType should be 1")
         XCTAssertTrue(status.enumType == .NotOK, "the status should be NotOK")
@@ -42,7 +42,10 @@ class WorkaroundsTests: XCTestCase {
     }
 }
 
-class Testobject: EVObject {
+
+//
+class WorkaroundObject: EVObject, EVArrayConvertable {
+    
     enum StatusType: Int, EVRawInt {
         case NotOK = 0
         case OK = 1
@@ -50,8 +53,10 @@ class Testobject: EVObject {
     
     var nullableType: Int?
     var enumType: StatusType = .OK
-    var list: [Testobject?] = []
+    var list: [WorkaroundObject?] = [WorkaroundObject?]()
     
+    
+    // Handling the setting of non key-value coding compliant properties
     override func setValue(value: AnyObject!, forUndefinedKey key: String) {
         switch key {
         case "nullableType":
@@ -66,11 +71,29 @@ class Testobject: EVObject {
             if let list = value as? NSArray {
                 self.list = []
                 for item in list {
-                    self.list.append(item as? Testobject)
+                    self.list.append(item as? WorkaroundObject)
                 }
             }
         default:
-            NSLog("---> setValue for key '\(key)' should be handled.")
+            println("---> setValue for key '\(key)' should be handled.")
         }
     }
+    
+    // Implementation of the EVArrayConvertable protocol for handling an array of nullble objects.
+    func convertArray(key: String, array: Any) -> NSArray {
+        switch key {
+            case "list":
+                let returnArray = NSMutableArray()
+                for item in array as! [WorkaroundObject?] {
+                    if item != nil {
+                        returnArray.addObject(item!)
+                    }
+                }
+                return returnArray
+        default:
+            println("---> convertArray for key \(key) should be handled.")
+            return NSArray()
+        }
+    }
+
 }

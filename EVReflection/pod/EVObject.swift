@@ -134,6 +134,9 @@ public protocol EVRawString {
 public protocol EVRaw {
     var anyRawValue: AnyObject { get }
 }
+public protocol EVArrayConvertable {
+    func convertArray(key: String, array: Any) -> NSArray
+}
 
 
 /**

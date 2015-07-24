@@ -9,8 +9,12 @@ import UIKit
 import XCTest
 
 
+class myClass: NSObject {
+    let item:String = ""
+}
+
 /**
-Testing The enum workaround.
+Testing The enum workaround. Ignore this. Nothing is used in the actual library
 */
 class EnumWorkaroundsTests: XCTestCase {
     
@@ -23,6 +27,27 @@ class EnumWorkaroundsTests: XCTestCase {
         XCTAssertTrue(test3 == "1", "Could nog get the rawvalue using a generic function")
     }
     
+    func testArrayNullable() {
+        var testArray: [myClass?] = [myClass]()
+        testArray.append(myClass())
+        testArray.append(nil)
+        let newArray: [myClass] = parseArray(testArray) as! [myClass]
+        XCTAssertTrue(newArray.count == 1, "We should have 1 object in the array")
+    }
+    
+    func parseArray(array:Any) -> AnyObject {
+        if let arrayObject: AnyObject = array as? AnyObject {
+            return arrayObject
+        }
+        println("array was not an AnyObject")
+        var temp = [AnyObject]()
+        for item in (array as! [myClass?]) {
+            if item != nil {
+                temp.append(item!)
+            }
+        }
+        return temp
+    }
     
     enum MyEnumOne: String, EVRawString {
         case NotOK = "NotOK"
