@@ -428,8 +428,6 @@ final public class EVReflection {
                     return (returnValue, "\(mi.valueType)")
                 }
             }
-            print("WARNING: valueForAny unkown type \(theValue), type \(valueType)")
-            return ("\(theValue)", "\(mi.valueType)")
         } else if mi.disposition == .IndexContainer {
             valueType = "\(mi.valueType)"
             if valueType.hasPrefix("Swift.Array<Swift.Optional<") {
@@ -448,12 +446,18 @@ final public class EVReflection {
         
         
         switch(theValue) {
-        case let longValue as Int64:
-            return (NSNumber(long: CLong(longValue)), "NSNumber")
-        case let intValue as Int:
-            return (NSNumber(int: CInt(intValue)), "NSNumber")
+        case let numValue as NSNumber:
+            return (numValue, "NSNumber")
         case let doubleValue as Double:
             return (NSNumber(double: CDouble(doubleValue)), "NSNumber")
+        case let floatValue as Float:
+            return (NSNumber(float: CFloat(floatValue)), "NSNumber")
+        case let longValue as Int64:
+            return (NSNumber(long: CLong(longValue)), "NSNumber")
+        case let intValue as Int32:
+            return (NSNumber(int: CInt(intValue)), "NSNumber")
+        case let intValue as Int:
+            return (NSNumber(int: CInt(intValue)), "NSNumber")
         case let stringValue as String:
             return (stringValue as NSString, "NSString")
         case let boolValue as Bool:
