@@ -414,7 +414,6 @@ final public class EVReflection {
         return true
     }
     
-    //TODO: Make this work with nulable types
     /**
     Helper function to convert an Any to AnyObject
 
