@@ -180,4 +180,27 @@ class EVReflectionTests: XCTestCase {
         let result = TestObject2(dictionary: toDict)
         XCTAssert(theObject != result, "Pass") // The objects are not the same
     }
+    
+    func testNSNumber() {
+        let test1 = NSNumber(double: 458347978508)
+        let (value1: AnyObject, key1) = EVReflection.valueForAny("", key: "", anyValue: test1)
+        XCTAssert(value1 as? NSNumber == NSNumber(long: 458347978508), "Values should be same for type NSNumber")
+        
+        let test2:Float = 458347978508
+        let (value2: AnyObject, key2) = EVReflection.valueForAny("", key: "", anyValue: test2)
+        XCTAssert(value2 as? NSNumber == NSNumber(float: 458347978508), "Values should be same for type Float")
+
+        let test3:Double = 458347978508
+        let (value3: AnyObject, key3) = EVReflection.valueForAny("", key: "", anyValue: test3)
+        XCTAssert(value3 as? NSNumber == NSNumber(double: 458347978508), "Values should be same for type Double")
+
+        let test4:Int64 = 458347978508
+        let (value4: AnyObject, key4) = EVReflection.valueForAny("", key: "", anyValue: test4)
+        XCTAssert(value4 as? NSNumber == NSNumber(double: 458347978508), "Values should be same for type Int64")
+
+        let test5:Int = 458347978508
+        let (value5: AnyObject, key5) = EVReflection.valueForAny("", key: "", anyValue: test5)
+        XCTAssert(value5 as? NSNumber == NSNumber(double: 458347978508), "Values should be same for type Int64")
+    }
+    
 }

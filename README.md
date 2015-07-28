@@ -15,7 +15,8 @@
 [![eMail](https://img.shields.io/badge/email-edwin@evict.nl-blue.svg?style=flat)](mailto:edwin@evict.nl?SUBJECT=About EVReflection)
 
 
-Run the tests in EVReflectionTests.swift and EVReflectionJsonTests.swift to see EVReflection in action.
+Run the unit tests to see EVReflection in action.
+
 EVReflection is used extensively in [EVCloudKitDao](https://github.com/evermeer/EVCloudKitDao) and [AlamofireJsonToObjects](https://github.com/evermeer/AlamofireJsonToObjects)
 
 ## Main features of EVReflection:
