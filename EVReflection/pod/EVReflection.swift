@@ -421,7 +421,7 @@ final public class EVReflection {
 
     :return: The NSOBject that is created from the Any value plus the type of that value
     */
-    public class func valueForAny(parentObject:Any, key:String, anyValue: Any) -> (AnyObject, String) {
+    public class func valueForAny(parentObject:Any, key:String, anyValue: Any) -> (value: AnyObject, key: String) {
         var theValue = anyValue
         var valueType = "EVObject"
         let mi: Mirror = Mirror(reflecting: theValue)
