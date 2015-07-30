@@ -61,7 +61,7 @@ final public class EVReflection {
                     if newValue == nil || newValue as? NSNull != nil {
                         anyObject.setValue(Optional.None, forKey: key)
                     } else {
-                        // TODO: This will trigger setvalue for undefined key for specific types. 
+                        // TODO: This will trigger setvalue for undefined key for specific types like enums, arrays of optionals or optional types. 
                         anyObject.setValue(newValue, forKey: key)
                     }
                     
@@ -394,7 +394,6 @@ final public class EVReflection {
         return true
     }
     
-    //TODO: Make this work with nulable types
     /**
     Helper function to convert an Any to AnyObject
     
@@ -412,9 +411,8 @@ final public class EVReflection {
                 subtype = subtype.substringToIndex(subtype.endIndex.predecessor())
                 return (NSNull(), subtype)
             }
-            let (name,some) = mi[0]
-            theValue = some.value
-            valueType = "\(some.valueType)"
+            theValue = mi[0].1.value
+            valueType = "\(mi[0].1.valueType)"
         } else if mi.disposition == .Aggregate {
             //TODO: See if new Swift version can make using the EVRaw* protocols obsolete
             if let value = theValue as? EVRawString {
