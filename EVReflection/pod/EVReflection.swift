@@ -452,7 +452,6 @@ final public class EVReflection {
                     println("An object with a property of type Array with optional objects should implement the EVArrayConvertable protocol.")
                 }
             }
-            print("WARNING: valueForAny unkown type \(theValue), type \(valueType)")
         } else {
             valueType = "\(mi.valueType)"
         }
