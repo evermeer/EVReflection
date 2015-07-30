@@ -41,7 +41,7 @@ public class EVObject: NSObject, NSCoding, Printable, Hashable, Equatable {
     /**
     Convenience init for creating an object whith the contents of a json string.
     */
-    public convenience required init(json:String) {
+    public convenience required init(json:String?) {
         self.init()
         var jsonDict = EVReflection.dictionaryFromJson(json)
         EVReflection.setPropertiesfromDictionary(jsonDict, anyObject: self)
