@@ -120,8 +120,22 @@ public class EVObject: NSObject, NSCoding { //, CustomStringConvertible, Hashabl
     - parameter key: The name of the property that you wanted to set
     */
     public override func setValue(value: AnyObject!, forUndefinedKey key: String) {
-        print("\nWARNING: The class '\(EVReflection.swiftStringFromClass(self))' is not key value coding-compliant for the key '\(key)' (There is no support for optional type)\n")
+        print("\nWARNING: The class '\(EVReflection.swiftStringFromClass(self))' is not key value coding-compliant for the key '\(key)'\n There is no support for optional type, array of optionals or enum properties.\nAs a workaround you can implement the function 'setValue forUndefinedKey' for this. See the unit tests for more information\n")
     }
+}
+
+
+public protocol EVRawInt {
+    var rawValue: Int { get }
+}
+public protocol EVRawString {
+    var rawValue: String { get }
+}
+public protocol EVRaw {
+    var anyRawValue: AnyObject { get }
+}
+public protocol EVArrayConvertable {
+    func convertArray(key: String, array: Any) -> NSArray
 }
 
 

@@ -15,7 +15,8 @@
 [![eMail](https://img.shields.io/badge/email-edwin@evict.nl-blue.svg?style=flat)](mailto:edwin@evict.nl?SUBJECT=About EVReflection)
 
 
-Run the tests in EVReflectionTests.swift and EVReflectionJsonTests.swift to see EVReflection in action.
+Run the unit tests to see EVReflection in action.
+
 EVReflection is used extensively in [EVCloudKitDao](https://github.com/evermeer/EVCloudKitDao) and [AlamofireJsonToObjects](https://github.com/evermeer/AlamofireJsonToObjects)
 
 ## Main features of EVReflection:
@@ -27,7 +28,20 @@ EVReflection is used extensively in [EVCloudKitDao](https://github.com/evermeer/
 - Parse an object to a JSON string and parse a JSON string to an object
 
 ## Known issues
-It's not possible in Swift to use .setObjectForKey for nullable type fiels like Int?. Workaround is using NSNumber? instead or by overriding the setValue for key in the object itself (see the unit test for TestObject3)
+It's not possible in Swift to use .setObjectForKey for:
+- nullable type fields like Int? 
+- properties based on an enum
+- an Array of nullable objects like [MyObject?] 
+
+There are 2 possible workarounds for this.
+
+1. Using a difrent type like:
+
+- Instead of an Int? you could use NSNumber?
+- Instead of [MyObject?] use [MyObject]
+- Instead of 'var status: StatysType' use 'var status:Int' and save the rawValue
+
+2. By overriding the setValue for key in the object itself (see WorkaroundsTests.swift to see the workaround for all these types in action)
 
 ## Using EVReflection in your own App 
 
@@ -47,7 +61,6 @@ If you are using Swift 2.0 (tested with beta 2) then instead put the folowing li
 use_frameworks!
 pod 'EVReflection', :git => 'https://github.com/evermeer/EVReflection.git', :branch => 'Swift2'
 ```
-
 
 Version 0.36 of cocoapods will make a dynamic framework of all the pods that you use. Because of that it's only supported in iOS 8.0 or later. When using a framework, you also have to add an import at the top of your swift file like this:
 
@@ -236,7 +249,9 @@ class EVReflectionJsonTests: XCTestCase {
     }
 }
 ```
-If your JSON data contains Swift keywords, then prefix your property with an underscore. So the JSON value for field self will be stored in property _self. The folowing keywords are handled:
+
+If you have JSON fields that are Swift keywords, then prefix the property with an underscore. So the JSON value for self will be stored in the property _self. At this moment the folowing keywords are handled:
+
 "self", "description", "class", "deinit", "enum", "extension", "func", "import", "init", "let", "protocol", "static", "struct", "subscript", "typealias", "var", "break", "case", "continue", "default", "do", "else", "fallthrough", "if", "in", "for", "return", "switch", "where", "while", "as", "dynamicType", "is", "new", "super", "Self", "Type", "__COLUMN__", "__FILE__", "__FUNCTION__", "__LINE__", "associativity", "didSet", "get", "infix", "inout", "left", "mutating", "none", "nonmutating", "operator", "override", "postfix", "precedence", "prefix", "right", "set", "unowned", "unowned", "safe", "unowned", "unsafe", "weak", "willSet"
 
 See also [AlamofireJsonToObjects](https://github.com/evermeer/AlamofireJsonToObjects)

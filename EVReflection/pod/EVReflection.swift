@@ -12,12 +12,13 @@ import CloudKit
 Reflection methods
 */
 final public class EVReflection {
-
+    
     /**
     Create an object from a dictionary
 
     - parameter dictionary: The dictionary that will be converted to an object
     - parameter anyobjectTypeString: The string representation of the object type that will be created
+    
     :return: The object that is created from the dictionary
     */
     public class func fromDictionary(dictionary:NSDictionary, anyobjectTypeString: String) -> NSObject? {
@@ -27,49 +28,56 @@ final public class EVReflection {
         }
         return nil
     }
-
+    
     /**
     Set object properties from a dictionary
 
     - parameter dictionary: The dictionary that will be converted to an object
     - parameter anyObject: The object where the properties will be set
+    
     :return: The object that is created from the dictionary
     */
     public class func setPropertiesfromDictionary<T where T:NSObject>(dictionary:NSDictionary, anyObject: T) -> T {
         var (hasKeys, hasTypes) = toDictionary(anyObject)
-        for (k, _) in dictionary {
+        for (k, v) in dictionary {
             if var key = k as? String {
                 var newValue: AnyObject? = dictionary[key]!
-                if hasTypes[key] != "NSDictionary" && newValue as? NSDictionary != nil {
-                    if let type = hasTypes[key] {
+                if let type = hasTypes[key] {
+                    if type.hasPrefix("Swift.Array<") && newValue as? NSDictionary != nil {
+                        if var value = v as? [NSObject] {
+                            value.append(newValue! as! NSObject)
+                            newValue = value
+                        }
+                    } else if type != "NSDictionary" && newValue as? NSDictionary != nil {
                         newValue = dictToObject(type, original:hasKeys[key] as! NSObject ,dict: newValue as! NSDictionary)
-                    }
-                } else if hasTypes[key]?.rangeOfString("<NSDictionary>") == nil && newValue as? [NSDictionary] != nil {
-                    if let type:String = hasTypes[key] {
+                    } else if type.rangeOfString("<NSDictionary>") == nil && newValue as? [NSDictionary] != nil {
                         newValue = dictArrayToObjectArray(type, array: newValue as! [NSDictionary]) as [NSObject]
                     }
                 }
-                if (["self", "description", "class", "deinit", "enum", "extension", "func", "import", "init", "let", "protocol", "static", "struct", "subscript", "typealias", "var", "break", "case", "continue", "default", "do", "else", "fallthrough", "if", "in", "for", "return", "switch", "where", "while", "as", "dynamicType", "is", "new", "super", "Self", "Type", "__COLUMN__", "__FILE__", "__FUNCTION__", "__LINE__", "associativity", "didSet", "get", "infix", "inout", "left", "mutating", "none", "nonmutating", "operator", "override", "postfix", "precedence", "prefix", "right", "set", "unowned", "unowned", "safe", "unowned", "unsafe", "weak", "willSet"].filter {$0 == key}).count > 0 {
+                let keywords = ["self", "description", "class", "deinit", "enum", "extension", "func", "import", "init", "let", "protocol", "static", "struct", "subscript", "typealias", "var", "break", "case", "continue", "default", "do", "else", "fallthrough", "if", "in", "for", "return", "switch", "where", "while", "as", "dynamicType", "is", "new", "super", "Self", "Type", "__COLUMN__", "__FILE__", "__FUNCTION__", "__LINE__", "associativity", "didSet", "get", "infix", "inout", "left", "mutating", "none", "nonmutating", "operator", "override", "postfix", "precedence", "prefix", "right", "set", "unowned", "unowned", "safe", "unowned", "unsafe", "weak", "willSet"]
+                if keywords.contains(key) {
                     key = "_\(key)"
                 }
+                print("\(key) = \(newValue)")
                 do {
                     try anyObject.validateValue(&newValue, forKey: key)
                     if newValue == nil || newValue as? NSNull != nil {
                         anyObject.setValue(Optional.None, forKey: key)
                     } else {
+                        // TODO: This will trigger setvalue for undefined key for specific types. 
                         anyObject.setValue(newValue, forKey: key)
                     }
                 } catch _ as NSError { }
             }
         }
-        return anyObject
-    }
-    
+        return anyObject    }
+
     /**
     Set sub object properties from a dictionary
     
     - parameter type: The object type that will be created
     - parameter dict: The dictionary that will be converted to an object
+
     :return: The object that is created from the dictionary
     */
     private class func dictToObject<T where T:NSObject>(type:String, original:T ,dict:NSDictionary) -> T {
@@ -87,10 +95,23 @@ final public class EVReflection {
     
     - parameter type: The object type that will be created
     - parameter array: The array of dictionaries that will be converted to the array of objects
+    
     :return: The array of objects that is created from the array of dictionaries
     */
     private class func dictArrayToObjectArray(type:String, array:[NSDictionary]) -> [NSObject] {
-        let subtype: String = (split(type.characters) {$0 == "<"}.map { String($0) } [1]).stringByReplacingOccurrencesOfString(">", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
+        var subtype = "EVObject"
+        if type.componentsSeparatedByString("<").count > 1 {
+            // Remove the Swift.Array prefix
+            subtype = type.substringFromIndex((type.componentsSeparatedByString("<") [0] + "<").endIndex)
+            subtype = subtype.substringToIndex(subtype.endIndex.predecessor())
+            
+            // Remove the optional prefix from the subtype
+            if subtype.hasPrefix("Swift.Optional<") {
+                subtype = subtype.substringFromIndex((subtype.componentsSeparatedByString("<") [0] + "<").endIndex)
+                subtype = subtype.substringToIndex(subtype.endIndex.predecessor())
+            }
+        }
+
         var result = [NSObject]()
         for item in array {
             let arrayObject = self.dictToObject(subtype, original:swiftClassFromString(subtype), dict: item)
@@ -115,50 +136,52 @@ final public class EVReflection {
     :return: The dictionary that is created from theObject plus a dictionary of propery types.
     */
     public class func toDictionary(theObject: NSObject) -> (NSDictionary, Dictionary<String,String>) {
-        let reflected = reflect(theObject)
-        return reflectedSub(reflected)
+        let reflected = Mirror(reflecting: theObject)
+        return reflectedSub(theObject, reflected: reflected)
     }
     
     /**
     for parsing an object to a dictionary. including properties from it's super class (recursive)
 
     - parameter reflected: The object parsed using the reflect method.
+    
     :return: The dictionary that is created from the object plus an dictionary of property types.
     */
-    private class func reflectedSub(reflected: MirrorType) -> (NSDictionary, Dictionary<String, String>) {
+    private class func reflectedSub(theObject:Any, reflected: Mirror) -> (NSDictionary, Dictionary<String, String>) {
         let propertiesDictionary : NSMutableDictionary = NSMutableDictionary()
         var propertiesTypeDictionary : Dictionary<String,String> = Dictionary<String,String>()
-        for i in 0..<reflected.count {
-            let key: String = reflected[i].0
-            let value = reflected[i].1.value
-            if key != "super" || i != 0 {
-                var (unboxedValue, valueType): (AnyObject, String) = valueForAny(value)
-                if unboxedValue as? EVObject != nil {
-                    let (dict, _) = toDictionary(unboxedValue as! NSObject)
-                    propertiesDictionary.setValue(dict, forKey: key)
-                } else if let array = unboxedValue as? [EVObject] {
-                    var tempValue = [NSDictionary]()
-                    for av in array {
-                        let (dict, _) = toDictionary(av)
-                        tempValue.append(dict)
+        for property in reflected.children {
+            if let key:String = property.label {
+                let value = property.value
+                if key != "super" {
+                    var (unboxedValue, valueType): (AnyObject, String) = valueForAny(theObject, key: key, anyValue: value)
+                    if unboxedValue as? EVObject != nil {
+                        let (dict, _) = toDictionary(unboxedValue as! NSObject)
+                        propertiesDictionary.setValue(dict, forKey: key)
+                    } else if let array = unboxedValue as? [EVObject] {
+                        var tempValue = [NSDictionary]()
+                        for av in array {
+                            let (dict, _) = toDictionary(av)
+                            tempValue.append(dict)
+                        }
+                        unboxedValue = tempValue
+                        propertiesDictionary.setValue(unboxedValue, forKey: key)
+                    } else {
+                        propertiesDictionary.setValue(unboxedValue, forKey: key)
                     }
-                    unboxedValue = tempValue
-                    propertiesDictionary.setValue(unboxedValue, forKey: key)
+                    propertiesTypeDictionary[key] = valueType
                 } else {
-                    propertiesDictionary.setValue(unboxedValue, forKey: key)
-                }
-                propertiesTypeDictionary[key] = valueType
-            } else {
-                let superReflected = reflected[i].1
-                let (addProperties,_) = reflectedSub(superReflected)
-                for (k, v) in addProperties {
-                    propertiesDictionary.setValue(v, forKey: k as! String)
+                    let superReflected = Mirror(reflecting: value)
+                    let (addProperties,_) = reflectedSub(value, reflected: superReflected)
+                    for (k, v) in addProperties {
+                        propertiesDictionary.setValue(v, forKey: k as! String)
+                    }
                 }
             }
         }
         return (propertiesDictionary, propertiesTypeDictionary)
     }
-
+    
     /**
     Dump the content of this object
 
@@ -167,11 +190,12 @@ final public class EVReflection {
     public class func logObject(theObject: NSObject) {
         NSLog(description(theObject))
     }
-
+    
     /**
     Return a string representation of this object
 
     - parameter theObject: The object that will be loged
+    
     :return: The string representation of the object
     */
     public class func description(theObject: NSObject) -> String {
@@ -183,12 +207,13 @@ final public class EVReflection {
         description = description + "}\n"
         return description
     }
-
+    
     
     /**
     Return a Json string representation of this object
     
     - parameter theObject: The object that will be loged
+    
     :return: The string representation of the object
     */
     public class func toJsonString(theObject: NSObject) -> String {
@@ -218,11 +243,12 @@ final public class EVReflection {
         }
         return Dictionary<String, AnyObject>()
     }
-
+    
     /**
     Return an array representation for the json string
     
     - parameter json: The json string that will be converted
+    
     :return: The array of dictionaries representation of the json
     */
     public class func arrayFromJson<T where T:EVObject>(type:T, json: String) -> [T] {
@@ -241,17 +267,19 @@ final public class EVReflection {
     Create a hashvalue for the object
 
     - parameter theObject: The object for what you want a hashvalue
+    
     :return: the hashvalue for the object
     */
     public class func hashValue(theObject: NSObject) -> Int {
         let (hasKeys, _) = toDictionary(theObject)
         return Int(hasKeys.map {$1}.reduce(0) {(31 &* $0) &+ $1.hash})
     }
-
+    
     /**
     Get the swift Class type from a string
 
     - parameter className: The string representation of the class (name of the bundle dot name of the class)
+
     :return: The Class type
     */
     public class func swiftClassTypeFromString(className: String) -> AnyClass! {
@@ -265,7 +293,7 @@ final public class EVReflection {
         }
         return NSClassFromString(classStringName)
     }
-
+    
     /**
     Get the app name from the 'Bundle name' and if that's empty, then from the 'Bundle identifier' otherwise we assume it's a EVReflection unit test and use that bundle identifier
     :return: A cleaned up name of the app.
@@ -282,11 +310,12 @@ final public class EVReflection {
         let cleanAppName = appName.stringByReplacingOccurrencesOfString(" ", withString: "_", options: NSStringCompareOptions.CaseInsensitiveSearch, range: nil)
         return cleanAppName
     }
-
+    
     /**
     Get the swift Class from a string
 
     - parameter className: The string representation of the class (name of the bundle dot name of the class)
+
     :return: The Class type
     */
     public class func swiftClassFromString(className: String) -> NSObject! {
@@ -301,11 +330,12 @@ final public class EVReflection {
         }
         return nil
     }
-
+    
     /**
     Get the class name as a string from a swift class
 
     - parameter theObject: An object for whitch the string representation of the class will be returned
+
     :return: The string representation of the class (name of the bundle dot name of the class)
     */
     public class func swiftStringFromClass(theObject: NSObject) -> String! {
@@ -320,7 +350,7 @@ final public class EVReflection {
         }
         return classWithoutAppName
     }
-
+    
     /**
     Encode any object
 
@@ -333,7 +363,7 @@ final public class EVReflection {
             aCoder.encodeObject(value, forKey: key as! String)
         }
     }
-
+    
     /**
     Decode any object
 
@@ -355,22 +385,23 @@ final public class EVReflection {
             }
         }
     }
-
+    
     /**
     Compare all fields of 2 objects
 
     - parameter lhs: The first object for the comparisson
     - parameter rhs: The second object for the comparisson
+
     :return: true if the objects are the same, otherwise false
     */
     public class func areEqual(lhs: NSObject, rhs: NSObject) -> Bool {
         if swiftStringFromClass(lhs) != swiftStringFromClass(rhs) {
             return false;
         }
-
+        
         let (lhsdict,_) = toDictionary(lhs)
         let (rhsdict,_) = toDictionary(rhs)
-
+        
         for (key, value) in rhsdict {
             if let compareTo: AnyObject = lhsdict[key as! String] {
                 if !compareTo.isEqual(value) {
@@ -382,36 +413,76 @@ final public class EVReflection {
         }
         return true
     }
-
-    //TODO: Make this work with nulable types
+    
     /**
     Helper function to convert an Any to AnyObject
 
     - parameter anyValue: Something of type Any is converted to a type NSObject
+
     :return: The NSOBject that is created from the Any value plus the type of that value
     */
-    public class func valueForAny(anyValue: Any) -> (AnyObject, String) {
+    public class func valueForAny(parentObject:Any, key:String, anyValue: Any) -> (AnyObject, String) {
         var theValue = anyValue
-        let mi: MirrorType = reflect(theValue)
-        if mi.disposition == .Optional {
-          if mi.count == 0 {
-            let subtype: String = (split("\(mi.valueType)".characters) {$0 == "<"}
-                .map { String($0) } [1])
-                .stringByReplacingOccurrencesOfString(">", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
-            return (NSNull(), subtype)
-          }
-          let (_,some) = mi[0]
-          theValue = some.value
-        }
-        let valueType = "\(mi.valueType)"
+        var valueType = "EVObject"
+        let mi: Mirror = Mirror(reflecting: theValue)
 
+        if mi.displayStyle == .Optional {
+            if mi.children.count == 1 {
+                if mi.children.first?.label == "Some" {
+                    theValue = mi.children.first!.value
+                    valueType = "\(mi.children.first!.value.dynamicType)"
+                } else {
+                    print("\(mi.children.first)")
+                }
+            }
+            if mi.children.count == 0 {
+                var subtype: String = "\(mi)"
+                subtype = subtype.substringFromIndex((subtype.componentsSeparatedByString("<") [0] + "<").endIndex)
+                subtype = subtype.substringToIndex(subtype.endIndex.predecessor())
+                return (NSNull(), subtype)
+            }
+        } else if mi.displayStyle == .Enum {
+            //TODO: See if new Swift version can make using the EVRaw* protocols obsolete
+            if let value = theValue as? EVRawString {
+                return (value.rawValue, "\(mi.subjectType)")
+            }
+            if let value = theValue as? EVRawInt {
+                return (NSNumber(int: Int32(value.rawValue)), "\(mi.subjectType)")
+            }
+            if let value = theValue as? EVRaw {
+                if let returnValue = value.anyRawValue as? String {
+                    return (returnValue, "\(mi.subjectType)")
+                }
+            }
+        } else if mi.displayStyle == .Collection {
+            valueType = "\(mi.subjectType)"
+            if valueType.hasPrefix("Swift.Array<Swift.Optional<") {
+                //TODO: See if new Swift version can make using the EVArrayConvertable protocol obsolete
+                if let arrayConverter = parentObject as? EVArrayConvertable {
+                    let convertedValue = arrayConverter.convertArray(key, array: theValue)
+                    return (convertedValue, valueType)
+                } else {
+                    print("An object with a property of type Array with optional objects should implement the EVArrayConvertable protocol.")
+                }
+            }
+            print("WARNING: valueForAny unkown type \(theValue), type \(valueType)")
+        } else {
+            valueType = "\(mi.subjectType)"
+        }
+        
         switch(theValue) {
-        case let longValue as Int64:
-            return (NSNumber(long: CLong(longValue)), "NSNumber")
-        case let intValue as Int:
-            return (NSNumber(int: CInt(intValue)), "NSNumber")
+        case let numValue as NSNumber:
+            return (numValue, "NSNumber")
         case let doubleValue as Double:
-            return (NSNumber(double: CDouble(doubleValue)), "NSNumber")
+            return (NSNumber(double: doubleValue), "NSNumber")
+        case let floatValue as Float:
+            return (NSNumber(float: floatValue), "NSNumber")
+        case let longValue as Int64:
+            return (NSNumber(longLong: longValue), "NSNumber")
+        case let intValue as Int32:
+            return (NSNumber(int: intValue), "NSNumber")
+        case let intValue as Int:
+            return (NSNumber(integer: intValue), "NSNumber")
         case let stringValue as String:
             return (stringValue as NSString, "NSString")
         case let boolValue as Bool:
@@ -419,8 +490,9 @@ final public class EVReflection {
         case let anyvalue as NSObject:
             return (anyvalue, valueType)
         default:
-            NSLog("ERROR: valueForAny unkown type \(theValue)")
+            NSLog("ERROR: valueForAny unkown type \(theValue), type \(valueType)")
             return (NSNull(), "NSObject") // Could not happen
         }
+        
     }
 }

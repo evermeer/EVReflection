@@ -14,7 +14,7 @@ class User: EVObject {
     var name: String = ""
     var email: String?
     var company: Company?
-    var friends: [User] = []
+    var friends: [User]? = []
 }
 
 class Company: EVObject {
@@ -52,6 +52,13 @@ class EVReflectionJsonTests: XCTestCase {
         XCTAssertTrue(array[0].name == "Bob Jefferson", "name should have been set to Bob Jefferson")
         XCTAssertTrue(array[1].id == 29, "id should have been set to 29")
         XCTAssertTrue(array[1].name == "Jen Jackson", "name should have been set to Jen Jackson")
+    }
+
+    func testJsonUser() {
+        let json:String = "{\"id\": 24, \"friends\": {}}"
+        let user = User(json: json)
+        XCTAssertTrue(user.id == 24, "id should have been set to 24")
+        XCTAssertTrue(user.friends?.count == 0, "friends should have 0 users")
     }
     
     func testJsonObject(){
@@ -99,15 +106,17 @@ class EVReflectionJsonTests: XCTestCase {
         XCTAssertTrue(user.company?.address == "1 Infinite Loop, Cupertino, CA", "company address should have been set to 1 Infinite Loop, Cupertino, CA")
         
         XCTAssertNotNil(user.friends, "friends should not be nil")
-        XCTAssertTrue(user.friends.count == 2, "friends should have 2 Users")
+        XCTAssertTrue(user.friends!.count == 2, "friends should have 2 Users")
         
-        if user.friends.count == 2 {
-            XCTAssertTrue(user.friends[0].id == 27, "friend 1 id should be 27")
-            XCTAssertTrue(user.friends[0].name == "Bob Jefferson", "friend 1 name should be Bob Jefferson")
-            XCTAssertTrue(user.friends[1].id == 29, "friend 2 id should be 29")
-            XCTAssertTrue(user.friends[1].name == "Jen Jackson", "friend 2 name should be Jen Jackson")            
+        if user.friends!.count == 2 {
+            XCTAssertTrue(user.friends![0].id == 27, "friend 1 id should be 27")
+            XCTAssertTrue(user.friends![0].name == "Bob Jefferson", "friend 1 name should be Bob Jefferson")
+            XCTAssertTrue(user.friends![1].id == 29, "friend 2 id should be 29")
+            XCTAssertTrue(user.friends![1].name == "Jen Jackson", "friend 2 name should be Jen Jackson")
         }
     }
+    
+
 }
 
 
