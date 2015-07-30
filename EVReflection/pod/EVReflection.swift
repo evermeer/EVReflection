@@ -61,7 +61,16 @@ final public class EVReflection {
                     if newValue == nil || newValue as? NSNull != nil {
                         anyObject.setValue(Optional.None, forKey: key)
                     } else {
-                        // TODO: This will trigger setvalue for undefined key for specific types like enums, arrays of optionals or optional types. 
+                        // Let us put a number into a string property by taking it's stringValue
+                        if let typeInObject = hasTypes[key] {
+                            let (_, type) = valueForAny("", key: key, anyValue: newValue)
+                            if (typeInObject == "Swift.String" || typeInObject == "NSString") && type == "NSNumber" {
+                                if let convertedValue = newValue as? NSNumber {
+                                    newValue = convertedValue.stringValue
+                                }
+                            }
+                        }
+                        // TODO: This will trigger setvalue for undefined key for specific types like enums, arrays of optionals or optional types.
                         anyObject.setValue(newValue, forKey: key)
                     }
                     
