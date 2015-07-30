@@ -223,9 +223,12 @@ final public class EVReflection {
     :param: json The json string that will be converted
     :return: The dictionary representation of the json
     */
-    public class func dictionaryFromJson(json: String) -> Dictionary<String, AnyObject> {
+    public class func dictionaryFromJson(json: String?) -> Dictionary<String, AnyObject> {
+        if json == nil {
+            return Dictionary<String, AnyObject>()
+        }
         var error:NSError? = nil
-        if let jsonData = json.dataUsingEncoding(NSUTF8StringEncoding) {
+        if let jsonData = json!.dataUsingEncoding(NSUTF8StringEncoding) {
             if let jsonDic = NSJSONSerialization.JSONObjectWithData(jsonData, options: NSJSONReadingOptions.MutableContainers, error: &error) as? Dictionary<String, AnyObject> {
                 return jsonDic
             }
@@ -239,9 +242,12 @@ final public class EVReflection {
     :param: json The json string that will be converted
     :return: The array of dictionaries representation of the json
     */
-    public class func arrayFromJson<T where T:EVObject>(type:T, json: String) -> [T] {
+    public class func arrayFromJson<T where T:EVObject>(type:T, json: String?) -> [T] {
+        if json == nil {
+            return [T]()
+        }
         var error:NSError? = nil
-        if let jsonData = json.dataUsingEncoding(NSUTF8StringEncoding) {
+        if let jsonData = json!.dataUsingEncoding(NSUTF8StringEncoding) {
             if let jsonDic: [Dictionary<String, AnyObject>] = NSJSONSerialization.JSONObjectWithData(jsonData, options: NSJSONReadingOptions.MutableContainers, error: &error) as? [Dictionary<String, AnyObject>] {
                 return jsonDic.map({T(dictionary: $0)})
             }
