@@ -466,10 +466,24 @@ final public class EVReflection {
             return (NSNumber(float: floatValue), "NSNumber")
         case let longValue as Int64:
             return (NSNumber(longLong: longValue), "NSNumber")
+        case let longValue as UInt64:
+            return (NSNumber(unsignedLongLong: longValue), "NSNumber")
         case let intValue as Int32:
             return (NSNumber(int: intValue), "NSNumber")
+        case let intValue as UInt32:
+            return (NSNumber(unsignedInt: intValue), "NSNumber")
+        case let intValue as Int16:
+            return (NSNumber(short: intValue), "NSNumber")
+        case let intValue as UInt16:
+            return (NSNumber(unsignedShort: intValue), "NSNumber")
+        case let intValue as Int8:
+            return (NSNumber(char: intValue), "NSNumber")
+        case let intValue as UInt8:
+            return (NSNumber(unsignedChar: intValue), "NSNumber")
         case let intValue as Int:
             return (NSNumber(integer: intValue), "NSNumber")
+        case let intValue as UInt:
+            return (NSNumber(unsignedLong: intValue), "NSNumber")
         case let stringValue as String:
             return (stringValue as NSString, "NSString")
         case let boolValue as Bool:
