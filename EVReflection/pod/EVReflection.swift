@@ -73,7 +73,6 @@ final public class EVReflection {
                         // TODO: This will trigger setvalue for undefined key for specific types like enums, arrays of optionals or optional types.
                         anyObject.setValue(newValue, forKey: key)
                     }
-                    
                 }
             }
         }

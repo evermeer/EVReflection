@@ -41,33 +41,6 @@ class WorkaroundsTests: XCTestCase {
         }
     }
     
-    func testAlternative() {
-        class XXXX: NSObject {
-            var yyyy:Int = 2
-            var zzzz:Int? { get {
-                class AAAA:NSObject { //_TtCFCFC17EVReflectionTests16WorkaroundsTests15testAlternativeFS0_FT_T_L_4XXXXg4zzzzGSqSi_L_4AAAA
-                    
-                }
-                var a = AAAA()
-                println("\(EVReflection.swiftStringFromClass(a))")
-                return 3
-                }}
-        }
-        let x = XXXX()
-        let xx = x.zzzz
-        let expectation = expectationWithDescription("")
-
-        let sel = "yyyy"
-        if (x.respondsToSelector(NSSelectorFromString(sel))) {
-            println("-----> selector ok")
-            var timer = NSTimer.scheduledTimerWithTimeInterval(0.001, target: x, selector:  Selector(sel), userInfo: [3], repeats: false)
-        }
-        
-
-        waitForExpectationsWithTimeout(4, handler: { (error: NSError!) -> Void in
-            XCTAssertNil(error, "\(error)")
-        })
-    }
 }
 
 
@@ -122,5 +95,10 @@ class WorkaroundObject: EVObject, EVArrayConvertable {
             return NSArray()
         }
     }
-
 }
+
+
+
+
+
+
