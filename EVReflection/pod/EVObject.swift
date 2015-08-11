@@ -120,20 +120,45 @@ public class EVObject: NSObject, NSCoding, Printable, Hashable, Equatable {
     :param: key The name of the property that you wanted to set
     */
     public override func setValue(value: AnyObject!, forUndefinedKey key: String) {
+        if let genericSelf = self as? GenericsKVC {
+            genericSelf.genericSetValue(value, forKey: key)
+            return
+        }
         println("\nWARNING: The class '\(EVReflection.swiftStringFromClass(self))' is not key value coding-compliant for the key '\(key)'\n There is no support for optional type, array of optionals or enum properties.\nAs a workaround you can implement the function 'setValue forUndefinedKey' for this. See the unit tests for more information\n")
     }
 }
 
+/**
+Protocol for the workaround when using generics. See WorkaroundSwiftGenericsTests.swift
+*/
+public protocol GenericsKVC {
+    func genericSetValue(value: AnyObject, forKey key: String)
+}
 
+/**
+Protocol for the workaround when using an enum with a rawValue of type Int
+*/
 public protocol EVRawInt {
     var rawValue: Int { get }
 }
+
+/**
+Protocol for the workaround when using an enum with a rawValue of type String
+*/
 public protocol EVRawString {
     var rawValue: String { get }
 }
+
+/**
+Protocol for the workaround when using an enum with a rawValue of an undefined type
+*/
 public protocol EVRaw {
     var anyRawValue: AnyObject { get }
 }
+
+/**
+Protocol for the workaround when using an array with nullable values
+*/
 public protocol EVArrayConvertable {
     func convertArray(key: String, array: Any) -> NSArray
 }

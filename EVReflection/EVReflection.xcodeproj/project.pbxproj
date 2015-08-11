@@ -15,7 +15,7 @@
 		7F0E5E5A1AF4D94000A10E51 /* EVObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F0E5E591AF4D94000A10E51 /* EVObject.swift */; };
 		7F143E001B2F5CEF002345AB /* EVReflectionJsonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F143DFF1B2F5CEF002345AB /* EVReflectionJsonTests.swift */; };
 		7F55CB691B5E2E4400813F4A /* ProfilePhotoUrlListTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F55CB681B5E2E4400813F4A /* ProfilePhotoUrlListTest.swift */; };
-		7F9A970F1B794C6D001B0EC5 /* SwiftGenericsBug.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F9A970E1B794C6D001B0EC5 /* SwiftGenericsBug.swift */; };
+		7F9A970F1B794C6D001B0EC5 /* WorkaroundSwiftGenericsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F9A970E1B794C6D001B0EC5 /* WorkaroundSwiftGenericsTests.swift */; };
 		7FB6ADE31B611A0000001009 /* WorkaroundsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FB6ADE21B611A0000001009 /* WorkaroundsTests.swift */; };
 		7FB6ADE51B6256E900001009 /* EnumWorkaroundTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FB6ADE41B6256E900001009 /* EnumWorkaroundTest.swift */; };
 /* End PBXBuildFile section */
@@ -35,7 +35,7 @@
 		7F0E5E591AF4D94000A10E51 /* EVObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVObject.swift; sourceTree = "<group>"; };
 		7F143DFF1B2F5CEF002345AB /* EVReflectionJsonTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVReflectionJsonTests.swift; sourceTree = "<group>"; };
 		7F55CB681B5E2E4400813F4A /* ProfilePhotoUrlListTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfilePhotoUrlListTest.swift; sourceTree = "<group>"; };
-		7F9A970E1B794C6D001B0EC5 /* SwiftGenericsBug.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftGenericsBug.swift; sourceTree = "<group>"; };
+		7F9A970E1B794C6D001B0EC5 /* WorkaroundSwiftGenericsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkaroundSwiftGenericsTests.swift; sourceTree = "<group>"; };
 		7FB6ADE21B611A0000001009 /* WorkaroundsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkaroundsTests.swift; sourceTree = "<group>"; };
 		7FB6ADE41B6256E900001009 /* EnumWorkaroundTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnumWorkaroundTest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -83,7 +83,7 @@
 				7F143DFF1B2F5CEF002345AB /* EVReflectionJsonTests.swift */,
 				7F55CB681B5E2E4400813F4A /* ProfilePhotoUrlListTest.swift */,
 				7FB6ADE21B611A0000001009 /* WorkaroundsTests.swift */,
-				7F9A970E1B794C6D001B0EC5 /* SwiftGenericsBug.swift */,
+				7F9A970E1B794C6D001B0EC5 /* WorkaroundSwiftGenericsTests.swift */,
 				7F07C5761AF101A9000DF1F3 /* Supporting Files */,
 			);
 			path = EVReflectionTests;
@@ -193,7 +193,7 @@
 				7F07C5881AF10437000DF1F3 /* EVReflection.swift in Sources */,
 				7FB6ADE51B6256E900001009 /* EnumWorkaroundTest.swift in Sources */,
 				7F0E5E5A1AF4D94000A10E51 /* EVObject.swift in Sources */,
-				7F9A970F1B794C6D001B0EC5 /* SwiftGenericsBug.swift in Sources */,
+				7F9A970F1B794C6D001B0EC5 /* WorkaroundSwiftGenericsTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
