@@ -23,7 +23,7 @@ class WorkaroundSwiftGenericsTests: XCTestCase {
 }
 
 // Only put the generic properties in this class. put the rest in a base class
-public class MyGenericObject<T where T:NSObject>: MyGenericBase, GenericsKVC {
+public class MyGenericObject<T where T:NSObject>: MyGenericBase, EVGenericsKVC {
     var data: T = T()
     
     public func genericSetValue(value: AnyObject, forKey key: String) {

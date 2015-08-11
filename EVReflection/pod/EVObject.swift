@@ -120,7 +120,7 @@ public class EVObject: NSObject, NSCoding, Printable, Hashable, Equatable {
     :param: key The name of the property that you wanted to set
     */
     public override func setValue(value: AnyObject!, forUndefinedKey key: String) {
-        if let genericSelf = self as? GenericsKVC {
+        if let genericSelf = self as? EVGenericsKVC {
             genericSelf.genericSetValue(value, forKey: key)
             return
         }
@@ -131,7 +131,7 @@ public class EVObject: NSObject, NSCoding, Printable, Hashable, Equatable {
 /**
 Protocol for the workaround when using generics. See WorkaroundSwiftGenericsTests.swift
 */
-public protocol GenericsKVC {
+public protocol EVGenericsKVC {
     func genericSetValue(value: AnyObject, forKey key: String)
 }
 
