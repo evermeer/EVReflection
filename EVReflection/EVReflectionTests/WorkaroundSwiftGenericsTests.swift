@@ -11,10 +11,10 @@ import XCTest
 
 
 /**
-Testing The 3 propery types that need a workaround.
+Testing the workaround for generics.
 */
 class WorkaroundSwiftGenericsTests: XCTestCase {
-    func testGenerics() {
+    func testGenericsJson() {
         let json:String = "{\"test\":\"test\", \"data\":\"data\"}"
         let a = MyGenericObject<NSString>(json: json)
         XCTAssertEqual(a.test, "test", "test should contin test")
@@ -23,10 +23,11 @@ class WorkaroundSwiftGenericsTests: XCTestCase {
 }
 
 // Only put the generic properties in this class. put the rest in a base class
+// Add the protocol EVGenericsKVC so that we still can have a setValue forUndefinedKey like we adr used to
 public class MyGenericObject<T where T:NSObject>: MyGenericBase, EVGenericsKVC {
     var data: T = T()
     
-    public func genericSetValue(value: AnyObject, forKey key: String) {
+    override public func setValue(value: AnyObject!, forUndefinedKey key: String) {
         switch key {
         case "data":
             data = value as! T
@@ -36,7 +37,7 @@ public class MyGenericObject<T where T:NSObject>: MyGenericBase, EVGenericsKVC {
     }
 }
 
-// Put the rest of the properties in a base class like this. Otherwise you have to handle each in the genericSetValue
+// Put the rest of the properties in a base class like this. Otherwise you have to handle each in the setValue forUndefinedKey
 public class MyGenericBase: EVObject {
     var test : String = ""
 }

@@ -121,7 +121,7 @@ public class EVObject: NSObject, NSCoding, Printable, Hashable, Equatable {
     */
     public override func setValue(value: AnyObject!, forUndefinedKey key: String) {
         if let genericSelf = self as? EVGenericsKVC {
-            genericSelf.genericSetValue(value, forKey: key)
+            genericSelf.setValue(value, forUndefinedKey: key)
             return
         }
         println("\nWARNING: The class '\(EVReflection.swiftStringFromClass(self))' is not key value coding-compliant for the key '\(key)'\n There is no support for optional type, array of optionals or enum properties.\nAs a workaround you can implement the function 'setValue forUndefinedKey' for this. See the unit tests for more information\n")
@@ -132,7 +132,7 @@ public class EVObject: NSObject, NSCoding, Printable, Hashable, Equatable {
 Protocol for the workaround when using generics. See WorkaroundSwiftGenericsTests.swift
 */
 public protocol EVGenericsKVC {
-    func genericSetValue(value: AnyObject, forKey key: String)
+    func setValue(value: AnyObject!, forUndefinedKey key: String)
 }
 
 /**
