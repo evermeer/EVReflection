@@ -216,6 +216,7 @@ final public class EVReflection {
     */
     public class func toJsonString(theObject: NSObject) -> String {
         var (dict,_) = EVReflection.toDictionary(theObject)
+        dict = convertDictionaryForJsonSerialization(dict)
         var error:NSError? = nil
         if var jsonData = NSJSONSerialization.dataWithJSONObject(dict , options: .PrettyPrinted, error: &error) {
             if var jsonString = NSString(data:jsonData, encoding:NSUTF8StringEncoding) {
@@ -223,6 +224,45 @@ final public class EVReflection {
             }
         }
         return ""
+    }
+    
+    /**
+    Clean up dictionary so that it can be converted to json
+    */
+    private class func convertDictionaryForJsonSerialization(dict: NSDictionary) -> NSDictionary {
+        for (key, value) in dict {
+            dict.setValue(convertValueForJsonSerialization(value), forKey: key as! String)
+        }
+        return dict
+    }
+    
+    /**
+    Clean up a value so that it can be converted to json
+    */
+    private class func convertValueForJsonSerialization(value : AnyObject) -> AnyObject {
+        switch(value) {
+        case let stringValue as NSString:
+            return stringValue
+        case let numberValue as NSNumber:
+            return numberValue
+        case let nullValue as NSNull:
+            return nullValue
+        case let arrayValue as NSArray:
+            var tempArray: NSMutableArray = NSMutableArray()
+            for value in arrayValue {
+                tempArray.addObject(convertValueForJsonSerialization(value))
+            }
+            return tempArray
+        case let ok as NSDictionary:
+            return convertDictionaryForJsonSerialization(ok)
+        case let dateValue as NSDate:
+            var dateFormatter = NSDateFormatter()
+            return dateFormatter.stringFromDate(dateValue)
+        case let recordIdValue as CKRecordID:
+            return recordIdValue.recordName
+        default:
+            return "\(value)"
+        }
     }
     
     /**
