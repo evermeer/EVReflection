@@ -40,3 +40,11 @@ class TestObject3: EVObject {
         }
     }
 }
+
+/**
+For testing the automatic conversion from and to string and int
+*/
+public class MyStringInt: EVObject {
+    var myString : String = ""
+    var myInt : Int = 0
+}

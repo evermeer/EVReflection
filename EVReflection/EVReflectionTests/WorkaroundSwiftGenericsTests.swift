@@ -17,8 +17,8 @@ class WorkaroundSwiftGenericsTests: XCTestCase {
     func testGenericsJson() {
         let json:String = "{\"test\":\"test\", \"data\":\"data\"}"
         let a = MyGenericObject<NSString>(json: json)
-        XCTAssertEqual(a.test, "test", "test should contin test")
-        XCTAssertEqual(a.data as! String, "data", "data should contin data")
+        XCTAssertEqual(a.test, "test", "test should contain test")
+        XCTAssertEqual(a.data as! String, "data", "data should contain data")
     }
 }
 

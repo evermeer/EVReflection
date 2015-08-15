@@ -115,6 +115,14 @@ class EVReflectionJsonTests: XCTestCase {
             XCTAssertTrue(user!.friends![1].name == "Jen Jackson", "friend 2 name should be Jen Jackson")
         }
     }
+
+    
+    func testTypeJson() {
+        let json:String = "{\"myString\":1, \"myInt\":\"2\"}"
+        let a = MyStringInt(json: json)
+        XCTAssertEqual(a.myString, "1", "myString should contain 1")
+        XCTAssertEqual(a.myInt, 2, "myInt should contain 2")
+    }
 }
 
 

@@ -488,7 +488,7 @@ final public class EVReflection {
                     let convertedValue = arrayConverter.convertArray(key, array: theValue)
                     return (convertedValue, valueType)
                 } else {
-                    println("An object with a property of type Array with optional objects should implement the EVArrayConvertable protocol.")
+                    NSLog("An object with a property of type Array with optional objects should implement the EVArrayConvertable protocol.")
                 }
             }
         } else {

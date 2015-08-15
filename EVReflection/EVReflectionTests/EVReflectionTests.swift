@@ -181,6 +181,23 @@ class EVReflectionTests: XCTestCase {
         XCTAssert(theObject != result, "Pass") // The objects are not the same
     }
     
+    /**
+    Test the conversion from string to number and from number to string
+    */
+    func testTypeDict() {
+        let i:Int32 = 1
+        let s:String = "2"
+        let dictOriginal: NSMutableDictionary = NSMutableDictionary()
+        dictOriginal.setValue(s, forKey: "myInt")
+        dictOriginal.setValue(NSNumber(int:i), forKey: "myString")
+        let a = MyStringInt(dictionary: dictOriginal)
+        XCTAssertEqual(a.myString, "1", "myString should contain 1")
+        XCTAssertEqual(a.myInt, 2, "myInt should contain 2")
+    }
+
+    /**
+    Test various large number conversions to NSNumber
+    */
     func testNSNumber() {
         let test1 = NSNumber(double: 458347978508)
         let (value1: AnyObject, key1) = EVReflection.valueForAny("", key: "", anyValue: test1)
