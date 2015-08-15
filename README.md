@@ -32,6 +32,7 @@ It's not possible in Swift to use .setObjectForKey for:
 - nullable type fields like Int? 
 - properties based on an enum
 - an Array of nullable objects like [MyObject?] 
+- generic properties
 
 There are 2 possible workarounds for this.
 
@@ -40,8 +41,12 @@ There are 2 possible workarounds for this.
 - Instead of an Int? you could use NSNumber?
 - Instead of [MyObject?] use [MyObject]
 - Instead of 'var status: StatysType' use 'var status:Int' and save the rawValue
+- Instead of a generic property use a specific property that can hold the data (a dictionary?)
 
-2. By overriding the setValue for key in the object itself (see WorkaroundsTests.swift to see the workaround for all these types in action)
+2. By overriding the setValue for key in the object itself (see WorkaroundsTests.swift to see the workaround for all these types in action). 
+
+- For generic properties the protocol EVGenericsKVC is required. 
+- For arrays with nullable objects the protocol EVArrayConvertable is required
 
 ## Using EVReflection in your own App 
 

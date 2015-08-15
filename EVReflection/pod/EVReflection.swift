@@ -54,7 +54,7 @@ final public class EVReflection {
                         newValue = dictArrayToObjectArray(type, array: newValue as! [NSDictionary]) as [NSObject]
                     }
                 }
-                let keywords = ["self", "description", "class", "deinit", "enum", "extension", "func", "import", "init", "let", "protocol", "static", "struct", "subscript", "typealias", "var", "break", "case", "continue", "default", "do", "else", "fallthrough", "if", "in", "for", "return", "switch", "where", "while", "as", "dynamicType", "is", "new", "super", "Self", "Type", "__COLUMN__", "__FILE__", "__FUNCTION__", "__LINE__", "associativity", "didSet", "get", "infix", "inout", "left", "mutating", "none", "nonmutating", "operator", "override", "postfix", "precedence", "prefix", "right", "set", "unowned", "unowned", "safe", "unowned", "unsafe", "weak", "willSet"]
+                let keywords = ["self", "description", "class", "deinit", "enum", "extension", "func", "import", "init", "let", "protocol", "static", "struct", "subscript", "typealias", "var", "break", "case", "continue", "default", "do", "else", "fallthrough", "if", "in", "for", "return", "switch", "where", "while", "as", "dynamicType", "is", "new", "super", "Self", "Type", "__COLUMN__", "__FILE__", "__FUNCTION__", "__LINE__", "associativity", "didSet", "get", "infix", "inout", "left", "mutating", "none", "nonmutating", "operator", "override", "postfix", "precedence", "prefix", "right", "set", "unowned", "unowned", "safe", "unowned", "unsafe", "weak", "willSet", "private", "public", "internal", "zone"]
                 if keywords.contains(key) {
                     key = "_\(key)"
                 }
@@ -64,7 +64,16 @@ final public class EVReflection {
                     if newValue == nil || newValue as? NSNull != nil {
                         anyObject.setValue(Optional.None, forKey: key)
                     } else {
-                        // TODO: This will trigger setvalue for undefined key for specific types. 
+                        // Let us put a number into a string property by taking it's stringValue
+                        if let typeInObject = hasTypes[key] {
+                            let (_, type) = valueForAny("", key: key, anyValue: newValue)
+                            if (typeInObject == "Swift.String" || typeInObject == "NSString") && type == "NSNumber" {
+                                if let convertedValue = newValue as? NSNumber {
+                                    newValue = convertedValue.stringValue
+                                }
+                            }
+                        }
+                        // TODO: This will trigger setvalue for undefined key for specific types like enums, arrays of optionals or optional types.
                         anyObject.setValue(newValue, forKey: key)
                     }
                 } catch _ as NSError { }
@@ -217,7 +226,8 @@ final public class EVReflection {
     :return: The string representation of the object
     */
     public class func toJsonString(theObject: NSObject) -> String {
-        let (dict,_) = EVReflection.toDictionary(theObject)
+        var (dict,_) = EVReflection.toDictionary(theObject)
+        dict = convertDictionaryForJsonSerialization(dict)
         do {
             let jsonData = try NSJSONSerialization.dataWithJSONObject(dict , options: .PrettyPrinted)
             if let jsonString = NSString(data:jsonData, encoding:NSUTF8StringEncoding) {
@@ -226,6 +236,46 @@ final public class EVReflection {
         } catch _ as NSError { }
         return ""
     }
+
+    
+    /**
+    Clean up dictionary so that it can be converted to json
+    */
+    private class func convertDictionaryForJsonSerialization(dict: NSDictionary) -> NSDictionary {
+        for (key, value) in dict {
+            dict.setValue(convertValueForJsonSerialization(value), forKey: key as! String)
+        }
+        return dict
+    }
+    
+    /**
+    Clean up a value so that it can be converted to json
+    */
+    private class func convertValueForJsonSerialization(value : AnyObject) -> AnyObject {
+        switch(value) {
+        case let stringValue as NSString:
+            return stringValue
+        case let numberValue as NSNumber:
+            return numberValue
+        case let nullValue as NSNull:
+            return nullValue
+        case let arrayValue as NSArray:
+            let tempArray: NSMutableArray = NSMutableArray()
+            for value in arrayValue {
+                tempArray.addObject(convertValueForJsonSerialization(value))
+            }
+            return tempArray
+        case let ok as NSDictionary:
+            return convertDictionaryForJsonSerialization(ok)
+        case let dateValue as NSDate:
+            let dateFormatter = NSDateFormatter()
+            return dateFormatter.stringFromDate(dateValue)
+        case let recordIdValue as CKRecordID:
+            return recordIdValue.recordName
+        default:
+            return "\(value)"
+        }
+    }
     
     /**
     Return a dictionary representation for the json string
@@ -233,8 +283,11 @@ final public class EVReflection {
     - parameter json: The json string that will be converted
     :return: The dictionary representation of the json
     */
-    public class func dictionaryFromJson(json: String) -> Dictionary<String, AnyObject> {
-        if let jsonData = json.dataUsingEncoding(NSUTF8StringEncoding) {
+    public class func dictionaryFromJson(json: String?) -> Dictionary<String, AnyObject> {
+        if json == nil {
+            return Dictionary<String, AnyObject>()
+        }
+        if let jsonData = json!.dataUsingEncoding(NSUTF8StringEncoding) {
             do {
                 if let jsonDic = try NSJSONSerialization.JSONObjectWithData(jsonData, options: NSJSONReadingOptions.MutableContainers) as? Dictionary<String, AnyObject> {
                     return jsonDic
@@ -251,8 +304,11 @@ final public class EVReflection {
     
     :return: The array of dictionaries representation of the json
     */
-    public class func arrayFromJson<T where T:EVObject>(type:T, json: String) -> [T] {
-        if let jsonData = json.dataUsingEncoding(NSUTF8StringEncoding) {
+    public class func arrayFromJson<T where T:EVObject>(type:T, json: String?) -> [T] {
+        if json == nil {
+            return [T]()
+        }
+        if let jsonData = json!.dataUsingEncoding(NSUTF8StringEncoding) {
             do {
                 if let jsonDic: [Dictionary<String, AnyObject>] = try NSJSONSerialization.JSONObjectWithData(jsonData, options: NSJSONReadingOptions.MutableContainers) as? [Dictionary<String, AnyObject>] {
                     return jsonDic.map({T(dictionary: $0)})
@@ -442,6 +498,7 @@ final public class EVReflection {
                 return (NSNull(), subtype)
             }
         } else if mi.displayStyle == .Enum {
+            valueType = "\(theValue.dynamicType)"
             //TODO: See if new Swift version can make using the EVRaw* protocols obsolete
             if let value = theValue as? EVRawString {
                 return (value.rawValue, "\(mi.subjectType)")
@@ -462,10 +519,9 @@ final public class EVReflection {
                     let convertedValue = arrayConverter.convertArray(key, array: theValue)
                     return (convertedValue, valueType)
                 } else {
-                    print("An object with a property of type Array with optional objects should implement the EVArrayConvertable protocol.")
+                    NSLog("An object with a property of type Array with optional objects should implement the EVArrayConvertable protocol.")
                 }
             }
-            print("WARNING: valueForAny unkown type \(theValue), type \(valueType)")
         } else {
             valueType = "\(mi.subjectType)"
         }
@@ -479,10 +535,24 @@ final public class EVReflection {
             return (NSNumber(float: floatValue), "NSNumber")
         case let longValue as Int64:
             return (NSNumber(longLong: longValue), "NSNumber")
+        case let longValue as UInt64:
+            return (NSNumber(unsignedLongLong: longValue), "NSNumber")
         case let intValue as Int32:
             return (NSNumber(int: intValue), "NSNumber")
+        case let intValue as UInt32:
+            return (NSNumber(unsignedInt: intValue), "NSNumber")
+        case let intValue as Int16:
+            return (NSNumber(short: intValue), "NSNumber")
+        case let intValue as UInt16:
+            return (NSNumber(unsignedShort: intValue), "NSNumber")
+        case let intValue as Int8:
+            return (NSNumber(char: intValue), "NSNumber")
+        case let intValue as UInt8:
+            return (NSNumber(unsignedChar: intValue), "NSNumber")
         case let intValue as Int:
             return (NSNumber(integer: intValue), "NSNumber")
+        case let intValue as UInt:
+            return (NSNumber(unsignedLong: intValue), "NSNumber")
         case let stringValue as String:
             return (stringValue as NSString, "NSString")
         case let boolValue as Bool:

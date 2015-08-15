@@ -40,6 +40,7 @@ class WorkaroundsTests: XCTestCase {
             XCTAssertTrue(status.list[1]?.nullableType == 3, "the second item in the list should have nullableType 3")
         }
     }
+    
 }
 
 
@@ -54,7 +55,6 @@ class WorkaroundObject: EVObject, EVArrayConvertable {
     var nullableType: Int?
     var enumType: StatusType = .OK
     var list: [WorkaroundObject?] = [WorkaroundObject?]()
-    
     
     // Handling the setting of non key-value coding compliant properties
     override func setValue(value: AnyObject!, forUndefinedKey key: String) {
@@ -95,5 +95,10 @@ class WorkaroundObject: EVObject, EVArrayConvertable {
             return NSArray()
         }
     }
-
 }
+
+
+
+
+
+

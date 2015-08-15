@@ -41,7 +41,7 @@ public class EVObject: NSObject, NSCoding { //, CustomStringConvertible, Hashabl
     /**
     Convenience init for creating an object whith the contents of a json string.
     */
-    public convenience required init(json:String) {
+    public convenience required init(json:String?) {
         self.init()
         let jsonDict = EVReflection.dictionaryFromJson(json)
         EVReflection.setPropertiesfromDictionary(jsonDict, anyObject: self)
@@ -120,20 +120,45 @@ public class EVObject: NSObject, NSCoding { //, CustomStringConvertible, Hashabl
     - parameter key: The name of the property that you wanted to set
     */
     public override func setValue(value: AnyObject!, forUndefinedKey key: String) {
-        print("\nWARNING: The class '\(EVReflection.swiftStringFromClass(self))' is not key value coding-compliant for the key '\(key)'\n There is no support for optional type, array of optionals or enum properties.\nAs a workaround you can implement the function 'setValue forUndefinedKey' for this. See the unit tests for more information\n")
+        if let genericSelf = self as? EVGenericsKVC {
+            genericSelf.setValue(value, forUndefinedKey: key)
+            return
+        }
+        NSLog("\nWARNING: The class '\(EVReflection.swiftStringFromClass(self))' is not key value coding-compliant for the key '\(key)'\n There is no support for optional type, array of optionals or enum properties.\nAs a workaround you can implement the function 'setValue forUndefinedKey' for this. See the unit tests for more information\n")
     }
 }
 
+/**
+Protocol for the workaround when using generics. See WorkaroundSwiftGenericsTests.swift
+*/
+public protocol EVGenericsKVC {
+    func setValue(value: AnyObject!, forUndefinedKey key: String)
+}
 
+/**
+Protocol for the workaround when using an enum with a rawValue of type Int
+*/
 public protocol EVRawInt {
     var rawValue: Int { get }
 }
+
+/**
+Protocol for the workaround when using an enum with a rawValue of type String
+*/
 public protocol EVRawString {
     var rawValue: String { get }
 }
+
+/**
+Protocol for the workaround when using an enum with a rawValue of an undefined type
+*/
 public protocol EVRaw {
     var anyRawValue: AnyObject { get }
 }
+
+/**
+Protocol for the workaround when using an array with nullable values
+*/
 public protocol EVArrayConvertable {
     func convertArray(key: String, array: Any) -> NSArray
 }
