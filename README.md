@@ -32,25 +32,25 @@ It's not possible in Swift to use .setObjectForKey for:
 - nullable type fields like Int? 
 - properties based on an enum
 - an Array of nullable objects like [MyObject?] 
-- generic properties
+- generic properties like var myVal:T = T()
 
-There are 2 possible workarounds for this.
+For all these issues there are workarounds.
 
-1. Using a difrent type like:
+1. The easiest workaround is just using a difrent type like:
 
 - Instead of an Int? you could use NSNumber?
 - Instead of [MyObject?] use [MyObject]
 - Instead of 'var status: StatysType' use 'var status:Int' and save the rawValue
 - Instead of a generic property use a specific property that can hold the data (a dictionary?)
 
-2. By overriding the setValue for key in the object itself (see WorkaroundsTests.swift to see the workaround for all these types in action). 
+2. If you want to keep on using the same type, You can override the setValue forUndefinedKey in the object itself. See WorkaroundsTests.swift and WorkaroundSwiftGenericsTests.swift to see the workaround for all these types in action. 
 
-- For generic properties the protocol EVGenericsKVC is required. 
-- For arrays with nullable objects the protocol EVArrayConvertable is required
+- For generic properties the protocol EVGenericsKVC is required. see WorkaroundSwiftGenericsTests.swift 
+- For arrays with nullable objects the protocol EVArrayConvertable is required. see WorkaroundsTests.swift
 
 ## Using EVReflection in your own App 
 
-'EVReflection' is now available through the dependency manager [CocoaPods](http://cocoapods.org). 
+'EVReflection' is available through the dependency manager [CocoaPods](http://cocoapods.org). 
 You do have to use cocoapods version 0.36 or later
 
 You can just add EVReflection to your workspace by adding the folowing 2 lines to your Podfile:
@@ -60,7 +60,7 @@ use_frameworks!
 pod "EVReflection"
 ```
 
-If you are using Swift 2.0 (tested with beta 2) then instead put the folowing lines in your Podfile:
+If you are using Swift 2.0 (tested with beta 4) then instead put the folowing lines in your Podfile:
 
 ```
 use_frameworks!
