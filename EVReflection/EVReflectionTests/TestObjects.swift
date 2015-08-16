@@ -44,7 +44,9 @@ class TestObject3: EVObject {
 /**
 For testing the automatic conversion from and to string and int
 */
-public class MyStringInt: EVObject {
+public class TestObject4: EVObject {
     var myString : String = ""
     var myInt : Int = 0
+    var myFloat : Float = 0
+    var myBool : Bool = true
 }

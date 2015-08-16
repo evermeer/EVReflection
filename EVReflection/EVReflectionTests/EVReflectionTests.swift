@@ -190,9 +190,27 @@ class EVReflectionTests: XCTestCase {
         let dictOriginal: NSMutableDictionary = NSMutableDictionary()
         dictOriginal.setValue(s, forKey: "myInt")
         dictOriginal.setValue(NSNumber(int:i), forKey: "myString")
-        let a = MyStringInt(dictionary: dictOriginal)
+        let a = TestObject4(dictionary: dictOriginal)
         XCTAssertEqual(a.myString, "1", "myString should contain 1")
         XCTAssertEqual(a.myInt, 2, "myInt should contain 2")
+    }
+    
+    func testTypeDictAllString() {
+        let dict = ["myString":"1", "myInt":"2", "myFloat":"2.1", "myBool":"1"]
+        let a = TestObject4(dictionary: dict)
+        XCTAssertEqual(a.myString, "1", "myString should contain 1")
+        XCTAssertEqual(a.myInt, 2, "myInt should contain 2")
+        XCTAssertEqual(a.myFloat, 2.1, "myFloat should contain 2.1")
+        XCTAssertEqual(a.myBool, true, "myBool should contain true")
+    }
+    
+    func testTypeDict2AllNumeric() {
+        let dict = ["myString":1, "myInt":2, "myFloat":2.1, "myBool":1]
+        let a = TestObject4(dictionary: dict)
+        XCTAssertEqual(a.myString, "1", "myString should contain 1")
+        XCTAssertEqual(a.myInt, 2, "myInt should contain 2")
+        XCTAssertEqual(a.myFloat, 2.1, "myFloat should contain 2.1")
+        XCTAssertEqual(a.myBool, true, "myBool should contain true")
     }
 
     /**
