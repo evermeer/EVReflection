@@ -41,11 +41,11 @@ final public class EVReflection {
         var (hasKeys, hasTypes) = toDictionary(anyObject)
         for (k, v) in dictionary {
             if var key = k as? String {
-                var newValue: AnyObject? = dictionary[key]!
+                var newValue:AnyObject? = v
                 if let type = hasTypes[key] {
-                    if type.hasPrefix("Swift.Array<") && newValue as? NSDictionary != nil {
+                    if type.hasPrefix("Array<") && newValue as? NSDictionary != nil {
                         if var value = v as? [NSObject] {
-                            value.append(newValue! as! NSObject)
+                            value.append(newValue as! NSObject)
                             newValue = value
                         }
                     } else if type != "NSDictionary" && newValue as? NSDictionary != nil {
@@ -67,7 +67,7 @@ final public class EVReflection {
                         // Let us put a number into a string property by taking it's stringValue
                         if let typeInObject = hasTypes[key] {
                             let (_, type) = valueForAny("", key: key, anyValue: newValue)
-                            if (typeInObject == "Swift.String" || typeInObject == "NSString") && type == "NSNumber" {
+                            if (typeInObject == "String" || typeInObject == "NSString") && type == "NSNumber" {
                                 if let convertedValue = newValue as? NSNumber {
                                     newValue = convertedValue.stringValue
                                 }
@@ -110,12 +110,12 @@ final public class EVReflection {
     private class func dictArrayToObjectArray(type:String, array:[NSDictionary]) -> [NSObject] {
         var subtype = "EVObject"
         if type.componentsSeparatedByString("<").count > 1 {
-            // Remove the Swift.Array prefix
+            // Remove the Array prefix
             subtype = type.substringFromIndex((type.componentsSeparatedByString("<") [0] + "<").endIndex)
             subtype = subtype.substringToIndex(subtype.endIndex.predecessor())
             
             // Remove the optional prefix from the subtype
-            if subtype.hasPrefix("Swift.Optional<") {
+            if subtype.hasPrefix("Optional<") {
                 subtype = subtype.substringFromIndex((subtype.componentsSeparatedByString("<") [0] + "<").endIndex)
                 subtype = subtype.substringToIndex(subtype.endIndex.predecessor())
             }
@@ -361,7 +361,7 @@ final public class EVReflection {
             if bundle.bundleIdentifier == nil {
                 bundle = NSBundle(forClass: EVReflection().dynamicType)
             }
-            appName = (split((bundle.bundleIdentifier!).characters){$0 == "."}.map { String($0) }).last ?? ""
+            appName = (bundle.bundleIdentifier!).characters.split(isSeparator: {$0 == "."}).map({ String($0) }).last ?? ""
         }
         let cleanAppName = appName.stringByReplacingOccurrencesOfString(" ", withString: "_", options: NSStringCompareOptions.CaseInsensitiveSearch, range: nil)
         return cleanAppName
@@ -400,7 +400,7 @@ final public class EVReflection {
         let classWithoutAppName: String = classStringName.stringByReplacingOccurrencesOfString(appName + ".", withString: "", options: NSStringCompareOptions.CaseInsensitiveSearch, range: nil)
         if classWithoutAppName.rangeOfString(".") != nil {
             NSLog("Warning! Your Bundle name should be the name of your target (set it to $(PRODUCT_NAME))")
-            let parts = split(classWithoutAppName.characters){$0 == "."}
+            let parts = classWithoutAppName.characters.split(isSeparator:{$0 == "."})
             let strings: [String] = parts.map { String($0) }
             return strings.last!
         }
@@ -513,7 +513,7 @@ final public class EVReflection {
             }
         } else if mi.displayStyle == .Collection {
             valueType = "\(mi.subjectType)"
-            if valueType.hasPrefix("Swift.Array<Swift.Optional<") {
+            if valueType.hasPrefix("Array<Optional<") {
                 //TODO: See if new Swift version can make using the EVArrayConvertable protocol obsolete
                 if let arrayConverter = parentObject as? EVArrayConvertable {
                     let convertedValue = arrayConverter.convertArray(key, array: theValue)

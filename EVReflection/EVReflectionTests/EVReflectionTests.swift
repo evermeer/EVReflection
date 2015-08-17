@@ -104,7 +104,7 @@ class EVReflectionTests: XCTestCase {
         let theObject = TestObject2()
         theObject.objectValue = "value1"
 
-        let filePath = NSTemporaryDirectory().stringByAppendingPathComponent("temp.dat")
+        let filePath = (NSTemporaryDirectory() as NSString).stringByAppendingPathComponent("temp.dat")
 
         // Write object to file
         NSKeyedArchiver.archiveRootObject(theObject, toFile: filePath)
@@ -143,7 +143,7 @@ class EVReflectionTests: XCTestCase {
         theObject.objectValue = "value1"
         theObject.nullableType = 3
 
-        let filePath = NSTemporaryDirectory().stringByAppendingPathComponent("temp.dat")
+        let filePath = (NSTemporaryDirectory() as NSString).stringByAppendingPathComponent("temp.dat")
 
         // Write object to file
         NSKeyedArchiver.archiveRootObject(theObject, toFile: filePath)
@@ -199,9 +199,9 @@ class EVReflectionTests: XCTestCase {
     Test various large number conversions to NSNumber
     */
     func testNSNumber() {
-        let test1 = NSNumber(double: 458347978508)
+        let test1 = NSNumber(double:  Double(Int.max))
         let (value1, _) = EVReflection.valueForAny("", key: "", anyValue: test1)
-        XCTAssert(value1 as? NSNumber == NSNumber(long: 458347978508), "Values should be same for type NSNumber")
+        XCTAssert(value1 as? NSNumber == NSNumber(long: Int.max), "Values should be same for type NSNumber")
         
         let test2:Float = 458347978508
         let (value2, _) = EVReflection.valueForAny("", key: "", anyValue: test2)
