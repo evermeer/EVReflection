@@ -15,7 +15,7 @@ final public class EVReflection {
     
     /**
     Create an object from a dictionary
-
+    
     - parameter dictionary: The dictionary that will be converted to an object
     - parameter anyobjectTypeString: The string representation of the object type that will be created
     
@@ -31,7 +31,7 @@ final public class EVReflection {
     
     /**
     Set object properties from a dictionary
-
+    
     - parameter dictionary: The dictionary that will be converted to an object
     - parameter anyObject: The object where the properties will be set
     
@@ -80,13 +80,13 @@ final public class EVReflection {
             }
         }
         return anyObject    }
-
+    
     /**
     Set sub object properties from a dictionary
     
     - parameter type: The object type that will be created
     - parameter dict: The dictionary that will be converted to an object
-
+    
     :return: The object that is created from the dictionary
     */
     private class func dictToObject<T where T:NSObject>(type:String, original:T ,dict:NSDictionary) -> T {
@@ -120,7 +120,7 @@ final public class EVReflection {
                 subtype = subtype.substringToIndex(subtype.endIndex.predecessor())
             }
         }
-
+        
         var result = [NSObject]()
         for item in array {
             let arrayObject = self.dictToObject(subtype, original:swiftClassFromString(subtype), dict: item)
@@ -140,7 +140,7 @@ final public class EVReflection {
     
     /**
     Convert an object to a dictionary
-
+    
     - parameter theObject: The object that will be converted to a dictionary
     :return: The dictionary that is created from theObject plus a dictionary of propery types.
     */
@@ -151,7 +151,7 @@ final public class EVReflection {
     
     /**
     for parsing an object to a dictionary. including properties from it's super class (recursive)
-
+    
     - parameter reflected: The object parsed using the reflect method.
     
     :return: The dictionary that is created from the object plus an dictionary of property types.
@@ -193,7 +193,7 @@ final public class EVReflection {
     
     /**
     Dump the content of this object
-
+    
     - parameter theObject: The object that will be loged
     */
     public class func logObject(theObject: NSObject) {
@@ -202,7 +202,7 @@ final public class EVReflection {
     
     /**
     Return a string representation of this object
-
+    
     - parameter theObject: The object that will be loged
     
     :return: The string representation of the object
@@ -236,7 +236,7 @@ final public class EVReflection {
         } catch _ as NSError { }
         return ""
     }
-
+    
     
     /**
     Clean up dictionary so that it can be converted to json
@@ -321,7 +321,7 @@ final public class EVReflection {
     
     /**
     Create a hashvalue for the object
-
+    
     - parameter theObject: The object for what you want a hashvalue
     
     :return: the hashvalue for the object
@@ -333,9 +333,9 @@ final public class EVReflection {
     
     /**
     Get the swift Class type from a string
-
+    
     - parameter className: The string representation of the class (name of the bundle dot name of the class)
-
+    
     :return: The Class type
     */
     public class func swiftClassTypeFromString(className: String) -> AnyClass! {
@@ -355,6 +355,9 @@ final public class EVReflection {
     :return: A cleaned up name of the app.
     */
     private class func getCleanAppName()-> String {
+        if EVReflection.bundleIdentifier != nil {
+            return EVReflection.bundleIdentifier!
+        }
         var bundle = NSBundle.mainBundle()
         var appName = bundle.infoDictionary?["CFBundleName"] as? String ?? ""
         if appName == "" {
@@ -367,11 +370,25 @@ final public class EVReflection {
         return cleanAppName
     }
     
+    private static var bundleIdentifier:String? = nil
+    /**
+    This method can be used in unit tests to force the bundle where classes can be found
+    
+    :param: forClass The class that will be used to find the appName for in which we can find classes by string.
+    
+    :returns: nothing
+    */
+    public class func setBundleIdentifier(forClass: AnyClass) {
+        if let x = NSBundle(forClass:forClass).bundleIdentifier {
+            EVReflection.bundleIdentifier = x.characters.split(isSeparator: {$0 == "."}).map({ String($0) }).last ?? ""
+        }
+    }
+    
     /**
     Get the swift Class from a string
-
+    
     - parameter className: The string representation of the class (name of the bundle dot name of the class)
-
+    
     :return: The Class type
     */
     public class func swiftClassFromString(className: String) -> NSObject! {
@@ -389,9 +406,9 @@ final public class EVReflection {
     
     /**
     Get the class name as a string from a swift class
-
+    
     - parameter theObject: An object for whitch the string representation of the class will be returned
-
+    
     :return: The string representation of the class (name of the bundle dot name of the class)
     */
     public class func swiftStringFromClass(theObject: NSObject) -> String! {
@@ -409,7 +426,7 @@ final public class EVReflection {
     
     /**
     Encode any object
-
+    
     - parameter theObject: The object that we want to encode.
     - parameter aCoder: The NSCoder that will be used for encoding the object.
     */
@@ -422,7 +439,7 @@ final public class EVReflection {
     
     /**
     Decode any object
-
+    
     - parameter theObject: The object that we want to decode.
     - parameter aDecoder: The NSCoder that will be used for decoding the object.
     */
@@ -444,10 +461,10 @@ final public class EVReflection {
     
     /**
     Compare all fields of 2 objects
-
+    
     - parameter lhs: The first object for the comparisson
     - parameter rhs: The second object for the comparisson
-
+    
     :return: true if the objects are the same, otherwise false
     */
     public class func areEqual(lhs: NSObject, rhs: NSObject) -> Bool {
@@ -472,16 +489,16 @@ final public class EVReflection {
     
     /**
     Helper function to convert an Any to AnyObject
-
+    
     - parameter anyValue: Something of type Any is converted to a type NSObject
-
+    
     :return: The NSOBject that is created from the Any value plus the type of that value
     */
     public class func valueForAny(parentObject:Any, key:String, anyValue: Any) -> (AnyObject, String) {
         var theValue = anyValue
         var valueType = "EVObject"
         let mi: Mirror = Mirror(reflecting: theValue)
-
+        
         if mi.displayStyle == .Optional {
             if mi.children.count == 1 {
                 if mi.children.first?.label == "Some" {

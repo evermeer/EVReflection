@@ -33,6 +33,7 @@ class EVReflectionJsonTests: XCTestCase {
     override func setUp() {
         super.setUp()
         // Put setup code here. This method is called before the invocation of each test method in the class.
+        EVReflection.setBundleIdentifier(TestObject)
     }
     
     /**
@@ -42,6 +43,8 @@ class EVReflectionJsonTests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
         super.tearDown()
     }
+    
+
     
     func testJsonArray() {
         let jsonDictOriginal:String = "[{\"id\": 27, \"name\": \"Bob Jefferson\"}, {\"id\": 29, \"name\": \"Jen Jackson\"}]"

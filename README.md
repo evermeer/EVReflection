@@ -259,6 +259,11 @@ If you have JSON fields that are Swift keywords, then prefix the property with a
 
 "self", "description", "class", "deinit", "enum", "extension", "func", "import", "init", "let", "protocol", "static", "struct", "subscript", "typealias", "var", "break", "case", "continue", "default", "do", "else", "fallthrough", "if", "in", "for", "return", "switch", "where", "while", "as", "dynamicType", "is", "new", "super", "Self", "Type", "__COLUMN__", "__FILE__", "__FUNCTION__", "__LINE__", "associativity", "didSet", "get", "infix", "inout", "left", "mutating", "none", "nonmutating", "operator", "override", "postfix", "precedence", "prefix", "right", "set", "unowned", "unowned", "safe", "unowned", "unsafe", "weak", "willSet"
 
+When the object classes are not in the main bundle or when you use EVReflection from withing your unit tests, then you need to tell EVReflection which bundle to use. That can be done by executing the folowing statement (where TestObject is one of the classes inside that bundle):
+```
+EVReflection.setBundleIdentifier(TestObject)
+```
+
 See also [AlamofireJsonToObjects](https://github.com/evermeer/AlamofireJsonToObjects)
 
 
