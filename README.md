@@ -254,8 +254,25 @@ class EVReflectionJsonTests: XCTestCase {
     }
 }
 ```
+
 If you have JSON fields that are Swift keywords, then prefix the property with an underscore. So the JSON value for self will be stored in the property _self. At this moment the folowing keywords are handled:
 "self", "description", "class", "deinit", "enum", "extension", "func", "import", "init", "let", "protocol", "static", "struct", "subscript", "typealias", "var", "break", "case", "continue", "default", "do", "else", "fallthrough", "if", "in", "for", "return", "switch", "where", "while", "as", "dynamicType", "is", "new", "super", "Self", "Type", "__COLUMN__", "__FILE__", "__FUNCTION__", "__LINE__", "associativity", "didSet", "get", "infix", "inout", "left", "mutating", "none", "nonmutating", "operator", "override", "postfix", "precedence", "prefix", "right", "set", "unowned", "unowned", "safe", "unowned", "unsafe", "weak", "willSet", "private", "public"
+
+It's also possibe to create a custom property mapping. You can define if an import should be ignorde, if an export should be ignored or you can map a property name to another key name (for the dictionary and json). For this you only need to implement the propertyMapping method in the object like this:
+
+```
+public class TestObject5: EVObject {
+   var Name: String = "" // Using the default mapping
+   var dummyPropertyInObject: String = "" // Will not be written from object to targe but will be written to object if exist in dictionary or json
+   var propertyInObject: String = "" // will be written to or read from keyInJson
+   var ignoredProperty: String = "" // Will not be written to object or from object to target
+
+   override public func propertyMapping() -> [(String?, String?)] {
+      return [("ignoredProperty",nil), (nil,"ignoredProperty"), ("dummyPropertyInObject",nil), (nil,"dummpyKeyInJson"), ("propertyInObject","keyInJson")]
+   }
+}
+```
+
 
 See also [AlamofireJsonToObjects](https://github.com/evermeer/AlamofireJsonToObjects)
 

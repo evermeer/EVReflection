@@ -39,40 +39,54 @@ final public class EVReflection {
         var (hasKeys, hasTypes) = toDictionary(anyObject)
         for (k, v) in dictionary {
             if var key = k as? String {
-                var newValue: AnyObject? = dictionary[key]!
-                if let type = hasTypes[key] {
-                    if type.hasPrefix("Swift.Array<") && newValue as? NSDictionary != nil {
-                        if var value = v as? [NSObject] {
-                            value.append(newValue! as! NSObject)
-                            newValue = value
+                var skipKey = false
+                var toKey = key
+                if let evObject = anyObject as? EVObject {
+                    if let mapping = filter(evObject.propertyMapping(), {$0.1 == key}).first {
+                        if mapping.0 == nil {
+                            skipKey = true
+                        } else {
+                            toKey = mapping.0!
                         }
-                    } else if type != "NSDictionary" && newValue as? NSDictionary != nil {
-                        newValue = dictToObject(type, original:hasKeys[key] as! NSObject ,dict: newValue as! NSDictionary)
-                    } else if type.rangeOfString("<NSDictionary>") == nil && newValue as? [NSDictionary] != nil {
-                        newValue = dictArrayToObjectArray(type, array: newValue as! [NSDictionary]) as [NSObject]
                     }
                 }
-                let keywords = ["self", "description", "class", "deinit", "enum", "extension", "func", "import", "init", "let", "protocol", "static", "struct", "subscript", "typealias", "var", "break", "case", "continue", "default", "do", "else", "fallthrough", "if", "in", "for", "return", "switch", "where", "while", "as", "dynamicType", "is", "new", "super", "Self", "Type", "__COLUMN__", "__FILE__", "__FUNCTION__", "__LINE__", "associativity", "didSet", "get", "infix", "inout", "left", "mutating", "none", "nonmutating", "operator", "override", "postfix", "precedence", "prefix", "right", "set", "unowned", "unowned", "safe", "unowned", "unsafe", "weak", "willSet", "private", "public", "internal", "zone"]
-                if contains(keywords, key) {
-                    key = "_\(key)"
-                }
-                var error: NSError?
-                if anyObject.validateValue(&newValue, forKey: key, error: &error) {
-                    if newValue == nil || newValue as? NSNull != nil {
-                        anyObject.setValue(Optional.None, forKey: key)
-                    } else {
-                        // Let us put a number into a string property by taking it's stringValue
-                        if let typeInObject = hasTypes[key] {
-                            let (_, type) = valueForAny("", key: key, anyValue: newValue)
-                            if (typeInObject == "Swift.String" || typeInObject == "NSString") && type == "NSNumber" {
-                                if let convertedValue = newValue as? NSNumber {
-                                    newValue = convertedValue.stringValue
+                if !skipKey{
+                    var newValue: AnyObject? = dictionary[key]!
+                    if let type = hasTypes[toKey] {
+                        if type.hasPrefix("Swift.Array<") && newValue as? NSDictionary != nil {
+                            if var value = v as? [NSObject] {
+                                value.append(newValue! as! NSObject)
+                                newValue = value
+                            }
+                        } else if type != "NSDictionary" && newValue as? NSDictionary != nil {
+                            newValue = dictToObject(type, original:hasKeys[key] as! NSObject ,dict: newValue as! NSDictionary)
+                        } else if type.rangeOfString("<NSDictionary>") == nil && newValue as? [NSDictionary] != nil {
+                            newValue = dictArrayToObjectArray(type, array: newValue as! [NSDictionary]) as [NSObject]
+                        }
+                    }
+                    let keywords = ["self", "description", "class", "deinit", "enum", "extension", "func", "import", "init", "let", "protocol", "static", "struct", "subscript", "typealias", "var", "break", "case", "continue", "default", "do", "else", "fallthrough", "if", "in", "for", "return", "switch", "where", "while", "as", "dynamicType", "is", "new", "super", "Self", "Type", "__COLUMN__", "__FILE__", "__FUNCTION__", "__LINE__", "associativity", "didSet", "get", "infix", "inout", "left", "mutating", "none", "nonmutating", "operator", "override", "postfix", "precedence", "prefix", "right", "set", "unowned", "unowned", "safe", "unowned", "unsafe", "weak", "willSet", "private", "public", "internal", "zone"]
+                    if contains(keywords, toKey) {
+                        toKey = "_\(key)"
+                    }
+                    var error: NSError?
+                    if anyObject.validateValue(&newValue, forKey: toKey, error: &error) {
+                        if newValue == nil || newValue as? NSNull != nil {
+                            anyObject.setValue(Optional.None, forKey: toKey)
+                        } else {
+                            // Let us put a number into a string property by taking it's stringValue
+                            if let typeInObject = hasTypes[toKey] {
+                                let (_, type) = valueForAny("", key: toKey, anyValue: newValue)
+                                if (typeInObject == "Swift.String" || typeInObject == "NSString") && type == "NSNumber" {
+                                    if let convertedValue = newValue as? NSNumber {
+                                        newValue = convertedValue.stringValue
+                                    }
                                 }
                             }
+                            // TODO: This will trigger setvalue for undefined key for specific types like enums, arrays of optionals or optional types.
+                            anyObject.setValue(newValue, forKey: toKey)
                         }
-                        // TODO: This will trigger setvalue for undefined key for specific types like enums, arrays of optionals or optional types.
-                        anyObject.setValue(newValue, forKey: key)
                     }
+                    
                 }
             }
         }
@@ -156,22 +170,35 @@ final public class EVReflection {
             let value = mirrorType.value
             var valueType:String = ""
             if key != "super" || i != 0 {
-                var (unboxedValue: AnyObject, valueType: String) = valueForAny(theObject, key: key, anyValue: value)
-                if unboxedValue as? EVObject != nil {
-                    let (dict, _) = toDictionary(unboxedValue as! NSObject)
-                    propertiesDictionary.setValue(dict, forKey: key)
-                } else if let array = unboxedValue as? [EVObject] {
-                    var tempValue = [NSDictionary]()
-                    for av in array {
-                        let (dict, type) = toDictionary(av)
-                        tempValue.append(dict)
+                var skipKey = false
+                var toKey = key
+                if let evObject = theObject as? EVObject {
+                    if let mapping = filter(evObject.propertyMapping(), {$0.0 == key}).first {
+                        if mapping.1 == nil {
+                            skipKey = true
+                        } else {
+                            toKey = mapping.1!
+                        }
                     }
-                    unboxedValue = tempValue
-                    propertiesDictionary.setValue(unboxedValue, forKey: key)
-                } else {
-                    propertiesDictionary.setValue(unboxedValue, forKey: key)
                 }
-                propertiesTypeDictionary[key] = valueType
+                if !skipKey {
+                    var (unboxedValue: AnyObject, valueType: String) = valueForAny(theObject, key: key, anyValue: value)
+                    if unboxedValue as? EVObject != nil {
+                        let (dict, _) = toDictionary(unboxedValue as! NSObject)
+                        propertiesDictionary.setValue(dict, forKey: toKey)
+                    } else if let array = unboxedValue as? [EVObject] {
+                        var tempValue = [NSDictionary]()
+                        for av in array {
+                            let (dict, type) = toDictionary(av)
+                            tempValue.append(dict)
+                        }
+                        unboxedValue = tempValue
+                        propertiesDictionary.setValue(unboxedValue, forKey: toKey)
+                    } else {
+                        propertiesDictionary.setValue(unboxedValue, forKey: toKey)
+                    }
+                    propertiesTypeDictionary[toKey] = valueType
+                }
             } else {
                 let (addProperties,_) = reflectedSub(value, reflected: mirrorType)
                 for (k, v) in addProperties {

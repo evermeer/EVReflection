@@ -212,14 +212,14 @@ class EVReflectionTests: XCTestCase {
         XCTAssertEqual(a.myFloat, 2.1, "myFloat should contain 2.1")
         XCTAssertEqual(a.myBool, true, "myBool should contain true")
     }
-
+    
     /**
     Test various large number conversions to NSNumber
     */
     func testNSNumber() {
-        let test1 = NSNumber(double: 458347978508)
+        let test1 = NSNumber(double: Double(Int.max))
         let (value1: AnyObject, key1) = EVReflection.valueForAny("", key: "", anyValue: test1)
-        XCTAssert(value1 as? NSNumber == NSNumber(long: 458347978508), "Values should be same for type NSNumber")
+        XCTAssert(value1 as? NSNumber == NSNumber(long: Int.max), "Values should be same for type NSNumber")
         
         let test2:Float = 458347978508
         let (value2: AnyObject, key2) = EVReflection.valueForAny("", key: "", anyValue: test2)
@@ -241,6 +241,19 @@ class EVReflectionTests: XCTestCase {
         let test6:Int = Int.max
         let (value6: AnyObject, key6) = EVReflection.valueForAny("", key: "", anyValue: test6)
         XCTAssert(value6 as? NSNumber == NSNumber(integer: Int.max), "Values should be same for type Int64")
+    }
+    
+    func testCustomPropertyMapping() {
+        let dict = ["Name":"just a field", "dummyKeyInJson":"will be ignored", "dummyPropertyInObject":"only import", "keyInJson":"value for propertyInObject", "ignoredProperty":"will not be read or written"]
+        let a = TestObject5(dictionary: dict)
+        XCTAssertEqual(a.Name, "just a field", "Name should containt 'just a field'")
+        XCTAssertEqual(a.dummyPropertyInObject, "only import", "dummyPropertyInObject should containt 'only import'")
+        XCTAssertEqual(a.propertyInObject, "value for propertyInObject", "propertyInObject should containt 'value for propertyInObject'")
+        XCTAssertEqual(a.ignoredProperty, "", "ignoredProperty should containt ''")
+        
+        let toDict = a.toDictionary()
+        let dict2 = ["Name":"just a field","keyInJson":"value for propertyInObject"]
+        XCTAssertEqual(toDict, dict2, "export dictionary should only contain a Name and keyInJson")
     }
     
 }

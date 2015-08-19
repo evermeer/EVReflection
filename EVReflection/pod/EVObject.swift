@@ -126,6 +126,11 @@ public class EVObject: NSObject, NSCoding, Printable, Hashable, Equatable {
         }
         NSLog("\nWARNING: The class '\(EVReflection.swiftStringFromClass(self))' is not key value coding-compliant for the key '\(key)'\n There is no support for optional type, array of optionals or enum properties.\nAs a workaround you can implement the function 'setValue forUndefinedKey' for this. See the unit tests for more information\n")
     }
+    
+    public func propertyMapping() -> [(String?, String?)] {
+        return []
+    }
+    
 }
 
 /**
