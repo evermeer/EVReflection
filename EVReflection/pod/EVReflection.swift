@@ -364,7 +364,7 @@ final public class EVReflection {
     Get the app name from the 'Bundle name' and if that's empty, then from the 'Bundle identifier' otherwise we assume it's a EVReflection unit test and use that bundle identifier
     :return: A cleaned up name of the app.
     */
-    private class func getCleanAppName()-> String {
+    public class func getCleanAppName()-> String {
         var bundle = NSBundle.mainBundle()
         var appName = bundle.infoDictionary?["CFBundleName"] as? String ?? ""
         if appName == "" {
