@@ -31,6 +31,7 @@ class EVObjectDescriptionTests: XCTestCase {
     }
 
     func testEVObjectDescription() {
+        //TODO: Add XCTAssert tests
         let a = EVObjectDescription(forObject: self)
         let b = EVObjectDescription(forObject: EVObjectDescriptionTests.SubTest())
         let c = EVObjectDescription(forObject: EVObjectDescriptionTests.SubTest.SubSubTest())

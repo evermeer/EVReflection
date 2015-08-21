@@ -55,7 +55,7 @@ public class EVObjectDescription {
             if ot == .Target {
                 classPathType.append(ot)
             } else {
-                classPathType.insert(ot, atIndex: 1)
+                classPathType.insert(ot, atIndex: 1) // after Target all types are in reverse order
             }
             parseTypes((classString as NSString).substringFromIndex(1))
         } else {
