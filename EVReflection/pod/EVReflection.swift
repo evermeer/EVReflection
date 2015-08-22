@@ -90,7 +90,8 @@ final public class EVReflection {
                 }
             }
         }
-        return anyObject    }
+        return anyObject
+    }
 
     /**
     Set sub object properties from a dictionary
