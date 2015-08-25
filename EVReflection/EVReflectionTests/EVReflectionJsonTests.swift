@@ -49,7 +49,7 @@ class EVReflectionJsonTests: XCTestCase {
     func testJsonArray() {
         let jsonDictOriginal:String = "[{\"id\": 27, \"name\": \"Bob Jefferson\"}, {\"id\": 29, \"name\": \"Jen Jackson\"}]"
         let array:[User] = EVReflection.arrayFromJson(User(), json: jsonDictOriginal)
-        print("Object array from json string: \n\(array)\n\n", appendNewline: false)
+        print("Object array from json string: \n\(array)\n\n")
         XCTAssertTrue(array.count == 2, "should have 2 Users")
         XCTAssertTrue(array[0].id == 27, "id should have been set to 27")
         XCTAssertTrue(array[0].name == "Bob Jefferson", "name should have been set to Bob Jefferson")
@@ -78,13 +78,13 @@ class EVReflectionJsonTests: XCTestCase {
                 ["id": 29, "name": "Jen Jackson"]
             ]
         ]
-        print("Initial dictionary:\n\(jsonDictOriginal)\n\n", appendNewline: false)
+        print("Initial dictionary:\n\(jsonDictOriginal)\n\n")
         
         let userOriginal = User(dictionary: jsonDictOriginal)
         validateUser(userOriginal)
         
         let jsonString = userOriginal.toJsonString()
-        print("JSON string from dictionary: \n\(jsonString)\n\n", appendNewline: false)
+        print("JSON string from dictionary: \n\(jsonString)\n\n")
 
         let userRegenerated = User(json:jsonString)
         validateUser(userRegenerated)
@@ -97,15 +97,15 @@ class EVReflectionJsonTests: XCTestCase {
     }
     
     func validateUser(user:User) {
-        print("Validate user: \n\(user)\n\n", appendNewline: false)
+        print("Validate user: \n\(user)\n\n")
         XCTAssertTrue(user.id == 24, "id should have been set to 24")
         XCTAssertTrue(user.name == "John Appleseed", "name should have been set to John Appleseed")
         XCTAssertTrue(user.email == "john@appleseed.com", "email should have been set to john@appleseed.com")
         
         XCTAssertNotNil(user.company, "company should not be nil")
-        print("company = \(user.company)\n", appendNewline: false)
+        print("company = \(user.company)\n")
         XCTAssertTrue(user.company?.name == "Apple", "company name should have been set to Apple")
-        print("company name = \(user.company?.name)\n", appendNewline: false)
+        print("company name = \(user.company?.name)\n")
         XCTAssertTrue(user.company?.address == "1 Infinite Loop, Cupertino, CA", "company address should have been set to 1 Infinite Loop, Cupertino, CA")
         
         XCTAssertNotNil(user.friends, "friends should not be nil")
