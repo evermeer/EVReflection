@@ -110,47 +110,7 @@ import EVReflection
 If you want support for older versions than iOS 8.0, then you can also just copy the EVReflection.swift and EVObject.swift to your app. 
 
 
-## Sample code
-
-```
-public class TestObject:NSObject {
-var objectValue:String = ""
-}
-
-public class TestObject2:EVObject {
-var objectValue:String = ""    
-}
-```
-
-```
-class EVReflectionTests: XCTestCase {
-
-    func testClassToAndFromString() {
-        var theObject = TestObject()
-        var theObjectString:String = EVReflection.swiftStringFromClass(theObject)
-        NSLog("swiftStringFromClass = \(theObjectString)")
-        if var nsobject = EVReflection.swiftClassFromString(theObjectString) {
-            NSLog("object = \(nsobject)")
-            XCTAssert(true, "Pass")
-        } else {
-            XCTAssert(false, "Fail")
-        }
-    }
-
-    func testClassToAndFromDictionary() {
-        var theObject = TestObject()
-        var theObjectString:String = EVReflection.swiftStringFromClass(theObject)
-        theObject.objectValue = "testing"
-        var toDict = EVReflection.toDictionary(theObject)
-        NSLog("toDictionary = \(toDict)")
-        if var nsobject = EVReflection.fromDictionary(toDict, anyobjectTypeString: theObjectString) as? TestObject {
-            NSLog("object = \(nsobject), objectValue = \(nsobject.objectValue)")
-            XCTAssert(true, "Pass")
-        } else {
-            XCTAssert(false, "Fail")
-        }
-    }
-
+## More Sample code (Clone EVReflection to your desktop and see the unit tests)
     func testEquatable() {
         var theObjectA = TestObject2()
         theObjectA.objectValue = "value1"
@@ -192,107 +152,14 @@ class EVReflectionTests: XCTestCase {
         XCTAssert(theObject == result, "Pass")
     }
 
-    func testClassToAndFromDictionaryConvenienceMethods() {
-        var theObject = TestObject2()
-        theObject.objectValue = "testing"
-        var toDict = theObject.toDictionary()
-        NSLog("toDictionary = \(toDict)")
-        var result = TestObject2(dictionary: toDict)
-        XCTAssert(theObject == result, "Pass")
-    }
-
 }
 ```
 
-There is now also support for JSON. Parsing JSON from and to objects is now as easy as:
-
-```
-class User: EVObject {
-    var id: Int = 0
-    var name: String = ""
-    var email: String?
-    var company: Company?
-    var friends: [User] = []
-}
-
-class Company: EVObject {
-    var name: String = ""
-    var address: String?
-}
-
-class EVReflectionJsonTests: XCTestCase {
-    func testJsonArray() {
-        let jsonDictOriginal:String = "[{\"id\": 27, \"name\": \"Bob Jefferson\"}, {\"id\": 29, \"name\": \"Jen Jackson\"}]"
-        let array:[User] = EVReflection.arrayFromJson(User(), json: jsonDictOriginal)
-        print("Object array from json string: \n\(array)\n\n")
-        XCTAssertTrue(array.count == 2, "should have 2 Users")
-        XCTAssertTrue(array[0].id == 27, "id should have been set to 27")
-        XCTAssertTrue(array[0].name == "Bob Jefferson", "name should have been set to Bob Jefferson")
-        XCTAssertTrue(array[1].id == 29, "id should have been set to 29")
-        XCTAssertTrue(array[1].name == "Jen Jackson", "name should have been set to Jen Jackson")
-    }
-
-    func testJsonObject(){
-        let jsonDictOriginal = [
-            "id": 24,
-            "name": "John Appleseed",
-            "email": "john@appleseed.com",
-            "company": [
-                "name": "Apple",
-                "address": "1 Infinite Loop, Cupertino, CA"
-            ],
-            "friends": [
-                ["id": 27, "name": "Bob Jefferson"],
-                ["id": 29, "name": "Jen Jackson"]
-            ]
-        ]
-        print("Initial dictionary:\n\(jsonDictOriginal)\n\n")
-
-        let userOriginal = User(dictionary: jsonDictOriginal)
-        validateUser(userOriginal)
-
-        let jsonString = userOriginal.toJsonString()
-        print("JSON string from dictionary: \n\(jsonString)\n\n")
-
-        let userRegenerated = User(json:jsonString)
-        validateUser(userRegenerated)
-
-        if userOriginal == userRegenerated {
-            XCTAssert(true, "Success")
-        } else {
-            XCTAssert(false, "Faileure")
-        }
-    }
-
-    func validateUser(user:User) {
-        print("Validate user: \n\(user)\n\n")
-        XCTAssertTrue(user.id == 24, "id should have been set to 24")
-        XCTAssertTrue(user.name == "John Appleseed", "name should have been set to John Appleseed")
-        XCTAssertTrue(user.email == "john@appleseed.com", "email should have been set to john@appleseed.com")
-
-        XCTAssertNotNil(user.company, "company should not be nil")
-        print("company = \(user.company)\n")
-        XCTAssertTrue(user.company?.name == "Apple", "company name should have been set to Apple")
-        print("company name = \(user.company?.name)\n")
-        XCTAssertTrue(user.company?.address == "1 Infinite Loop, Cupertino, CA", "company address should have been set to 1 Infinite Loop, Cupertino, CA")
-
-        XCTAssertNotNil(user.friends, "friends should not be nil")
-        XCTAssertTrue(user.friends.count == 2, "friends should have 2 Users")
-
-        if user.friends.count == 2 {
-            XCTAssertTrue(user.friends[0].id == 27, "friend 1 id should be 27")
-            XCTAssertTrue(user.friends[0].name == "Bob Jefferson", "friend 1 name should be Bob Jefferson")
-            XCTAssertTrue(user.friends[1].id == 29, "friend 2 id should be 29")
-            XCTAssertTrue(user.friends[1].name == "Jen Jackson", "friend 2 name should be Jen Jackson")            
-        }
-    }
-}
-```
-
+## Extra information:
 If you have JSON fields that are Swift keywords, then prefix the property with an underscore. So the JSON value for self will be stored in the property _self. At this moment the folowing keywords are handled:
 "self", "description", "class", "deinit", "enum", "extension", "func", "import", "init", "let", "protocol", "static", "struct", "subscript", "typealias", "var", "break", "case", "continue", "default", "do", "else", "fallthrough", "if", "in", "for", "return", "switch", "where", "while", "as", "dynamicType", "is", "new", "super", "Self", "Type", "__COLUMN__", "__FILE__", "__FUNCTION__", "__LINE__", "associativity", "didSet", "get", "infix", "inout", "left", "mutating", "none", "nonmutating", "operator", "override", "postfix", "precedence", "prefix", "right", "set", "unowned", "unowned", "safe", "unowned", "unsafe", "weak", "willSet", "private", "public"
 
-It's also possibe to create a custom property mapping. You can define if an import should be ignorde, if an export should be ignored or you can map a property name to another key name (for the dictionary and json). For this you only need to implement the propertyMapping method in the object like this:
+It's also possibe to create a custom property mapping. You can define if an import should be ignored, if an export should be ignored or you can map a property name to another key name (for the dictionary and json). For this you only need to implement the propertyMapping method in the object like this:
 
 ```
 public class TestObject5: EVObject {
@@ -307,7 +174,7 @@ public class TestObject5: EVObject {
 }
 ```
 
-
+There is also an Alamofire convenience extension for parsing o
 See also [AlamofireJsonToObjects](https://github.com/evermeer/AlamofireJsonToObjects)
 
 
