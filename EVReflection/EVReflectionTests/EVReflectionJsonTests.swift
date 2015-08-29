@@ -119,12 +119,34 @@ class EVReflectionJsonTests: XCTestCase {
         }
     }
 
-    func testTypeJson() {
-        let json:String = "{\"myString\":1, \"myInt\":\"2\"}"
-        let a = MyStringInt(json: json)
+    func testTypeJsonAllString() {
+        let json:String = "{\"myString\":\"1\", \"myInt\":\"2\", \"myFloat\":\"2.1\", \"myBool\":\"1\"}"
+        let a = TestObject4(json: json)
         XCTAssertEqual(a.myString, "1", "myString should contain 1")
         XCTAssertEqual(a.myInt, 2, "myInt should contain 2")
+        XCTAssertEqual(a.myFloat, 2.1, "myFloat should contain 2.1")
+        XCTAssertEqual(a.myBool, true, "myBool should contain true")
     }
+    
+    func testTypeJson2AllNumeric() {
+        let json:String = "{\"myString\":1, \"myInt\":2, \"myFloat\":2.1, \"myBool\":1}"
+        let a = TestObject4(json: json)
+        XCTAssertEqual(a.myString, "1", "myString should contain 1")
+        XCTAssertEqual(a.myInt, 2, "myInt should contain 2")
+        XCTAssertEqual(a.myFloat, 2.1, "myFloat should contain 2.1")
+        XCTAssertEqual(a.myBool, true, "myBool should contain true")
+    }
+
+    func testTypeJsonInvalid() {
+        let json:String = "{\"myString\":test, \"myInt\":test, \"myFloat\":test, \"myBool\":false}"
+        let a = TestObject4(json: json)
+        XCTAssertEqual(a.myString, "", "myString should contain 1")
+        XCTAssertEqual(a.myInt, 0, "myInt should contain 0")
+        XCTAssertEqual(a.myFloat, 0, "myFloat should contain 2.1")
+        XCTAssertEqual(a.myBool, true, "myBool should contain true")
+    }
+
+    
 }
 
 

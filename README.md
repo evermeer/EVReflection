@@ -32,25 +32,25 @@ It's not possible in Swift to use .setObjectForKey for:
 - nullable type fields like Int? 
 - properties based on an enum
 - an Array of nullable objects like [MyObject?] 
-- generic properties
+- generic properties like var myVal:T = T()
 
-There are 2 possible workarounds for this.
+For all these issues there are workarounds.
 
-1. Using a difrent type like:
+1. The easiest workaround is just using a difrent type like:
 
 - Instead of an Int? you could use NSNumber?
 - Instead of [MyObject?] use [MyObject]
 - Instead of 'var status: StatysType' use 'var status:Int' and save the rawValue
 - Instead of a generic property use a specific property that can hold the data (a dictionary?)
 
-2. By overriding the setValue for key in the object itself (see WorkaroundsTests.swift to see the workaround for all these types in action). 
+2. If you want to keep on using the same type, You can override the setValue forUndefinedKey in the object itself. See WorkaroundsTests.swift and WorkaroundSwiftGenericsTests.swift to see the workaround for all these types in action. 
 
-- For generic properties the protocol EVGenericsKVC is required. 
-- For arrays with nullable objects the protocol EVArrayConvertable is required
+- For generic properties the protocol EVGenericsKVC is required. see WorkaroundSwiftGenericsTests.swift 
+- For arrays with nullable objects the protocol EVArrayConvertable is required. see WorkaroundsTests.swift
 
 ## Using EVReflection in your own App 
 
-'EVReflection' is now available through the dependency manager [CocoaPods](http://cocoapods.org). 
+'EVReflection' is available through the dependency manager [CocoaPods](http://cocoapods.org). 
 You do have to use cocoapods version 0.36 or later
 
 You can just add EVReflection to your workspace by adding the folowing 2 lines to your Podfile:
@@ -60,7 +60,7 @@ use_frameworks!
 pod "EVReflection"
 ```
 
-If you are using Swift 2.0 (tested with beta 2) then instead put the folowing lines in your Podfile:
+If you are using Swift 2.0 (tested with beta 4) then instead put the folowing lines in your Podfile:
 
 ```
 use_frameworks!
@@ -256,8 +256,23 @@ class EVReflectionJsonTests: XCTestCase {
 ```
 
 If you have JSON fields that are Swift keywords, then prefix the property with an underscore. So the JSON value for self will be stored in the property _self. At this moment the folowing keywords are handled:
+"self", "description", "class", "deinit", "enum", "extension", "func", "import", "init", "let", "protocol", "static", "struct", "subscript", "typealias", "var", "break", "case", "continue", "default", "do", "else", "fallthrough", "if", "in", "for", "return", "switch", "where", "while", "as", "dynamicType", "is", "new", "super", "Self", "Type", "__COLUMN__", "__FILE__", "__FUNCTION__", "__LINE__", "associativity", "didSet", "get", "infix", "inout", "left", "mutating", "none", "nonmutating", "operator", "override", "postfix", "precedence", "prefix", "right", "set", "unowned", "unowned", "safe", "unowned", "unsafe", "weak", "willSet", "private", "public"
 
-"self", "description", "class", "deinit", "enum", "extension", "func", "import", "init", "let", "protocol", "static", "struct", "subscript", "typealias", "var", "break", "case", "continue", "default", "do", "else", "fallthrough", "if", "in", "for", "return", "switch", "where", "while", "as", "dynamicType", "is", "new", "super", "Self", "Type", "__COLUMN__", "__FILE__", "__FUNCTION__", "__LINE__", "associativity", "didSet", "get", "infix", "inout", "left", "mutating", "none", "nonmutating", "operator", "override", "postfix", "precedence", "prefix", "right", "set", "unowned", "unowned", "safe", "unowned", "unsafe", "weak", "willSet"
+It's also possibe to create a custom property mapping. You can define if an import should be ignorde, if an export should be ignored or you can map a property name to another key name (for the dictionary and json). For this you only need to implement the propertyMapping method in the object like this:
+
+```
+public class TestObject5: EVObject {
+   var Name: String = "" // Using the default mapping
+   var dummyPropertyInObject: String = "" // Will not be written from object to targe but will be written to object if exist in dictionary or json
+   var propertyInObject: String = "" // will be written to or read from keyInJson
+   var ignoredProperty: String = "" // Will not be written to object or from object to target
+
+   override public func propertyMapping() -> [(String?, String?)] {
+      return [("ignoredProperty",nil), (nil,"ignoredProperty"), ("dummyPropertyInObject",nil), (nil,"dummpyKeyInJson"), ("propertyInObject","keyInJson")]
+   }
+}
+```
+
 
 When the object classes are not in the main bundle or when you use EVReflection from withing your unit tests, then you need to tell EVReflection which bundle to use. That can be done by executing the folowing statement (where TestObject is one of the classes inside that bundle):
 ```

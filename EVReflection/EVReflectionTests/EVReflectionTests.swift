@@ -191,16 +191,34 @@ class EVReflectionTests: XCTestCase {
         let dictOriginal: NSMutableDictionary = NSMutableDictionary()
         dictOriginal.setValue(s, forKey: "myInt")
         dictOriginal.setValue(NSNumber(int:i), forKey: "myString")
-        let a = MyStringInt(dictionary: dictOriginal)
+        let a = TestObject4(dictionary: dictOriginal)
         XCTAssertEqual(a.myString, "1", "myString should contain 1")
         XCTAssertEqual(a.myInt, 2, "myInt should contain 2")
     }
-
+    
+    func testTypeDictAllString() {
+        let dict = ["myString":"1", "myInt":"2", "myFloat":"2.1", "myBool":"1"]
+        let a = TestObject4(dictionary: dict)
+        XCTAssertEqual(a.myString, "1", "myString should contain 1")
+        XCTAssertEqual(a.myInt, 2, "myInt should contain 2")
+        XCTAssertEqual(a.myFloat, 2.1, "myFloat should contain 2.1")
+        XCTAssertEqual(a.myBool, true, "myBool should contain true")
+    }
+    
+    func testTypeDict2AllNumeric() {
+        let dict = ["myString":1, "myInt":2, "myFloat":2.1, "myBool":1]
+        let a = TestObject4(dictionary: dict)
+        XCTAssertEqual(a.myString, "1", "myString should contain 1")
+        XCTAssertEqual(a.myInt, 2, "myInt should contain 2")
+        XCTAssertEqual(a.myFloat, 2.1, "myFloat should contain 2.1")
+        XCTAssertEqual(a.myBool, true, "myBool should contain true")
+    }
+    
     /**
     Test various large number conversions to NSNumber
     */
     func testNSNumber() {
-        let test1 = NSNumber(double:  Double(Int.max))
+        let test1 = NSNumber(double: Double(Int.max))
         let (value1, _) = EVReflection.valueForAny("", key: "", anyValue: test1)
         XCTAssert(value1 as? NSNumber == NSNumber(long: Int.max), "Values should be same for type NSNumber")
         
@@ -225,4 +243,16 @@ class EVReflectionTests: XCTestCase {
         XCTAssert(value6 as? NSNumber == NSNumber(integer: Int.max), "Values should be same for type Int64")
     }
     
+    func testCustomPropertyMapping() {
+        let dict = ["Name":"just a field", "dummyKeyInJson":"will be ignored", "dummyPropertyInObject":"only import", "keyInJson":"value for propertyInObject", "ignoredProperty":"will not be read or written"]
+        let a = TestObject5(dictionary: dict)
+        XCTAssertEqual(a.Name, "just a field", "Name should containt 'just a field'")
+        XCTAssertEqual(a.dummyPropertyInObject, "only import", "dummyPropertyInObject should containt 'only import'")
+        XCTAssertEqual(a.propertyInObject, "value for propertyInObject", "propertyInObject should containt 'value for propertyInObject'")
+        XCTAssertEqual(a.ignoredProperty, "", "ignoredProperty should containt ''")
+        
+        let toDict = a.toDictionary()
+        let dict2 = ["Name":"just a field","keyInJson":"value for propertyInObject"]
+        XCTAssertEqual(toDict, dict2, "export dictionary should only contain a Name and keyInJson")
+    }
 }
