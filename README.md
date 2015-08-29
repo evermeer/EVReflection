@@ -156,6 +156,7 @@ If you want support for older versions than iOS 8.0, then you can also just copy
 ```
 
 ## Extra information:
+
 If you have JSON fields that are Swift keywords, then prefix the property with an underscore. So the JSON value for self will be stored in the property _self. At this moment the folowing keywords are handled:
 "self", "description", "class", "deinit", "enum", "extension", "func", "import", "init", "let", "protocol", "static", "struct", "subscript", "typealias", "var", "break", "case", "continue", "default", "do", "else", "fallthrough", "if", "in", "for", "return", "switch", "where", "while", "as", "dynamicType", "is", "new", "super", "Self", "Type", "__COLUMN__", "__FILE__", "__FUNCTION__", "__LINE__", "associativity", "didSet", "get", "infix", "inout", "left", "mutating", "none", "nonmutating", "operator", "override", "postfix", "precedence", "prefix", "right", "set", "unowned", "unowned", "safe", "unowned", "unsafe", "weak", "willSet", "private", "public"
 
@@ -174,8 +175,8 @@ public class TestObject5: EVObject {
 }
 ```
 
-There is also an Alamofire convenience extension for parsing o
-See also [AlamofireJsonToObjects](https://github.com/evermeer/AlamofireJsonToObjects)
+There is also an Alamofire convenience extension for dirctly parsing the JSON to objects
+See [AlamofireJsonToObjects](https://github.com/evermeer/AlamofireJsonToObjects)
 
 
 
