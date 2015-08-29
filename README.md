@@ -27,6 +27,35 @@ EVReflection is used extensively in [EVCloudKitDao](https://github.com/evermeer/
 - Supporting Printable, Hashable and Equatable while using all properties. (Support for Set in Swift 1.2)
 - Parse an object to a JSON string and parse a JSON string to an object
 
+## it's easy to use:
+
+Defining an object. You only have to set EVObject as it's base class:
+```
+class User: EVObject {
+    var id: Int = 0
+    var name: String = ""
+    var friends: [User]? = []
+}
+```
+
+Parsing JSON to an object:
+```
+let json:String = "{\"id\": 24, \"name\": \"Bob Jefferson\" \"friends\": {[{\"id\": 29, \"name\": \"Jen Jackson\"}]}}"
+let user = User(json: json)
+```
+
+Parsing JSON to an array of objects:
+```
+let jsonDictOriginal:String = "[{\"id\": 27, \"name\": \"Bob Jefferson\"}, {\"id\": 29, \"name\": \"Jen Jackson\"}]"
+let array:[User] = EVReflection.arrayFromJson(User(), json: jsonDictOriginal)
+```
+
+Parsing from and to a dictionary:
+```
+let dict = user.toDictionary()
+let newUser = User(dictionary: dict)
+```
+
 ## Known issues
 It's not possible in Swift to use .setObjectForKey for:
 - nullable type fields like Int? 
@@ -60,8 +89,13 @@ use_frameworks!
 pod "EVReflection"
 ```
 
-If you are using Swift 2.0 (tested with beta 4) then instead put the folowing lines in your Podfile:
+At the moment that is a Swift 1.2 version. When Swift 2 is released the Swift 2 branch will be merged to the trunk. If you want to keep on using the Swift 1.2 version, than use the Swift1.2 branch:
+```
+use_frameworks!
+pod 'EVReflection', :git => 'https://github.com/evermeer/EVReflection.git', :branch => 'Swift1.2'
+```
 
+If you want to start using Swift 2.0 now (tested with beta 6) then use the Swift2 branch
 ```
 use_frameworks!
 pod 'EVReflection', :git => 'https://github.com/evermeer/EVReflection.git', :branch => 'Swift2'
