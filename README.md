@@ -111,7 +111,8 @@ If you want support for older versions than iOS 8.0, then you can also just copy
 
 
 ## More Sample code (Clone EVReflection to your desktop and see the unit tests)
-    func testEquatable() {
+```
+func testEquatable() {
         var theObjectA = TestObject2()
         theObjectA.objectValue = "value1"
         var theObjectB = TestObject2()
