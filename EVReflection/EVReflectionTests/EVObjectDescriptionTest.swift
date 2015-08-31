@@ -31,10 +31,12 @@ class EVObjectDescriptionTests: XCTestCase {
     }
 
     func testEVObjectDescription() {
-        //TODO: Add XCTAssert tests
         let a = EVObjectDescription(forObject: self)
+        XCTAssert(a.classPath == ["EVReflectionTests", "EVObjectDescriptionTests"], "Pass")
         let b = EVObjectDescription(forObject: EVObjectDescriptionTests.SubTest())
+        XCTAssert(b.classPath == ["EVReflectionTests", "EVObjectDescriptionTests", "SubTest"], "Pass")
         let c = EVObjectDescription(forObject: EVObjectDescriptionTests.SubTest.SubSubTest())
+        XCTAssert(c.classPath == ["EVReflectionTests", "EVObjectDescriptionTests", "SubTest", "SubSubTest"], "Pass")
         
         class FuncSubTest:NSObject {
             class FuncSubSubTest:NSObject {
@@ -43,8 +45,9 @@ class EVObjectDescriptionTests: XCTestCase {
         }
         //TODO: For now these only succeed because we assume a function name will have an aditional string containing FS0_FT_T_L_ in the description. I have to reverse engineer the parameter notation for Functions.
         let d = EVObjectDescription(forObject: FuncSubTest())
+        XCTAssert(d.classPath == ["EVReflectionTests", "EVObjectDescriptionTests", "testEVObjectDescription", "FuncSubTest"], "Pass")
         let e = EVObjectDescription(forObject: FuncSubTest.FuncSubSubTest())
-        
+        XCTAssert(e.classPath == ["EVReflectionTests", "EVObjectDescriptionTests", "testEVObjectDescription", "FuncSubTest", "FuncSubSubTest"], "Pass")
     }
 
     class SubTest:NSObject {

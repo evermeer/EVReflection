@@ -46,8 +46,8 @@ let user = User(json: json)
 
 Parsing JSON to an array of objects:
 ```
-let jsonDictOriginal:String = "[{\"id\": 27, \"name\": \"Bob Jefferson\"}, {\"id\": 29, \"name\": \"Jen Jackson\"}]"
-let array:[User] = EVReflection.arrayFromJson(User(), json: jsonDictOriginal)
+let json:String = "[{\"id\": 27, \"name\": \"Bob Jefferson\"}, {\"id\": 29, \"name\": \"Jen Jackson\"}]"
+let array:[User] = User.arrayFromJson(json)
 ```
 
 Parsing from and to a dictionary:

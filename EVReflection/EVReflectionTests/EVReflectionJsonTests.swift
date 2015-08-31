@@ -47,8 +47,10 @@ class EVReflectionJsonTests: XCTestCase {
 
     
     func testJsonArray() {
-        let jsonDictOriginal:String = "[{\"id\": 27, \"name\": \"Bob Jefferson\"}, {\"id\": 29, \"name\": \"Jen Jackson\"}]"
-        let array:[User] = EVReflection.arrayFromJson(User(), json: jsonDictOriginal)
+        let json:String = "[{\"id\": 27, \"name\": \"Bob Jefferson\"}, {\"id\": 29, \"name\": \"Jen Jackson\"}]"
+        //let array:[User] = EVReflection.arrayFromJson(User(), json: json)
+        let array:[User] = User.arrayFromJson(json)
+        
         print("Object array from json string: \n\(array)\n\n")
         XCTAssertTrue(array.count == 2, "should have 2 Users")
         XCTAssertTrue(array[0].id == 27, "id should have been set to 27")

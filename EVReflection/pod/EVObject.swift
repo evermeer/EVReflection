@@ -138,10 +138,21 @@ public class EVObject: NSObject, NSCoding, CustomDebugStringConvertible { // The
         NSLog("\nWARNING: The class '\(EVReflection.swiftStringFromClass(self))' is not key value coding-compliant for the key '\(key)'\n There is no support for optional type, array of optionals or enum properties.\nAs a workaround you can implement the function 'setValue forUndefinedKey' for this. See the unit tests for more information\n")
     }
     
+    /**
+    Override this method when you want custom property mapping. 
+
+    :return: Return an array with valupairs of the object property name and json key name.
+    */
     public func propertyMapping() -> [(String?, String?)] {
         return []
     }
     
+    /**
+    Convenience method for instantiating an array from a json string.
+    */
+    public class func arrayFromJson<T where T:EVObject>(json:String) -> [T] {
+        return EVReflection.arrayFromJson(T(), json: json)
+    }
 }
 
 /**
@@ -201,5 +212,7 @@ Implementation for Equatable !=
 public func !=(lhs: EVObject, rhs: EVObject) -> Bool {
     return !EVReflection.areEqual(lhs, rhs: rhs)
 }
+
+
 
 
