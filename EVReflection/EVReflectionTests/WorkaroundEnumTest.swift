@@ -69,7 +69,7 @@ class EnumWorkaroundsTests: XCTestCase {
         // What can we get using reflection:
         let mirror = Mirror(reflecting: theEnum)
         if mirror.displayStyle == .Enum {
-            print("displayStyle is .Enum\n")
+            print("displayStyle is .Enum")
             
             // OK, and now?
             
@@ -86,18 +86,21 @@ class EnumWorkaroundsTests: XCTestCase {
             if let value = theEnum as? EVRaw {
                 return value.anyRawValue as! String
             }
+            print("For now you have to implement one of the EVRaw protocols on your enum. ")
         }
         let valueType:Any.Type = mirror.subjectType
-        print("valueType = \(valueType)\n")
+        print("valueType = \(valueType)")
         // No help from these:
-        //var value = mirror.value  --> is just theEnum itself
-        //var objectIdentifier = mirror.objectIdentifier   --> nil
-        //var count = mirror.count   --> 0
-        //var summary:String = mirror.summary     --> "(Enum Value)"
-        //var quickLookObject = mirror.quickLookObject --> nil
-        
+        let description = mirror.description  // --> "Mirror for MyEnumOne"
+        print("description = \(description)")
+        let displayStyle = mirror.displayStyle  // --> Enum
+        print("displayStyle = \(displayStyle)")
+        let count = mirror.children.count  // --> 0
+        print("count = \(count)")
+        let subjectType = mirror.subjectType // EVReflectionTests.EnumWorkaroundsTests.MyEnumOne
+        print("subjectType = \(subjectType)")
         let toString:String = "\(theEnum)"
-        print("\(toString)\n")
+        print("String value: \(toString)\n")
         return toString
     }
     

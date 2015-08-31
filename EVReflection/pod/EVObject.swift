@@ -10,7 +10,7 @@ import Foundation
 /**
 Object that will support NSCoding, Printable, Hashable and Equeatable for all properties. Use this object as your base class instead of NSObject and you wil automatically have support for all these protocols.
 */
-public class EVObject: NSObject, NSCoding { //, CustomStringConvertible, Hashable, Equatable
+public class EVObject: NSObject, NSCoding, CustomDebugStringConvertible { // These are redundant in Swift 2: CustomStringConvertible, Hashable, Equatable
     
     /**
     Basic init override is needed so we can use EVObject as a base class.
@@ -74,6 +74,17 @@ public class EVObject: NSObject, NSCoding { //, CustomStringConvertible, Hashabl
     :return: The pritty description
     */
     final public override var description: String {
+        get {
+            return EVReflection.description(self)
+        }
+    }
+    
+    /**
+    Returns the pritty description of this object
+    
+    :return: The pritty description
+    */
+    final public override var debugDescription: String {
         get {
             return EVReflection.description(self)
         }
