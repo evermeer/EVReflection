@@ -45,6 +45,15 @@ class EVReflectionJsonTests: XCTestCase {
     }
     
 
+    class Account: NSObject { // When using sub objects and/or arrays of sub objects, then change the base class to EVObject
+        var id: Int64 = 0
+        var name: String = ""
+    }
+    func testSimpleJsonArray() {
+        let json:String = "[{\"id\": 27, \"name\": \"Bob Jefferson\"}, {\"id\": 29, \"name\": \"Jen Jackson\"}]"
+        let array = [Account](json: json)
+        print("Object array from json string: \n\(array)\n\n")        
+    }
     
     func testJsonArray() {
         let json:String = "[{\"id\": 27, \"name\": \"Bob Jefferson\"}, {\"id\": 29, \"name\": \"Jen Jackson\"}]"
