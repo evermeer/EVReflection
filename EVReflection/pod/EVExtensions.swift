@@ -69,6 +69,50 @@ public extension NSObject {
     public class func arrayFromJson<T where T:EVObject>(json:String?) -> [T] {
         return EVReflection.arrayFromJson(T(), json: json)
     }
+    
+    /**
+    Returns the pritty description of this object
+    
+    :return: The pritty description
+    */
+    public var description: String {
+        get {
+            return EVReflection.description(self)
+        }
+    }
+
+    /**
+    Returns the pritty description of this object
+    
+    :return: The pritty description
+    */
+    public var debugDescription: String {
+        get {
+            return EVReflection.description(self)
+        }
+    }
+
+    /**
+    Returns the hashvalue of this object
+    
+    :return: The hashvalue of this object
+    */
+    public var hashValue: Int {
+        get {
+            return EVReflection.hashValue(self)
+        }
+    }
+    
+    /**
+    Function for returning the hash for the NSObject based functionality
+    
+    :return: The hashvalue of this object
+    */
+    public var hash: Int {
+        get {
+            return self.hashValue
+        }
+    }
 }
 
 

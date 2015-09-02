@@ -37,51 +37,7 @@ public class EVObject: NSObject, NSCoding, CustomDebugStringConvertible { // The
     */
     final public func encodeWithCoder(aCoder: NSCoder) {
         EVReflection.encodeWithCoder(self, aCoder: aCoder)
-    }
-    
-    /**
-    Returns the pritty description of this object
-    
-    :return: The pritty description
-    */
-    final public override var description: String {
-        get {
-            return EVReflection.description(self)
-        }
-    }
-    
-    /**
-    Returns the pritty description of this object
-    
-    :return: The pritty description
-    */
-    final public override var debugDescription: String {
-        get {
-            return EVReflection.description(self)
-        }
-    }
-    
-    /**
-    Returns the hashvalue of this object
-    
-    :return: The hashvalue of this object
-    */
-    public override var hashValue: Int {
-        get {
-            return EVReflection.hashValue(self)
-        }
-    }
-    
-    /**
-    Function for returning the hash for the NSObject based functionality
-    
-    :return: The hashvalue of this object
-    */
-    final public override var hash: Int {
-        get {
-            return self.hashValue
-        }
-    }
+    }        
     
     /**
     Implementation of the NSObject isEqual comparisson method
@@ -94,6 +50,7 @@ public class EVObject: NSObject, NSCoding, CustomDebugStringConvertible { // The
             return dataObject == self // just use our "==" function
         } else { return false }
     }
+
     
     /**
     Implementation of the setValue forUndefinedKey so that we can catch exceptions for when we use an optional Type like Int? in our object. Instead of using Int? you should use NSNumber?
