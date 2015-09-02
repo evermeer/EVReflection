@@ -31,18 +31,6 @@ public class EVObject: NSObject, NSCoding, CustomDebugStringConvertible { // The
     }
     
     /**
-    Returns the dictionary representation of this object.
-    */
-    final public func toDictionary() -> NSDictionary {
-        let (reflected, _) = EVReflection.toDictionary(self)
-        return reflected
-    }
-    
-    final public func toJsonString() -> String {
-        return EVReflection.toJsonString(self)
-    }
-    
-    /**
     Encode this object using a NSCoder
     
     - parameter aCoder: The NSCoder that will be used for encoding the object
@@ -122,19 +110,12 @@ public class EVObject: NSObject, NSCoding, CustomDebugStringConvertible { // The
     }
     
     /**
-    Override this method when you want custom property mapping. 
-
+    Override this method when you want custom property mapping.
+    
     :return: Return an array with valupairs of the object property name and json key name.
     */
     public func propertyMapping() -> [(String?, String?)] {
         return []
-    }
-    
-    /**
-    Convenience method for instantiating an array from a json string.
-    */
-    public class func arrayFromJson<T where T:EVObject>(json:String?) -> [T] {
-        return EVReflection.arrayFromJson(T(), json: json)
     }
 }
 
@@ -213,6 +194,25 @@ extension NSObject {
         self.init()
         let jsonDict = EVReflection.dictionaryFromJson(json)
         EVReflection.setPropertiesfromDictionary(jsonDict, anyObject: self)
+    }
+
+    /**
+    Returns the dictionary representation of this object.
+    */
+    final public func toDictionary() -> NSDictionary {
+        let (reflected, _) = EVReflection.toDictionary(self)
+        return reflected
+    }
+    
+    final public func toJsonString() -> String {
+        return EVReflection.toJsonString(self)
+    }
+
+    /**
+    Convenience method for instantiating an array from a json string.
+    */
+    public class func arrayFromJson<T where T:EVObject>(json:String?) -> [T] {
+        return EVReflection.arrayFromJson(T(), json: json)
     }
 }
 
