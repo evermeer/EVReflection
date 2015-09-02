@@ -11,6 +11,7 @@
 		7F07C58F1AF11861000DF1F3 /* EVReflection.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 7F07C58D1AF11861000DF1F3 /* EVReflection.podspec */; };
 		7F07C5901AF11861000DF1F3 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 7F07C58E1AF11861000DF1F3 /* LICENSE */; };
 		7F0E5E5A1AF4D94000A10E51 /* EVObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F0E5E591AF4D94000A10E51 /* EVObject.swift */; };
+		7F1BA5271B971CBF009F9DB8 /* EVExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F1BA5261B971CBF009F9DB8 /* EVExtensions.swift */; settings = {ASSET_TAGS = (); }; };
 		7F3E192A1B8526CA00A6E6C6 /* EVObjectDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F3E19291B8526CA00A6E6C6 /* EVObjectDescription.swift */; };
 		7F41ECA51B91F2E0003A2236 /* TestObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F41ECA41B91F2E0003A2236 /* TestObjects.swift */; settings = {ASSET_TAGS = (); }; };
 		7F41ECAD1B91F306003A2236 /* EVObjectDescriptionTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F41ECA61B91F306003A2236 /* EVObjectDescriptionTest.swift */; settings = {ASSET_TAGS = (); }; };
@@ -33,6 +34,7 @@
 		7F07C58E1AF11861000DF1F3 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		7F0B2A3B1B062CF20025165A /* circle.yml */ = {isa = PBXFileReference; lastKnownFileType = text; name = circle.yml; path = ../circle.yml; sourceTree = "<group>"; };
 		7F0E5E591AF4D94000A10E51 /* EVObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVObject.swift; sourceTree = "<group>"; };
+		7F1BA5261B971CBF009F9DB8 /* EVExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVExtensions.swift; sourceTree = "<group>"; };
 		7F3E19291B8526CA00A6E6C6 /* EVObjectDescription.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVObjectDescription.swift; sourceTree = "<group>"; };
 		7F41ECA41B91F2E0003A2236 /* TestObjects.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestObjects.swift; sourceTree = "<group>"; };
 		7F41ECA61B91F306003A2236 /* EVObjectDescriptionTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVObjectDescriptionTest.swift; sourceTree = "<group>"; };
@@ -108,6 +110,7 @@
 				7F07C5841AF10284000DF1F3 /* EVReflection.swift */,
 				7F0E5E591AF4D94000A10E51 /* EVObject.swift */,
 				7F3E19291B8526CA00A6E6C6 /* EVObjectDescription.swift */,
+				7F1BA5261B971CBF009F9DB8 /* EVExtensions.swift */,
 			);
 			path = pod;
 			sourceTree = "<group>";
@@ -195,6 +198,7 @@
 				7F41ECB21B91F306003A2236 /* WorkaroundsTests.swift in Sources */,
 				7F07C5881AF10437000DF1F3 /* EVReflection.swift in Sources */,
 				7F41ECB01B91F306003A2236 /* ProfilePhotoUrlListTest.swift in Sources */,
+				7F1BA5271B971CBF009F9DB8 /* EVExtensions.swift in Sources */,
 				7F41ECA51B91F2E0003A2236 /* TestObjects.swift in Sources */,
 				7F41ECB31B91F306003A2236 /* WorkaroundSwiftGenericsTests.swift in Sources */,
 				7F41ECAD1B91F306003A2236 /* EVObjectDescriptionTest.swift in Sources */,
