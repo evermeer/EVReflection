@@ -65,3 +65,6 @@ public class TestObject5: EVObject {
         return [("ignoredProperty",nil), (nil,"ignoredProperty"), ("dummyPropertyInObject",nil), (nil,"dummpyKeyInJson"), ("propertyInObject","keyInJson")]
     }
 }
+
+
+

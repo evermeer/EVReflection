@@ -144,16 +144,7 @@ final public class EVReflection {
         }
         return result
     }
-    
-    /**
-    Helper function that let us get the actual type of an object that is used inside an array
-    
-    - parameter array: The array of objects where we want the type of the object
-    */
-    private class func getArrayObjectType<T where T:NSObject>(array:[T]) -> String {
-        return NSStringFromClass(T().dynamicType) as String
-    }
-    
+        
     /**
     Convert an object to a dictionary
     
@@ -341,14 +332,21 @@ final public class EVReflection {
     
     :return: The array of dictionaries representation of the json
     */
-    public class func arrayFromJson<T where T:EVObject>(type:T, json: String?) -> [T] {
+    public class func arrayFromJson<T>(type:T, json: String?) -> [T] {
         if json == nil {
             return [T]()
         }
         if let jsonData = json!.dataUsingEncoding(NSUTF8StringEncoding) {
             do {
                 if let jsonDic: [Dictionary<String, AnyObject>] = try NSJSONSerialization.JSONObjectWithData(jsonData, options: NSJSONReadingOptions.MutableContainers) as? [Dictionary<String, AnyObject>] {
-                    return jsonDic.map({T(dictionary: $0)})
+                    return jsonDic.map({
+                        let nsobjectype : NSObject.Type? = T.self as? NSObject.Type
+                        if nsobjectype == nil {
+                            assertionFailure("EVReflection can only be used with types with NSObject as it's minimal base type")
+                        }
+                        let nsobject: NSObject = nsobjectype!.init()
+                        return setPropertiesfromDictionary($0, anyObject: nsobject) as! T
+                    })
                 }
             } catch _ as NSError { }
         }

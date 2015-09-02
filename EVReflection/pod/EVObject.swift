@@ -31,23 +31,6 @@ public class EVObject: NSObject, NSCoding, CustomDebugStringConvertible { // The
     }
     
     /**
-    Convenience init for creating an object whith the property values of a dictionary.
-    */
-    public convenience required init(dictionary:NSDictionary) {
-        self.init()
-        EVReflection.setPropertiesfromDictionary(dictionary, anyObject: self)
-    }
-    
-    /**
-    Convenience init for creating an object whith the contents of a json string.
-    */
-    public convenience required init(json:String?) {
-        self.init()
-        let jsonDict = EVReflection.dictionaryFromJson(json)
-        EVReflection.setPropertiesfromDictionary(jsonDict, anyObject: self)
-    }
-    
-    /**
     Returns the dictionary representation of this object.
     */
     final public func toDictionary() -> NSDictionary {
@@ -211,6 +194,51 @@ Implementation for Equatable !=
 */
 public func !=(lhs: EVObject, rhs: EVObject) -> Bool {
     return !EVReflection.areEqual(lhs, rhs: rhs)
+}
+
+
+extension NSObject {
+    /**
+    Convenience init for creating an object whith the property values of a dictionary.
+    */
+    public convenience init(dictionary:NSDictionary) {
+        self.init()
+        EVReflection.setPropertiesfromDictionary(dictionary, anyObject: self)
+    }
+    
+    /**
+    Convenience init for creating an object whith the contents of a json string.
+    */
+    public convenience init(json:String?) {
+        self.init()
+        let jsonDict = EVReflection.dictionaryFromJson(json)
+        EVReflection.setPropertiesfromDictionary(jsonDict, anyObject: self)
+    }
+}
+
+/**
+Extending Array with an initializer with a json string
+*/
+extension Array {
+    init(json:String){
+        self.init()
+        let arrayTypeInstance = getArrayTypeInstance(self)
+        let newArray = EVReflection.arrayFromJson(arrayTypeInstance, json: json)
+        for item in newArray {
+            self.append(item)
+        }
+    }
+    
+    private func getArrayTypeInstance<T>(arr:Array<T>) -> T {
+        return arr.getTypeInstance()
+    }
+    
+    private func getTypeInstance<T>(
+        ) -> T {
+            let nsobjectype : NSObject.Type = T.self as! NSObject.Type
+            let nsobject: NSObject = nsobjectype.init()
+            return nsobject as! T
+    }
 }
 
 

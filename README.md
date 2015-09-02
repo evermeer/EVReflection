@@ -32,9 +32,9 @@ EVReflection is used extensively in [EVCloudKitDao](https://github.com/evermeer/
 Defining an object. You only have to set EVObject as it's base class:
 ```
 class User: EVObject {
-var id: Int = 0
-var name: String = ""
-var friends: [User]? = []
+    var id: Int = 0
+    var name: String = ""
+    var friends: [User]? = []
 }
 ```
 
@@ -47,7 +47,7 @@ let user = User(json: json)
 Parsing JSON to an array of objects:
 ```
 let json:String = "[{\"id\": 27, \"name\": \"Bob Jefferson\"}, {\"id\": 29, \"name\": \"Jen Jackson\"}]"
-let array:[User] = User.arrayFromJson(json)
+let array = [User](json: json)
 ```
 
 Parsing from and to a dictionary:
