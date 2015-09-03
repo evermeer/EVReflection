@@ -20,13 +20,15 @@ class EnumWorkaroundsTests: XCTestCase {
     
     func testEnumToRaw() {
         let test1 = getRawValue(MyEnumOne.OK)
-        XCTAssertTrue(test1 == "OK", "Could nog get the rawvalue using a generic function")
+        XCTAssertTrue(test1 as? String == "OK", "Could nog get the rawvalue using a generic function")
         let test2 = getRawValue(MyEnumTwo.OK)
-        XCTAssertTrue(test2 == "1", "Could nog get the rawvalue using a generic function")
+        XCTAssertTrue(test2 as? Int == 1, "Could nog get the rawvalue using a generic function")
         let test3 = getRawValue(MyEnumThree.OK)
-        XCTAssertTrue(test3 == "1", "Could nog get the rawvalue using a generic function")
+        XCTAssertTrue(test3 as? Int64 == 1, "Could nog get the rawvalue using a generic function")
         let test4 = getRawValue(MyEnumFour.NotOK(message: "realy wrong"))
-        XCTAssertTrue(test4 == "realy wrong", "Could nog get the rawvalue using a generic function")
+        XCTAssertTrue(test4 as? String == "realy wrong", "Could nog get the rawvalue using a generic function")
+        let test5 = getRawValue(MyEnumFour.OK(level: 3))
+        XCTAssertTrue(test5 as? Int == 3, "Could nog get the rawvalue using a generic function")
     }
     
     func testArrayNullable() {
@@ -72,7 +74,7 @@ class EnumWorkaroundsTests: XCTestCase {
         case OK(level: Int)
     }
     
-    func getRawValue(theEnum: Any) -> String {
+    func getRawValue(theEnum: Any) -> Any {
         // What can we get using reflection:
         let mirror = Mirror(reflecting: theEnum)
 
@@ -109,10 +111,10 @@ class EnumWorkaroundsTests: XCTestCase {
                 return value.rawValue
             }
             if let value = theEnum as? EVRawInt {
-                return String(value.rawValue)
+                return value.rawValue
             }
             if let value = theEnum as? EVRaw {
-                return value.anyRawValue as! String
+                return value.anyRawValue
             }
             print("For now you have to implement one of the EVRaw protocols on your enum. ")
         }
