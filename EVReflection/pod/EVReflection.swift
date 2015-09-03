@@ -71,7 +71,12 @@ final public class EVReflection {
                         toKey = "_\(key)"
                     }
                         if newValue == nil || newValue as? NSNull != nil {
-                            anyObject.setValue(Optional.None, forKey: toKey)
+                            do {
+                                var nilValue: AnyObject? = Optional.None
+                                try anyObject.validateValue(&nilValue, forKey: toKey)
+                                anyObject.setValue(nilValue, forKey: toKey)
+                            } catch _ {
+                            }
                         } else {
                             // Let us put a number into a string property by taking it's stringValue
                             if let typeInObject = hasTypes[toKey] {
@@ -87,8 +92,11 @@ final public class EVReflection {
                                 }
                                 
                             }
-                            // TODO: This will trigger setvalue for undefined key for specific types like enums, arrays of optionals or optional types.
-                            anyObject.setValue(newValue, forKey: toKey)
+                            do {
+                                try anyObject.validateValue(&newValue, forKey: toKey)
+                                anyObject.setValue(newValue, forKey: toKey)
+                            } catch _ {
+                            }
                         }
                     }
             }
@@ -211,12 +219,6 @@ final public class EVReflection {
         }
         return (propertiesDictionary, propertiesTypeDictionary)
     }
-    
-    
-    
-    
-    
-    
     
     
     /**

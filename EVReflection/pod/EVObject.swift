@@ -22,6 +22,8 @@ public class EVObject: NSObject, NSCoding, CustomDebugStringConvertible { // The
     /**
     Decode any object
     
+    - In EVObject and not in NSObject because: Initializer requirement 'init(coder:)' can only be satisfied by a `required` initializer in the definition of non-final class 'NSObject'
+    
     - parameter theObject: The object that we want to decode.
     - parameter aDecoder: The NSCoder that will be used for decoding the object.
     */
@@ -35,17 +37,19 @@ public class EVObject: NSObject, NSCoding, CustomDebugStringConvertible { // The
     
     - parameter aCoder: The NSCoder that will be used for encoding the object
     */
-    final public func encodeWithCoder(aCoder: NSCoder) {
+    public func encodeWithCoder(aCoder: NSCoder) {
         EVReflection.encodeWithCoder(self, aCoder: aCoder)
     }        
     
     /**
     Implementation of the NSObject isEqual comparisson method
-    
+
+    - In EVObject and not in NSObject extension because: method conflicts with previous declaration with the same Objective-C selector
+
     - parameter object: The object where you want to compare with
     :return: Returns true if the object is the same otherwise false
     */
-    final public override func isEqual(object: AnyObject?) -> Bool { // for isEqual:
+    public override func isEqual(object: AnyObject?) -> Bool { // for isEqual:
         if let dataObject = object as? EVObject {
             return dataObject == self // just use our "==" function
         } else { return false }
@@ -54,6 +58,8 @@ public class EVObject: NSObject, NSCoding, CustomDebugStringConvertible { // The
     
     /**
     Implementation of the setValue forUndefinedKey so that we can catch exceptions for when we use an optional Type like Int? in our object. Instead of using Int? you should use NSNumber?
+    
+    - In EVObject and not in NSObject extension because: method conflicts with previous declaration with the same Objective-C selector
     
     - parameter value: The value that you wanted to set
     - parameter key: The name of the property that you wanted to set
@@ -65,9 +71,12 @@ public class EVObject: NSObject, NSCoding, CustomDebugStringConvertible { // The
         }
         NSLog("\nWARNING: The class '\(EVReflection.swiftStringFromClass(self))' is not key value coding-compliant for the key '\(key)'\n There is no support for optional type, array of optionals or enum properties.\nAs a workaround you can implement the function 'setValue forUndefinedKey' for this. See the unit tests for more information\n")
     }
+
     
     /**
     Override this method when you want custom property mapping.
+    
+    - Is in EVObject and not in extension of NSObject because functions from extensions cannot be overwritten yet
     
     :return: Return an array with valupairs of the object property name and json key name.
     */

@@ -29,9 +29,9 @@ EVReflection is used extensively in [EVCloudKitDao](https://github.com/evermeer/
 
 ## it's easy to use:
 
-Defining an object. You only have to set EVObject as it's base class:
+Defining an object. You only have to set NSObject as it's base class:
 ```
-class User: EVObject {
+class User: NSObject {
     var id: Int = 0
     var name: String = ""
     var friends: [User]? = []
@@ -55,27 +55,6 @@ Parsing from and to a dictionary:
 let dict = user.toDictionary()
 let newUser = User(dictionary: dict)
 ```
-
-## Known issues
-It's not possible in Swift to use .setObjectForKey for:
-- nullable type fields like Int? 
-- properties based on an enum
-- an Array of nullable objects like [MyObject?] 
-- generic properties like var myVal:T = T()
-
-For all these issues there are workarounds.
-
-1. The easiest workaround is just using a difrent type like:
-
-- Instead of an Int? you could use NSNumber?
-- Instead of [MyObject?] use [MyObject]
-- Instead of 'var status: StatysType' use 'var status:Int' and save the rawValue
-- Instead of a generic property use a specific property that can hold the data (a dictionary?)
-
-2. If you want to keep on using the same type, You can override the setValue forUndefinedKey in the object itself. See WorkaroundsTests.swift and WorkaroundSwiftGenericsTests.swift to see the workaround for all these types in action. 
-
-- For generic properties the protocol EVGenericsKVC is required. see WorkaroundSwiftGenericsTests.swift 
-- For arrays with nullable objects the protocol EVArrayConvertable is required. see WorkaroundsTests.swift
 
 ## Using EVReflection in your own App 
 
@@ -156,9 +135,11 @@ func testNSCoding() {
 
 ## Extra information:
 
+### Automatic keyword mapping
 If you have JSON fields that are Swift keywords, then prefix the property with an underscore. So the JSON value for self will be stored in the property _self. At this moment the folowing keywords are handled:
 "self", "description", "class", "deinit", "enum", "extension", "func", "import", "init", "let", "protocol", "static", "struct", "subscript", "typealias", "var", "break", "case", "continue", "default", "do", "else", "fallthrough", "if", "in", "for", "return", "switch", "where", "while", "as", "dynamicType", "is", "new", "super", "Self", "Type", "__COLUMN__", "__FILE__", "__FUNCTION__", "__LINE__", "associativity", "didSet", "get", "infix", "inout", "left", "mutating", "none", "nonmutating", "operator", "override", "postfix", "precedence", "prefix", "right", "set", "unowned", "unowned", "safe", "unowned", "unsafe", "weak", "willSet", "private", "public"
 
+### Custom keyword mapping
 It's also possibe to create a custom property mapping. You can define if an import should be ignored, if an export should be ignored or you can map a property name to another key name (for the dictionary and json). For this you only need to implement the propertyMapping method in the object like this:
 
 ```
@@ -174,6 +155,38 @@ public class TestObject5: EVObject {
 }
 ```
 
+### When to use EVObject instead of NSObject as a base class.
+There is some functionality that could not be added as an extension to NSObject. For this the EVObject class can be used. Use EVObject in the folowing situations:
+
+- When using NSCoding
+- When executing an objects .isEqual when you want to test all properties. As an alternative you could just use == or !=
+- When you expect there will be keys in your dictionary or json while there will be no property where the value can be mapped to. Instead of using EVObject you can also implement the setValue forUndefinedKey yourself.
+
+### Known issues
+EVReflection is trying to handle all types. With some types there are limitations in Swift. So far there is a workaround for any of these limitations. Here is an overview:
+
+####It's not possible in Swift to use .setObjectForKey for:
+- nullable type fields like Int? 
+- properties based on an enum
+- an Array of nullable objects like [MyObject?] 
+- generic properties like var myVal:T = T()
+
+For all these issues there are workarounds. The easiest workaround is just using a difrent type like:
+
+- Instead of an Int? you could use NSNumber?
+- Instead of [MyObject?] use [MyObject]
+- Instead of 'var status: StatysType' use 'var status:Int' and save the rawValue
+- Instead of a generic property use a specific property that can hold the data (a dictionary?)
+
+If you want to keep on using the same type, You can override the setValue forUndefinedKey in the object itself. See WorkaroundsTests.swift and WorkaroundSwiftGenericsTests.swift to see the workaround for all these types in action. 
+
+####Generic properties
+For generic properties the protocol EVGenericsKVC is required. see WorkaroundSwiftGenericsTests.swift 
+
+####Arrays with nullable objects
+For arrays with nullable objects like [MyObj?] the protocol EVArrayConvertable is required. see WorkaroundsTests.swift
+
+### See also:
 There is also an Alamofire convenience extension for dirctly parsing the JSON to objects
 See [AlamofireJsonToObjects](https://github.com/evermeer/AlamofireJsonToObjects)
 

@@ -31,8 +31,6 @@ public func !=(lhs: NSObject, rhs: NSObject) -> Bool {
 }
 
 
-
-
 public extension NSObject {
     /**
     Convenience init for creating an object whith the property values of a dictionary.
@@ -114,7 +112,6 @@ public extension NSObject {
         }
     }
 }
-
 
 
 /**
