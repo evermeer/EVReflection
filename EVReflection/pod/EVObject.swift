@@ -108,7 +108,7 @@ public protocol EVRawString {
 Protocol for the workaround when using an enum with a rawValue of an undefined type
 */
 public protocol EVRaw {
-    var anyRawValue: AnyObject { get }
+    var anyRawValue: Any { get }
 }
 
 /**

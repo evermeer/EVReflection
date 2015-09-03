@@ -58,15 +58,15 @@ class EnumWorkaroundsTests: XCTestCase {
         case OK = "OK"
     }
     
-    enum MyEnumTwo: Int {       // Add , EVRawInt to make the test pass
+    enum MyEnumTwo: Int, EVRawInt {       // Add , EVRawInt to make the test pass
         case NotOK = 0
         case OK = 1
     }
     
-    enum MyEnumThree: Int64 {   // Add , EVRaw to make the test pass
+    enum MyEnumThree: Int64, EVRaw {   // Add , EVRaw to make the test pass
         case NotOK = 0
         case OK = 1
-        var anyRawValue: AnyObject { get { return String(self.rawValue) }}
+        var anyRawValue: Any { get { return self.rawValue }}
     }
     
     enum MyEnumFour {
