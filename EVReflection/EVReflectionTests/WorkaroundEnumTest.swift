@@ -20,15 +20,17 @@ class EnumWorkaroundsTests: XCTestCase {
     
     func testEnumToRaw() {
         let test1 = getRawValue(MyEnumOne.OK)
-        XCTAssertTrue(test1 as? String == "OK", "Could nog get the rawvalue using a generic function")
+        XCTAssertTrue(test1 as? String == "OK-2", "Could nog get the rawvalue using a generic function")
         let test2 = getRawValue(MyEnumTwo.OK)
         XCTAssertTrue(test2 as? Int == 1, "Could nog get the rawvalue using a generic function")
         let test3 = getRawValue(MyEnumThree.OK)
         XCTAssertTrue(test3 as? Int64 == 1, "Could nog get the rawvalue using a generic function")
-        let test4 = getRawValue(MyEnumFour.NotOK(message: "realy wrong"))
-        XCTAssertTrue(test4 as? String == "realy wrong", "Could nog get the rawvalue using a generic function")
-        let test5 = getRawValue(MyEnumFour.OK(level: 3))
-        XCTAssertTrue(test5 as? Int == 3, "Could nog get the rawvalue using a generic function")
+        let test4 = getRawValue(MyEnumFour.NotOK(message: "realy wrong")) as? (String?, [protocol<>])
+        XCTAssertTrue(test4?.0 == "NotOK", "Could nog get the rawvalue using a generic function")
+        XCTAssertTrue(test4?.1.first as? String == "realy wrong", "Could nog get the associated value using a generic function")
+        let test5 = getRawValue(MyEnumFour.OK(level: 3)) as? (String?, [protocol<>])
+        XCTAssertTrue(test5?.0 == "OK", "Could nog get the rawvalue using a generic function")
+        XCTAssertTrue(test5?.1.first as? Int == 3, "Could nog get the associated value using a generic function")
     }
     
     func testArrayNullable() {
@@ -54,16 +56,16 @@ class EnumWorkaroundsTests: XCTestCase {
     }
     
     enum MyEnumOne: String {      // Add , EVRawString to make the test pass
-        case NotOK = "NotOK"
-        case OK = "OK"
+        case NotOK = "NotOK-1"
+        case OK = "OK-2"
     }
     
-    enum MyEnumTwo: Int, EVRawInt {       // Add , EVRawInt to make the test pass
+    enum MyEnumTwo: Int {       // Add , EVRawInt to make the test pass
         case NotOK = 0
         case OK = 1
     }
     
-    enum MyEnumThree: Int64, EVRaw {   // Add , EVRaw to make the test pass
+    enum MyEnumThree: Int64 {   // Add , EVRaw to make the test pass
         case NotOK = 0
         case OK = 1
         var anyRawValue: Any { get { return self.rawValue }}
@@ -85,13 +87,6 @@ class EnumWorkaroundsTests: XCTestCase {
         print("description = \(description)")
         let displayStyle = mirror.displayStyle  // --> Enum
         print("displayStyle = \(displayStyle)")
-        let count = mirror.children.count  // --> 0
-        print("children.count = \(count)")
-        if mirror.children.count > 0 {
-            for child in mirror.children {
-                print("child.label = \(child.label), child.value = \(child.value)")
-            }
-        }
         
         let subjectType = mirror.subjectType // EVReflectionTests.EnumWorkaroundsTests.MyEnumOne
         print("subjectType = \(subjectType)")
@@ -100,6 +95,16 @@ class EnumWorkaroundsTests: XCTestCase {
 
         if mirror.displayStyle == .Enum {
             print("displayStyle is .Enum")
+
+            let count = mirror.children.count  // --> 0
+            print("children.count = \(count)")
+            if mirror.children.count > 0 {
+                for child in mirror.children {
+                    print("child.label = \(child.label), child.value = \(child.value)")
+                }
+                return (mirror.children.first?.label, mirror.children.map({$0.value}))
+            }
+            
             
             // OK, and now?
             
