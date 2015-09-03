@@ -49,17 +49,17 @@ class EnumWorkaroundsTests: XCTestCase {
         return temp
     }
     
-    enum MyEnumOne: String, EVRawString {
+    enum MyEnumOne: String {      // Add , EVRawString to make the test pass
         case NotOK = "NotOK"
         case OK = "OK"
     }
     
-    enum MyEnumTwo: Int, EVRawInt {
+    enum MyEnumTwo: Int {       // Add , EVRawInt to make the test pass
         case NotOK = 0
         case OK = 1
     }
     
-    enum MyEnumThree: Int64, EVRaw {
+    enum MyEnumThree: Int64 {   // Add , EVRaw to make the test pass
         case NotOK = 0
         case OK = 1
         var anyRawValue: AnyObject { get { return String(self.rawValue) }}
@@ -68,6 +68,21 @@ class EnumWorkaroundsTests: XCTestCase {
     func getRawValue(theEnum: Any) -> String {
         // What can we get using reflection:
         let mirror = Mirror(reflecting: theEnum)
+
+        let valueType:Any.Type = mirror.subjectType
+        print("valueType = \(valueType)")
+        // No help from these:
+        let description = mirror.description  // --> "Mirror for MyEnumOne"
+        print("description = \(description)")
+        let displayStyle = mirror.displayStyle  // --> Enum
+        print("displayStyle = \(displayStyle)")
+        let count = mirror.children.count  // --> 0
+        print("children.count = \(count)")
+        let subjectType = mirror.subjectType // EVReflectionTests.EnumWorkaroundsTests.MyEnumOne
+        print("subjectType = \(subjectType)")
+        let toString:String = "\(theEnum)"
+        print("String value: \(toString)\n")
+
         if mirror.displayStyle == .Enum {
             print("displayStyle is .Enum")
             
@@ -88,19 +103,6 @@ class EnumWorkaroundsTests: XCTestCase {
             }
             print("For now you have to implement one of the EVRaw protocols on your enum. ")
         }
-        let valueType:Any.Type = mirror.subjectType
-        print("valueType = \(valueType)")
-        // No help from these:
-        let description = mirror.description  // --> "Mirror for MyEnumOne"
-        print("description = \(description)")
-        let displayStyle = mirror.displayStyle  // --> Enum
-        print("displayStyle = \(displayStyle)")
-        let count = mirror.children.count  // --> 0
-        print("count = \(count)")
-        let subjectType = mirror.subjectType // EVReflectionTests.EnumWorkaroundsTests.MyEnumOne
-        print("subjectType = \(subjectType)")
-        let toString:String = "\(theEnum)"
-        print("String value: \(toString)\n")
         return toString
     }
     
