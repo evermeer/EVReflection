@@ -25,6 +25,8 @@ class EnumWorkaroundsTests: XCTestCase {
         XCTAssertTrue(test2 == "1", "Could nog get the rawvalue using a generic function")
         let test3 = getRawValue(MyEnumThree.OK)
         XCTAssertTrue(test3 == "1", "Could nog get the rawvalue using a generic function")
+        let test4 = getRawValue(MyEnumFour.NotOK(message: "realy wrong"))
+        XCTAssertTrue(test4 == "realy wrong", "Could nog get the rawvalue using a generic function")
     }
     
     func testArrayNullable() {
@@ -65,6 +67,11 @@ class EnumWorkaroundsTests: XCTestCase {
         var anyRawValue: AnyObject { get { return String(self.rawValue) }}
     }
     
+    enum MyEnumFour {
+        case NotOK(message: String)
+        case OK(level: Int)
+    }
+    
     func getRawValue(theEnum: Any) -> String {
         // What can we get using reflection:
         let mirror = Mirror(reflecting: theEnum)
@@ -78,6 +85,12 @@ class EnumWorkaroundsTests: XCTestCase {
         print("displayStyle = \(displayStyle)")
         let count = mirror.children.count  // --> 0
         print("children.count = \(count)")
+        if mirror.children.count > 0 {
+            for child in mirror.children {
+                print("child.label = \(child.label), child.value = \(child.value)")
+            }
+        }
+        
         let subjectType = mirror.subjectType // EVReflectionTests.EnumWorkaroundsTests.MyEnumOne
         print("subjectType = \(subjectType)")
         let toString:String = "\(theEnum)"
