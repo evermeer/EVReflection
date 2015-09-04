@@ -20,11 +20,11 @@ class EnumWorkaroundsTests: XCTestCase {
     
     func testEnumToRaw() {
         let test1 = getRawValue(MyEnumOne.OK)
-        XCTAssertTrue(test1 as? String == "OK-2", "Could nog get the rawvalue using a generic function")
+        XCTAssertTrue(test1 as? String == "OK-2", "Could nog get the rawvalue using a generic function. As a workaround just add the EVRawString protocol")
         let test2 = getRawValue(MyEnumTwo.OK)
-        XCTAssertTrue(test2 as? Int == 1, "Could nog get the rawvalue using a generic function")
+        XCTAssertTrue(test2 as? Int == 1, "Could nog get the rawvalue using a generic function. As a workaround just add the EVRawInt protocol")
         let test3 = getRawValue(MyEnumThree.OK)
-        XCTAssertTrue(test3 as? Int64 == 1, "Could nog get the rawvalue using a generic function")
+        XCTAssertTrue(test3 as? Int64 == 1, "Could nog get the rawvalue using a generic function. As a workaround just add the EVRaw protocol")
         let test4 = getRawValue(MyEnumFour.NotOK(message: "realy wrong")) as? (String?, [protocol<>])
         XCTAssertTrue(test4?.0 == "NotOK", "Could nog get the rawvalue using a generic function")
         XCTAssertTrue(test4?.1.first as? String == "realy wrong", "Could nog get the associated value using a generic function")
@@ -55,17 +55,17 @@ class EnumWorkaroundsTests: XCTestCase {
         return temp
     }
     
-    enum MyEnumOne: String {      // Add , EVRawString to make the test pass
+    enum MyEnumOne: String, EVRawString {      // Add , EVRawString to make the test pass
         case NotOK = "NotOK-1"
         case OK = "OK-2"
     }
     
-    enum MyEnumTwo: Int {       // Add , EVRawInt to make the test pass
+    enum MyEnumTwo: Int, EVRawInt {       // Add , EVRawInt to make the test pass
         case NotOK = 0
         case OK = 1
     }
     
-    enum MyEnumThree: Int64 {   // Add , EVRaw to make the test pass
+    enum MyEnumThree: Int64, EVRaw {   // Add , EVRaw to make the test pass
         case NotOK = 0
         case OK = 1
         var anyRawValue: Any { get { return self.rawValue }}

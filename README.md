@@ -52,6 +52,7 @@ Parsing from and to a dictionary:
 ```
 let dict = user.toDictionary()
 let newUser = User(dictionary: dict)
+XCTAssert(user == newUser, "Pass")
 ```
 
 Saving and loading an object to and from a file:
