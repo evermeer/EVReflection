@@ -117,6 +117,16 @@ class EVReflectionTests: XCTestCase {
         XCTAssert(theObject == result, "Pass")
     }
 
+    func testNSCodingConvenience() {
+        let theObject = TestObject2()
+        theObject.objectValue = "value1"
+        
+        theObject.saveToTemp("temp.dat")
+        let result = TestObject2(fileNameInTemp: "temp.dat")
+        
+        XCTAssert(theObject == result, "Pass")
+    }
+    
     /**
     Create a dictionary from an object that contains a nullable type. Then read it back. We are using the workaround in TestObject3 to solve the setvalue for key issue in Swift 1.2
     */

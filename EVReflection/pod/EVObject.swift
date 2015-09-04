@@ -42,6 +42,53 @@ public class EVObject: NSObject, NSCoding, CustomDebugStringConvertible { // The
     }        
     
     /**
+    Initialize this object from an archived file from the temp directory
+    
+    :param: fileName The filename
+    */
+    public convenience required init(fileNameInTemp:String) {
+        self.init()
+        let filePath = (NSTemporaryDirectory() as NSString).stringByAppendingPathComponent(fileNameInTemp)
+        if let temp = NSKeyedUnarchiver.unarchiveObjectWithFile(filePath) as? NSObject {
+            EVReflection.setPropertiesfromDictionary( temp.toDictionary(false), anyObject: self)
+        }
+    }
+    
+    /**
+    Initialize this object from an archived file from the documents directory
+    
+    :param: fileName The filename
+    */
+    public convenience required init(fileNameInDocuments:String) {
+        self.init()
+        let filePath = (NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as NSString).stringByAppendingPathComponent(fileNameInDocuments)
+        if let temp = NSKeyedUnarchiver.unarchiveObjectWithFile(filePath) as? NSObject {
+            EVReflection.setPropertiesfromDictionary( temp.toDictionary(false), anyObject: self)
+        }
+    }
+    
+    /**
+    Save this object to a file in the temp directory
+    
+    :param: fileName The filename
+    */
+    public func saveToTemp(fileName:String) {
+        let filePath = (NSTemporaryDirectory() as NSString).stringByAppendingPathComponent(fileName)
+        NSKeyedArchiver.archiveRootObject(self, toFile: filePath)
+    }
+
+    /**
+    Save this object to a file in the documents directory
+    
+    :param: fileName The filename
+    */
+    public func saveToDocuments(fileName:String) {
+        let filePath = (NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as NSString).stringByAppendingPathComponent(fileName)
+        NSKeyedArchiver.archiveRootObject(self, toFile: filePath)
+    }
+    
+    
+    /**
     Implementation of the NSObject isEqual comparisson method
 
     - In EVObject and not in NSObject extension because: method conflicts with previous declaration with the same Objective-C selector

@@ -20,12 +20,10 @@ Run the unit tests to see EVReflection in action.
 EVReflection is used extensively in [EVCloudKitDao](https://github.com/evermeer/EVCloudKitDao) and [AlamofireJsonToObjects](https://github.com/evermeer/AlamofireJsonToObjects)
 
 ## Main features of EVReflection:
-- Parsing objects based on NSObject to a dictionary. 
-- Parsing a dictionary back to an object.
-- Creating a class from a string value and get the string value for a class.
+- Parsing objects based on NSObject to and from a dictionary.
+- Parsing objects to and from a JSON string.
 - Support NSCoding methods encodeWithCoder and decodeObjectWithCoder
 - Supporting Printable, Hashable and Equatable while using all properties. (Support for Set in Swift 1.2)
-- Parse an object to a JSON string and parse a JSON string to an object
 
 ## It's easy to use:
 
@@ -55,6 +53,18 @@ Parsing from and to a dictionary:
 let dict = user.toDictionary()
 let newUser = User(dictionary: dict)
 ```
+
+Saving and loading an object to and from a file:
+```
+let theObject = TestObject2()
+theObject.objectValue = "value1"
+
+theObject.saveToTemp("temp.dat")
+let result = TestObject2(fileNameInTemp: "temp.dat")
+
+XCTAssert(theObject == result, "Pass")
+```
+
 
 ## Using EVReflection in your own App 
 
