@@ -27,7 +27,7 @@ EVReflection is used extensively in [EVCloudKitDao](https://github.com/evermeer/
 - Supporting Printable, Hashable and Equatable while using all properties. (Support for Set in Swift 1.2)
 - Parse an object to a JSON string and parse a JSON string to an object
 
-## it's easy to use:
+## It's easy to use:
 
 Defining an object. You only have to set NSObject as it's base class:
 ```
@@ -89,7 +89,9 @@ import EVReflection
 If you want support for older versions than iOS 8.0, then you can also just copy the files from the pod folder to your project 
 
 
-## More Sample code (Clone EVReflection to your desktop and see the unit tests)
+## More Sample code 
+Clone EVReflection to your desktop to see these and more unit tests
+
 ```
 func testEquatable() {
     var theObjectA = TestObject2()
@@ -135,12 +137,23 @@ func testNSCoding() {
 
 ## Extra information:
 
-### Automatic keyword mapping
+### Automatic keyword mapping for Swift keywords
 If you have JSON fields that are Swift keywords, then prefix the property with an underscore. So the JSON value for self will be stored in the property _self. At this moment the folowing keywords are handled:
 "self", "description", "class", "deinit", "enum", "extension", "func", "import", "init", "let", "protocol", "static", "struct", "subscript", "typealias", "var", "break", "case", "continue", "default", "do", "else", "fallthrough", "if", "in", "for", "return", "switch", "where", "while", "as", "dynamicType", "is", "new", "super", "Self", "Type", "__COLUMN__", "__FILE__", "__FUNCTION__", "__LINE__", "associativity", "didSet", "get", "infix", "inout", "left", "mutating", "none", "nonmutating", "operator", "override", "postfix", "precedence", "prefix", "right", "set", "unowned", "unowned", "safe", "unowned", "unsafe", "weak", "willSet", "private", "public"
 
+### Automatic keyword mapping PascalCase or camelCase to snake_case
+When creating objects from JSON EVReflection will automatically detect if snake_case (keys are all lowercase and words are separated by an underscore) should be converted to PascalCase or camelCase property names. 
+
+When exporting object to a dictionary or JSON string you will have an option to specify that you want a conversion to snace_case or not. The default is yes.
+
+```
+let jsonString = myObject.toJsonString(performKeyCleanup:false)
+let dict = myObject.toDictionary(performKeyCleanup:false)
+```
+
+
 ### Custom keyword mapping
-It's also possibe to create a custom property mapping. You can define if an import should be ignored, if an export should be ignored or you can map a property name to another key name (for the dictionary and json). For this you only need to implement the propertyMapping method in the object like this:
+It's also possible to create a custom property mapping. You can define if an import should be ignored, if an export should be ignored or you can map a property name to another key name (for the dictionary and json). For this you only need to implement the propertyMapping method in the object like this:
 
 ```
 public class TestObject5: EVObject {

@@ -52,13 +52,13 @@ public extension NSObject {
     /**
     Returns the dictionary representation of this object.
     */
-    final public func toDictionary() -> NSDictionary {
-        let (reflected, _) = EVReflection.toDictionary(self)
+    final public func toDictionary(performKeyCleanup:Bool = true) -> NSDictionary {
+        let (reflected, _) = EVReflection.toDictionary(self, performKeyCleanup: performKeyCleanup)
         return reflected
     }
     
-    final public func toJsonString() -> String {
-        return EVReflection.toJsonString(self)
+    final public func toJsonString(performKeyCleanup:Bool = true) -> String {
+        return EVReflection.toJsonString(self, performKeyCleanup: performKeyCleanup)
     }
     
     /**
