@@ -251,8 +251,8 @@ class EVReflectionTests: XCTestCase {
         XCTAssertEqual(a.ignoredProperty, "", "ignoredProperty should containt ''")
         
         let toDict = a.toDictionary()
-        let dict2 = ["Name":"just a field","keyInJson":"value for propertyInObject"]
-        XCTAssertEqual(toDict, dict2, "export dictionary should only contain a Name and keyInJson")
+        let dict2 = ["name":"just a field","key_in_json":"value for propertyInObject"]
+        XCTAssertEqual(toDict, dict2, "export dictionary should only contain a name and key_in_json")
     }
     
     func testCamelCaseToUndersocerMapping() {

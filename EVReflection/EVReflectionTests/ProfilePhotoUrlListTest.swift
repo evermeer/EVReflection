@@ -49,10 +49,10 @@ class ProfilePhotoUrlListTests: XCTestCase {
 }
 
 class Base: EVObject {
-    var resource_uri: String?
+    var resourceUri: String?
     
     func getResourceId() -> String! {
-        return resource_uri?.componentsSeparatedByString("/").last
+        return resourceUri?.componentsSeparatedByString("/").last
     }
 }
 
@@ -61,7 +61,7 @@ class Meta : EVObject {
     var next : String?
     var offset : Int = 0
     var previous : String?
-    var total_count : Int = 0
+    var totalCount : Int = 0
 }
 
 class ProfilePhotoUrl : Base {

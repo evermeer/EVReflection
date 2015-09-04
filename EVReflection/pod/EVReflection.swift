@@ -30,29 +30,44 @@ final public class EVReflection {
     }
     
     
-    private class func cleanupKey(anyObject:NSObject, key:String) -> String? {
-        // Step 1 - from Camelcase to undersocres
-        var newKey: String? = CamelCaseToUnderscores(key)
-        newKey = key
-        
-        // Step 2 - clean up keywords
-        if key.characters.first == "_" {
-            if keywords.contains(newKey!.substringFromIndex(newKey!.startIndex.advancedBy(1))) {
-                newKey = newKey!.substringFromIndex(newKey!.startIndex.advancedBy(1))
-            }
-        }
+    private class func cleanupKey(anyObject:NSObject, key:String, tryMatch:NSDictionary?) -> String? {
+        var newKey: String = key
 
-        // Step 3 - custom property mapping
+        // Step 1 - custom property mapping
         if let evObject = anyObject as? EVObject {
-            if let mapping = evObject.propertyMapping().filter({$0.0 == key}).first {
+            if let mapping = evObject.propertyMapping().filter({$0.0 == newKey}).first {
                 if mapping.1 == nil {
-                    newKey = nil
+                    return nil
                 } else {
                     newKey = mapping.1!
                 }
             }
         }
+        if tryMatch?[newKey] != nil {
+            return newKey
+        }
         
+        // Step 2 - clean up keywords
+        if newKey.characters.first == "_" {
+            if keywords.contains(newKey.substringFromIndex(newKey.startIndex.advancedBy(1))) {
+                newKey = newKey.substringFromIndex(newKey.startIndex.advancedBy(1))
+                if tryMatch?[newKey] != nil {
+                    return newKey
+                }
+            }
+        }
+
+        // Step 3 - from PascalCase or camelCase to snakeCase
+        newKey = CamelCaseToUnderscores(newKey)
+        if tryMatch?[newKey] != nil {
+            return newKey
+        }
+        
+
+        if tryMatch != nil {
+            return nil
+        }
+
         return newKey
     }
     
@@ -112,9 +127,9 @@ final public class EVReflection {
     :return: The object that is created from the dictionary
     */
     public class func setPropertiesfromDictionary<T where T:NSObject>(dictionary:NSDictionary, anyObject: T) -> T {
-        var (hasKeys, hasTypes) = toRawDictionary(anyObject)
+        var (hasKeys, hasTypes) = toDictionary(anyObject, performKeyCleanup: false)
         for (objectKey, _) in hasKeys {
-            if let dictKey = cleanupKey(anyObject, key: objectKey as! String) {
+            if let dictKey = cleanupKey(anyObject, key: objectKey as! String, tryMatch: dictionary) {
                 if let dictValue = dictionaryAndArrayConversion(hasTypes, hasKeys: hasKeys, objectKey: objectKey as! String, dictValue: dictionary[dictKey]) {
                     if let typeInObject = hasTypes[objectKey as! String] {
                         setObjectValue(anyObject, key: objectKey as! String, value: dictValue, typeInObject: typeInObject)                        
@@ -125,74 +140,6 @@ final public class EVReflection {
         return anyObject
     }
     
-    public class func setPropertiesfromDictionary_old<T where T:NSObject>(dictionary:NSDictionary, anyObject: T) -> T {
-        var (hasKeys, hasTypes) = toDictionary(anyObject)
-        for (k, v) in dictionary {
-            if let key = k as? String {
-                var skipKey = false
-                var toKey = key
-                if let evObject = anyObject as? EVObject {
-                    if let mapping = evObject.propertyMapping().filter({$0.1 == key}).first {
-                        if mapping.0 == nil {
-                            skipKey = true
-                        } else {
-                            toKey = mapping.0!
-                        }
-                    }
-                }
-                if !skipKey{
-                    var newValue: AnyObject? = dictionary[key]!
-                    if let type = hasTypes[toKey] {
-                        if type.hasPrefix("Array<") && newValue as? NSDictionary != nil {
-                            if var value = v as? [NSObject] {
-                                value.append(newValue! as! NSObject)
-                                newValue = value
-                            }
-                        } else if type != "NSDictionary" && newValue as? NSDictionary != nil {
-                            newValue = dictToObject(type, original:hasKeys[key] as! NSObject ,dict: newValue as! NSDictionary)
-                        } else if type.rangeOfString("<NSDictionary>") == nil && newValue as? [NSDictionary] != nil {
-                            newValue = dictArrayToObjectArray(type, array: newValue as! [NSDictionary]) as [NSObject]
-                        }
-                    }
-                    let keywords = ["self", "description", "class", "deinit", "enum", "extension", "func", "import", "init", "let", "protocol", "static", "struct", "subscript", "typealias", "var", "break", "case", "continue", "default", "do", "else", "fallthrough", "if", "in", "for", "return", "switch", "where", "while", "as", "dynamicType", "is", "new", "super", "Self", "Type", "__COLUMN__", "__FILE__", "__FUNCTION__", "__LINE__", "associativity", "didSet", "get", "infix", "inout", "left", "mutating", "none", "nonmutating", "operator", "override", "postfix", "precedence", "prefix", "right", "set", "unowned", "unowned", "safe", "unowned", "unsafe", "weak", "willSet", "private", "public", "internal", "zone"]
-                    if keywords.contains(toKey) {
-                        toKey = "_\(key)"
-                    }
-                    if newValue == nil || newValue as? NSNull != nil {
-                        do {
-                            var nilValue: AnyObject? = Optional.None
-                            try anyObject.validateValue(&nilValue, forKey: toKey)
-                            anyObject.setValue(nilValue, forKey: toKey)
-                        } catch _ {
-                        }
-                    } else {
-                        // Let us put a number into a string property by taking it's stringValue
-                        if let typeInObject = hasTypes[toKey] {
-                            let (_, type) = valueForAny("", key: toKey, anyValue: newValue)
-                            if (typeInObject == "String" || typeInObject == "NSString") && type == "NSNumber" {
-                                if let convertedValue = newValue as? NSNumber {
-                                    newValue = convertedValue.stringValue
-                                }
-                            } else if typeInObject == "NSNumber" && (type == "String" || type == "NSString") {
-                                if let convertedValue = newValue as? String {
-                                    newValue = NSNumber(double: Double(convertedValue) ?? 0)
-                                }
-                            }
-                            
-                        } else {
-                            print("WARNING: key '\(toKey)' does not exist in object \(anyObject)")
-                        }
-                        do {
-                            try anyObject.validateValue(&newValue, forKey: toKey)
-                            anyObject.setValue(newValue, forKey: toKey)
-                        } catch _ {
-                        }
-                    }
-                }
-            }
-        }
-        return anyObject
-    }
     
     /**
     Convert a CamelCase to Undersores
@@ -261,24 +208,28 @@ final public class EVReflection {
         }
         return result
     }
-        
+    
     /**
     Convert an object to a dictionary while cleaning up the keys
     
     - parameter theObject: The object that will be converted to a dictionary
     :return: The dictionary that is created from theObject plus a dictionary of propery types.
     */
-    public class func toDictionary(theObject: NSObject) -> (NSDictionary, Dictionary<String,String>) {
+    public class func toDictionary(theObject: NSObject, performKeyCleanup:Bool = true) -> (NSDictionary, Dictionary<String,String>) {
         let reflected = Mirror(reflecting: theObject)
         let (properties, types) =  reflectedSub(theObject, reflected: reflected)
-        return cleanupKeysAndValues(theObject, properties:properties, types:types)
+        if performKeyCleanup {
+            return cleanupKeysAndValues(theObject, properties:properties, types:types)
+        }
+        return (properties, types)
     }
 
     class func cleanupKeysAndValues(theObject: NSObject, properties:NSDictionary, types:Dictionary<String,String>) -> (NSDictionary, Dictionary<String,String>) {
         let newProperties = NSMutableDictionary()
         var newTypes = Dictionary<String,String>()
         for (key, _) in properties {
-            if let newKey = cleanupKey(theObject, key: key as! String) {
+            if let newKey = cleanupKey(theObject, key: key as! String, tryMatch: nil) {
+//TODO: cleanup sub objects
 //                if properties[key as! String].dynamicType != Dictionary.type && types[key as! String] == "Dictionary" {
 //                    
 //                }
@@ -290,16 +241,7 @@ final public class EVReflection {
     }
     
     
-    /**
-    Convert an object to a dictionary without cleaning up the keys
-    
-    - parameter theObject: The object that will be converted to a dictionary
-    :return: The dictionary that is created from theObject plus a dictionary of propery types.
-    */
-    public class func toRawDictionary(theObject: NSObject) -> (NSDictionary, Dictionary<String,String>) {
-        let reflected = Mirror(reflecting: theObject)
-        return reflectedSub(theObject, reflected: reflected)
-    }
+
     
     
     /**
@@ -324,12 +266,12 @@ final public class EVReflection {
                 let value = property.value
                 var (unboxedValue, valueType): (AnyObject, String) = valueForAny(theObject, key: key, anyValue: value)
                 if unboxedValue as? EVObject != nil {
-                    let (dict, _) = toRawDictionary(unboxedValue as! NSObject)
+                    let (dict, _) = toDictionary(unboxedValue as! NSObject, performKeyCleanup: false)
                     propertiesDictionary.setValue(dict, forKey: key)
                 } else if let array = unboxedValue as? [EVObject] {
                     var tempValue = [NSDictionary]()
                     for av in array {
-                        let (dict, _) = toRawDictionary(av)
+                        let (dict, _) = toDictionary(av, performKeyCleanup: false)
                         tempValue.append(dict)
                     }
                     unboxedValue = tempValue
@@ -363,7 +305,7 @@ final public class EVReflection {
     */
     public class func description(theObject: NSObject) -> String {
         var description: String = swiftStringFromClass(theObject) + " {\n   hash = \(theObject.hash)\n"
-        let (hasKeys, _) = toRawDictionary(theObject)
+        let (hasKeys, _) = toDictionary(theObject, performKeyCleanup:false)
         for (key, value) in hasKeys {
             description = description  + "   key = \(key), value = \(value)\n"
         }
@@ -379,8 +321,8 @@ final public class EVReflection {
     
     :return: The string representation of the object
     */
-    public class func toJsonString(theObject: NSObject) -> String {
-        var (dict,_) = EVReflection.toDictionary(theObject)
+    public class func toJsonString(theObject: NSObject, performKeyCleanup:Bool = true) -> String {
+        var (dict,_) = EVReflection.toDictionary(theObject, performKeyCleanup: performKeyCleanup)
         dict = convertDictionaryForJsonSerialization(dict)
         do {
             let jsonData = try NSJSONSerialization.dataWithJSONObject(dict , options: .PrettyPrinted)
@@ -488,7 +430,7 @@ final public class EVReflection {
     :return: the hashvalue for the object
     */
     public class func hashValue(theObject: NSObject) -> Int {
-        let (hasKeys, _) = toRawDictionary(theObject)
+        let (hasKeys, _) = toDictionary(theObject, performKeyCleanup:false)
         return Int(hasKeys.map {$1}.reduce(0) {(31 &* $0) &+ $1.hash})
     }
     
@@ -592,7 +534,7 @@ final public class EVReflection {
     - parameter aCoder: The NSCoder that will be used for encoding the object.
     */
     public class func encodeWithCoder(theObject: NSObject, aCoder: NSCoder) {
-        let (hasKeys, _) = toRawDictionary(theObject)
+        let (hasKeys, _) = toDictionary(theObject, performKeyCleanup:false)
         for (key, value) in hasKeys {
             aCoder.encodeObject(value, forKey: key as! String)
         }
@@ -605,7 +547,7 @@ final public class EVReflection {
     - parameter aDecoder: The NSCoder that will be used for decoding the object.
     */
     public class func decodeObjectWithCoder(theObject: NSObject, aDecoder: NSCoder) {
-        let (hasKeys, _) = toRawDictionary(theObject)
+        let (hasKeys, _) = toDictionary(theObject, performKeyCleanup:false)
         for (key, _) in hasKeys {
             if aDecoder.containsValueForKey(key as! String) {
                 var newValue: AnyObject? = aDecoder.decodeObjectForKey(key as! String)
@@ -633,8 +575,8 @@ final public class EVReflection {
             return false;
         }
         
-        let (lhsdict,_) = toRawDictionary(lhs)
-        let (rhsdict,_) = toRawDictionary(rhs)
+        let (lhsdict,_) = toDictionary(lhs, performKeyCleanup:false)
+        let (rhsdict,_) = toDictionary(rhs, performKeyCleanup:false)
         
         for (key, value) in rhsdict {
             if let compareTo: AnyObject = lhsdict[key as! String] {
