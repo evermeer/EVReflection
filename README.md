@@ -86,7 +86,7 @@ Version 0.36 of cocoapods will make a dynamic framework of all the pods that you
 import EVReflection
 ```
 
-If you want support for older versions than iOS 8.0, then you can also just copy the EVReflection.swift and EVObject.swift to your app. 
+If you want support for older versions than iOS 8.0, then you can also just copy the files from the pod folder to your project 
 
 
 ## More Sample code (Clone EVReflection to your desktop and see the unit tests)
@@ -145,12 +145,11 @@ It's also possibe to create a custom property mapping. You can define if an impo
 ```
 public class TestObject5: EVObject {
     var Name: String = "" // Using the default mapping
-    var dummyPropertyInObject: String = "" // Will not be written from object to targe but will be written to object if exist in dictionary or json
     var propertyInObject: String = "" // will be written to or read from keyInJson
-    var ignoredProperty: String = "" // Will not be written to object or from object to target
+    var ignoredProperty: String = "" // Will not be written or read to/from json 
 
     override public func propertyMapping() -> [(String?, String?)] {
-        return [("ignoredProperty",nil), (nil,"ignoredProperty"), ("dummyPropertyInObject",nil), (nil,"dummpyKeyInJson"), ("propertyInObject","keyInJson")]
+        return [("ignoredProperty",nil), ("propertyInObject","keyInJson")]
     }
 }
 ```

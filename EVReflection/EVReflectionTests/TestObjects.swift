@@ -57,12 +57,11 @@ For testing the custom property maping
 */
 public class TestObject5: EVObject {
     var Name: String = "" // Using the default mapping
-    var dummyPropertyInObject: String = "" // Will not be written from object to targe but will be written to object if exist in dictionary or json
     var propertyInObject: String = "" // will be written to or read from keyInJson
-    var ignoredProperty: String = "" // Will not be written to object or from object to target
+    var ignoredProperty: String = "" // Will not be written or read to/from json 
     
     override public func propertyMapping() -> [(String?, String?)] {
-        return [("ignoredProperty",nil), (nil,"ignoredProperty"), ("dummyPropertyInObject",nil), (nil,"dummpyKeyInJson"), ("propertyInObject","keyInJson")]
+        return [("ignoredProperty",nil), ("propertyInObject","keyInJson")]
     }
 }
 

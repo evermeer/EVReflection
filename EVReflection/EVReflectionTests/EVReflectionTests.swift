@@ -244,10 +244,9 @@ class EVReflectionTests: XCTestCase {
     }
     
     func testCustomPropertyMapping() {
-        let dict = ["Name":"just a field", "dummyKeyInJson":"will be ignored", "dummyPropertyInObject":"only import", "keyInJson":"value for propertyInObject", "ignoredProperty":"will not be read or written"]
+        let dict = ["Name":"just a field", "dummyKeyInJson":"will be ignored", "keyInJson":"value for propertyInObject", "ignoredProperty":"will not be read or written"]
         let a = TestObject5(dictionary: dict)
         XCTAssertEqual(a.Name, "just a field", "Name should containt 'just a field'")
-        XCTAssertEqual(a.dummyPropertyInObject, "only import", "dummyPropertyInObject should containt 'only import'")
         XCTAssertEqual(a.propertyInObject, "value for propertyInObject", "propertyInObject should containt 'value for propertyInObject'")
         XCTAssertEqual(a.ignoredProperty, "", "ignoredProperty should containt ''")
         
@@ -255,4 +254,11 @@ class EVReflectionTests: XCTestCase {
         let dict2 = ["Name":"just a field","keyInJson":"value for propertyInObject"]
         XCTAssertEqual(toDict, dict2, "export dictionary should only contain a Name and keyInJson")
     }
+    
+    func testCamelCaseToUndersocerMapping() {
+        XCTAssertEqual(EVReflection.CamelCaseToUnderscores("swiftIsGreat"), "swift_is_great", "Cammelcase to underscore mapping was incorrect")
+        XCTAssertEqual(EVReflection.CamelCaseToUnderscores("SwiftIsGreat"), "swift_is_great", "Cammelcase to underscore mapping was incorrect")
+        
+    }
+    
 }
