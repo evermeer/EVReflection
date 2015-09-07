@@ -20,6 +20,23 @@ public class EVObject: NSObject, NSCoding, CustomDebugStringConvertible { // The
     }
     
     /**
+    Convenience init for creating an object whith the property values of a dictionary.
+    */
+    public required convenience init(dictionary:NSDictionary) {
+        self.init()
+        EVReflection.setPropertiesfromDictionary(dictionary, anyObject: self)
+    }
+    
+    /**
+    Convenience init for creating an object whith the contents of a json string.
+    */
+    public required convenience init(json:String?) {
+        self.init()
+        let jsonDict = EVReflection.dictionaryFromJson(json)
+        EVReflection.setPropertiesfromDictionary(jsonDict, anyObject: self)
+    }
+    
+    /**
     Decode any object
     
     - In EVObject and not in NSObject because: Initializer requirement 'init(coder:)' can only be satisfied by a `required` initializer in the definition of non-final class 'NSObject'
