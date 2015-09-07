@@ -84,6 +84,51 @@ public class EVObject: NSObject, NSCoding, CustomDebugStringConvertible { // The
         }
     }
     
+
+    /**
+    Returns the pritty description of this object
+    
+    :return: The pritty description
+    */
+    public override var description: String {
+        get {
+            return EVReflection.description(self)
+        }
+    }
+    
+    /**
+    Returns the pritty description of this object
+    
+    :return: The pritty description
+    */
+    public override var debugDescription: String {
+        get {
+            return EVReflection.description(self)
+        }
+    }
+    
+    /**
+    Returns the hashvalue of this object
+    
+    :return: The hashvalue of this object
+    */
+    public override var hashValue: Int {
+        get {
+            return EVReflection.hashValue(self)
+        }
+    }
+    
+    /**
+    Function for returning the hash for the NSObject based functionality
+    
+    :return: The hashvalue of this object
+    */
+    public override var hash: Int {
+        get {
+            return self.hashValue
+        }
+    }
+    
     /**
     Save this object to a file in the temp directory
     
