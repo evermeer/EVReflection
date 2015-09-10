@@ -260,7 +260,7 @@ class EVReflectionTests: XCTestCase {
         XCTAssertEqual(a.propertyInObject, "value for propertyInObject", "propertyInObject should containt 'value for propertyInObject'")
         XCTAssertEqual(a.ignoredProperty, "", "ignoredProperty should containt ''")
         
-        let toDict = a.toDictionary()
+        let toDict = a.toDictionary(true)
         let dict2 = ["name":"just a field","key_in_json":"value for propertyInObject"]
         XCTAssertEqual(toDict, dict2, "export dictionary should only contain a name and key_in_json")
     }

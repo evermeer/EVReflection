@@ -215,7 +215,7 @@ final public class EVReflection {
     - parameter theObject: The object that will be converted to a dictionary
     :return: The dictionary that is created from theObject plus a dictionary of propery types.
     */
-    public class func toDictionary(theObject: NSObject, performKeyCleanup:Bool = true) -> (NSDictionary, Dictionary<String,String>) {
+    public class func toDictionary(theObject: NSObject, performKeyCleanup:Bool = false) -> (NSDictionary, Dictionary<String,String>) {
         let reflected = Mirror(reflecting: theObject)
         let (properties, types) =  reflectedSub(theObject, reflected: reflected)
         if performKeyCleanup {
