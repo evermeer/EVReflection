@@ -75,16 +75,10 @@ use_frameworks!
 pod "EVReflection"
 ```
 
-At the moment that is a Swift 1.2 version. When Swift 2 is released the Swift 2 branch will be merged to the trunk. If you want to keep on using the Swift 1.2 version, than use the Swift1.2 branch:
+I have now moved on to Swift 2. If you want to use EVReflection, then get that version by using the podfile command:
 ```
 use_frameworks!
-pod 'EVReflection', :git => 'https://github.com/evermeer/EVReflection.git', :branch => 'Swift1.2'
-```
-
-If you want to start using Swift 2.0 now (tested with beta 6) then use the Swift2 branch
-```
-use_frameworks!
-pod 'EVReflection', :git => 'https://github.com/evermeer/EVReflection.git', :branch => 'Swift2'
+pod "EVReflection", '~> 2.6'
 ```
 
 Version 0.36 of cocoapods will make a dynamic framework of all the pods that you use. Because of that it's only supported in iOS 8.0 or later. When using a framework, you also have to add an import at the top of your swift file like this:
