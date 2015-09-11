@@ -102,7 +102,7 @@ class WorkaroundObject: EVObject, EVArrayConvertable {
         switch key {
             case "list":
                 let returnArray = NSMutableArray()
-                for item in array as! [WorkaroundObject?] {
+                for item in (array as! [WorkaroundObject?]) {
                     if item != nil {
                         returnArray.addObject(item!)
                     }
