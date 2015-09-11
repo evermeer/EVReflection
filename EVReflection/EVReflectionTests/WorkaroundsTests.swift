@@ -14,6 +14,24 @@ import XCTest
 Testing The 3 propery types that need a workaround.
 */
 class WorkaroundsTests: XCTestCase {
+    
+    /**
+    For now nothing to setUp
+    */
+    override func setUp() {
+        super.setUp()
+        // Put setup code here. This method is called before the invocation of each test method in the class.
+        EVReflection.setBundleIdentifier(TestObject)
+    }
+    
+    /**
+    For now nothing to tearDown
+    */
+    override func tearDown() {
+        // Put teardown code here. This method is called after the invocation of each test method in the class.
+        super.tearDown()
+    }
+    
     func testWorkaroundsSmoketest() {
         let json:String = "{\"nullableType\": 1,\"enumType\": 0, \"list\": [ {\"nullableType\": 2}, {\"nullableType\": 3}] }"
         let status = WorkaroundObject(json: json)
@@ -75,7 +93,7 @@ class WorkaroundObject: EVObject, EVArrayConvertable {
                 }
             }
         default:
-            println("---> setValue for key '\(key)' should be handled.")
+            print("---> setValue for key '\(key)' should be handled.")
         }
     }
     
@@ -91,7 +109,7 @@ class WorkaroundObject: EVObject, EVArrayConvertable {
                 }
                 return returnArray
         default:
-            println("---> convertArray for key \(key) should be handled.")
+            print("---> convertArray for key \(key) should be handled.")
             return NSArray()
         }
     }

@@ -18,7 +18,7 @@ class WorkaroundSwiftGenericsTests: XCTestCase {
         let json:String = "{\"test\":\"test\", \"data\":\"data\", \"array\":[\"val1\",\"val2\",\"val3\"]}"
         let a = MyGenericObject<NSString>(json: json)
         XCTAssertEqual(a.test, "test", "test should contain test")
-        XCTAssertEqual(a.data as! String, "data", "data should contain data")
+        XCTAssertEqual(a.data as String, "data", "data should contain data")
         XCTAssertEqual(a.array.count, 3, "data should contain data")
     }
 
@@ -43,6 +43,10 @@ public class MyGenericObject<T where T:NSObject>: MyGenericBase, EVGenericsKVC {
     var data: T = T()
     var array: [T] = [T]()
     
+    required public init() {
+        super.init()
+    }
+    
     override public func setValue(value: AnyObject!, forUndefinedKey key: String) {
         switch key {
         case "data":
@@ -50,7 +54,7 @@ public class MyGenericObject<T where T:NSObject>: MyGenericBase, EVGenericsKVC {
         case "array":
             array = value as! [T]
         default:
-            println("---> setValue '\(value)' for key '\(key)' should be handled.")
+            print("---> setValue '\(value)' for key '\(key)' should be handled.")
         }
     }
 }

@@ -35,7 +35,7 @@ public class EVObjectDescription {
             className = classPath.last!
         } else {
             // Root objects will already have a . notation
-            classPath = split(swiftClassID) {$0 == "."}
+            classPath = swiftClassID.characters.split(isSeparator: {$0 == "."}).map({String($0)})
             if classPath.count > 1 {
                 bundleName = classPath[0]
                 className = classPath.last!
@@ -48,9 +48,9 @@ public class EVObjectDescription {
     }
     
     private func parseTypes(classString:String) {
-        let characters = Array(classString)
+        let characters = Array(classString.characters)
         let type:String = String(characters[0])
-        if type.toInt() == nil {
+        if Int(type) == nil {
             let ot: ObjectType = ObjectType(rawValue: type)!
             if ot == .Target {
                 classPathType.append(ot)
@@ -64,23 +64,22 @@ public class EVObjectDescription {
     }
     
     private func parseNames(classString:String) {
-        let characters = Array(classString)
-        let type:String = String(characters[0])
+        let characters = Array(classString.characters)
         var numForName = ""
         var index = 0
-        while String(characters[index]).toInt() != nil {
-            numForName.append(characters[index])
+        while Int(String(characters[index])) != nil {
+            numForName = "\(numForName)\(characters[index])"
             index++
         }
-        var range = Range<String.Index>(start:advance(classString.startIndex, index), end:advance(classString.startIndex, numForName.toInt()! + index))
+        let range = Range<String.Index>(start:classString.startIndex.advancedBy(index), end:classString.startIndex.advancedBy(Int(numForName)! + index))
         let name = classString.substringWithRange(range)
         classPath.append(name)
         if classPathType[classPath.count - 1] == .Function {
             //TODO: reverse engineer function description. For now only allow parameterless function that return void (FS0_FT_T_L_)
             index = index + 11
         }
-        if characters.count > index + numForName.toInt()! {
-            parseNames((classString as NSString).substringFromIndex(index + numForName.toInt()!))
+        if characters.count > index + Int(numForName)! {
+            parseNames((classString as NSString).substringFromIndex(index + Int(numForName)!))
         }
     }
 }

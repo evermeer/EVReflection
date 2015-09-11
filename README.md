@@ -12,7 +12,7 @@
 [![Twitter](https://img.shields.io/badge/twitter-@evermeer-blue.svg?style=flat)](http://twitter.com/evermeer)
 [![LinkedIn](https://img.shields.io/badge/linkedin-Edwin Vermeer-blue.svg?style=flat)](http://nl.linkedin.com/in/evermeer/en)
 [![Website](https://img.shields.io/badge/website-evict.nl-blue.svg?style=flat)](http://evict.nl)
-[![eMail](https://img.shields.io/badge/email-edwin@evict.nl-blue.svg?style=flat)](mailto:edwin@evict.nl?SUBJECT=About EVReflection) 
+[![eMail](https://img.shields.io/badge/email-edwin@evict.nl-blue.svg?style=flat)](mailto:edwin@evict.nl?SUBJECT=About EVReflection)
 
 
 Run the unit tests to see EVReflection in action.
@@ -20,18 +20,16 @@ Run the unit tests to see EVReflection in action.
 EVReflection is used extensively in [EVCloudKitDao](https://github.com/evermeer/EVCloudKitDao) and [AlamofireJsonToObjects](https://github.com/evermeer/AlamofireJsonToObjects)
 
 ## Main features of EVReflection:
-- Parsing objects based on NSObject to a dictionary. 
-- Parsing a dictionary back to an object.
-- Creating a class from a string value and get the string value for a class.
+- Parsing objects based on NSObject to and from a dictionary.
+- Parsing objects to and from a JSON string.
 - Support NSCoding methods encodeWithCoder and decodeObjectWithCoder
 - Supporting Printable, Hashable and Equatable while using all properties. (Support for Set in Swift 1.2)
-- Parse an object to a JSON string and parse a JSON string to an object
 
-## it's easy to use:
+## It's easy to use:
 
-Defining an object. You only have to set EVObject as it's base class:
+Defining an object. You only have to set NSObject as it's base class:
 ```
-class User: EVObject {
+class User: NSObject {
     var id: Int = 0
     var name: String = ""
     var friends: [User]? = []
@@ -46,36 +44,24 @@ let user = User(json: json)
 
 Parsing JSON to an array of objects:
 ```
-let jsonDictOriginal:String = "[{\"id\": 27, \"name\": \"Bob Jefferson\"}, {\"id\": 29, \"name\": \"Jen Jackson\"}]"
-let array:[User] = EVReflection.arrayFromJson(User(), json: jsonDictOriginal)
+let json:String = "[{\"id\": 27, \"name\": \"Bob Jefferson\"}, {\"id\": 29, \"name\": \"Jen Jackson\"}]"
+let array = [User](json: json)
 ```
 
 Parsing from and to a dictionary:
 ```
 let dict = user.toDictionary()
 let newUser = User(dictionary: dict)
+XCTAssert(user == newUser, "Pass")
 ```
 
-## Known issues
-It's not possible in Swift to use .setObjectForKey for:
-- nullable type fields like Int? 
-- properties based on an enum
-- an Array of nullable objects like [MyObject?] 
-- generic properties like var myVal:T = T()
+Saving and loading an object to and from a file:
+```
+user.saveToTemp("temp.dat")
+let result = TestObject2(fileNameInTemp: "temp.dat")
+XCTAssert(theObject == result, "Pass")
+```
 
-For all these issues there are workarounds.
-
-1. The easiest workaround is just using a difrent type like:
-
-- Instead of an Int? you could use NSNumber?
-- Instead of [MyObject?] use [MyObject]
-- Instead of 'var status: StatysType' use 'var status:Int' and save the rawValue
-- Instead of a generic property use a specific property that can hold the data (a dictionary?)
-
-2. If you want to keep on using the same type, You can override the setValue forUndefinedKey in the object itself. See WorkaroundsTests.swift and WorkaroundSwiftGenericsTests.swift to see the workaround for all these types in action. 
-
-- For generic properties the protocol EVGenericsKVC is required. see WorkaroundSwiftGenericsTests.swift 
-- For arrays with nullable objects the protocol EVArrayConvertable is required. see WorkaroundsTests.swift
 
 ## Using EVReflection in your own App 
 
@@ -89,16 +75,10 @@ use_frameworks!
 pod "EVReflection"
 ```
 
-At the moment that is a Swift 1.2 version. When Swift 2 is released the Swift 2 branch will be merged to the trunk. If you want to keep on using the Swift 1.2 version, than use the Swift1.2 branch:
+I have now moved on to Swift 2. If you want to use EVReflection, then get that version by using the podfile command:
 ```
 use_frameworks!
-pod 'EVReflection', :git => 'https://github.com/evermeer/EVReflection.git', :branch => 'Swift1.2'
-```
-
-If you want to start using Swift 2.0 now (tested with beta 6) then use the Swift2 branch
-```
-use_frameworks!
-pod 'EVReflection', :git => 'https://github.com/evermeer/EVReflection.git', :branch => 'Swift2'
+pod "EVReflection", '~> 2.6'
 ```
 
 Version 0.36 of cocoapods will make a dynamic framework of all the pods that you use. Because of that it's only supported in iOS 8.0 or later. When using a framework, you also have to add an import at the top of your swift file like this:
@@ -107,77 +87,115 @@ Version 0.36 of cocoapods will make a dynamic framework of all the pods that you
 import EVReflection
 ```
 
-If you want support for older versions than iOS 8.0, then you can also just copy the EVReflection.swift and EVObject.swift to your app. 
+If you want support for older versions than iOS 8.0, then you can also just copy the files from the pod folder to your project 
 
 
-## More Sample code (Clone EVReflection to your desktop and see the unit tests)
+## More Sample code 
+Clone EVReflection to your desktop to see these and more unit tests
+
 ```
 func testEquatable() {
-        var theObjectA = TestObject2()
-        theObjectA.objectValue = "value1"
-        var theObjectB = TestObject2()
-        theObjectB.objectValue = "value1"
-        XCTAssert(theObjectA == theObjectB, "Pass")
+    var theObjectA = TestObject2()
+    theObjectA.objectValue = "value1"
+    var theObjectB = TestObject2()
+    theObjectB.objectValue = "value1"
+    XCTAssert(theObjectA == theObjectB, "Pass")
 
-        theObjectB.objectValue = "value2"
-        XCTAssert(theObjectA != theObjectB, "Pass")
-    }
+    theObjectB.objectValue = "value2"
+    XCTAssert(theObjectA != theObjectB, "Pass")
+}
 
-    func testHashable() {
-        var theObject = TestObject2()
-        theObject.objectValue = "value1"
-        var hash1 = theObject.hash
-        NSLog("hash = \(hash)")
-    }
+func testHashable() {
+    var theObject = TestObject2()
+    theObject.objectValue = "value1"
+    var hash1 = theObject.hash
+    NSLog("hash = \(hash)")
+}
 
-    func testPrintable() {
-        var theObject = TestObject2()
-        theObject.objectValue = "value1"
-        NSLog("theObject = \(theObject)")
-    }
-
-    func testNSCoding() {
-        var theObject = TestObject2()
-        theObject.objectValue = "value1"
-
-        let fileDirectory =  (NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as! NSString)
-        var filePath = fileDirectory.stringByAppendingPathComponent("temp.dat")
-
-        // Write the object to a file
-        NSKeyedArchiver.archiveRootObject(theObject, toFile: filePath)
-
-        // Read the object from the file
-        var result = NSKeyedUnarchiver.unarchiveObjectWithFile(filePath) as! TestObject2
-
-        // Are those objects the same
-        XCTAssert(theObject == result, "Pass")
-    }
-
+func testPrintable() {
+    var theObject = TestObject2()
+    theObject.objectValue = "value1"
+    NSLog("theObject = \(theObject)")
 }
 ```
 
 ## Extra information:
 
+### Automatic keyword mapping for Swift keywords
 If you have JSON fields that are Swift keywords, then prefix the property with an underscore. So the JSON value for self will be stored in the property _self. At this moment the folowing keywords are handled:
 "self", "description", "class", "deinit", "enum", "extension", "func", "import", "init", "let", "protocol", "static", "struct", "subscript", "typealias", "var", "break", "case", "continue", "default", "do", "else", "fallthrough", "if", "in", "for", "return", "switch", "where", "while", "as", "dynamicType", "is", "new", "super", "Self", "Type", "__COLUMN__", "__FILE__", "__FUNCTION__", "__LINE__", "associativity", "didSet", "get", "infix", "inout", "left", "mutating", "none", "nonmutating", "operator", "override", "postfix", "precedence", "prefix", "right", "set", "unowned", "unowned", "safe", "unowned", "unsafe", "weak", "willSet", "private", "public"
 
-It's also possibe to create a custom property mapping. You can define if an import should be ignored, if an export should be ignored or you can map a property name to another key name (for the dictionary and json). For this you only need to implement the propertyMapping method in the object like this:
+### Automatic keyword mapping PascalCase or camelCase to snake_case
+When creating objects from JSON EVReflection will automatically detect if snake_case (keys are all lowercase and words are separated by an underscore) should be converted to PascalCase or camelCase property names. 
+
+When exporting object to a dictionary or JSON string you will have an option to specify that you want a conversion to snace_case or not. The default is yes.
+
+```
+let jsonString = myObject.toJsonString(performKeyCleanup:false)
+let dict = myObject.toDictionary(performKeyCleanup:false)
+```
+
+
+### Custom keyword mapping
+It's also possible to create a custom property mapping. You can define if an import should be ignored, if an export should be ignored or you can map a property name to another key name (for the dictionary and json). For this you only need to implement the propertyMapping method in the object like this:
 
 ```
 public class TestObject5: EVObject {
-   var Name: String = "" // Using the default mapping
-   var dummyPropertyInObject: String = "" // Will not be written from object to targe but will be written to object if exist in dictionary or json
-   var propertyInObject: String = "" // will be written to or read from keyInJson
-   var ignoredProperty: String = "" // Will not be written to object or from object to target
+    var Name: String = "" // Using the default mapping
+    var propertyInObject: String = "" // will be written to or read from keyInJson
+    var ignoredProperty: String = "" // Will not be written or read to/from json 
 
-   override public func propertyMapping() -> [(String?, String?)] {
-      return [("ignoredProperty",nil), (nil,"ignoredProperty"), ("dummyPropertyInObject",nil), (nil,"dummpyKeyInJson"), ("propertyInObject","keyInJson")]
-   }
+    override public func propertyMapping() -> [(String?, String?)] {
+        return [("ignoredProperty",nil), ("propertyInObject","keyInJson")]
+    }
 }
 ```
 
-There is also an Alamofire convenience extension for dirctly parsing the JSON to objects
-See [AlamofireJsonToObjects](https://github.com/evermeer/AlamofireJsonToObjects)
+### When to use EVObject instead of NSObject as a base class.
+There is some functionality that could not be added as an extension to NSObject because of limitations or unwanted side effects. For this the EVObject class can be used. Use EVObject in the folowing situations:
 
+- When using NSCoding
+- When comparing objects with .isEqual == or !=
+- When using hash or hashValue
+- When you expect there will be keys in your dictionary or json while there will be no property where the value can be mapped to. Instead of using EVObject you can also implement the setValue forUndefinedKey yourself.
+- 
 
+### Known issues
+EVReflection is trying to handle all types. With some types there are limitations in Swift. So far there is a workaround for any of these limitations. Here is an overview:
 
+####It's not possible in Swift to use .setObjectForKey for:
+- nullable type fields like Int? 
+- properties based on an enum
+- an Array of nullable objects like [MyObject?] 
+- generic properties like var myVal:T = T()
+
+For all these issues there are workarounds. The easiest workaround is just using a difrent type like:
+
+- Instead of an Int? you could use NSNumber?
+- Instead of [MyObject?] use [MyObject]
+- Instead of 'var status: StatysType' use 'var status:Int' and save the rawValue
+- Instead of a generic property use a specific property that can hold the data (a dictionary?)
+
+If you want to keep on using the same type, You can override the setValue forUndefinedKey in the object itself. See WorkaroundsTests.swift and WorkaroundSwiftGenericsTests.swift to see the workaround for all these types in action. 
+
+####Generic properties
+For generic properties the protocol EVGenericsKVC is required. see WorkaroundSwiftGenericsTests.swift 
+
+####Arrays with nullable objects
+For arrays with nullable objects like [MyObj?] the protocol EVArrayConvertable is required. see WorkaroundsTests.swift
+
+## License
+
+EVReflection is available under the MIT 3 license. See the LICENSE file for more info.
+
+## My other libraries:
+Also see my other open source iOS libraries:
+
+- [EVReflection](https://github.com/evermeer/EVReflection) - Swift library with reflection functions with support for NSCoding, Printable, Hashable, Equatable and JSON 
+- [EVCloudKitDao](https://github.com/evermeer/EVCloudKitDao) - Simplified access to Apple's CloudKit
+- [EVFaceTracker](https://github.com/evermeer/EVFaceTracker) - Calculate the distance and angle of your device with regards to your face in order to simulate a 3D effect
+- [EVURLCache](https://github.com/evermeer/EVURLCache) - a NSURLCache subclass for handling all web requests that use NSURLReques
+- [AlamofireJsonToObject](https://github.com/evermeer/AlamofireJsonToObjects) - An Alamofire extension which converts JSON response data into swift objects using EVReflection
+- [AlamofireOauth2](https://github.com/evermeer/AlamofireOauth2) - A swift implementation of OAuth2 using Alamofire
+- [EVWordPressAPI](https://github.com/evermeer/EVWordPressAPI) - Swift Implementation of the WordPress (Jetpack) API using AlamofireOauth2, AlomofireJsonToObjects and EVReflection (work in progress)
+- [PassportScanner](https://github.com/evermeer/PassportScanner) - Scan the MRZ code of a passport and extract the firstname, lastname, passport number, nationality, date of birth, expiration date and personal numer.

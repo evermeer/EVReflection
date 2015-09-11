@@ -33,6 +33,7 @@ class EVReflectionJsonTests: XCTestCase {
     override func setUp() {
         super.setUp()
         // Put setup code here. This method is called before the invocation of each test method in the class.
+        EVReflection.setBundleIdentifier(TestObject)
     }
     
     /**
@@ -43,9 +44,28 @@ class EVReflectionJsonTests: XCTestCase {
         super.tearDown()
     }
     
+
+    class Account: NSObject { // When using sub objects and/or arrays of sub objects, then change the base class to EVObject
+        var id: Int64 = 0
+        var name: String = ""
+    }
+    func testSimpleJson() {
+        let json2:String = "{\"id\": 24, \"name\": \"Bob\"}"
+        let user = Account(json: json2)
+        print("Object from json string: \n\(user)\n\n")
+
+        let json:String = "[{\"id\": 27, \"name\": \"Bob Jefferson\"}, {\"id\": 29, \"name\": \"Jen Jackson\"}]"
+        let array = [Account](json: json)
+        print("Object array from json string: \n\(array)\n\n")
+
+    }
+    
     func testJsonArray() {
-        let jsonDictOriginal:String = "[{\"id\": 27, \"name\": \"Bob Jefferson\"}, {\"id\": 29, \"name\": \"Jen Jackson\"}]"
-        let array:[User] = EVReflection.arrayFromJson(User(), json: jsonDictOriginal)
+        let json:String = "[{\"id\": 27, \"name\": \"Bob Jefferson\"}, {\"id\": 29, \"name\": \"Jen Jackson\"}]"
+        //let array:[User] = EVReflection.arrayFromJson(User(), json: json)
+        //let array:[User] = User.arrayFromJson(json)
+        let array = [User](json: json)
+        
         print("Object array from json string: \n\(array)\n\n")
         XCTAssertTrue(array.count == 2, "should have 2 Users")
         XCTAssertTrue(array[0].id == 27, "id should have been set to 27")
@@ -93,26 +113,26 @@ class EVReflectionJsonTests: XCTestCase {
         }
     }
     
-    func validateUser(user:User?) {
+    func validateUser(user:User) {
         print("Validate user: \n\(user)\n\n")
-        XCTAssertTrue(user?.id == 24, "id should have been set to 24")
-        XCTAssertTrue(user?.name == "John Appleseed", "name should have been set to John Appleseed")
-        XCTAssertTrue(user?.email == "john@appleseed.com", "email should have been set to john@appleseed.com")
+        XCTAssertTrue(user.id == 24, "id should have been set to 24")
+        XCTAssertTrue(user.name == "John Appleseed", "name should have been set to John Appleseed")
+        XCTAssertTrue(user.email == "john@appleseed.com", "email should have been set to john@appleseed.com")
         
-        XCTAssertNotNil(user?.company, "company should not be nil")
-        print("company = \(user?.company)\n")
-        XCTAssertTrue(user?.company?.name == "Apple", "company name should have been set to Apple")
-        print("company name = \(user?.company?.name)\n")
-        XCTAssertTrue(user?.company?.address == "1 Infinite Loop, Cupertino, CA", "company address should have been set to 1 Infinite Loop, Cupertino, CA")
+        XCTAssertNotNil(user.company, "company should not be nil")
+        print("company = \(user.company)\n")
+        XCTAssertTrue(user.company?.name == "Apple", "company name should have been set to Apple")
+        print("company name = \(user.company?.name)\n")
+        XCTAssertTrue(user.company?.address == "1 Infinite Loop, Cupertino, CA", "company address should have been set to 1 Infinite Loop, Cupertino, CA")
         
-        XCTAssertNotNil(user?.friends, "friends should not be nil")
-        XCTAssertTrue(user?.friends!.count == 2, "friends should have 2 Users")
+        XCTAssertNotNil(user.friends, "friends should not be nil")
+        XCTAssertTrue(user.friends!.count == 2, "friends should have 2 Users")
         
-        if user?.friends!.count == 2 {
-            XCTAssertTrue(user!.friends![0].id == 27, "friend 1 id should be 27")
-            XCTAssertTrue(user!.friends![0].name == "Bob Jefferson", "friend 1 name should be Bob Jefferson")
-            XCTAssertTrue(user!.friends![1].id == 29, "friend 2 id should be 29")
-            XCTAssertTrue(user!.friends![1].name == "Jen Jackson", "friend 2 name should be Jen Jackson")
+        if user.friends!.count == 2 {
+            XCTAssertTrue(user.friends![0].id == 27, "friend 1 id should be 27")
+            XCTAssertTrue(user.friends![0].name == "Bob Jefferson", "friend 1 name should be Bob Jefferson")
+            XCTAssertTrue(user.friends![1].id == 29, "friend 2 id should be 29")
+            XCTAssertTrue(user.friends![1].name == "Jen Jackson", "friend 2 name should be Jen Jackson")
         }
     }
 

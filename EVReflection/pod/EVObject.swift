@@ -10,30 +10,19 @@ import Foundation
 /**
 Object that will support NSCoding, Printable, Hashable and Equeatable for all properties. Use this object as your base class instead of NSObject and you wil automatically have support for all these protocols.
 */
-public class EVObject: NSObject, NSCoding, Printable, Hashable, Equatable {
+public class EVObject: NSObject, NSCoding, CustomDebugStringConvertible { // These are redundant in Swift 2: CustomStringConvertible, Hashable, Equatable
     
     /**
     Basic init override is needed so we can use EVObject as a base class.
     */
-    public override init(){
+    public required override init(){
         super.init()
-    }
-    
-    /**
-    Decode any object
-    
-    :param: theObject The object that we want to decode.
-    :param: aDecoder The NSCoder that will be used for decoding the object.
-    */
-    public convenience required init(coder: NSCoder) {
-        self.init()
-        EVReflection.decodeObjectWithCoder(self, aDecoder: coder)
     }
     
     /**
     Convenience init for creating an object whith the property values of a dictionary.
     */
-    public convenience required init(dictionary:NSDictionary) {
+    public required convenience init(dictionary:NSDictionary) {
         self.init()
         EVReflection.setPropertiesfromDictionary(dictionary, anyObject: self)
     }
@@ -41,31 +30,70 @@ public class EVObject: NSObject, NSCoding, Printable, Hashable, Equatable {
     /**
     Convenience init for creating an object whith the contents of a json string.
     */
-    public convenience required init(json:String?) {
+    public required convenience init(json:String?) {
         self.init()
-        var jsonDict = EVReflection.dictionaryFromJson(json)
+        let jsonDict = EVReflection.dictionaryFromJson(json)
         EVReflection.setPropertiesfromDictionary(jsonDict, anyObject: self)
     }
     
     /**
-    Returns the dictionary representation of this object.
-    */
-    final public func toDictionary() -> NSDictionary {
-        let (reflected, types) = EVReflection.toDictionary(self)
-        return reflected
-    }
+    Decode any object
     
-    final public func toJsonString() -> String {
-        return EVReflection.toJsonString(self)
+    - In EVObject and not in NSObject because: Initializer requirement 'init(coder:)' can only be satisfied by a `required` initializer in the definition of non-final class 'NSObject'
+    
+    - parameter theObject: The object that we want to decode.
+    - parameter aDecoder: The NSCoder that will be used for decoding the object.
+    */
+    public convenience required init?(coder: NSCoder) {
+        self.init()
+        EVReflection.decodeObjectWithCoder(self, aDecoder: coder)
     }
     
     /**
     Encode this object using a NSCoder
     
-    :param: aCoder The NSCoder that will be used for encoding the object
+    - parameter aCoder: The NSCoder that will be used for encoding the object
     */
-    final public func encodeWithCoder(aCoder: NSCoder) {
+    public func encodeWithCoder(aCoder: NSCoder) {
         EVReflection.encodeWithCoder(self, aCoder: aCoder)
+    }        
+    
+    /**
+    Initialize this object from an archived file from the temp directory
+    
+    :param: fileName The filename
+    */
+    public convenience required init(fileNameInTemp:String) {
+        self.init()
+        let filePath = (NSTemporaryDirectory() as NSString).stringByAppendingPathComponent(fileNameInTemp)
+        if let temp = NSKeyedUnarchiver.unarchiveObjectWithFile(filePath) as? NSObject {
+            EVReflection.setPropertiesfromDictionary( temp.toDictionary(false), anyObject: self)
+        }
+    }
+    
+    /**
+    Initialize this object from an archived file from the documents directory
+    
+    :param: fileName The filename
+    */
+    public convenience required init(fileNameInDocuments:String) {
+        self.init()
+        let filePath = (NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as NSString).stringByAppendingPathComponent(fileNameInDocuments)
+        if let temp = NSKeyedUnarchiver.unarchiveObjectWithFile(filePath) as? NSObject {
+            EVReflection.setPropertiesfromDictionary( temp.toDictionary(false), anyObject: self)
+        }
+    }
+    
+
+    /**
+    Returns the pritty description of this object
+    
+    :return: The pritty description
+    */
+    public override var description: String {
+        get {
+            return EVReflection.description(self)
+        }
     }
     
     /**
@@ -73,7 +101,7 @@ public class EVObject: NSObject, NSCoding, Printable, Hashable, Equatable {
     
     :return: The pritty description
     */
-    final public override var description: String {
+    public override var debugDescription: String {
         get {
             return EVReflection.description(self)
         }
@@ -95,29 +123,55 @@ public class EVObject: NSObject, NSCoding, Printable, Hashable, Equatable {
     
     :return: The hashvalue of this object
     */
-    final public override var hash: Int {
+    public override var hash: Int {
         get {
             return self.hashValue
         }
     }
     
     /**
-    Implementation of the NSObject isEqual comparisson method
+    Save this object to a file in the temp directory
     
-    :param: object The object where you want to compare with
+    :param: fileName The filename
+    */
+    public func saveToTemp(fileName:String) {
+        let filePath = (NSTemporaryDirectory() as NSString).stringByAppendingPathComponent(fileName)
+        NSKeyedArchiver.archiveRootObject(self, toFile: filePath)
+    }
+
+    /**
+    Save this object to a file in the documents directory
+    
+    :param: fileName The filename
+    */
+    public func saveToDocuments(fileName:String) {
+        let filePath = (NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as NSString).stringByAppendingPathComponent(fileName)
+        NSKeyedArchiver.archiveRootObject(self, toFile: filePath)
+    }
+    
+    
+    /**
+    Implementation of the NSObject isEqual comparisson method
+
+    - In EVObject and not in NSObject extension because: method conflicts with previous declaration with the same Objective-C selector
+
+    - parameter object: The object where you want to compare with
     :return: Returns true if the object is the same otherwise false
     */
-    final public override func isEqual(object: AnyObject?) -> Bool { // for isEqual:
+    public override func isEqual(object: AnyObject?) -> Bool { // for isEqual:
         if let dataObject = object as? EVObject {
             return dataObject == self // just use our "==" function
         } else { return false }
     }
+
     
     /**
     Implementation of the setValue forUndefinedKey so that we can catch exceptions for when we use an optional Type like Int? in our object. Instead of using Int? you should use NSNumber?
     
-    :param: value The value that you wanted to set
-    :param: key The name of the property that you wanted to set
+    - In EVObject and not in NSObject extension because: method conflicts with previous declaration with the same Objective-C selector
+    
+    - parameter value: The value that you wanted to set
+    - parameter key: The name of the property that you wanted to set
     */
     public override func setValue(value: AnyObject!, forUndefinedKey key: String) {
         if let genericSelf = self as? EVGenericsKVC {
@@ -126,12 +180,26 @@ public class EVObject: NSObject, NSCoding, Printable, Hashable, Equatable {
         }
         NSLog("\nWARNING: The class '\(EVReflection.swiftStringFromClass(self))' is not key value coding-compliant for the key '\(key)'\n There is no support for optional type, array of optionals or enum properties.\nAs a workaround you can implement the function 'setValue forUndefinedKey' for this. See the unit tests for more information\n")
     }
+
     
+    /**
+    Override this method when you want custom property mapping.
+    
+    - Is in EVObject and not in extension of NSObject because functions from extensions cannot be overwritten yet
+    
+    :return: Return an array with valupairs of the object property name and json key name.
+    */
     public func propertyMapping() -> [(String?, String?)] {
         return []
     }
-    
 }
+
+
+
+/**
+Protocols created for easy workarounds
+*/
+
 
 /**
 Protocol for the workaround when using generics. See WorkaroundSwiftGenericsTests.swift
@@ -158,7 +226,7 @@ public protocol EVRawString {
 Protocol for the workaround when using an enum with a rawValue of an undefined type
 */
 public protocol EVRaw {
-    var anyRawValue: AnyObject { get }
+    var anyRawValue: Any { get }
 }
 
 /**
@@ -169,26 +237,9 @@ public protocol EVArrayConvertable {
 }
 
 
-/**
-Implementation for Equatable ==
 
-:param: lhs The object at the left side of the ==
-:param: rhs The object at the right side of the ==
-:return: True if the objects are the same, otherwise false.
-*/
-public func ==(lhs: EVObject, rhs: EVObject) -> Bool {
-    return EVReflection.areEqual(lhs, rhs: rhs)
-}
 
-/**
-Implementation for Equatable !=
 
-:param: lhs The object at the left side of the ==
-:param: rhs The object at the right side of the ==
-:return: False if the objects are the the same, otherwise true.
-*/
-public func !=(lhs: EVObject, rhs: EVObject) -> Bool {
-    return !EVReflection.areEqual(lhs, rhs: rhs)
-}
+
 
 
