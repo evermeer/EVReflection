@@ -158,7 +158,6 @@ There is some functionality that could not be added as an extension to NSObject 
 - When comparing objects with .isEqual == or !=
 - When using hash or hashValue
 - When you expect there will be keys in your dictionary or json while there will be no property where the value can be mapped to. Instead of using EVObject you can also implement the setValue forUndefinedKey yourself.
-- 
 
 ### Known issues
 EVReflection is trying to handle all types. With some types there are limitations in Swift. So far there is a workaround for any of these limitations. Here is an overview:
