@@ -247,11 +247,11 @@ public protocol EVAssociated {
 The implrementation of the protocol for getting the associated value
 */
 public extension EVAssociated {
-    public var associated: (label:String, value: AnyObject?) {
+    public var associated: (label:String, value: Any?) {
         get {
             let mirror = Mirror(reflecting: self)
             if let associated = mirror.children.first {
-                return (associated.label!, associated.value as? AnyObject)
+                return (associated.label!, associated.value)
             }
             print("WARNING: Enum option of \(self) does not have an associated value")
             return ("\(self)", nil)
