@@ -203,8 +203,12 @@ final public class EVReflection {
         
         var result = [NSObject]()
         for item in array {
-            let arrayObject = self.dictToObject(subtype, original:swiftClassFromString(subtype), dict: item)
-            result.append(arrayObject)
+            if let org = swiftClassFromString(subtype) {
+                let arrayObject = self.dictToObject(subtype, original:org, dict: item)
+                result.append(arrayObject)
+            } else {
+                print("WARNING: Could not create an instance of '\(subtype)'")
+            }
         }
         return result
     }
