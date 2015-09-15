@@ -272,7 +272,7 @@ class EVReflectionTests: XCTestCase {
     }
     
     func testEnumAssociatedValues() {
-        let parameters:[EVAssociated] = [usersParameters.number(19), usersParameters.authors_only(false)]
+        let parameters:[usersParameters] = [.number(19), .authors_only(false)]
         let y = WordPressRequestConvertible.MeLikes("XX", Dictionary(associated: parameters))
         // Now just extract the label and associated values from this enum
         let label = y.associated.label
