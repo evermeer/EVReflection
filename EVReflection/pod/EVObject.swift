@@ -263,13 +263,16 @@ public extension EVAssociated {
 Dictionary extension for creating a dictionary from an array of enum values
 */
 public extension Dictionary {
-    init(associated: [EVAssociated]) {
+    init<T :EVAssociated>(associated: [T]?) {
         self.init()
-        for myEnum in associated {
-            self[myEnum.associated.label as! Key] = myEnum.associated.value as? Value
+        if associated != nil {
+            for myEnum in associated! {
+                self[myEnum.associated.label as! Key] = myEnum.associated.value as? Value
+            }
         }
     }
 }
+
 
 
 
