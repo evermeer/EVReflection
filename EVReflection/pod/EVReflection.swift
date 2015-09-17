@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import CloudKit
 
 /**
 Reflection methods
@@ -380,8 +379,6 @@ final public class EVReflection {
         case let dateValue as NSDate:
             let dateFormatter = NSDateFormatter()
             return dateFormatter.stringFromDate(dateValue)
-        case let recordIdValue as CKRecordID:
-            return recordIdValue.recordName
         default:
             return "\(value)"
         }
