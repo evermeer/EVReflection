@@ -57,7 +57,15 @@ final public class EVReflection {
             }
         }
 
-        // Step 3 - from PascalCase or camelCase to snakeCase
+        // Step 3 - replace illegal characters
+        for ic in illegalCharacter {
+            newKey = newKey.stringByReplacingOccurrencesOfString(ic, withString: "_")
+        }
+        if tryMatch?[newKey] != nil {
+            return newKey
+        }
+        
+        // Step 4 - from PascalCase or camelCase to snakeCase
         newKey = CamelCaseToUnderscores(newKey)
         if tryMatch?[newKey] != nil {
             return newKey
@@ -72,6 +80,8 @@ final public class EVReflection {
     }
     
     private static let keywords = ["self", "description", "class", "deinit", "enum", "extension", "func", "import", "init", "let", "protocol", "static", "struct", "subscript", "typealias", "var", "break", "case", "continue", "default", "do", "else", "fallthrough", "if", "in", "for", "return", "switch", "where", "while", "as", "dynamicType", "is", "new", "super", "Self", "Type", "__COLUMN__", "__FILE__", "__FUNCTION__", "__LINE__", "associativity", "didSet", "get", "infix", "inout", "left", "mutating", "none", "nonmutating", "operator", "override", "postfix", "precedence", "prefix", "right", "set", "unowned", "unowned", "safe", "unowned", "unsafe", "weak", "willSet", "private", "public", "internal", "zone"]
+
+    private static let illegalCharacter = [" ", "-", "&", "%", "#", "@", "!", "$", "^", "*", "(", ")", "<", ">", "?", ".", ",", ":", ";"]
     
     private static func dictionaryAndArrayConversion(hasTypes:Dictionary<String,String>, hasKeys: NSDictionary, objectKey:String, var dictValue: AnyObject?) -> AnyObject? {
         if let type = hasTypes[objectKey] {
