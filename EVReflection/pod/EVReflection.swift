@@ -82,15 +82,24 @@ final public class EVReflection {
 
     private static let illegalCharacter = [" ", "-", "&", "%", "#", "@", "!", "$", "^", "*", "(", ")", "<", ">", "?", ".", ",", ":", ";"]
     
-    private static func dictionaryAndArrayConversion(hasTypes:Dictionary<String,String>, hasKeys: NSDictionary, objectKey:String, var dictValue: AnyObject?) -> AnyObject? {
-        if let type = hasTypes[objectKey] {
+    /**
+    Convert a value in the dictionary to the correct type for the object
+    
+    - parameter fieldType:  type of the field in object
+    - parameter original:  the original value
+    - parameter dictValue: the value from the dictionary
+    
+    - returns: converted value
+    */
+    private static func dictionaryAndArrayConversion(fieldType:String?, original:NSObject?, var dictValue: AnyObject?) -> AnyObject? {
+        if let type = fieldType {
             if type.hasPrefix("Array<") && dictValue as? NSDictionary != nil {
                 if var value = dictValue as? [NSObject] {
                     value.append(dictValue! as! NSObject)
                     dictValue = value
                 }
             } else if type != "NSDictionary" && dictValue as? NSDictionary != nil {
-                dictValue = dictToObject(type, original:hasKeys[objectKey] as! NSObject ,dict: dictValue as! NSDictionary)
+                dictValue = dictToObject(type, original:original ,dict: dictValue as! NSDictionary)
             } else if type.rangeOfString("<NSDictionary>") == nil && dictValue as? [NSDictionary] != nil {
                 dictValue = dictArrayToObjectArray(type, array: dictValue as! [NSDictionary]) as [NSObject]
             }
@@ -98,7 +107,7 @@ final public class EVReflection {
         return dictValue
     }
     
-    private static func setObjectValue<T where T:NSObject>(anyObject: T, key:String, var value:AnyObject?, typeInObject:String) {
+    private static func setObjectValue<T where T:NSObject>(anyObject: T, key:String, var value:AnyObject?, typeInObject:String? = nil) {
         if value == nil || value as? NSNull != nil {
 //            do {
 //                var nilValue: AnyObject? = Optional.None
@@ -136,12 +145,27 @@ final public class EVReflection {
     :return: The object that is created from the dictionary
     */
     public class func setPropertiesfromDictionary<T where T:NSObject>(dictionary:NSDictionary, anyObject: T) -> T {
-        var (hasKeys, hasTypes) = toDictionary(anyObject, performKeyCleanup: false)
-        for (objectKey, _) in hasKeys {
-            if let dictKey = cleanupKey(anyObject, key: objectKey as! String, tryMatch: dictionary) {
-                if let dictValue = dictionaryAndArrayConversion(hasTypes, hasKeys: hasKeys, objectKey: objectKey as! String, dictValue: dictionary[dictKey]) {
-                    if let typeInObject = hasTypes[objectKey as! String] {
-                        setObjectValue(anyObject, key: objectKey as! String, value: dictValue, typeInObject: typeInObject)                        
+        var (keyMapping, properties, types) = getKeyMapping(anyObject, dictionary: dictionary)
+        for (k, v) in dictionary {
+            var skipKey = false
+            if let evObject = anyObject as? EVObject {
+                if let mapping = evObject.propertyMapping().filter({$0.0! == k as! String}).first {
+                    if mapping.1 == nil {
+                        skipKey = true
+                    }
+                }
+            }
+            if !skipKey {
+                let mapping = keyMapping[k as! String]
+                var original:NSObject? = nil
+                if mapping != nil {
+                    original = properties[mapping!] as? NSObject
+                }
+                if let dictValue = dictionaryAndArrayConversion(types[k as! String], original: original, dictValue: v) {
+                    if let key:String = keyMapping[k as! String] {
+                        setObjectValue(anyObject, key: key, value: dictValue, typeInObject: types[key])
+                    } else {
+                        setObjectValue(anyObject, key: k as! String, value: dictValue)
                     }
                 }
             }
@@ -149,6 +173,25 @@ final public class EVReflection {
         return anyObject
     }
     
+    
+    /**
+    Based on an object and a dictionary create a keymapping plus a dictionary of properties plus a dictionary of types
+    
+    - parameter anyObject:  the object for the mapping
+    - parameter dictionary: the dictionary that has to be mapped
+    
+    - returns: <#return value description#>
+    */
+    private static func getKeyMapping<T where T:NSObject>(anyObject: T, dictionary:NSDictionary) -> (keyMapping: Dictionary<String,String>, properties: NSDictionary, types: Dictionary<String,String>) {
+        let (hasKeys, hasValues) = toDictionary(anyObject, performKeyCleanup: false)
+        var keyMapping: Dictionary<String,String> = Dictionary<String,String>()
+        for (objectKey, _) in hasKeys {
+            if let dictKey = cleanupKey(anyObject, key: objectKey as! String, tryMatch: dictionary) {
+                keyMapping[dictKey] = objectKey as? String
+            }
+        }
+        return (keyMapping, hasKeys, hasValues)
+    }
     
     /**
     Convert a CamelCase to Undersores
@@ -174,11 +217,12 @@ final public class EVReflection {
     Set sub object properties from a dictionary
     
     - parameter type: The object type that will be created
+    - parameter original: The original value in the object which is used to create a return object
     - parameter dict: The dictionary that will be converted to an object
     
     :return: The object that is created from the dictionary
     */
-    private class func dictToObject<T where T:NSObject>(type:String, original:T ,dict:NSDictionary) -> T {
+    private class func dictToObject<T where T:NSObject>(type:String, original:T? ,dict:NSDictionary) -> T {
         if var returnObject:NSObject = swiftClassFromString(type) {
             returnObject = setPropertiesfromDictionary(dict, anyObject: returnObject)
             return returnObject as! T
