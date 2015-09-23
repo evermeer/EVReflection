@@ -45,7 +45,7 @@ class WorkaroundsTests: XCTestCase {
     }
 
     func testWorkaroundsToJson() {
-        let initialJson:String = "{\"nullableType\": 1,\"enumType\": 0, \"list\": [ {\"nullableType\": 2}, {\"nullableType\": 3}] }"
+        let initialJson:String = "{\"nullableType\": 1,\"enumType\": 0, \"list\": [ {\"nullableType\": 2}, {\"nullableType\": 3}], \"unknownKey\": \"some\" }"
         let initialStatus = WorkaroundObject(json: initialJson)
         let json = initialStatus.toJsonString()
         let status = WorkaroundObject(json: json)
@@ -99,19 +99,15 @@ class WorkaroundObject: EVObject, EVArrayConvertable {
     
     // Implementation of the EVArrayConvertable protocol for handling an array of nullble objects.
     func convertArray(key: String, array: Any) -> NSArray {
-        switch key {
-            case "list":
-                let returnArray = NSMutableArray()
-                for item in array as! [WorkaroundObject?] {
-                    if item != nil {
-                        returnArray.addObject(item!)
-                    }
-                }
-                return returnArray
-        default:
-            print("---> convertArray for key \(key) should be handled.")
-            return NSArray()
+        assert(key == "list", "convertArray for key \(key) should be handled.")
+
+        let returnArray = NSMutableArray()
+        for item in array as! [WorkaroundObject?] {
+            if item != nil {
+                returnArray.addObject(item!)
+            }
         }
+        return returnArray
     }
 }
 

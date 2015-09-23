@@ -64,7 +64,7 @@ public extension NSObject {
     /**
     Convenience method for instantiating an array from a json string.
     */
-    public class func arrayFromJson<T where T:EVObject>(json:String?) -> [T] {
+    public class func arrayFromJson<T where T:NSObject>(json:String?) -> [T] {
         return EVReflection.arrayFromJson(T(), json: json)
     }
     

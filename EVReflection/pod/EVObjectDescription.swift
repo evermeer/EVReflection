@@ -41,8 +41,6 @@ public class EVObjectDescription {
                 className = classPath.last!
                 classPathType = [ObjectType](count: classPath.count, repeatedValue: ObjectType.Class)
                 classPathType[0] = .Target
-            } else {
-                NSLog("WARNING: Unhandled class string parsing for \(swiftClassID)")
             }
         }
     }
@@ -71,9 +69,12 @@ public class EVObjectDescription {
             numForName = "\(numForName)\(characters[index])"
             index++
         }
-        let range = Range<String.Index>(start:classString.startIndex.advancedBy(index), end:classString.startIndex.advancedBy(Int(numForName)! + index))
+        let range = Range<String.Index>(start:classString.startIndex.advancedBy(index), end:classString.startIndex.advancedBy((Int(numForName) ?? 0) + index))
         let name = classString.substringWithRange(range)
         classPath.append(name)
+        if name == "" {
+            return
+        }
         if classPathType[classPath.count - 1] == .Function {
             //TODO: reverse engineer function description. For now only allow parameterless function that return void (FS0_FT_T_L_)
             index = index + 11

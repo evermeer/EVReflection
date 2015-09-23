@@ -14,6 +14,21 @@ import XCTest
 Testing the workaround for generics.
 */
 class WorkaroundSwiftGenericsTests: XCTestCase {
+    func testSetValueGenericClass() {
+        let a = MyGenericObject<NSString>()
+        a.setValue("data", forUndefinedKey: "data")
+        a.setValue("gone", forUndefinedKey: "wrongKey")
+        XCTAssertEqual(a.data as String, "data", "data should contain data")
+    }
+
+    func testSetValueIncorrectGenericClass() {
+        let a = MyIncorrectGenericObject<NSString>()
+        a.setValue("data", forUndefinedKey: "data")
+        a.setValue("gone", forUndefinedKey: "wrongKey")
+        XCTAssertEqual(a.data, "", "data should still be an empty string")
+    }
+    
+    
     func testGenericsJson() {
         let json:String = "{\"test\":\"test\", \"data\":\"data\", \"array\":[\"val1\",\"val2\",\"val3\"]}"
         let a = MyGenericObject<NSString>(json: json)
@@ -47,7 +62,7 @@ public class MyGenericObject<T where T:NSObject>: MyGenericBase, EVGenericsKVC {
         super.init()
     }
     
-    override public func setValue(value: AnyObject!, forUndefinedKey key: String) {
+    public override func setValue(value: AnyObject!, forUndefinedKey key: String) {
         switch key {
         case "data":
             data = value as! T
@@ -58,6 +73,17 @@ public class MyGenericObject<T where T:NSObject>: MyGenericBase, EVGenericsKVC {
         }
     }
 }
+
+
+public class MyIncorrectGenericObject<T where T:NSObject>: MyGenericBase, EVGenericsKVC {
+    var data: T = T()
+    var array: [T] = [T]()
+    
+    required public init() {
+        super.init()
+    }
+}
+
 
 // Put the rest of the properties in a base class like this. Otherwise you have to handle each in the setValue forUndefinedKey
 public class MyGenericBase: EVObject {

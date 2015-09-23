@@ -22,6 +22,18 @@ public class TestObject2: EVObject {
     var objectValue: String = ""
 }
 
+/**
+Variant of TestObject2 to test that they are not equal
+*/
+public class TestObject2b {
+    var objectValue: String = ""
+}
+
+public class TestObject2c: NSObject {
+    var objectValue: String = ""
+    var _default: String?
+}
+
 
 /**
 Third test object where you can see how create a workaround for the swift limitation with setting a value for a key where the property is a nullable type.
@@ -36,7 +48,7 @@ class TestObject3: EVObject {
         case "nullableType":
             nullableType = value as? Int
         default:
-            NSLog("---> setValue for key '\(key)' should be handled.")
+            NSLog("WARNING: setValue for key '\(key)' should be handled.")
         }
     }
 }

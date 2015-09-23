@@ -31,6 +31,8 @@ class EnumWorkaroundsTests: XCTestCase {
         let test5 = getRawValue(MyEnumFour.OK(level: 3)) as? (String?, [protocol<>])
         XCTAssertTrue(test5?.0 == "OK", "Could nog get the rawvalue using a generic function")
         XCTAssertTrue(test5?.1.first as? Int == 3, "Could nog get the associated value using a generic function")
+        let test6 = getRawValue(MyEnumFive.OK)
+        XCTAssertTrue(test6 as? String == "OK", "So we could get the raw value? Otherwise this would succeed")
     }
     
     func testArrayNullable() {
@@ -39,6 +41,18 @@ class EnumWorkaroundsTests: XCTestCase {
         testArray.append(nil)
         let newArray: [myClass] = parseArray(testArray) as! [myClass]
         XCTAssertTrue(newArray.count == 1, "We should have 1 object in the array")
+    }
+    
+    func testArrayNotNullable() {
+        var testArray: [myClass] = [myClass]()
+        testArray.append(myClass())
+        let newArray: [myClass] = parseArray(testArray) as! [myClass]
+        XCTAssertTrue(newArray.count == 1, "We should have 1 object in the array")
+    }
+    
+    func testNotAssociated() {
+        let a = MyEnumOne.OK.associated
+        XCTAssertNil(a.value, "Associated value should be nil")
     }
     
     func parseArray(array:Any) -> AnyObject {
@@ -55,7 +69,7 @@ class EnumWorkaroundsTests: XCTestCase {
         return temp
     }
     
-    enum MyEnumOne: String, EVRawString {      // Add , EVRawString to make the test pass
+    enum MyEnumOne: String, EVRawString, EVAssociated {      // Add , EVRawString to make the test pass
         case NotOK = "NotOK-1"
         case OK = "OK-2"
     }
@@ -74,6 +88,11 @@ class EnumWorkaroundsTests: XCTestCase {
     enum MyEnumFour {
         case NotOK(message: String)
         case OK(level: Int)
+    }
+    
+    enum MyEnumFive: Int {
+        case NotOK = 0
+        case OK = 1
     }
     
     func getRawValue(theEnum: Any) -> Any {
@@ -105,13 +124,6 @@ class EnumWorkaroundsTests: XCTestCase {
                 return (mirror.children.first?.label, mirror.children.map({$0.value}))
             }
             
-            
-            // OK, and now?
-            
-            // Thees do not complile:
-            //return enumRawValue(rawValue: theEnum)
-            //return enumRawValue2(theEnum )
-            
             if let value = theEnum as? EVRawString {
                 return value.rawValue
             }
@@ -125,16 +137,6 @@ class EnumWorkaroundsTests: XCTestCase {
         }
         return toString
     }
-    
-    func enumRawValue<E: RawRepresentable>(rawValue: E.RawValue) -> String {
-        let value = E(rawValue: rawValue)?.rawValue
-        return "\(value)"
-    }
-    
-    func enumRawValue2<T:RawRepresentable>(rawValue: T) -> String {
-        return "\(rawValue.rawValue)"
-    }
-    
 }
 
 

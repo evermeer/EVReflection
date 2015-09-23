@@ -161,7 +161,8 @@ public class EVObject: NSObject, NSCoding, CustomDebugStringConvertible { // The
     public override func isEqual(object: AnyObject?) -> Bool { // for isEqual:
         if let dataObject = object as? EVObject {
             return dataObject == self // just use our "==" function
-        } else { return false }
+        }
+        return false
     }
 
     
@@ -174,9 +175,8 @@ public class EVObject: NSObject, NSCoding, CustomDebugStringConvertible { // The
     - parameter key: The name of the property that you wanted to set
     */
     public override func setValue(value: AnyObject!, forUndefinedKey key: String) {
-        if let genericSelf = self as? EVGenericsKVC {
-            genericSelf.setValue(value, forUndefinedKey: key)
-            return
+        if let _ = self as? EVGenericsKVC {
+            NSLog("\nWARNING: Your class should have implemented the setValue forUndefinedKey. \n")
         }
         NSLog("\nWARNING: The class '\(EVReflection.swiftStringFromClass(self))' is not key value coding-compliant for the key '\(key)'\n There is no support for optional type, array of optionals or enum properties.\nAs a workaround you can implement the function 'setValue forUndefinedKey' for this. See the unit tests for more information\n")
     }

@@ -40,12 +40,9 @@ class EVReflectionTests: XCTestCase {
         let theObjectString: String = EVReflection.swiftStringFromClass(theObject)
         NSLog("swiftStringFromClass = \(theObjectString)")
 
-        if let nsobject = EVReflection.swiftClassFromString(theObjectString) {
-            NSLog("object = \(nsobject)")
-            XCTAssert(true, "Pass")
-        } else {
-            XCTAssert(false, "Fail")
-        }
+        let nsobject = EVReflection.swiftClassFromString(theObjectString)
+        NSLog("object = \(nsobject)")
+        XCTAssert(nsobject != nil, "Pass")
     }
 
     /**
@@ -57,14 +54,27 @@ class EVReflectionTests: XCTestCase {
         theObject.objectValue = "testing"
         let (toDict, _) = EVReflection.toDictionary(theObject)
         NSLog("toDictionary = \(toDict)")
-        if let nsobject = EVReflection.fromDictionary(toDict, anyobjectTypeString: theObjectString) as? TestObject2 {
-            NSLog("object = \(nsobject), objectValue = \(nsobject.objectValue)")
-            XCTAssert(theObject == nsobject, "Pass")
-        } else {
-            XCTAssert(false, "Fail")
+        let nsobject = EVReflection.fromDictionary(toDict, anyobjectTypeString: theObjectString) as? TestObject2
+        NSLog("object = \(nsobject), objectValue = \(nsobject?.objectValue)")
+        XCTAssert(theObject == nsobject, "Pass")
+    }
+
+    func testNSObjectFromDictionary() {
+        let x = TestObject2c(dictionary: ["objectValue": "tst", "default":"default"])
+        XCTAssertEqual(x.objectValue, "tst", "objectValue should have been set")
+        XCTAssertEqual(x._default, "default", "default should have been set")
+    }
+
+    func testNSObjectArrayFromJson() {
+        let x:[TestObject2c] = TestObject2c.arrayFromJson("[{\"objectValue\":\"tst\"},{\"objectValue\":\"tst2\"}]")
+        XCTAssertEqual(x.count, 2, "There should have been 2 elements")
+        if x.count == 2 {
+            XCTAssertEqual(x[0].objectValue, "tst", "objectValue should have been set")
+            XCTAssertEqual(x[1].objectValue, "tst2", "objectValue should have been set")            
         }
     }
 
+    
     /**
     Create 2 objects with the same property values. Then they should be equal. If you change a property then the objects are not equeal anymore.
     */
@@ -77,6 +87,11 @@ class EVReflectionTests: XCTestCase {
 
         theObjectB.objectValue = "value2"
         XCTAssert(theObjectA != theObjectB, "Pass")
+
+        let theObjectA2 = TestObject2b()
+        theObjectA2.objectValue = "value1"
+        
+        XCTAssert(!theObjectA.isEqual(theObjectA2), "Pass")
     }
 
     /**
@@ -125,6 +140,11 @@ class EVReflectionTests: XCTestCase {
         let result = TestObject2(fileNameInTemp: "temp.dat")
         
         XCTAssert(theObject == result, "Pass")
+        
+        theObject.saveToDocuments("temp2.dat")
+        let result2 = TestObject2(fileNameInDocuments: "temp2.dat")
+        
+        XCTAssert(theObject == result2, "Pass")
     }
     
     /**
@@ -137,12 +157,9 @@ class EVReflectionTests: XCTestCase {
         theObject.nullableType = 3
         let (toDict, _) = EVReflection.toDictionary(theObject)
         NSLog("toDictionary = \(toDict)")
-        if let nsobject = EVReflection.fromDictionary(toDict, anyobjectTypeString: theObjectString) as? TestObject3 {
-            NSLog("object = \(nsobject), objectValue = \(nsobject.objectValue)")
+        let nsobject = EVReflection.fromDictionary(toDict, anyobjectTypeString: theObjectString) as? TestObject3
+            NSLog("object = \(nsobject), objectValue = \(nsobject?.objectValue)")
             XCTAssert(theObject == nsobject, "Pass")
-        } else {
-            XCTAssert(false, "Fail")
-        }
     }
 
     /**
@@ -189,6 +206,20 @@ class EVReflectionTests: XCTestCase {
         let toDict = theObject.toDictionary()
         NSLog("toDictionary = \(toDict)")
         let result = TestObject2(dictionary: toDict)
+        XCTAssert(theObject != result, "Pass") // The objects are not the same
+    }
+
+    
+    /**
+    Get a dictionary from an object, then create an object of a diffrent type and set the properties based on the dictionary from the first object. You can initiate a diffrent type. Only the properties with matching dictionary keys will be set.
+    */
+    func testClassToAndFromDictionaryDiffrentTypeAlt() {
+        let theObject = TestObject4()
+        theObject.myString = "string"
+        theObject.myInt = 4
+        let toDict = theObject.toDictionary()
+        NSLog("toDictionary = \(toDict)")
+        let result = TestObject3(dictionary: toDict)
         XCTAssert(theObject != result, "Pass") // The objects are not the same
     }
     

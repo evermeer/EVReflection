@@ -50,6 +50,20 @@ class EVObjectDescriptionTests: XCTestCase {
         XCTAssert(e.classPath == ["EVReflectionTests", "EVObjectDescriptionTests", "testEVObjectDescription", "FuncSubTest", "FuncSubSubTest"], "Pass")
     }
 
+    func testIncorrectDescription() {
+        let a = testDescription("test")
+        XCTAssert(a.classPath == ["EVReflectionTests", "EVObjectDescriptionTests", "testDescription", "EVObjectD", ""], "OK... Something has changed. Or did we fixed this? Then remove this test")
+    }
+    
+    func testDescription(param: String) -> EVObjectDescription {
+        class FuncSubTest:NSObject {
+            var param: String?
+        }
+        let o = FuncSubTest()
+        o.param = param
+        return EVObjectDescription(forObject: o)
+    }
+    
     class SubTest:NSObject {
         class SubSubTest:NSObject {
             

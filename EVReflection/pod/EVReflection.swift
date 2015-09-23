@@ -117,22 +117,17 @@ final public class EVReflection {
 //            }
         } else {
             // Let us put a number into a string property by taking it's stringValue
-                let (_, type) = valueForAny("", key: key, anyValue: value)
-                if (typeInObject == "String" || typeInObject == "NSString") && type == "NSNumber" {
-                    if let convertedValue = value as? NSNumber {
-                        value = convertedValue.stringValue
-                    }
-                } else if typeInObject == "NSNumber" && (type == "String" || type == "NSString") {
-                    if let convertedValue = value as? String {
-                        value = NSNumber(double: Double(convertedValue) ?? 0)
-                    }
+            let (_, type) = valueForAny("", key: key, anyValue: value)
+            if (typeInObject == "String" || typeInObject == "NSString") && type == "NSNumber" {
+                if let convertedValue = value as? NSNumber {
+                    value = convertedValue.stringValue
                 }
-                
-            do {
-                try anyObject.validateValue(&value, forKey: key)
-                anyObject.setValue(value, forKey: key)
-            } catch _ {
+            } else if typeInObject == "NSNumber" && (type == "String" || type == "NSString") {
+                if let convertedValue = value as? String {
+                    value = NSNumber(double: Double(convertedValue) ?? 0)
+                }
             }
+            anyObject.setValue(value, forKey: key)
         }
     }
     

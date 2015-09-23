@@ -106,11 +106,7 @@ class EVReflectionJsonTests: XCTestCase {
         let userRegenerated = User(json:jsonString)
         validateUser(userRegenerated)
         
-        if userOriginal == userRegenerated {
-            XCTAssert(true, "Success")
-        } else {
-            XCTAssert(false, "Faileure")
-        }
+        XCTAssertEqual(userOriginal, userRegenerated, "original should have been the same as regenerated")
     }
     
     func validateUser(user:User) {
