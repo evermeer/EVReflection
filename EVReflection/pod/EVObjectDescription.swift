@@ -18,6 +18,14 @@ public class EVObjectDescription {
     var classPathType: [ObjectType] = []
     var swiftClassID: String = ""
     
+    /**
+    Enum for the difrent types that can be part of an object description
+    
+    - Target:   The bundle
+    - Class:    A class
+    - Protocol: A protocol
+    - Function: A function
+    */
     public enum ObjectType:String {
         case Target = "t"
         case Class = "C"
@@ -25,6 +33,11 @@ public class EVObjectDescription {
         case Function = "F"
     }
     
+    /**
+    Initialize an instance and set all properties based on the object
+    
+    - parameter forObject: the object that you want the description for
+    */
     public init(forObject: NSObject) {
         bundleName = EVReflection.getCleanAppName()
         swiftClassID = NSStringFromClass(forObject.dynamicType)
@@ -45,6 +58,11 @@ public class EVObjectDescription {
         }
     }
     
+    /**
+    Get all types from the class string
+    
+    - parameter classString: the string representation of a class
+    */
     private func parseTypes(classString:String) {
         let characters = Array(classString.characters)
         let type:String = String(characters[0])
@@ -61,6 +79,11 @@ public class EVObjectDescription {
         }
     }
     
+    /**
+    Get all the names from the class string
+    
+    - parameter classString: the string representation of the class
+    */
     private func parseNames(classString:String) {
         let characters = Array(classString.characters)
         var numForName = ""

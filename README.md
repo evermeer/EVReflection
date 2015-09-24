@@ -5,7 +5,7 @@
  -->
 [![Build Status](https://travis-ci.org/evermeer/EVReflection.svg?style=flat)](https://travis-ci.org/evermeer/EVReflection)
 [![Issues](https://img.shields.io/github/issues-raw/evermeer/EVReflection.svg?style=flat)](https://github.com/evermeer/EVReflection/issues)
-[![Coverage](https://img.shields.io/badge/coverage-98%-brightgreen.svg?style=flat)](https://raw.githubusercontent.com/evermeer/EVReflection/master/EVReflection/coverage.png)
+[![Coverage](https://img.shields.io/badge/coverage-99%-brightgreen.svg?style=flat)](https://raw.githubusercontent.com/evermeer/EVReflection/master/EVReflection/coverage.png)
 [![Documentation](https://img.shields.io/badge/documented-100%-brightgreen.svg?style=flat)](http://cocoadocs.org/docsets/EVReflection)
 [![Stars](https://img.shields.io/github/stars/evermeer/EVReflection.svg?style=flat)](https://github.com/evermeer/EVReflection/stargazers)
 [![Version](https://img.shields.io/cocoapods/v/EVReflection.svg?style=flat)](http://cocoadocs.org/docsets/EVReflection)

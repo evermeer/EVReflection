@@ -22,13 +22,22 @@ final public class EVReflection {
     */
     public class func fromDictionary(dictionary:NSDictionary, anyobjectTypeString: String) -> NSObject? {
         if var nsobject = swiftClassFromString(anyobjectTypeString) {
+            NSLog("\(nsobject)")
             nsobject = setPropertiesfromDictionary(dictionary, anyObject: nsobject)
             return nsobject
         }
         return nil
     }
     
+    /**
+    Try to map a property name to a json/dictionary key by applying some rules like property mapping, snake case conversion or swift keyword fix.
     
+    - parameter anyObject: the object where the key is part of
+    - parameter key:       the key to clean up
+    - parameter tryMatch:  dictionary of keys where a mach will be tried to
+    
+    - returns: the cleaned up key
+    */
     private class func cleanupKey(anyObject:NSObject, key:String, tryMatch:NSDictionary?) -> String? {
         var newKey: String = key
 
@@ -83,8 +92,10 @@ final public class EVReflection {
         return newKey
     }
     
+    /// List of swift keywords for cleaning up keys
     private static let keywords = ["self", "description", "class", "deinit", "enum", "extension", "func", "import", "init", "let", "protocol", "static", "struct", "subscript", "typealias", "var", "break", "case", "continue", "default", "do", "else", "fallthrough", "if", "in", "for", "return", "switch", "where", "while", "as", "dynamicType", "is", "new", "super", "Self", "Type", "__COLUMN__", "__FILE__", "__FUNCTION__", "__LINE__", "associativity", "didSet", "get", "infix", "inout", "left", "mutating", "none", "nonmutating", "operator", "override", "postfix", "precedence", "prefix", "right", "set", "unowned", "unowned", "safe", "unowned", "unsafe", "weak", "willSet", "private", "public", "internal", "zone"]
 
+    /// Character that will be replaced by _ from the keys in a dictionary / json
     private static let illegalCharacter = [" ", "-", "&", "%", "#", "@", "!", "$", "^", "*", "(", ")", "<", ">", "?", ".", ",", ":", ";"]
     
     /**
@@ -111,6 +122,14 @@ final public class EVReflection {
         return dictValue
     }
     
+    /**
+    Try to set a value of a property
+    
+    - parameter anyObject:    the object where the value will be set
+    - parameter key:          the name of the property
+    - parameter value:        the value that will be set
+    - parameter typeInObject: the type of the value
+    */
     private static func setObjectValue<T where T:NSObject>(anyObject: T, key:String, var value:AnyObject?, typeInObject:String? = nil) {
         if value == nil || value as? NSNull != nil {
 //            do {
@@ -273,6 +292,15 @@ final public class EVReflection {
         return (properties, types)
     }
 
+    /**
+    Create a dictionary of all property - key mappings
+    
+    - parameter theObject:  the object for what we want the mapping
+    - parameter properties: dictionairy of all the properties
+    - parameter types:      dictionairy of all property types.
+    
+    - returns: dictionairy of the property mappings
+    */
     class func cleanupKeysAndValues(theObject: NSObject, properties:NSDictionary, types:Dictionary<String,String>) -> (NSDictionary, Dictionary<String,String>) {
         let newProperties = NSMutableDictionary()
         var newTypes = Dictionary<String,String>()
@@ -413,10 +441,8 @@ final public class EVReflection {
             return tempArray
         case let ok as NSDictionary:
             return convertDictionaryForJsonSerialization(ok)
-        case let dateValue as NSDate:
-            let dateFormatter = NSDateFormatter()
-            return dateFormatter.stringFromDate(dateValue)
         default:
+            NSLog("ERROR: Unexpected type while converting value for JsonSerialization")
             return "\(value)"
         }
     }
@@ -428,17 +454,18 @@ final public class EVReflection {
     :return: The dictionary representation of the json
     */
     public class func dictionaryFromJson(json: String?) -> Dictionary<String, AnyObject> {
+        var result = Dictionary<String, AnyObject>()
         if json == nil {
-            return Dictionary<String, AnyObject>()
+            return result
         }
         if let jsonData = json!.dataUsingEncoding(NSUTF8StringEncoding) {
             do {
                 if let jsonDic = try NSJSONSerialization.JSONObjectWithData(jsonData, options: NSJSONReadingOptions.MutableContainers) as? Dictionary<String, AnyObject> {
-                    return jsonDic
+                    result = jsonDic
                 }
             } catch _ as NSError { }
         }
-        return Dictionary<String, AnyObject>()
+        return result
     }
     
     /**
@@ -449,25 +476,25 @@ final public class EVReflection {
     :return: The array of dictionaries representation of the json
     */
     public class func arrayFromJson<T>(type:T, json: String?) -> [T] {
+        var result = [T]()
         if json == nil {
-            return [T]()
+            return result
         }
-        if let jsonData = json!.dataUsingEncoding(NSUTF8StringEncoding) {
-            do {
-                if let jsonDic: [Dictionary<String, AnyObject>] = try NSJSONSerialization.JSONObjectWithData(jsonData, options: NSJSONReadingOptions.MutableContainers) as? [Dictionary<String, AnyObject>] {
-                    let nsobjectype : NSObject.Type? = T.self as? NSObject.Type
-                    if nsobjectype == nil {
-                        NSLog("WARNING: EVReflection can only be used with types with NSObject as it's minimal base type")
-                        return [T]()
-                    }
-                    return jsonDic.map({
-                        let nsobject: NSObject = nsobjectype!.init()
-                        return setPropertiesfromDictionary($0, anyObject: nsobject) as! T
-                    })
+        let jsonData = json!.dataUsingEncoding(NSUTF8StringEncoding)!
+        do {
+            if let jsonDic: [Dictionary<String, AnyObject>] = try NSJSONSerialization.JSONObjectWithData(jsonData, options: NSJSONReadingOptions.MutableContainers) as? [Dictionary<String, AnyObject>] {
+                let nsobjectype : NSObject.Type? = T.self as? NSObject.Type
+                if nsobjectype == nil {
+                    NSLog("WARNING: EVReflection can only be used with types with NSObject as it's minimal base type")
+                    return result
                 }
-            } catch _ as NSError { }
-        }
-        return [T]()
+                result = jsonDic.map({
+                    let nsobject: NSObject = nsobjectype!.init()
+                    return setPropertiesfromDictionary($0, anyObject: nsobject) as! T
+                })
+            }
+        } catch _ as NSError {}
+        return result
     }
     
     
@@ -529,7 +556,9 @@ final public class EVReflection {
         return cleanAppName
     }
     
+    /// Variable that can be set using setBundleIdentifier
     private static var bundleIdentifier:String? = nil
+    
     /**
     This method can be used in unit tests to force the bundle where classes can be found
     
@@ -551,16 +580,17 @@ final public class EVReflection {
     :return: The Class type
     */
     public class func swiftClassFromString(className: String) -> NSObject! {
+        var result: NSObject? = nil
         if className == "NSObject" {
             return NSObject()
         }
         if let anyobjectype : AnyObject.Type = swiftClassTypeFromString(className) {
             if let nsobjectype : NSObject.Type = anyobjectype as? NSObject.Type {
                 let nsobject: NSObject = nsobjectype.init()
-                return nsobject
+                result = nsobject
             }
         }
-        return nil
+        return result
     }
     
     /**
@@ -574,12 +604,6 @@ final public class EVReflection {
         let appName = getCleanAppName(theObject)
         let classStringName: String = NSStringFromClass(theObject.dynamicType)
         let classWithoutAppName: String = classStringName.stringByReplacingOccurrencesOfString(appName + ".", withString: "", options: NSStringCompareOptions.CaseInsensitiveSearch, range: nil)
-        if classWithoutAppName.rangeOfString(".") != nil {
-            NSLog("Warning! Your Bundle name should be the name of your target (set it to $(PRODUCT_NAME))")
-            let parts = classWithoutAppName.characters.split(isSeparator:{$0 == "."})
-            let strings: [String] = parts.map { String($0) }
-            return strings.last!
-        }
         return classWithoutAppName
     }
     

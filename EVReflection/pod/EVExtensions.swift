@@ -31,6 +31,9 @@ public func !=(lhs: EVObject, rhs: EVObject) -> Bool {
 }
 
 
+/**
+Extending the NSObject
+*/
 public extension NSObject {
     /**
     Convenience init for creating an object whith the property values of a dictionary.
@@ -51,12 +54,23 @@ public extension NSObject {
     
     /**
     Returns the dictionary representation of this object.
+    
+    - parameter performKeyCleanup: set to true if you want to cleanup the keys
+    
+    - returns: the dictionary
     */
     final public func toDictionary(performKeyCleanup:Bool = false) -> NSDictionary {
         let (reflected, _) = EVReflection.toDictionary(self, performKeyCleanup: performKeyCleanup)
         return reflected
     }
     
+    /**
+    Convert this object to a json string
+    
+    - parameter performKeyCleanup: set to true if you want to cleanup the keys
+    
+    - returns: The json string
+    */
     final public func toJsonString(performKeyCleanup:Bool = false) -> String {
         return EVReflection.toJsonString(self, performKeyCleanup: performKeyCleanup)
     }
@@ -84,10 +98,22 @@ extension Array {
         }
     }
     
+    /**
+    Get the type of the object where this array is for
+    
+    - parameter arr: this array
+    
+    - returns: The object type
+    */
     private func getArrayTypeInstance<T>(arr:Array<T>) -> T {
         return arr.getTypeInstance()
     }
     
+    /**
+    Get the type of the object where this array is for
+    
+    - returns: The object type
+    */
     private func getTypeInstance<T>(
         ) -> T {
             let nsobjectype : NSObject.Type = T.self as! NSObject.Type

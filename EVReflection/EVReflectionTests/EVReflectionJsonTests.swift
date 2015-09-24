@@ -83,8 +83,28 @@ class EVReflectionJsonTests: XCTestCase {
         let user = User(json: json)
         XCTAssertTrue(user.id == 24, "id should have been set to 24")
         XCTAssertTrue(user.friends?.count == 1, "friends should have 1 user")
+        
+        let a = EVReflection.dictionaryFromJson(nil)
+        XCTAssertEqual(a.count, 0, "Can't create a dictionairy from nil")
+
+        let b = EVReflection.dictionaryFromJson("[{\"asdf\"}")
+        XCTAssertEqual(b.count, 0, "Can't create a dictionairy from nonsence")
+        
+        let c = EVReflection.arrayFromJson(MyEnumFive.OK, json: "[{\"id\": 24}]")
+        XCTAssertEqual(c.count, 0, "Can't create a dictionairy for a non NSObject type")
+
+        let d = EVReflection.arrayFromJson(User(), json: "[{\"id\": 24}")
+        XCTAssertEqual(d.count, 0, "Can't create a dictionairy for invalid json")
+
+        let e = EVReflection.arrayFromJson(User(), json: "")
+        XCTAssertEqual(e.count, 0, "Can't create a dictionairy for invalid json")
     }
-    
+
+    enum MyEnumFive: Int {
+        case NotOK = 0
+        case OK = 1
+    }
+
     func testJsonObject(){
         let jsonDictOriginal = [
             "id": 24,
