@@ -99,10 +99,9 @@ final public class EVReflection {
     private static func dictionaryAndArrayConversion(fieldType:String?, original:NSObject?, var dictValue: AnyObject?) -> AnyObject? {
         if let type = fieldType {
             if type.hasPrefix("Array<") && dictValue as? NSDictionary != nil {
-                if var value = dictValue as? [NSObject] {
-                    value.append(dictValue! as! NSObject)
-                    dictValue = value
-                }
+                var array:[NSDictionary] = [NSDictionary]()
+                array.append(dictValue as! NSDictionary)
+                dictValue = array
             } else if type != "NSDictionary" && dictValue as? NSDictionary != nil {
                 dictValue = dictToObject(type, original:original ,dict: dictValue as! NSDictionary)
             } else if type.rangeOfString("<NSDictionary>") == nil && dictValue as? [NSDictionary] != nil {

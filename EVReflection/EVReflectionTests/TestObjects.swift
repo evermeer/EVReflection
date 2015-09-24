@@ -75,6 +75,7 @@ public class TestObject4: EVObject {
     var myUInt64: UInt64 = 0
     var myNSNumber: NSNumber = NSNumber(int: 0)
     var invalid_character: String?
+    var list: [TestObject4] = []
 }
 
 

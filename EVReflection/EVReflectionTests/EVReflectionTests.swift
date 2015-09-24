@@ -264,12 +264,13 @@ class EVReflectionTests: XCTestCase {
     }
     
     func testTypeDictAllString() {
-        let dict = ["myString":"1", "myInt":"2", "myFloat":"2.1", "myBool":"1"]
+        let dict = ["myString":"1", "myInt":"2", "myFloat":"2.1", "myBool":"1", "myNSNumber":"bogus"]
         let a = TestObject4(dictionary: dict)
         XCTAssertEqual(a.myString, "1", "myString should contain 1")
         XCTAssertEqual(a.myInt, 2, "myInt should contain 2")
         XCTAssertEqual(a.myFloat, 2.1, "myFloat should contain 2.1")
         XCTAssertEqual(a.myBool, true, "myBool should contain true")
+        XCTAssertEqual(a.myNSNumber, 0, "myNSNumber should contain 2")
     }
     
     func testTypeDict2AllNumeric() {
@@ -280,6 +281,19 @@ class EVReflectionTests: XCTestCase {
         XCTAssertEqual(a.myFloat, 2.1, "myFloat should contain 2.1")
         XCTAssertEqual(a.myBool, true, "myBool should contain true")
     }
+    
+    func testObjectWithArray() {
+        let json = "{\"myString\":\"str\", \"list\":[{\"myString\":\"str1\"}]}"
+        let a = TestObject4(json: json)
+        XCTAssertEqual(a.myString, "str", "myString should be str")
+        XCTAssertEqual(a.list.count, 1, "We should have 1 item in the list")
+
+        let json2 = "{\"myString\":\"str\", \"list\":{\"myString\":\"str1\"}}"
+        let b = TestObject4(json: json2)
+        XCTAssertEqual(b.myString, "str", "myString should be str")
+        XCTAssertEqual(b.list.count, 1, "We should have 1 item in the list")
+    }
+
     
     /**
     Test various large number conversions to NSNumber
