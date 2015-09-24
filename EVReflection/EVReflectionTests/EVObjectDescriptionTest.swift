@@ -44,6 +44,7 @@ class EVObjectDescriptionTests: XCTestCase {
             }
         }
         //TODO: For now these only succeed because we assume a function name will have an aditional string containing FS0_FT_T_L_ in the description. I have to reverse engineer the parameter notation for Functions.
+        //Because in a bug of Xcode code coverage whe using an inline class definition, the 2 XCAsserts below will not be registered as covered
         let d = EVObjectDescription(forObject: FuncSubTest())
         XCTAssert(d.classPath == ["EVReflectionTests", "EVObjectDescriptionTests", "testEVObjectDescription", "FuncSubTest"], "Pass")
         let e = EVObjectDescription(forObject: FuncSubTest.FuncSubSubTest())

@@ -72,6 +72,9 @@ class EVReflectionJsonTests: XCTestCase {
         XCTAssertTrue(array[0].name == "Bob Jefferson", "name should have been set to Bob Jefferson")
         XCTAssertTrue(array[1].id == 29, "id should have been set to 29")
         XCTAssertTrue(array[1].name == "Jen Jackson", "name should have been set to Jen Jackson")
+        
+        let na = [User](json: nil)
+        XCTAssertEqual(na, [User](), "A nil json should return an empty array")
     }
 
     func testJsonUser() {
@@ -142,12 +145,13 @@ class EVReflectionJsonTests: XCTestCase {
     }
     
     func testTypeJson2AllNumeric() {
-        let json:String = "{\"myString\":1, \"myInt\":2, \"myFloat\":2.1, \"myBool\":1}"
+        let json:String = "{\"myString\":1, \"myInt\":2, \"myFloat\":2.1, \"myBool\":1, \"invalid*character\": \"value\"}"
         let a = TestObject4(json: json)
         XCTAssertEqual(a.myString, "1", "myString should contain 1")
         XCTAssertEqual(a.myInt, 2, "myInt should contain 2")
         XCTAssertEqual(a.myFloat, 2.1, "myFloat should contain 2.1")
         XCTAssertEqual(a.myBool, true, "myBool should contain true")
+        XCTAssertEqual(a.invalid_character, "value", "myBool should contain true")
     }
 
     func testTypeJsonInvalid() {

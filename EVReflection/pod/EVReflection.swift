@@ -57,11 +57,16 @@ final public class EVReflection {
         }
 
         // Step 3 - replace illegal characters
-        for ic in illegalCharacter {
-            newKey = newKey.stringByReplacingOccurrencesOfString(ic, withString: "_")
-        }
-        if tryMatch?[newKey] != nil {
-            return newKey
+        if let t = tryMatch {
+            for (key, _) in t {
+                var k = key
+                for ic in illegalCharacter {
+                    k = k.stringByReplacingOccurrencesOfString(ic, withString: "_")
+                }
+                if k as! String == newKey {
+                    return key as? String
+                }
+            }
         }
         
         // Step 4 - from PascalCase or camelCase to snakeCase
@@ -458,11 +463,12 @@ final public class EVReflection {
         if let jsonData = json!.dataUsingEncoding(NSUTF8StringEncoding) {
             do {
                 if let jsonDic: [Dictionary<String, AnyObject>] = try NSJSONSerialization.JSONObjectWithData(jsonData, options: NSJSONReadingOptions.MutableContainers) as? [Dictionary<String, AnyObject>] {
+                    let nsobjectype : NSObject.Type? = T.self as? NSObject.Type
+                    if nsobjectype == nil {
+                        NSLog("WARNING: EVReflection can only be used with types with NSObject as it's minimal base type")
+                        return [T]()
+                    }
                     return jsonDic.map({
-                        let nsobjectype : NSObject.Type? = T.self as? NSObject.Type
-                        if nsobjectype == nil {
-                            assertionFailure("EVReflection can only be used with types with NSObject as it's minimal base type")
-                        }
                         let nsobject: NSObject = nsobjectype!.init()
                         return setPropertiesfromDictionary($0, anyObject: nsobject) as! T
                     })
@@ -493,6 +499,9 @@ final public class EVReflection {
     :return: The Class type
     */
     public class func swiftClassTypeFromString(className: String) -> AnyClass! {
+//        if className.hasPrefix("Optional<") {
+//            className = className.substringWithRange(Range<String.Index>(start: className.startIndex.advancedBy(9), end: className.endIndex.advancedBy(-1)))
+//        }
         if className.hasPrefix("_TtC") {
             return NSClassFromString(className)
         }
@@ -573,6 +582,12 @@ final public class EVReflection {
         let appName = getCleanAppName(theObject)
         let classStringName: String = NSStringFromClass(theObject.dynamicType)
         let classWithoutAppName: String = classStringName.stringByReplacingOccurrencesOfString(appName + ".", withString: "", options: NSStringCompareOptions.CaseInsensitiveSearch, range: nil)
+        if classWithoutAppName.rangeOfString(".") != nil {
+            NSLog("Warning! Your Bundle name should be the name of your target (set it to $(PRODUCT_NAME))")
+            let parts = classWithoutAppName.characters.split(isSeparator:{$0 == "."})
+            let strings: [String] = parts.map { String($0) }
+            return strings.last!
+        }
         return classWithoutAppName
     }
     

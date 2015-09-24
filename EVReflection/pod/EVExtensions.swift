@@ -75,7 +75,7 @@ public extension NSObject {
 Extending Array with an initializer with a json string
 */
 extension Array {
-    init(json:String){
+    init(json:String?){
         self.init()
         let arrayTypeInstance = getArrayTypeInstance(self)
         let newArray = EVReflection.arrayFromJson(arrayTypeInstance, json: json)

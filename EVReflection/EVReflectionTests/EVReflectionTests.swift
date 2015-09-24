@@ -85,6 +85,9 @@ class EVReflectionTests: XCTestCase {
         let x = TestObject2c(dictionary: ["objectValue": "tst", "default":"default"])
         XCTAssertEqual(x.objectValue, "tst", "objectValue should have been set")
         XCTAssertEqual(x._default, "default", "default should have been set")
+        
+        let y = EVReflection.fromDictionary(["a":"b"], anyobjectTypeString: "NotExistingClassName")
+        XCTAssertNil(y, "Class is unknow, so we should not have an instance")
     }
 
     func testNSObjectArrayFromJson() {
