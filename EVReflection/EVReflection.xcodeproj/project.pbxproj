@@ -44,6 +44,7 @@
 		7F41ECAA1B91F306003A2236 /* WorkaroundEnumTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkaroundEnumTest.swift; sourceTree = "<group>"; };
 		7F41ECAB1B91F306003A2236 /* WorkaroundsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkaroundsTests.swift; sourceTree = "<group>"; };
 		7F41ECAC1B91F306003A2236 /* WorkaroundSwiftGenericsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkaroundSwiftGenericsTests.swift; sourceTree = "<group>"; };
+		7FFCCC361BB440F400EE9312 /* coverage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = coverage.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +67,7 @@
 				7F07C5861AF10296000DF1F3 /* README.md */,
 				7F07C58D1AF11861000DF1F3 /* EVReflection.podspec */,
 				7F07C58E1AF11861000DF1F3 /* LICENSE */,
+				7FFCCC361BB440F400EE9312 /* coverage.png */,
 				7F07C5831AF10284000DF1F3 /* pod */,
 				7F07C5751AF101A9000DF1F3 /* EVReflectionTests */,
 				7F07C55E1AF101A9000DF1F3 /* Products */,
