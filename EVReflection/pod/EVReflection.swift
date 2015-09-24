@@ -508,11 +508,15 @@ final public class EVReflection {
     Get the app name from the 'Bundle name' and if that's empty, then from the 'Bundle identifier' otherwise we assume it's a EVReflection unit test and use that bundle identifier
     :return: A cleaned up name of the app.
     */
-    public class func getCleanAppName()-> String {
-        if EVReflection.bundleIdentifier != nil {
+    public class func getCleanAppName(forObject: NSObject? = nil)-> String {
+        var bundle = NSBundle.mainBundle()
+        if forObject != nil {
+            bundle = NSBundle(forClass: forObject!.dynamicType)
+        }
+        
+        if forObject == nil && EVReflection.bundleIdentifier != nil {
             return EVReflection.bundleIdentifier!
         }
-        var bundle = NSBundle.mainBundle()
         var appName = bundle.infoDictionary?["CFBundleName"] as? String ?? ""
         if appName == "" {
             if bundle.bundleIdentifier == nil {
@@ -566,7 +570,7 @@ final public class EVReflection {
     :return: The string representation of the class (name of the bundle dot name of the class)
     */
     public class func swiftStringFromClass(theObject: NSObject) -> String! {
-        let appName = getCleanAppName()
+        let appName = getCleanAppName(theObject)
         let classStringName: String = NSStringFromClass(theObject.dynamicType)
         let classWithoutAppName: String = classStringName.stringByReplacingOccurrencesOfString(appName + ".", withString: "", options: NSStringCompareOptions.CaseInsensitiveSearch, range: nil)
         if classWithoutAppName.rangeOfString(".") != nil {
@@ -601,13 +605,9 @@ final public class EVReflection {
         let (hasKeys, _) = toDictionary(theObject, performKeyCleanup:false)
         for (key, _) in hasKeys {
             if aDecoder.containsValueForKey(key as! String) {
-                var newValue: AnyObject? = aDecoder.decodeObjectForKey(key as! String)
+                let newValue: AnyObject? = aDecoder.decodeObjectForKey(key as! String)
                 if !(newValue is NSNull) {
-                    do {
-                        try theObject.validateValue(&newValue, forKey: key as! String)
-                        theObject.setValue(newValue, forKey: key as! String)
-                    } catch _ {
-                    }
+                    theObject.setValue(newValue, forKey: key as! String)
                 }
             }
         }
@@ -634,8 +634,6 @@ final public class EVReflection {
                 if !compareTo.isEqual(value) {
                     return false
                 }
-            } else {
-                return false
             }
         }
         return true
@@ -656,7 +654,7 @@ final public class EVReflection {
         if mi.displayStyle == .Optional {
             if mi.children.count == 1 {
                 let label = mi.children.first?.label
-                assert(label == "Some", "WARNING: Swift functionality changed. Labe should be 'Some' and not \(mi.children.first)")
+                assert(label == "Some", "WARNING: Swift functionality changed. Label should be 'Some' and not \(mi.children.first?.label)")
                 theValue = mi.children.first!.value
                 valueType = "\(mi.children.first!.value.dynamicType)"
             } else if mi.children.count == 0 {

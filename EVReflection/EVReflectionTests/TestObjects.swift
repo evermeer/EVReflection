@@ -20,6 +20,7 @@ Second test object where the base class is an EVObject so that we have support f
 */
 public class TestObject2: EVObject {
     var objectValue: String = ""
+    var objectValue2: String?
 }
 
 /**
