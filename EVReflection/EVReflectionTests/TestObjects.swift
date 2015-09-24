@@ -58,9 +58,21 @@ For testing the automatic conversion from and to string and int
 */
 public class TestObject4: EVObject {
     var myString: String = ""
-    var myInt: Int = 0
     var myFloat: Float = 0
+    var myDouble: Double = 0
     var myBool: Bool = true
+    var myDate: NSDate = NSDate()
+    var myInt: Int = 0
+    var myInt8: Int8 = 0
+    var myInt16: Int16 = 0
+    var myInt32: Int32 = 0
+    var myInt64: Int64 = 0
+    var myUInt: UInt = 0
+    var myUInt8: UInt8 = 0
+    var myUInt16: UInt16 = 0
+    var myUInt32: UInt32 = 0
+    var myUInt64: UInt64 = 0
+    var myNSNumber: NSNumber = NSNumber(int: 0)
 }
 
 

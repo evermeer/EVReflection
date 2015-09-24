@@ -24,13 +24,15 @@ class EnumWorkaroundsTests: XCTestCase {
         let test2 = getRawValue(MyEnumTwo.OK)
         XCTAssertTrue(test2 as? Int == 1, "Could nog get the rawvalue using a generic function. As a workaround just add the EVRawInt protocol")
         let test3 = getRawValue(MyEnumThree.OK)
-        XCTAssertTrue(test3 as? Int64 == 1, "Could nog get the rawvalue using a generic function. As a workaround just add the EVRaw protocol")
-        let test4 = getRawValue(MyEnumFour.NotOK(message: "realy wrong")) as? (String?, [protocol<>])
-        XCTAssertTrue(test4?.0 == "NotOK", "Could nog get the rawvalue using a generic function")
-        XCTAssertTrue(test4?.1.first as? String == "realy wrong", "Could nog get the associated value using a generic function")
-        let test5 = getRawValue(MyEnumFour.OK(level: 3)) as? (String?, [protocol<>])
-        XCTAssertTrue(test5?.0 == "OK", "Could nog get the rawvalue using a generic function")
-        XCTAssertTrue(test5?.1.first as? Int == 3, "Could nog get the associated value using a generic function")
+        XCTAssertTrue(test3 as? NSNumber == 1, "Could nog get the rawvalue using a generic function. As a workaround just add the EVRaw protocol")
+        let varTest4 = MyEnumFour.NotOK(message: "realy wrong")
+        let test4 = getRawValue(varTest4) as? String
+        XCTAssertTrue(varTest4.associated.label == "NotOK", "Could nog get the associated value using a generic function")
+        XCTAssertTrue(test4 == "realy wrong", "Could nog get the associated value using a generic function")
+        let varTest5 = MyEnumFour.OK(level: 3)
+        let test5 = getRawValue(varTest5) as? Int
+        XCTAssertTrue(varTest5.associated.label == "OK", "Could nog get the rawvalue using a generic function")
+        XCTAssertTrue(test5 == 3, "Could nog get the associated value using a generic function")
         let test6 = getRawValue(MyEnumFive.OK)
         XCTAssertTrue(test6 as? String == "OK", "So we could get the raw value? Otherwise this would succeed")
     }
@@ -85,7 +87,7 @@ class EnumWorkaroundsTests: XCTestCase {
         var anyRawValue: Any { get { return self.rawValue }}
     }
     
-    enum MyEnumFour {
+    enum MyEnumFour: EVAssociated {
         case NotOK(message: String)
         case OK(level: Int)
     }
@@ -96,46 +98,9 @@ class EnumWorkaroundsTests: XCTestCase {
     }
     
     func getRawValue(theEnum: Any) -> Any {
-        // What can we get using reflection:
-        let mirror = Mirror(reflecting: theEnum)
-
-        let valueType:Any.Type = mirror.subjectType
-        print("valueType = \(valueType)")
-        // No help from these:
-        let description = mirror.description  // --> "Mirror for MyEnumOne"
-        print("description = \(description)")
-        let displayStyle = mirror.displayStyle  // --> Enum
-        print("displayStyle = \(displayStyle)")
         
-        let subjectType = mirror.subjectType // EVReflectionTests.EnumWorkaroundsTests.MyEnumOne
-        print("subjectType = \(subjectType)")
-        let toString:String = "\(theEnum)"
-        print("String value: \(toString)\n")
-
-        if mirror.displayStyle == .Enum {
-            print("displayStyle is .Enum")
-
-            let count = mirror.children.count  // --> 0
-            print("children.count = \(count)")
-            if mirror.children.count > 0 {
-                for child in mirror.children {
-                    print("child.label = \(child.label), child.value = \(child.value)")
-                }
-                return (mirror.children.first?.label, mirror.children.map({$0.value}))
-            }
-            
-            if let value = theEnum as? EVRawString {
-                return value.rawValue
-            }
-            if let value = theEnum as? EVRawInt {
-                return value.rawValue
-            }
-            if let value = theEnum as? EVRaw {
-                return value.anyRawValue
-            }
-            print("For now you have to implement one of the EVRaw protocols on your enum. ")
-        }
-        return toString
+        let (val, _) = EVReflection.valueForAny(self, key: "a", anyValue: theEnum)
+        return val
     }
 }
 

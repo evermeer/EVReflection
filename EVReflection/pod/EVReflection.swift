@@ -376,13 +376,14 @@ final public class EVReflection {
     public class func toJsonString(theObject: NSObject, performKeyCleanup:Bool = true) -> String {
         var (dict,_) = EVReflection.toDictionary(theObject, performKeyCleanup: performKeyCleanup)
         dict = convertDictionaryForJsonSerialization(dict)
+        var result: String = ""
         do {
             let jsonData = try NSJSONSerialization.dataWithJSONObject(dict , options: .PrettyPrinted)
             if let jsonString = NSString(data:jsonData, encoding:NSUTF8StringEncoding) {
-                return jsonString as String
+                result =  jsonString as String
             }
-        } catch _ as NSError { }
-        return ""
+        } catch { }
+        return result
     }
     
     
@@ -654,14 +655,11 @@ final public class EVReflection {
         
         if mi.displayStyle == .Optional {
             if mi.children.count == 1 {
-                if mi.children.first?.label == "Some" {
-                    theValue = mi.children.first!.value
-                    valueType = "\(mi.children.first!.value.dynamicType)"
-                } else {
-                    print("\(mi.children.first)")
-                }
-            }
-            if mi.children.count == 0 {
+                let label = mi.children.first?.label
+                assert(label == "Some", "WARNING: Swift functionality changed. Labe should be 'Some' and not \(mi.children.first)")
+                theValue = mi.children.first!.value
+                valueType = "\(mi.children.first!.value.dynamicType)"
+            } else if mi.children.count == 0 {
                 var subtype: String = "\(mi)"
                 subtype = subtype.substringFromIndex((subtype.componentsSeparatedByString("<") [0] + "<").endIndex)
                 subtype = subtype.substringToIndex(subtype.endIndex.predecessor())
@@ -672,37 +670,33 @@ final public class EVReflection {
             //TODO: See if new Swift version can make using the EVRaw* protocols obsolete
             if let value = theValue as? EVRawString {
                 return (value.rawValue, "\(mi.subjectType)")
-            }
-            if let value = theValue as? EVRawInt {
+            } else if let value = theValue as? EVRawInt {
                 return (NSNumber(int: Int32(value.rawValue)), "\(mi.subjectType)")
-            }
-            if let value = theValue as? EVRaw {
-                if let returnValue = value.anyRawValue as? String {
-                    return (returnValue, "\(mi.subjectType)")
-                }
+            } else  if let value = theValue as? EVRaw {
+                theValue = value.anyRawValue
+            } else if let value = theValue as? EVAssociated {
+                let (enumValue, enumType) = valueForAny(theValue, key: value.associated.label, anyValue: value.associated.value)
+                valueType = enumType
+                theValue = enumValue
+            } else {
+                theValue = "\(theValue)"
             }
         } else if mi.displayStyle == .Collection {
             valueType = "\(mi.subjectType)"
             if valueType.hasPrefix("Array<Optional<") {
-                //TODO: See if new Swift version can make using the EVArrayConvertable protocol obsolete
-                if let arrayConverter = parentObject as? EVArrayConvertable {
-                    let convertedValue = arrayConverter.convertArray(key, array: theValue)
-                    return (convertedValue, valueType)
-                } else {
-                    NSLog("An object with a property of type Array with optional objects should implement the EVArrayConvertable protocol.")
-                }
+                let arrayConverter = parentObject as? EVArrayConvertable
+                assert(arrayConverter != nil, "WARNING: An object with a property of type Array with optional objects should implement the EVArrayConvertable protocol.")
+                let convertedValue = arrayConverter!.convertArray(key, array: theValue)
+                return (convertedValue, valueType)
             }
         } else {
             valueType = "\(mi.subjectType)"
         }
-        
+
         switch(theValue) {
+        // Bool, Int, UInt, Float and Double are casted to NSNumber by default !?
         case let numValue as NSNumber:
             return (numValue, "NSNumber")
-        case let doubleValue as Double:
-            return (NSNumber(double: doubleValue), "NSNumber")
-        case let floatValue as Float:
-            return (NSNumber(float: floatValue), "NSNumber")
         case let longValue as Int64:
             return (NSNumber(longLong: longValue), "NSNumber")
         case let longValue as UInt64:
@@ -719,20 +713,15 @@ final public class EVReflection {
             return (NSNumber(char: intValue), "NSNumber")
         case let intValue as UInt8:
             return (NSNumber(unsignedChar: intValue), "NSNumber")
-        case let intValue as Int:
-            return (NSNumber(integer: intValue), "NSNumber")
-        case let intValue as UInt:
-            return (NSNumber(unsignedLong: intValue), "NSNumber")
         case let stringValue as String:
             return (stringValue as NSString, "NSString")
-        case let boolValue as Bool:
-            return (NSNumber(bool: boolValue), "NSNumber")
         case let anyvalue as NSObject:
             return (anyvalue, valueType)
         default:
-            NSLog("ERROR: valueForAny unkown type \(theValue), type \(valueType)")
-            return (NSNull(), "NSObject") // Could not happen
+            assertionFailure("ERROR: valueForAny unkown type \(theValue), type \(valueType). Could not happen unless there will be a new type in Swift.")
+            return (NSNull(), "NSNull")
         }
-        
     }
 }
+
+

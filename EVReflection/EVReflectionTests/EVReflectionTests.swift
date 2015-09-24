@@ -111,6 +111,7 @@ class EVReflectionTests: XCTestCase {
         let theObject = TestObject2()
         theObject.objectValue = "value1"
         NSLog("theObject = \(theObject)")
+        EVReflection.logObject(theObject)
     }
 
     /**
@@ -261,7 +262,7 @@ class EVReflectionTests: XCTestCase {
     func testNSNumber() {
         let test1 = NSNumber(double: Double(Int.max))
         let (value1, _) = EVReflection.valueForAny("", key: "", anyValue: test1)
-        XCTAssert(value1 as? NSNumber == NSNumber(long: Int.max), "Values should be same for type NSNumber")
+        XCTAssert(value1 as? NSNumber == NSNumber(double: Double(Int.max)), "Values should be same for type NSNumber")
         
         let test2:Float = 458347978508
         let (value2, _) = EVReflection.valueForAny("", key: "", anyValue: test2)
