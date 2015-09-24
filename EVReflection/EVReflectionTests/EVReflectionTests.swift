@@ -43,8 +43,30 @@ class EVReflectionTests: XCTestCase {
         let nsobject = EVReflection.swiftClassFromString(theObjectString)
         NSLog("object = \(nsobject)")
         XCTAssert(nsobject != nil, "Pass")
+
+        let theObject2 = subObject()
+        let theObject2String: String = EVReflection.swiftStringFromClass(theObject2)
+        NSLog("swiftStringFromClass = \(theObject2String)")
+        
+        let nsobject2 = EVReflection.swiftClassFromString(theObject2String)
+        NSLog("object = \(nsobject2)")
+        XCTAssert(nsobject != nil, "Pass")
+        
+        
+        let nsobject3 = EVReflection.swiftClassFromString("NSObject")
+        XCTAssertNotNil(nsobject3, "Pass")
+
+        let nsobject4 = EVReflection.swiftClassFromString("NotExistingClassName")
+        XCTAssertNil(nsobject4, "Pass")
+        
     }
 
+    class subObject: NSObject {
+        var field: String?
+    }
+    
+    
+    
     /**
     Create a dictionary from an object where each property has a key and then create an object and set all objects based on that directory.
     */
@@ -93,7 +115,7 @@ class EVReflectionTests: XCTestCase {
         
         XCTAssert(!theObjectA.isEqual(theObjectA2), "Pass")
     }
-
+    
     /**
     Just get a hash from an object
     */
@@ -159,8 +181,8 @@ class EVReflectionTests: XCTestCase {
         let (toDict, _) = EVReflection.toDictionary(theObject)
         NSLog("toDictionary = \(toDict)")
         let nsobject = EVReflection.fromDictionary(toDict, anyobjectTypeString: theObjectString) as? TestObject3
-            NSLog("object = \(nsobject), objectValue = \(nsobject?.objectValue)")
-            XCTAssert(theObject == nsobject, "Pass")
+        NSLog("object = \(nsobject), objectValue = \(nsobject?.objectValue)")
+        XCTAssert(theObject == nsobject, "Pass")
     }
 
     /**

@@ -573,12 +573,6 @@ final public class EVReflection {
         let appName = getCleanAppName(theObject)
         let classStringName: String = NSStringFromClass(theObject.dynamicType)
         let classWithoutAppName: String = classStringName.stringByReplacingOccurrencesOfString(appName + ".", withString: "", options: NSStringCompareOptions.CaseInsensitiveSearch, range: nil)
-        if classWithoutAppName.rangeOfString(".") != nil {
-            NSLog("Warning! Your Bundle name should be the name of your target (set it to $(PRODUCT_NAME))")
-            let parts = classWithoutAppName.characters.split(isSeparator:{$0 == "."})
-            let strings: [String] = parts.map { String($0) }
-            return strings.last!
-        }
         return classWithoutAppName
     }
     
