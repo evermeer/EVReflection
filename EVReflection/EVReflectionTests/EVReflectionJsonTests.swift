@@ -15,6 +15,7 @@ class User: EVObject {
     var email: String?
     var company: Company?
     var friends: [User]? = []
+    var birthDate: NSDate?
 }
 
 class Company: EVObject {
@@ -89,6 +90,7 @@ class EVReflectionJsonTests: XCTestCase {
             "id": 24,
             "name": "John Appleseed",
             "email": "john@appleseed.com",
+            "birtDate": NSDate(),
             "company": [
                 "name": "Apple",
                 "address": "1 Infinite Loop, Cupertino, CA"

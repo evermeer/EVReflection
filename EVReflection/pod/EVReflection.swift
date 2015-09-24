@@ -222,13 +222,9 @@ final public class EVReflection {
     :return: The object that is created from the dictionary
     */
     private class func dictToObject<T where T:NSObject>(type:String, original:T? ,dict:NSDictionary) -> T {
-        if var returnObject:NSObject = swiftClassFromString(type) {
-            returnObject = setPropertiesfromDictionary(dict, anyObject: returnObject)
-            return returnObject as! T
-        } else {
-            let returnObject = setPropertiesfromDictionary(dict, anyObject: T())
-            return returnObject
-        }
+        var returnObject:NSObject = swiftClassFromString(type)
+        returnObject = setPropertiesfromDictionary(dict, anyObject: returnObject)
+        return returnObject as! T
     }
     
     /**
@@ -255,12 +251,9 @@ final public class EVReflection {
         
         var result = [NSObject]()
         for item in array {
-            if let org = swiftClassFromString(subtype) {
-                let arrayObject = self.dictToObject(subtype, original:org, dict: item)
-                result.append(arrayObject)
-            } else {
-                print("WARNING: Could not create an instance of '\(subtype)'")
-            }
+            let org = swiftClassFromString(subtype)
+            let arrayObject = self.dictToObject(subtype, original:org, dict: item)
+            result.append(arrayObject)
         }
         return result
     }
