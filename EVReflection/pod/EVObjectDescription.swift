@@ -25,16 +25,15 @@ public class EVObjectDescription {
     
     /**
     Enum for the difrent types that can be part of an object description
-    
-    - Target:   The bundle
-    - Class:    A class
-    - Protocol: A protocol
-    - Function: A function
     */
     public enum ObjectType:String {
+        /// The target or bunldle
         case Target = "t"
+        /// The Class
         case Class = "C"
+        /// The Protocol
         case Protocol = "P"
+        /// The function
         case Function = "F"
     }
     
