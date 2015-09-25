@@ -13,7 +13,7 @@ Implementation for Equatable ==
 
 - parameter lhs: The object at the left side of the ==
 - parameter rhs: The object at the right side of the ==
-:return: True if the objects are the same, otherwise false.
+:returns: True if the objects are the same, otherwise false.
 */
 public func ==(lhs: EVObject, rhs: EVObject) -> Bool {
     return EVReflection.areEqual(lhs, rhs: rhs)
@@ -24,7 +24,7 @@ Implementation for Equatable !=
 
 - parameter lhs: The object at the left side of the ==
 - parameter rhs: The object at the right side of the ==
-:return: False if the objects are the the same, otherwise true.
+:returns: False if the objects are the the same, otherwise true.
 */
 public func !=(lhs: EVObject, rhs: EVObject) -> Bool {
     return !EVReflection.areEqual(lhs, rhs: rhs)

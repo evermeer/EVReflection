@@ -177,7 +177,7 @@ public class EVObject: NSObject, NSCoding, CustomDebugStringConvertible { // The
     
     This method is in EVObject and not in extension of NSObject because a functions from extensions cannot be overwritten yet
     
-    :return: Return an array with valupairs of the object property name and json key name.
+    :returns: Return an array with valupairs of the object property name and json key name.
     */
     public func propertyMapping() -> [(String?, String?)] {
         return []
@@ -187,14 +187,12 @@ public class EVObject: NSObject, NSCoding, CustomDebugStringConvertible { // The
 
 
 /**
-Protocols created for easy workarounds
-*/
-
-
-/**
 Protocol for the workaround when using generics. See WorkaroundSwiftGenericsTests.swift
 */
 public protocol EVGenericsKVC {
+    /**
+    Implement this protocol in a class with generic properties so that we can still use a standard mechanism for setting property values.
+    */
     func setValue(value: AnyObject!, forUndefinedKey key: String)
 }
 
@@ -202,6 +200,9 @@ public protocol EVGenericsKVC {
 Protocol for the workaround when using an enum with a rawValue of type Int
 */
 public protocol EVRawInt {
+    /**
+    Protocol EVRawString can be added to an Enum that has Int as it's rawValue so that we can detect from a generic enum what it's rawValue is.
+    */
     var rawValue: Int { get }
 }
 
@@ -209,6 +210,9 @@ public protocol EVRawInt {
 Protocol for the workaround when using an enum with a rawValue of type String
 */
 public protocol EVRawString {
+    /**
+    Protocol EVRawString can be added to an Enum that has String as it's rawValue so that we can detect from a generic enum what it's rawValue is.
+    */
     var rawValue: String { get }
 }
 
@@ -216,6 +220,9 @@ public protocol EVRawString {
 Protocol for the workaround when using an enum with a rawValue of an undefined type
 */
 public protocol EVRaw {
+    /**
+    For implementing a function that will return the rawValue for a non sepecific enum
+    */
     var anyRawValue: Any { get }
 }
 
@@ -223,6 +230,9 @@ public protocol EVRaw {
 Protocol for the workaround when using an array with nullable values
 */
 public protocol EVArrayConvertable {
+    /**
+    For implementing a function for converting a generic array to a specific array.
+    */
     func convertArray(key: String, array: Any) -> NSArray
 }
 
@@ -237,6 +247,11 @@ public protocol EVAssociated {
 The implrementation of the protocol for getting the associated value
 */
 public extension EVAssociated {
+    /**
+    Easy access to the associated value of an enum.
+    
+    :returns: The label of the enum plus the associated value
+    */
     public var associated: (label:String, value: Any?) {
         get {
             let mirror = Mirror(reflecting: self)
@@ -253,6 +268,13 @@ public extension EVAssociated {
 Dictionary extension for creating a dictionary from an array of enum values
 */
 public extension Dictionary {
+    /**
+    Create a dictionairy based on all associated values of an enum array
+    
+    - parameter associated: array of dictionairy values which have an associated value
+    
+    - returns: A dictionairy of all enum values and associated values
+    */
     init<T :EVAssociated>(associated: [T]?) {
         self.init()
         if associated != nil {
