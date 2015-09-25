@@ -55,9 +55,9 @@ public extension NSObject {
     /**
     Returns the dictionary representation of this object.
     
-    - parameter performKeyCleanup: set to true if you want to cleanup the keys
+    :parameter: performKeyCleanup set to true if you want to cleanup the keys
     
-    - returns: the dictionary
+    :returns: The dictionary
     */
     final public func toDictionary(performKeyCleanup:Bool = false) -> NSDictionary {
         let (reflected, _) = EVReflection.toDictionary(self, performKeyCleanup: performKeyCleanup)
@@ -67,9 +67,9 @@ public extension NSObject {
     /**
     Convert this object to a json string
     
-    - parameter performKeyCleanup: set to true if you want to cleanup the keys
+    :parameter: performKeyCleanup: set to true if you want to cleanup the keys
     
-    - returns: The json string
+    :returns: The json string
     */
     final public func toJsonString(performKeyCleanup:Bool = false) -> String {
         return EVReflection.toJsonString(self, performKeyCleanup: performKeyCleanup)
@@ -77,6 +77,10 @@ public extension NSObject {
     
     /**
     Convenience method for instantiating an array from a json string.
+    
+    :parameter: json The json string
+    
+    :returns: An array of objects
     */
     public class func arrayFromJson<T where T:NSObject>(json:String?) -> [T] {
         return EVReflection.arrayFromJson(T(), json: json)
@@ -89,6 +93,14 @@ public extension NSObject {
 Extending Array with an initializer with a json string
 */
 extension Array {
+    
+    /**
+    Initialize an array based on a json string
+    
+    :parameter: json The json string
+    
+    :returns: The array of objects
+    */
     init(json:String?){
         self.init()
         let arrayTypeInstance = getArrayTypeInstance(self)
@@ -101,9 +113,9 @@ extension Array {
     /**
     Get the type of the object where this array is for
     
-    - parameter arr: this array
+    :parameter: arr this array
     
-    - returns: The object type
+    :returns: The object type
     */
     private func getArrayTypeInstance<T>(arr:Array<T>) -> T {
         return arr.getTypeInstance()
@@ -112,7 +124,7 @@ extension Array {
     /**
     Get the type of the object where this array is for
     
-    - returns: The object type
+    :returns: The object type
     */
     private func getTypeInstance<T>(
         ) -> T {

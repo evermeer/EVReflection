@@ -8,7 +8,6 @@
 import UIKit
 import XCTest
 
-
 /**
 Testing EVReflection
 */
@@ -337,8 +336,8 @@ class EVReflectionTests: XCTestCase {
     }
     
     func testCamelCaseToUndersocerMapping() {
-        XCTAssertEqual(EVReflection.CamelCaseToUnderscores("swiftIsGreat"), "swift_is_great", "Cammelcase to underscore mapping was incorrect")
-        XCTAssertEqual(EVReflection.CamelCaseToUnderscores("SwiftIsGreat"), "swift_is_great", "Cammelcase to underscore mapping was incorrect")
+        XCTAssertEqual(EVReflection.camelCaseToUnderscores("swiftIsGreat"), "swift_is_great", "Cammelcase to underscore mapping was incorrect")
+        XCTAssertEqual(EVReflection.camelCaseToUnderscores("SwiftIsGreat"), "swift_is_great", "Cammelcase to underscore mapping was incorrect")
         
     }
     

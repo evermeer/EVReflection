@@ -13,36 +13,19 @@ Object that will support NSCoding, Printable, Hashable and Equeatable for all pr
 public class EVObject: NSObject, NSCoding, CustomDebugStringConvertible { // These are redundant in Swift 2: CustomStringConvertible, Hashable, Equatable
     
     /**
-    Basic init override is needed so we can use EVObject as a base class.
+    This basic init override is needed so we can use EVObject as a base class.
     */
     public required override init(){
         super.init()
     }
     
     /**
-    Convenience init for creating an object whith the property values of a dictionary.
-    */
-    public required convenience init(dictionary:NSDictionary) {
-        self.init()
-        EVReflection.setPropertiesfromDictionary(dictionary, anyObject: self)
-    }
-    
-    /**
-    Convenience init for creating an object whith the contents of a json string.
-    */
-    public required convenience init(json:String?) {
-        self.init()
-        let jsonDict = EVReflection.dictionaryFromJson(json)
-        EVReflection.setPropertiesfromDictionary(jsonDict, anyObject: self)
-    }
-    
-    /**
     Decode any object
     
-    - In EVObject and not in NSObject because: Initializer requirement 'init(coder:)' can only be satisfied by a `required` initializer in the definition of non-final class 'NSObject'
+    This method is in EVObject and not in NSObject because you would get the error: Initializer requirement 'init(coder:)' can only be satisfied by a `required` initializer in the definition of non-final class 'NSObject'
     
-    - parameter theObject: The object that we want to decode.
-    - parameter aDecoder: The NSCoder that will be used for decoding the object.
+    :parameter: theObject The object that we want to decode.
+    :parameter: aDecoder The NSCoder that will be used for decoding the object.
     */
     public convenience required init?(coder: NSCoder) {
         self.init()
@@ -52,7 +35,7 @@ public class EVObject: NSObject, NSCoding, CustomDebugStringConvertible { // The
     /**
     Encode this object using a NSCoder
     
-    - parameter aCoder: The NSCoder that will be used for encoding the object
+    :parameter: aCoder The NSCoder that will be used for encoding the object
     */
     public func encodeWithCoder(aCoder: NSCoder) {
         EVReflection.encodeWithCoder(self, aCoder: aCoder)
@@ -61,7 +44,7 @@ public class EVObject: NSObject, NSCoding, CustomDebugStringConvertible { // The
     /**
     Initialize this object from an archived file from the temp directory
     
-    :param: fileName The filename
+    :parameter: fileName The filename
     */
     public convenience required init(fileNameInTemp:String) {
         self.init()
@@ -74,7 +57,7 @@ public class EVObject: NSObject, NSCoding, CustomDebugStringConvertible { // The
     /**
     Initialize this object from an archived file from the documents directory
     
-    :param: fileName The filename
+    :parameter: fileName The filename
     */
     public convenience required init(fileNameInDocuments:String) {
         self.init()
@@ -88,7 +71,7 @@ public class EVObject: NSObject, NSCoding, CustomDebugStringConvertible { // The
     /**
     Returns the pritty description of this object
     
-    :return: The pritty description
+    :returns: The pritty description
     */
     public override var description: String {
         get {
@@ -99,7 +82,7 @@ public class EVObject: NSObject, NSCoding, CustomDebugStringConvertible { // The
     /**
     Returns the pritty description of this object
     
-    :return: The pritty description
+    :returns: The pritty description
     */
     public override var debugDescription: String {
         get {
@@ -110,7 +93,7 @@ public class EVObject: NSObject, NSCoding, CustomDebugStringConvertible { // The
     /**
     Returns the hashvalue of this object
     
-    :return: The hashvalue of this object
+    :returns: The hashvalue of this object
     */
     public override var hashValue: Int {
         get {
@@ -121,7 +104,7 @@ public class EVObject: NSObject, NSCoding, CustomDebugStringConvertible { // The
     /**
     Function for returning the hash for the NSObject based functionality
     
-    :return: The hashvalue of this object
+    :returns: The hashvalue of this object
     */
     public override var hash: Int {
         get {
@@ -132,7 +115,9 @@ public class EVObject: NSObject, NSCoding, CustomDebugStringConvertible { // The
     /**
     Save this object to a file in the temp directory
     
-    :param: fileName The filename
+    :parameter: fileName The filename
+    
+    :returns: Nothing
     */
     public func saveToTemp(fileName:String) {
         let filePath = (NSTemporaryDirectory() as NSString).stringByAppendingPathComponent(fileName)
@@ -142,7 +127,9 @@ public class EVObject: NSObject, NSCoding, CustomDebugStringConvertible { // The
     /**
     Save this object to a file in the documents directory
     
-    :param: fileName The filename
+    :parameter: fileName The filename
+    
+    :returns: Nothing
     */
     public func saveToDocuments(fileName:String) {
         let filePath = (NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as NSString).stringByAppendingPathComponent(fileName)
@@ -153,10 +140,11 @@ public class EVObject: NSObject, NSCoding, CustomDebugStringConvertible { // The
     /**
     Implementation of the NSObject isEqual comparisson method
 
-    - In EVObject and not in NSObject extension because: method conflicts with previous declaration with the same Objective-C selector
+    This method is in EVObject and not in NSObject extension because you would get the error: method conflicts with previous declaration with the same Objective-C selector
 
-    - parameter object: The object where you want to compare with
-    :return: Returns true if the object is the same otherwise false
+    :parameter: object The object where you want to compare with
+
+    :returns: Returns true if the object is the same otherwise false
     */
     public override func isEqual(object: AnyObject?) -> Bool { // for isEqual:
         if let dataObject = object as? EVObject {
@@ -169,10 +157,12 @@ public class EVObject: NSObject, NSCoding, CustomDebugStringConvertible { // The
     /**
     Implementation of the setValue forUndefinedKey so that we can catch exceptions for when we use an optional Type like Int? in our object. Instead of using Int? you should use NSNumber?
     
-    - In EVObject and not in NSObject extension because: method conflicts with previous declaration with the same Objective-C selector
+    This method is in EVObject and not in NSObject extension because you would get the error: method conflicts with previous declaration with the same Objective-C selector
     
-    - parameter value: The value that you wanted to set
-    - parameter key: The name of the property that you wanted to set
+    :parameter: value The value that you wanted to set
+    :parameter: key The name of the property that you wanted to set
+
+    :returns: Nothing
     */
     public override func setValue(value: AnyObject!, forUndefinedKey key: String) {
         if let _ = self as? EVGenericsKVC {
@@ -185,7 +175,7 @@ public class EVObject: NSObject, NSCoding, CustomDebugStringConvertible { // The
     /**
     Override this method when you want custom property mapping.
     
-    - Is in EVObject and not in extension of NSObject because functions from extensions cannot be overwritten yet
+    This method is in EVObject and not in extension of NSObject because a functions from extensions cannot be overwritten yet
     
     :return: Return an array with valupairs of the object property name and json key name.
     */

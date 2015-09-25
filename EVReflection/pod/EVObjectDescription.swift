@@ -12,11 +12,16 @@ import Foundation
 Generate a description for an object by extracting information from the NSStringFromClass
 */
 public class EVObjectDescription {
-    var bundleName: String = ""
-    var className: String = ""
-    var classPath: [String] = []
-    var classPathType: [ObjectType] = []
-    var swiftClassID: String = ""
+    /// The name of the bundle
+    public var bundleName: String = ""
+    /// The name of the class
+    public var className: String = ""
+    /// The classpath starting from the bundle
+    public var classPath: [String] = []
+    /// The types of the items in the classpath
+    public var classPathType: [ObjectType] = []
+    /// The string representation used by Swift for the classpath
+    public var swiftClassID: String = ""
     
     /**
     Enum for the difrent types that can be part of an object description
@@ -36,7 +41,7 @@ public class EVObjectDescription {
     /**
     Initialize an instance and set all properties based on the object
     
-    - parameter forObject: the object that you want the description for
+    :parameter: forObject the object that you want the description for
     */
     public init(forObject: NSObject) {
         bundleName = EVReflection.getCleanAppName()
@@ -61,7 +66,9 @@ public class EVObjectDescription {
     /**
     Get all types from the class string
     
-    - parameter classString: the string representation of a class
+    :parameter: classString the string representation of a class
+    
+    :returns: Nothing
     */
     private func parseTypes(classString:String) {
         let characters = Array(classString.characters)
@@ -82,7 +89,9 @@ public class EVObjectDescription {
     /**
     Get all the names from the class string
     
-    - parameter classString: the string representation of the class
+    :parameter: classString the string representation of the class
+    
+    :returns: Nothing
     */
     private func parseNames(classString:String) {
         let characters = Array(classString.characters)
