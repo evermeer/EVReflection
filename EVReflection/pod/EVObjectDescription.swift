@@ -107,7 +107,24 @@ public class EVObjectDescription {
             return
         }
         if classPathType[classPath.count - 1] == .Function {
-            //TODO: reverse engineer function description. For now only allow parameterless function that return void (FS0_FT_T_L_)
+            //TODO: reverse engineer function description. For now only allow parameterless function that return void
+            //No param, no return            FS0_FT_T_L_
+            //No param, return object        FS0_FT_CS_
+            //String param, return object    FS0_FSSCS_
+            //Int param, return object       FS0_FSiCS_
+            //String param, no return        FS0_FSST_L_
+            //2 param return object          FS0_FTSS6param2SS_CS_
+            //3 param return object          FS0_FTSS6parambSi6paramcSS_CS_
+            //3 param, 2 return values       FS0_FTSS6parambSi6paramcSS_T1aSS1bCS_
+            
+            //Parsing rules:
+            //Always start with FS0_F
+            //If next is S then 1 param defined by 1 letter type
+            //If next isT then sequence of S, type (S = string, i = int) number for lenghts, name, if nummer _ then no name
+            //Ends with T_L_ then no return value
+            //Ends with CS_ then there will be return value(s)
+            
+            
             index = index + 11
         }
         if characters.count > index + Int(numForName)! {

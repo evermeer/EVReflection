@@ -33,6 +33,27 @@ public class EVObject: NSObject, NSCoding, CustomDebugStringConvertible { // The
     }
     
     /**
+    Convenience init for creating an object whith the property values of a dictionary.
+    
+    :parameter: dictionary The dictionary that will be used to create this object
+    */
+    public required convenience init(dictionary:NSDictionary) {
+        self.init()
+        EVReflection.setPropertiesfromDictionary(dictionary, anyObject: self)
+    }
+    
+    /**
+    Convenience init for creating an object whith the contents of a json string.
+    
+    :json: The json string that will be used to create this object
+    */
+    public required convenience init(json:String?) {
+        self.init()
+        let jsonDict = EVReflection.dictionaryFromJson(json)
+        EVReflection.setPropertiesfromDictionary(jsonDict, anyObject: self)
+    }
+    
+    /**
     Encode this object using a NSCoder
     
     :parameter: aCoder The NSCoder that will be used for encoding the object
