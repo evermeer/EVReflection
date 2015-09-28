@@ -34,9 +34,9 @@ EVReflection is used extensively in [EVCloudKitDao](https://github.com/evermeer/
 
 ## It's easy to use:
 
-Defining an object. You only have to set NSObject as it's base class:
+Defining an object. You only have to set NSObject as it's base class (or EVObject for if you want all functionality):
 ```
-class User: NSObject {
+class User: EVObject {
     var id: Int = 0
     var name: String = ""
     var friends: [User]? = []
