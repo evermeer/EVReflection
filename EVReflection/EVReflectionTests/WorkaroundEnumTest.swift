@@ -5,7 +5,6 @@
 //  Copyright (c) 2015 evict. All rights reserved.
 //
 
-import UIKit
 import XCTest
 
 

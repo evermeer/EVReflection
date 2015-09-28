@@ -12,7 +12,20 @@
 		7F07C5901AF11861000DF1F3 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 7F07C58E1AF11861000DF1F3 /* LICENSE */; };
 		7F0E5E5A1AF4D94000A10E51 /* EVObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F0E5E591AF4D94000A10E51 /* EVObject.swift */; };
 		7F1BA5271B971CBF009F9DB8 /* EVExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F1BA5261B971CBF009F9DB8 /* EVExtensions.swift */; settings = {ASSET_TAGS = (); }; };
+		7F29762B1BB913910074C85A /* osx-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7F29762A1BB913910074C85A /* osx-Info.plist */; settings = {ASSET_TAGS = (); }; };
 		7F3E192A1B8526CA00A6E6C6 /* EVObjectDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F3E19291B8526CA00A6E6C6 /* EVObjectDescription.swift */; };
+		7F3E318D1BB909A1001E6788 /* EVReflection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F07C5841AF10284000DF1F3 /* EVReflection.swift */; settings = {ASSET_TAGS = (); }; };
+		7F3E318E1BB909A1001E6788 /* EVObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F0E5E591AF4D94000A10E51 /* EVObject.swift */; settings = {ASSET_TAGS = (); }; };
+		7F3E318F1BB909A1001E6788 /* EVObjectDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F3E19291B8526CA00A6E6C6 /* EVObjectDescription.swift */; settings = {ASSET_TAGS = (); }; };
+		7F3E31901BB909A1001E6788 /* EVExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F1BA5261B971CBF009F9DB8 /* EVExtensions.swift */; settings = {ASSET_TAGS = (); }; };
+		7F3E31911BB909A7001E6788 /* TestObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F41ECA41B91F2E0003A2236 /* TestObjects.swift */; settings = {ASSET_TAGS = (); }; };
+		7F3E31921BB909A7001E6788 /* EVObjectDescriptionTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F41ECA61B91F306003A2236 /* EVObjectDescriptionTest.swift */; settings = {ASSET_TAGS = (); }; };
+		7F3E31931BB909A7001E6788 /* EVReflectionJsonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F41ECA71B91F306003A2236 /* EVReflectionJsonTests.swift */; settings = {ASSET_TAGS = (); }; };
+		7F3E31941BB909A7001E6788 /* EVReflectionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F41ECA81B91F306003A2236 /* EVReflectionTests.swift */; settings = {ASSET_TAGS = (); }; };
+		7F3E31951BB909A7001E6788 /* ProfilePhotoUrlListTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F41ECA91B91F306003A2236 /* ProfilePhotoUrlListTest.swift */; settings = {ASSET_TAGS = (); }; };
+		7F3E31961BB909A7001E6788 /* WorkaroundsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F41ECAB1B91F306003A2236 /* WorkaroundsTests.swift */; settings = {ASSET_TAGS = (); }; };
+		7F3E31971BB909A7001E6788 /* WorkaroundSwiftGenericsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F41ECAC1B91F306003A2236 /* WorkaroundSwiftGenericsTests.swift */; settings = {ASSET_TAGS = (); }; };
+		7F3E31981BB909B1001E6788 /* WorkaroundEnumTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F41ECAA1B91F306003A2236 /* WorkaroundEnumTest.swift */; settings = {ASSET_TAGS = (); }; };
 		7F41ECA51B91F2E0003A2236 /* TestObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F41ECA41B91F2E0003A2236 /* TestObjects.swift */; settings = {ASSET_TAGS = (); }; };
 		7F41ECAD1B91F306003A2236 /* EVObjectDescriptionTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F41ECA61B91F306003A2236 /* EVObjectDescriptionTest.swift */; settings = {ASSET_TAGS = (); }; };
 		7F41ECAE1B91F306003A2236 /* EVReflectionJsonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F41ECA71B91F306003A2236 /* EVReflectionJsonTests.swift */; settings = {ASSET_TAGS = (); }; };
@@ -25,8 +38,8 @@
 
 /* Begin PBXFileReference section */
 		7F0636B31AFF413900595461 /* .travis.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = .travis.yml; sourceTree = "<group>"; };
-		7F07C5721AF101A9000DF1F3 /* EVReflectionTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EVReflectionTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		7F07C5771AF101A9000DF1F3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7F07C5721AF101A9000DF1F3 /* EVReflection iOS Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "EVReflection iOS Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		7F07C5771AF101A9000DF1F3 /* ios-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ios-Info.plist"; sourceTree = "<group>"; };
 		7F07C5841AF10284000DF1F3 /* EVReflection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVReflection.swift; sourceTree = "<group>"; };
 		7F07C5861AF10296000DF1F3 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		7F07C58D1AF11861000DF1F3 /* EVReflection.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = EVReflection.podspec; path = ../EVReflection.podspec; sourceTree = "<group>"; };
@@ -35,7 +48,9 @@
 		7F0E5E591AF4D94000A10E51 /* EVObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVObject.swift; sourceTree = "<group>"; };
 		7F159DFB1BA2FA2F00247CB1 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		7F1BA5261B971CBF009F9DB8 /* EVExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVExtensions.swift; sourceTree = "<group>"; };
+		7F29762A1BB913910074C85A /* osx-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "osx-Info.plist"; sourceTree = "<group>"; };
 		7F3E19291B8526CA00A6E6C6 /* EVObjectDescription.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVObjectDescription.swift; sourceTree = "<group>"; };
+		7F3E31851BB9095C001E6788 /* EVReflection OSX Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "EVReflection OSX Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7F41ECA41B91F2E0003A2236 /* TestObjects.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestObjects.swift; sourceTree = "<group>"; };
 		7F41ECA61B91F306003A2236 /* EVObjectDescriptionTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVObjectDescriptionTest.swift; sourceTree = "<group>"; };
 		7F41ECA71B91F306003A2236 /* EVReflectionJsonTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVReflectionJsonTests.swift; sourceTree = "<group>"; };
@@ -49,6 +64,13 @@
 
 /* Begin PBXFrameworksBuildPhase section */
 		7F07C56F1AF101A9000DF1F3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7F3E31821BB9095C001E6788 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -77,7 +99,8 @@
 		7F07C55E1AF101A9000DF1F3 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				7F07C5721AF101A9000DF1F3 /* EVReflectionTests.xctest */,
+				7F07C5721AF101A9000DF1F3 /* EVReflection iOS Tests.xctest */,
+				7F3E31851BB9095C001E6788 /* EVReflection OSX Tests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -101,7 +124,8 @@
 		7F07C5761AF101A9000DF1F3 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				7F07C5771AF101A9000DF1F3 /* Info.plist */,
+				7F29762A1BB913910074C85A /* osx-Info.plist */,
+				7F07C5771AF101A9000DF1F3 /* ios-Info.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -128,9 +152,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		7F07C5711AF101A9000DF1F3 /* EVReflectionTests */ = {
+		7F07C5711AF101A9000DF1F3 /* EVReflection iOS Tests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 7F07C57F1AF101A9000DF1F3 /* Build configuration list for PBXNativeTarget "EVReflectionTests" */;
+			buildConfigurationList = 7F07C57F1AF101A9000DF1F3 /* Build configuration list for PBXNativeTarget "EVReflection iOS Tests" */;
 			buildPhases = (
 				7F07C56E1AF101A9000DF1F3 /* Sources */,
 				7F07C56F1AF101A9000DF1F3 /* Frameworks */,
@@ -140,9 +164,26 @@
 			);
 			dependencies = (
 			);
-			name = EVReflectionTests;
+			name = "EVReflection iOS Tests";
 			productName = EVReflectionTests;
-			productReference = 7F07C5721AF101A9000DF1F3 /* EVReflectionTests.xctest */;
+			productReference = 7F07C5721AF101A9000DF1F3 /* EVReflection iOS Tests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		7F3E31841BB9095C001E6788 /* EVReflection OSX Tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7F3E318C1BB9095C001E6788 /* Build configuration list for PBXNativeTarget "EVReflection OSX Tests" */;
+			buildPhases = (
+				7F3E31811BB9095C001E6788 /* Sources */,
+				7F3E31821BB9095C001E6788 /* Frameworks */,
+				7F3E31831BB9095C001E6788 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "EVReflection OSX Tests";
+			productName = "EVReflection OSX Tests";
+			productReference = 7F3E31851BB9095C001E6788 /* EVReflection OSX Tests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -159,6 +200,9 @@
 						CreatedOnToolsVersion = 6.3.1;
 						TestTargetID = 7F07C55C1AF101A9000DF1F3;
 					};
+					7F3E31841BB9095C001E6788 = {
+						CreatedOnToolsVersion = 7.0;
+					};
 				};
 			};
 			buildConfigurationList = 7F07C5581AF101A9000DF1F3 /* Build configuration list for PBXProject "EVReflection" */;
@@ -174,7 +218,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				7F07C5711AF101A9000DF1F3 /* EVReflectionTests */,
+				7F07C5711AF101A9000DF1F3 /* EVReflection iOS Tests */,
+				7F3E31841BB9095C001E6788 /* EVReflection OSX Tests */,
 			);
 		};
 /* End PBXProject section */
@@ -186,6 +231,14 @@
 			files = (
 				7F07C5901AF11861000DF1F3 /* LICENSE in Resources */,
 				7F07C58F1AF11861000DF1F3 /* EVReflection.podspec in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7F3E31831BB9095C001E6788 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7F29762B1BB913910074C85A /* osx-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -208,6 +261,25 @@
 				7F41ECB11B91F306003A2236 /* WorkaroundEnumTest.swift in Sources */,
 				7F41ECAE1B91F306003A2236 /* EVReflectionJsonTests.swift in Sources */,
 				7F41ECAF1B91F306003A2236 /* EVReflectionTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7F3E31811BB9095C001E6788 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7F3E31961BB909A7001E6788 /* WorkaroundsTests.swift in Sources */,
+				7F3E31971BB909A7001E6788 /* WorkaroundSwiftGenericsTests.swift in Sources */,
+				7F3E31901BB909A1001E6788 /* EVExtensions.swift in Sources */,
+				7F3E31931BB909A7001E6788 /* EVReflectionJsonTests.swift in Sources */,
+				7F3E31981BB909B1001E6788 /* WorkaroundEnumTest.swift in Sources */,
+				7F3E31911BB909A7001E6788 /* TestObjects.swift in Sources */,
+				7F3E318D1BB909A1001E6788 /* EVReflection.swift in Sources */,
+				7F3E318F1BB909A1001E6788 /* EVObjectDescription.swift in Sources */,
+				7F3E31951BB909A7001E6788 /* ProfilePhotoUrlListTest.swift in Sources */,
+				7F3E31941BB909A7001E6788 /* EVReflectionTests.swift in Sources */,
+				7F3E31921BB909A7001E6788 /* EVObjectDescriptionTest.swift in Sources */,
+				7F3E318E1BB909A1001E6788 /* EVObject.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -309,7 +381,7 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = EVReflectionTests/Info.plist;
+				INFOPLIST_FILE = "EVReflectionTests/ios-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "nl.evict.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -323,10 +395,37 @@
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = EVReflectionTests/Info.plist;
+				INFOPLIST_FILE = "EVReflectionTests/ios-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "nl.evict.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		7F3E318A1BB9095C001E6788 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				INFOPLIST_FILE = "EVReflectionTests/osx-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				PRODUCT_BUNDLE_IDENTIFIER = "nl.evict.EVReflection-OSX-Tests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		7F3E318B1BB9095C001E6788 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = "EVReflectionTests/osx-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				PRODUCT_BUNDLE_IDENTIFIER = "nl.evict.EVReflection-OSX-Tests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
 			};
 			name = Release;
 		};
@@ -342,11 +441,20 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		7F07C57F1AF101A9000DF1F3 /* Build configuration list for PBXNativeTarget "EVReflectionTests" */ = {
+		7F07C57F1AF101A9000DF1F3 /* Build configuration list for PBXNativeTarget "EVReflection iOS Tests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				7F07C5801AF101A9000DF1F3 /* Debug */,
 				7F07C5811AF101A9000DF1F3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7F3E318C1BB9095C001E6788 /* Build configuration list for PBXNativeTarget "EVReflection OSX Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7F3E318A1BB9095C001E6788 /* Debug */,
+				7F3E318B1BB9095C001E6788 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

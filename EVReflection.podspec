@@ -44,8 +44,16 @@ s.social_media_url   = "http://twitter.com/evermeer"
 #  If this Pod runs only on iOS or OS X, then specify the platform and
 #  the deployment target. You can optionally include the target after the platform.
 #
+# s.platform     = :ios, "8.0"
 
-s.platform     = :ios, "8.0"
+# ――― Deployment targets ――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
+#
+#  Specify the minimum deployment target
+#
+s.ios.deployment_target = '8.0'
+s.osx.deployment_target = '10.9'
+s.watchos.deployment_target = '2.0'
+
 
 # ――― Source Location ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
 #

@@ -308,7 +308,9 @@ final public class EVReflection {
             }
             appName = (bundle.bundleIdentifier!).characters.split(isSeparator: {$0 == "."}).map({ String($0) }).last ?? ""
         }
-        let cleanAppName = appName.stringByReplacingOccurrencesOfString(" ", withString: "_", options: NSStringCompareOptions.CaseInsensitiveSearch, range: nil)
+        let cleanAppName = appName
+            .stringByReplacingOccurrencesOfString(" ", withString: "_", options: NSStringCompareOptions.CaseInsensitiveSearch, range: nil)
+            .stringByReplacingOccurrencesOfString("-", withString: "_", options: NSStringCompareOptions.CaseInsensitiveSearch, range: nil)
         return cleanAppName
     }
     
@@ -323,11 +325,15 @@ final public class EVReflection {
     :returns: Nothing
     */
     public class func setBundleIdentifier(forClass: AnyClass) {
-        if let x = NSBundle(forClass:forClass).bundleIdentifier {
-            EVReflection.bundleIdentifier = x.characters.split(isSeparator: {$0 == "."}).map({ String($0) }).last ?? ""
+        if let bundle:NSBundle = NSBundle(forClass:forClass) {
+            let appName = (bundle.bundleIdentifier!).characters.split(isSeparator: {$0 == "."}).map({ String($0) }).last ?? ""
+            let cleanAppName = appName
+                .stringByReplacingOccurrencesOfString(" ", withString: "_", options: NSStringCompareOptions.CaseInsensitiveSearch, range: nil)
+                .stringByReplacingOccurrencesOfString("-", withString: "_", options: NSStringCompareOptions.CaseInsensitiveSearch, range: nil)
+            EVReflection.bundleIdentifier = cleanAppName
         }
     }
-
+    
     /**
     Get the swift Class type from a string
     

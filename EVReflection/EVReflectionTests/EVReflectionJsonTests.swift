@@ -1,12 +1,10 @@
 //
 //  EVReflectionJsonTests.swift
-//  EVReflection
 //
 //  Created by Edwin Vermeer on 6/15/15.
 //  Copyright (c) 2015 evict. All rights reserved.
 //
 
-import UIKit
 import XCTest
 
 class User: EVObject {
