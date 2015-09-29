@@ -35,6 +35,8 @@ public class EVObjectDescription {
         case Protocol = "P"
         /// The function
         case Function = "F"
+        /// A generic class
+        case Generic = "G"
     }
     
     /**

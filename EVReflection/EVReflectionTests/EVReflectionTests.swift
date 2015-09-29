@@ -354,9 +354,9 @@ class EVReflectionTests: XCTestCase {
         
         print("\(label) = {token = \(token), params = \(param)")
     }
-    
-    
 }
+
+
 
 // See http://github.com/evermeer/EVWordPressAPI for a full functional usage of associated values
 enum WordPressRequestConvertible: EVAssociated {
@@ -381,4 +381,13 @@ public enum usersParameters: EVAssociated {
     case authors_only(Bool)
     case type(String)
 }
+
+
+
+
+
+
+
+
+
 

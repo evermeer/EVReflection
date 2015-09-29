@@ -47,6 +47,18 @@ class WorkaroundSwiftGenericsTests: XCTestCase {
             XCTAssertEqual(a.array[2].name!, "val3", "array[2].name should contain val2")
         }
     }
+    
+    func testClassToAndFromString() {
+        // Test the EVReflection class - to and from string
+        let theObject = MyGenericObject<InstanceObject>()
+        let theObjectString: String = EVReflection.swiftStringFromClass(theObject)
+        NSLog("swiftStringFromClass = \(theObjectString)")
+        
+        let nsobject = EVReflection.swiftClassFromString(theObjectString)
+        NSLog("object = \(nsobject)")
+        XCTAssert(nsobject != nil, "Pass")
+    }
+    
 }
 
 

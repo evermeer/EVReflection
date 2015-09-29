@@ -345,7 +345,7 @@ final public class EVReflection {
         //        if className.hasPrefix("Optional<") {
         //            className = className.substringWithRange(Range<String.Index>(start: className.startIndex.advancedBy(9), end: className.endIndex.advancedBy(-1)))
         //        }
-        if className.hasPrefix("_TtC") {
+        if className.hasPrefix("_Tt") {
             return NSClassFromString(className)
         }
         var classStringName = className
