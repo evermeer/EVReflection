@@ -105,3 +105,47 @@ class EnumWorkaroundsTests: XCTestCase {
 
 
 
+
+
+
+
+
+class EVReflectionTests2: XCTestCase {
+    func testTemp() {
+        
+        let test = "[\n {\n \"status\" : \"0\",\n \"content\" : \"Shuru\",\n \"ctime\" : \"1438250556\",\n \"img\" : \"\",\n \"testuserinfo\" : {\n \"avatar\" : \"/5602503cc79de.jpg\",\n \"uid\" : \"d8b81b21c72f1177300247e2d8d88ec5\",\n \"telnum\" : \"18565280137\",\n \"is_seller\" : \"0\",\n \"sex\" : \"男\",\n \"name\" : \"\",\n \"interest\" : \"\"\n },\n \"fabric\" : null,\n \"commentid\" : \"22\",\n \"sound\" : \"\",\n \"vote\" : \"0\",\n \"is_vote\" : 0,\n \"seller_card\" : null\n }\n]"
+        print("\(test)")
+        var comments = EVReflection.arrayFromJson(Comment(), json: test)
+        var comments2 = [Comment](json: test)
+        
+        print(comments[0].testuserinfo?.uid)
+        print(comments2[0].testuserinfo?.uid)
+    }
+}
+
+class Comment: EVObject {
+    var commentid = ""
+    var content = ""
+    var ctime = ""
+    var status = "2"
+    var img = ""
+    var vote = "0"
+    var sound: String?
+    var is_vote: Bool = false
+    var seller_card: String?
+    var fabric: String?
+    var testuserinfo: UserInfo?
+}
+
+class UserInfo: EVObject{
+    var avatar = ""
+    var uid = ""
+    var telnum = ""
+    var is_seller = "0"
+    var sex = "M"
+    var name = "TestUser"
+    var interest = ""
+}
+
+
+

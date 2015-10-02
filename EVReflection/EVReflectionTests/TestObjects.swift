@@ -73,7 +73,7 @@ public class TestObject4: EVObject {
     var myUInt16: UInt16 = 0
     var myUInt32: UInt32 = 0
     var myUInt64: UInt64 = 0
-    var myNSNumber: NSNumber = NSNumber(int: 0)
+    var myNSNumber: NSNumber?
     var invalid_character: String?
     var list: [TestObject4] = []
 }
