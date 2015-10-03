@@ -272,8 +272,14 @@ final public class EVReflection {
         let (rhsdict,_) = toDictionary(rhs, performKeyCleanup:false)
         
         for (key, value) in rhsdict {
-            if let compareTo: AnyObject = lhsdict[key as! String] {
-                if !compareTo.isEqual(value) {
+            if let compareTo = lhsdict[key as! String] {
+                if let dateCompareTo = compareTo as? NSDate, dateValue = value as? NSDate {
+                    let t1 = Int64(dateCompareTo.timeIntervalSince1970)
+                    let t2 = Int64(dateValue.timeIntervalSince1970)
+                    if t1 != t2 {
+                        return false
+                    }
+                } else if !compareTo.isEqual(value) {
                     return false
                 }
             }
@@ -331,6 +337,32 @@ final public class EVReflection {
                 .stringByReplacingOccurrencesOfString("-", withString: "_", options: NSStringCompareOptions.CaseInsensitiveSearch, range: nil)
             EVReflection.bundleIdentifier = cleanAppName
         }
+    }
+    
+    /// This dateformatter will be used when a conversion from string to NSDate is required
+    private static var dateFormatter: NSDateFormatter? = nil
+
+    /**
+    This function can be used to force using an alternat dateformatter for converting String to NSDate
+    
+    - parameter formatter: The new DateFormatter
+    */
+    public class func setDateFormatter(formatter: NSDateFormatter) {
+        dateFormatter = formatter
+    }
+    
+    /**
+    This function is used for getting the dateformatter and defaulting to a standard if it's not set
+    
+    - returns: The dateformatter
+    */    private class func getDateFormatter() -> NSDateFormatter {
+        if let formatter = dateFormatter {
+            return formatter
+        }
+        dateFormatter = NSDateFormatter()
+        dateFormatter!.dateStyle = .ShortStyle
+        dateFormatter!.timeStyle = .LongStyle
+        return dateFormatter!
     }
     
     /**
@@ -503,7 +535,9 @@ final public class EVReflection {
                     value = NSNumber(double: Double(convertedValue) ?? 0)
                 }
             } else if typeInObject == "NSDate"  && (type == "String" || type == "NSString") {
-                let converter = 
+                if let convertedValue = value as? String {
+                    value = getDateFormatter().dateFromString(convertedValue)
+                }
             }
             anyObject.setValue(value, forKey: key)
         }
@@ -778,6 +812,8 @@ final public class EVReflection {
                 tempArray.addObject(convertValueForJsonSerialization(value))
             }
             return tempArray
+        case let date as NSDate:
+            return (getDateFormatter().stringFromDate(date) ?? "") 
         case let ok as NSDictionary:
             return convertDictionaryForJsonSerialization(ok)
         default:

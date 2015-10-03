@@ -108,7 +108,7 @@ class EVReflectionJsonTests: XCTestCase {
             "id": 24,
             "name": "John Appleseed",
             "email": "john@appleseed.com",
-            "birtDate": NSDate(),
+            "birthDate": NSDate(),
             "company": [
                 "name": "Apple",
                 "address": "1 Infinite Loop, Cupertino, CA"
