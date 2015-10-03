@@ -502,6 +502,8 @@ final public class EVReflection {
                 if let convertedValue = value as? String {
                     value = NSNumber(double: Double(convertedValue) ?? 0)
                 }
+            } else if typeInObject == "NSDate"  && (type == "String" || type == "NSString") {
+                let converter = 
             }
             anyObject.setValue(value, forKey: key)
         }
