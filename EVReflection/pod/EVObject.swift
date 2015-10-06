@@ -203,6 +203,17 @@ public class EVObject: NSObject, NSCoding, CustomDebugStringConvertible { // The
     public func propertyMapping() -> [(String?, String?)] {
         return []
     }
+    
+    /**
+    Override this method when you want custom property value conversion
+    
+    This method is in EVObject and not in extension of NSObject because a functions from extensions cannot be overwritten yet
+    
+    :returns: Returns an array where each item is a combination of the folowing 3 values: A string for the property name where the custom conversion is for, a setter function and a getter function.
+    */
+    public func propertyConverters() -> [(String?, (Any?)->(), () -> Any? )] {
+        return []
+    }
 }
 
 

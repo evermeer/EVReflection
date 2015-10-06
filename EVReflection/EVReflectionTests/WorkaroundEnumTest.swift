@@ -121,6 +121,12 @@ class EVReflectionTests2: XCTestCase {
         print(comments[0].testuserinfo?.uid)
         print(comments2[0].testuserinfo?.uid)
     }
+    
+    func testTemp2() {
+        let test = "[\n {\n \"status\" : \"0\",\n \"content\" : \"Shuru\",\n \"ctime\" : \"1438250556\",\n \"img\" : \"\",\n \"isvote\" : 0,\n \"testuserinfo\" : {\n \"avatar\" : \"\",\n \"uid\" : \"d8b81b21c72f1177300247e2d8d88ec5\",\n \"telnum\" : \"18565280137\",\n \"is_seller\" : \"0\",\n \"sex\" : \"男\",\n \"name\" : \"\",\n \"interest\" : \"\"\n },\n \"commentid\" : \"22\",\n \"fabric\" : null,\n \"sound\" : \"\",\n \"vote\" : \"0\",\n \"seller_card\" : null\n }\n]"
+        let comments = EVReflection.arrayFromJson(Comment(), json: test)
+        print(comments[0].testuserinfo?.telnum)
+    }
 }
 
 class Comment: EVObject {
@@ -131,7 +137,7 @@ class Comment: EVObject {
     var img = ""
     var vote = "0"
     var sound: String?
-    var is_vote: Bool = false
+    var isvote: Bool = false
     var seller_card: String?
     var fabric: String?
     var testuserinfo: UserInfo?

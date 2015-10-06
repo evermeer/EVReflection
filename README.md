@@ -158,6 +158,27 @@ public class TestObject5: EVObject {
 }
 ```
 
+### Custom property converters
+You can also use your own property converters. For this you need to implement the propertyConverters method in your object. For each property you can create a custom getter and setter that will then be used by EVReflection. In the sample below the JSON texts 'Sure' and 'Nah' will be converted to true or false for the property isGreat.
+```
+public class TestObject6: EVObject {
+    var isGreat: Bool = false
+
+    override public func propertyConverters() -> [(String?, (Any?)->(), () -> Any? )] {
+        return [
+            ( // We want a custom converter for the field isGreat
+              "isGreat"
+              // isGreat will be true if the json says 'Sure'
+              , { self.isGreat = ($0 as? String == "Sure") }
+              // The json will say 'Sure  if isGreat is true, otherwise it will say 'Nah'
+              , { return self.isGreat ? "Sure": "Nah"})
+        ]
+    }
+}
+```
+
+
+
 ### When to use EVObject instead of NSObject as a base class.
 There is some functionality that could not be added as an extension to NSObject because of limitations or unwanted side effects. For this the EVObject class can be used. Use EVObject in the folowing situations:
 

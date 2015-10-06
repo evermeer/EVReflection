@@ -539,6 +539,10 @@ final public class EVReflection {
                     value = getDateFormatter().dateFromString(convertedValue)
                 }
             }
+            if let (_, propertySetter, _) = (anyObject as? EVObject)?.propertyConverters().filter({$0.0 == key}).first {
+                propertySetter(value)
+                return
+            }
             anyObject.setValue(value, forKey: key)
         }
     }
@@ -753,7 +757,10 @@ final public class EVReflection {
         }
         for property in reflected.children {
             if let key:String = property.label {
-                let value = property.value
+                var value = property.value
+                if let (_, _, propertyGetter) = (theObject as? EVObject)?.propertyConverters().filter({$0.0 == key}).first {
+                    value = propertyGetter()
+                }
                 var (unboxedValue, valueType): (AnyObject, String) = valueForAny(theObject, key: key, anyValue: value)
                 if unboxedValue as? EVObject != nil {
                     let (dict, _) = toDictionary(unboxedValue as! NSObject, performKeyCleanup: false)
@@ -769,6 +776,7 @@ final public class EVReflection {
                 } else {
                     propertiesDictionary.setValue(unboxedValue, forKey: key)
                 }
+                
                 propertiesTypeDictionary[key] = valueType
             }
             

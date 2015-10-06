@@ -354,6 +354,17 @@ class EVReflectionTests: XCTestCase {
         
         print("\(label) = {token = \(token), params = \(param)")
     }
+    
+    func testCustomPropertyConverter() {
+        let json = "{\"is_great\":\"Sure\"}"
+        let t = TestObject6(json: json)
+        XCTAssertTrue(t.isGreat, "This mapping should make true from 'Sure'")
+        let s = t.toJsonString()
+        XCTAssertEqual(s, "{\n  \"isGreat\" : \"Sure\"\n}", "The json should contain 'Sure'")
+        t.isGreat = false
+        let s2 = t.toJsonString(true)
+        XCTAssertEqual(s2, "{\n  \"is_great\" : \"Nah\"\n}", "The json should contain 'Nah'")
+    }
 }
 
 

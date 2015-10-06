@@ -93,4 +93,20 @@ public class TestObject5: EVObject {
 }
 
 
+/**
+For testing the custom property conversion
+*/
+public class TestObject6: EVObject {
+    var isGreat: Bool = false
+    
+    override public func propertyConverters() -> [(String?, (Any?)->(), () -> Any? )] {
+        return [
+            ( // We want a custom converter for the field isGreat
+              "isGreat"
+              // isGreat will be true if the json says 'Sure'
+              , { self.isGreat = ($0 as? String == "Sure") }
+              // The json will say 'Sure  if isGreat is true, otherwise it will say 'Nah'
+              , { return self.isGreat ? "Sure": "Nah"})]
+    }
+}
 
