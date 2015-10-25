@@ -8,12 +8,12 @@
 import Foundation
 
 /**
-Reflection methods
-*/
+ Reflection methods
+ */
 final public class EVReflection {
     
     // MARK: - From and to Dictrionary parsing
-
+    
     
     /**
     Create an object from a dictionary
@@ -33,13 +33,13 @@ final public class EVReflection {
     
     
     /**
-    Set object properties from a dictionary
-    
-    :parameter: dictionary The dictionary that will be converted to an object
-    :parameter: anyObject The object where the properties will be set
-    
-    :returns: The object that is created from the dictionary
-    */
+     Set object properties from a dictionary
+     
+     :parameter: dictionary The dictionary that will be converted to an object
+     :parameter: anyObject The object where the properties will be set
+     
+     :returns: The object that is created from the dictionary
+     */
     public class func setPropertiesfromDictionary<T where T:NSObject>(dictionary:NSDictionary, anyObject: T) -> T {
         var (keyMapping, properties, types) = getKeyMapping(anyObject, dictionary: dictionary)
         for (k, v) in dictionary {
@@ -68,15 +68,15 @@ final public class EVReflection {
         }
         return anyObject
     }
-
+    
     /**
-    Based on an object and a dictionary create a keymapping plus a dictionary of properties plus a dictionary of types
-    
-    :parameter: anyObject  the object for the mapping
-    :parameter: dictionary the dictionary that has to be mapped
-    
-    :returns: The mapping, keys and values of all properties to items in a dictionary
-    */
+     Based on an object and a dictionary create a keymapping plus a dictionary of properties plus a dictionary of types
+     
+     :parameter: anyObject  the object for the mapping
+     :parameter: dictionary the dictionary that has to be mapped
+     
+     :returns: The mapping, keys and values of all properties to items in a dictionary
+     */
     private static func getKeyMapping<T where T:NSObject>(anyObject: T, dictionary:NSDictionary) -> (keyMapping: Dictionary<String,String>, properties: NSDictionary, types: Dictionary<String,String>) {
         let (hasKeys, hasValues) = toDictionary(anyObject, performKeyCleanup: false)
         var keyMapping: Dictionary<String,String> = Dictionary<String,String>()
@@ -89,12 +89,12 @@ final public class EVReflection {
     }
     
     /**
-    Convert an object to a dictionary while cleaning up the keys
-    
-    :parameter: theObject The object that will be converted to a dictionary
-    
-    :returns: The dictionary that is created from theObject plus a dictionary of propery types.
-    */
+     Convert an object to a dictionary while cleaning up the keys
+     
+     :parameter: theObject The object that will be converted to a dictionary
+     
+     :returns: The dictionary that is created from theObject plus a dictionary of propery types.
+     */
     public class func toDictionary(theObject: NSObject, performKeyCleanup:Bool = false) -> (NSDictionary, Dictionary<String,String>) {
         let reflected = Mirror(reflecting: theObject)
         let (properties, types) =  reflectedSub(theObject, reflected: reflected)
@@ -111,7 +111,7 @@ final public class EVReflection {
     Return a dictionary representation for the json string
     
     :parameter: json The json string that will be converted
-
+    
     :returns: The dictionary representation of the json
     */
     public class func dictionaryFromJson(json: String?) -> Dictionary<String, AnyObject> {
@@ -130,12 +130,12 @@ final public class EVReflection {
     }
     
     /**
-    Return an array representation for the json string
-    
-    :parameter: json The json string that will be converted
-    
-    :returns: The array of dictionaries representation of the json
-    */
+     Return an array representation for the json string
+     
+     :parameter: json The json string that will be converted
+     
+     :returns: The array of dictionaries representation of the json
+     */
     public class func arrayFromJson<T>(type:T, json: String?) -> [T] {
         var result = [T]()
         if json == nil {
@@ -159,12 +159,12 @@ final public class EVReflection {
     }
     
     /**
-    Return a Json string representation of this object
-    
-    :parameter: theObject The object that will be loged
-    
-    :returns: The string representation of the object
-    */
+     Return a Json string representation of this object
+     
+     :parameter: theObject The object that will be loged
+     
+     :returns: The string representation of the object
+     */
     public class func toJsonString(theObject: NSObject, performKeyCleanup:Bool = true) -> String {
         var (dict,_) = EVReflection.toDictionary(theObject, performKeyCleanup: performKeyCleanup)
         dict = convertDictionaryForJsonSerialization(dict)
@@ -178,9 +178,9 @@ final public class EVReflection {
         return result
     }
     
-
+    
     // MARK: - Adding functionality to objects
-
+    
     /**
     Dump the content of this object to the output
     
@@ -193,12 +193,12 @@ final public class EVReflection {
     }
     
     /**
-    Return a string representation of this object
-    
-    :parameter: theObject The object that will be loged
-    
-    :returns: The string representation of the object
-    */
+     Return a string representation of this object
+     
+     :parameter: theObject The object that will be loged
+     
+     :returns: The string representation of the object
+     */
     public class func description(theObject: NSObject) -> String {
         var description: String = swiftStringFromClass(theObject) + " {\n   hash = \(theObject.hash)\n"
         let (hasKeys, _) = toDictionary(theObject, performKeyCleanup:false)
@@ -208,14 +208,14 @@ final public class EVReflection {
         description = description + "}\n"
         return description
     }
-
+    
     /**
-    Create a hashvalue for the object
-    
-    :parameter: theObject The object for what you want a hashvalue
-    
-    :returns: the hashvalue for the object
-    */
+     Create a hashvalue for the object
+     
+     :parameter: theObject The object for what you want a hashvalue
+     
+     :returns: the hashvalue for the object
+     */
     public class func hashValue(theObject: NSObject) -> Int {
         let (hasKeys, _) = toDictionary(theObject, performKeyCleanup:false)
         return Int(hasKeys.map {$1}.reduce(0) {(31 &* $0) &+ $1.hash})
@@ -223,13 +223,13 @@ final public class EVReflection {
     
     
     /**
-    Encode any object
-    
-    :parameter: theObject The object that we want to encode.
-    :parameter: aCoder The NSCoder that will be used for encoding the object.
-    
-    :returns: Nothing
-    */
+     Encode any object
+     
+     :parameter: theObject The object that we want to encode.
+     :parameter: aCoder The NSCoder that will be used for encoding the object.
+     
+     :returns: Nothing
+     */
     public class func encodeWithCoder(theObject: NSObject, aCoder: NSCoder) {
         let (hasKeys, _) = toDictionary(theObject, performKeyCleanup:false)
         for (key, value) in hasKeys {
@@ -238,11 +238,11 @@ final public class EVReflection {
     }
     
     /**
-    Decode any object
-    
-    :parameter: theObject The object that we want to decode.
-    :parameter: aDecoder The NSCoder that will be used for decoding the object.
-    */
+     Decode any object
+     
+     :parameter: theObject The object that we want to decode.
+     :parameter: aDecoder The NSCoder that will be used for decoding the object.
+     */
     public class func decodeObjectWithCoder(theObject: NSObject, aDecoder: NSCoder) {
         let (hasKeys, _) = toDictionary(theObject, performKeyCleanup:false)
         for (key, _) in hasKeys {
@@ -256,13 +256,13 @@ final public class EVReflection {
     }
     
     /**
-    Compare all fields of 2 objects
-    
-    :parameter: lhs The first object for the comparisson
-    :parameter: rhs The second object for the comparisson
-    
-    :returns: true if the objects are the same, otherwise false
-    */
+     Compare all fields of 2 objects
+     
+     :parameter: lhs The first object for the comparisson
+     :parameter: rhs The second object for the comparisson
+     
+     :returns: true if the objects are the same, otherwise false
+     */
     public class func areEqual(lhs: NSObject, rhs: NSObject) -> Bool {
         if swiftStringFromClass(lhs) != swiftStringFromClass(rhs) {
             return false;
@@ -323,12 +323,12 @@ final public class EVReflection {
     private static var bundleIdentifier:String? = nil
     
     /**
-    This method can be used in unit tests to force the bundle where classes can be found
-    
-    :param: forClass The class that will be used to find the appName for in which we can find classes by string.
-    
-    :returns: Nothing
-    */
+     This method can be used in unit tests to force the bundle where classes can be found
+     
+     :param: forClass The class that will be used to find the appName for in which we can find classes by string.
+     
+     :returns: Nothing
+     */
     public class func setBundleIdentifier(forClass: AnyClass) {
         if let bundle:NSBundle = NSBundle(forClass:forClass) {
             let appName = (bundle.bundleIdentifier!).characters.split(isSeparator: {$0 == "."}).map({ String($0) }).last ?? ""
@@ -341,21 +341,21 @@ final public class EVReflection {
     
     /// This dateformatter will be used when a conversion from string to NSDate is required
     private static var dateFormatter: NSDateFormatter? = nil
-
-    /**
-    This function can be used to force using an alternat dateformatter for converting String to NSDate
     
-    - parameter formatter: The new DateFormatter
-    */
+    /**
+     This function can be used to force using an alternat dateformatter for converting String to NSDate
+     
+     - parameter formatter: The new DateFormatter
+     */
     public class func setDateFormatter(formatter: NSDateFormatter) {
         dateFormatter = formatter
     }
     
     /**
-    This function is used for getting the dateformatter and defaulting to a standard if it's not set
-    
-    - returns: The dateformatter
-    */    private class func getDateFormatter() -> NSDateFormatter {
+     This function is used for getting the dateformatter and defaulting to a standard if it's not set
+     
+     - returns: The dateformatter
+     */    private class func getDateFormatter() -> NSDateFormatter {
         if let formatter = dateFormatter {
             return formatter
         }
@@ -366,12 +366,12 @@ final public class EVReflection {
     }
     
     /**
-    Get the swift Class type from a string
-    
-    :parameter: className The string representation of the class (name of the bundle dot name of the class)
-    
-    :returns: The Class type
-    */
+     Get the swift Class type from a string
+     
+     :parameter: className The string representation of the class (name of the bundle dot name of the class)
+     
+     :returns: The Class type
+     */
     public class func swiftClassTypeFromString(className: String) -> AnyClass! {
         //        if className.hasPrefix("Optional<") {
         //            className = className.substringWithRange(Range<String.Index>(start: className.startIndex.advancedBy(9), end: className.endIndex.advancedBy(-1)))
@@ -388,12 +388,12 @@ final public class EVReflection {
     }
     
     /**
-    Get the swift Class from a string
-    
-    :parameter: className The string representation of the class (name of the bundle dot name of the class)
-    
-    :returns: The Class type
-    */
+     Get the swift Class from a string
+     
+     :parameter: className The string representation of the class (name of the bundle dot name of the class)
+     
+     :returns: The Class type
+     */
     public class func swiftClassFromString(className: String) -> NSObject? {
         var result: NSObject? = nil
         if className == "NSObject" {
@@ -409,12 +409,12 @@ final public class EVReflection {
     }
     
     /**
-    Get the class name as a string from a swift class
-    
-    :parameter: theObject An object for whitch the string representation of the class will be returned
-    
-    :returns: The string representation of the class (name of the bundle dot name of the class)
-    */
+     Get the class name as a string from a swift class
+     
+     :parameter: theObject An object for whitch the string representation of the class will be returned
+     
+     :returns: The string representation of the class (name of the bundle dot name of the class)
+     */
     public class func swiftStringFromClass(theObject: NSObject) -> String! {
         let appName = getCleanAppName(theObject)
         let classStringName: String = NSStringFromClass(theObject.dynamicType)
@@ -423,14 +423,14 @@ final public class EVReflection {
     }
     
     /**
-    Helper function to convert an Any to AnyObject
-    
-    :parameter: parentObject Only needs to be set to the object that has this property when the value is from a property that is an array of optional values
-    :parameter: key          Only needs to be set to the name of the property when the value is from a property that is an array of optional values
-    :parameter: anyValue     Something of type Any is converted to a type NSObject
-    
-    :returns: The value where the Any is converted to AnyObject plus the type of that value as a string
-    */
+     Helper function to convert an Any to AnyObject
+     
+     :parameter: parentObject Only needs to be set to the object that has this property when the value is from a property that is an array of optional values
+     :parameter: key          Only needs to be set to the name of the property when the value is from a property that is an array of optional values
+     :parameter: anyValue     Something of type Any is converted to a type NSObject
+     
+     :returns: The value where the Any is converted to AnyObject plus the type of that value as a string
+     */
     public class func valueForAny(parentObject:Any? = nil, key:String? = nil, anyValue: Any) -> (AnyObject, String) {
         var theValue = anyValue
         var valueType = "EVObject"
@@ -504,17 +504,17 @@ final public class EVReflection {
             return (NSNull(), "NSNull")
         }
     }
-
+    
     /**
-    Try to set a value of a property with automatic String to and from Number conversion
-    
-    :parameter: anyObject    the object where the value will be set
-    :parameter: key          the name of the property
-    :parameter: value        the value that will be set
-    :parameter: typeInObject the type of the value
-    
-    :returns: Nothing
-    */
+     Try to set a value of a property with automatic String to and from Number conversion
+     
+     :parameter: anyObject    the object where the value will be set
+     :parameter: key          the name of the property
+     :parameter: value        the value that will be set
+     :parameter: typeInObject the type of the value
+     
+     :returns: Nothing
+     */
     public static func setObjectValue<T where T:NSObject>(anyObject: T, key:String, var value:AnyObject?, typeInObject:String? = nil) {
         if value == nil || value as? NSNull != nil {
             //            do {
@@ -576,17 +576,17 @@ final public class EVReflection {
     }
     
     /**
-    Try to map a property name to a json/dictionary key by applying some rules like property mapping, snake case conversion or swift keyword fix.
-    
-    :parameter: anyObject the object where the key is part of
-    :parameter: key       the key to clean up
-    :parameter: tryMatch  dictionary of keys where a mach will be tried to
-    
-    :returns: the cleaned up key
-    */
+     Try to map a property name to a json/dictionary key by applying some rules like property mapping, snake case conversion or swift keyword fix.
+     
+     :parameter: anyObject the object where the key is part of
+     :parameter: key       the key to clean up
+     :parameter: tryMatch  dictionary of keys where a mach will be tried to
+     
+     :returns: the cleaned up key
+     */
     private class func cleanupKey(anyObject:NSObject, key:String, tryMatch:NSDictionary?) -> String? {
         var newKey: String = key
-
+        
         // Step 1 - custom property mapping
         if let evObject = anyObject as? EVObject {
             if let mapping = evObject.propertyMapping().filter({$0.0 == newKey}).first {
@@ -610,7 +610,7 @@ final public class EVReflection {
                 }
             }
         }
-
+        
         // Step 3 - replace illegal characters
         if let t = tryMatch {
             for (key, _) in t {
@@ -630,21 +630,21 @@ final public class EVReflection {
             return newKey
         }
         
-
+        
         if tryMatch != nil {
             return nil
         }
-
+        
         return newKey
     }
     
     /**
-    Convert a CamelCase to Undersores
-    
-    :parameter: input the CamelCase string
-    
-    :returns: the underscore string
-    */
+     Convert a CamelCase to Undersores
+     
+     :parameter: input the CamelCase string
+     
+     :returns: the underscore string
+     */
     internal static func camelCaseToUnderscores(input: String) -> String {
         var output: String = String(input.characters.first!).lowercaseString
         let uppercase:NSCharacterSet = NSCharacterSet.uppercaseLetterCharacterSet()
@@ -657,32 +657,43 @@ final public class EVReflection {
         }
         return output
     }
-
+    
     
     /// List of swift keywords for cleaning up keys
     private static let keywords = ["self", "description", "class", "deinit", "enum", "extension", "func", "import", "init", "let", "protocol", "static", "struct", "subscript", "typealias", "var", "break", "case", "continue", "default", "do", "else", "fallthrough", "if", "in", "for", "return", "switch", "where", "while", "as", "dynamicType", "is", "new", "super", "Self", "Type", "__COLUMN__", "__FILE__", "__FUNCTION__", "__LINE__", "associativity", "didSet", "get", "infix", "inout", "left", "mutating", "none", "nonmutating", "operator", "override", "postfix", "precedence", "prefix", "right", "set", "unowned", "unowned", "safe", "unowned", "unsafe", "weak", "willSet", "private", "public", "internal", "zone"]
-
+    
     /// Character that will be replaced by _ from the keys in a dictionary / json
     private static let illegalCharacter = [" ", "-", "&", "%", "#", "@", "!", "$", "^", "*", "(", ")", "<", ">", "?", ".", ",", ":", ";"]
     
     /**
-    Convert a value in the dictionary to the correct type for the object
-    
-    :parameter: fieldType  type of the field in object
-    :parameter: original  the original value
-    :parameter: dictValue the value from the dictionary
-    
-    :returns: The converted value
-    */
+     Convert a value in the dictionary to the correct type for the object
+     
+     :parameter: fieldType  type of the field in object
+     :parameter: original  the original value
+     :parameter: dictValue the value from the dictionary
+     
+     :returns: The converted value
+     */
     private static func dictionaryAndArrayConversion(fieldType:String?, original:NSObject?, var dictValue: AnyObject?) -> AnyObject? {
         if let type = fieldType {
             if type.hasPrefix("Array<") && dictValue as? NSDictionary != nil {
-                var array:[NSDictionary] = [NSDictionary]()
-                array.append(dictValue as! NSDictionary)
-                dictValue = array
+                if (dictValue as! NSDictionary).count == 1 {
+                    // XMLDictionary fix
+                    if let i = (dictValue as! NSDictionary).generate().next()!.value as? NSArray {
+                        dictValue = i
+                        dictValue = dictArrayToObjectArray(type, array: dictValue as! [NSDictionary]) as [NSObject]
+                    }
+                } else {
+                    // Single object array fix
+                    var array:[NSDictionary] = [NSDictionary]()
+                    array.append(dictValue as! NSDictionary)
+                    dictValue = array
+                }
             } else if type != "NSDictionary" && dictValue as? NSDictionary != nil {
+                // Sub object
                 dictValue = dictToObject(type, original:original ,dict: dictValue as! NSDictionary)
             } else if type.rangeOfString("<NSDictionary>") == nil && dictValue as? [NSDictionary] != nil {
+                // Array of objects
                 dictValue = dictArrayToObjectArray(type, array: dictValue as! [NSDictionary]) as [NSObject]
             }
         }
@@ -690,14 +701,14 @@ final public class EVReflection {
     }
     
     /**
-    Set sub object properties from a dictionary
-    
-    :parameter: type The object type that will be created
-    :parameter: original The original value in the object which is used to create a return object
-    :parameter: dict The dictionary that will be converted to an object
-    
-    :returns: The object that is created from the dictionary
-    */
+     Set sub object properties from a dictionary
+     
+     :parameter: type The object type that will be created
+     :parameter: original The original value in the object which is used to create a return object
+     :parameter: dict The dictionary that will be converted to an object
+     
+     :returns: The object that is created from the dictionary
+     */
     private class func dictToObject<T where T:NSObject>(type:String, original:T? ,dict:NSDictionary) -> T? {
         if var returnObject:NSObject = swiftClassFromString(type) {
             returnObject = setPropertiesfromDictionary(dict, anyObject: returnObject)
@@ -707,13 +718,13 @@ final public class EVReflection {
     }
     
     /**
-    Create an Array of objects from an array of dictionaries
-    
-    :parameter: type The object type that will be created
-    :parameter: array The array of dictionaries that will be converted to the array of objects
-    
-    :returns: The array of objects that is created from the array of dictionaries
-    */
+     Create an Array of objects from an array of dictionaries
+     
+     :parameter: type The object type that will be created
+     :parameter: array The array of dictionaries that will be converted to the array of objects
+     
+     :returns: The array of objects that is created from the array of dictionaries
+     */
     private class func dictArrayToObjectArray(type:String, array:[NSDictionary]) -> [NSObject] {
         var subtype = "EVObject"
         if type.componentsSeparatedByString("<").count > 1 {
@@ -732,19 +743,19 @@ final public class EVReflection {
         for item in array {
             let org = swiftClassFromString(subtype)
             if let arrayObject = self.dictToObject(subtype, original:org, dict: item) {
-                result.append(arrayObject)                
+                result.append(arrayObject)
             }
         }
         return result
     }
     
     /**
-    for parsing an object to a dictionary. including properties from it's super class (recursive)
-    
-    :parameter: reflected The object parsed using the reflect method.
-    
-    :returns: The dictionary that is created from the object plus an dictionary of property types.
-    */
+     for parsing an object to a dictionary. including properties from it's super class (recursive)
+     
+     :parameter: reflected The object parsed using the reflect method.
+     
+     :returns: The dictionary that is created from the object plus an dictionary of property types.
+     */
     private class func reflectedSub(theObject:Any, reflected: Mirror) -> (NSDictionary, Dictionary<String, String>) {
         let propertiesDictionary : NSMutableDictionary = NSMutableDictionary()
         var propertiesTypeDictionary : Dictionary<String,String> = Dictionary<String,String>()
@@ -786,12 +797,12 @@ final public class EVReflection {
     
     
     /**
-    Clean up dictionary so that it can be converted to json
-    
-    :parameter: dict The dictionairy that
-    
-    :returns: The cleaned up dictionairy
-    */
+     Clean up dictionary so that it can be converted to json
+     
+     :parameter: dict The dictionairy that
+     
+     :returns: The cleaned up dictionairy
+     */
     private class func convertDictionaryForJsonSerialization(dict: NSDictionary) -> NSDictionary {
         for (key, value) in dict {
             dict.setValue(convertValueForJsonSerialization(value), forKey: key as! String)
@@ -800,12 +811,12 @@ final public class EVReflection {
     }
     
     /**
-    Clean up a value so that it can be converted to json
-    
-    :parameter: value The value to be converted
-    
-    :returns: The converted value
-    */
+     Clean up a value so that it can be converted to json
+     
+     :parameter: value The value to be converted
+     
+     :returns: The converted value
+     */
     private class func convertValueForJsonSerialization(value : AnyObject) -> AnyObject {
         switch(value) {
         case let stringValue as NSString:
@@ -821,7 +832,7 @@ final public class EVReflection {
             }
             return tempArray
         case let date as NSDate:
-            return (getDateFormatter().stringFromDate(date) ?? "") 
+            return (getDateFormatter().stringFromDate(date) ?? "")
         case let ok as NSDictionary:
             return convertDictionaryForJsonSerialization(ok)
         default:
