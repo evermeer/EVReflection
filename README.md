@@ -24,7 +24,7 @@
 
 Run the unit tests to see EVReflection in action.
 
-EVReflection is used extensively in [EVCloudKitDao](https://github.com/evermeer/EVCloudKitDao) and [AlamofireJsonToObjects](https://github.com/evermeer/AlamofireJsonToObjects)
+EVReflection is used extensively in [EVCloudKitDao](https://github.com/evermeer/EVCloudKitDao), [AlamofireJsonToObjects](https://github.com/evermeer/AlamofireJsonToObjects) and [AlamofireXmlToObjects](https://github.com/evermeer/AlamofireXmlToObjects)
 
 ## Main features of EVReflection:
 - Parsing objects based on NSObject to and from a dictionary.
@@ -223,6 +223,7 @@ Also see my other open source iOS libraries:
 - [EVFaceTracker](https://github.com/evermeer/EVFaceTracker) - Calculate the distance and angle of your device with regards to your face in order to simulate a 3D effect
 - [EVURLCache](https://github.com/evermeer/EVURLCache) - a NSURLCache subclass for handling all web requests that use NSURLReques
 - [AlamofireJsonToObject](https://github.com/evermeer/AlamofireJsonToObjects) - An Alamofire extension which converts JSON response data into swift objects using EVReflection
+- [AlamofireXmlToObject](https://github.com/evermeer/AlamofireXmlToObjects) - An Alamofire extension which converts XML response data into swift objects using EVReflection and XMLDictionary
 - [AlamofireOauth2](https://github.com/evermeer/AlamofireOauth2) - A swift implementation of OAuth2 using Alamofire
 - [EVWordPressAPI](https://github.com/evermeer/EVWordPressAPI) - Swift Implementation of the WordPress (Jetpack) API using AlamofireOauth2, AlomofireJsonToObjects and EVReflection (work in progress)
 - [PassportScanner](https://github.com/evermeer/PassportScanner) - Scan the MRZ code of a passport and extract the firstname, lastname, passport number, nationality, date of birth, expiration date and personal numer.
