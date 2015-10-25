@@ -8,7 +8,7 @@ Pod::Spec.new do |s|
 #
 
 s.name         = "EVReflection"
-s.version      = "2.11.0"
+s.version      = "2.11.1"
 s.summary      = "iOS: Swift helper library with reflection functions"
 s.description  = "Swift helper library with reflection functions including support for NSCoding, Printable, Hashable, Equatable and JSON"
 s.homepage     = "https://github.com/evermeer/EVReflection"
@@ -51,6 +51,7 @@ s.social_media_url   = "http://twitter.com/evermeer"
 s.ios.deployment_target = '8.0'
 s.osx.deployment_target = '10.9'
 s.watchos.deployment_target = '2.0'
+s.tvos.deployment_target = '9.0'
 
 
 # ――― Source Location ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
