@@ -12,7 +12,7 @@ class User: EVObject {
     var name: String = ""
     var email: String?
     var company: Company?
-    var friends: [User]? = []
+    var closeFriends: [User]? = []
     var birthDate: NSDate?
 }
 
@@ -48,6 +48,7 @@ class EVReflectionJsonTests: XCTestCase {
         var id: Int64 = 0
         var name: String = ""
     }
+    
     func testSimpleJson() {
         let json2:String = "{\"id\": 24, \"name\": \"Bob\"}"
         let user = Account(json: json2)
@@ -56,6 +57,16 @@ class EVReflectionJsonTests: XCTestCase {
         let json:String = "[{\"id\": 27, \"name\": \"Bob Jefferson\"}, {\"id\": 29, \"name\": \"Jen Jackson\"}]"
         let array = [Account](json: json)
         print("Object array from json string: \n\(array)\n\n")
+
+    }
+    
+    func testToDict() {
+        let json:String = "{\"id\": 27, \"name\": \"Bob Jefferson\", \"close_friends\":[{\"id\": 29, \"name\": \"Jen Jackson\", \"close_friends\":[]}]}"
+        let user = User(json: json)
+        let dic = user.toDictionary(true)
+        XCTAssertTrue(dic["close_friends"] != nil, "should have close_friends")
+        XCTAssertTrue(dic["close_friends"]!.count == 1, "should have 1 close_friends")
+        XCTAssertTrue(dic["close_friends"]![0]["close_friends"] != nil, "close_friends should have close_friends")
 
     }
     
@@ -77,10 +88,10 @@ class EVReflectionJsonTests: XCTestCase {
     }
 
     func testJsonUser() {
-        let json:String = "{\"id\": 24, \"friends\": {}}"
+        let json:String = "{\"id\": 24, \"close_friends\": {}}"
         let user = User(json: json)
         XCTAssertTrue(user.id == 24, "id should have been set to 24")
-        XCTAssertTrue(user.friends?.count == 1, "friends should have 1 user")
+        XCTAssertTrue(user.closeFriends?.count == 1, "friends should have 1 user")
         
         let a = EVReflection.dictionaryFromJson(nil)
         XCTAssertEqual(a.count, 0, "Can't create a dictionairy from nil")
@@ -113,7 +124,7 @@ class EVReflectionJsonTests: XCTestCase {
                 "name": "Apple",
                 "address": "1 Infinite Loop, Cupertino, CA"
             ],
-            "friends": [
+            "close_friends": [
                 ["id": 27, "name": "Bob Jefferson"],
                 ["id": 29, "name": "Jen Jackson"]
             ]
@@ -144,14 +155,14 @@ class EVReflectionJsonTests: XCTestCase {
         print("company name = \(user.company?.name)\n")
         XCTAssertTrue(user.company?.address == "1 Infinite Loop, Cupertino, CA", "company address should have been set to 1 Infinite Loop, Cupertino, CA")
         
-        XCTAssertNotNil(user.friends, "friends should not be nil")
-        XCTAssertTrue(user.friends!.count == 2, "friends should have 2 Users")
+        XCTAssertNotNil(user.closeFriends, "friends should not be nil")
+        XCTAssertTrue(user.closeFriends!.count == 2, "friends should have 2 Users")
         
-        if user.friends!.count == 2 {
-            XCTAssertTrue(user.friends![0].id == 27, "friend 1 id should be 27")
-            XCTAssertTrue(user.friends![0].name == "Bob Jefferson", "friend 1 name should be Bob Jefferson")
-            XCTAssertTrue(user.friends![1].id == 29, "friend 2 id should be 29")
-            XCTAssertTrue(user.friends![1].name == "Jen Jackson", "friend 2 name should be Jen Jackson")
+        if user.closeFriends!.count == 2 {
+            XCTAssertTrue(user.closeFriends![0].id == 27, "friend 1 id should be 27")
+            XCTAssertTrue(user.closeFriends![0].name == "Bob Jefferson", "friend 1 name should be Bob Jefferson")
+            XCTAssertTrue(user.closeFriends![1].id == 29, "friend 2 id should be 29")
+            XCTAssertTrue(user.closeFriends![1].name == "Jen Jackson", "friend 2 name should be Jen Jackson")
         }
     }
 
@@ -185,5 +196,6 @@ class EVReflectionJsonTests: XCTestCase {
 
     
 }
+
 
 

@@ -57,7 +57,7 @@ final public class EVReflection {
                 if mapping != nil {
                     original = properties[mapping!] as? NSObject
                 }
-                if let dictValue = dictionaryAndArrayConversion(types[k as! String], original: original, dictValue: v) {
+                if let dictValue = dictionaryAndArrayConversion(types[mapping ?? k as! String], original: original, dictValue: v) {
                     if let key:String = keyMapping[k as! String] {
                         setObjectValue(anyObject, key: key, value: dictValue, typeInObject: types[key])
                     } else {
@@ -97,7 +97,7 @@ final public class EVReflection {
      */
     public class func toDictionary(theObject: NSObject, performKeyCleanup:Bool = false) -> (NSDictionary, Dictionary<String,String>) {
         let reflected = Mirror(reflecting: theObject)
-        let (properties, types) =  reflectedSub(theObject, reflected: reflected)
+        let (properties, types) =  reflectedSub(theObject, reflected: reflected, performKeyCleanup: performKeyCleanup)
         if performKeyCleanup {
             return cleanupKeysAndValues(theObject, properties:properties, types:types)
         }
@@ -756,11 +756,11 @@ final public class EVReflection {
      
      :returns: The dictionary that is created from the object plus an dictionary of property types.
      */
-    private class func reflectedSub(theObject:Any, reflected: Mirror) -> (NSDictionary, Dictionary<String, String>) {
+    private class func reflectedSub(theObject:Any, reflected: Mirror, performKeyCleanup:Bool = false) -> (NSDictionary, Dictionary<String, String>) {
         let propertiesDictionary : NSMutableDictionary = NSMutableDictionary()
         var propertiesTypeDictionary : Dictionary<String,String> = Dictionary<String,String>()
         if let superReflected = reflected.superclassMirror() {
-            let (addProperties, addPropertiesTypes) = reflectedSub(theObject, reflected: superReflected)
+            let (addProperties, addPropertiesTypes) = reflectedSub(theObject, reflected: superReflected, performKeyCleanup: performKeyCleanup)
             for (k, v) in addProperties {
                 propertiesDictionary.setValue(v, forKey: k as! String)
                 propertiesTypeDictionary[k as! String] = addPropertiesTypes[k as! String]
@@ -774,12 +774,12 @@ final public class EVReflection {
                 }
                 var (unboxedValue, valueType): (AnyObject, String) = valueForAny(theObject, key: key, anyValue: value)
                 if unboxedValue as? EVObject != nil {
-                    let (dict, _) = toDictionary(unboxedValue as! NSObject, performKeyCleanup: false)
+                    let (dict, _) = toDictionary(unboxedValue as! NSObject, performKeyCleanup: performKeyCleanup)
                     propertiesDictionary.setValue(dict, forKey: key)
                 } else if let array = unboxedValue as? [EVObject] {
                     var tempValue = [NSDictionary]()
                     for av in array {
-                        let (dict, _) = toDictionary(av, performKeyCleanup: false)
+                        let (dict, _) = toDictionary(av, performKeyCleanup: performKeyCleanup)
                         tempValue.append(dict)
                     }
                     unboxedValue = tempValue
