@@ -69,6 +69,15 @@ let result = TestObject2(fileNameInTemp: "temp.dat")
 XCTAssert(theObject == result, "Pass")
 ```
 
+## If you have XML instead of JSON
+
+If you want to do the same but you have XML, then you can achieve that using the XMLDictionary library.[XMLDictionary](https://github.com/nicklockwood/XMLDictionary) Is a simple way to parse and generate XML. Converts an XML file to an NSDictionary. With that library your code will look like this:
+
+
+```
+let xml = "<user><id>27</id><name>Bob</name><friends><user><id>20</id><name>Jen</name></user></friends></user>"
+let user = User(dictionary: NSDictionary(XMLString: xml))
+```
 
 ## Using EVReflection in your own App 
 
