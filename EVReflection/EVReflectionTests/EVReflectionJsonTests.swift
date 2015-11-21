@@ -53,7 +53,6 @@ class EVReflectionJsonTests: XCTestCase {
         let json2:String = "{\"id\": 24, \"name\": \"Bob\"}"
         let user = Account(json: json2)
         print("Object from json string: \n\(user)\n\n")
-
         let json:String = "[{\"id\": 27, \"name\": \"Bob Jefferson\"}, {\"id\": 29, \"name\": \"Jen Jackson\"}]"
         let array = [Account](json: json)
         print("Object array from json string: \n\(array)\n\n")

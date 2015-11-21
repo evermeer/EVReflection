@@ -5,7 +5,7 @@
  -->
 [![Build Status](https://travis-ci.org/evermeer/EVReflection.svg?style=flat)](https://travis-ci.org/evermeer/EVReflection)
 [![Issues](https://img.shields.io/github/issues-raw/evermeer/EVReflection.svg?style=flat)](https://github.com/evermeer/EVReflection/issues)
-[![Coverage](https://img.shields.io/badge/coverage-98%-brightgreen.svg?style=flat)](https://raw.githubusercontent.com/evermeer/EVReflection/master/EVReflection/coverage.png)
+[![Coverage](https://img.shields.io/badge/coverage-99%-brightgreen.svg?style=flat)](https://raw.githubusercontent.com/evermeer/EVReflection/master/EVReflection/coverage.png)
 [![Documentation](https://img.shields.io/badge/documented-100%-brightgreen.svg?style=flat)](http://cocoadocs.org/docsets/EVReflection)
 [![Stars](https://img.shields.io/github/stars/evermeer/EVReflection.svg?style=flat)](https://github.com/evermeer/EVReflection/stargazers)
 
@@ -31,6 +31,7 @@ EVReflection is used extensively in [EVCloudKitDao](https://github.com/evermeer/
 - Parsing objects to and from a JSON string.
 - Support NSCoding methods encodeWithCoder and decodeObjectWithCoder
 - Supporting Printable, Hashable and Equatable while using all properties. (Support for Set in Swift 1.2)
+- Mapping objects from one type to an other
 
 ## It's easy to use:
 
@@ -68,6 +69,12 @@ user.saveToTemp("temp.dat")
 let result = TestObject2(fileNameInTemp: "temp.dat")
 XCTAssert(theObject == result, "Pass")
 ```
+
+Mapping object to another type:
+```
+let administrator: Administrator = user.mapObjectTo()
+```
+
 
 ## If you have XML instead of JSON
 

@@ -86,6 +86,20 @@ public extension NSObject {
         return EVReflection.arrayFromJson(T(), json: json)
     }
     
+    /**
+     Auto map an opbject to an object of an other type. 
+     Properties with the same name will be mapped automattically.
+     Automattic cammpelCase, PascalCase, snake_case conversion
+     Supports propperty mapping and conversion when using EVObject as base class 
+     
+     - returns: The targe object with the mapped values
+     */
+    public func mapObjectTo<T where T:NSObject>() -> T {
+        let nsobjectype : NSObject.Type = T.self as NSObject.Type
+        let nsobject: NSObject = nsobjectype.init()
+        let result = EVReflection.setPropertiesfromDictionary(self.toDictionary(), anyObject: nsobject)
+        return result as! T
+    }
 }
 
 
