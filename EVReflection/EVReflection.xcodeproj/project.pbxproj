@@ -46,7 +46,6 @@
 		7F07C5861AF10296000DF1F3 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		7F07C58D1AF11861000DF1F3 /* EVReflection.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = EVReflection.podspec; path = ../EVReflection.podspec; sourceTree = "<group>"; };
 		7F07C58E1AF11861000DF1F3 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
-		7F0B2A3B1B062CF20025165A /* circle.yml */ = {isa = PBXFileReference; lastKnownFileType = text; name = circle.yml; path = ../circle.yml; sourceTree = "<group>"; };
 		7F0E5E591AF4D94000A10E51 /* EVObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVObject.swift; sourceTree = "<group>"; };
 		7F159DFB1BA2FA2F00247CB1 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		7F1BA5261B971CBF009F9DB8 /* EVExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVExtensions.swift; sourceTree = "<group>"; };
@@ -88,7 +87,6 @@
 			children = (
 				7F159DFB1BA2FA2F00247CB1 /* .gitignore */,
 				7F0636B31AFF413900595461 /* .travis.yml */,
-				7F0B2A3B1B062CF20025165A /* circle.yml */,
 				7F07C5861AF10296000DF1F3 /* README.md */,
 				7F07C58D1AF11861000DF1F3 /* EVReflection.podspec */,
 				7F07C58E1AF11861000DF1F3 /* LICENSE */,
