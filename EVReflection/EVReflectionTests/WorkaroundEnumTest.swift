@@ -96,9 +96,8 @@ class EnumWorkaroundsTests: XCTestCase {
         case OK = 1
     }
     
-    func getRawValue(theEnum: Any) -> Any {
-        
-        let (val, _) = EVReflection.valueForAny(self, key: "a", anyValue: theEnum)
+    func getRawValue(theEnum: Any) -> Any {        
+        let (val, _, _) = EVReflection.valueForAny(self, key: "a", anyValue: theEnum)
         return val
     }
 }

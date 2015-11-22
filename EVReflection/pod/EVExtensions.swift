@@ -131,7 +131,7 @@ public extension Array {
     
     :returns: The object type
     */
-    private func getArrayTypeInstance<T>(arr:Array<T>) -> T {
+    public func getArrayTypeInstance<T>(arr:Array<T>) -> T {
         return arr.getTypeInstance()
     }
     
@@ -140,7 +140,7 @@ public extension Array {
     
     :returns: The object type
     */
-    private func getTypeInstance<T>(
+    public func getTypeInstance<T>(
         ) -> T {
             let nsobjectype : NSObject.Type = T.self as! NSObject.Type
             let nsobject: NSObject = nsobjectype.init()

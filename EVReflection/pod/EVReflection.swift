@@ -200,7 +200,7 @@ final public class EVReflection {
      :returns: The string representation of the object
      */
     public class func description(theObject: NSObject) -> String {
-        var description: String = swiftStringFromClass(theObject) + " {\n   hash = \(theObject.hash)\n"
+        var description: String = swiftStringFromClass(theObject) + " {\n   hash = \(hashValue(theObject))\n"
         let (hasKeys, _) = toDictionary(theObject, performKeyCleanup:false)
         for (key, value) in hasKeys {
             description = description  + "   key = \(key), value = \(value)\n"
@@ -431,7 +431,7 @@ final public class EVReflection {
      
      :returns: The value where the Any is converted to AnyObject plus the type of that value as a string
      */
-    public class func valueForAny(parentObject:Any? = nil, key:String? = nil, anyValue: Any) -> (AnyObject, String) {
+    public class func valueForAny(parentObject:Any? = nil, key:String? = nil, anyValue: Any) -> (value: AnyObject, type: String, isObject: Bool) {
         var theValue = anyValue
         var valueType = "EVObject"
         let mi: Mirror = Mirror(reflecting: theValue)
@@ -446,18 +446,18 @@ final public class EVReflection {
                 var subtype: String = "\(mi)"
                 subtype = subtype.substringFromIndex((subtype.componentsSeparatedByString("<") [0] + "<").endIndex)
                 subtype = subtype.substringToIndex(subtype.endIndex.predecessor())
-                return (NSNull(), subtype)
+                return (NSNull(), subtype, false)
             }
         } else if mi.displayStyle == .Enum {
             valueType = "\(theValue.dynamicType)"
             if let value = theValue as? EVRawString {
-                return (value.rawValue, "\(mi.subjectType)")
+                return (value.rawValue, "\(mi.subjectType)", false)
             } else if let value = theValue as? EVRawInt {
-                return (NSNumber(int: Int32(value.rawValue)), "\(mi.subjectType)")
+                return (NSNumber(int: Int32(value.rawValue)), "\(mi.subjectType)", false)
             } else  if let value = theValue as? EVRaw {
                 theValue = value.anyRawValue
             } else if let value = theValue as? EVAssociated {
-                let (enumValue, enumType) = valueForAny(theValue, key: value.associated.label, anyValue: value.associated.value)
+                let (enumValue, enumType, _) = valueForAny(theValue, key: value.associated.label, anyValue: value.associated.value)
                 valueType = enumType
                 theValue = enumValue
             } else {
@@ -469,39 +469,44 @@ final public class EVReflection {
                 let arrayConverter = parentObject as? EVArrayConvertable
                 assert(arrayConverter != nil, "WARNING: An object with a property of type Array with optional objects should implement the EVArrayConvertable protocol.")
                 let convertedValue = arrayConverter!.convertArray(key ?? "", array: theValue)
-                return (convertedValue, valueType)
+                return (convertedValue, valueType, false)
             }
-        } else {
+        }
+        else {
             valueType = "\(mi.subjectType)"
         }
         
         switch(theValue) {
-            // Bool, Int, UInt, Float and Double are casted to NSNumber by default !?
+            // Bool, Int, UInt, Float and Double are casted to NSNumber by default!
         case let numValue as NSNumber:
-            return (numValue, "NSNumber")
+            return (numValue, "NSNumber", false)
         case let longValue as Int64:
-            return (NSNumber(longLong: longValue), "NSNumber")
+            return (NSNumber(longLong: longValue), "NSNumber", false)
         case let longValue as UInt64:
-            return (NSNumber(unsignedLongLong: longValue), "NSNumber")
+            return (NSNumber(unsignedLongLong: longValue), "NSNumber", false)
         case let intValue as Int32:
-            return (NSNumber(int: intValue), "NSNumber")
+            return (NSNumber(int: intValue), "NSNumber", false)
         case let intValue as UInt32:
-            return (NSNumber(unsignedInt: intValue), "NSNumber")
+            return (NSNumber(unsignedInt: intValue), "NSNumber", false)
         case let intValue as Int16:
-            return (NSNumber(short: intValue), "NSNumber")
+            return (NSNumber(short: intValue), "NSNumber", false)
         case let intValue as UInt16:
-            return (NSNumber(unsignedShort: intValue), "NSNumber")
+            return (NSNumber(unsignedShort: intValue), "NSNumber", false)
         case let intValue as Int8:
-            return (NSNumber(char: intValue), "NSNumber")
+            return (NSNumber(char: intValue), "NSNumber", false)
         case let intValue as UInt8:
-            return (NSNumber(unsignedChar: intValue), "NSNumber")
+            return (NSNumber(unsignedChar: intValue), "NSNumber", false)
         case let stringValue as String:
-            return (stringValue as NSString, "NSString")
+            return (stringValue as NSString, "NSString", false)
+        case let dateValue as NSDate:
+            return (dateValue, "NSDate", false)
+        case let anyvalue as NSArray:
+            return (anyvalue, valueType, false)
         case let anyvalue as NSObject:
-            return (anyvalue, valueType)
+            return (anyvalue, valueType, true)
         default:
             assertionFailure("ERROR: valueForAny unkown type \(theValue), type \(valueType). Could not happen unless there will be a new type in Swift.")
-            return (NSNull(), "NSNull")
+            return (NSNull(), "NSNull", false)
         }
     }
     
@@ -525,7 +530,7 @@ final public class EVReflection {
             //            }
         } else {
             // Let us put a number into a string property by taking it's stringValue
-            let (_, type) = valueForAny("", key: key, anyValue: value)
+            let (_, type, _) = valueForAny("", key: key, anyValue: value)
             if (typeInObject == "String" || typeInObject == "NSString") && type == "NSNumber" {
                 if let convertedValue = value as? NSNumber {
                     value = convertedValue.stringValue
@@ -772,18 +777,24 @@ final public class EVReflection {
                 if let (_, _, propertyGetter) = (theObject as? EVObject)?.propertyConverters().filter({$0.0 == key}).first {
                     value = propertyGetter()
                 }
-                var (unboxedValue, valueType): (AnyObject, String) = valueForAny(theObject, key: key, anyValue: value)
-                if unboxedValue as? EVObject != nil {
+                var (unboxedValue, valueType, isObject) = valueForAny(theObject, key: key, anyValue: value)
+                if isObject {
                     let (dict, _) = toDictionary(unboxedValue as! NSObject, performKeyCleanup: performKeyCleanup)
                     propertiesDictionary.setValue(dict, forKey: key)
-                } else if let array = unboxedValue as? [EVObject] {
-                    var tempValue = [NSDictionary]()
-                    for av in array {
-                        let (dict, _) = toDictionary(av, performKeyCleanup: performKeyCleanup)
-                        tempValue.append(dict)
+                } else if let array = unboxedValue as? [NSObject] {
+                    let item = array.getArrayTypeInstance(array)
+                    let (_,_,isObject) = valueForAny(anyValue: item)
+                    if isObject {
+                        var tempValue = [NSDictionary]()
+                        for av in array {
+                            let (dict, _) = toDictionary(av, performKeyCleanup: performKeyCleanup)
+                            tempValue.append(dict)
+                        }
+                        unboxedValue = tempValue
+                        propertiesDictionary.setValue(unboxedValue, forKey: key)
+                    } else {
+                        propertiesDictionary.setValue(unboxedValue, forKey: key)                        
                     }
-                    unboxedValue = tempValue
-                    propertiesDictionary.setValue(unboxedValue, forKey: key)
                 } else {
                     propertiesDictionary.setValue(unboxedValue, forKey: key)
                 }

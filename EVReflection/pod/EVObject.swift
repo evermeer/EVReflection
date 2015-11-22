@@ -118,7 +118,7 @@ public class EVObject: NSObject, NSCoding, CustomDebugStringConvertible { // The
     */
     public override var hashValue: Int {
         get {
-            return EVReflection.hashValue(self)
+            return Int(EVReflection.hashValue(self))
         }
     }
     

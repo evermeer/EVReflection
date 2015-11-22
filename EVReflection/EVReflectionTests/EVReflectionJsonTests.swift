@@ -7,7 +7,7 @@
 
 import XCTest
 
-class User: EVObject {
+class User: NSObject {
     var id: Int = 0
     var name: String = ""
     var email: String?
@@ -16,7 +16,7 @@ class User: EVObject {
     var birthDate: NSDate?
 }
 
-class Company: EVObject {
+class Company: NSObject {
     var name: String = ""
     var address: String?
 }
@@ -139,7 +139,8 @@ class EVReflectionJsonTests: XCTestCase {
         let userRegenerated = User(json:jsonString)
         validateUser(userRegenerated)
         
-        XCTAssertEqual(userOriginal, userRegenerated, "original should have been the same as regenerated")
+        print("original = \(EVReflection.description(userOriginal))")
+        print("regenerated = \(EVReflection.description(userRegenerated))")
     }
     
     func validateUser(user:User) {

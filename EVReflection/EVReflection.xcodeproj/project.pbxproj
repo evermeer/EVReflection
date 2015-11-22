@@ -8,11 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		7F07C5881AF10437000DF1F3 /* EVReflection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F07C5841AF10284000DF1F3 /* EVReflection.swift */; };
-		7F07C58F1AF11861000DF1F3 /* EVReflection.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 7F07C58D1AF11861000DF1F3 /* EVReflection.podspec */; };
-		7F07C5901AF11861000DF1F3 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 7F07C58E1AF11861000DF1F3 /* LICENSE */; };
 		7F0E5E5A1AF4D94000A10E51 /* EVObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F0E5E591AF4D94000A10E51 /* EVObject.swift */; };
 		7F1BA5271B971CBF009F9DB8 /* EVExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F1BA5261B971CBF009F9DB8 /* EVExtensions.swift */; };
-		7F29762B1BB913910074C85A /* osx-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7F29762A1BB913910074C85A /* osx-Info.plist */; };
 		7F3E192A1B8526CA00A6E6C6 /* EVObjectDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F3E19291B8526CA00A6E6C6 /* EVObjectDescription.swift */; };
 		7F3E318D1BB909A1001E6788 /* EVReflection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F07C5841AF10284000DF1F3 /* EVReflection.swift */; };
 		7F3E318E1BB909A1001E6788 /* EVObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F0E5E591AF4D94000A10E51 /* EVObject.swift */; };
@@ -195,7 +192,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0700;
-				LastUpgradeCheck = 0700;
+				LastUpgradeCheck = 0710;
 				ORGANIZATIONNAME = evict;
 				TargetAttributes = {
 					7F07C5711AF101A9000DF1F3 = {
@@ -231,8 +228,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7F07C5901AF11861000DF1F3 /* LICENSE in Resources */,
-				7F07C58F1AF11861000DF1F3 /* EVReflection.podspec in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -240,7 +235,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7F29762B1BB913910074C85A /* osx-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
