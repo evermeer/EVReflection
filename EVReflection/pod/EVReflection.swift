@@ -773,33 +773,35 @@ final public class EVReflection {
         }
         for property in reflected.children {
             if let key:String = property.label {
-                var value = property.value
-                if let (_, _, propertyGetter) = (theObject as? EVObject)?.propertyConverters().filter({$0.0 == key}).first {
-                    value = propertyGetter()
-                }
-                var (unboxedValue, valueType, isObject) = valueForAny(theObject, key: key, anyValue: value)
-                if isObject {
-                    let (dict, _) = toDictionary(unboxedValue as! NSObject, performKeyCleanup: performKeyCleanup)
-                    propertiesDictionary.setValue(dict, forKey: key)
-                } else if let array = unboxedValue as? [NSObject] {
-                    let item = array.getArrayTypeInstance(array)
-                    let (_,_,isObject) = valueForAny(anyValue: item)
-                    if isObject {
-                        var tempValue = [NSDictionary]()
-                        for av in array {
-                            let (dict, _) = toDictionary(av, performKeyCleanup: performKeyCleanup)
-                            tempValue.append(dict)
-                        }
-                        unboxedValue = tempValue
-                        propertiesDictionary.setValue(unboxedValue, forKey: key)
-                    } else {
-                        propertiesDictionary.setValue(unboxedValue, forKey: key)                        
+                if key != "_core" {
+                    var value = property.value
+                    if let (_, _, propertyGetter) = (theObject as? EVObject)?.propertyConverters().filter({$0.0 == key}).first {
+                        value = propertyGetter()
                     }
-                } else {
-                    propertiesDictionary.setValue(unboxedValue, forKey: key)
+                    var (unboxedValue, valueType, isObject) = valueForAny(theObject, key: key, anyValue: value)
+                    if isObject {
+                        let (dict, _) = toDictionary(unboxedValue as! NSObject, performKeyCleanup: performKeyCleanup)
+                        propertiesDictionary.setValue(dict, forKey: key)
+                    } else if let array = unboxedValue as? [NSObject] {
+                        let item = array.getArrayTypeInstance(array)
+                        let (_,_,isObject) = valueForAny(anyValue: item)
+                        if isObject {
+                            var tempValue = [NSDictionary]()
+                            for av in array {
+                                let (dict, _) = toDictionary(av, performKeyCleanup: performKeyCleanup)
+                                tempValue.append(dict)
+                            }
+                            unboxedValue = tempValue
+                            propertiesDictionary.setValue(unboxedValue, forKey: key)
+                        } else {
+                            propertiesDictionary.setValue(unboxedValue, forKey: key)                        
+                        }
+                    } else {
+                        propertiesDictionary.setValue(unboxedValue, forKey: key)
+                    }
+                    
+                    propertiesTypeDictionary[key] = valueType
                 }
-                
-                propertiesTypeDictionary[key] = valueType
             }
             
         }

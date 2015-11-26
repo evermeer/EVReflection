@@ -30,29 +30,6 @@ public class TestObject2b {
     var objectValue: String = ""
 }
 
-public class TestObject2c: NSObject {
-    var objectValue: String = ""
-    var _default: String?
-}
-
-
-/**
-Third test object where you can see how create a workaround for the swift limitation with setting a value for a key where the property is a nullable type.
-*/
-class TestObject3: EVObject {
-    var objectValue: String = ""
-    var nullableType: Int?
-    
-    // This construction can be used to bypass the issue for setting a nullable type field
-    override func setValue(value: AnyObject!, forUndefinedKey key: String) {
-        switch key {
-        case "nullableType":
-            nullableType = value as? Int
-        default:
-            NSLog("WARNING: setValue for key '\(key)' should be handled.")
-        }
-    }
-}
 
 /**
 For testing the automatic conversion from and to string and int
@@ -76,6 +53,34 @@ public class TestObject4: EVObject {
     var myNSNumber: NSNumber?
     var invalid_character: String?
     var list: [TestObject4] = []
+}
+
+
+/**
+ Third test object where you can see how create a workaround for the swift limitation with setting a value for a key where the property is a nullable type.
+ */
+class TestObject3: EVObject {
+    var objectValue: String = ""
+    var nullableType: Int?
+    
+    // This construction can be used to bypass the issue for setting a nullable type field
+    override func setValue(value: AnyObject!, forUndefinedKey key: String) {
+        switch key {
+        case "nullableType":
+            nullableType = value as? Int
+        default:
+            NSLog("WARNING: setValue for key '\(key)' should be handled.")
+        }
+    }
+}
+
+
+/**
+ Variant of TestObject2 to show automatic property mapping
+ */
+public class TestObject2c: NSObject {
+    var objectValue: String = ""
+    var _default: String?
 }
 
 
@@ -109,4 +114,6 @@ public class TestObject6: EVObject {
               , { return self.isGreat ? "Sure": "Nah"})]
     }
 }
+
+
 
