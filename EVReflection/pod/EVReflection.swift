@@ -773,16 +773,18 @@ final public class EVReflection {
         }
         for property in reflected.children {
             if let key:String = property.label {
-                if key != "_core" {
-                    var value = property.value
-                    if let (_, _, propertyGetter) = (theObject as? EVObject)?.propertyConverters().filter({$0.0 == key}).first {
-                        value = propertyGetter()
-                    }
-                    var (unboxedValue, valueType, isObject) = valueForAny(theObject, key: key, anyValue: value)
-                    if isObject {
-                        let (dict, _) = toDictionary(unboxedValue as! NSObject, performKeyCleanup: performKeyCleanup)
-                        propertiesDictionary.setValue(dict, forKey: key)
-                    } else if let array = unboxedValue as? [NSObject] {
+                var value = property.value
+                if let (_, _, propertyGetter) = (theObject as? EVObject)?.propertyConverters().filter({$0.0 == key}).first {
+                    value = propertyGetter()
+                }
+                var (unboxedValue, valueType, isObject) = valueForAny(theObject, key: key, anyValue: value)
+                if isObject {
+                    let (dict, _) = toDictionary(unboxedValue as! NSObject, performKeyCleanup: performKeyCleanup)
+                    propertiesDictionary.setValue(dict, forKey: key)
+                } else if let array = unboxedValue as? [NSObject] {
+                    if unboxedValue as? [String] != nil || unboxedValue as? [NSString] != nil || unboxedValue as? [NSDate] != nil || unboxedValue as? [NSNumber] != nil || unboxedValue as? [NSArray] != nil || unboxedValue as? [NSDictionary] != nil {
+                        propertiesDictionary.setValue(unboxedValue, forKey: key)
+                    } else {
                         let item = array.getArrayTypeInstance(array)
                         let (_,_,isObject) = valueForAny(anyValue: item)
                         if isObject {
@@ -794,16 +796,15 @@ final public class EVReflection {
                             unboxedValue = tempValue
                             propertiesDictionary.setValue(unboxedValue, forKey: key)
                         } else {
-                            propertiesDictionary.setValue(unboxedValue, forKey: key)                        
+                            propertiesDictionary.setValue(unboxedValue, forKey: key)
                         }
-                    } else {
-                        propertiesDictionary.setValue(unboxedValue, forKey: key)
                     }
-                    
-                    propertiesTypeDictionary[key] = valueType
+                } else {
+                    propertiesDictionary.setValue(unboxedValue, forKey: key)
                 }
+                
+                propertiesTypeDictionary[key] = valueType
             }
-            
         }
         return (propertiesDictionary, propertiesTypeDictionary)
     }

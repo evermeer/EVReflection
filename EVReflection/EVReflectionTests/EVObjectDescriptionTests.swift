@@ -75,47 +75,10 @@ class EVObjectDescriptionTests: XCTestCase {
         }
     }
     
-    func testX() {
-        let x = BoundRequest()
-        print(x.toJsonString())
-    }
-
 }
 
 
 
-class BoundRequest:EVObject{
-    var action:String = "byBounds"
-    var platform:String = "android"
-    var types:[String]? = ["a","b"]
-    var bounds:Bound = Bound()
-}
-
-//Why does Mirror retuns an extra child with the label _core when I add: var types:[String]? = ["a","b"]
-
-class Bound:EVObject {
-    var ne:Coordinate = Coordinate()
-    var sw:Coordinate = Coordinate()
-}
-
-class Coordinate:EVObject{
-    var lat:Double=0
-    var lng:Double=0
-    
-//    func getCoordinate()->CLLocationCoordinate2D{
-//        return CLLocationCoordinate2D(latitude: lat, longitude: lng)
-//    }
-//    
-//    func setLatLng(lat:Double!,lng:Double!){
-//        self.lat=lat
-//        self.lng=lng
-//    }
-//    
-//    func setLatLng(latLng:CLLocationCoordinate2D){
-//        self.lat = latLng.latitude
-//        self.lng = latLng.longitude
-//    }
-}
 
 
 

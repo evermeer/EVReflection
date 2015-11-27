@@ -116,4 +116,20 @@ public class TestObject6: EVObject {
 }
 
 
+/**
+ For testing objects with arrays
+ */
+
+class ArrayObjects:NSObject {
+    var strings:[String] = ["a","b"]
+    var dates:[NSDate] = [NSDate(), NSDate()]
+    var arrays:[[String]] = [["a","b"],["c","d"]]
+    var dictionaries:[NSDictionary] = [NSDictionary(), NSDictionary()]
+    var subobjects:[SubObject] = [SubObject(), SubObject()]
+}
+
+class SubObject:NSObject {
+    var field:String = "x"
+}
+
 

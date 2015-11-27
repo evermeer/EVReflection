@@ -151,7 +151,15 @@ class EVReflectionTests: XCTestCase {
         let result = TestObject3(dictionary: toDict)
         XCTAssert(theObject != result, "Pass") // The objects are not the same
     }
+  
     
+    /**
+     Test if we can work with an object that contains all types of arrays
+     */
+    func testArrays() {
+        let x = ArrayObjects()
+        print(x.toJsonString())
+    }
 }
 
 
