@@ -32,25 +32,29 @@ class EVRelfectionEnheritanceTests: XCTestCase {
         super.tearDown()
     }
     
-    func testEnheritanceDeserialize() {
+    func testEnheritance() {
+        // Build up the original object
         let quz = Quz()
         quz.fooBar = Bar()
         quz.fooBaz = Baz()
         quz.fooArray = [Bar(), Baz()]
-        print(quz.toJsonString())
-    }
-    
-    func testEnheritanceSerialize() {
-        let quz = Quz()
-        quz.fooBar = Bar()
-        quz.fooBaz = Baz()
-        quz.fooArray = [Bar(), Baz()]
-        let json = quz.toJsonString()
         
-        let newObject = Quux(json: json)
-        print(newObject.toJsonString())
+        // The object JSON
+        let json = quz.toJsonString()
+        print("Original JSON = \(json)")
+        
+        // Deserialize a new object based on that JSON
+        let newObject = Quz(json: json)
+        
+        // The new object JSON
+        let newJson = newObject.toJsonString()
+        print("New JSON = \(newJson)")
+        
+        // The original and new JSON Should be the same
+        XCTAssertEqual(json, newJson, "The json should be the same after serialisation and deserialisation")
     }
 }
+
 
 class Quz: EVObject {
     var fooArray: Array<Foo> = []
@@ -61,6 +65,15 @@ class Quz: EVObject {
 class Foo: EVObject {
     var allFoo: String = "all Foo"
     
+    // What you need to do to get the correct type for when you deserialize enherited classes
+    override func getSpecificType(dict: NSDictionary) -> EVObject {
+        if dict["justBar"] != nil {
+            return Bar()
+        } else if dict["justBaz"] != nil {
+            return Baz()
+        }
+        return self
+    }
 }
 
 class Bar : Foo {
@@ -71,33 +84,4 @@ class Baz: Foo {
     var justBaz: String = "For baz only"
 }
 
-// What you need for a Deserialize when using object enheritance
-class Quux: EVObject {
-    var xfooArray: Array<Foo> = []
-    var xfooBar: Foo?
-    var xfooBaz: Foo?
-    
-    // This construction can be used to solve the multiple enheritance issue
-    override func setValue(value: AnyObject!, forUndefinedKey key: String) {
-        switch key {
-        case "fooBar":
-            xfooBar = getFromDict(value as! NSDictionary)
-        case "fooBaz":
-            xfooBaz = getFromDict(value as! NSDictionary)
-        case "fooArray":
-            for item in value as! NSArray {
-                xfooArray.append(getFromDict(item as! NSDictionary))
-            }
-        default:
-            NSLog("WARNING: setValue for key '\(key)' should be handled.")
-        }
-    }
-    
-    // Get the right type based on what's in the dictionary
-    private func getFromDict(dict: NSDictionary) -> Foo {
-        if dict["justBar"] != nil {
-            return Bar(dictionary: dict)
-        }
-        return Baz(dictionary: dict)
-    }
-}
+

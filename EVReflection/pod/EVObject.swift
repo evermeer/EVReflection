@@ -214,6 +214,10 @@ public class EVObject: NSObject, NSCoding, CustomDebugStringConvertible { // The
     public func propertyConverters() -> [(String?, (Any?)->(), () -> Any? )] {
         return []
     }
+
+    public func getSpecificType(dict: NSDictionary) -> EVObject {
+        return self
+    }
 }
 
 

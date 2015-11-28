@@ -25,6 +25,9 @@ final public class EVReflection {
     */
     public class func fromDictionary(dictionary:NSDictionary, anyobjectTypeString: String) -> NSObject? {
         if var nsobject = swiftClassFromString(anyobjectTypeString) {
+            if let evResult = nsobject as? EVObject {
+                nsobject = evResult.getSpecificType(dictionary)
+            }
             nsobject = setPropertiesfromDictionary(dictionary, anyObject: nsobject)
             return nsobject
         }
@@ -716,6 +719,9 @@ final public class EVReflection {
      */
     private class func dictToObject<T where T:NSObject>(type:String, original:T? ,dict:NSDictionary) -> T? {
         if var returnObject:NSObject = swiftClassFromString(type) {
+            if let evResult = returnObject as? EVObject {
+                returnObject = evResult.getSpecificType(dict)
+            }
             returnObject = setPropertiesfromDictionary(dict, anyObject: returnObject)
             return returnObject as? T
         }
@@ -746,7 +752,10 @@ final public class EVReflection {
         
         var result = [NSObject]()
         for item in array {
-            let org = swiftClassFromString(subtype)
+            var org = swiftClassFromString(subtype)
+            if let evResult = org as? EVObject {
+                org = evResult.getSpecificType(item)
+            }
             if let arrayObject = self.dictToObject(subtype, original:org, dict: item) {
                 result.append(arrayObject)
             }
