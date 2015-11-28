@@ -193,6 +193,38 @@ public class TestObject6: EVObject {
 }
 ```
 
+### What to do when you use object enheritance
+You can deserialize json to an object that uses enheritance. When the properties are specified as the base class, then the correct specific object type will be returned by the function getSecificType. See the sample code below or the unit test in EVReflectionEnheritanceTests.swift
+
+```
+class Quz: EVObject {
+    var fooArray: Array<Foo> = []
+    var fooBar: Foo?
+    var fooBaz: Foo?
+}
+
+class Foo: EVObject {
+    var allFoo: String = "all Foo"
+
+    // What you need to do to get the correct type for when you deserialize enherited classes
+    override func getSpecificType(dict: NSDictionary) -> EVObject {
+        if dict["justBar"] != nil {
+            return Bar()
+        } else if dict["justBaz"] != nil {
+            return Baz()
+        }
+        return self
+    }
+}
+
+class Bar : Foo {
+    var justBar: String = "For bar only"
+}
+
+class Baz: Foo {
+    var justBaz: String = "For baz only"
+}
+```
 
 
 ### When to use EVObject instead of NSObject as a base class.
