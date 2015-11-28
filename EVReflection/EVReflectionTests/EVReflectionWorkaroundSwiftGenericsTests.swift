@@ -1,5 +1,5 @@
 //
-//  SwiftGenericsBug.swift
+//  EVReflectionWorkaroundSwiftGenericsTests.swift
 //
 //  Created by Edwin Vermeer on 8/10/15.
 //  Copyright (c) 2015. All rights reserved.
@@ -11,7 +11,7 @@ import XCTest
 /**
 Testing the workaround for generics.
 */
-class WorkaroundSwiftGenericsTests: XCTestCase {
+class EVReflectionWorkaroundSwiftGenericsTests: XCTestCase {
     func testSetValueGenericClass() {
         let a = MyGenericObject<NSString>()
         a.setValue("data", forUndefinedKey: "data")
