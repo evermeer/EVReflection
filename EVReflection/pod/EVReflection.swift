@@ -514,7 +514,7 @@ final public class EVReflection {
         case let anyvalue as EVObject:
             return (anyvalue, valueType, true)
         case let anyvalue as NSObject:
-            NSLog("WARNING: Should have been handled somewere else: value \(anyvalue) type \(valueType)")
+            // isObject is false to prevent parsing of objects like CKRecord, CKRecordId and other objects.
             return (anyvalue, valueType, false)
         default:
             assertionFailure("ERROR: valueForAny unkown type \(theValue), type \(valueType). Could not happen unless there will be a new type in Swift.")
