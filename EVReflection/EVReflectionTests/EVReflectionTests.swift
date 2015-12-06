@@ -42,7 +42,7 @@ class EVReflectionTests: XCTestCase {
         NSLog("object = \(nsobject)")
         XCTAssert(nsobject != nil, "Pass")
 
-        let theObject2 = subObject()
+        let theObject2 = SubObject2()
         let theObject2String: String = EVReflection.swiftStringFromClass(theObject2)
         NSLog("swiftStringFromClass = \(theObject2String)")
         
@@ -58,9 +58,8 @@ class EVReflectionTests: XCTestCase {
         XCTAssertNil(nsobject4, "Pass")
         
     }
-
-    class subObject: NSObject {
-        var field: String?
+    class SubObject2:EVObject {
+        var field:String = "x"
     }
     
     

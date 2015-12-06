@@ -220,8 +220,6 @@ public class EVObject: NSObject, NSCoding, CustomDebugStringConvertible { // The
     }
 }
 
-
-
 /**
 Protocol for the workaround when using generics. See WorkaroundSwiftGenericsTests.swift
 */

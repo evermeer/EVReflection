@@ -46,7 +46,7 @@ class ProfilePhotoUrlListTests: XCTestCase {
         let profilePhotoUrlListRegenerated = ProfilePhotoUrlList(json:jsonString)
         print("Object from json string: \n\(profilePhotoUrlListRegenerated)\n\n")
         
-        XCTAssertEqual(profilePhotoUrlListOriginal, profilePhotoUrlListRegenerated, "original should be the same as regenerated")
+        XCTAssertTrue(profilePhotoUrlListOriginal == profilePhotoUrlListRegenerated, "original should be the same as regenerated")
     }
     
 }

@@ -282,6 +282,12 @@ final public class EVReflection {
                     if t1 != t2 {
                         return false
                     }
+                } else if let array = compareTo as? NSArray {
+                    for (index, arrayValue) in array.enumerate() {
+                        if !areEqual(arrayValue as! NSObject, rhs: (value as! NSArray)[index] as! NSObject) {
+                            return false
+                        }
+                    }
                 } else if !compareTo.isEqual(value) {
                     return false
                 }
@@ -505,8 +511,11 @@ final public class EVReflection {
             return (dateValue, "NSDate", false)
         case let anyvalue as NSArray:
             return (anyvalue, valueType, false)
-        case let anyvalue as NSObject:
+        case let anyvalue as EVObject:
             return (anyvalue, valueType, true)
+        case let anyvalue as NSObject:
+            NSLog("WARNING: Should have been handled somewere else: value \(anyvalue) type \(valueType)")
+            return (anyvalue, valueType, false)
         default:
             assertionFailure("ERROR: valueForAny unkown type \(theValue), type \(valueType). Could not happen unless there will be a new type in Swift.")
             return (NSNull(), "NSNull", false)
@@ -794,7 +803,12 @@ final public class EVReflection {
                     if unboxedValue as? [String] != nil || unboxedValue as? [NSString] != nil || unboxedValue as? [NSDate] != nil || unboxedValue as? [NSNumber] != nil || unboxedValue as? [NSArray] != nil || unboxedValue as? [NSDictionary] != nil {
                         propertiesDictionary.setValue(unboxedValue, forKey: key)
                     } else {
-                        let item = array.getArrayTypeInstance(array)
+                        let item: NSObject
+                        if array.count > 0 {
+                            item = array[0]
+                        } else {
+                            item = array.getArrayTypeInstance(array)
+                        }
                         let (_,_,isObject) = valueForAny(anyValue: item)
                         if isObject {
                             var tempValue = [NSDictionary]()

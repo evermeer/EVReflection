@@ -128,7 +128,7 @@ class ArrayObjects:NSObject {
     var subobjects:[SubObject] = [SubObject(), SubObject()]
 }
 
-class SubObject:NSObject {
+class SubObject:EVObject {
     var field:String = "x"
 }
 

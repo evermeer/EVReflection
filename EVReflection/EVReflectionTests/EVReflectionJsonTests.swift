@@ -7,7 +7,7 @@
 
 import XCTest
 
-class User: NSObject {
+class User: EVObject {
     var id: Int = 0
     var name: String = ""
     var email: String?
@@ -16,7 +16,7 @@ class User: NSObject {
     var birthDate: NSDate?
 }
 
-class Company: NSObject {
+class Company: EVObject {
     var name: String = ""
     var address: String?
 }
