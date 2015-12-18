@@ -6,6 +6,7 @@
 //
 
 import XCTest
+@testable import EVReflection
 
 
 class myClass: NSObject {

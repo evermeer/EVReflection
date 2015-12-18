@@ -6,6 +6,7 @@
 //
 
 import Foundation
+@testable import EVReflection
 
 /**
 First test object where the base class is just an NSObject
