@@ -296,8 +296,7 @@ final public class EVReflection {
                     if t1 != t2 {
                         return false
                     }
-                } else if let array = compareTo as? NSArray {
-                    guard let  arr = value as? NSArray else { return false }
+                } else if let array = compareTo as? NSArray, arr = value as? NSArray {
                     if arr.count != array.count {
                         return false
                     }
@@ -499,10 +498,11 @@ final public class EVReflection {
         } else if mi.displayStyle == .Collection {
             valueType = "\(mi.subjectType)"
             if valueType.hasPrefix("Array<Optional<") {
-                let arrayConverter = parentObject as? EVArrayConvertable
-                assert(arrayConverter != nil, "WARNING: An object with a property of type Array with optional objects should implement the EVArrayConvertable protocol.")
-                let convertedValue = arrayConverter!.convertArray(key ?? "", array: theValue)
-                return (convertedValue, valueType, false)
+                if let arrayConverter = parentObject as? EVArrayConvertable {
+                    let convertedValue = arrayConverter.convertArray(key ?? "", array: theValue)
+                    return (convertedValue, valueType, false)
+                }
+                assert(true, "WARNING: An object with a property of type Array with optional objects should implement the EVArrayConvertable protocol.")
             }
         }
         else {

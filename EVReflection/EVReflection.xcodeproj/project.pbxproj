@@ -64,6 +64,11 @@
 		7F9336D41C2822B700AF7076 /* EVReflectionWorkaroundsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F41ECAB1B91F306003A2236 /* EVReflectionWorkaroundsTests.swift */; };
 		7F9336D51C2822B700AF7076 /* EVReflectionWorkaroundSwiftGenericsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F41ECAC1B91F306003A2236 /* EVReflectionWorkaroundSwiftGenericsTests.swift */; };
 		7F9336D61C2822C100AF7076 /* WorkaroundEnumTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F41ECAA1B91F306003A2236 /* WorkaroundEnumTest.swift */; };
+		7FD67D8E1C288B560071234B /* EVReflectionWatchOS.h in Headers */ = {isa = PBXBuildFile; fileRef = 7FD67D8D1C288B560071234B /* EVReflectionWatchOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7FD67D931C288B760071234B /* EVReflection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F07C5841AF10284000DF1F3 /* EVReflection.swift */; };
+		7FD67D941C288B7A0071234B /* EVObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F0E5E591AF4D94000A10E51 /* EVObject.swift */; };
+		7FD67D951C288B7F0071234B /* EVObjectDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F3E19291B8526CA00A6E6C6 /* EVObjectDescription.swift */; };
+		7FD67D961C288B840071234B /* EVExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F1BA5261B971CBF009F9DB8 /* EVExtensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -91,14 +96,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		2DC8AA3D1C24215500FA6B8E /* EVReflection.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = EVReflection.framework; path = "/Users/evermeer/Desktop/dev/GitHub/EVReflection/EVReflection/build/Debug-iphoneos/EVReflection.framework"; sourceTree = "<absolute>"; };
 		2DC8AA3F1C24215500FA6B8E /* EVReflection.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EVReflection.h; sourceTree = "<group>"; };
 		2DC8AA411C24215500FA6B8E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		2DC8AA631C242E0600FA6B8E /* EVReflection.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = EVReflection.framework; path = /Users/evermeer/Desktop/dev/GitHub/EVReflection/EVReflection/build/Debug/EVReflection.framework; sourceTree = "<absolute>"; };
 		2DC8AA651C242E0600FA6B8E /* EVReflectionOSX.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EVReflectionOSX.h; sourceTree = "<group>"; };
 		2DC8AA671C242E0600FA6B8E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7F0636B31AFF413900595461 /* .travis.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = .travis.yml; sourceTree = "<group>"; };
-		7F07C5721AF101A9000DF1F3 /* EVReflection iOS Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = "EVReflection iOS Tests.xctest"; path = "/Users/evermeer/Desktop/dev/GitHub/EVReflection/EVReflection/build/Debug-iphoneos/EVReflection iOS Tests.xctest"; sourceTree = "<absolute>"; };
 		7F07C5771AF101A9000DF1F3 /* ios-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ios-Info.plist"; sourceTree = "<group>"; };
 		7F07C5841AF10284000DF1F3 /* EVReflection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVReflection.swift; sourceTree = "<group>"; };
 		7F07C5861AF10296000DF1F3 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
@@ -123,12 +125,18 @@
 		7F59F9DE1C09BFB900C14CF9 /* EVRelfectionEnheritanceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVRelfectionEnheritanceTests.swift; sourceTree = "<group>"; };
 		7F7BBC651C009EE80046F05E /* EVReflectionMappingTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVReflectionMappingTest.swift; sourceTree = "<group>"; };
 		7F8818F81C04447100E17072 /* EVReflectionPropertyMappingTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVReflectionPropertyMappingTest.swift; sourceTree = "<group>"; };
-		7F9336AE1C28227400AF7076 /* EVReflection.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = EVReflection.framework; path = "/Users/evermeer/Desktop/dev/GitHub/EVReflection/EVReflection/build/Debug-appletvos/EVReflection.framework"; sourceTree = "<absolute>"; };
 		7F9336B01C28227400AF7076 /* EVReflectionTVOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EVReflectionTVOS.h; sourceTree = "<group>"; };
 		7F9336B21C28227400AF7076 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7F9336BE1C28227400AF7076 /* tvos-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "tvos-Info.plist"; sourceTree = "<group>"; };
 		7FD67D801C28463E0071234B /* EVReflection OSX Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "EVReflection OSX Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7FD67D811C284A2C0071234B /* EVReflection TVOS Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "EVReflection TVOS Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		7FD67D821C2882320071234B /* EVReflection.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = EVReflection.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7FD67D831C2882320071234B /* EVReflection iOS Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "EVReflection iOS Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		7FD67D841C2882320071234B /* EVReflection.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = EVReflection.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7FD67D851C2882320071234B /* EVReflection.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = EVReflection.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7FD67D8B1C288B560071234B /* EVReflection.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = EVReflection.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7FD67D8D1C288B560071234B /* EVReflectionWatchOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EVReflectionWatchOS.h; sourceTree = "<group>"; };
+		7FD67D8F1C288B560071234B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7FFCCC361BB440F400EE9312 /* coverage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = coverage.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -175,6 +183,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		7FD67D871C288B560071234B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -212,6 +227,12 @@
 				7F9336AF1C28227400AF7076 /* EVReflectionTVOS */,
 				7FD67D801C28463E0071234B /* EVReflection OSX Tests.xctest */,
 				7FD67D811C284A2C0071234B /* EVReflection TVOS Tests.xctest */,
+				7FD67D821C2882320071234B /* EVReflection.framework */,
+				7FD67D831C2882320071234B /* EVReflection iOS Tests.xctest */,
+				7FD67D841C2882320071234B /* EVReflection.framework */,
+				7FD67D851C2882320071234B /* EVReflection.framework */,
+				7FD67D8B1C288B560071234B /* EVReflection.framework */,
+				7FD67D8C1C288B560071234B /* EVReflectionWatchOS */,
 			);
 			sourceTree = "<group>";
 		};
@@ -275,6 +296,15 @@
 			path = EVReflectionTVOS;
 			sourceTree = "<group>";
 		};
+		7FD67D8C1C288B560071234B /* EVReflectionWatchOS */ = {
+			isa = PBXGroup;
+			children = (
+				7FD67D8D1C288B560071234B /* EVReflectionWatchOS.h */,
+				7FD67D8F1C288B560071234B /* Info.plist */,
+			);
+			path = EVReflectionWatchOS;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -302,6 +332,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		7FD67D881C288B560071234B /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7FD67D8E1C288B560071234B /* EVReflectionWatchOS.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
@@ -320,7 +358,7 @@
 			);
 			name = "EVReflection iOS";
 			productName = EVReflection;
-			productReference = 2DC8AA3D1C24215500FA6B8E /* EVReflection.framework */;
+			productReference = 7FD67D821C2882320071234B /* EVReflection.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		2DC8AA621C242E0600FA6B8E /* EVReflection OSX */ = {
@@ -338,7 +376,7 @@
 			);
 			name = "EVReflection OSX";
 			productName = EVReflectionOSX;
-			productReference = 2DC8AA631C242E0600FA6B8E /* EVReflection.framework */;
+			productReference = 7FD67D841C2882320071234B /* EVReflection.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		7F07C5711AF101A9000DF1F3 /* EVReflection iOS Tests */ = {
@@ -356,7 +394,7 @@
 			);
 			name = "EVReflection iOS Tests";
 			productName = EVReflectionTests;
-			productReference = 7F07C5721AF101A9000DF1F3 /* EVReflection iOS Tests.xctest */;
+			productReference = 7FD67D831C2882320071234B /* EVReflection iOS Tests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		7F3E31841BB9095C001E6788 /* EVReflection OSX Tests */ = {
@@ -392,7 +430,7 @@
 			);
 			name = "EVReflection TVOS";
 			productName = "EVReflection TVOS";
-			productReference = 7F9336AE1C28227400AF7076 /* EVReflection.framework */;
+			productReference = 7FD67D851C2882320071234B /* EVReflection.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		7F9336B61C28227400AF7076 /* EVReflection TVOS Tests */ = {
@@ -412,6 +450,24 @@
 			productName = "EVReflection TVOSTests";
 			productReference = 7FD67D811C284A2C0071234B /* EVReflection TVOS Tests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		7FD67D8A1C288B560071234B /* EVReflection WatchOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7FD67D901C288B560071234B /* Build configuration list for PBXNativeTarget "EVReflection WatchOS" */;
+			buildPhases = (
+				7FD67D861C288B560071234B /* Sources */,
+				7FD67D871C288B560071234B /* Frameworks */,
+				7FD67D881C288B560071234B /* Headers */,
+				7FD67D891C288B560071234B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "EVReflection WatchOS";
+			productName = EVReflectionWatchOS;
+			productReference = 7FD67D8B1C288B560071234B /* EVReflection.framework */;
+			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
 
@@ -442,6 +498,9 @@
 					7F9336B61C28227400AF7076 = {
 						CreatedOnToolsVersion = 7.2;
 					};
+					7FD67D8A1C288B560071234B = {
+						CreatedOnToolsVersion = 7.2;
+					};
 				};
 			};
 			buildConfigurationList = 7F07C5581AF101A9000DF1F3 /* Build configuration list for PBXProject "EVReflection" */;
@@ -463,6 +522,7 @@
 				7F3E31841BB9095C001E6788 /* EVReflection OSX Tests */,
 				7F9336AD1C28227400AF7076 /* EVReflection TVOS */,
 				7F9336B61C28227400AF7076 /* EVReflection TVOS Tests */,
+				7FD67D8A1C288B560071234B /* EVReflection WatchOS */,
 			);
 		};
 /* End PBXProject section */
@@ -504,6 +564,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		7F9336B51C28227400AF7076 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7FD67D891C288B560071234B /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -606,6 +673,17 @@
 				7F9336C91C2822B200AF7076 /* TestObjects.swift in Sources */,
 				7F9336D21C2822B700AF7076 /* EVRelfectionEnheritanceTests.swift in Sources */,
 				7F9336D41C2822B700AF7076 /* EVReflectionWorkaroundsTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7FD67D861C288B560071234B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7FD67D961C288B840071234B /* EVExtensions.swift in Sources */,
+				7FD67D931C288B760071234B /* EVReflection.swift in Sources */,
+				7FD67D941C288B7A0071234B /* EVObject.swift in Sources */,
+				7FD67D951C288B7F0071234B /* EVObjectDescription.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -928,6 +1006,53 @@
 			};
 			name = Release;
 		};
+		7FD67D911C288B560071234B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = EVReflectionWatchOS/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = nl.evict.EVReflectionWatchOS;
+				PRODUCT_NAME = EVReflection;
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+				WATCHOS_DEPLOYMENT_TARGET = 2.1;
+			};
+			name = Debug;
+		};
+		7FD67D921C288B560071234B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = EVReflectionWatchOS/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = nl.evict.EVReflectionWatchOS;
+				PRODUCT_NAME = EVReflection;
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+				WATCHOS_DEPLOYMENT_TARGET = 2.1;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -993,6 +1118,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		7FD67D901C288B560071234B /* Build configuration list for PBXNativeTarget "EVReflection WatchOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7FD67D911C288B560071234B /* Debug */,
+				7FD67D921C288B560071234B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};
