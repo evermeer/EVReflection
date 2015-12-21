@@ -53,6 +53,12 @@ public class TestObject4: EVObject {
     var myNSNumber: NSNumber?
     var invalid_character: String?
     var list: [TestObject4] = []
+    var myAny: Any?
+    var myAnyObject: AnyObject?
+    var rect: CGRect?
+    var array: [TestObject2] = [TestObject2(), TestObject2()]
+    var array2: NSMutableArray = NSMutableArray()
+    var array3: [String] = ["test"]
 }
 
 

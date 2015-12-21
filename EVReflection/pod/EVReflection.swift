@@ -59,6 +59,7 @@ final public class EVReflection {
                 var original:NSObject? = nil
                 if mapping != nil {
                     original = properties[mapping!] as? NSObject
+         
                 }
                 if let dictValue = dictionaryAndArrayConversion(types[mapping ?? k as! String], original: original, dictValue: v) {
                     if let key:String = keyMapping[k as! String] {
@@ -274,6 +275,19 @@ final public class EVReflection {
         let (lhsdict,_) = toDictionary(lhs, performKeyCleanup:false)
         let (rhsdict,_) = toDictionary(rhs, performKeyCleanup:false)
         
+        return dictionariesAreEqual(lhsdict, rhsdict: rhsdict)
+    }
+    
+
+    /**
+     Compare 2 dictionaries
+     
+     - parameter lhsdict: Compare this dictionary
+     - parameter rhsdict: Compare with this dictionary
+     
+     - returns: Are the dictionaries equal or not
+     */
+    public class func dictionariesAreEqual(lhsdict: NSDictionary, rhsdict: NSDictionary) -> Bool {
         for (key, value) in rhsdict {
             if let compareTo = lhsdict[key as! String] {
                 if let dateCompareTo = compareTo as? NSDate, dateValue = value as? NSDate {
@@ -283,9 +297,19 @@ final public class EVReflection {
                         return false
                     }
                 } else if let array = compareTo as? NSArray {
+                    guard let  arr = value as? NSArray else { return false }
+                    if arr.count != array.count {
+                        return false
+                    }
                     for (index, arrayValue) in array.enumerate() {
-                        if !areEqual(arrayValue as! NSObject, rhs: (value as! NSArray)[index] as! NSObject) {
-                            return false
+                        if arrayValue as? NSDictionary != nil {
+                            if !dictionariesAreEqual(arrayValue as! NSDictionary, rhsdict: arr[index] as! NSDictionary) {
+                                return false
+                            }
+                        } else {
+                            if !arrayValue.isEqual(arr[index])  {
+                                return false
+                            }
                         }
                     }
                 } else if !compareTo.isEqual(value) {
@@ -295,7 +319,6 @@ final public class EVReflection {
         }
         return true
     }
-    
     
     // MARK: - Reflection helper functions
     
@@ -877,7 +900,6 @@ final public class EVReflection {
             return "\(value)"
         }
     }
-    
 }
 
 

@@ -193,7 +193,6 @@ class EVReflectionJsonTests: XCTestCase {
         XCTAssertEqual(a.myFloat, 0, "myFloat should contain 2.1")
         XCTAssertEqual(a.myBool, true, "myBool should contain true")
     }
-
     
 }
 

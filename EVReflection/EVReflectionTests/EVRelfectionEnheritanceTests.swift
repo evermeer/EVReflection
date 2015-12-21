@@ -37,7 +37,8 @@ class EVRelfectionEnheritanceTests: XCTestCase {
         let quz = Quz()
         quz.fooBar = Bar()
         quz.fooBaz = Baz()
-        quz.fooArray = [Bar(), Baz()]
+        quz.fooFoo = Foo()
+        quz.fooArray = [Bar(), Baz(), Foo()]
         
         // The object JSON
         let json = quz.toJsonString()
@@ -60,6 +61,7 @@ class Quz: EVObject {
     var fooArray: Array<Foo> = []
     var fooBar: Foo?
     var fooBaz: Foo?
+    var fooFoo: Foo?
 }
 
 class Foo: EVObject {

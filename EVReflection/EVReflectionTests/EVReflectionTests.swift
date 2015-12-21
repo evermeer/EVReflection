@@ -153,6 +153,60 @@ class EVReflectionTests: XCTestCase {
         XCTAssert(theObject != result, "Pass") // The objects are not the same
     }
   
+
+    /**
+     Get a dictionary from an object, then create an object of a diffrent type and set the properties based on the dictionary from the first object. You can initiate a diffrent type. Only the properties with matching dictionary keys will be set.
+     */
+    func testClassToJsonWithDateFormatter() {
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.dateFormat = "yyyyMMddHHmmss"
+        EVReflection.setDateFormatter(dateFormatter)
+        
+        let theObject = TestObject4()
+        theObject.myString = "string"
+        theObject.myInt = 4
+        theObject.myDate = NSDate()
+        let json = theObject.toJsonString()
+        NSLog("toJson = \(json)")
+        XCTAssert(!(json.containsString(".") || json.containsString("/") || json.containsString("-")), "Pass") // The objects are not the same
+        
+        let newObject = TestObject4(json: json)
+        XCTAssertEqual(theObject, newObject, "Should still be the same")
+        theObject.myDate = NSDate().dateByAddingTimeInterval(3600)
+        XCTAssert(theObject != newObject, "Should not be the same")
+    }
+    
+    func testArrayPropertyCompare() {
+        let theObject = TestObject4()
+        theObject.myString = "string"
+        theObject.myInt = 4
+        let dict = theObject.toDictionary()
+        NSLog("toDict = \(dict)")
+        let newObject = TestObject4(dictionary: dict)
+        
+        theObject.array.append(TestObject2())
+        XCTAssert(theObject != newObject, "Should not be the same")
+        newObject.array.append(TestObject2())
+        XCTAssert(theObject == newObject, "Should be the same again")
+        (theObject.array[0]).objectValue = "X"
+        XCTAssert(theObject != newObject, "Should not be the same")
+        (newObject.array[0]).objectValue = "X"
+        XCTAssert(theObject == newObject, "Should be the same again")
+        
+        theObject.array3[0] = "Y"
+        XCTAssert(theObject != newObject, "Should not be the same")
+        newObject.array3[0] = "Y"
+        XCTAssert(theObject == newObject, "Should be the same again")
+    }
+    
+    func testXMLDictStructure() {
+        // When using XMLDict, an array will be nested in a singel xml node which you probably want to skip in your object structure
+        let xmlDict =  ["myString": "STR", "array": ["object2":[["objectValue":"STR2"], ["objectValue":"STR3"]]]]
+        let obj = TestObject4(dictionary: xmlDict)
+        XCTAssertEqual(obj.myString, "STR", "object myString value should have been STR")
+        XCTAssertEqual(obj.array.count, 2, "There should be 1 vallue in the array")
+        XCTAssertEqual(obj.array[0].objectValue, "STR2", "The first array object myString value should have been STR2")
+    }
     
     /**
      Test if we can work with an object that contains all types of arrays
