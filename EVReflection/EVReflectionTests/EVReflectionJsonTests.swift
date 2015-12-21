@@ -65,9 +65,12 @@ class EVReflectionJsonTests: XCTestCase {
         let user = User(json: json)
         let dic = user.toDictionary(true)
         XCTAssertTrue(dic["close_friends"] != nil, "should have close_friends")
-        XCTAssertTrue(dic["close_friends"]!.count == 1, "should have 1 close_friends")
-        XCTAssertTrue(dic["close_friends"]![0]["close_friends"] != nil, "close_friends should have close_friends")
-
+        if dic["close_friends"] != nil {
+            XCTAssertTrue(dic["close_friends"]!.count == 1, "should have 1 close_friends")
+            if dic["close_friends"]!.count == 1 {
+                XCTAssertTrue(dic["close_friends"]![0]["close_friends"] != nil, "close_friends should have close_friends")
+            }
+        }
     }
     
     func testJsonArray() {

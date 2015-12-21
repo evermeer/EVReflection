@@ -6,6 +6,8 @@
 //
 
 import Foundation
+import CoreGraphics
+
 @testable import EVReflection
 
 /**

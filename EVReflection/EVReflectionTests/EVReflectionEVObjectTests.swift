@@ -94,16 +94,24 @@ class EVReflectionEVObjectTests: XCTestCase {
         let theObject = TestObject2()
         theObject.objectValue = "value1"
         
-        theObject.saveToTemp("temp.dat")
+        let didSaveTemp = theObject.saveToTemp("temp.dat")
+        XCTAssertTrue(didSaveTemp, "Could not save to temp2.dat")
+
         let result = TestObject2(fileNameInTemp: "temp.dat")
         
         XCTAssert(theObject == result, "Pass")
         
-        theObject.saveToDocuments("temp2.dat")
-        let result2 = TestObject2(fileNameInDocuments: "temp2.dat")
-        
-        XCTAssert(theObject == result2, "Pass")
-    }
+        #if os(tvOS)
+            // Save to documents folder is not supported on tvOS
+        #else
+            let didSaveDoc = theObject.saveToDocuments("temp2.dat")
+            XCTAssertTrue(didSaveDoc, "Could not save to temp2.dat")
+            
+            let result2 = TestObject2(fileNameInDocuments: "temp2.dat")
+            
+            XCTAssert(theObject == result2, "Pass")
+        #endif
+        }
     
     /**
      Archive an object that contains a nullable type with NSKeyedArchiver and read it back with NSKeyedUnarchiver. Both objects should be equal. We are using the workaround in TestObject3 to solve the setvalue for key issue in Swift 1.2

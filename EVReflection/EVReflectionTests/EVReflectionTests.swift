@@ -206,7 +206,9 @@ class EVReflectionTests: XCTestCase {
         let obj = TestObject4(dictionary: xmlDict)
         XCTAssertEqual(obj.myString, "STR", "object myString value should have been STR")
         XCTAssertEqual(obj.array.count, 2, "There should be 1 vallue in the array")
-        XCTAssertEqual(obj.array[0].objectValue, "STR2", "The first array object myString value should have been STR2")
+        if obj.array.count == 2 {
+            XCTAssertEqual(obj.array[0].objectValue, "STR2", "The first array object myString value should have been STR2")            
+        }
     }
     
     /**

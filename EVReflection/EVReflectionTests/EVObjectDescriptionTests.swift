@@ -23,7 +23,7 @@ class EVObjectDescriptionTests: XCTestCase {
         // Put setup code here. This method is called before the invocation of each test method in the class.
         let a = EVObjectDescription(forObject: self)
         bundle = a.classPath[0]
-        XCTAssert(bundle == "EVReflection_OSX_Tests" || bundle == "EVReflection_iOS_Tests", "Pass")
+        XCTAssert(bundle == "EVReflection_OSX_Tests" || bundle == "EVReflection_iOS_Tests" || bundle == "EVReflection_TVOS_Tests", "Pass")
     }
     
     /**

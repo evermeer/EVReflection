@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0710"
+   LastUpgradeVersion = "0720"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -9,14 +9,14 @@
          <BuildActionEntry
             buildForTesting = "YES"
             buildForRunning = "YES"
-            buildForProfiling = "NO"
-            buildForArchiving = "NO"
-            buildForAnalyzing = "NO">
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "7F3E31841BB9095C001E6788"
-               BuildableName = "EVReflection OSX Tests.xctest"
-               BlueprintName = "EVReflection OSX Tests"
+               BlueprintIdentifier = "7F9336AD1C28227400AF7076"
+               BuildableName = "EVReflection.framework"
+               BlueprintName = "EVReflection TVOS"
                ReferencedContainer = "container:EVReflection.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -33,13 +33,22 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "7F3E31841BB9095C001E6788"
-               BuildableName = "EVReflection OSX Tests.xctest"
-               BlueprintName = "EVReflection OSX Tests"
+               BlueprintIdentifier = "7F9336B61C28227400AF7076"
+               BuildableName = "EVReflection TVOS Tests.xctest"
+               BlueprintName = "EVReflection TVOS Tests"
                ReferencedContainer = "container:EVReflection.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "7F9336AD1C28227400AF7076"
+            BuildableName = "EVReflection.framework"
+            BlueprintName = "EVReflection TVOS"
+            ReferencedContainer = "container:EVReflection.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>
@@ -56,9 +65,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "7F3E31841BB9095C001E6788"
-            BuildableName = "EVReflection OSX Tests.xctest"
-            BlueprintName = "EVReflection OSX Tests"
+            BlueprintIdentifier = "7F9336AD1C28227400AF7076"
+            BuildableName = "EVReflection.framework"
+            BlueprintName = "EVReflection TVOS"
             ReferencedContainer = "container:EVReflection.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -74,9 +83,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "7F3E31841BB9095C001E6788"
-            BuildableName = "EVReflection OSX Tests.xctest"
-            BlueprintName = "EVReflection OSX Tests"
+            BlueprintIdentifier = "7F9336AD1C28227400AF7076"
+            BuildableName = "EVReflection.framework"
+            BlueprintName = "EVReflection TVOS"
             ReferencedContainer = "container:EVReflection.xcodeproj">
          </BuildableReference>
       </MacroExpansion>

@@ -140,22 +140,30 @@ public class EVObject: NSObject, NSCoding, CustomDebugStringConvertible { // The
     
     :returns: Nothing
     */
-    public func saveToTemp(fileName:String) {
+    public func saveToTemp(fileName:String) -> Bool {
         let filePath = (NSTemporaryDirectory() as NSString).stringByAppendingPathComponent(fileName)
-        NSKeyedArchiver.archiveRootObject(self, toFile: filePath)
+        return NSKeyedArchiver.archiveRootObject(self, toFile: filePath)
     }
 
-    /**
-    Save this object to a file in the documents directory
     
-    :parameter: fileName The filename
+
+    #if os(tvOS)
+        // Save to documents folder is not supported on tvOS
+    #else
+        /**
+        Save this object to a file in the documents directory
+        
+        :parameter: fileName The filename
+        
+        :returns: Nothing
+        */
+        public func saveToDocuments(fileName:String) -> Bool {
+            let filePath = (NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as NSString).stringByAppendingPathComponent(fileName)
+            return NSKeyedArchiver.archiveRootObject(self, toFile: filePath)
+        }
+    #endif
     
-    :returns: Nothing
-    */
-    public func saveToDocuments(fileName:String) {
-        let filePath = (NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as NSString).stringByAppendingPathComponent(fileName)
-        NSKeyedArchiver.archiveRootObject(self, toFile: filePath)
-    }
+    
     
     
     /**

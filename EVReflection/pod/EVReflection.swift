@@ -59,8 +59,7 @@ final public class EVReflection {
                 let mapping = keyMapping[k as! String]
                 var original:NSObject? = nil
                 if mapping != nil {
-                    original = properties[mapping!] as? NSObject
-         
+                    original = properties[mapping!] as? NSObject         
                 }
                 if let dictValue = dictionaryAndArrayConversion(types[mapping ?? k as! String], original: original, dictValue: v) {
                     if let key:String = keyMapping[k as! String] {
