@@ -805,6 +805,7 @@ final public class EVReflection {
     private class func reflectedSub(theObject:Any, reflected: Mirror, performKeyCleanup:Bool = false) -> (NSDictionary, Dictionary<String, String>) {
         let propertiesDictionary : NSMutableDictionary = NSMutableDictionary()
         var propertiesTypeDictionary : Dictionary<String,String> = Dictionary<String,String>()
+        // First add the super class propperties
         if let superReflected = reflected.superclassMirror() {
             let (addProperties, addPropertiesTypes) = reflectedSub(theObject, reflected: superReflected, performKeyCleanup: performKeyCleanup)
             for (k, v) in addProperties {
@@ -815,17 +816,22 @@ final public class EVReflection {
         for property in reflected.children {
             if let key:String = property.label {
                 var value = property.value
+                // If there is a properyConverter, then use the result of that instead.
                 if let (_, _, propertyGetter) = (theObject as? EVObject)?.propertyConverters().filter({$0.0 == key}).first {
                     value = propertyGetter()
                 }
+                // Convert the Any value to a NSObject value
                 var (unboxedValue, valueType, isObject) = valueForAny(theObject, key: key, anyValue: value)
                 if isObject {
+                    // sub objects will be added as a dictionary itself.
                     let (dict, _) = toDictionary(unboxedValue as! NSObject, performKeyCleanup: performKeyCleanup)
                     propertiesDictionary.setValue(dict, forKey: key)
                 } else if let array = unboxedValue as? [NSObject] {
                     if unboxedValue as? [String] != nil || unboxedValue as? [NSString] != nil || unboxedValue as? [NSDate] != nil || unboxedValue as? [NSNumber] != nil || unboxedValue as? [NSArray] != nil || unboxedValue as? [NSDictionary] != nil {
+                        // Arrays of standard types will just be set
                         propertiesDictionary.setValue(unboxedValue, forKey: key)
                     } else {
+                        // Get the type of the items in the array
                         let item: NSObject
                         if array.count > 0 {
                             item = array[0]
@@ -834,6 +840,7 @@ final public class EVReflection {
                         }
                         let (_,_,isObject) = valueForAny(anyValue: item)
                         if isObject {
+                            // If the items are objects, than add a dictionary of each to the array
                             var tempValue = [NSDictionary]()
                             for av in array {
                                 let (dict, _) = toDictionary(av, performKeyCleanup: performKeyCleanup)
