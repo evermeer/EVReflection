@@ -8,6 +8,7 @@
 
 
 import XCTest
+@testable import EVReflection
 
 /**
  Testing EVReflection

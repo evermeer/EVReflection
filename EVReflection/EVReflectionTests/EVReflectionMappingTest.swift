@@ -6,6 +6,7 @@
 //  Copyright © 2015 evict. All rights reserved.
 //
 import XCTest
+@testable import EVReflection
 
 /**
  Testing EVReflection
