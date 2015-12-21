@@ -37,10 +37,11 @@ class EVReflectionWorkaroundSwiftGenericsTests: XCTestCase {
     }
 
     func testGenericsJson2() {
+        EVReflection.setBundleIdentifier(InstanceObject)
         let json:String = "{\"test\":\"test\", \"data\":{\"name\":\"data\"}, \"array\":[{\"name\":\"val1\"}, {\"name\":\"val2\"}, {\"name\":\"val3\"}]}"
         let a = MyGenericObject<InstanceObject>(json: json)
         XCTAssertEqual(a.test, "test", "test should contain test")
-        XCTAssertEqual(a.data.name!, "data", "data.name should contain data")
+        XCTAssertEqual(a.data.name, "data", "data.name should contain data")
         XCTAssertEqual(a.array.count, 3, "array should contain 3 elements")
         if a.array.count == 3 {
             XCTAssertEqual(a.array[0].name!, "val1", "array[0].name should contain val1")

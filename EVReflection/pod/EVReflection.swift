@@ -60,6 +60,7 @@ final public class EVReflection {
                 var original:NSObject? = nil
                 if mapping != nil {
                     original = properties[mapping!] as? NSObject
+         
                 }
                 if let dictValue = dictionaryAndArrayConversion(types[mapping ?? k as! String], original: original, dictValue: v) {
                     if let key:String = keyMapping[k as! String] {
@@ -275,6 +276,19 @@ final public class EVReflection {
         let (lhsdict,_) = toDictionary(lhs, performKeyCleanup:false)
         let (rhsdict,_) = toDictionary(rhs, performKeyCleanup:false)
         
+        return dictionariesAreEqual(lhsdict, rhsdict: rhsdict)
+    }
+    
+
+    /**
+     Compare 2 dictionaries
+     
+     - parameter lhsdict: Compare this dictionary
+     - parameter rhsdict: Compare with this dictionary
+     
+     - returns: Are the dictionaries equal or not
+     */
+    public class func dictionariesAreEqual(lhsdict: NSDictionary, rhsdict: NSDictionary) -> Bool {
         for (key, value) in rhsdict {
             if let compareTo = lhsdict[key as! String] {
                 if let dateCompareTo = compareTo as? NSDate, dateValue = value as? NSDate {
@@ -284,9 +298,19 @@ final public class EVReflection {
                         return false
                     }
                 } else if let array = compareTo as? NSArray {
+                    guard let  arr = value as? NSArray else { return false }
+                    if arr.count != array.count {
+                        return false
+                    }
                     for (index, arrayValue) in array.enumerate() {
-                        if !areEqual(arrayValue as! NSObject, rhs: (value as! NSArray)[index] as! NSObject) {
-                            return false
+                        if arrayValue as? NSDictionary != nil {
+                            if !dictionariesAreEqual(arrayValue as! NSDictionary, rhsdict: arr[index] as! NSDictionary) {
+                                return false
+                            }
+                        } else {
+                            if !arrayValue.isEqual(arr[index])  {
+                                return false
+                            }
                         }
                     }
                 } else if !compareTo.isEqual(value) {
@@ -296,7 +320,6 @@ final public class EVReflection {
         }
         return true
     }
-    
     
     // MARK: - Reflection helper functions
     
@@ -783,6 +806,7 @@ final public class EVReflection {
     private class func reflectedSub(theObject:Any, reflected: Mirror, performKeyCleanup:Bool = false) -> (NSDictionary, Dictionary<String, String>) {
         let propertiesDictionary : NSMutableDictionary = NSMutableDictionary()
         var propertiesTypeDictionary : Dictionary<String,String> = Dictionary<String,String>()
+        // First add the super class propperties
         if let superReflected = reflected.superclassMirror() {
             let (addProperties, addPropertiesTypes) = reflectedSub(theObject, reflected: superReflected, performKeyCleanup: performKeyCleanup)
             for (k, v) in addProperties {
@@ -793,17 +817,22 @@ final public class EVReflection {
         for property in reflected.children {
             if let key:String = property.label {
                 var value = property.value
+                // If there is a properyConverter, then use the result of that instead.
                 if let (_, _, propertyGetter) = (theObject as? EVObject)?.propertyConverters().filter({$0.0 == key}).first {
                     value = propertyGetter()
                 }
+                // Convert the Any value to a NSObject value
                 var (unboxedValue, valueType, isObject) = valueForAny(theObject, key: key, anyValue: value)
                 if isObject {
+                    // sub objects will be added as a dictionary itself.
                     let (dict, _) = toDictionary(unboxedValue as! NSObject, performKeyCleanup: performKeyCleanup)
                     propertiesDictionary.setValue(dict, forKey: key)
                 } else if let array = unboxedValue as? [NSObject] {
                     if unboxedValue as? [String] != nil || unboxedValue as? [NSString] != nil || unboxedValue as? [NSDate] != nil || unboxedValue as? [NSNumber] != nil || unboxedValue as? [NSArray] != nil || unboxedValue as? [NSDictionary] != nil {
+                        // Arrays of standard types will just be set
                         propertiesDictionary.setValue(unboxedValue, forKey: key)
                     } else {
+                        // Get the type of the items in the array
                         let item: NSObject
                         if array.count > 0 {
                             item = array[0]
@@ -812,6 +841,7 @@ final public class EVReflection {
                         }
                         let (_,_,isObject) = valueForAny(anyValue: item)
                         if isObject {
+                            // If the items are objects, than add a dictionary of each to the array
                             var tempValue = [NSDictionary]()
                             for av in array {
                                 let (dict, _) = toDictionary(av, performKeyCleanup: performKeyCleanup)
@@ -878,7 +908,6 @@ final public class EVReflection {
             return "\(value)"
         }
     }
-    
 }
 
 

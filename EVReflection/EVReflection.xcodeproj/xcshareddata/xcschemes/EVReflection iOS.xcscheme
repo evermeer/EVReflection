@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "2DC8AA3C1C24215500FA6B8E"
-               BuildableName = "EVReflection iOS.framework"
+               BuildableName = "EVReflection.framework"
                BlueprintName = "EVReflection iOS"
                ReferencedContainer = "container:EVReflection.xcodeproj">
             </BuildableReference>
@@ -43,7 +43,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2DC8AA3C1C24215500FA6B8E"
-            BuildableName = "EVReflection iOS.framework"
+            BuildableName = "EVReflection.framework"
             BlueprintName = "EVReflection iOS"
             ReferencedContainer = "container:EVReflection.xcodeproj">
          </BuildableReference>
@@ -65,7 +65,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2DC8AA3C1C24215500FA6B8E"
-            BuildableName = "EVReflection iOS.framework"
+            BuildableName = "EVReflection.framework"
             BlueprintName = "EVReflection iOS"
             ReferencedContainer = "container:EVReflection.xcodeproj">
          </BuildableReference>
@@ -83,7 +83,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2DC8AA3C1C24215500FA6B8E"
-            BuildableName = "EVReflection iOS.framework"
+            BuildableName = "EVReflection.framework"
             BlueprintName = "EVReflection iOS"
             ReferencedContainer = "container:EVReflection.xcodeproj">
          </BuildableReference>
