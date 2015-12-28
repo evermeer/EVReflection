@@ -49,7 +49,7 @@ final public class EVReflection {
         for (k, v) in dictionary {
             var skipKey = false
             if let evObject = anyObject as? EVObject {
-                if let mapping = evObject.propertyMapping().filter({$0.0! == k as! String}).first {
+                if let mapping = evObject.propertyMapping().filter({$0.0 == k as? String}).first {
                     if mapping.1 == nil {
                         skipKey = true
                     }
@@ -65,7 +65,7 @@ final public class EVReflection {
                     if let key:String = keyMapping[k as! String] {
                         setObjectValue(anyObject, key: key, value: dictValue, typeInObject: types[key])
                     } else {
-                        setObjectValue(anyObject, key: k as! String, value: dictValue)
+                        setObjectValue(anyObject, key: k as! String, value: dictValue, typeInObject: types[k as! String])
                     }
                 }
             }
@@ -85,8 +85,17 @@ final public class EVReflection {
         let (hasKeys, hasValues) = toDictionary(anyObject, performKeyCleanup: false)
         var keyMapping: Dictionary<String,String> = Dictionary<String,String>()
         for (objectKey, _) in hasKeys {
+
+            if let evObject = anyObject as? EVObject {
+                if let mapping = evObject.propertyMapping().filter({$0.1 == objectKey as? String}).first {
+                    keyMapping[objectKey as! String] = mapping.0
+                }
+            }            
+            
             if let dictKey = cleanupKey(anyObject, key: objectKey as! String, tryMatch: dictionary) {
-                keyMapping[dictKey] = objectKey as? String
+                if dictKey != objectKey  as? String{
+                    keyMapping[dictKey] = objectKey as? String
+                }
             }
         }
         return (keyMapping, hasKeys, hasValues)
@@ -470,8 +479,6 @@ final public class EVReflection {
         
         if mi.displayStyle == .Optional {
             if mi.children.count == 1 {
-                let label = mi.children.first?.label
-                assert(label == "Some", "WARNING: Swift functionality changed. Label should be 'Some' and not \(mi.children.first?.label)")
                 theValue = mi.children.first!.value
                 valueType = "\(mi.children.first!.value.dynamicType)"
             } else if mi.children.count == 0 {
@@ -499,7 +506,7 @@ final public class EVReflection {
             valueType = "\(mi.subjectType)"
             if valueType.hasPrefix("Array<Optional<") {
                 if let arrayConverter = parentObject as? EVArrayConvertable {
-                    let convertedValue = arrayConverter.convertArray(key ?? "", array: theValue)
+                    let convertedValue = arrayConverter.convertArray(key!, array: theValue)
                     return (convertedValue, valueType, false)
                 }
                 assert(true, "WARNING: An object with a property of type Array with optional objects should implement the EVArrayConvertable protocol.")
@@ -541,7 +548,7 @@ final public class EVReflection {
             // isObject is false to prevent parsing of objects like CKRecord, CKRecordId and other objects.
             return (anyvalue, valueType, false)
         default:
-            assertionFailure("ERROR: valueForAny unkown type \(theValue), type \(valueType). Could not happen unless there will be a new type in Swift.")
+            NSLog("ERROR: valueForAny unkown type \(theValue), type \(valueType). Could not happen unless there will be a new type in Swift.")
             return (NSNull(), "NSNull", false)
         }
     }
@@ -584,7 +591,7 @@ final public class EVReflection {
                 propertySetter(value)
                 return
             }
-            anyObject.setValue(value, forKey: key)
+            anyObject.setValue(value!, forKey: key)
         }
     }
     
@@ -628,21 +635,11 @@ final public class EVReflection {
     private class func cleanupKey(anyObject:NSObject, key:String, tryMatch:NSDictionary?) -> String? {
         var newKey: String = key
         
-        // Step 1 - custom property mapping
-        if let evObject = anyObject as? EVObject {
-            if let mapping = evObject.propertyMapping().filter({$0.0 == newKey}).first {
-                if mapping.1 == nil {
-                    return nil
-                } else {
-                    newKey = mapping.1!
-                }
-            }
-        }
         if tryMatch?[newKey] != nil {
             return newKey
         }
         
-        // Step 2 - clean up keywords
+        // Step 1 - clean up keywords
         if newKey.characters.first == "_" {
             if keywords.contains(newKey.substringFromIndex(newKey.startIndex.advancedBy(1))) {
                 newKey = newKey.substringFromIndex(newKey.startIndex.advancedBy(1))
@@ -652,7 +649,7 @@ final public class EVReflection {
             }
         }
         
-        // Step 3 - replace illegal characters
+        // Step 2 - replace illegal characters
         if let t = tryMatch {
             for (key, _) in t {
                 var k = key
@@ -665,7 +662,7 @@ final public class EVReflection {
             }
         }
         
-        // Step 4 - from PascalCase or camelCase to snakeCase
+        // Step 3 - from PascalCase or camelCase to snakeCase
         newKey = camelCaseToUnderscores(newKey)
         if tryMatch?[newKey] != nil {
             return newKey
@@ -815,49 +812,62 @@ final public class EVReflection {
             }
         }
         for property in reflected.children {
-            if let key:String = property.label {
-                var value = property.value
-                // If there is a properyConverter, then use the result of that instead.
-                if let (_, _, propertyGetter) = (theObject as? EVObject)?.propertyConverters().filter({$0.0 == key}).first {
-                    value = propertyGetter()
-                }
-                // Convert the Any value to a NSObject value
-                var (unboxedValue, valueType, isObject) = valueForAny(theObject, key: key, anyValue: value)
-                if isObject {
-                    // sub objects will be added as a dictionary itself.
-                    let (dict, _) = toDictionary(unboxedValue as! NSObject, performKeyCleanup: performKeyCleanup)
-                    propertiesDictionary.setValue(dict, forKey: key)
-                } else if let array = unboxedValue as? [NSObject] {
-                    if unboxedValue as? [String] != nil || unboxedValue as? [NSString] != nil || unboxedValue as? [NSDate] != nil || unboxedValue as? [NSNumber] != nil || unboxedValue as? [NSArray] != nil || unboxedValue as? [NSDictionary] != nil {
-                        // Arrays of standard types will just be set
-                        propertiesDictionary.setValue(unboxedValue, forKey: key)
-                    } else {
-                        // Get the type of the items in the array
-                        let item: NSObject
-                        if array.count > 0 {
-                            item = array[0]
+            if let originalKey:String = property.label {
+                var skipThisKey = false
+                var mapKey = originalKey
+                if let evObject = theObject as? EVObject {
+                    if let mapping = evObject.propertyMapping().filter({$0.0 == originalKey}).first {
+                        if mapping.1 == nil {
+                            skipThisKey = true
                         } else {
-                            item = array.getArrayTypeInstance(array)
-                        }
-                        let (_,_,isObject) = valueForAny(anyValue: item)
-                        if isObject {
-                            // If the items are objects, than add a dictionary of each to the array
-                            var tempValue = [NSDictionary]()
-                            for av in array {
-                                let (dict, _) = toDictionary(av, performKeyCleanup: performKeyCleanup)
-                                tempValue.append(dict)
-                            }
-                            unboxedValue = tempValue
-                            propertiesDictionary.setValue(unboxedValue, forKey: key)
-                        } else {
-                            propertiesDictionary.setValue(unboxedValue, forKey: key)
+                            mapKey = mapping.1!
                         }
                     }
-                } else {
-                    propertiesDictionary.setValue(unboxedValue, forKey: key)
                 }
-                
-                propertiesTypeDictionary[key] = valueType
+                if !skipThisKey {
+                    var value = property.value
+                    // If there is a properyConverter, then use the result of that instead.
+                    if let (_, _, propertyGetter) = (theObject as? EVObject)?.propertyConverters().filter({$0.0 == originalKey}).first {
+                        value = propertyGetter()
+                    }
+                    // Convert the Any value to a NSObject value
+                    var (unboxedValue, valueType, isObject) = valueForAny(theObject, key: originalKey, anyValue: value)
+                    if isObject {
+                        // sub objects will be added as a dictionary itself.
+                        let (dict, _) = toDictionary(unboxedValue as! NSObject, performKeyCleanup: performKeyCleanup)
+                        propertiesDictionary.setValue(dict, forKey: mapKey)
+                    } else if let array = unboxedValue as? [NSObject] {
+                        if unboxedValue as? [String] != nil || unboxedValue as? [NSString] != nil || unboxedValue as? [NSDate] != nil || unboxedValue as? [NSNumber] != nil || unboxedValue as? [NSArray] != nil || unboxedValue as? [NSDictionary] != nil {
+                            // Arrays of standard types will just be set
+                            propertiesDictionary.setValue(unboxedValue, forKey: mapKey)
+                        } else {
+                            // Get the type of the items in the array
+                            let item: NSObject
+                            if array.count > 0 {
+                                item = array[0]
+                            } else {
+                                item = array.getArrayTypeInstance(array)
+                            }
+                            let (_,_,isObject) = valueForAny(anyValue: item)
+                            if isObject {
+                                // If the items are objects, than add a dictionary of each to the array
+                                var tempValue = [NSDictionary]()
+                                for av in array {
+                                    let (dict, _) = toDictionary(av, performKeyCleanup: performKeyCleanup)
+                                    tempValue.append(dict)
+                                }
+                                unboxedValue = tempValue
+                                propertiesDictionary.setValue(unboxedValue, forKey: mapKey)
+                            } else {
+                                propertiesDictionary.setValue(unboxedValue, forKey: mapKey)
+                            }
+                        }
+                    } else {
+                        propertiesDictionary.setValue(unboxedValue, forKey: mapKey)
+                    }
+                    
+                    propertiesTypeDictionary[mapKey] = valueType
+                }
             }
         }
         return (propertiesDictionary, propertiesTypeDictionary)

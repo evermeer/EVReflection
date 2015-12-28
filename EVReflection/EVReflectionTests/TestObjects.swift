@@ -63,6 +63,7 @@ public class TestObject4: EVObject {
     var array2: NSMutableArray = NSMutableArray()
     var array3: [String] = ["test"]
     var array4: [TestObject2] = []
+    var array5: [TestObject2?]? = [TestObject2(), nil, TestObject2()]
 }
 
 

@@ -97,7 +97,8 @@ public extension NSObject {
     public func mapObjectTo<T where T:NSObject>() -> T {
         let nsobjectype : NSObject.Type = T.self as NSObject.Type
         let nsobject: NSObject = nsobjectype.init()
-        let result = EVReflection.setPropertiesfromDictionary(self.toDictionary(), anyObject: nsobject)
+        let dict = self.toDictionary()
+        let result = EVReflection.setPropertiesfromDictionary(dict, anyObject: nsobject)
         return result as! T
     }
 }

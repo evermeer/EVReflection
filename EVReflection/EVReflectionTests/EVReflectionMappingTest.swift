@@ -48,7 +48,7 @@ class EVReflectionMappingTests: XCTestCase {
 
         XCTAssertEqual(administrator.name, player.name, "The names will be the same")
         XCTAssertEqual(administrator.memberSince, player.memberSince, "The member since dates will be the same")
-        XCTAssertEqual(administrator.level, 19, "When creatinga an administrater it's level will be a quarter of the player rating")
+        XCTAssertEqual(administrator.level, 19, "When creatinga an administrator it's level will be a quarter of the player rating")
         
     }
 }
