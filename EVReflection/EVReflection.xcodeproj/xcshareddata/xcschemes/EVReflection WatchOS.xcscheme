@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "7FD67D8A1C288B560071234B"
-               BuildableName = "EVReflection WatchOS.framework"
+               BuildableName = "EVReflection.framework"
                BlueprintName = "EVReflection WatchOS"
                ReferencedContainer = "container:EVReflection.xcodeproj">
             </BuildableReference>
@@ -47,7 +47,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "7FD67D8A1C288B560071234B"
-            BuildableName = "EVReflection WatchOS.framework"
+            BuildableName = "EVReflection.framework"
             BlueprintName = "EVReflection WatchOS"
             ReferencedContainer = "container:EVReflection.xcodeproj">
          </BuildableReference>
@@ -65,7 +65,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "7FD67D8A1C288B560071234B"
-            BuildableName = "EVReflection WatchOS.framework"
+            BuildableName = "EVReflection.framework"
             BlueprintName = "EVReflection WatchOS"
             ReferencedContainer = "container:EVReflection.xcodeproj">
          </BuildableReference>

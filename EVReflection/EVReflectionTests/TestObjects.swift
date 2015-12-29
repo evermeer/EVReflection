@@ -67,6 +67,7 @@ public class TestObject4: EVObject {
 }
 
 
+
 /**
  Third test object where you can see how create a workaround for the swift limitation with setting a value for a key where the property is a nullable type.
  */
@@ -131,7 +132,7 @@ public class TestObject6: EVObject {
  For testing objects with arrays
  */
 
-class ArrayObjects:NSObject {
+class ArrayObjects: NSObject {
     var strings:[String] = ["a","b"]
     var dates:[NSDate] = [NSDate(), NSDate()]
     var arrays:[[String]] = [["a","b"],["c","d"]]
@@ -139,8 +140,22 @@ class ArrayObjects:NSObject {
     var subobjects:[SubObject] = [SubObject(), SubObject()]
 }
 
-class SubObject:EVObject {
+class SubObject: EVObject {
     var field:String = "x"
 }
 
+
+public class Circular1: EVObject {
+    var normalProperty: String? = ""
+    var startCircle: Circular2?
+}
+
+public class Circular2: EVObject {
+    var anotherNormalProperty: String? = ""
+    var createCircle: Circular1?
+    
+    override public func propertyMapping() -> [(String?, String?)] {
+        return [("createCircle", nil)]
+    }
+}
 

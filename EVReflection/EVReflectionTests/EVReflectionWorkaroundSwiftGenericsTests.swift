@@ -13,6 +13,24 @@ import XCTest
 Testing the workaround for generics.
 */
 class EVReflectionWorkaroundSwiftGenericsTests: XCTestCase {
+    
+    /**
+     For now nothing to setUp
+     */
+    override func setUp() {
+        super.setUp()
+        // Put setup code here. This method is called before the invocation of each test method in the class.
+        EVReflection.setBundleIdentifier(TestObject)
+    }
+    
+    /**
+     For now nothing to tearDown
+     */
+    override func tearDown() {
+        // Put teardown code here. This method is called after the invocation of each test method in the class.
+        super.tearDown()
+    }
+
     func testSetValueGenericClass() {
         let a = MyGenericObject<NSString>()
         a.setValue("data", forUndefinedKey: "data")
@@ -61,6 +79,14 @@ class EVReflectionWorkaroundSwiftGenericsTests: XCTestCase {
         XCTAssert(nsobject != nil, "Pass")
     }
     
+    func testGenericSubObject() {
+        let foo = TestGenerics()
+        foo.bar.data.name = "Test"
+        
+        let json = foo.toJsonString()
+        let foo2 = TestGenerics(json: json)
+        XCTAssertEqual(foo, foo2, "Objects should be the same")
+    }
 }
 
 
@@ -106,3 +132,15 @@ public class InstanceObject: EVObject {
     var name:String?
 }
 
+public class TestGenerics: EVObject  {
+    var bar : MyGenericObject<InstanceObject> = MyGenericObject<InstanceObject>()
+    
+    public override func setValue(value: AnyObject!, forUndefinedKey key: String) {
+        switch key {
+        case "bar":
+            bar = value as! MyGenericObject<InstanceObject>
+        default:
+            print("---> setValue '\(value)' for key '\(key)' should be handled.")
+        }
+    }
+}

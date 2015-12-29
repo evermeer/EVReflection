@@ -543,8 +543,14 @@ final public class EVReflection {
         case let anyvalue as NSArray:
             return (anyvalue, valueType, false)
         case let anyvalue as EVObject:
+            if valueType.containsString("<") {
+                valueType = swiftStringFromClass(anyvalue)
+            }
             return (anyvalue, valueType, true)
         case let anyvalue as NSObject:
+            if valueType.containsString("<") {
+                valueType = swiftStringFromClass(anyvalue)
+            }
             // isObject is false to prevent parsing of objects like CKRecord, CKRecordId and other objects.
             return (anyvalue, valueType, false)
         default:

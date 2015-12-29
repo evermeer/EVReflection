@@ -218,6 +218,14 @@ class EVReflectionTests: XCTestCase {
         let x = ArrayObjects()
         print(x.toJsonString())
     }
+    
+    func testCircular() {
+        let circle:Circular1 = Circular1()
+        circle.startCircle = Circular2()
+        circle.startCircle!.createCircle = circle
+        let json = circle.toJsonString()
+        print("json = \(json)")
+    }
 }
 
 
