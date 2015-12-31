@@ -40,6 +40,7 @@ class EVReflectionMappingTests: XCTestCase {
         player.gamesPlayed = 123
         player.rating = 76
         
+        NSLog("\n\n===> This will output a warning because GameAdministrator does not have the propery gamesPlayes")
         let administrator: GameAdministrator = player.mapObjectTo()
         
         // Remember that printing will use the property converter and multiply the administrator level with 4. So it will print the same as the player.

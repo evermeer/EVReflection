@@ -53,6 +53,7 @@ class EnumWorkaroundsTests: XCTestCase {
     }
     
     func testNotAssociated() {
+        NSLog("\n\n==>You will get a warning because MyEnumOne.OK does not have an associated value")
         let a = MyEnumOne.OK.associated
         XCTAssertNil(a.value, "Associated value should be nil")
     }
@@ -113,7 +114,7 @@ class EnumWorkaroundsTests: XCTestCase {
 class EVReflectionTests2: XCTestCase {
     func testTemp() {
         
-        let test = "[\n {\n \"status\" : \"0\",\n \"content\" : \"Shuru\",\n \"ctime\" : \"1438250556\",\n \"img\" : \"\",\n \"testuserinfo\" : {\n \"avatar\" : \"/5602503cc79de.jpg\",\n \"uid\" : \"d8b81b21c72f1177300247e2d8d88ec5\",\n \"telnum\" : \"18565280137\",\n \"is_seller\" : \"0\",\n \"sex\" : \"男\",\n \"name\" : \"\",\n \"interest\" : \"\"\n },\n \"fabric\" : null,\n \"commentid\" : \"22\",\n \"sound\" : \"\",\n \"vote\" : \"0\",\n \"is_vote\" : 0,\n \"seller_card\" : null\n }\n]"
+        let test = "[\n {\n \"status\" : \"0\",\n \"content\" : \"Shuru\",\n \"ctime\" : \"1438250556\",\n \"img\" : \"\",\n \"testuserinfo\" : {\n \"avatar\" : \"/5602503cc79de.jpg\",\n \"uid\" : \"d8b81b21c72f1177300247e2d8d88ec5\",\n \"telnum\" : \"18565280137\",\n \"is_seller\" : \"0\",\n \"sex\" : \"男\",\n \"name\" : \"\",\n \"interest\" : \"\"\n },\n \"fabric\" : null,\n \"commentid\" : \"22\",\n \"sound\" : \"\",\n \"vote\" : \"0\",\n \"isvote\" : 0,\n \"seller_card\" : null\n }\n]"
         print("\(test)")
         var comments = EVReflection.arrayFromJson(Comment(), json: test)
         var comments2 = [Comment](json: test)

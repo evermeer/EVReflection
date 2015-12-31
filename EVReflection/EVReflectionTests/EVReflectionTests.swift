@@ -136,6 +136,7 @@ class EVReflectionTests: XCTestCase {
         theObject.nullableType = 3
         let toDict = theObject.toDictionary()
         NSLog("toDictionary = \(toDict)")
+        NSLog("\n\n===>You will now get a warning because TestObject2 does not have the property nullableType")
         let result = TestObject2(dictionary: toDict)
         XCTAssert(theObject != result, "Pass") // The objects are not the same
     }
@@ -150,6 +151,7 @@ class EVReflectionTests: XCTestCase {
         theObject.myInt = 4
         let toDict = theObject.toDictionary()
         NSLog("toDictionary = \(toDict)")
+        NSLog("\n\n===>You will now get 20+ warnings because TestObject3 can not handle most of TestObject4's properties")
         let result = TestObject3(dictionary: toDict)
         XCTAssert(theObject != result, "Pass") // The objects are not the same
     }

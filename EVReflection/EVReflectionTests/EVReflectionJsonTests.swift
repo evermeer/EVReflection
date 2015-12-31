@@ -102,6 +102,7 @@ class EVReflectionJsonTests: XCTestCase {
         let b = EVReflection.dictionaryFromJson("[{\"asdf\"}")
         XCTAssertEqual(b.count, 0, "Can't create a dictionairy from nonsence")
         
+        NSLog("\n\n===>This will generate a warning because you can't create a dictionary for a non NSObject type")
         let c = EVReflection.arrayFromJson(MyEnumFive.OK, json: "[{\"id\": 24}]")
         XCTAssertEqual(c.count, 0, "Can't create a dictionairy for a non NSObject type")
 

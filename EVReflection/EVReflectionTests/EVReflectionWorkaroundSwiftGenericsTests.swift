@@ -40,7 +40,9 @@ class EVReflectionWorkaroundSwiftGenericsTests: XCTestCase {
 
     func testSetValueIncorrectGenericClass() {
         let a = MyIncorrectGenericObject<NSString>()
+        NSLog("\n\n===>You will nog get 2 warnings. one that you should implement setValue forUndefinedKey an dthe other that it can not set data")
         a.setValue("data", forUndefinedKey: "data")
+        NSLog("\n\n===>You will nog get 2 warnings. one that you should implement setValue forUndefinedKey an dthe other that it can not set wronKey")
         a.setValue("gone", forUndefinedKey: "wrongKey")
         XCTAssertEqual(a.data, "", "data should still be an empty string")
     }

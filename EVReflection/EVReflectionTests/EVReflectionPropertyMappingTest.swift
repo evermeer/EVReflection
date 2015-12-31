@@ -16,6 +16,7 @@ import XCTest
 class EVReflectionPropertyMappingTests: XCTestCase {
     func testCustomPropertyMapping() {
         let dict = ["Name":"just a field", "dummyKeyInJson":"will be ignored", "keyInJson":"value for propertyInObject", "ignoredProperty":"will not be read or written"]
+        NSLog("\n\n===>This will generate a warning because we ignore the dummyKeyInJson")
         let a = TestObject5(dictionary: dict)
         XCTAssertEqual(a.Name, "just a field", "Name should containt 'just a field'")
         XCTAssertEqual(a.propertyInObject, "value for propertyInObject", "propertyInObject should containt 'value for propertyInObject'")
