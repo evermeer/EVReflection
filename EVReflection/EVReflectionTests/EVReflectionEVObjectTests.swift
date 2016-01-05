@@ -111,7 +111,26 @@ class EVReflectionEVObjectTests: XCTestCase {
             
             XCTAssert(theObject == result2, "Pass")
         #endif
-        }
+    }
+    
+    func testNSCodingSubObject() {
+        let theObject = TestObject7()
+        let subObject = SubObject()
+        theObject.subOne = subObject
+        theObject.subTwo = subObject
+        theObject.subOne!.field = "test"
+        XCTAssertEqual(theObject.subOne!.field, theObject.subTwo!.field, "Is the same object and should be the same")
+        
+        let didSaveTemp = theObject.saveToTemp("temp.dat")
+        XCTAssertTrue(didSaveTemp, "Could not save to temp2.dat")
+        
+        let result = TestObject7(fileNameInTemp: "temp.dat")
+        XCTAssert(theObject == result, "The restored object is the same as the original")
+        
+        XCTAssertEqual(theObject.subOne!.field, theObject.subTwo!.field, "Is the same object and should be the same")
+        theObject.subOne!.field = "2nd test"
+        XCTAssertEqual(theObject.subOne!.field, theObject.subTwo!.field, "Is the same object and should be the same")
+    }
     
     /**
      Archive an object that contains a nullable type with NSKeyedArchiver and read it back with NSKeyedUnarchiver. Both objects should be equal. We are using the workaround in TestObject3 to solve the setvalue for key issue in Swift 1.2

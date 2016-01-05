@@ -159,3 +159,7 @@ public class Circular2: EVObject {
     }
 }
 
+public class TestObject7: EVObject {
+    var subOne: SubObject?
+    var subTwo: SubObject?
+}
