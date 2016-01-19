@@ -404,7 +404,7 @@ final public class EVReflection {
         dateFormatter = NSDateFormatter()
         dateFormatter!.locale = NSLocale(localeIdentifier: "en_US_POSIX")
         dateFormatter!.timeZone = NSTimeZone(forSecondsFromGMT: 0)
-        dateFormatter!.dateFormat = "yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'sss'ZZZZZ'"        
+        dateFormatter!.dateFormat = "yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'sssZZZZ"        
         return dateFormatter!
     }
     
