@@ -606,7 +606,13 @@ final public class EVReflection {
                 propertySetter(value)
                 return
             }
-            anyObject.setValue(value!, forKey: key)
+            
+            if value != nil {
+                anyObject.setValue(value!, forKey: key)
+            }
+            else {
+                NSLog("ERROR: cannot map value to key: %@", key)
+            }
         }
     }
     
