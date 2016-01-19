@@ -588,10 +588,18 @@ final public class EVReflection {
             } else if typeInObject == "NSNumber" && (type == "String" || type == "NSString") {
                 if let convertedValue = value as? String {
                     value = NSNumber(double: Double(convertedValue) ?? 0)
+                    if value == nil {
+                        NSLog("ERROR: Could not initialize a NSNumber for value \(convertedValue)")
+                        return
+                    }
                 }
             } else if typeInObject == "NSDate"  && (type == "String" || type == "NSString") {
                 if let convertedValue = value as? String {
                     value = getDateFormatter().dateFromString(convertedValue)
+                    if value == nil {
+                        NSLog("ERROR: The dateformatter returend nil for value \(convertedValue)")
+                        return
+                    }
                 }
             }
             if let (_, propertySetter, _) = (anyObject as? EVObject)?.propertyConverters().filter({$0.0 == key}).first {
