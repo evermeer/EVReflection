@@ -396,7 +396,8 @@ final public class EVReflection {
      This function is used for getting the dateformatter and defaulting to a standard if it's not set
      
      - returns: The dateformatter
-     */    private class func getDateFormatter() -> NSDateFormatter {
+     */
+    private class func getDateFormatter() -> NSDateFormatter {
         if let formatter = dateFormatter {
             return formatter
         }
