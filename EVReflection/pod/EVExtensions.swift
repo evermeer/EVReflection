@@ -151,7 +151,7 @@ public extension Array {
     /**
     Convert this array to a json string
     
-    :parameter: performKeyCleanup: set to true if you want to cleanup the keys
+    :parameter: performKeyCleanup set to true if you want to cleanup the keys
     
     :returns: The json string
     */

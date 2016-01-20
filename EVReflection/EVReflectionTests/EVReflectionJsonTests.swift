@@ -84,10 +84,13 @@ class EVReflectionJsonTests: XCTestCase {
         XCTAssertTrue(array[0].id == 27, "id should have been set to 27")
         XCTAssertTrue(array[0].name == "Bob Jefferson", "name should have been set to Bob Jefferson")
         XCTAssertTrue(array[1].id == 29, "id should have been set to 29")
-        XCTAssertTrue(array[1].name == "Jen Jackson", "name should have been set to Jen Jackson")
+        XCTAssertTrue(array[1].name == "Jen Jackson",  "name should have been set to Jen Jackson")
         
         let na = [User](json: nil)
         XCTAssertEqual(na, [User](), "A nil json should return an empty array")
+        
+        let json2 = array.toJsonString()
+        print("json = \(json2)")
     }
 
     func testJsonUser() {
