@@ -147,4 +147,15 @@ public extension Array {
             let nsobject: NSObject = nsobjectype.init()
             return nsobject as! T
     }
+    
+    /**
+    Convert this array to a json string
+    
+    :parameter: performKeyCleanup: set to true if you want to cleanup the keys
+    
+    :returns: The json string
+    */
+    public func toJsonString(performKeyCleanup:Bool = false) -> String {
+        return "[\n" + self.map({($0 as! NSObject).toJsonString(performKeyCleanup)}).joinWithSeparator(", \n") + "\n]"
+    }
 }
