@@ -136,6 +136,7 @@ public class InstanceObject: EVObject {
 
 public class TestGenerics: EVObject  {
     var bar : MyGenericObject<InstanceObject> = MyGenericObject<InstanceObject>()
+    var unhandledBar : MyGenericObject<InstanceObject> = MyGenericObject<InstanceObject>()
     
     public override func setValue(value: AnyObject!, forUndefinedKey key: String) {
         switch key {

@@ -388,7 +388,7 @@ final public class EVReflection {
      
      - parameter formatter: The new DateFormatter
      */
-    public class func setDateFormatter(formatter: NSDateFormatter) {
+    public class func setDateFormatter(formatter: NSDateFormatter?) {
         dateFormatter = formatter
     }
     
@@ -404,7 +404,7 @@ final public class EVReflection {
         dateFormatter = NSDateFormatter()
         dateFormatter!.locale = NSLocale(localeIdentifier: "en_US_POSIX")
         dateFormatter!.timeZone = NSTimeZone(forSecondsFromGMT: 0)
-        dateFormatter!.dateFormat = "yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'sssZZZZ"        
+        dateFormatter!.dateFormat = "yyyy'-'MM'-'dd' 'HH':'mm':'ss.SSS ZZZ"
         return dateFormatter!
     }
     

@@ -177,6 +177,9 @@ class EVReflectionTests: XCTestCase {
         XCTAssertEqual(theObject, newObject, "Should still be the same")
         theObject.myDate = NSDate().dateByAddingTimeInterval(3600)
         XCTAssert(theObject != newObject, "Should not be the same")
+        
+        EVReflection.setDateFormatter(nil)
+
     }
     
     func testArrayPropertyCompare() {
