@@ -64,9 +64,9 @@ class EVReflectionWorkaroundSwiftGenericsTests: XCTestCase {
         XCTAssertEqual(a.data.name, "data", "data.name should contain data")
         XCTAssertEqual(a.array.count, 3, "array should contain 3 elements")
         if a.array.count == 3 {
-            XCTAssertEqual(a.array[0].name!, "val1", "array[0].name should contain val1")
-            XCTAssertEqual(a.array[1].name!, "val2", "array[1].name should contain val2")
-            XCTAssertEqual(a.array[2].name!, "val3", "array[2].name should contain val2")
+            XCTAssertEqual(a.array[0].name, "val1", "array[0].name should contain val1")
+            XCTAssertEqual(a.array[1].name, "val2", "array[1].name should contain val2")
+            XCTAssertEqual(a.array[2].name, "val3", "array[2].name should contain val2")
         }
     }
     

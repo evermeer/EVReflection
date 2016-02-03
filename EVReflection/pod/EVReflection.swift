@@ -57,10 +57,7 @@ final public class EVReflection {
             }
             if !skipKey {
                 let mapping = keyMapping[k as! String]
-                var original:NSObject? = nil
-                if mapping != nil {
-                    original = properties[mapping!] as? NSObject         
-                }
+                let original:NSObject? = getValue(anyObject, key: k as! String)
                 if let dictValue = dictionaryAndArrayConversion(types[mapping ?? k as! String], original: original, dictValue: v) {
                     if let key:String = keyMapping[k as! String] {
                         setObjectValue(anyObject, key: key, value: dictValue, typeInObject: types[key])
@@ -73,6 +70,15 @@ final public class EVReflection {
         return anyObject
     }
     
+    public class func getValue(fromObject: NSObject, key:String) -> NSObject? {
+        if let mapping = (Mirror(reflecting: fromObject).children.filter({$0.0 == key}).first) {
+            if let value = mapping.value as? NSObject {
+                return value                
+            }
+        }
+        return nil
+    }
+    
     /**
      Based on an object and a dictionary create a keymapping plus a dictionary of properties plus a dictionary of types
      
@@ -82,10 +88,9 @@ final public class EVReflection {
      :returns: The mapping, keys and values of all properties to items in a dictionary
      */
     private static func getKeyMapping<T where T:NSObject>(anyObject: T, dictionary:NSDictionary) -> (keyMapping: Dictionary<String,String>, properties: NSDictionary, types: Dictionary<String,String>) {
-        let (hasKeys, hasValues) = toDictionary(anyObject, performKeyCleanup: false)
+        let (properties, types) = toDictionary(anyObject, performKeyCleanup: false)
         var keyMapping: Dictionary<String,String> = Dictionary<String,String>()
-        for (objectKey, _) in hasKeys {
-
+        for (objectKey, _) in properties {
             if let evObject = anyObject as? EVObject {
                 if let mapping = evObject.propertyMapping().filter({$0.1 == objectKey as? String}).first {
                     keyMapping[objectKey as! String] = mapping.0
@@ -98,7 +103,7 @@ final public class EVReflection {
                 }
             }
         }
-        return (keyMapping, hasKeys, hasValues)
+        return (keyMapping, properties, types)
     }
     
     /**
@@ -764,6 +769,10 @@ final public class EVReflection {
      :returns: The object that is created from the dictionary
      */
     private class func dictToObject<T where T:NSObject>(type:String, original:T? ,dict:NSDictionary) -> T? {
+        if var returnObject = original  {
+            returnObject = setPropertiesfromDictionary(dict, anyObject: returnObject)
+            return returnObject
+        }
         if var returnObject:NSObject = swiftClassFromString(type) {
             if let evResult = returnObject as? EVObject {
                 returnObject = evResult.getSpecificType(dict)

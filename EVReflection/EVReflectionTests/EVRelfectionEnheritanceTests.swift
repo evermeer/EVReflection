@@ -55,7 +55,9 @@ class EVRelfectionEnheritanceTests: XCTestCase {
         // The original and new JSON Should be the same
         XCTAssertEqual(json, newJson, "The json should be the same after serialisation and deserialisation")
     }
+    
 }
+
 
 
 class Quz: EVObject {
@@ -86,5 +88,6 @@ class Bar : Foo {
 class Baz: Foo {
     var justBaz: String = "For baz only"
 }
+
 
 
