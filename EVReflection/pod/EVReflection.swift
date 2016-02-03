@@ -45,7 +45,7 @@ final public class EVReflection {
      :returns: The object that is created from the dictionary
      */
     public class func setPropertiesfromDictionary<T where T:NSObject>(dictionary:NSDictionary, anyObject: T) -> T {
-        var (keyMapping, properties, types) = getKeyMapping(anyObject, dictionary: dictionary)
+        var (keyMapping, _ , types) = getKeyMapping(anyObject, dictionary: dictionary)
         for (k, v) in dictionary {
             var skipKey = false
             if let evObject = anyObject as? EVObject {
