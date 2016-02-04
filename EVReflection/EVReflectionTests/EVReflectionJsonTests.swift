@@ -149,6 +149,9 @@ class EVReflectionJsonTests: XCTestCase {
         
         print("original = \(EVReflection.description(userOriginal))")
         print("regenerated = \(EVReflection.description(userRegenerated))")
+        
+        let friendsDictArray = userRegenerated.closeFriends?.toDictionaryArray()
+        XCTAssertEqual(friendsDictArray?.count, 2, "There should now be a dictionary array with 2 dictionaries")
     }
     
     func validateUser(user:User) {

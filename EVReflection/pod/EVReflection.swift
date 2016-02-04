@@ -780,6 +780,7 @@ final public class EVReflection {
             returnObject = setPropertiesfromDictionary(dict, anyObject: returnObject)
             return returnObject as? T
         }
+        NSLog("ERROR: Could not create an instance for type \(type)")
         return nil
     }
     

@@ -1,5 +1,5 @@
 //
-//  EVReflectionNestedObjects.swift
+//  EVReflectionNestedObjectsTest.swift
 //  EVReflection
 //
 //  Created by Edwin Vermeer on 2/3/16.
@@ -14,7 +14,7 @@ import XCTest
 /**
  Testing The serialize and deserialize when using object enheritance.
  */
-class EVRelfectionInheritanceTests: XCTestCase {
+class EVRelfectionNestedObjectsTests: XCTestCase {
     
     /**
      For now nothing to setUp
