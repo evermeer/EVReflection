@@ -33,7 +33,7 @@ class EVRelfectionNestedObjectsTests: XCTestCase {
         super.tearDown()
     }
 
-    func testEnheritanceInitializers() {
+    func testNestedObjectsInitializers() {
         let a = A()
         let dict = a.toDictionary()
         let newa = A(dictionary: dict)
