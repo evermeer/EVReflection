@@ -42,6 +42,11 @@ class EVRelfectionNestedObjectsTests: XCTestCase {
         print("json = \(newa.toJsonString())")
     }
 
+    func testNestedObjectsDeclaration() {
+        let json = "{\"id\":\"anObjectOfClassA\", \"nestedClassProperty\": {\"id\": \"aSubObjectOfClassB\"}}"
+        let a = Outer(json: json)
+        print(a)
+    }
 }
 
 public class A : EVObject {
@@ -73,3 +78,18 @@ public class B: EVObject {
         return [("intProp", nil)]
     }
 }
+
+
+
+
+class Outer: EVObject {
+    class Inner: EVObject {
+        var id: String = ""
+    }
+    
+    var id: String = ""
+    var nestedClassProperty: Inner?
+}
+
+
+

@@ -100,9 +100,11 @@ public class EVObjectDescription {
         var index = 0
         while Int(String(characters[index])) != nil {
             numForName = "\(numForName)\(characters[index])"
-            index++
+            index += 1
         }
-        let range = Range<String.Index>(start:classString.startIndex.advancedBy(index), end:classString.startIndex.advancedBy((Int(numForName) ?? 0) + index))
+        //let range = Range<String.Index>(start:classString.startIndex.advancedBy(index), end:classString.startIndex.advancedBy((Int(numForName) ?? 0) + index))
+        let range = classString.startIndex.advancedBy(index)..<classString.startIndex.advancedBy((Int(numForName) ?? 0) + index)
+        
         let name = classString.substringWithRange(range)
         classPath.append(name)
         if name == "" {
@@ -126,8 +128,12 @@ public class EVObjectDescription {
             //Ends with T_L_ then no return value
             //Ends with CS_ then there will be return value(s)
             
-            
-            index = index + 11
+            // New in Swift 2.3              FT_T_L_
+            if classString.containsString("FS0_") {
+                index = index + 11
+            } else {
+                index = index + 7
+            }            
         }
         if characters.count > index + Int(numForName)! {
             parseNames((classString as NSString).substringFromIndex(index + Int(numForName)!))
