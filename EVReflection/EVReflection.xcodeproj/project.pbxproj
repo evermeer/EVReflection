@@ -17,6 +17,7 @@
 		2DC8AA7D1C242ECE00FA6B8E /* EVObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F0E5E591AF4D94000A10E51 /* EVObject.swift */; };
 		2DC8AA7E1C242ED000FA6B8E /* EVObjectDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F3E19291B8526CA00A6E6C6 /* EVObjectDescription.swift */; };
 		2DC8AA7F1C242ED200FA6B8E /* EVExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F1BA5261B971CBF009F9DB8 /* EVExtensions.swift */; };
+		4A779EC01C77D505006CE342 /* EVWorkaroundHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F9E68111C67728200F0F4D3 /* EVWorkaroundHelpers.swift */; };
 		7F3E31911BB909A7001E6788 /* TestObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F41ECA41B91F2E0003A2236 /* TestObjects.swift */; };
 		7F3E31921BB909A7001E6788 /* EVObjectDescriptionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F41ECA61B91F306003A2236 /* EVObjectDescriptionTests.swift */; };
 		7F3E31931BB909A7001E6788 /* EVReflectionJsonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F41ECA71B91F306003A2236 /* EVReflectionJsonTests.swift */; };
@@ -604,6 +605,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4A779EC01C77D505006CE342 /* EVWorkaroundHelpers.swift in Sources */,
 				2DC8AA7F1C242ED200FA6B8E /* EVExtensions.swift in Sources */,
 				2DC8AA7C1C242ECC00FA6B8E /* EVReflection.swift in Sources */,
 				2DC8AA7D1C242ECE00FA6B8E /* EVObject.swift in Sources */,
