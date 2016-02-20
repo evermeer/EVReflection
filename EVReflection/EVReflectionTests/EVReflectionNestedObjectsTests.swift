@@ -46,6 +46,7 @@ class EVRelfectionNestedObjectsTests: XCTestCase {
         let json = "{\"id\":\"anObjectOfClassA\", \"nestedClassProperty\": {\"id\": \"aSubObjectOfClassB\"}}"
         let a = Outer(json: json)
         print(a)
+        XCTAssertEqual(a.nestedClassProperty.id, "aSubObjectOfClassB", "Inner optional object should have been set.")
     }
 }
 
@@ -88,7 +89,7 @@ class Outer: EVObject {
     }
     
     var id: String = ""
-    var nestedClassProperty: Inner?
+    var nestedClassProperty: Inner = Inner()
 }
 
 
