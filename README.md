@@ -46,7 +46,7 @@ class User: EVObject {
 
 Parsing JSON to an object:
 ```
-let json:String = "{\"id\": 24, \"name\": \"Bob Jefferson\" \"friends\": {[{\"id\": 29, \"name\": \"Jen Jackson\"}]}}"
+let json:String = "{\"id\": 24, \"name\": \"Bob Jefferson\", \"friends\": [{\"id\": 29, \"name\": \"Jen Jackson\"}]}"
 let user = User(json: json)
 ```
 
