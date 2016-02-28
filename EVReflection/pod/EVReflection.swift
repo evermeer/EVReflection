@@ -484,10 +484,15 @@ final public class EVReflection {
         var valueType = "EVObject"
         let mi: Mirror = Mirror(reflecting: theValue)
         
+        NSLog("key = \(key), value = \(anyValue)")
         if mi.displayStyle == .Optional {
             if mi.children.count == 1 {
                 theValue = mi.children.first!.value
-                valueType = "\(mi.children.first!.value.dynamicType)"
+                if("\(theValue)".hasPrefix("_TtC")) {
+                  valueType = "\(theValue)".componentsSeparatedByString(" ")[0]
+                } else {
+                    valueType = "\(theValue.dynamicType)"
+                }
             } else if mi.children.count == 0 {
                 var subtype: String = "\(mi)"
                 subtype = subtype.substringFromIndex((subtype.componentsSeparatedByString("<") [0] + "<").endIndex)
@@ -852,6 +857,7 @@ final public class EVReflection {
                 }
                 if !skipThisKey {
                     var value = property.value
+                    
                     // If there is a properyConverter, then use the result of that instead.
                     if let (_, _, propertyGetter) = (theObject as? EVObject)?.propertyConverters().filter({$0.0 == originalKey}).first {
                         value = propertyGetter()
