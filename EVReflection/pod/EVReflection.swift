@@ -484,7 +484,6 @@ final public class EVReflection {
         var valueType = "EVObject"
         let mi: Mirror = Mirror(reflecting: theValue)
         
-        NSLog("key = \(key), value = \(anyValue)")
         if mi.displayStyle == .Optional {
             if mi.children.count == 1 {
                 theValue = mi.children.first!.value
