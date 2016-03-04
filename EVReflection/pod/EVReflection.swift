@@ -57,7 +57,7 @@ final public class EVReflection {
             }
             if !skipKey {
                 let mapping = keyMapping[k as! String]
-                let original:NSObject? = getValue(anyObject, key: k as! String)
+                let original:NSObject? = getValue(anyObject, key: mapping ?? k as! String)
                 if let dictValue = dictionaryAndArrayConversion(types[mapping ?? k as! String], original: original, dictValue: v) {
                     if let key:String = keyMapping[k as! String] {
                         setObjectValue(anyObject, key: key, value: dictValue, typeInObject: types[key])
@@ -589,6 +589,10 @@ final public class EVReflection {
             //            } catch _ {
             //            }
         } else {
+            if let (_, propertySetter, _) = (anyObject as? EVObject)?.propertyConverters().filter({$0.0 == key}).first {
+                propertySetter(value)
+                return
+            }            
             // Let us put a number into a string property by taking it's stringValue
             let (_, type, _) = valueForAny("", key: key, anyValue: value)
             if (typeInObject == "String" || typeInObject == "NSString") && type == "NSNumber" {
@@ -611,10 +615,6 @@ final public class EVReflection {
                         return
                     }
                 }
-            }
-            if let (_, propertySetter, _) = (anyObject as? EVObject)?.propertyConverters().filter({$0.0 == key}).first {
-                propertySetter(value)
-                return
             }
             anyObject.setValue(value!, forKey: key)
         }
@@ -857,12 +857,16 @@ final public class EVReflection {
                 if !skipThisKey {
                     var value = property.value
                     
+                    // Convert the Any value to a NSObject value
+                    var (unboxedValue, valueType, isObject) = valueForAny(theObject, key: originalKey, anyValue: value)
+
                     // If there is a properyConverter, then use the result of that instead.
                     if let (_, _, propertyGetter) = (theObject as? EVObject)?.propertyConverters().filter({$0.0 == originalKey}).first {
                         value = propertyGetter()
+                        let (unboxedValue2, _, _) = valueForAny(theObject, key: originalKey, anyValue: value)
+                        unboxedValue = unboxedValue2
                     }
-                    // Convert the Any value to a NSObject value
-                    var (unboxedValue, valueType, isObject) = valueForAny(theObject, key: originalKey, anyValue: value)
+                    
                     if isObject {
                         // sub objects will be added as a dictionary itself.
                         let (dict, _) = toDictionary(unboxedValue as! NSObject, performKeyCleanup: performKeyCleanup)

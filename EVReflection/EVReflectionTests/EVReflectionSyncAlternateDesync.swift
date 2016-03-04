@@ -39,9 +39,14 @@ class EVReflectionSyncAlternateDesync: XCTestCase {
     func testTypeDict() {
         let json = "{\"foo\": \"foobar\", \"arr\": [{\"id\": \"test\"}, {\"id\": \"test2\"}]}"
         let theZ = z(json: json)
-        let json2 = theZ.toJsonString()
-//TODO: Fix issue #48
-//        XCTAssertEqual(json, json2, "myInt should contain 2")
+        let dict = theZ.toDictionary()
+        
+        let arr = dict["arr"] as? NSArray
+
+        XCTAssertNotNil(arr, "we should have an array in arr")
+        XCTAssertEqual(arr?.count, 2, "array should contain 2 elements")
+        XCTAssertEqual(arr?[0] as? String, "test", "we should have test in the first element")
+        XCTAssertEqual(arr?[1] as? String, "test2", "we should have test2 in the second elemnt")
     }
     
 }
