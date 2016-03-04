@@ -90,7 +90,7 @@ class TestObject3: EVObject {
 /**
  Variant of TestObject2 to show automatic property mapping
  */
-public class TestObject2c: NSObject {
+public class TestObject2c: EVObject {
     var objectValue: String = ""
     var _default: String?
 }
@@ -132,7 +132,7 @@ public class TestObject6: EVObject {
  For testing objects with arrays
  */
 
-class ArrayObjects: NSObject {
+class ArrayObjects: EVObject {
     var strings:[String] = ["a","b"]
     var dates:[NSDate] = [NSDate(), NSDate()]
     var arrays:[[String]] = [["a","b"],["c","d"]]

@@ -32,79 +32,6 @@ public func !=(lhs: EVObject, rhs: EVObject) -> Bool {
 
 
 /**
-Extending the NSObject
-*/
-public extension NSObject {
-    /**
-    Convenience init for creating an object whith the property values of a dictionary.
-    */
-    public convenience init(dictionary:NSDictionary) {
-        self.init()
-        EVReflection.setPropertiesfromDictionary(dictionary, anyObject: self)
-    }
-    
-    /**
-    Convenience init for creating an object whith the contents of a json string.
-    */
-    public convenience init(json:String?) {
-        self.init()
-        let jsonDict = EVReflection.dictionaryFromJson(json)
-        EVReflection.setPropertiesfromDictionary(jsonDict, anyObject: self)
-    }
-    
-    /**
-    Returns the dictionary representation of this object.
-    
-    :parameter: performKeyCleanup set to true if you want to cleanup the keys
-    
-    :returns: The dictionary
-    */
-    final public func toDictionary(performKeyCleanup:Bool = false) -> NSDictionary {
-        let (reflected, _) = EVReflection.toDictionary(self, performKeyCleanup: performKeyCleanup)
-        return reflected
-    }
-    
-    /**
-    Convert this object to a json string
-    
-    :parameter: performKeyCleanup set to true if you want to cleanup the keys
-    
-    :returns: The json string
-    */
-    final public func toJsonString(performKeyCleanup:Bool = false) -> String {
-        return EVReflection.toJsonString(self, performKeyCleanup: performKeyCleanup)
-    }
-    
-    /**
-    Convenience method for instantiating an array from a json string.
-    
-    :parameter: json The json string
-    
-    :returns: An array of objects
-    */
-    public class func arrayFromJson<T where T:NSObject>(json:String?) -> [T] {
-        return EVReflection.arrayFromJson(T(), json: json)
-    }
-    
-    /**
-     Auto map an opbject to an object of an other type. 
-     Properties with the same name will be mapped automattically.
-     Automattic cammpelCase, PascalCase, snake_case conversion
-     Supports propperty mapping and conversion when using EVObject as base class 
-     
-     - returns: The targe object with the mapped values
-     */
-    public func mapObjectTo<T where T:NSObject>() -> T {
-        let nsobjectype : NSObject.Type = T.self as NSObject.Type
-        let nsobject: NSObject = nsobjectype.init()
-        let dict = self.toDictionary()
-        let result = EVReflection.setPropertiesfromDictionary(dict, anyObject: nsobject)
-        return result as! T
-    }
-}
-
-
-/**
 Extending Array with an initializer with a json string
 */
 public extension Array {
@@ -156,7 +83,7 @@ public extension Array {
     :returns: The json string
     */
     public func toJsonString(performKeyCleanup:Bool = false) -> String {
-        return "[\n" + self.map({($0 as! NSObject).toJsonString(performKeyCleanup)}).joinWithSeparator(", \n") + "\n]"
+        return "[\n" + self.map({($0 as! EVObject).toJsonString(performKeyCleanup)}).joinWithSeparator(", \n") + "\n]"
     }
     
     /**
@@ -167,7 +94,7 @@ public extension Array {
      :returns: The array of dictionaries
      */
     public func toDictionaryArray(performKeyCleanup:Bool = false) -> NSArray {
-        return self.map({($0 as! NSObject).toDictionary(performKeyCleanup)})
+        return self.map({($0 as! EVObject).toDictionary(performKeyCleanup)})
     }
     
 }

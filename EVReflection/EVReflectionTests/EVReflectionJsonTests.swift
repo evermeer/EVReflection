@@ -45,7 +45,7 @@ class EVReflectionJsonTests: XCTestCase {
     }
     
 
-    class Account: NSObject { // When using sub objects and/or arrays of sub objects, then change the base class to EVObject
+    class Account: EVObject { 
         var id: Int64 = 0
         var name: String = ""
     }

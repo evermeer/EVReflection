@@ -35,7 +35,7 @@ EVReflection is used extensively in [EVCloudKitDao](https://github.com/evermeer/
 
 ## It's easy to use:
 
-Defining an object. You only have to set NSObject as it's base class (or EVObject for if you want all functionality):
+Defining an object. You only have to set EVObject as it's base class:
 ```
 class User: EVObject {
     var id: Int = 0
@@ -226,14 +226,6 @@ class Baz: Foo {
 }
 ```
 
-
-### When to use EVObject instead of NSObject as a base class.
-There is some functionality that could not be added as an extension to NSObject because of limitations or unwanted side effects. For this the EVObject class can be used. Use EVObject in the folowing situations:
-
-- When using NSCoding
-- When comparing objects with .isEqual == or !=
-- When using hash or hashValue
-- When you expect there will be keys in your dictionary or json while there will be no property where the value can be mapped to. Instead of using EVObject you can also implement the setValue forUndefinedKey yourself.
 
 ### Known issues
 EVReflection is trying to handle all types. With some types there are limitations in Swift. So far there is a workaround for any of these limitations. Here is an overview:
