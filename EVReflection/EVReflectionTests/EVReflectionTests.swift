@@ -231,6 +231,18 @@ class EVReflectionTests: XCTestCase {
         let json = circle.toJsonString()
         print("json = \(json)")
     }
+    
+    func testDictionary() {
+        let json = DicTest().toJsonString()
+        print("json = \(json)")
+    }
+}
+
+
+class DicTest : EVObject {
+    var dict : [String:String] = ["t":"bar"]
+    required init() {
+    }
 }
 
 

@@ -917,10 +917,11 @@ final public class EVReflection {
      :returns: The cleaned up dictionairy
      */
     private class func convertDictionaryForJsonSerialization(dict: NSDictionary) -> NSDictionary {
+        let dict2: NSMutableDictionary = NSMutableDictionary()
         for (key, value) in dict {
-            dict.setValue(convertValueForJsonSerialization(value), forKey: key as! String)
+            dict2.setValue(convertValueForJsonSerialization(value), forKey: key as! String)
         }
-        return dict
+        return dict2
     }
     
     /**
