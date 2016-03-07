@@ -72,7 +72,7 @@ public class GameAdministrator: GameUser {
         return [("level","rating")]
     }
 
-    override public func propertyConverters() -> [(String?, (Any?)->(), () -> Any? )] {
+    override public func propertyConverters() -> [(String?, ((Any?)->())?, (() -> Any?)? )] {
         return [
             ( // We want a custom converter for the field isGreat
                 "level"
