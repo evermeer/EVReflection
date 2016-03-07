@@ -251,6 +251,9 @@ For generic properties the protocol EVGenericsKVC is required. see WorkaroundSwi
 ####Arrays with nullable objects
 For arrays with nullable objects like [MyObj?] the protocol EVArrayConvertable is required. see WorkaroundsTests.swift
 
+####Swift Dictionaries
+For Swift Dictionaries (and not NSDictionary) the protocol EVDictionaryConvertable is required. See WorkaroundsTests.swift
+
 ## License
 
 EVReflection is available under the MIT 3 license. See the LICENSE file for more info.

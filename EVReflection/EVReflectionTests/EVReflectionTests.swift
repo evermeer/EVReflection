@@ -256,13 +256,24 @@ class EVReflectionTests: XCTestCase {
         
         XCTAssertNil(theObject.optionalValue)
     }
-}
 
-
-class DicTest : EVObject {
-    var dict : [String:String] = ["t":"bar"]
-    required init() {
+    func testJSONArray(){
+        let a = AA()
+        let b = BB()
+        b.val = 1
+        a.bs.append(b)
+        a.bs.append(b)
+        a.bs.append(b)
+        a.bs.append(b)
+        a.bs.append(b)
+        a.bs.append(b)
+        a.bs.append(b)
+        let str = a.toJsonString()
+        print(str)
+        let a2 = AA(json: str)
+        print(a2.toJsonString())
     }
+    
 }
 
 

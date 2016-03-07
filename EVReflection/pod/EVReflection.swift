@@ -522,8 +522,16 @@ final public class EVReflection {
                 }
                 assert(true, "WARNING: An object with a property of type Array with optional objects should implement the EVArrayConvertable protocol.")
             }
-        }
-        else {
+        } else if mi.displayStyle == .Struct {
+            valueType = "\(mi.subjectType)"
+            if valueType.containsString("_NativeDictionaryStorage<") {
+                if let dictionaryConverter = parentObject as? EVDictionaryConvertable {
+                    let convertedValue = dictionaryConverter.convertDictionary(key!, dict: theValue)
+                    return (convertedValue, valueType, false)
+                }
+            }
+            assert(true, "WARNING: An object with a property of type Dictionary (not NSDictionary) should implement the EVDictionaryConvertable protocol.")
+        } else {
             valueType = "\(mi.subjectType)"
         }
         
@@ -565,6 +573,7 @@ final public class EVReflection {
             // isObject is false to prevent parsing of objects like CKRecord, CKRecordId and other objects.
             return (anyvalue, valueType, false)
         default:
+            
             NSLog("ERROR: valueForAny unkown type \(theValue), type \(valueType). Could not happen unless there will be a new type in Swift.")
             return (NSNull(), "NSNull", false)
         }
