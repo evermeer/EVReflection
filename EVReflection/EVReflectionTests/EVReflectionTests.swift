@@ -31,7 +31,7 @@ class EVReflectionTests: XCTestCase {
     }
 
     /**
-    Get the string name for a clase and then generate a class based on that string
+    Get the string name for a class and then generate a class based on that string
     */
     func testClassToAndFromString() {
         // Test the EVReflection class - to and from string
@@ -235,6 +235,26 @@ class EVReflectionTests: XCTestCase {
     func testDictionary() {
         let json = DicTest().toJsonString()
         print("json = \(json)")
+    }
+    
+    func testNilDeserializer() {
+        
+        let theObject = TestObjectWithNilConverters()
+        theObject.optionalValue = "123"
+
+        let json = theObject.toDictionary()
+        
+        let optionalValue = json["optionalValue"]
+        XCTAssertNil(optionalValue)
+    }
+    
+    func testNilSerializer() {
+        
+        let json = "{\"optionalValue\": \"123\"}"
+        
+        let theObject = TestObjectWithNilConverters(json: json)
+        
+        XCTAssertNil(theObject.optionalValue)
     }
 }
 

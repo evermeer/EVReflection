@@ -116,7 +116,7 @@ For testing the custom property conversion
 public class TestObject6: EVObject {
     var isGreat: Bool = false
     
-    override public func propertyConverters() -> [(String?, (Any?)->(), () -> Any? )] {
+    override public func propertyConverters() -> [(String?, ((Any?)->())?, (() -> Any?)? )] {
         return [
             ( // We want a custom converter for the field isGreat
               "isGreat"
@@ -163,3 +163,13 @@ public class TestObject7: EVObject {
     var subOne: SubObject?
     var subTwo: SubObject?
 }
+
+public class TestObjectWithNilConverters: EVObject {
+    
+    var optionalValue: String?
+    
+    override public func propertyConverters() -> [(String?, ((Any?)->())?, (() -> Any?)? )] {
+        return [("optionalValue", nil, nil)]
+    }
+}
+

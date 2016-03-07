@@ -590,6 +590,11 @@ final public class EVReflection {
             //            }
         } else {
             if let (_, propertySetter, _) = (anyObject as? EVObject)?.propertyConverters().filter({$0.0 == key}).first {
+                
+                guard let propertySetter = propertySetter else {
+                    return  // if the propertySetter is nil, skip setting the property
+                }
+                
                 propertySetter(value)
                 return
             }            
@@ -862,7 +867,13 @@ final public class EVReflection {
 
                     // If there is a properyConverter, then use the result of that instead.
                     if let (_, _, propertyGetter) = (theObject as? EVObject)?.propertyConverters().filter({$0.0 == originalKey}).first {
+                        
+                        guard let propertyGetter = propertyGetter else {
+                            continue    // if propertyGetter is nil, skip deserializing it
+                        }
+                        
                         value = propertyGetter()
+                        
                         let (unboxedValue2, _, _) = valueForAny(theObject, key: originalKey, anyValue: value)
                         unboxedValue = unboxedValue2
                     }
