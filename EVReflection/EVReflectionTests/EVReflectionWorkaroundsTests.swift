@@ -57,12 +57,20 @@ class EVReflectionWorkaroundsTests: XCTestCase {
             XCTAssertTrue(status.list[1]?.nullableType == 3, "the second item in the list should have nullableType 3")
         }
     }
-    
+
+    func testCustomDictionary() {
+        let json: String = "{\"dict\" : {\"firstkey\": {\"field\":5},  \"secondkey\": {\"field\":35}}}"
+//TODO: Dictionary property fix
+//        let doc = WorkaroundObject(json: json)
+//        XCTAssertEqual(doc.dict.count, 2, "Should have 2 items in the dictionary")
+//        XCTAssertEqual(doc.dict["firstkey"]?.field, "5", "First sentence should have id 5")
+//        XCTAssertEqual(doc.dict["secondkey"]?.field, "35", "Second sentence should have id 35")
+    }
 }
 
 
 //
-class WorkaroundObject: EVObject, EVArrayConvertable {
+class WorkaroundObject: EVObject, EVArrayConvertable, EVDictionaryConvertable {
     
     enum StatusType: Int, EVRawInt {
         case NotOK = 0
@@ -72,6 +80,7 @@ class WorkaroundObject: EVObject, EVArrayConvertable {
     var nullableType: Int?
     var enumType: StatusType = .OK
     var list: [WorkaroundObject?] = [WorkaroundObject?]()
+    var dict: [String: SubObject] = [:]
     
     // Handling the setting of non key-value coding compliant properties
     override func setValue(value: AnyObject!, forUndefinedKey key: String) {
@@ -91,6 +100,13 @@ class WorkaroundObject: EVObject, EVArrayConvertable {
                     self.list.append(item as? WorkaroundObject)
                 }
             }
+        case "dict":
+            if let dict = value as? NSDictionary {
+                self.dict = [:]
+                for (key,value) in dict {
+                    self.dict[key as! String] = (value as! SubObject)
+                }
+            }
         default:
             print("---> setValue for key '\(key)' should be handled.")
         }
@@ -107,6 +123,17 @@ class WorkaroundObject: EVObject, EVArrayConvertable {
             }
         }
         return returnArray
+    }
+
+    // Implementation of the EVDictionaryConvertable protocol for handling a Swift dictionary.
+    func convertDictionary(field: String, dict: Any) -> NSDictionary {
+        assert(field == "dict", "convertArray for key \(field) should be handled.")
+    
+        let returnDict = NSMutableDictionary()
+        for (key, value) in dict as! [String: SubObject] {
+            returnDict[key] = value
+        }
+        return returnDict
     }
 }
 

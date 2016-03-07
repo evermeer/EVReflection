@@ -163,3 +163,18 @@ public class TestObject7: EVObject {
     var subOne: SubObject?
     var subTwo: SubObject?
 }
+
+class DicTest : EVObject {
+    var dict : [String:String] = ["t":"bar"]
+    required init() {
+    }
+}
+
+public class AA : EVObject{
+    public var bs : [BB] = []
+}
+
+public class BB : EVObject{
+    public var val : Int = 0
+}
+
