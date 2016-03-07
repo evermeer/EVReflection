@@ -869,7 +869,7 @@ final public class EVReflection {
                     if let (_, _, propertyGetter) = (theObject as? EVObject)?.propertyConverters().filter({$0.0 == originalKey}).first {
                         
                         guard let propertyGetter = propertyGetter else {
-                            continue    // if propertyGetter is nil, skip deserializing it
+                            continue    // if propertyGetter is nil, skip getting the property
                         }
                         
                         value = propertyGetter()
