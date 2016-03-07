@@ -206,7 +206,7 @@ public class EVObject: NSObject, NSCoding { // These are redundant in Swift 2+: 
     
     This method is in EVObject and not in extension of NSObject because a functions from extensions cannot be overwritten yet
     
-    :returns: Return an array with valupairs of the object property name and json key name.
+    :returns: Return an array with value pairs of the object property name and json key name.
     */
     public func propertyMapping() -> [(String?, String?)] {
         return []
@@ -219,7 +219,7 @@ public class EVObject: NSObject, NSCoding { // These are redundant in Swift 2+: 
     
     :returns: Returns an array where each item is a combination of the folowing 3 values: A string for the property name where the custom conversion is for, a setter function and a getter function.
     */
-    public func propertyConverters() -> [(String?, (Any?)->(), () -> Any? )] {
+    public func propertyConverters() -> [(String?, ((Any?)->())?, (() -> Any?)? )] {
         return []
     }
 

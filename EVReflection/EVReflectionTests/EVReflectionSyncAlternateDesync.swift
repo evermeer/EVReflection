@@ -63,7 +63,7 @@ class z: EVObject {
     var bar: String? = "bar"
     var arr: [y] = []
     
-    override func propertyConverters() -> [(String?, (Any?) -> (), () -> Any?)] {
+    override func propertyConverters() -> [(String?, ((Any?) -> ())?, (() -> Any?)?)] {
         return [
             ( "arr",
                 { self.arr = $0 as! [y] },
