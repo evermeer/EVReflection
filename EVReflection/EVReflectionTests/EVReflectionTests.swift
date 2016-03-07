@@ -237,7 +237,7 @@ class EVReflectionTests: XCTestCase {
         print("json = \(json)")
     }
     
-    func testNilDeserializer() {
+    func testNilPropertyGetter() {
         
         let theObject = TestObjectWithNilConverters()
         theObject.optionalValue = "123"
@@ -248,7 +248,7 @@ class EVReflectionTests: XCTestCase {
         XCTAssertNil(optionalValue)
     }
     
-    func testNilSerializer() {
+    func testNilPropertySetter() {
         
         let json = "{\"optionalValue\": \"123\"}"
         
