@@ -186,3 +186,15 @@ public class AA : EVObject{
 public class BB : EVObject{
     public var val : Int = 0
 }
+
+public class TestBaseObject: EVObject {
+    var id: String?
+}
+
+public class TestRootObject: TestBaseObject {
+    var array: [TestInnerObject]?
+}
+
+public class TestInnerObject: TestBaseObject {
+
+}

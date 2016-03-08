@@ -153,5 +153,32 @@ class EVReflectionEVObjectTests: XCTestCase {
         // Test if the objects are the same
         XCTAssert(theObject == result, "Pass")
     }
+    
+    /**
+    */
+    func testNSCodingSubObjectArray() {
+        let rootObject = TestRootObject()
+        rootObject.id = "root"
+        let inner1 = TestInnerObject()
+        inner1.id = "inner1"
+        let inner2 = TestInnerObject()
+        inner1.id = "inner2"
+        rootObject.array = [inner1, inner2]
+        
+        let filePath = (NSTemporaryDirectory() as NSString).stringByAppendingPathComponent("rootObject.dat")
+        
+        // Write object to file
+        NSKeyedArchiver.archiveRootObject(rootObject, toFile: filePath)
+        
+        // Read object from file
+        let result = NSKeyedUnarchiver.unarchiveObjectWithFile(filePath) as? TestRootObject
+        
+        XCTAssert(result!.array!.count == 2, "Array size should be 2")
+        
+        //Crash here
+        let out1 = result!.array?.first
+    
+        XCTAssert(out1!.id == "inner1")
+    }
 
 }
