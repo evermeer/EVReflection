@@ -772,6 +772,9 @@ final public class EVReflection {
             } else if type.rangeOfString("<NSDictionary>") == nil && dictValue as? [NSDictionary] != nil {
                 // Array of objects
                 dictValue = dictArrayToObjectArray(type, array: dictValue as! [NSDictionary]) as [NSObject]
+            } else if (original is EVObject && dictValue is String) {
+                // fixing the conversion from XML without properties
+                dictValue = dictToObject(type, original:original, dict:  ["__text": dictValue as! String])
             }
         }
         return dictValue
