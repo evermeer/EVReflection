@@ -248,7 +248,7 @@ final public class EVReflection {
      
      :returns: Nothing
      */
-    public class func encodeWithCoder(theObject: NSObject, aCoder: NSCoder) {
+    public class func encodeWithCoder(theObject: EVObject, aCoder: NSCoder) {
         let (hasKeys, _) = toDictionary(theObject, performKeyCleanup:false)
         for (key, value) in hasKeys {
             aCoder.encodeObject(value, forKey: key as! String)
@@ -261,16 +261,18 @@ final public class EVReflection {
      :parameter: theObject The object that we want to decode.
      :parameter: aDecoder The NSCoder that will be used for decoding the object.
      */
-    public class func decodeObjectWithCoder(theObject: NSObject, aDecoder: NSCoder) {
+    public class func decodeObjectWithCoder(theObject: EVObject, aDecoder: NSCoder) {
         let (hasKeys, _) = toDictionary(theObject, performKeyCleanup:false)
+        let dict = NSMutableDictionary()
         for (key, _) in hasKeys {
             if aDecoder.containsValueForKey(key as! String) {
                 let newValue: AnyObject? = aDecoder.decodeObjectForKey(key as! String)
                 if !(newValue is NSNull) {
-                    theObject.setValue(newValue, forKey: key as! String)
+                    dict[key as! String] = newValue
                 }
             }
         }
+        EVReflection.setPropertiesfromDictionary(dict, anyObject: theObject)
     }
     
     /**

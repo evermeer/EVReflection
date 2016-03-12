@@ -154,4 +154,39 @@ class EVReflectionEVObjectTests: XCTestCase {
         XCTAssert(theObject == result, "Pass")
     }
 
+    func testNSCodingSubObjectArray() {
+        let rootObject = TestRootObject()
+        rootObject.id = "root"
+        let inner1 = TestInnerObject()
+        inner1.id = "inner1"
+        let inner2 = TestInnerObject()
+        inner2.id = "inner2"
+        rootObject.array = [inner1, inner2]
+
+        rootObject.saveToTemp("rootObject.dat")
+        let result = TestRootObject(fileNameInTemp: "rootObject.dat")
+
+        XCTAssert(result.array?.count == 2, "Array size should be 2")
+
+        //Crash here
+       let out1 = result.array?.first
+
+        XCTAssert(out1?.id == "inner1")
+    }
+    
 }
+
+
+public class TestBaseObject: EVObject {
+    var id: String?
+}
+
+public class TestRootObject: TestBaseObject {
+    var array: [TestInnerObject]?
+}
+
+public class TestInnerObject: TestBaseObject {
+}
+
+
+
