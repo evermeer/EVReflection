@@ -369,6 +369,9 @@ final public class EVReflection {
     /// Variable that can be set using setBundleIdentifier
     private static var bundleIdentifier:String? = nil
     
+    /// Variable that can be set using setBundleIdentifiers
+    private static var bundleIdentifiers:[String]? = nil
+    
     /**
      This method can be used in unit tests to force the bundle where classes can be found
      
@@ -378,14 +381,35 @@ final public class EVReflection {
      */
     public class func setBundleIdentifier(forClass: AnyClass) {
         if let bundle:NSBundle = NSBundle(forClass:forClass) {
-            let appName = (bundle.infoDictionary![kCFBundleNameKey as String] as! String).characters.split(isSeparator: {$0 == "."}).map({ String($0) }).last ?? ""
-            //let appName = (bundle.bundleIdentifier!).characters.split(isSeparator: {$0 == "."}).map({ String($0) }).last ?? ""
-            let cleanAppName = appName
-                .stringByReplacingOccurrencesOfString(" ", withString: "_", options: NSStringCompareOptions.CaseInsensitiveSearch, range: nil)
-                .stringByReplacingOccurrencesOfString("-", withString: "_", options: NSStringCompareOptions.CaseInsensitiveSearch, range: nil)
-            EVReflection.bundleIdentifier = cleanAppName
+            EVReflection.bundleIdentifier = bundleForClass(forClass, bundle: bundle)
         }
     }
+    
+    /**
+     This method can be used in project where models are split between multiple modules.
+     
+     :param: classes classes that that will be used to find the appName for in which we can find classes by string.
+     
+     :returns: Nothing
+     */
+    public class func setBundleIdentifiers(classes: Array<AnyClass>) {
+        bundleIdentifiers = []
+        for aClass in classes {
+            if let bundle:NSBundle = NSBundle(forClass:aClass) {
+                bundleIdentifiers?.append(bundleForClass(aClass, bundle: bundle))
+            }
+        }
+    }
+    
+    private static func bundleForClass(forClass: AnyClass, bundle: NSBundle) -> String {
+        let appName = (bundle.infoDictionary![kCFBundleNameKey as String] as! String).characters.split(isSeparator: {$0 == "."}).map({ String($0) }).last ?? ""
+        //let appName = (bundle.bundleIdentifier!).characters.split(isSeparator: {$0 == "."}).map({ String($0) }).last ?? ""
+        let cleanAppName = appName
+            .stringByReplacingOccurrencesOfString(" ", withString: "_", options: NSStringCompareOptions.CaseInsensitiveSearch, range: nil)
+            .stringByReplacingOccurrencesOfString("-", withString: "_", options: NSStringCompareOptions.CaseInsensitiveSearch, range: nil)
+        return cleanAppName
+    }
+
     
     /// This dateformatter will be used when a conversion from string to NSDate is required
     private static var dateFormatter: NSDateFormatter? = nil
@@ -434,6 +458,20 @@ final public class EVReflection {
             let appName = getCleanAppName()
             classStringName = "\(appName).\(className)"
         }
+        
+        if let classStringName = NSClassFromString(classStringName) {
+            return classStringName
+        }
+        
+        if let bundleIdentifiers = bundleIdentifiers {
+            for aBundle in bundleIdentifiers {
+                let className = "\(aBundle).\(className)"
+                if let existingClass = NSClassFromString(className) {
+                    return existingClass
+                }
+            }
+        }
+        
         return NSClassFromString(classStringName)
     }
     
