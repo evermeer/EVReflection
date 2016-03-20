@@ -127,6 +127,18 @@ public class TestObject6: EVObject {
     }
 }
 
+class TestObject8: EVObject {
+    var containers: [TestObject8Container] = []
+}
+
+class TestObject8Container: EVObject {
+    var rows: [TestObject8Row] = []
+}
+
+class TestObject8Row: EVObject {
+    var kind: String?
+}
+
 
 /**
  For testing objects with arrays

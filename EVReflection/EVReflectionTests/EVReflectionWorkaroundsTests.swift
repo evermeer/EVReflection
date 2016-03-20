@@ -57,16 +57,18 @@ class EVReflectionWorkaroundsTests: XCTestCase {
             XCTAssertTrue(status.list[1]?.nullableType == 3, "the second item in the list should have nullableType 3")
         }
     }
+    
 
-    func testCustomDictionary() {
+    func testWorkaroundsCustomDictionary() {
         let json: String = "{\"dict\" : {\"firstkey\": {\"field\":5},  \"secondkey\": {\"field\":35}}}"
-//TODO: Dictionary property fix
-//        let doc = WorkaroundObject(json: json)
-//        XCTAssertEqual(doc.dict.count, 2, "Should have 2 items in the dictionary")
-//        XCTAssertEqual(doc.dict["firstkey"]?.field, "5", "First sentence should have id 5")
-//        XCTAssertEqual(doc.dict["secondkey"]?.field, "35", "Second sentence should have id 35")
+        let doc = WorkaroundObject(json: json)
+        XCTAssertEqual(doc.dict.count, 2, "Should have 2 items in the dictionary")
+        XCTAssertEqual(doc.dict["firstkey"]?.field, "5", "First sentence should have id 5")
+        XCTAssertEqual(doc.dict["secondkey"]?.field, "35", "Second sentence should have id 35")
     }
 }
+
+
 
 
 //
@@ -130,8 +132,8 @@ class WorkaroundObject: EVObject, EVArrayConvertable, EVDictionaryConvertable {
         assert(field == "dict", "convertArray for key \(field) should be handled.")
     
         let returnDict = NSMutableDictionary()
-        for (key, value) in dict as! [String: SubObject] {
-            returnDict[key] = value
+        for (key, value) in dict as! NSDictionary {
+            returnDict[key as! String] = SubObject(dictionary: value as! NSDictionary)
         }
         return returnDict
     }

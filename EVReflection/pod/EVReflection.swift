@@ -58,7 +58,7 @@ final public class EVReflection {
             if !skipKey {
                 let mapping = keyMapping[k as! String]
                 let original:NSObject? = getValue(anyObject, key: mapping ?? k as! String)
-                if let dictValue = dictionaryAndArrayConversion(types[mapping ?? k as! String], original: original, dictValue: v) {
+                if let dictValue = dictionaryAndArrayConversion(anyObject, key: k as! String, fieldType: types[mapping ?? k as! String], original: original, dictValue: v) {
                     if let key:String = keyMapping[k as! String] {
                         setObjectValue(anyObject, key: key, value: dictValue, typeInObject: types[key])
                     } else {
@@ -564,7 +564,7 @@ final public class EVReflection {
             }
         } else if mi.displayStyle == .Struct {
             valueType = "\(mi.subjectType)"
-            if valueType.containsString("_NativeDictionaryStorage<") {
+            if valueType.containsString("_NativeDictionaryStorage") {
                 if let dictionaryConverter = parentObject as? EVDictionaryConvertable {
                     let convertedValue = dictionaryConverter.convertDictionary(key!, dict: theValue)
                     return (convertedValue, valueType, false)
@@ -639,11 +639,9 @@ final public class EVReflection {
             //            }
         } else {
             if let (_, propertySetter, _) = (anyObject as? EVObject)?.propertyConverters().filter({$0.0 == key}).first {
-                
                 guard let propertySetter = propertySetter else {
                     return  // if the propertySetter is nil, skip setting the property
-                }
-                
+                }                
                 propertySetter(value)
                 return
             }            
@@ -791,7 +789,7 @@ final public class EVReflection {
      
      :returns: The converted value
      */
-    private static func dictionaryAndArrayConversion(fieldType:String?, original:NSObject?, var dictValue: AnyObject?) -> AnyObject? {
+    private static func dictionaryAndArrayConversion(anyObject:NSObject, key: String, fieldType:String?, original:NSObject?, var dictValue: AnyObject?) -> AnyObject? {
         if let type = fieldType {
             if type.hasPrefix("Array<") && dictValue as? NSDictionary != nil {
                 if (dictValue as! NSDictionary).count == 1 {
@@ -806,6 +804,8 @@ final public class EVReflection {
                     array.append(dictValue as! NSDictionary)
                     dictValue = array
                 }
+            } else if let _ = type.rangeOfString("_NativeDictionaryStorageOwner") ,  let dict = dictValue as? NSDictionary, let org = anyObject as? EVDictionaryConvertable {
+                dictValue = org.convertDictionary(key, dict: dict)
             } else if type != "NSDictionary" && dictValue as? NSDictionary != nil {
                 // Sub object
                 dictValue = dictToObject(type, original:original ,dict: dictValue as! NSDictionary)

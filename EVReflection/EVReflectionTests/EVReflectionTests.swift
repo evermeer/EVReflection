@@ -216,6 +216,28 @@ class EVReflectionTests: XCTestCase {
         }
     }
     
+    func testCustomNestedArrays() {
+        let json = "{\"containers\": [{ \"rows\": [{\"kind\": \"main\"}, {\"kind\": \"main2\"}] }, {\"rows\": [{\"kind\": \"main3\"}, {\"kind\": \"main4\"}, {\"kind\": \"main5\"}] }] }"
+        
+        //let json = "{\"containers\": [{ \"rows\": [{\"kind\": \"main\"}, {\"kind\": \"main2\"}] }, { \"rows\": [{\"kind\": \"main3\"}, {\"kind\": \"main4\"}] }] }"
+        let c = TestObject8(json: json)
+        XCTAssertEqual(c.containers.count, 2, "There should be 1 container")
+        if(c.containers.count == 2) {
+            XCTAssertEqual(c.containers[0].rows.count, 2, "Container 0 should have 2 rows")
+            if(c.containers[0].rows.count == 2) {
+                XCTAssertEqual(c.containers[0].rows[0].kind, "main", "Row 0 of container 0 should contain main" )
+                XCTAssertEqual(c.containers[0].rows[1].kind, "main2", "Row 1 of container 0 should contain main2" )
+            }
+            XCTAssertEqual(c.containers[1].rows.count, 3, "Container 1 should have 3 rows")
+            if(c.containers[1].rows.count == 3) {
+                XCTAssertEqual(c.containers[1].rows[0].kind, "main3", "Row 0 of container 1 should contain main3" )
+                XCTAssertEqual(c.containers[1].rows[1].kind, "main4", "Row 1 of container 1 should contain main4" )
+                XCTAssertEqual(c.containers[1].rows[2].kind, "main5", "Row 2 of container 1 should contain main5" )
+            }
+        }
+    }
+
+    
     /**
      Test if we can work with an object that contains all types of arrays
      */
