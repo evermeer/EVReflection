@@ -48,6 +48,15 @@ class EVRelfectionEnheritanceTests: XCTestCase {
         // Deserialize a new object based on that JSON
         let newObject = Quz(json: json)
         
+        XCTAssertEqual((newObject.fooBar as? Bar)?.justBar, "For bar only", "fooBar is not Bar?")
+        XCTAssertEqual((newObject.fooBaz as? Baz)?.justBaz, "For baz only", "fooBaz is not Baz?")
+        XCTAssertEqual(newObject.fooArray.count, 3, "array should contain 3 objects")
+        if newObject.fooArray.count == 3 {
+            XCTAssertEqual((newObject.fooArray[0] as? Bar)?.justBar, "For bar only", "fooBar is not Bar?")
+            XCTAssertEqual((newObject.fooArray[1] as? Baz)?.justBaz, "For baz only", "fooBaz is not Baz?")
+            XCTAssertEqual(newObject.fooArray[2].allFoo, "all Foo", "should just be a Foo?")
+        }
+        
         // The new object JSON
         let newJson = newObject.toJsonString()
         print("New JSON = \(newJson)")

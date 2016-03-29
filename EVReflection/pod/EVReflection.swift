@@ -58,11 +58,11 @@ final public class EVReflection {
             if !skipKey {
                 let mapping = keyMapping[k as! String]
                 let original:NSObject? = getValue(anyObject, key: mapping ?? k as! String)
-                if let dictValue = dictionaryAndArrayConversion(anyObject, key: k as! String, fieldType: types[mapping ?? k as! String], original: original, dictValue: v) {
+                if let dictValue = dictionaryAndArrayConversion(anyObject, key: k as! String, fieldType: types[mapping ?? k as! String], original: original, theDictValue: v) {
                     if let key:String = keyMapping[k as! String] {
-                        setObjectValue(anyObject, key: key, value: dictValue, typeInObject: types[key])
+                        setObjectValue(anyObject, key: key, theValue: dictValue, typeInObject: types[key])
                     } else {
-                        setObjectValue(anyObject, key: k as! String, value: dictValue, typeInObject: types[k as! String])
+                        setObjectValue(anyObject, key: k as! String, theValue: dictValue, typeInObject: types[k as! String])
                     }
                 }
             }
@@ -629,7 +629,8 @@ final public class EVReflection {
      
      :returns: Nothing
      */
-    public static func setObjectValue<T where T:NSObject>(anyObject: T, key:String, var value:AnyObject?, typeInObject:String? = nil) {
+    public static func setObjectValue<T where T:NSObject>(anyObject: T, key:String, theValue:AnyObject?, typeInObject:String? = nil) {
+        var value = theValue
         if value == nil || value as? NSNull != nil {
             //            do {
             //                var nilValue: AnyObject? = Optional.None
@@ -789,7 +790,8 @@ final public class EVReflection {
      
      :returns: The converted value
      */
-    private static func dictionaryAndArrayConversion(anyObject:NSObject, key: String, fieldType:String?, original:NSObject?, var dictValue: AnyObject?) -> AnyObject? {
+    private static func dictionaryAndArrayConversion(anyObject:NSObject, key: String, fieldType:String?, original:NSObject?, theDictValue: AnyObject?) -> AnyObject? {
+        var dictValue = theDictValue
         if let type = fieldType {
             if type.hasPrefix("Array<") && dictValue as? NSDictionary != nil {
                 if (dictValue as! NSDictionary).count == 1 {

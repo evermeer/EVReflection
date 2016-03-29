@@ -296,6 +296,15 @@ class EVReflectionTests: XCTestCase {
         print(a2.toJsonString())
     }
     
+    func testStruct() {
+        let json = X().toJsonString()
+        print("json = \(json)")
+    }
+}
+
+class X: EVObject {
+    var y:String = "the y"
+    var c:CGPoint = CGPointMake(2,3)
 }
 
 

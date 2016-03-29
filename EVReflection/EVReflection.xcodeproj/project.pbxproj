@@ -490,7 +490,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0720;
-				LastUpgradeCheck = 0710;
+				LastUpgradeCheck = 0730;
 				ORGANIZATIONNAME = evict;
 				TargetAttributes = {
 					2DC8AA3C1C24215500FA6B8E = {
@@ -935,6 +935,7 @@
 		7F3E318A1BB9095C001E6788 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = "EVReflectionTests/osx-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "nl.evict.EVReflection-OSX-Tests";
@@ -947,6 +948,7 @@
 		7F3E318B1BB9095C001E6788 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = "EVReflectionTests/osx-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "nl.evict.EVReflection-OSX-Tests";
