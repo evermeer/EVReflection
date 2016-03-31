@@ -446,33 +446,28 @@ final public class EVReflection {
      
      :returns: The Class type
      */
-    public class func swiftClassTypeFromString(className: String) -> AnyClass! {
-        //        if className.hasPrefix("Optional<") {
-        //            className = className.substringWithRange(Range<String.Index>(start: className.startIndex.advancedBy(9), end: className.endIndex.advancedBy(-1)))
-        //        }
-        if className.hasPrefix("_Tt") {
-            return NSClassFromString(className)
-        }
-        var classStringName = className
-        if className.rangeOfString(".", options: NSStringCompareOptions.CaseInsensitiveSearch) == nil {
-            let appName = getCleanAppName()
-            classStringName = "\(appName).\(className)"
+    public class func swiftClassTypeFromString(className: String) -> AnyClass? {
+        if let c = NSClassFromString(className) {
+            return c
         }
         
-        if let classStringName = NSClassFromString(classStringName) {
-            return classStringName
+        // The default did not work. try a combi of appname and classname
+        if className.rangeOfString(".", options: NSStringCompareOptions.CaseInsensitiveSearch) == nil {
+            let appName = getCleanAppName()
+            if let c = NSClassFromString("\(appName).\(className)") {
+                return c
+            }
         }
         
         if let bundleIdentifiers = bundleIdentifiers {
             for aBundle in bundleIdentifiers {
-                let className = "\(aBundle).\(className)"
-                if let existingClass = NSClassFromString(className) {
+                if let existingClass = NSClassFromString("\(aBundle).\(className)") {
                     return existingClass
                 }
             }
         }
         
-        return NSClassFromString(classStringName)
+        return nil
     }
     
     /**

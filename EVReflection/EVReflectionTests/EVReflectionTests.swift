@@ -296,16 +296,27 @@ class EVReflectionTests: XCTestCase {
         print(a2.toJsonString())
     }
     
+    func testNestedArry() {
+        let json = "{\"date\": 2457389.3333330001,\"results\": { \"sun\": [[559285.95145709824, 202871.33591198301, 61656.198554897906], [127.6163120820332, 948.44727756795123, 406.68471093096883]], \"geomoon\": [[-401458.60657087743, -43744.769596474769, -11058.709613333322], [8433.3114508170656, -78837.790870237863, -26279.67592282737]] }, \"unit\": \"km\" }"
+        let myObject = NestedArrays(json: json)
+        print(myObject.toJsonString())
+    }    
+    
     func testStruct() {
+        //TODO: Fix structs
         let json = X().toJsonString()
         print("json = \(json)")
-    }
+    }    
 }
 
 class X: EVObject {
     var y:String = "the y"
     var c:CGPoint = CGPointMake(2,3)
 }
+
+
+
+
 
 
 

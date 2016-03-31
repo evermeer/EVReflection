@@ -198,3 +198,25 @@ public class AA : EVObject{
 public class BB : EVObject{
     public var val : Int = 0
 }
+
+class NestedArrays: EVObject {
+    var date: NSNumber?
+    var results: NestedArraysResult?
+    var unit: String?
+}
+
+class NestedArraysResult: EVObject {
+    var planets = [String: [[NSNumber]]]()
+    
+    // This way we can solve that the JSON has arbitrary keys
+    internal override func setValue(value: AnyObject!, forUndefinedKey key: String) {
+        if let a = value as? [[NSNumber]] {
+            planets[key] = a
+            return
+        }
+        NSLog("---> setValue for key '\(key)' should be handled.")
+    }
+}
+
+
+
