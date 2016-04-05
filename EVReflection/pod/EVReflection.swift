@@ -517,11 +517,12 @@ final public class EVReflection {
     public class func valueForAny(parentObject:Any? = nil, key:String? = nil, anyValue: Any) -> (value: AnyObject, type: String, isObject: Bool) {
         var theValue = anyValue
         var valueType = "EVObject"
-        let mi: Mirror = Mirror(reflecting: theValue)
+        var mi: Mirror = Mirror(reflecting: theValue)
         
         if mi.displayStyle == .Optional {
             if mi.children.count == 1 {
                 theValue = mi.children.first!.value
+                mi = Mirror(reflecting: theValue)
                 if("\(theValue)".hasPrefix("_TtC")) {
                   valueType = "\(theValue)".componentsSeparatedByString(" ")[0]
                 } else {
@@ -533,7 +534,9 @@ final public class EVReflection {
                 subtype = subtype.substringToIndex(subtype.endIndex.predecessor())
                 return (NSNull(), subtype, false)
             }
-        } else if mi.displayStyle == .Enum {
+        }
+        
+        if mi.displayStyle == .Enum {
             valueType = "\(theValue.dynamicType)"
             if let value = theValue as? EVRawString {
                 return (value.rawValue, "\(mi.subjectType)", false)
@@ -565,7 +568,10 @@ final public class EVReflection {
                     return (convertedValue, valueType, false)
                 }
             }
-            assert(true, "WARNING: An object with a property of type Dictionary (not NSDictionary) should implement the EVDictionaryConvertable protocol.")
+            NSLog("Converting a struct to a dictionary for: \(theValue)")
+            let structAsDict = convertStructureToDictionary(theValue)
+            return (structAsDict, "Struct", false)
+            //assert(true, "WARNING: An object with a property of type Dictionary (not NSDictionary) should implement the EVDictionaryConvertable protocol.")
         } else {
             valueType = "\(mi.subjectType)"
         }
@@ -613,6 +619,13 @@ final public class EVReflection {
             return (NSNull(), "NSNull", false)
         }
     }
+    
+    private static func convertStructureToDictionary(theValue: Any) -> NSDictionary {
+        let reflected = Mirror(reflecting: theValue)
+        let (addProperties, _) = reflectedSub(theValue, reflected: reflected, performKeyCleanup: false)
+        return addProperties
+    }
+
     
     /**
      Try to set a value of a property with automatic String to and from Number conversion
@@ -664,7 +677,11 @@ final public class EVReflection {
                     }
                 }
             }
-            anyObject.setValue(value!, forKey: key)
+            if typeInObject == "Struct" {
+                anyObject.setValue(value!, forUndefinedKey: key)
+            } else {
+                anyObject.setValue(value!, forKey: key)
+            }
         }
     }
     
@@ -805,7 +822,7 @@ final public class EVReflection {
                 dictValue = org.convertDictionary(key, dict: dict)
             } else if type != "NSDictionary" && dictValue as? NSDictionary != nil {
                 // Sub object
-                dictValue = dictToObject(type, original:original ,dict: dictValue as! NSDictionary)
+                dictValue = (dictToObject(type, original:original ,dict: dictValue as! NSDictionary) ?? dictValue)
             } else if type.rangeOfString("<NSDictionary>") == nil && dictValue as? [NSDictionary] != nil {
                 // Array of objects
                 dictValue = dictArrayToObjectArray(type, array: dictValue as! [NSDictionary]) as [NSObject]

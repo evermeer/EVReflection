@@ -235,6 +235,7 @@ EVReflection is trying to handle all types. With some types there are limitation
 - properties based on an enum
 - an Array of nullable objects like [MyObject?] 
 - generic properties like var myVal:T = T()
+- structs like CGRect or CGPoint
 
 For all these issues there are workarounds. The easiest workaround is just using a difrent type like:
 
@@ -242,6 +243,7 @@ For all these issues there are workarounds. The easiest workaround is just using
 - Instead of [MyObject?] use [MyObject]
 - Instead of 'var status: StatysType' use 'var status:Int' and save the rawValue
 - Instead of a generic property use a specific property that can hold the data (a dictionary?)
+- Instead of using a struct, create your own object model for that struct
 
 If you want to keep on using the same type, You can override the setValue forUndefinedKey in the object itself. See WorkaroundsTests.swift and WorkaroundSwiftGenericsTests.swift to see the workaround for all these types in action. 
 

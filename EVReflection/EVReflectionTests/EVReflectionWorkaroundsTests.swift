@@ -66,6 +66,18 @@ class EVReflectionWorkaroundsTests: XCTestCase {
         XCTAssertEqual(doc.dict["firstkey"]?.field, "5", "First sentence should have id 5")
         XCTAssertEqual(doc.dict["secondkey"]?.field, "35", "Second sentence should have id 35")
     }
+    
+    func testStruct() {
+        let event = WorkaroundObject()
+        event.structType = CGPointMake(2,3)
+        
+        let json = event.toJsonString()
+        print("json = \(json)")
+        
+        let newEvent = WorkaroundObject(json:json)
+        XCTAssertEqual(newEvent.structType.x, 2, "The location x should have been 2")
+        XCTAssertEqual(newEvent.structType.y, 3, "The location y should have been 3")
+    }
 }
 
 
@@ -83,6 +95,7 @@ class WorkaroundObject: EVObject, EVArrayConvertable, EVDictionaryConvertable {
     var enumType: StatusType = .OK
     var list: [WorkaroundObject?] = [WorkaroundObject?]()
     var dict: [String: SubObject] = [:]
+    var structType: CGPoint = CGPointMake(0,0)
     
     // Handling the setting of non key-value coding compliant properties
     override func setValue(value: AnyObject!, forUndefinedKey key: String) {
@@ -107,6 +120,12 @@ class WorkaroundObject: EVObject, EVArrayConvertable, EVDictionaryConvertable {
                 self.dict = [:]
                 for (key,value) in dict {
                     self.dict[key as! String] = (value as! SubObject)
+                }
+            }
+        case "structType":
+            if let dict = value as? NSDictionary {
+                if let x = dict["x"] as? NSNumber, let y = dict["y"] as? NSNumber {
+                    structType = CGPointMake(CGFloat(x), CGFloat(y))
                 }
             }
         default:
@@ -138,8 +157,6 @@ class WorkaroundObject: EVObject, EVArrayConvertable, EVDictionaryConvertable {
         return returnDict
     }
 }
-
-
 
 
 
