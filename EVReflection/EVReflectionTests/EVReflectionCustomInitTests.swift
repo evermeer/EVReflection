@@ -1,5 +1,5 @@
 //
-//  EVReflectionCustomInitializer.swift
+//  EVReflectionCustomInitTests.swift
 //  EVReflection
 //
 //  Created by Joshua Greene on 4/8/16.
