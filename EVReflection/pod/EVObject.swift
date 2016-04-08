@@ -37,7 +37,7 @@ public class EVObject: NSObject, NSCoding { // These are redundant in Swift 2+: 
     
     :parameter: dictionary The dictionary that will be used to create this object
     */
-    public convenience init(dictionary:NSDictionary) {
+    public required convenience init(dictionary:NSDictionary) {
         self.init()
         EVReflection.setPropertiesfromDictionary(dictionary, anyObject: self)
     }
@@ -47,7 +47,7 @@ public class EVObject: NSObject, NSCoding { // These are redundant in Swift 2+: 
     
     :json: The json string that will be used to create this object
     */
-    public convenience init(json:String?) {
+    public required convenience init(json:String?) {
         self.init()
         let jsonDict = EVReflection.dictionaryFromJson(json)
         EVReflection.setPropertiesfromDictionary(jsonDict, anyObject: self)
@@ -67,7 +67,7 @@ public class EVObject: NSObject, NSCoding { // These are redundant in Swift 2+: 
     
     :parameter: fileName The filename
     */
-    public convenience init(fileNameInTemp:String) {
+    public required convenience init(fileNameInTemp:String) {
         self.init()
         let filePath = (NSTemporaryDirectory() as NSString).stringByAppendingPathComponent(fileNameInTemp)
         if let temp = NSKeyedUnarchiver.unarchiveObjectWithFile(filePath) as? EVObject {
@@ -80,7 +80,7 @@ public class EVObject: NSObject, NSCoding { // These are redundant in Swift 2+: 
     
     :parameter: fileName The filename
     */
-    public convenience init(fileNameInDocuments:String) {
+    public required convenience init(fileNameInDocuments:String) {
         self.init()
         let filePath = (NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as NSString).stringByAppendingPathComponent(fileNameInDocuments)
         if let temp = NSKeyedUnarchiver.unarchiveObjectWithFile(filePath) as? EVObject {
