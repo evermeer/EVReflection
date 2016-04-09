@@ -692,6 +692,21 @@ final public class EVReflection {
                 anyObject.setValue(value!, forUndefinedKey: key)
             } else {
                 anyObject.setValue(value!, forKey: key)
+                /*  TODO: For nullable types like Int? we could use this instead of the workaround. 
+                 // Asign pointerToField based on specific type
+                 
+                 // Look up the ivar, and it's offset
+                 let ivar: Ivar = class_getInstanceVariable(anyObject.dynamicType, key)
+                 let fieldOffset = ivar_getOffset(ivar)
+                 
+                 // Pointer arithmetic to get a pointer to the field
+                 let pointerToInstance = unsafeAddressOf(anyObject)
+                 let pointerToField = UnsafeMutablePointer<Int?>(pointerToInstance + fieldOffset)
+                 
+                 // Set the value using the pointer
+                 pointerToField.memory = value!
+                 */
+                
             }
         }
     }

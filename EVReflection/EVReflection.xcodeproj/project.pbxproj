@@ -44,6 +44,13 @@
 		7F59F9DB1C07999300C14CF9 /* EVReflectionEVObjectTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F59F9DA1C07999300C14CF9 /* EVReflectionEVObjectTests.swift */; };
 		7F59F9DD1C079A7300C14CF9 /* EVReflectionNumbersTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F59F9DC1C079A7300C14CF9 /* EVReflectionNumbersTests.swift */; };
 		7F59F9DF1C09BFB900C14CF9 /* EVRelfectionEnheritanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F59F9DE1C09BFB900C14CF9 /* EVRelfectionEnheritanceTests.swift */; };
+		7F6C9FB31CB90E6D00F19811 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F6C9FB21CB90E6D00F19811 /* AppDelegate.swift */; };
+		7F6C9FB51CB90E6D00F19811 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F6C9FB41CB90E6D00F19811 /* ViewController.swift */; };
+		7F6C9FB81CB90E6D00F19811 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7F6C9FB61CB90E6D00F19811 /* Main.storyboard */; };
+		7F6C9FBA1CB90E6D00F19811 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7F6C9FB91CB90E6D00F19811 /* Assets.xcassets */; };
+		7F6C9FBD1CB90E6D00F19811 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7F6C9FBB1CB90E6D00F19811 /* LaunchScreen.storyboard */; };
+		7F6C9FC61CB92C7500F19811 /* EVReflection.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7FD67D821C2882320071234B /* EVReflection.framework */; };
+		7F6C9FC81CB92D3C00F19811 /* EVReflection.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7FD67D821C2882320071234B /* EVReflection.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		7F7BBC661C009EE90046F05E /* EVReflectionMappingTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F7BBC651C009EE80046F05E /* EVReflectionMappingTest.swift */; };
 		7F7BBC671C00A22B0046F05E /* EVReflectionMappingTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F7BBC651C009EE80046F05E /* EVReflectionMappingTest.swift */; };
 		7F8818F91C04447100E17072 /* EVReflectionPropertyMappingTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F8818F81C04447100E17072 /* EVReflectionPropertyMappingTest.swift */; };
@@ -80,9 +87,6 @@
 		7FD67D941C288B7A0071234B /* EVObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F0E5E591AF4D94000A10E51 /* EVObject.swift */; };
 		7FD67D951C288B7F0071234B /* EVObjectDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F3E19291B8526CA00A6E6C6 /* EVObjectDescription.swift */; };
 		7FD67D961C288B840071234B /* EVExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F1BA5261B971CBF009F9DB8 /* EVExtensions.swift */; };
-		7FF152E01CB6E5B200A2B197 /* EVReflectionPerformance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF152DE1CB6E53100A2B197 /* EVReflectionPerformance.swift */; };
-		7FF152E11CB6E5B300A2B197 /* EVReflectionPerformance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF152DE1CB6E53100A2B197 /* EVReflectionPerformance.swift */; };
-		7FF152E21CB6E5B400A2B197 /* EVReflectionPerformance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF152DE1CB6E53100A2B197 /* EVReflectionPerformance.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -100,6 +104,13 @@
 			remoteGlobalIDString = 2DC8AA621C242E0600FA6B8E;
 			remoteInfo = "EVReflection OSX";
 		};
+		7F6C9FC41CB92BFC00F19811 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7F07C5551AF101A9000DF1F3 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 2DC8AA3C1C24215500FA6B8E;
+			remoteInfo = "EVReflection iOS";
+		};
 		7F9336B91C28227400AF7076 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 7F07C5551AF101A9000DF1F3 /* Project object */;
@@ -108,6 +119,20 @@
 			remoteInfo = "EVReflection TVOS";
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		7F6C9FC91CB92D3C00F19811 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				7F6C9FC81CB92D3C00F19811 /* EVReflection.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		2DC8AA3F1C24215500FA6B8E /* EVReflection.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EVReflection.h; sourceTree = "<group>"; };
@@ -139,6 +164,19 @@
 		7F59F9DA1C07999300C14CF9 /* EVReflectionEVObjectTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVReflectionEVObjectTests.swift; sourceTree = "<group>"; };
 		7F59F9DC1C079A7300C14CF9 /* EVReflectionNumbersTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVReflectionNumbersTests.swift; sourceTree = "<group>"; };
 		7F59F9DE1C09BFB900C14CF9 /* EVRelfectionEnheritanceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVRelfectionEnheritanceTests.swift; sourceTree = "<group>"; };
+		7F6C9F9C1CB90DE200F19811 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		7F6C9F9E1CB90DE200F19811 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		7F6C9FA11CB90DE200F19811 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		7F6C9FA31CB90DE200F19811 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		7F6C9FA61CB90DE200F19811 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		7F6C9FA81CB90DE200F19811 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7F6C9FB01CB90E6D00F19811 /* EVReflectionTestApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EVReflectionTestApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		7F6C9FB21CB90E6D00F19811 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		7F6C9FB41CB90E6D00F19811 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		7F6C9FB71CB90E6D00F19811 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		7F6C9FB91CB90E6D00F19811 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		7F6C9FBC1CB90E6D00F19811 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		7F6C9FBE1CB90E6D00F19811 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7F7BBC651C009EE80046F05E /* EVReflectionMappingTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVReflectionMappingTest.swift; sourceTree = "<group>"; };
 		7F8818F81C04447100E17072 /* EVReflectionPropertyMappingTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVReflectionPropertyMappingTest.swift; sourceTree = "<group>"; };
 		7F9336B01C28227400AF7076 /* EVReflectionTVOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EVReflectionTVOS.h; sourceTree = "<group>"; };
@@ -155,7 +193,6 @@
 		7FD67D8B1C288B560071234B /* EVReflection.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = EVReflection.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7FD67D8D1C288B560071234B /* EVReflectionWatchOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EVReflectionWatchOS.h; sourceTree = "<group>"; };
 		7FD67D8F1C288B560071234B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		7FF152DE1CB6E53100A2B197 /* EVReflectionPerformance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVReflectionPerformance.swift; sourceTree = "<group>"; };
 		7FFCCC361BB440F400EE9312 /* coverage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = coverage.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -185,6 +222,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7F6C9FAD1CB90E6D00F19811 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7F6C9FC61CB92C7500F19811 /* EVReflection.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -240,6 +285,7 @@
 				7F07C58E1AF11861000DF1F3 /* LICENSE */,
 				7FFCCC361BB440F400EE9312 /* coverage.png */,
 				7F07C5831AF10284000DF1F3 /* pod */,
+				7F6C9FB11CB90E6D00F19811 /* EVReflectionTestApp */,
 				7F07C5751AF101A9000DF1F3 /* EVReflectionTests */,
 				2DC8AA3E1C24215500FA6B8E /* EVReflectionIOS */,
 				2DC8AA641C242E0600FA6B8E /* EVReflectionOSX */,
@@ -252,6 +298,8 @@
 				7FD67D851C2882320071234B /* EVReflection.framework */,
 				7FD67D8B1C288B560071234B /* EVReflection.framework */,
 				7FD67D8C1C288B560071234B /* EVReflectionWatchOS */,
+				7F6C9F9B1CB90DE200F19811 /* EVReflection_Test */,
+				7F6C9FB01CB90E6D00F19811 /* EVReflectionTestApp.app */,
 			);
 			sourceTree = "<group>";
 		};
@@ -274,7 +322,6 @@
 				7F41ECAB1B91F306003A2236 /* EVReflectionWorkaroundsTests.swift */,
 				7F41ECAC1B91F306003A2236 /* EVReflectionWorkaroundSwiftGenericsTests.swift */,
 				7F479E1A1C84D6FC00F03BEF /* EVReflectionSyncAlternateDesync.swift */,
-				7FF152DE1CB6E53100A2B197 /* EVReflectionPerformance.swift */,
 				7F43822A1B62D41E00EF74C7 /* TemporaryTests */,
 				7F07C5761AF101A9000DF1F3 /* Supporting Files */,
 			);
@@ -309,6 +356,32 @@
 				7F41ECAA1B91F306003A2236 /* WorkaroundEnumTest.swift */,
 			);
 			name = TemporaryTests;
+			sourceTree = "<group>";
+		};
+		7F6C9F9B1CB90DE200F19811 /* EVReflection_Test */ = {
+			isa = PBXGroup;
+			children = (
+				7F6C9F9C1CB90DE200F19811 /* AppDelegate.swift */,
+				7F6C9F9E1CB90DE200F19811 /* ViewController.swift */,
+				7F6C9FA01CB90DE200F19811 /* Main.storyboard */,
+				7F6C9FA31CB90DE200F19811 /* Assets.xcassets */,
+				7F6C9FA51CB90DE200F19811 /* LaunchScreen.storyboard */,
+				7F6C9FA81CB90DE200F19811 /* Info.plist */,
+			);
+			path = EVReflection_Test;
+			sourceTree = "<group>";
+		};
+		7F6C9FB11CB90E6D00F19811 /* EVReflectionTestApp */ = {
+			isa = PBXGroup;
+			children = (
+				7F6C9FB21CB90E6D00F19811 /* AppDelegate.swift */,
+				7F6C9FB41CB90E6D00F19811 /* ViewController.swift */,
+				7F6C9FB61CB90E6D00F19811 /* Main.storyboard */,
+				7F6C9FB91CB90E6D00F19811 /* Assets.xcassets */,
+				7F6C9FBB1CB90E6D00F19811 /* LaunchScreen.storyboard */,
+				7F6C9FBE1CB90E6D00F19811 /* Info.plist */,
+			);
+			path = EVReflectionTestApp;
 			sourceTree = "<group>";
 		};
 		7F9336AF1C28227400AF7076 /* EVReflectionTVOS */ = {
@@ -439,6 +512,25 @@
 			productReference = 7FD67D801C28463E0071234B /* EVReflection OSX Tests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		7F6C9FAF1CB90E6D00F19811 /* EVReflectionTestApp */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7F6C9FBF1CB90E6D00F19811 /* Build configuration list for PBXNativeTarget "EVReflectionTestApp" */;
+			buildPhases = (
+				7F6C9FAC1CB90E6D00F19811 /* Sources */,
+				7F6C9FAD1CB90E6D00F19811 /* Frameworks */,
+				7F6C9FAE1CB90E6D00F19811 /* Resources */,
+				7F6C9FC91CB92D3C00F19811 /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				7F6C9FC51CB92BFC00F19811 /* PBXTargetDependency */,
+			);
+			name = EVReflectionTestApp;
+			productName = EVReflectionTestApp;
+			productReference = 7F6C9FB01CB90E6D00F19811 /* EVReflectionTestApp.app */;
+			productType = "com.apple.product-type.application";
+		};
 		7F9336AD1C28227400AF7076 /* EVReflection TVOS */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7F9336BF1C28227400AF7076 /* Build configuration list for PBXNativeTarget "EVReflection TVOS" */;
@@ -499,7 +591,7 @@
 		7F07C5551AF101A9000DF1F3 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0720;
+				LastSwiftUpdateCheck = 0730;
 				LastUpgradeCheck = 0730;
 				ORGANIZATIONNAME = evict;
 				TargetAttributes = {
@@ -515,6 +607,9 @@
 					};
 					7F3E31841BB9095C001E6788 = {
 						CreatedOnToolsVersion = 7.0;
+					};
+					7F6C9FAF1CB90E6D00F19811 = {
+						CreatedOnToolsVersion = 7.3;
 					};
 					7F9336AD1C28227400AF7076 = {
 						CreatedOnToolsVersion = 7.2;
@@ -547,6 +642,7 @@
 				7F9336AD1C28227400AF7076 /* EVReflection TVOS */,
 				7F9336B61C28227400AF7076 /* EVReflection TVOS Tests */,
 				7FD67D8A1C288B560071234B /* EVReflection WatchOS */,
+				7F6C9FAF1CB90E6D00F19811 /* EVReflectionTestApp */,
 			);
 		};
 /* End PBXProject section */
@@ -577,6 +673,16 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7F6C9FAE1CB90E6D00F19811 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7F6C9FBD1CB90E6D00F19811 /* LaunchScreen.storyboard in Resources */,
+				7F6C9FBA1CB90E6D00F19811 /* Assets.xcassets in Resources */,
+				7F6C9FB81CB90E6D00F19811 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -640,7 +746,6 @@
 				7F8818F91C04447100E17072 /* EVReflectionPropertyMappingTest.swift in Sources */,
 				7F41ECA51B91F2E0003A2236 /* TestObjects.swift in Sources */,
 				7F9E680C1C62396500F0F4D3 /* EVReflectionNestedObjectsTests.swift in Sources */,
-				7FF152E01CB6E5B200A2B197 /* EVReflectionPerformance.swift in Sources */,
 				7F41ECB31B91F306003A2236 /* EVReflectionWorkaroundSwiftGenericsTests.swift in Sources */,
 				7F59F9D91C07986200C14CF9 /* EVReflectionAssociatedTests.swift in Sources */,
 				7F479E1C1C84D7A000F03BEF /* EVReflectionSyncAlternateDesync.swift in Sources */,
@@ -665,7 +770,6 @@
 				7F9336981C23F2FD00AF7076 /* EVRelfectionEnheritanceTests.swift in Sources */,
 				7F3E31981BB909B1001E6788 /* WorkaroundEnumTest.swift in Sources */,
 				7F9E680D1C62396600F0F4D3 /* EVReflectionNestedObjectsTests.swift in Sources */,
-				7FF152E11CB6E5B300A2B197 /* EVReflectionPerformance.swift in Sources */,
 				7F9336951C23F2EB00AF7076 /* EVReflectionEVObjectTests.swift in Sources */,
 				7F7BBC671C00A22B0046F05E /* EVReflectionMappingTest.swift in Sources */,
 				7F479E1D1C84D7A100F03BEF /* EVReflectionSyncAlternateDesync.swift in Sources */,
@@ -675,6 +779,15 @@
 				7F9336961C23F2F100AF7076 /* EVReflectionPropertyMappingTest.swift in Sources */,
 				7F3E31921BB909A7001E6788 /* EVObjectDescriptionTests.swift in Sources */,
 				7F9336971C23F2F700AF7076 /* EVReflectionAssociatedTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7F6C9FAC1CB90E6D00F19811 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7F6C9FB51CB90E6D00F19811 /* ViewController.swift in Sources */,
+				7F6C9FB31CB90E6D00F19811 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -701,7 +814,6 @@
 				7F9336D01C2822B700AF7076 /* EVReflectionAssociatedTests.swift in Sources */,
 				7F9336CF1C2822B700AF7076 /* EVReflectionMappingTest.swift in Sources */,
 				7F9E680E1C62396700F0F4D3 /* EVReflectionNestedObjectsTests.swift in Sources */,
-				7FF152E21CB6E5B400A2B197 /* EVReflectionPerformance.swift in Sources */,
 				7F9336D51C2822B700AF7076 /* EVReflectionWorkaroundSwiftGenericsTests.swift in Sources */,
 				7F9336CB1C2822B700AF7076 /* EVReflectionEVObjectTests.swift in Sources */,
 				7F479E1E1C84D7A200F03BEF /* EVReflectionSyncAlternateDesync.swift in Sources */,
@@ -738,12 +850,52 @@
 			target = 2DC8AA621C242E0600FA6B8E /* EVReflection OSX */;
 			targetProxy = 2DC8AA7A1C242E9100FA6B8E /* PBXContainerItemProxy */;
 		};
+		7F6C9FC51CB92BFC00F19811 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 2DC8AA3C1C24215500FA6B8E /* EVReflection iOS */;
+			targetProxy = 7F6C9FC41CB92BFC00F19811 /* PBXContainerItemProxy */;
+		};
 		7F9336BA1C28227400AF7076 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 7F9336AD1C28227400AF7076 /* EVReflection TVOS */;
 			targetProxy = 7F9336B91C28227400AF7076 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		7F6C9FA01CB90DE200F19811 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				7F6C9FA11CB90DE200F19811 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		7F6C9FA51CB90DE200F19811 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				7F6C9FA61CB90DE200F19811 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		7F6C9FB61CB90E6D00F19811 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				7F6C9FB71CB90E6D00F19811 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		7F6C9FBB1CB90E6D00F19811 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				7F6C9FBC1CB90E6D00F19811 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		2DC8AA4E1C24215500FA6B8E /* Debug */ = {
@@ -974,6 +1126,35 @@
 			};
 			name = Release;
 		};
+		7F6C9FC01CB90E6D00F19811 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ANALYZER_NONNULL = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				INFOPLIST_FILE = EVReflectionTestApp/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = nl.evict.EVReflectionTestApp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		7F6C9FC11CB90E6D00F19811 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ANALYZER_NONNULL = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				INFOPLIST_FILE = EVReflectionTestApp/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = nl.evict.EVReflectionTestApp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 		7F9336C01C28227400AF7076 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1140,6 +1321,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		7F6C9FBF1CB90E6D00F19811 /* Build configuration list for PBXNativeTarget "EVReflectionTestApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7F6C9FC01CB90E6D00F19811 /* Debug */,
+				7F6C9FC11CB90E6D00F19811 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 		7F9336BF1C28227400AF7076 /* Build configuration list for PBXNativeTarget "EVReflection TVOS" */ = {
 			isa = XCConfigurationList;

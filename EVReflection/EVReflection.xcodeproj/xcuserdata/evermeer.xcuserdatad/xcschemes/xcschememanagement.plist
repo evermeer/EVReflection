@@ -29,6 +29,11 @@
 			<key>orderHint</key>
 			<integer>0</integer>
 		</dict>
+		<key>EVReflectionTestApp.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>6</integer>
+		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
@@ -53,6 +58,16 @@
 			<true/>
 		</dict>
 		<key>7F3E31841BB9095C001E6788</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>7F6C9F991CB90DE200F19811</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>7F6C9FAF1CB90E6D00F19811</key>
 		<dict>
 			<key>primary</key>
 			<true/>
