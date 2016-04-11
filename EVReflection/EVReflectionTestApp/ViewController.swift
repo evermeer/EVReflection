@@ -18,10 +18,13 @@ class ViewController: UIViewController {
     @IBOutlet weak var curenMemoryUsage: UILabel!
     @IBOutlet weak var changedMemoryUsage: UILabel!
     
+    var usage:UInt = 0
+    
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        let usageAtStart = report_memory()
-        initialMemoryUsage.text = "\(usageAtStart)"
+        usage = report_memory()
+        curenMemoryUsage.text = "\(NSNumber(int: Int32(usage)).descriptionWithLocale(NSLocale.currentLocale()))"
+        initialMemoryUsage.text = "\(NSNumber(int: Int32(usage)).descriptionWithLocale(NSLocale.currentLocale()))"
     }
     
     override func didReceiveMemoryWarning() {
@@ -55,15 +58,18 @@ class ViewController: UIViewController {
     
     func doTest(test : ()-> ()){
         let startTime = NSDate()
-        let usageAtBegin = report_memory()
+        let usageAtBegin = usage
     
         test()
 
-        let usageAtEnd = report_memory()
         let endTime = NSDate()
 
-        curenMemoryUsage.text = "\(NSNumber(int: Int32(usageAtEnd)).descriptionWithLocale(NSLocale.currentLocale()))"
-        changedMemoryUsage.text = "\(NSNumber(int: Int32(usageAtEnd - usageAtBegin)).descriptionWithLocale(NSLocale.currentLocale()))"
+        usage = report_memory()
+        curenMemoryUsage.text = "\(NSNumber(int: Int32(usage)).descriptionWithLocale(NSLocale.currentLocale()))"
+
+        let change: Int32 = (Int32(usage) - Int32(usageAtBegin))
+        changedMemoryUsage.text = "\(NSNumber(int: change).descriptionWithLocale(NSLocale.currentLocale()))"
+
         testDuration.text = "\(endTime.timeIntervalSinceDate(startTime))"
     }
     
@@ -80,6 +86,8 @@ class ViewController: UIViewController {
             assert(c.ListObject2?.count ?? 0 == 1000)
         }
     }
+
+
 }
 
 

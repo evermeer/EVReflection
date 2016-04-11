@@ -489,17 +489,7 @@ final public class EVReflection {
      :returns: The Class type
      */
     public class func swiftClassFromString(className: String) -> NSObject? {
-        var result: NSObject? = nil
-        if className == "NSObject" {
-            return NSObject()
-        }
-        if let anyobjectype : AnyObject.Type = swiftClassTypeFromString(className) {
-            if let nsobjectype : NSObject.Type = anyobjectype as? NSObject.Type {
-                let nsobject: NSObject = nsobjectype.init()
-                result = nsobject
-            }
-        }
-        return result
+        return (swiftClassTypeFromString(className) as? NSObject.Type)?.init()
     }
     
     /**
@@ -510,10 +500,7 @@ final public class EVReflection {
      :returns: The string representation of the class (name of the bundle dot name of the class)
      */
     public class func swiftStringFromClass(theObject: NSObject) -> String! {
-        let appName = getCleanAppName(theObject)
-        let classStringName: String = NSStringFromClass(theObject.dynamicType)
-        let classWithoutAppName: String = classStringName.stringByReplacingOccurrencesOfString(appName + ".", withString: "", options: NSStringCompareOptions.CaseInsensitiveSearch, range: nil)
-        return classWithoutAppName
+        return NSStringFromClass(theObject.dynamicType).stringByReplacingOccurrencesOfString(getCleanAppName(theObject) + ".", withString: "", options: NSStringCompareOptions.CaseInsensitiveSearch, range: nil)
     }
     
     /**
