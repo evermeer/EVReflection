@@ -260,8 +260,6 @@ For Swift Dictionaries (and not NSDictionary) the protocol EVDictionaryConvertab
 
 EVReflection is available under the MIT 3 license. See the LICENSE file for more info.
 
-[![Evolution of EVReflection (Gource Visualization)](https://img.youtube.com/vi/FIETlttIFh8/2.jpg)](https://www.youtube.com/watch?v=FIETlttIFh8)
-
 ## My other libraries:
 Also see my other open source iOS libraries:
 
@@ -274,3 +272,5 @@ Also see my other open source iOS libraries:
 - [AlamofireOauth2](https://github.com/evermeer/AlamofireOauth2) - A swift implementation of OAuth2 using Alamofire
 - [EVWordPressAPI](https://github.com/evermeer/EVWordPressAPI) - Swift Implementation of the WordPress (Jetpack) API using AlamofireOauth2, AlomofireJsonToObjects and EVReflection (work in progress)
 - [PassportScanner](https://github.com/evermeer/PassportScanner) - Scan the MRZ code of a passport and extract the firstname, lastname, passport number, nationality, date of birth, expiration date and personal numer.
+
+[![Evolution of EVReflection (Gource Visualization)](https://img.youtube.com/vi/FIETlttIFh8/2.jpg)](https://www.youtube.com/watch?v=FIETlttIFh8)
