@@ -260,6 +260,8 @@ For Swift Dictionaries (and not NSDictionary) the protocol EVDictionaryConvertab
 
 EVReflection is available under the MIT 3 license. See the LICENSE file for more info.
 
+[![Evolution of EVReflection (Gource Visualization)](https://img.youtube.com/vi/FIETlttIFh8/2.jpg)](https://www.youtube.com/watch?v=FIETlttIFh8)
+
 ## My other libraries:
 Also see my other open source iOS libraries:
 

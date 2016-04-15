@@ -46,8 +46,8 @@ class ViewController: UIViewController {
         }
         
         if kerr == KERN_SUCCESS {
-            print("Memory in use (in bytes): \(info.resident_size)")
-            return info.resident_size
+            print("Memory in use (in bytes): \(NSNumber(int: Int32(info.resident_size)).descriptionWithLocale(NSLocale.currentLocale()))")
+            return UInt(info.resident_size)
         }
         else {
             print("Error with task_info(): " +

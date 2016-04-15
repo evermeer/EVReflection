@@ -595,7 +595,8 @@ final public class EVReflection {
         case let intValue as UInt8:
             return (NSNumber(unsignedChar: intValue), "NSNumber", false)
         case let stringValue as String:
-            return (stringValue as NSString, "NSString", false)
+            //let s = NSString(string: stringValue)
+            return (stringValue, "NSString", false)
         case let dateValue as NSDate:
             return (dateValue, "NSDate", false)
         case let anyvalue as NSArray:
