@@ -98,3 +98,31 @@ public extension Array {
     }
     
 }
+
+public  extension NSObject {
+    
+
+    func getTypeForPropertyName(propertyName: String) -> Any.Type? {
+        
+        let mirror = Mirror(reflecting: self)
+        return getTypeForPropertyName(propertyName, mirror: mirror)
+    }
+    
+    func getTypeForPropertyName(propertyName: String, mirror: Mirror) -> Any.Type? {
+        
+        for (label, value) in mirror.children {
+            if propertyName == label {
+                return Mirror(reflecting: value).subjectType
+            }
+        }
+        
+        guard let superclassMirror = mirror.superclassMirror() else {
+            return nil
+        }
+        
+        return getTypeForPropertyName(propertyName, mirror: superclassMirror)        
+    }
+
+    
+    
+}

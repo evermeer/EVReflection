@@ -636,65 +636,78 @@ final public class EVReflection {
      :returns: Nothing
      */
     public static func setObjectValue<T where T:NSObject>(anyObject: T, key:String, theValue:AnyObject?, typeInObject:String? = nil) {
-        var value = theValue
-        if value == nil || value as? NSNull != nil {
+        
+        guard var value = theValue where (value as? NSNull) == nil else {
+            
             //            do {
             //                var nilValue: AnyObject? = Optional.None
             //                try anyObject.validateValue(&nilValue, forKey: key)
             //                anyObject.setValue(nilValue, forKey: key)
             //            } catch _ {
             //            }
-        } else {
-            if let (_, propertySetter, _) = (anyObject as? EVObject)?.propertyConverters().filter({$0.0 == key}).first {
-                guard let propertySetter = propertySetter else {
-                    return  // if the propertySetter is nil, skip setting the property
-                }                
-                propertySetter(value)
-                return
-            }            
-            // Let us put a number into a string property by taking it's stringValue
-            let (_, type, _) = valueForAny("", key: key, anyValue: value)
-            if (typeInObject == "String" || typeInObject == "NSString") && type == "NSNumber" {
-                if let convertedValue = value as? NSNumber {
-                    value = convertedValue.stringValue
-                }
-            } else if typeInObject == "NSNumber" && (type == "String" || type == "NSString") {
-                if let convertedValue = value as? String {
-                    value = NSNumber(double: Double(convertedValue) ?? 0)
-                    if value == nil {
-                        NSLog("ERROR: Could not initialize a NSNumber for value \(convertedValue)")
-                        return
-                    }
-                }
-            } else if typeInObject == "NSDate"  && (type == "String" || type == "NSString") {
-                if let convertedValue = value as? String {
-                    value = getDateFormatter().dateFromString(convertedValue)
-                    if value == nil {
-                        NSLog("ERROR: The dateformatter returend nil for value \(convertedValue)")
-                        return
-                    }
-                }
+            return
+        }
+        
+        if let (_, propertySetter, _) = (anyObject as? EVObject)?.propertyConverters().filter({$0.0 == key}).first {
+            guard let propertySetter = propertySetter else {
+                return  // if the propertySetter is nil, skip setting the property
             }
-            if typeInObject == "Struct" {
-                anyObject.setValue(value!, forUndefinedKey: key)
-            } else {
-                anyObject.setValue(value!, forKey: key)
-                /*  TODO: For nullable types like Int? we could use this instead of the workaround. 
-                 // Asign pointerToField based on specific type
-                 
-                 // Look up the ivar, and it's offset
-                 let ivar: Ivar = class_getInstanceVariable(anyObject.dynamicType, key)
-                 let fieldOffset = ivar_getOffset(ivar)
-                 
-                 // Pointer arithmetic to get a pointer to the field
-                 let pointerToInstance = unsafeAddressOf(anyObject)
-                 let pointerToField = UnsafeMutablePointer<Int?>(pointerToInstance + fieldOffset)
-                 
-                 // Set the value using the pointer
-                 pointerToField.memory = value!
-                 */
+            propertySetter(value)
+            return
+        }
+        // Let us put a number into a string property by taking it's stringValue
+        let (_, type, _) = valueForAny("", key: key, anyValue: value)
+        if (typeInObject == "String" || typeInObject == "NSString") && type == "NSNumber" {
+            if let convertedValue = value as? NSNumber {
+                value = convertedValue.stringValue
+            }
+        } else if typeInObject == "NSNumber" && (type == "String" || type == "NSString") {
+            if let convertedValue = value as? String {
+                value = NSNumber(double: Double(convertedValue) ?? 0)
+            }
+        } else if typeInObject == "NSDate"  && (type == "String" || type == "NSString") {
+            if let convertedValue = value as? String {
                 
+                guard let date = getDateFormatter().dateFromString(convertedValue) else {
+                    NSLog("ERROR: The dateformatter returend nil for value \(convertedValue)")
+                    return
+                }
+                
+                value = date
             }
+        }
+        if typeInObject == "Struct" {
+            anyObject.setValue(value, forUndefinedKey: key)
+        } else {
+            
+            guard let propertyType = anyObject.getTypeForPropertyName(key) else {
+                print("ERROR: ERROR: \(anyObject.dynamicType) property `\(key)` type not found.")
+                return
+            }
+            
+            let valueType: AnyClass = value.dynamicType
+            
+            if !value.isKindOfClass(value.dynamicType) {
+                print("ERROR: \(anyObject.dynamicType) `\(key)` type, `\(propertyType), doesn't match expected type, `\(valueType)`")
+                return
+            }
+            
+            anyObject.setValue(value, forKey: key)
+            
+            /*  TODO: For nullable types like Int? we could use this instead of the workaround.
+             // Asign pointerToField based on specific type
+             
+             // Look up the ivar, and it's offset
+             let ivar: Ivar = class_getInstanceVariable(anyObject.dynamicType, key)
+             let fieldOffset = ivar_getOffset(ivar)
+             
+             // Pointer arithmetic to get a pointer to the field
+             let pointerToInstance = unsafeAddressOf(anyObject)
+             let pointerToField = UnsafeMutablePointer<Int?>(pointerToInstance + fieldOffset)
+             
+             // Set the value using the pointer
+             pointerToField.memory = value!
+             */            
         }
     }
     
@@ -868,7 +881,9 @@ final public class EVReflection {
             returnObject = setPropertiesfromDictionary(dict, anyObject: returnObject)
             return returnObject as? T
         }
-        NSLog("ERROR: Could not create an instance for type \(type)")
+        
+        let message = "ERROR: Could not create an instance for type \(type)\ndict:\(dict)"
+        print(message)
         return nil
     }
     

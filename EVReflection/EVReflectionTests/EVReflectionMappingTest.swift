@@ -47,10 +47,25 @@ class EVReflectionMappingTests: XCTestCase {
         NSLog("player = \(player)")
         NSLog("administrator = \(administrator)")
 
-        XCTAssertEqual(administrator.name, player.name, "The names will be the same")
-        XCTAssertEqual(administrator.memberSince, player.memberSince, "The member since dates will be the same")
-        XCTAssertEqual(administrator.level, 19, "When creatinga an administrator it's level will be a quarter of the player rating")
+        XCTAssertEqual(administrator.name, player.name, "The names should be the same")
+        XCTAssertEqual(administrator.memberSince, player.memberSince, "The member since dates should be the same.")
+        XCTAssertEqual(administrator.level, 19, "When creatinga an administrator, it's level should be a quarter of the player's rating")
+    }
+    
+    func testNonmatchingPropertyTypeInDictionarySilentlySkipsPropertySettingWithoutThrowingAnError() {
         
+        let name = "Me"
+        let gamesPlayed = 42
+        
+        let json = "{ \"name\": \"\(name)\", \"memberSince\": \"\", \"gamesPlayed\": \(gamesPlayed)," +
+                      "\"rating\": {\"score\": 111, \"rank\": 122 } }"
+        
+        let player = GamePlayer(json: json)
+        XCTAssertEqual(player.name, name)
+        XCTAssertEqual(player.gamesPlayed, gamesPlayed)
+        
+        XCTAssertNil(player.memberSince)
+        XCTAssertEqual(player.rating, 0)
     }
 }
 
