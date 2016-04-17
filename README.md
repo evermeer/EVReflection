@@ -193,6 +193,21 @@ public class TestObject6: EVObject {
 }
 ```
 
+
+### Property validators
+Before setting a value the value will always be validated using the standard validateValue KVO function. This means that for every property you can also create a validation function for that property.
+
+```
+public class TestObject7: EVObject {
+    var myValue: String?
+
+    func validateMyValue(value: String?, Error: NSError) -> Bool {
+        return true;
+    }
+}
+```
+
+
 ### What to do when you use object enheritance
 You can deserialize json to an object that uses enheritance. When the properties are specified as the base class, then the correct specific object type will be returned by the function getSecificType. See the sample code below or the unit test in EVReflectionEnheritanceTests.swift
 

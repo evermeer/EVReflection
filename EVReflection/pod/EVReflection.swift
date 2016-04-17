@@ -60,11 +60,12 @@ final public class EVReflection {
                     let mapping = keyMapping[k as! String]
                     let useKey: String = (mapping ?? k ?? "") as! String
                     let original:NSObject? = getValue(anyObject, key: useKey)
-                    if let dictValue = dictionaryAndArrayConversion(anyObject, key: k as! String, fieldType: types[useKey] as? String, original: original, theDictValue: v) {
+                    let (dictValue, valid) = dictionaryAndArrayConversion(anyObject, key: k as! String, fieldType: types[useKey] as? String, original: original, theDictValue: v)
+                    if dictValue != nil {
                         if let key:String = keyMapping[k as! String] as? String {
-                            setObjectValue(anyObject, key: key, theValue: dictValue, typeInObject: types[key] as? String)
+                            setObjectValue(anyObject, key: key, theValue: (valid ? dictValue: v), typeInObject: types[key] as? String, valid: valid)
                         } else {
-                            setObjectValue(anyObject, key: k as! String, theValue: dictValue, typeInObject: types[k as! String] as? String)
+                            setObjectValue(anyObject, key: k as! String, theValue: (valid ? dictValue : v), typeInObject: types[k as! String] as? String, valid: valid)
                         }
                     }
                 }
@@ -556,7 +557,8 @@ final public class EVReflection {
                     let convertedValue = arrayConverter.convertArray(key!, array: theValue)
                     return (convertedValue, valueType, false)
                 }
-                assert(true, "WARNING: An object with a property of type Array with optional objects should implement the EVArrayConvertable protocol.")
+                NSLog("WARNING: An object with a property of type Array with optional objects should implement the EVArrayConvertable protocol. type = \(valueType) for key \((key ?? ""))")
+                return (NSNull(), "NSNull", false)
             }
         } else if mi.displayStyle == .Struct {
             valueType = "\(mi.subjectType)"
@@ -569,7 +571,6 @@ final public class EVReflection {
             NSLog("Converting a struct to a dictionary for: \(theValue)")
             let structAsDict = convertStructureToDictionary(theValue)
             return (structAsDict, "Struct", false)
-            //assert(true, "WARNING: An object with a property of type Dictionary (not NSDictionary) should implement the EVDictionaryConvertable protocol.")
         } else {
             valueType = "\(mi.subjectType)"
         }
@@ -612,8 +613,7 @@ final public class EVReflection {
             // isObject is false to prevent parsing of objects like CKRecord, CKRecordId and other objects.
             return (anyvalue, valueType, false)
         default:
-            
-            NSLog("ERROR: valueForAny unkown type \(theValue), type \(valueType). Could not happen unless there will be a new type in Swift.")
+            NSLog("ERROR: valueForAny unkown type \(valueType) for value: \(theValue).")
             return (NSNull(), "NSNull", false)
         }
     }
@@ -635,16 +635,9 @@ final public class EVReflection {
      
      :returns: Nothing
      */
-    public static func setObjectValue<T where T:NSObject>(anyObject: T, key:String, theValue:AnyObject?, typeInObject:String? = nil) {
+    public static func setObjectValue<T where T:NSObject>(anyObject: T, key:String, theValue:AnyObject?, typeInObject:String? = nil, valid: Bool) {
         
         guard var value = theValue where (value as? NSNull) == nil else {
-            
-            //            do {
-            //                var nilValue: AnyObject? = Optional.None
-            //                try anyObject.validateValue(&nilValue, forKey: key)
-            //                anyObject.setValue(nilValue, forKey: key)
-            //            } catch _ {
-            //            }
             return
         }
         
@@ -669,7 +662,7 @@ final public class EVReflection {
             if let convertedValue = value as? String {
                 
                 guard let date = getDateFormatter().dateFromString(convertedValue) else {
-                    NSLog("ERROR: The dateformatter returend nil for value \(convertedValue)")
+                    NSLog("WARNING: The dateformatter returend nil for value \(convertedValue)")
                     return
                 }
                 
@@ -679,20 +672,43 @@ final public class EVReflection {
         if typeInObject == "Struct" {
             anyObject.setValue(value, forUndefinedKey: key)
         } else {
-            
-            guard let propertyType = anyObject.getTypeForPropertyName(key) else {
-                print("ERROR: ERROR: \(anyObject.dynamicType) property `\(key)` type not found.")
+            if !valid {
+                NSLog("WARNING: \(anyObject.dynamicType) `\(key)` type, `\(type), doesn't match expected type.")
+                anyObject.setValue(theValue, forUndefinedKey: key)
                 return
             }
+//Attempt 1
+//            guard let propertyType: Any.Type = (anyObject as? EVObject)?.typeForKey(key) else {
+//                NSLog("ERROR: \(anyObject.dynamicType) property `\(key)` type not found.")
+//                anyObject.setValue(theValue, forUndefinedKey: key)
+//                return
+//            }
+//            ?? test if value has a type compatible with propertyType?
             
-            let valueType: AnyClass = value.dynamicType
+//Attempt 2
+//            if value.isKindOfClass(swiftClassTypeFromString(typeInObject ?? "") ?? NSObject.self) {
+//                NSLog("WARNING: \(anyObject.dynamicType) `\(key)` type, `\(type), doesn't match expected type.")
+//                anyObject.setValue(theValue, forUndefinedKey: key)
+//                return
+//            }
+
+//Attempt 3
+//            let currentValue = anyObject.valueForKey(key)
+//            if currentValue is EVObject && !(value is EVObject) {
+//                NSLog("WARNING: \(anyObject.dynamicType) `\(key)` type, `\(type), doesn't match expected type \(currentValue.dynamicType)")
+//                anyObject.setValue(theValue, forUndefinedKey: key)
+//                return
+//            }
             
-            if !value.isKindOfClass(value.dynamicType) {
-                print("ERROR: \(anyObject.dynamicType) `\(key)` type, `\(propertyType), doesn't match expected type, `\(valueType)`")
-                return
+            // Call your own object validators that comply to the format: validate<Key>:Error:
+            do {
+               var setValue: AnyObject? = value
+                try anyObject.validateValue(&setValue, forKey: key)
+                anyObject.setValue(setValue, forKey: key)
+            } catch _ {
+                NSLog("INFO: Not a valid value for object `\(anyObject.dynamicType)`, type `\(type)`, key  `\(key)`, value `\(value)`")
             }
             
-            anyObject.setValue(value, forKey: key)
             
             /*  TODO: For nullable types like Int? we could use this instead of the workaround.
              // Asign pointerToField based on specific type
@@ -707,7 +723,7 @@ final public class EVReflection {
              
              // Set the value using the pointer
              pointerToField.memory = value!
-             */            
+             */
         }
     }
     
@@ -828,8 +844,9 @@ final public class EVReflection {
      
      :returns: The converted value
      */
-    private static func dictionaryAndArrayConversion(anyObject:NSObject, key: String, fieldType:String?, original:NSObject?, theDictValue: AnyObject?) -> AnyObject? {
+    private static func dictionaryAndArrayConversion(anyObject:NSObject, key: String, fieldType:String?, original:NSObject?, theDictValue: AnyObject?) -> (AnyObject?, Bool) {
         var dictValue = theDictValue
+        var valid = true
         if let type = fieldType {
             if type.hasPrefix("Array<") && dictValue as? NSDictionary != nil {
                 if (dictValue as! NSDictionary).count == 1 {
@@ -847,17 +864,20 @@ final public class EVReflection {
             } else if let _ = type.rangeOfString("_NativeDictionaryStorageOwner") ,  let dict = dictValue as? NSDictionary, let org = anyObject as? EVDictionaryConvertable {
                 dictValue = org.convertDictionary(key, dict: dict)
             } else if type != "NSDictionary" && dictValue as? NSDictionary != nil {
-                // Sub object
-                dictValue = (dictToObject(type, original:original ,dict: dictValue as! NSDictionary) ?? dictValue)
+                let (dict, isValid) = dictToObject(type, original:original ,dict: dictValue as! NSDictionary)
+                dictValue = dict ?? dictValue
+                valid = isValid
             } else if type.rangeOfString("<NSDictionary>") == nil && dictValue as? [NSDictionary] != nil {
                 // Array of objects
                 dictValue = dictArrayToObjectArray(type, array: dictValue as! [NSDictionary]) as NSArray
             } else if (original is EVObject && dictValue is String) {
                 // fixing the conversion from XML without properties
-                dictValue = dictToObject(type, original:original, dict:  ["__text": dictValue as! String])
+                let (dict, isValid) = dictToObject(type, original:original, dict:  ["__text": dictValue as! String])
+                dictValue = dict ?? dictValue
+                valid = isValid
             }
         }
-        return dictValue
+        return (dictValue, valid)
     }
     
     /**
@@ -869,22 +889,32 @@ final public class EVReflection {
      
      :returns: The object that is created from the dictionary
      */
-    private class func dictToObject<T where T:NSObject>(type:String, original:T? ,dict:NSDictionary) -> T? {
+    private class func dictToObject<T where T:NSObject>(type:String, original:T? ,dict:NSDictionary) -> (T?, Bool) {
         if var returnObject = original  {
-            returnObject = setPropertiesfromDictionary(dict, anyObject: returnObject)
-            return returnObject
+            if returnObject is EVObject {
+                returnObject = setPropertiesfromDictionary(dict, anyObject: returnObject)
+            } else {
+                NSLog("WARNING: Cannot set values on type \(type) from dictionary \(dict)")
+                return (returnObject, false)
+            }
+
+            return (returnObject, true)
         }
+        
         if var returnObject:NSObject = swiftClassFromString(type) {
             if let evResult = returnObject as? EVObject {
                 returnObject = evResult.getSpecificType(dict)
             }
             returnObject = setPropertiesfromDictionary(dict, anyObject: returnObject)
-            return returnObject as? T
+            return (returnObject as? T, true)
         }
         
-        let message = "ERROR: Could not create an instance for type \(type)\ndict:\(dict)"
-        print(message)
-        return nil
+        if type == "Struct" {
+            NSLog("WARNING: Structs should be handled with 'setvalue forUndefinedKey'\ndict:\(dict)")
+        } else {
+            NSLog("ERROR: Could not create an instance for type \(type)\ndict:\(dict)")
+        }
+        return (nil, false)
     }
     
     /**
@@ -915,8 +945,9 @@ final public class EVReflection {
             if let evResult = org as? EVObject {
                 org = evResult.getSpecificType(item as! NSDictionary)
             }
-            if let arrayObject = self.dictToObject(subtype, original:org, dict: item as! NSDictionary) {
-                result.append(arrayObject)
+            let (arrayObject, valid) = self.dictToObject(subtype, original:org, dict: item as! NSDictionary)
+            if arrayObject != nil && valid {
+                result.append(arrayObject!)
             }
         }
         return result

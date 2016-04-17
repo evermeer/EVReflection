@@ -37,7 +37,7 @@ public class TestObject2b {
 /**
 For testing the automatic conversion from and to string and int
 */
-public class TestObject4: EVObject {
+public class TestObject4: EVObject, EVArrayConvertable {
     var myString: String = ""
     var myFloat: Float = 0
     var myDouble: Double = 0
@@ -64,6 +64,19 @@ public class TestObject4: EVObject {
     var array3: [String] = ["test"]
     var array4: [TestObject2] = []
     var array5: [TestObject2?]? = [TestObject2(), nil, TestObject2()]
+    
+    // Implementation of the EVArrayConvertable protocol for handling an array of nullble objects.
+    public func convertArray(key: String, array: Any) -> NSArray {
+        assert(key == "array5", "convertArray for key \(key) should be handled.")
+        
+        let returnArray = NSMutableArray()
+        for item in array as! [TestObject2?] {
+            if item != nil {
+                returnArray.addObject(item!)
+            }
+        }
+        return returnArray
+    }
 }
 
 

@@ -72,7 +72,7 @@ class EVReflectionNumbersTests: XCTestCase {
         XCTAssertEqual(a.myString, "str", "myString should be str")
         XCTAssertEqual(a.list.count, 1, "We should have 1 item in the list")
         
-        let json2 = "{\"myString\":\"str\", \"list\":{\"myString\":\"str1\"}}"
+        let json2 = "{\"myString\":\"str\", \"list\":[{\"myString\":\"str1\"}]}"
         let b = TestObject4(json: json2)
         XCTAssertEqual(b.myString, "str", "myString should be str")
         XCTAssertEqual(b.list.count, 1, "We should have 1 item in the list")

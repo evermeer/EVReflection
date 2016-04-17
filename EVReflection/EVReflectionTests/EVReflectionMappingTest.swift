@@ -57,7 +57,7 @@ class EVReflectionMappingTests: XCTestCase {
         let name = "Me"
         let gamesPlayed = 42
         
-        let json = "{ \"name\": \"\(name)\", \"memberSince\": \"\", \"gamesPlayed\": \(gamesPlayed)," +
+        let json = "{ \"name\": \"\(name)\", \"objectIsNotAValue\": \"shouldBeObject\", \"memberSince\": \"1\", \"gamesPlayed\": \(gamesPlayed)," +
                       "\"rating\": {\"score\": 111, \"rank\": 122 } }"
         
         let player = GamePlayer(json: json)
@@ -72,11 +72,17 @@ class EVReflectionMappingTests: XCTestCase {
 public class GameUser: EVObject {
     var name: String?
     var memberSince: NSDate?
+    var objectIsNotAValue: TestObject?
 }
 
 public class GamePlayer: GameUser {
     var gamesPlayed: Int = 0
     var rating: Int = 0
+
+    // This way we can solve that the JSON has arbitrary keys or wrong values
+    override public func setValue(value: AnyObject!, forUndefinedKey key: String) {
+        NSLog("---> setValue for key '\(key)' should be handled or the value is of the wrong type: \(value).")
+    }
 }
 
 public class GameAdministrator: GameUser {

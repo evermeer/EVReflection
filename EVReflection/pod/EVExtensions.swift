@@ -99,37 +99,3 @@ public extension Array {
     
 }
 
-public  extension NSObject {
-    
-
-    /**
-     Get the type for a given property name or `nil` if there aren't any properties matching said name.
-     
-     - parameter propertyName: The property name
-     
-     - returns: The type for the property
-     */
-    public func getTypeForPropertyName(propertyName: String) -> Any.Type? {
-        
-        let mirror = Mirror(reflecting: self)
-        return getTypeForPropertyName(propertyName, mirror: mirror)
-    }
-    
-    private func getTypeForPropertyName(propertyName: String, mirror: Mirror) -> Any.Type? {
-        
-        for (label, value) in mirror.children {
-            if propertyName == label {
-                return Mirror(reflecting: value).subjectType
-            }
-        }
-        
-        guard let superclassMirror = mirror.superclassMirror() else {
-            return nil
-        }
-        
-        return getTypeForPropertyName(propertyName, mirror: superclassMirror)        
-    }
-
-    
-    
-}

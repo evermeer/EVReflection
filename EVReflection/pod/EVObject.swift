@@ -289,6 +289,34 @@ public class EVObject: NSObject, NSCoding { // These are redundant in Swift 2+: 
         return result as! T
     }
     
+    /**
+     Get the type for a given property name or `nil` if there aren't any properties matching said name.
+     
+     - parameter propertyName: The property name
+     
+     - returns: The type for the property
+     */
+    public func typeForKey(propertyName: String) -> Any.Type? {
+        let mirror = Mirror(reflecting: self)
+        return typeForKey(propertyName, mirror: mirror)
+    }
+    
+    private func typeForKey(propertyName: String, mirror: Mirror) -> Any.Type? {
+        for (label, value) in mirror.children {
+            if propertyName == label {
+                return Mirror(reflecting: value).subjectType
+            }
+        }
+        
+        guard let superclassMirror = mirror.superclassMirror() else {
+            return nil
+        }
+        
+        return typeForKey(propertyName, mirror: superclassMirror)
+    }
+    
+
+    
 }
 
 
