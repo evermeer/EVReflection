@@ -35,7 +35,7 @@ class EVReflectionMappingTests: XCTestCase {
      */
     func testSimpleMapping() {
         let player = GamePlayer()
-        player.name = "Me"
+        player.name = "It's Me"
         player.memberSince = NSDate()
         player.gamesPlayed = 123
         player.rating = 76
