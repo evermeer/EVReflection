@@ -54,7 +54,7 @@ class EVReflectionMappingTests: XCTestCase {
     
     func testNonmatchingPropertyTypeInDictionarySilentlySkipsPropertySettingWithoutThrowingAnError() {
         
-        let name = "Me"
+        let name = "It's Me"
         let gamesPlayed = 42
         
         let json = "{ \"name\": \"\(name)\", \"objectIsNotAValue\": \"shouldBeObject\", \"memberSince\": \"1\", \"gamesPlayed\": \(gamesPlayed)," +
@@ -69,10 +69,28 @@ class EVReflectionMappingTests: XCTestCase {
     }
 }
 
+enum MyValidationError: ErrorType {
+    case TypeError,
+    LengthError
+}
+
 public class GameUser: EVObject {
     var name: String?
     var memberSince: NSDate?
     var objectIsNotAValue: TestObject?
+    
+    func validateName(value:AutoreleasingUnsafeMutablePointer<AnyObject?>) throws {
+        if let theValue = value.memory as? String {
+            if theValue.lengthOfBytesUsingEncoding(NSUTF8StringEncoding) < 3 {
+                NSLog("Validating name is not long enough \(theValue)")
+                throw MyValidationError.LengthError
+            }
+            NSLog("Validating name OK: \(theValue)")
+        } else {
+            NSLog("Validating name is not a string: \(value.memory)")
+            throw MyValidationError.TypeError
+        }
+    }
 }
 
 public class GamePlayer: GameUser {

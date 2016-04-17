@@ -195,15 +195,31 @@ public class TestObject6: EVObject {
 
 
 ### Property validators
-Before setting a value the value will always be validated using the standard validateValue KVO function. This means that for every property you can also create a validation function for that property.
+Before setting a value the value will always be validated using the standard validateValue KVO function. This means that for every property you can also create a validation function for that property. See the sample below where there is a validateName function for the name property.
 
 ```
-public class TestObject7: EVObject {
-    var myValue: String?
+enum MyValidationError: ErrorType {
+   case TypeError,
+   LengthError
+}
 
-    func validateMyValue(value: String?, Error: NSError) -> Bool {
-        return true;
-    }
+public class GameUser: EVObject {
+   var name: String?
+   var memberSince: NSDate?
+   var objectIsNotAValue: TestObject?
+
+   func validateName(value:AutoreleasingUnsafeMutablePointer<AnyObject?>) throws {
+      if let theValue = value.memory as? String {
+         if theValue.lengthOfBytesUsingEncoding(NSUTF8StringEncoding) < 3 {
+            NSLog("Validating name is not long enough \(theValue)")
+            throw MyValidationError.LengthError
+         }
+         NSLog("Validating name OK \(theValue)")
+      } else {
+         NSLog("Validating name is not a string: \(value.memory)")
+         throw MyValidationError.TypeError
+     }
+   }
 }
 ```
 
