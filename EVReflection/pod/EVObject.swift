@@ -246,7 +246,7 @@ public class EVObject: NSObject, NSCoding { // These are redundant in Swift 2+: 
     
     :returns: The dictionary
     */
-    final public func toDictionary(performKeyCleanup:Bool = false) -> NSDictionary {
+    public func toDictionary(performKeyCleanup:Bool = false) -> NSDictionary {
         let (reflected, _) = EVReflection.toDictionary(self, performKeyCleanup: performKeyCleanup)
         return reflected
     }
@@ -258,7 +258,7 @@ public class EVObject: NSObject, NSCoding { // These are redundant in Swift 2+: 
      
      :returns: The json string
      */
-    final public func toJsonString(performKeyCleanup:Bool = false) -> String {
+    public func toJsonString(performKeyCleanup:Bool = false) -> String {
         return EVReflection.toJsonString(self, performKeyCleanup: performKeyCleanup)
     }
     
