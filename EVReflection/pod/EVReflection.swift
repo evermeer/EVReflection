@@ -670,34 +670,6 @@ final public class EVReflection {
                 anyObject.setValue(theValue, forUndefinedKey: key)
                 return
             }
-            // Trying to solve the issue where a value is assigned to an object (like a single string to TestObject)
-//Attempt 1
-//            guard let propertyType: Any.Type = (anyObject as? EVObject)?.typeForKey(key) else {
-//                NSLog("ERROR: \(anyObject.dynamicType) property `\(key)` type not found.")
-//                anyObject.setValue(theValue, forUndefinedKey: key)
-//                return
-//            }
-//            ?? test if value has a type compatible with propertyType?
-            
-//Attempt 2
-//            if value.isKindOfClass(swiftClassTypeFromString(typeInObject ?? "") ?? NSObject.self) {
-//                NSLog("WARNING: \(anyObject.dynamicType) `\(key)` type, `\(type), doesn't match expected type.")
-//                anyObject.setValue(theValue, forUndefinedKey: key)
-//                return
-//            }
-
-//Attempt 3
-//            if let currentType = ((anyObject as? EVObject) ?? EVObject()).typeForKey(key) {
-//                if (value as? EVObject)?.dynamicType == nil {
-//                    let newObj = swiftClassFromString("/(currentType)")
-//                    NSLog("\(newObj.dynamicType) \(newObj) ")
-//                    if newObj as? EVObject != nil {
-//                        NSLog("WARNING: \(anyObject.dynamicType) `\(key)` type, `\(type), doesn't match expected type \(currentType)")
-//                        anyObject.setValue(theValue, forUndefinedKey: key)
-//                        return
-//                    }
-//                }
-//            }
             
             // Call your own object validators that comply to the format: validate<Key>:Error:
             do {
@@ -708,8 +680,7 @@ final public class EVReflection {
                 NSLog("INFO: Not a valid value for object `\(anyObject.dynamicType)`, type `\(type)`, key  `\(key)`, value `\(value)`")
             }
             
-            
-            /*  TODO: For nullable types like Int? we could use this instead of the workaround.
+            /*  TODO: Do I dare? ... For nullable types like Int? we could use this instead of the workaround.
              // Asign pointerToField based on specific type
              
              // Look up the ivar, and it's offset
@@ -743,10 +714,6 @@ final public class EVReflection {
         let newTypes = NSMutableDictionary()
         for (key, _) in properties {
             if let newKey = cleanupKey(theObject, key: (key as? String)!, tryMatch: nil) {
-                //TODO: cleanup sub objects
-                //                if properties[key as! String].dynamicType != Dictionary.type && types[key as! String] == "Dictionary" {
-                //
-                //                }
                 newProperties[newKey] = properties[(key as? String)!]
                 newTypes[newKey] = types[(key as? String)!]
             }
