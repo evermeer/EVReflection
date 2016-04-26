@@ -37,8 +37,8 @@ class EVReflectionNumbersTests: XCTestCase {
      Test the conversion from string to number and from number to string
      */
     func testTypeDict() {
-        let i:Int32 = 1
-        let s:String = "2"
+        let i: Int32 = 1
+        let s: String = "2"
         let dictOriginal: NSMutableDictionary = NSMutableDictionary()
         dictOriginal.setValue(s, forKey: "myInt")
         dictOriginal.setValue(NSNumber(int:i), forKey: "myString")
@@ -87,23 +87,23 @@ class EVReflectionNumbersTests: XCTestCase {
         let (value1, _, _) = EVReflection.valueForAny("", key: "", anyValue: test1)
         XCTAssert(value1 as? NSNumber == NSNumber(double: Double(Int.max)), "Values should be same for type NSNumber")
         
-        let test2:Float = 458347978508
+        let test2: Float = 458347978508
         let (value2, _, _) = EVReflection.valueForAny("", key: "", anyValue: test2)
         XCTAssert(value2 as? NSNumber == NSNumber(float: 458347978508), "Values should be same for type Float")
         
-        let test3:Double = 458347978508
+        let test3: Double = 458347978508
         let (value3, _, _) = EVReflection.valueForAny("", key: "", anyValue: test3)
         XCTAssert(value3 as? NSNumber == NSNumber(double: 458347978508), "Values should be same for type Double")
         
-        let test4:Int64 = Int64.max
+        let test4: Int64 = Int64.max
         let (value4, _, _) = EVReflection.valueForAny("", key: "", anyValue: test4)
         XCTAssert(value4 as? NSNumber == NSNumber(longLong: Int64.max), "Values should be same for type Int64")
         
-        let test5:Int32 = Int32.max
+        let test5: Int32 = Int32.max
         let (value5, _, _) = EVReflection.valueForAny("", key: "", anyValue: test5)
         XCTAssert(value5 as? NSNumber == NSNumber(int: Int32.max), "Values should be same for type Int32")
         
-        let test6:Int = Int.max
+        let test6: Int = Int.max
         let (value6, _, _) = EVReflection.valueForAny("", key: "", anyValue: test6)
         XCTAssert(value6 as? NSNumber == NSNumber(integer: Int.max), "Values should be same for type Int64")
     }

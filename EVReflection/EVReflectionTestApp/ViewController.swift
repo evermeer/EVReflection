@@ -18,7 +18,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var curenMemoryUsage: UILabel!
     @IBOutlet weak var changedMemoryUsage: UILabel!
     
-    var usage:UInt = 0
+    var usage: UInt = 0
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
@@ -48,15 +48,14 @@ class ViewController: UIViewController {
         if kerr == KERN_SUCCESS {
             print("Memory in use (in bytes): \(info.resident_size)")
             return info.resident_size
-        }
-        else {
+        } else {
             print("Error with task_info(): " +
                 (String.fromCString(mach_error_string(kerr)) ?? "unknown error"))
             return 0
         }
     }
     
-    func doTest(test : ()-> ()){
+    func doTest(test : ()-> ()) {
         let startTime = NSDate()
         let usageAtBegin = usage
     
@@ -111,9 +110,4 @@ class TestObject2: EVObject {
     required init() {
         super.init()
     }
-    
-
 }
-
-
-

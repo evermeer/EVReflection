@@ -36,11 +36,11 @@ class EVReflectionAssociatedTests: XCTestCase {
 
 
     func testEnumAssociatedValues() {
-        let parameters:[usersParameters] = [.number(19), .authors_only(false)]
+        let parameters: [usersParameters] = [.number(19), .authors_only(false)]
         let y = WordPressRequestConvertible.MeLikes("XX", Dictionary(associated: parameters))
         // Now just extract the label and associated values from this enum
         let label = y.associated.label
-        let (token, param) = y.associated.value as! (String, [String:Any]?)
+        let (token, param) = (y.associated.value as? (String, [String:Any]?))!
         
         XCTAssertEqual("MeLikes", label, "The label of the enum should be MeLikes")
         XCTAssertEqual("XX", token, "The token associated value of the enum should be XX")

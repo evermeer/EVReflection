@@ -10,7 +10,7 @@ import XCTest
 
 
 class myClass: NSObject {
-    let item:String = ""
+    let item: String = ""
 }
 
 /**
@@ -41,14 +41,14 @@ class EnumWorkaroundsTests: XCTestCase {
         var testArray: [myClass?] = [myClass]()
         testArray.append(myClass())
         testArray.append(nil)
-        let newArray: [myClass] = parseArray(testArray) as! [myClass]
+        let newArray: [myClass] = parseArray(testArray) as? [myClass] ?? [myClass]()
         XCTAssertTrue(newArray.count == 1, "We should have 1 object in the array")
     }
     
     func testArrayNotNullable() {
         var testArray: [myClass] = [myClass]()
         testArray.append(myClass())
-        let newArray: [myClass] = parseArray(testArray) as! [myClass]
+        let newArray: [myClass] = parseArray(testArray) as? [myClass] ?? [myClass]()
         XCTAssertTrue(newArray.count == 1, "We should have 1 object in the array")
     }
     
@@ -58,13 +58,13 @@ class EnumWorkaroundsTests: XCTestCase {
         XCTAssertNil(a.value, "Associated value should be nil")
     }
     
-    func parseArray(array:Any) -> AnyObject {
+    func parseArray(array: Any) -> AnyObject {
         if let arrayObject: AnyObject = array as? AnyObject {
             return arrayObject
         }
         print("array was not an AnyObject")
         var temp = [AnyObject]()
-        for item in (array as! [myClass?]) {
+        for item in (array as? [myClass?] ?? [myClass?]()) {
             if item != nil {
                 temp.append(item!)
             }
@@ -144,7 +144,7 @@ class Comment: EVObject {
     var testuserinfo: UserInfo?
 }
 
-class UserInfo: EVObject{
+class UserInfo: EVObject {
     var avatar = ""
     var uid = ""
     var telnum = ""
@@ -153,6 +153,3 @@ class UserInfo: EVObject{
     var name = "TestUser"
     var interest = ""
 }
-
-
-

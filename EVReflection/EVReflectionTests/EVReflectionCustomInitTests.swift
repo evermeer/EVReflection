@@ -54,7 +54,3 @@ public class CustomPropertyClass: EVObject {
         super.init()
     }
 }
-
-
-
-

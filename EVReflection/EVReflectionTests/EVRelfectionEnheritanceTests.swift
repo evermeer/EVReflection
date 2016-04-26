@@ -90,13 +90,10 @@ class Foo: EVObject {
     }
 }
 
-class Bar : Foo {
+class Bar: Foo {
     var justBar: String = "For bar only"
 }
 
 class Baz: Foo {
     var justBaz: String = "For baz only"
 }
-
-
-

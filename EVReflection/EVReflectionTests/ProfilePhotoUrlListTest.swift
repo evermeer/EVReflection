@@ -31,7 +31,7 @@ class ProfilePhotoUrlListTests: XCTestCase {
     }
     
     
-    func testJsonObject(){
+    func testJsonObject() {
         
         let jsonDictOriginal = ["meta": ["limit": 1000, "offset": 0, "total_count": 4], "objects": [["id": 35, "index": 1, "resource_uri": "/api/v1/profilephotourl/35", "url": "a", "user": "/api/v1/user/1/"], ["id": 37, "index": 0, "resource_uri": "/api/v1/profilephotourl/37/", "url": "b", "user": "/api/v1/user/1/"], ["id": 36, "index": 3, "resource_uri": "/api/v1/profilephotourl/36/", "url": "c", "user": "/api/v1/user/1/"], ["id": 44, "index": 2, "resource_uri": "/api/v1/profilephotourl/44/", "url": "d", "user": "/api/v1/user/1"]]]
         
@@ -60,22 +60,22 @@ class Base: EVObject {
     }
 }
 
-class Meta : EVObject {
-    var limit : Int = 0
-    var next : String?
-    var offset : Int = 0
-    var previous : String?
-    var totalCount : Int = 0
+class Meta: EVObject {
+    var limit: Int = 0
+    var next: String?
+    var offset: Int = 0
+    var previous: String?
+    var totalCount: Int = 0
 }
 
-class ProfilePhotoUrl : Base {
-    var url : String?
-    var index : Int = 0
-    var user : String?
-    var id : Int = 0
+class ProfilePhotoUrl: Base {
+    var url: String?
+    var index: Int = 0
+    var user: String?
+    var id: Int = 0
 }
 
-class ProfilePhotoUrlList : EVObject {
+class ProfilePhotoUrlList: EVObject {
     var meta: Meta?
     var objects: [ProfilePhotoUrl]?
 }

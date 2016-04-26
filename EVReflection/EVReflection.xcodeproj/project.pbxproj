@@ -150,6 +150,7 @@
 		7F159DFB1BA2FA2F00247CB1 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		7F1BA5261B971CBF009F9DB8 /* EVExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVExtensions.swift; sourceTree = "<group>"; };
 		7F29762A1BB913910074C85A /* osx-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "osx-Info.plist"; sourceTree = "<group>"; };
+		7F36405C1CC9F2E600D7F055 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = .swiftlint.yml; sourceTree = "<group>"; };
 		7F3E19291B8526CA00A6E6C6 /* EVObjectDescription.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVObjectDescription.swift; sourceTree = "<group>"; };
 		7F41ECA41B91F2E0003A2236 /* TestObjects.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestObjects.swift; sourceTree = "<group>"; };
 		7F41ECA61B91F306003A2236 /* EVObjectDescriptionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVObjectDescriptionTests.swift; sourceTree = "<group>"; };
@@ -278,6 +279,7 @@
 		7F07C5541AF101A9000DF1F3 = {
 			isa = PBXGroup;
 			children = (
+				7F36405C1CC9F2E600D7F055 /* .swiftlint.yml */,
 				7F159DFB1BA2FA2F00247CB1 /* .gitignore */,
 				7F0636B31AFF413900595461 /* .travis.yml */,
 				7F07C5861AF10296000DF1F3 /* README.md */,
@@ -483,6 +485,7 @@
 				7F07C56E1AF101A9000DF1F3 /* Sources */,
 				7F07C56F1AF101A9000DF1F3 /* Frameworks */,
 				7F07C5701AF101A9000DF1F3 /* Resources */,
+				7F36405E1CC9F37A00D7F055 /* SwiftLint */,
 			);
 			buildRules = (
 			);
@@ -520,6 +523,7 @@
 				7F6C9FAD1CB90E6D00F19811 /* Frameworks */,
 				7F6C9FAE1CB90E6D00F19811 /* Resources */,
 				7F6C9FC91CB92D3C00F19811 /* Embed Frameworks */,
+				7F36405D1CC9F30100D7F055 /* SwiftLint */,
 			);
 			buildRules = (
 			);
@@ -708,6 +712,37 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		7F36405D1CC9F30100D7F055 /* SwiftLint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = SwiftLint;
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\n   echo \"Start SwiftLint\"\n   swiftlint\nelse\n   echo \"WARNING: installing SwiftLint not installed (start dowload using brew)\"\n   brew install swiftlint\n   if which swiftlint >/dev/null; then\n      echo \"Start SwiftLint\"\n      swiftlint\n   else\n    echo \"WARNING: SwiftLint could not be installed. Download it from https://github.com/realm/SwiftLint\"\nfi\nfi\n";
+		};
+		7F36405E1CC9F37A00D7F055 /* SwiftLint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = SwiftLint;
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "#SwiftLint only enabled\nif which swiftlint >/dev/null; then\n   echo \"Start SwiftLint\"\n   #swiftlint\nelse\n   echo \"WARNING: installing SwiftLint not installed (start dowload using brew)\"\n   #brew install swiftlint\n   if which swiftlint >/dev/null; then\n      echo \"Start SwiftLint\"\n      #swiftlint\n   else\n      echo \"WARNING: SwiftLint could not be installed. Download it from https://github.com/realm/SwiftLint\"\n   fi\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		2DC8AA381C24215500FA6B8E /* Sources */ = {
@@ -1329,6 +1364,7 @@
 				7F6C9FC11CB90E6D00F19811 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		7F9336BF1C28227400AF7076 /* Build configuration list for PBXNativeTarget "EVReflection TVOS" */ = {
 			isa = XCConfigurationList;

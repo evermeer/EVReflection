@@ -79,7 +79,7 @@ public class GameUser: EVObject {
     var memberSince: NSDate?
     var objectIsNotAValue: TestObject?
     
-    func validateName(value:AutoreleasingUnsafeMutablePointer<AnyObject?>) throws {
+    func validateName(value: AutoreleasingUnsafeMutablePointer<AnyObject?>) throws {
         if let theValue = value.memory as? String {
             if theValue.lengthOfBytesUsingEncoding(NSUTF8StringEncoding) < 3 {
                 NSLog("Validating name is not long enough \(theValue)")
@@ -114,11 +114,10 @@ public class GameAdministrator: GameUser {
     override public func propertyConverters() -> [(String?, ((Any?)->())?, (() -> Any?)? )] {
         return [
             ( // We want a custom converter for the field isGreat
-                "level"
+                "level",
                 // isGreat will be true if the json says 'Sure'
-                , { self.level = (($0 as! Int) / 4) }
+                { self.level = ((($0 as? Int) ?? 0) / 4) },
                 // The json will say 'Sure  if isGreat is true, otherwise it will say 'Nah'
-                , { return self.level * 4})]
+                { return self.level * 4})]
     }
 }
-
