@@ -273,4 +273,5 @@ Also see my other open source iOS libraries:
 - [EVWordPressAPI](https://github.com/evermeer/EVWordPressAPI) - Swift Implementation of the WordPress (Jetpack) API using AlamofireOauth2, AlomofireJsonToObjects and EVReflection (work in progress)
 - [PassportScanner](https://github.com/evermeer/PassportScanner) - Scan the MRZ code of a passport and extract the firstname, lastname, passport number, nationality, date of birth, expiration date and personal numer.
 
-[![Evolution of EVReflection (Gource Visualization)](https://img.youtube.com/vi/FIETlttIFh8/2.jpg)](https://www.youtube.com/watch?v=FIETlttIFh8)
+## Evolution of EVReflection (Gource Visualization)
+[![Evolution of EVReflection (Gource Visualization)](https://img.youtube.com/vi/FIETlttIFh8/0.jpg)](https://www.youtube.com/watch?v=FIETlttIFh8)
