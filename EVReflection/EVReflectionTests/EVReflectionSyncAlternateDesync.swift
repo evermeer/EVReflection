@@ -51,7 +51,7 @@ class EVReflectionSyncAlternateDesync: XCTestCase {
     
 }
 
-class y : EVObject {
+class y: EVObject {
     var id = "y id"
     var name = "some name"
     var price = 12.30
@@ -64,11 +64,6 @@ class z: EVObject {
     var arr: [y] = []
     
     override func propertyConverters() -> [(String?, ((Any?) -> ())?, (() -> Any?)?)] {
-        return [
-            ( "arr",
-                { self.arr = $0 as! [y] },
-                { return self.arr.map({$0.id}) }
-            )
-        ]
+        return [("arr", { self.arr = $0 as? [y] ?? [y]() }, { return self.arr.map({$0.id}) })]
     }
 }

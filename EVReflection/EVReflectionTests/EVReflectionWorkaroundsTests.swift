@@ -32,7 +32,7 @@ class EVReflectionWorkaroundsTests: XCTestCase {
     }
     
     func testWorkaroundsSmoketest() {
-        let json:String = "{\"nullableType\": 1,\"enumType\": 0, \"list\": [ {\"nullableType\": 2}, {\"nullableType\": 3}] }"
+        let json: String = "{\"nullableType\": 1,\"enumType\": 0, \"list\": [ {\"nullableType\": 2}, {\"nullableType\": 3}] }"
         let status = WorkaroundObject(json: json)
         XCTAssertTrue(status.nullableType == 1, "the nullableType should be 1")
         XCTAssertTrue(status.enumType == .NotOK, "the status should be NotOK")
@@ -44,7 +44,7 @@ class EVReflectionWorkaroundsTests: XCTestCase {
     }
 
     func testWorkaroundsToJson() {
-        let initialJson:String = "{\"nullableType\": 1,\"enumType\": 0, \"list\": [ {\"nullableType\": 2}, {\"nullableType\": 3}], \"unknownKey\": \"some\" }"
+        let initialJson: String = "{\"nullableType\": 1,\"enumType\": 0, \"list\": [ {\"nullableType\": 2}, {\"nullableType\": 3}], \"unknownKey\": \"some\" }"
         let initialStatus = WorkaroundObject(json: initialJson)
         let json = initialStatus.toJsonString()
         let status = WorkaroundObject(json: json)
@@ -69,7 +69,7 @@ class EVReflectionWorkaroundsTests: XCTestCase {
     
     func testStruct() {
         let event = WorkaroundObject()
-        event.structType = CGPointMake(2,3)
+        event.structType = CGPoint(x: 2, y: 3)
         
         let json = event.toJsonString()
         print("json = \(json)")
@@ -95,7 +95,7 @@ class WorkaroundObject: EVObject, EVArrayConvertable, EVDictionaryConvertable {
     var enumType: StatusType = .OK
     var list: [WorkaroundObject?] = [WorkaroundObject?]()
     var dict: [String: SubObject] = [:]
-    var structType: CGPoint = CGPointMake(0,0)
+    var structType: CGPoint = CGPoint(x: 0, y: 0)
     
     // Handling the setting of non key-value coding compliant properties
     override func setValue(value: AnyObject!, forUndefinedKey key: String) {
@@ -118,14 +118,14 @@ class WorkaroundObject: EVObject, EVArrayConvertable, EVDictionaryConvertable {
         case "dict":
             if let dict = value as? NSDictionary {
                 self.dict = [:]
-                for (key,value) in dict {
-                    self.dict[key as! String] = (value as! SubObject)
+                for (key, value) in dict {
+                    self.dict[key as? String ?? ""] = (value as? SubObject)
                 }
             }
         case "structType":
             if let dict = value as? NSDictionary {
                 if let x = dict["x"] as? NSNumber, let y = dict["y"] as? NSNumber {
-                    structType = CGPointMake(CGFloat(x), CGFloat(y))
+                    structType = CGPoint(x: CGFloat(x), y: CGFloat(y))
                 }
             }
         default:
@@ -138,7 +138,7 @@ class WorkaroundObject: EVObject, EVArrayConvertable, EVDictionaryConvertable {
         assert(key == "list", "convertArray for key \(key) should be handled.")
 
         let returnArray = NSMutableArray()
-        for item in array as! [WorkaroundObject?] {
+        for item in (array as? [WorkaroundObject?]) ?? [WorkaroundObject?]() {
             if item != nil {
                 returnArray.addObject(item!)
             }
@@ -151,13 +151,9 @@ class WorkaroundObject: EVObject, EVArrayConvertable, EVDictionaryConvertable {
         assert(field == "dict", "convertArray for key \(field) should be handled.")
     
         let returnDict = NSMutableDictionary()
-        for (key, value) in dict as! NSDictionary {
-            returnDict[key as! String] = SubObject(dictionary: value as! NSDictionary)
+        for (key, value) in dict as? NSDictionary ?? NSDictionary() {
+            returnDict[key as? String ?? ""] = SubObject(dictionary: value as? NSDictionary ?? NSDictionary())
         }
         return returnDict
     }
 }
-
-
-
-

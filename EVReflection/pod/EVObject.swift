@@ -8,24 +8,25 @@
 import Foundation
 
 /**
-Object that will support NSCoding, Printable, Hashable and Equeatable for all properties. Use this object as your base class instead of NSObject and you wil automatically have support for all these protocols.
+ Object that will support NSCoding, Printable, Hashable and Equeatable for all properties. Use this object as your base class
+ instead of NSObject and you wil automatically have support for all these protocols.
 */
 public class EVObject: NSObject, NSCoding { // These are redundant in Swift 2+: CustomDebugStringConvertible, CustomStringConvertible, Hashable, Equatable
     
     /**
     This basic init override is needed so we can use EVObject as a base class.
     */
-    public required override init(){
+    public required override init() {
         super.init()
     }
     
     /**
     Decode any object
     
-    This method is in EVObject and not in NSObject because you would get the error: Initializer requirement 'init(coder:)' can only be satisfied by a `required` initializer in the definition of non-final class 'NSObject'
+    This method is in EVObject and not in NSObject because you would get the error: Initializer requirement 'init(coder:)' can 
+     only be satisfied by a `required` initializer in the definition of non-final class 'NSObject'
     
-    :parameter: theObject The object that we want to decode.
-    :parameter: aDecoder The NSCoder that will be used for decoding the object.
+    -parameter coder: The NSCoder that will be used for decoding the object.
     */
     public convenience required init?(coder: NSCoder) {
         self.init()
@@ -35,9 +36,9 @@ public class EVObject: NSObject, NSCoding { // These are redundant in Swift 2+: 
     /**
     Convenience init for creating an object whith the property values of a dictionary.
     
-    :parameter: dictionary The dictionary that will be used to create this object
+    -parameter dictionary: The dictionary that will be used to create this object
     */
-    public convenience init(dictionary:NSDictionary) {
+    public convenience init(dictionary: NSDictionary) {
         self.init()
         EVReflection.setPropertiesfromDictionary(dictionary, anyObject: self)
     }
@@ -47,7 +48,7 @@ public class EVObject: NSObject, NSCoding { // These are redundant in Swift 2+: 
     
     :json: The json string that will be used to create this object
     */
-    public convenience init(json:String?) {
+    public convenience init(json: String?) {
         self.init()
         let jsonDict = EVReflection.dictionaryFromJson(json)
         EVReflection.setPropertiesfromDictionary(jsonDict, anyObject: self)
@@ -56,7 +57,7 @@ public class EVObject: NSObject, NSCoding { // These are redundant in Swift 2+: 
     /**
     Encode this object using a NSCoder
     
-    :parameter: aCoder The NSCoder that will be used for encoding the object
+    - parameter aCoder: The NSCoder that will be used for encoding the object
     */
     public func encodeWithCoder(aCoder: NSCoder) {
         EVReflection.encodeWithCoder(self, aCoder: aCoder)
@@ -65,9 +66,9 @@ public class EVObject: NSObject, NSCoding { // These are redundant in Swift 2+: 
     /**
     Initialize this object from an archived file from the temp directory
     
-    :parameter: fileName The filename
+    - parameter fileNameInTemp: The filename
     */
-    public convenience init(fileNameInTemp:String) {
+    public convenience init(fileNameInTemp: String) {
         self.init()
         let filePath = (NSTemporaryDirectory() as NSString).stringByAppendingPathComponent(fileNameInTemp)
         if let temp = NSKeyedUnarchiver.unarchiveObjectWithFile(filePath) as? EVObject {
@@ -78,9 +79,9 @@ public class EVObject: NSObject, NSCoding { // These are redundant in Swift 2+: 
     /**
     Initialize this object from an archived file from the documents directory
     
-    :parameter: fileName The filename
+    - parameter fileNameInDocuments: The filename
     */
-    public convenience init(fileNameInDocuments:String) {
+    public convenience init(fileNameInDocuments: String) {
         self.init()
         let filePath = (NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as NSString).stringByAppendingPathComponent(fileNameInDocuments)
         if let temp = NSKeyedUnarchiver.unarchiveObjectWithFile(filePath) as? EVObject {
@@ -92,7 +93,7 @@ public class EVObject: NSObject, NSCoding { // These are redundant in Swift 2+: 
     /**
     Returns the pritty description of this object
     
-    :returns: The pritty description
+    - returns: The pritty description
     */
     public override var description: String {
         get {
@@ -103,7 +104,7 @@ public class EVObject: NSObject, NSCoding { // These are redundant in Swift 2+: 
     /**
     Returns the pritty description of this object
     
-    :returns: The pritty description
+    - returns: The pritty description
     */
     public override var debugDescription: String {
         get {
@@ -114,7 +115,7 @@ public class EVObject: NSObject, NSCoding { // These are redundant in Swift 2+: 
     /**
     Returns the hashvalue of this object
     
-    :returns: The hashvalue of this object
+    - returns: The hashvalue of this object
     */
     public override var hashValue: Int {
         get {
@@ -125,7 +126,7 @@ public class EVObject: NSObject, NSCoding { // These are redundant in Swift 2+: 
     /**
     Function for returning the hash for the NSObject based functionality
     
-    :returns: The hashvalue of this object
+    - returns: The hashvalue of this object
     */
     public override var hash: Int {
         get {
@@ -136,11 +137,11 @@ public class EVObject: NSObject, NSCoding { // These are redundant in Swift 2+: 
     /**
     Save this object to a file in the temp directory
     
-    :parameter: fileName The filename
+    - parameter fileName: The filename
     
-    :returns: Nothing
+    - returns: Nothing
     */
-    public func saveToTemp(fileName:String) -> Bool {
+    public func saveToTemp(fileName: String) -> Bool {
         let filePath = (NSTemporaryDirectory() as NSString).stringByAppendingPathComponent(fileName)
         return NSKeyedArchiver.archiveRootObject(self, toFile: filePath)
     }
@@ -153,11 +154,11 @@ public class EVObject: NSObject, NSCoding { // These are redundant in Swift 2+: 
         /**
         Save this object to a file in the documents directory
         
-        :parameter: fileName The filename
-        
-        :returns: Nothing
+        - parameter fileName: The filename
+     
+        - returns: true if successfull
         */
-        public func saveToDocuments(fileName:String) -> Bool {
+        public func saveToDocuments(fileName: String) -> Bool {
             let filePath = (NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as NSString).stringByAppendingPathComponent(fileName)
             return NSKeyedArchiver.archiveRootObject(self, toFile: filePath)
         }
@@ -171,9 +172,9 @@ public class EVObject: NSObject, NSCoding { // These are redundant in Swift 2+: 
 
     This method is in EVObject and not in NSObject extension because you would get the error: method conflicts with previous declaration with the same Objective-C selector
 
-    :parameter: object The object where you want to compare with
+    - parameter object: The object where you want to compare with
 
-    :returns: Returns true if the object is the same otherwise false
+    - returns: Returns true if the object is the same otherwise false
     */
     public override func isEqual(object: AnyObject?) -> Bool { // for isEqual:
         if let dataObject = object as? EVObject {
@@ -188,10 +189,8 @@ public class EVObject: NSObject, NSCoding { // These are redundant in Swift 2+: 
     
     This method is in EVObject and not in NSObject extension because you would get the error: method conflicts with previous declaration with the same Objective-C selector
     
-    :parameter: value The value that you wanted to set
-    :parameter: key The name of the property that you wanted to set
-
-    :returns: Nothing
+    - parameter value: The value that you wanted to set
+    - parameter key: The name of the property that you wanted to set
     */
     public override func setValue(value: AnyObject!, forUndefinedKey key: String) {
         if let _ = self as? EVGenericsKVC {
@@ -206,7 +205,7 @@ public class EVObject: NSObject, NSCoding { // These are redundant in Swift 2+: 
     
     This method is in EVObject and not in extension of NSObject because a functions from extensions cannot be overwritten yet
     
-    :returns: Return an array with value pairs of the object property name and json key name.
+    - returns: Return an array with value pairs of the object property name and json key name.
     */
     public func propertyMapping() -> [(String?, String?)] {
         return []
@@ -217,7 +216,7 @@ public class EVObject: NSObject, NSCoding { // These are redundant in Swift 2+: 
     
     This method is in EVObject and not in extension of NSObject because a functions from extensions cannot be overwritten yet
     
-    :returns: Returns an array where each item is a combination of the folowing 3 values: A string for the property name where the custom conversion is for, a setter function and a getter function.
+    - returns: Returns an array where each item is a combination of the folowing 3 values: A string for the property name where the custom conversion is for, a setter function and a getter function.
     */
     public func propertyConverters() -> [(String?, ((Any?)->())?, (() -> Any?)? )] {
         return []
@@ -242,11 +241,11 @@ public class EVObject: NSObject, NSCoding { // These are redundant in Swift 2+: 
     /**
     Returns the dictionary representation of this object.
     
-    :parameter: performKeyCleanup set to true if you want to cleanup the keys
+    - parameter performKeyCleanup: set to true if you want to cleanup the keys
     
-    :returns: The dictionary
+    - returns: The dictionary
     */
-    public func toDictionary(performKeyCleanup:Bool = false) -> NSDictionary {
+    public func toDictionary(performKeyCleanup: Bool = false) -> NSDictionary {
         let (reflected, _) = EVReflection.toDictionary(self, performKeyCleanup: performKeyCleanup)
         return reflected
     }
@@ -254,22 +253,22 @@ public class EVObject: NSObject, NSCoding { // These are redundant in Swift 2+: 
     /**
      Convert this object to a json string
      
-     :parameter: performKeyCleanup set to true if you want to cleanup the keys
+     - parameter performKeyCleanup: set to true if you want to cleanup the keys
      
-     :returns: The json string
+     - returns: The json string
      */
-    public func toJsonString(performKeyCleanup:Bool = false) -> String {
+    public func toJsonString(performKeyCleanup: Bool = false) -> String {
         return EVReflection.toJsonString(self, performKeyCleanup: performKeyCleanup)
     }
     
     /**
      Convenience method for instantiating an array from a json string.
      
-     :parameter: json The json string
+     - parameter json: The json string
      
-     :returns: An array of objects
+     - returns: An array of objects
      */
-    public class func arrayFromJson<T where T:NSObject>(json:String?) -> [T] {
+    public class func arrayFromJson<T where T:NSObject>(json: String?) -> [T] {
         return EVReflection.arrayFromJson(T(), json: json)
     }
     
@@ -282,20 +281,36 @@ public class EVObject: NSObject, NSCoding { // These are redundant in Swift 2+: 
      - returns: The targe object with the mapped values
      */
     public func mapObjectTo<T where T:NSObject>() -> T {
-        let nsobjectype : NSObject.Type = T.self as NSObject.Type
+        let nsobjectype: NSObject.Type = T.self as NSObject.Type
         let nsobject: NSObject = nsobjectype.init()
         let dict = self.toDictionary()
         let result = EVReflection.setPropertiesfromDictionary(dict, anyObject: nsobject)
-        return result as! T
+        return result as? T ?? T()
     }
     
+    /**
+     Get the type for a given property name or `nil` if there aren't any properties matching said name.
+     
+     - parameter propertyName: The property name
+     
+     - returns: The type for the property
+     */
+    public func typeForKey(propertyName: String) -> Any.Type? {
+        let mirror = Mirror(reflecting: self)
+        return typeForKey(propertyName, mirror: mirror)
+    }
+    
+    private func typeForKey(propertyName: String, mirror: Mirror) -> Any.Type? {
+        for (label, value) in mirror.children {
+            if propertyName == label {
+                return Mirror(reflecting: value).subjectType
+            }
+        }
+        
+        guard let superclassMirror = mirror.superclassMirror() else {
+            return nil
+        }
+        
+        return typeForKey(propertyName, mirror: superclassMirror)
+    }
 }
-
-
-
-
-
-
-
-
-

@@ -49,7 +49,7 @@ class EVReflectionWorkaroundSwiftGenericsTests: XCTestCase {
     
     
     func testGenericsJson() {
-        let json:String = "{\"test\":\"test\", \"data\":\"data\", \"array\":[\"val1\",\"val2\",\"val3\"]}"
+        let json: String = "{\"test\":\"test\", \"data\":\"data\", \"array\":[\"val1\",\"val2\",\"val3\"]}"
         let a = MyGenericObject<NSString>(json: json)
         XCTAssertEqual(a.test, "test", "test should contain test")
         XCTAssertEqual(a.data as String, "data", "data should contain data")
@@ -58,7 +58,7 @@ class EVReflectionWorkaroundSwiftGenericsTests: XCTestCase {
 
     func testGenericsJson2() {
         EVReflection.setBundleIdentifier(InstanceObject)
-        let json:String = "{\"test\":\"test\", \"data\":{\"name\":\"data\"}, \"array\":[{\"name\":\"val1\"}, {\"name\":\"val2\"}, {\"name\":\"val3\"}]}"
+        let json: String = "{\"test\":\"test\", \"data\":{\"name\":\"data\"}, \"array\":[{\"name\":\"val1\"}, {\"name\":\"val2\"}, {\"name\":\"val3\"}]}"
         let a = MyGenericObject<InstanceObject>(json: json)
         XCTAssertEqual(a.test, "test", "test should contain test")
         XCTAssertEqual(a.data.name, "data", "data.name should contain data")
@@ -105,9 +105,9 @@ public class MyGenericObject<T where T:NSObject>: MyGenericBase, EVGenericsKVC {
     public override func setValue(value: AnyObject!, forUndefinedKey key: String) {
         switch key {
         case "data":
-            data = value as! T
+            data = value as? T ?? T()
         case "array":
-            array = value as! [T]
+            array = value as? [T] ?? [T]()
         default:
             print("---> setValue '\(value)' for key '\(key)' should be handled.")
         }
@@ -127,21 +127,21 @@ public class MyIncorrectGenericObject<T where T:NSObject>: MyGenericBase, EVGene
 
 // Put the rest of the properties in a base class like this. Otherwise you have to handle each in the setValue forUndefinedKey
 public class MyGenericBase: EVObject {
-    var test : String = ""
+    var test: String = ""
 }
 
 public class InstanceObject: EVObject {
-    var name:String?
+    var name: String?
 }
 
-public class TestGenerics: EVObject  {
-    var bar : MyGenericObject<InstanceObject> = MyGenericObject<InstanceObject>()
-    var unhandledBar : MyGenericObject<InstanceObject> = MyGenericObject<InstanceObject>()
+public class TestGenerics: EVObject {
+    var bar: MyGenericObject<InstanceObject> = MyGenericObject<InstanceObject>()
+    var unhandledBar: MyGenericObject<InstanceObject> = MyGenericObject<InstanceObject>()
     
     public override func setValue(value: AnyObject!, forUndefinedKey key: String) {
         switch key {
         case "bar":
-            bar = value as! MyGenericObject<InstanceObject>
+            bar = value as? MyGenericObject<InstanceObject> ?? MyGenericObject<InstanceObject>()
         default:
             print("---> setValue '\(value)' for key '\(key)' should be handled.")
         }

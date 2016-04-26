@@ -26,7 +26,7 @@ public class EVObjectDescription {
     /**
     Enum for the difrent types that can be part of an object description
     */
-    public enum ObjectType:String {
+    public enum ObjectType: String {
         /// The target or bunldle
         case Target = "t"
         /// The Class
@@ -42,13 +42,13 @@ public class EVObjectDescription {
     /**
     Initialize an instance and set all properties based on the object
     
-    :parameter: forObject the object that you want the description for
+    - parameter forObject: the object that you want the description for
     */
     public init(forObject: NSObject) {
         bundleName = EVReflection.getCleanAppName()
         swiftClassID = NSStringFromClass(forObject.dynamicType)
         
-        if (swiftClassID.hasPrefix("_T")) {
+        if swiftClassID.hasPrefix("_T") {
             parseTypes((swiftClassID as NSString).substringFromIndex(2))
             bundleName = classPath[0]
             className = classPath.last!
@@ -67,13 +67,11 @@ public class EVObjectDescription {
     /**
     Get all types from the class string
     
-    :parameter: classString the string representation of a class
-    
-    :returns: Nothing
+    - parameter classString: the string representation of a class
     */
-    private func parseTypes(classString:String) {
+    private func parseTypes(classString: String) {
         let characters = Array(classString.characters)
-        let type:String = String(characters[0])
+        let type: String = String(characters[0])
         if Int(type) == nil {
             let ot: ObjectType = ObjectType(rawValue: type)!
             if ot == .Target {
@@ -94,7 +92,7 @@ public class EVObjectDescription {
     
     :returns: Nothing
     */
-    private func parseNames(classString:String) {
+    private func parseNames(classString: String) {
         let characters = Array(classString.characters)
         var numForName = ""
         var index = 0

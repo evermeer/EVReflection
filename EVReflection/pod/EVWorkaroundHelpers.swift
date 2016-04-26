@@ -82,7 +82,7 @@ public extension EVAssociated {
      
      :returns: The label of the enum plus the associated value
      */
-    public var associated: (label:String, value: Any?) {
+    public var associated: (label: String, value: Any?) {
         get {
             let mirror = Mirror(reflecting: self)
             if let associated = mirror.children.first {
@@ -104,13 +104,12 @@ public extension Dictionary {
      
      - parameter associated: array of dictionairy values which have an associated value
      
-     - returns: A dictionairy of all enum values and associated values
      */
-    init<T :EVAssociated>(associated: [T]?) {
+    init<T: EVAssociated>(associated: [T]?) {
         self.init()
         if associated != nil {
             for myEnum in associated! {
-                self[myEnum.associated.label as! Key] = myEnum.associated.value as? Value
+                self[(myEnum.associated.label as? Key)!] = myEnum.associated.value as? Value
             }
         }
     }

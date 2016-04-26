@@ -51,17 +51,17 @@ class EVReflectionJsonTests: XCTestCase {
     }
     
     func testSimpleJson() {
-        let json2:String = "{\"id\": 24, \"name\": \"Bob\"}"
+        let json2: String = "{\"id\": 24, \"name\": \"Bob\"}"
         let user = Account(json: json2)
         print("Object from json string: \n\(user)\n\n")
-        let json:String = "[{\"id\": 27, \"name\": \"Bob Jefferson\"}, {\"id\": 29, \"name\": \"Jen Jackson\"}]"
+        let json: String = "[{\"id\": 27, \"name\": \"Bob Jefferson\"}, {\"id\": 29, \"name\": \"Jen Jackson\"}]"
         let array = [Account](json: json)
         print("Object array from json string: \n\(array)\n\n")
 
     }
     
     func testToDict() {
-        let json:String = "{\"id\": 27, \"name\": \"Bob Jefferson\", \"close_friends\":[{\"id\": 29, \"name\": \"Jen Jackson\", \"close_friends\":[]}]}"
+        let json: String = "{\"id\": 27, \"name\": \"Bob Jefferson\", \"close_friends\":[{\"id\": 29, \"name\": \"Jen Jackson\", \"close_friends\":[]}]}"
         let user = User(json: json)
         let dic = user.toDictionary(true)
         XCTAssertTrue(dic["close_friends"] != nil, "should have close_friends")
@@ -74,7 +74,7 @@ class EVReflectionJsonTests: XCTestCase {
     }
     
     func testJsonArray() {
-        let json:String = "[{\"id\": 27, \"name\": \"Bob Jefferson\"}, {\"id\": 29, \"name\": \"Jen Jackson\"}]"
+        let json: String = "[{\"id\": 27, \"name\": \"Bob Jefferson\"}, {\"id\": 29, \"name\": \"Jen Jackson\"}]"
         //let array:[User] = EVReflection.arrayFromJson(User(), json: json)
         //let array:[User] = User.arrayFromJson(json)
         let array = [User](json: json)
@@ -94,7 +94,7 @@ class EVReflectionJsonTests: XCTestCase {
     }
 
     func testJsonUser() {
-        let json:String = "{\"id\": 24, \"close_friends\": {}}"
+        let json: String = "{\"id\": 24, \"close_friends\": {}}"
         let user = User(json: json)
         XCTAssertTrue(user.id == 24, "id should have been set to 24")
         XCTAssertTrue(user.closeFriends?.count == 1, "friends should have 1 user")
@@ -121,7 +121,7 @@ class EVReflectionJsonTests: XCTestCase {
         case OK = 1
     }
 
-    func testJsonObject(){
+    func testJsonObject() {
         let jsonDictOriginal = [
             "id": 24,
             "name": "John Appleseed",
@@ -154,7 +154,7 @@ class EVReflectionJsonTests: XCTestCase {
         XCTAssertEqual(friendsDictArray?.count, 2, "There should now be a dictionary array with 2 dictionaries")
     }
     
-    func validateUser(user:User) {
+    func validateUser(user: User) {
         print("Validate user: \n\(user)\n\n")
         XCTAssertTrue(user.id == 24, "id should have been set to 24")
         XCTAssertTrue(user.name == "John Appleseed", "name should have been set to John Appleseed")
@@ -178,7 +178,7 @@ class EVReflectionJsonTests: XCTestCase {
     }
 
     func testTypeJsonAllString() {
-        let json:String = "{\"myString\":\"1\", \"myInt\":\"2\", \"myFloat\":\"2.1\", \"myBool\":\"1\"}"
+        let json: String = "{\"myString\":\"1\", \"myInt\":\"2\", \"myFloat\":\"2.1\", \"myBool\":\"1\"}"
         let a = TestObject4(json: json)
         XCTAssertEqual(a.myString, "1", "myString should contain 1")
         XCTAssertEqual(a.myInt, 2, "myInt should contain 2")
@@ -187,7 +187,7 @@ class EVReflectionJsonTests: XCTestCase {
     }
     
     func testTypeJson2AllNumeric() {
-        let json:String = "{\"myString\":1, \"myInt\":2, \"myFloat\":2.1, \"myBool\":1, \"invalid*character\": \"value\"}"
+        let json: String = "{\"myString\":1, \"myInt\":2, \"myFloat\":2.1, \"myBool\":1, \"invalid*character\": \"value\"}"
         let a = TestObject4(json: json)
         XCTAssertEqual(a.myString, "1", "myString should contain 1")
         XCTAssertEqual(a.myInt, 2, "myInt should contain 2")
@@ -197,7 +197,7 @@ class EVReflectionJsonTests: XCTestCase {
     }
 
     func testTypeJsonInvalid() {
-        let json:String = "{\"myString\":test, \"myInt\":test, \"myFloat\":test, \"myBool\":false}"
+        let json: String = "{\"myString\":test, \"myInt\":test, \"myFloat\":test, \"myBool\":false}"
         let a = TestObject4(json: json)
         XCTAssertEqual(a.myString, "", "myString should contain 1")
         XCTAssertEqual(a.myInt, 0, "myInt should contain 0")
@@ -206,6 +206,3 @@ class EVReflectionJsonTests: XCTestCase {
     }
     
 }
-
-
-

@@ -59,8 +59,8 @@ class EVReflectionTests: XCTestCase {
         XCTAssertNil(nsobject4, "Pass")
         
     }
-    class SubObject2:EVObject {
-        var field:String = "x"
+    class SubObject2: EVObject {
+        var field: String = "x"
     }
     
     
@@ -91,7 +91,7 @@ class EVReflectionTests: XCTestCase {
     }
 
     func testNSObjectArrayFromJson() {
-        let x:[TestObject2c] = TestObject2c.arrayFromJson("[{\"objectValue\":\"tst\"},{\"objectValue\":\"tst2\"}]")
+        let x: [TestObject2c] = TestObject2c.arrayFromJson("[{\"objectValue\":\"tst\"},{\"objectValue\":\"tst2\"}]")
         XCTAssertEqual(x.count, 2, "There should have been 2 elements")
         if x.count == 2 {
             XCTAssertEqual(x[0].objectValue, "tst", "objectValue should have been set")
@@ -128,7 +128,8 @@ class EVReflectionTests: XCTestCase {
     }
 
     /**
-    Get a dictionary from an object, then create an object of a diffrent type and set the properties based on the dictionary from the first object. You can initiate a diffrent type. Only the properties with matching dictionary keys will be set.
+    Get a dictionary from an object, then create an object of a diffrent type and set the properties based on the dictionary from 
+     the first object. You can initiate a diffrent type. Only the properties with matching dictionary keys will be set.
     */
     func testClassToAndFromDictionaryDiffrentType() {
         let theObject = TestObject3()
@@ -143,7 +144,8 @@ class EVReflectionTests: XCTestCase {
 
     
     /**
-    Get a dictionary from an object, then create an object of a diffrent type and set the properties based on the dictionary from the first object. You can initiate a diffrent type. Only the properties with matching dictionary keys will be set.
+    Get a dictionary from an object, then create an object of a diffrent type and set the properties based on the dictionary 
+     from the first object. You can initiate a diffrent type. Only the properties with matching dictionary keys will be set.
     */
     func testClassToAndFromDictionaryDiffrentTypeAlt() {
         let theObject = TestObject4()
@@ -158,7 +160,8 @@ class EVReflectionTests: XCTestCase {
   
 
     /**
-     Get a dictionary from an object, then create an object of a diffrent type and set the properties based on the dictionary from the first object. You can initiate a diffrent type. Only the properties with matching dictionary keys will be set.
+     Get a dictionary from an object, then create an object of a diffrent type and set the properties based on the dictionary 
+     from the first object. You can initiate a diffrent type. Only the properties with matching dictionary keys will be set.
      */
     func testClassToJsonWithDateFormatter() {
         let dateFormatter = NSDateFormatter()
@@ -222,14 +225,14 @@ class EVReflectionTests: XCTestCase {
         //let json = "{\"containers\": [{ \"rows\": [{\"kind\": \"main\"}, {\"kind\": \"main2\"}] }, { \"rows\": [{\"kind\": \"main3\"}, {\"kind\": \"main4\"}] }] }"
         let c = TestObject8(json: json)
         XCTAssertEqual(c.containers.count, 2, "There should be 1 container")
-        if(c.containers.count == 2) {
+        if c.containers.count == 2 {
             XCTAssertEqual(c.containers[0].rows.count, 2, "Container 0 should have 2 rows")
-            if(c.containers[0].rows.count == 2) {
+            if c.containers[0].rows.count == 2 {
                 XCTAssertEqual(c.containers[0].rows[0].kind, "main", "Row 0 of container 0 should contain main" )
                 XCTAssertEqual(c.containers[0].rows[1].kind, "main2", "Row 1 of container 0 should contain main2" )
             }
             XCTAssertEqual(c.containers[1].rows.count, 3, "Container 1 should have 3 rows")
-            if(c.containers[1].rows.count == 3) {
+            if c.containers[1].rows.count == 3 {
                 XCTAssertEqual(c.containers[1].rows[0].kind, "main3", "Row 0 of container 1 should contain main3" )
                 XCTAssertEqual(c.containers[1].rows[1].kind, "main4", "Row 1 of container 1 should contain main4" )
                 XCTAssertEqual(c.containers[1].rows[2].kind, "main5", "Row 2 of container 1 should contain main5" )
@@ -247,7 +250,7 @@ class EVReflectionTests: XCTestCase {
     }
     
     func testCircular() {
-        let circle:Circular1 = Circular1()
+        let circle: Circular1 = Circular1()
         circle.startCircle = Circular2()
         circle.startCircle!.createCircle = circle
         let json = circle.toJsonString()
@@ -279,7 +282,7 @@ class EVReflectionTests: XCTestCase {
         XCTAssertNil(theObject.optionalValue)
     }
 
-    func testJSONArray(){
+    func testJSONArray() {
         let a = AA()
         let b = BB()
         b.val = 1
@@ -303,17 +306,3 @@ class EVReflectionTests: XCTestCase {
     }
     
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-

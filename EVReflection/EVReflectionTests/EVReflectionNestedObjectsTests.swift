@@ -50,7 +50,7 @@ class EVRelfectionNestedObjectsTests: XCTestCase {
     }
 }
 
-public class A : EVObject {
+public class A: EVObject {
     public var b = B()
     public var s = "test A"
     
@@ -91,6 +91,3 @@ class Outer: EVObject {
     var id: String = ""
     var nestedClassProperty: Inner? = Inner()
 }
-
-
-

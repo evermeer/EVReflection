@@ -37,7 +37,7 @@ public class TestObject2b {
 /**
 For testing the automatic conversion from and to string and int
 */
-public class TestObject4: EVObject {
+public class TestObject4: EVObject, EVArrayConvertable {
     var myString: String = ""
     var myFloat: Float = 0
     var myDouble: Double = 0
@@ -64,6 +64,19 @@ public class TestObject4: EVObject {
     var array3: [String] = ["test"]
     var array4: [TestObject2] = []
     var array5: [TestObject2?]? = [TestObject2(), nil, TestObject2()]
+    
+    // Implementation of the EVArrayConvertable protocol for handling an array of nullble objects.
+    public func convertArray(key: String, array: Any) -> NSArray {
+        assert(key == "array5", "convertArray for key \(key) should be handled.")
+        
+        let returnArray = NSMutableArray()
+        for item in array as? [TestObject2?] ?? [TestObject2?]() {
+            if item != nil {
+                returnArray.addObject(item!)
+            }
+        }
+        return returnArray
+    }
 }
 
 
@@ -105,7 +118,7 @@ public class TestObject5: EVObject {
     var ignoredProperty: String = "" // Will not be written or read to/from json 
     
     override public func propertyMapping() -> [(String?, String?)] {
-        return [("ignoredProperty",nil), ("propertyInObject","keyInJson")]
+        return [("ignoredProperty", nil), ("propertyInObject", "keyInJson")]
     }
 }
 
@@ -119,11 +132,11 @@ public class TestObject6: EVObject {
     override public func propertyConverters() -> [(String?, ((Any?)->())?, (() -> Any?)? )] {
         return [
             ( // We want a custom converter for the field isGreat
-              "isGreat"
+              "isGreat",
               // isGreat will be true if the json says 'Sure'
-              , { self.isGreat = ($0 as? String == "Sure") }
+              { self.isGreat = ($0 as? String == "Sure") },
               // The json will say 'Sure  if isGreat is true, otherwise it will say 'Nah'
-              , { return self.isGreat ? "Sure": "Nah"})]
+              { return self.isGreat ? "Sure": "Nah"})]
     }
 }
 
@@ -145,15 +158,15 @@ class TestObject8Row: EVObject {
  */
 
 class ArrayObjects: EVObject {
-    var strings:[String] = ["a","b"]
-    var dates:[NSDate] = [NSDate(), NSDate()]
-    var arrays:[[String]] = [["a","b"],["c","d"]]
-    var dictionaries:[NSDictionary] = [NSDictionary(), NSDictionary()]
-    var subobjects:[SubObject] = [SubObject(), SubObject()]
+    var strings: [String] = ["a","b"]
+    var dates: [NSDate] = [NSDate(), NSDate()]
+    var arrays: [[String]] = [["a","b"], ["c","d"]]
+    var dictionaries: [NSDictionary] = [NSDictionary(), NSDictionary()]
+    var subobjects: [SubObject] = [SubObject(), SubObject()]
 }
 
 class SubObject: EVObject {
-    var field:String = "x"
+    var field: String = "x"
 }
 
 
@@ -185,18 +198,18 @@ public class TestObjectWithNilConverters: EVObject {
     }
 }
 
-class DicTest : EVObject {
-    var dict : [String:String] = ["t":"bar"]
+class DicTest: EVObject {
+    var dict: [String:String] = ["t":"bar"]
     required init() {
     }
 }
 
-public class AA : EVObject{
-    public var bs : [BB] = []
+public class AA: EVObject {
+    public var bs: [BB] = []
 }
 
-public class BB : EVObject{
-    public var val : Int = 0
+public class BB: EVObject {
+    public var val: Int = 0
 }
 
 class NestedArrays: EVObject {
@@ -217,7 +230,3 @@ class NestedArraysResult: EVObject {
         NSLog("---> setValue for key '\(key)' should be handled.")
     }
 }
-
-
-
-

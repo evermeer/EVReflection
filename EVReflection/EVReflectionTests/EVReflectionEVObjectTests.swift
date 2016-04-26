@@ -187,6 +187,3 @@ public class TestRootObject: TestBaseObject {
 
 public class TestInnerObject: TestBaseObject {
 }
-
-
-

@@ -13,7 +13,7 @@ Testing EVObjectDescription
 */
 class EVObjectDescriptionTests: XCTestCase {
     
-    var bundle:String = ""
+    var bundle: String = ""
     
     /**
     For now nothing to setUp
@@ -42,13 +42,14 @@ class EVObjectDescriptionTests: XCTestCase {
         let c = EVObjectDescription(forObject: EVObjectDescriptionTests.SubTest.SubSubTest())
         XCTAssert(c.classPath == [bundle, "EVObjectDescriptionTests", "SubTest", "SubSubTest"], "Pass")
         
-        class FuncSubTest:NSObject {
-            class FuncSubSubTest:NSObject {
-                
+        class FuncSubTest: NSObject {
+            class FuncSubSubTest: NSObject {
+                var name: String?
             }
         }
-        //TODO: For now these only succeed because we assume a function name will have an aditional string containing FS0_FT_T_L_ in the description. I have to reverse engineer the parameter notation for Functions.
-        //Because in a bug of Xcode code coverage whe using an inline class definition, the 2 XCAsserts below will not be registered as covered
+        //TODO: For now these only succeed because we assume a function name will have an aditional string 
+        // containing FS0_FT_T_L_ in the description. I have to reverse engineer the parameter notation for Functions.
+        // Because in a bug of Xcode code coverage whe using an inline class definition, the 2 XCAsserts below will not be registered as covered
         let d = EVObjectDescription(forObject: FuncSubTest())
         XCTAssert(d.classPath == [bundle, "EVObjectDescriptionTests", "testEVObjectDescription", "FuncSubTest"], "Pass")
         let e = EVObjectDescription(forObject: FuncSubTest.FuncSubSubTest())
@@ -56,12 +57,12 @@ class EVObjectDescriptionTests: XCTestCase {
     }
 
     func testIncorrectDescription() {
-        let (_ , a) = testDescription("", paramb:1, paramc: "")
+        let (_, a) = testDescription("", paramb:1, paramc: "")
         XCTAssert(a.classPath == [bundle, "EVObjectDescriptionTests", "testDescription", ""], "OK... Something has changed. Or did we fixed this? Then remove this test")
     }
     
-    func testDescription(param: String, paramb:Int, paramc:String) -> (a:String, b:EVObjectDescription) {
-        class FuncSubTest:NSObject {
+    func testDescription(param: String, paramb: Int, paramc: String) -> (a: String, b: EVObjectDescription) {
+        class FuncSubTest: NSObject {
             var param: Any?
         }
         let o = FuncSubTest()
@@ -70,19 +71,10 @@ class EVObjectDescriptionTests: XCTestCase {
         return ("", p)
     }
     
-    class SubTest:NSObject {
-        class SubSubTest:NSObject {
-            
+    class SubTest: NSObject {
+        class SubSubTest: NSObject {
+            var name: String?
         }
     }
     
 }
-
-
-
-
-
-
-
-
-
