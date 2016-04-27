@@ -223,6 +223,17 @@ public class EVObject: NSObject, NSCoding { // These are redundant in Swift 2+: 
     }
 
     /**
+     This is a general functon where you can filter for specific values (like nil or empty string) when creating a dictionary
+     
+     - parameter value:  The value that we will test
+     
+     - returns: True if the value needs to be ignored.
+     */
+    public func skipPropertyValue(value: Any, key: String) -> Bool {
+        return false
+    }
+    
+    /**
      When a property is declared as a base type for multiple enherited classes, then this function will let you pick the right specific type based on the suplied dictionary.
      
      - parameter dict: The dictionary for the specific type

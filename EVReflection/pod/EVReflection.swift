@@ -978,11 +978,10 @@ final public class EVReflection {
                     if isObject {
                         // sub objects will be added as a dictionary itself.
                         let (dict, _) = toDictionary(unboxedValue as? NSObject ?? NSObject(), performKeyCleanup: performKeyCleanup)
-                        propertiesDictionary.setValue(dict, forKey: mapKey)
+                        unboxedValue = dict
                     } else if let array = unboxedValue as? [NSObject] {
                         if unboxedValue as? [String] != nil || unboxedValue as? [NSString] != nil || unboxedValue as? [NSDate] != nil || unboxedValue as? [NSNumber] != nil || unboxedValue as? [NSArray] != nil || unboxedValue as? [NSDictionary] != nil {
                             // Arrays of standard types will just be set
-                            propertiesDictionary.setValue(unboxedValue, forKey: mapKey)
                         } else {
                             // Get the type of the items in the array
                             let item: NSObject
@@ -1000,16 +999,18 @@ final public class EVReflection {
                                     tempValue.append(dict)
                                 }
                                 unboxedValue = tempValue
-                                propertiesDictionary.setValue(unboxedValue, forKey: mapKey)
-                            } else {
-                                propertiesDictionary.setValue(unboxedValue, forKey: mapKey)
                             }
+                        }
+                    }
+                    if let evObject = theObject as? EVObject {
+                        if !evObject.skipPropertyValue(unboxedValue, key: mapKey) {
+                            propertiesDictionary.setValue(unboxedValue, forKey: mapKey)
+                            propertiesTypeDictionary[mapKey] = valueType
                         }
                     } else {
                         propertiesDictionary.setValue(unboxedValue, forKey: mapKey)
+                        propertiesTypeDictionary[mapKey] = valueType                        
                     }
-                    
-                    propertiesTypeDictionary[mapKey] = valueType
                 }
             }
         }
