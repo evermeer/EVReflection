@@ -30,7 +30,7 @@ public class EVObject: NSObject, NSCoding { // These are redundant in Swift 2+: 
     */
     public convenience required init?(coder: NSCoder) {
         self.init()
-        EVReflection.decodeObjectWithCoder(self, aDecoder: coder)
+        EVReflection.decodeObjectWithCoder(self, aDecoder: coder, convertionOptions: .None)
     }
     
     /**
@@ -38,9 +38,9 @@ public class EVObject: NSObject, NSCoding { // These are redundant in Swift 2+: 
     
     -parameter dictionary: The dictionary that will be used to create this object
     */
-    public convenience init(dictionary: NSDictionary) {
+    public convenience init(dictionary: NSDictionary, convertionOptions: ConvertionOptions = .Default) {
         self.init()
-        EVReflection.setPropertiesfromDictionary(dictionary, anyObject: self)
+        EVReflection.setPropertiesfromDictionary(dictionary, anyObject: self, convertionOptions: convertionOptions)
     }
     
     /**
@@ -48,10 +48,10 @@ public class EVObject: NSObject, NSCoding { // These are redundant in Swift 2+: 
     
     :json: The json string that will be used to create this object
     */
-    public convenience init(json: String?) {
+    public convenience init(json: String?, convertionOptions: ConvertionOptions = .Default) {
         self.init()
         let jsonDict = EVReflection.dictionaryFromJson(json)
-        EVReflection.setPropertiesfromDictionary(jsonDict, anyObject: self)
+        EVReflection.setPropertiesfromDictionary(jsonDict, anyObject: self, convertionOptions: convertionOptions)
     }
     
     /**
@@ -60,7 +60,7 @@ public class EVObject: NSObject, NSCoding { // These are redundant in Swift 2+: 
     - parameter aCoder: The NSCoder that will be used for encoding the object
     */
     public func encodeWithCoder(aCoder: NSCoder) {
-        EVReflection.encodeWithCoder(self, aCoder: aCoder)
+        EVReflection.encodeWithCoder(self, aCoder: aCoder, convertionOptions: .None)
     }        
     
     /**
@@ -68,11 +68,11 @@ public class EVObject: NSObject, NSCoding { // These are redundant in Swift 2+: 
     
     - parameter fileNameInTemp: The filename
     */
-    public convenience init(fileNameInTemp: String) {
+    public convenience init(fileNameInTemp: String, convertionOptions: ConvertionOptions = .None) {
         self.init()
         let filePath = (NSTemporaryDirectory() as NSString).stringByAppendingPathComponent(fileNameInTemp)
         if let temp = NSKeyedUnarchiver.unarchiveObjectWithFile(filePath) as? EVObject {
-            EVReflection.setPropertiesfromDictionary( temp.toDictionary(false), anyObject: self)
+            EVReflection.setPropertiesfromDictionary( temp.toDictionary(convertionOptions), anyObject: self, convertionOptions: convertionOptions)
         }
     }
     
@@ -81,11 +81,11 @@ public class EVObject: NSObject, NSCoding { // These are redundant in Swift 2+: 
     
     - parameter fileNameInDocuments: The filename
     */
-    public convenience init(fileNameInDocuments: String) {
+    public convenience init(fileNameInDocuments: String, convertionOptions: ConvertionOptions = .None) {
         self.init()
         let filePath = (NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as NSString).stringByAppendingPathComponent(fileNameInDocuments)
         if let temp = NSKeyedUnarchiver.unarchiveObjectWithFile(filePath) as? EVObject {
-            EVReflection.setPropertiesfromDictionary( temp.toDictionary(false), anyObject: self)
+            EVReflection.setPropertiesfromDictionary( temp.toDictionary(convertionOptions), anyObject: self, convertionOptions: convertionOptions)
         }
     }
     
@@ -256,8 +256,8 @@ public class EVObject: NSObject, NSCoding { // These are redundant in Swift 2+: 
     
     - returns: The dictionary
     */
-    public func toDictionary(performKeyCleanup: Bool = false) -> NSDictionary {
-        let (reflected, _) = EVReflection.toDictionary(self, performKeyCleanup: performKeyCleanup)
+    public func toDictionary(convertionOptions: ConvertionOptions = .Default) -> NSDictionary {
+        let (reflected, _) = EVReflection.toDictionary(self, convertionOptions: convertionOptions)
         return reflected
     }
     
@@ -268,8 +268,8 @@ public class EVObject: NSObject, NSCoding { // These are redundant in Swift 2+: 
      
      - returns: The json string
      */
-    public func toJsonString(performKeyCleanup: Bool = false) -> String {
-        return EVReflection.toJsonString(self, performKeyCleanup: performKeyCleanup)
+    public func toJsonString(convertionOptions: ConvertionOptions = .Default) -> String {
+        return EVReflection.toJsonString(self, convertionOptions: convertionOptions)
     }
     
     /**
@@ -279,8 +279,8 @@ public class EVObject: NSObject, NSCoding { // These are redundant in Swift 2+: 
      
      - returns: An array of objects
      */
-    public class func arrayFromJson<T where T:NSObject>(json: String?) -> [T] {
-        return EVReflection.arrayFromJson(T(), json: json)
+    public class func arrayFromJson<T where T:NSObject>(json: String?, convertionOptions: ConvertionOptions = .Default) -> [T] {
+        return EVReflection.arrayFromJson(T(), json: json, convertionOptions: convertionOptions)
     }
     
     /**
@@ -291,11 +291,11 @@ public class EVObject: NSObject, NSCoding { // These are redundant in Swift 2+: 
      
      - returns: The targe object with the mapped values
      */
-    public func mapObjectTo<T where T:NSObject>() -> T {
+    public func mapObjectTo<T where T:NSObject>(convertionOptions: ConvertionOptions = .Default) -> T {
         let nsobjectype: NSObject.Type = T.self as NSObject.Type
         let nsobject: NSObject = nsobjectype.init()
         let dict = self.toDictionary()
-        let result = EVReflection.setPropertiesfromDictionary(dict, anyObject: nsobject)
+        let result = EVReflection.setPropertiesfromDictionary(dict, anyObject: nsobject, convertionOptions: convertionOptions)
         return result as? T ?? T()
     }
     

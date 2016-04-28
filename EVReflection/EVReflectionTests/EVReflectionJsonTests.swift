@@ -63,7 +63,7 @@ class EVReflectionJsonTests: XCTestCase {
     func testToDict() {
         let json: String = "{\"id\": 27, \"name\": \"Bob Jefferson\", \"close_friends\":[{\"id\": 29, \"name\": \"Jen Jackson\", \"close_friends\":[]}]}"
         let user = User(json: json)
-        let dic = user.toDictionary(true)
+        let dic = user.toDictionary()
         XCTAssertTrue(dic["close_friends"] != nil, "should have close_friends")
         if dic["close_friends"] != nil {
             XCTAssertTrue(dic["close_friends"]!.count == 1, "should have 1 close_friends")

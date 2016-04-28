@@ -43,10 +43,10 @@ public extension Array {
     
     - parameter json: The json string
     */
-    public init(json: String?) {
+    public init(json: String?, convertionOptions: ConvertionOptions = .Default) {
         self.init()
         let arrayTypeInstance = getArrayTypeInstance(self)
-        let newArray = EVReflection.arrayFromJson(arrayTypeInstance, json: json)
+        let newArray = EVReflection.arrayFromJson(arrayTypeInstance, json: json, convertionOptions: convertionOptions)
         for item in newArray {
             self.append(item)
         }
@@ -89,8 +89,8 @@ public extension Array {
     
     - returns: The json string
     */
-    public func toJsonString(performKeyCleanup: Bool = false) -> String {
-        return "[\n" + self.map({($0 as? EVObject ?? EVObject()).toJsonString(performKeyCleanup)}).joinWithSeparator(", \n") + "\n]"
+    public func toJsonString(convertionOptions: ConvertionOptions = .Default) -> String {
+        return "[\n" + self.map({($0 as? EVObject ?? EVObject()).toJsonString(convertionOptions)}).joinWithSeparator(", \n") + "\n]"
     }
     
     /**
@@ -100,8 +100,7 @@ public extension Array {
      
      - returns: The array of dictionaries
      */
-    public func toDictionaryArray(performKeyCleanup: Bool = false) -> NSArray {
-        return self.map({($0 as? EVObject ?? EVObject()).toDictionary(performKeyCleanup)})
+    public func toDictionaryArray(convertionOptions: ConvertionOptions = .Default) -> NSArray {
+        return self.map({($0 as? EVObject ?? EVObject()).toDictionary(convertionOptions)})
     }
-    
 }
