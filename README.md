@@ -29,7 +29,7 @@ EVReflection is used extensively in [EVCloudKitDao](https://github.com/evermeer/
 ## Main features of EVReflection:
 - Parsing objects based on NSObject to and from a dictionary.
 - Parsing objects to and from a JSON string.
-- Support NSCoding methods encodeWithCoder and decodeObjectWithCoder
+- Support NSCoding function encodeWithCoder and decodeObjectWithCoder
 - Supporting Printable, Hashable and Equatable while using all properties. (Support for Set in Swift 1.2)
 - Mapping objects from one type to an other
 
@@ -160,7 +160,7 @@ let dict = myObject.toDictionary(performKeyCleanup:false)
 
 
 ### Custom keyword mapping
-It's also possible to create a custom property mapping. You can define if an import should be ignored, if an export should be ignored or you can map a property name to another key name (for the dictionary and json). For this you only need to implement the propertyMapping method in the object like this:
+It's also possible to create a custom property mapping. You can define if an import should be ignored, if an export should be ignored or you can map a property name to another key name (for the dictionary and json). For this you only need to implement the propertyMapping function in the object like this:
 
 ```
 public class TestObject5: EVObject {
@@ -175,7 +175,7 @@ public class TestObject5: EVObject {
 ```
 
 ### Custom property converters
-You can also use your own property converters. For this you need to implement the propertyConverters method in your object. For each property you can create a custom getter and setter that will then be used by EVReflection. In the sample below the JSON texts 'Sure' and 'Nah' will be converted to true or false for the property isGreat.
+You can also use your own property converters. For this you need to implement the propertyConverters function in your object. For each property you can create a custom getter and setter that will then be used by EVReflection. In the sample below the JSON texts 'Sure' and 'Nah' will be converted to true or false for the property isGreat.
 ```
 public class TestObject6: EVObject {
     var isGreat: Bool = false
@@ -193,6 +193,30 @@ public class TestObject6: EVObject {
 }
 ```
 
+### Skip the serialisaton or deserialisation of specific values
+When there is a need to not (de)serialize specific values like nil NSNull or empty strings you can implement the skipPropertyValue function and return true if the value needs to be skipped.
+
+```
+class TestObjectSkipValues: EVObject {
+   var value1: String? 
+   var value2: [String]?
+   var value3: NSNumber?
+
+   override func skipPropertyValue(value: Any, key: String) -> Bool {
+      if let value = value as? String where value.characters.count == 0 || value == "null" {
+         print("Ignoring empty string for key \(key)")
+         return true
+      } else if let value = value as? NSArray where value.count == 0 {
+         print("Ignoring empty NSArray for key\(key)")
+         return true
+      } else if value is NSNull {
+         print("Ignoring NSNull for key \(key)")
+         return true
+      }
+      return false
+   }
+}
+```
 
 ### Property validators
 Before setting a value the value will always be validated using the standard validateValue KVO function. This means that for every property you can also create a validation function for that property. See the sample below where there is a validateName function for the name property.
@@ -256,6 +280,16 @@ class Baz: Foo {
     var justBaz: String = "For baz only"
 }
 ```
+
+### Conversion options
+Almost any EVReflection functions have a property for ConversionOptions. In most cases the default value of this is set to .Default. In case of NSCoding and related functions (like save and load) the default is set to .None. The available options are:
+
+- PropertyConverter - if true then the propertyConverters function on the object will be called.
+- PropertyMapping - if true then the propertyMapping function on the object will be called.
+- SkipPropertyValue - if true then the skipPropertyValue function on the object will be called.
+- KeyCleanup - If true then the keys will be cleaned up (like pascal case and snake case conversion)
+
+You can use multiple options at the same type by specifying them in array notation. Like the .Default will be all options enabled like: [PropertyConverter, PropertyMapping, SkipPropertyValue, KeyCleanup]
 
 
 ### Known issues
