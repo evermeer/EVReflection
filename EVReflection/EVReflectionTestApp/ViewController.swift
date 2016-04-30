@@ -86,6 +86,13 @@ class ViewController: UIViewController {
         }
     }
 
+    @IBAction func test2(sender: AnyObject) {
+        doTest {
+            let test = ArrayDeserializationPerformanceTest()
+            test.performanceTest1()
+        }
+    }
+
 
 }
 
