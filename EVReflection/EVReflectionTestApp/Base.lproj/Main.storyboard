@@ -89,14 +89,24 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VKI-Qz-qUh">
+                                <rect key="frame" x="20" y="194" width="560" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <state key="normal" title="Test2 : deserialize array of 1000 user objects "/>
+                                <connections>
+                                    <action selector="test2:" destination="BYZ-38-t0r" eventType="touchUpInside" id="EWW-ni-FXp"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="iiG-fd-5Sa" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="0QK-cy-Iys"/>
                             <constraint firstItem="HdC-jY-CIu" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="34x-XO-3C1"/>
+                            <constraint firstItem="VKI-Qz-qUh" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="3b6-Lj-8wG"/>
                             <constraint firstItem="wBA-tS-ath" firstAttribute="top" secondItem="K3W-hP-u1X" secondAttribute="bottom" constant="8" id="5VS-22-v5t"/>
                             <constraint firstItem="uIg-lA-wiN" firstAttribute="leading" secondItem="iiG-fd-5Sa" secondAttribute="trailing" constant="98.5" id="9iP-na-yOJ"/>
                             <constraint firstItem="HdC-jY-CIu" firstAttribute="top" secondItem="NMT-Ft-Rvm" secondAttribute="bottom" constant="49" id="AYn-HD-icN"/>
+                            <constraint firstItem="VKI-Qz-qUh" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="BbW-2N-Ih3"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="wBA-tS-ath" secondAttribute="bottom" constant="15" id="Bwt-p7-XaV"/>
                             <constraint firstItem="NMT-Ft-Rvm" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" id="Ec5-vg-N7K"/>
                             <constraint firstItem="Hsy-V6-v6M" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="FSR-CA-a9e"/>
@@ -111,6 +121,7 @@
                             <constraint firstItem="wBA-tS-ath" firstAttribute="leading" secondItem="Kmi-LF-m7Z" secondAttribute="trailing" constant="27.5" id="SxO-rd-9Db"/>
                             <constraint firstItem="GpY-u4-a71" firstAttribute="top" secondItem="HdC-jY-CIu" secondAttribute="bottom" constant="28" id="VfF-U6-B3k"/>
                             <constraint firstItem="uIg-lA-wiN" firstAttribute="top" secondItem="Hsy-V6-v6M" secondAttribute="bottom" constant="8" id="Vgd-Yv-UjG"/>
+                            <constraint firstItem="VKI-Qz-qUh" firstAttribute="top" secondItem="GpY-u4-a71" secondAttribute="bottom" constant="18" id="Wib-Om-99p"/>
                             <constraint firstItem="K3W-hP-u1X" firstAttribute="leading" secondItem="Jfm-lh-QtO" secondAttribute="trailing" constant="43.5" id="ZHc-IS-5Tb"/>
                             <constraint firstItem="Jfm-lh-QtO" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="ZLX-79-kGF"/>
                             <constraint firstItem="iiG-fd-5Sa" firstAttribute="top" secondItem="M9S-5l-HnW" secondAttribute="bottom" constant="8" id="aVG-r4-sSv"/>

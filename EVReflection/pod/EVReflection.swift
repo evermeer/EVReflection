@@ -729,6 +729,9 @@ final public class EVReflection {
     }
     
 
+    /// cleanupKey cache
+    private static var cleanupKeyCache = [ String : String? ]()
+
     /**
      Try to map a property name to a json/dictionary key by applying some rules like property mapping, snake case conversion or swift keyword fix.
      
@@ -739,6 +742,16 @@ final public class EVReflection {
      - returns: the cleaned up key
      */
     private class func cleanupKey(anyObject: NSObject, key: String, tryMatch: NSDictionary?) -> String? {
+        if let hit = cleanupKeyCache[key] {
+            return hit
+        } else { //Miss:
+            let cleanedUpKey = EVReflection.cleanupKeyNotCached(anyObject, key: key, tryMatch: tryMatch)
+            cleanupKeyCache[key] = cleanedUpKey
+            return cleanedUpKey
+        }
+    }
+    
+    private class func cleanupKeyNotCached(anyObject: NSObject, key: String, tryMatch: NSDictionary?) -> String? {
         var newKey: String = key
         
         if tryMatch?[newKey] != nil {
@@ -759,9 +772,7 @@ final public class EVReflection {
         if let t = tryMatch {
             for (key, _) in t {
                 var k = key
-                for ic in illegalCharacter {
-                    k = k.stringByReplacingOccurrencesOfString(ic, withString: "_")
-                }
+                k = k.componentsSeparatedByCharactersInSet(illegalCharacterSet).joinWithSeparator("_")
                 if k as? String == newKey {
                     return key as? String
                 }
@@ -808,6 +819,7 @@ final public class EVReflection {
     
     /// Character that will be replaced by _ from the keys in a dictionary / json
     private static let illegalCharacter = [" ", "-", "&", "%", "#", "@", "!", "$", "^", "*", "(", ")", "<", ">", "?", ".", ",", ":", ";"]
+    private static let illegalCharacterSet = NSCharacterSet(charactersInString: " -&%#@!$^*()<>?.,:;").invertedSet
     
     /**
      Convert a value in the dictionary to the correct type for the object

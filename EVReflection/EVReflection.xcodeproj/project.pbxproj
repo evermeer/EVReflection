@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		05CEC8701CD53611007DA57A /* ArrayDeserializationPerformanceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05CEC86F1CD53611007DA57A /* ArrayDeserializationPerformanceTest.swift */; };
 		2DC8AA401C24215500FA6B8E /* EVReflection.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DC8AA3F1C24215500FA6B8E /* EVReflection.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2DC8AA541C2421D600FA6B8E /* EVReflection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F07C5841AF10284000DF1F3 /* EVReflection.swift */; };
 		2DC8AA551C2421D600FA6B8E /* EVObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F0E5E591AF4D94000A10E51 /* EVObject.swift */; };
@@ -138,6 +139,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		05CEC86F1CD53611007DA57A /* ArrayDeserializationPerformanceTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayDeserializationPerformanceTest.swift; sourceTree = "<group>"; };
 		2DC8AA3F1C24215500FA6B8E /* EVReflection.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EVReflection.h; sourceTree = "<group>"; };
 		2DC8AA411C24215500FA6B8E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2DC8AA651C242E0600FA6B8E /* EVReflectionOSX.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EVReflectionOSX.h; sourceTree = "<group>"; };
@@ -383,6 +385,7 @@
 			children = (
 				7F6C9FB21CB90E6D00F19811 /* AppDelegate.swift */,
 				7F6C9FB41CB90E6D00F19811 /* ViewController.swift */,
+				05CEC86F1CD53611007DA57A /* ArrayDeserializationPerformanceTest.swift */,
 				7F6C9FB61CB90E6D00F19811 /* Main.storyboard */,
 				7F6C9FB91CB90E6D00F19811 /* Assets.xcassets */,
 				7F6C9FBB1CB90E6D00F19811 /* LaunchScreen.storyboard */,
@@ -828,6 +831,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				05CEC8701CD53611007DA57A /* ArrayDeserializationPerformanceTest.swift in Sources */,
 				7F6C9FB51CB90E6D00F19811 /* ViewController.swift in Sources */,
 				7F6C9FB31CB90E6D00F19811 /* AppDelegate.swift in Sources */,
 			);
@@ -1181,6 +1185,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = nl.evict.EVReflectionTestApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_DISABLE_SAFETY_CHECKS = NO;
 			};
 			name = Debug;
 		};
@@ -1195,6 +1200,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = nl.evict.EVReflectionTestApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_DISABLE_SAFETY_CHECKS = NO;
 			};
 			name = Release;
 		};
