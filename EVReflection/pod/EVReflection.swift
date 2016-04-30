@@ -759,9 +759,7 @@ final public class EVReflection {
         if let t = tryMatch {
             for (key, _) in t {
                 var k = key
-                for ic in illegalCharacter {
-                    k = k.stringByReplacingOccurrencesOfString(ic, withString: "_")
-                }
+                k = k.componentsSeparatedByCharactersInSet(illegalCharacterSet).joinWithSeparator("_")
                 if k as? String == newKey {
                     return key as? String
                 }
@@ -808,6 +806,7 @@ final public class EVReflection {
     
     /// Character that will be replaced by _ from the keys in a dictionary / json
     private static let illegalCharacter = [" ", "-", "&", "%", "#", "@", "!", "$", "^", "*", "(", ")", "<", ">", "?", ".", ",", ":", ";"]
+    private static let illegalCharacterSet = NSCharacterSet(charactersInString: " -&%#@!$^*()<>?.,:;").invertedSet
     
     /**
      Convert a value in the dictionary to the correct type for the object
