@@ -16,6 +16,10 @@ class User: EVObject {
     var company: Company?
     var closeFriends: [User]? = []
     var birthDate: NSDate?
+    
+    override func setValue(value: AnyObject!, forUndefinedKey key: String) {
+        
+    }
 }
 
 class Company: EVObject {
@@ -28,7 +32,7 @@ class ArrayDeserializationPerformanceTest : NSObject {
     func performanceTest1() {
         
         var json = "[\n"
-        for idx in 0...3090 {
+        for idx in 0...1000 {
             json += "{\n"
                 + "\"the_id\": \(idx),\n"
                 + "\"name\" : \"John Appleseed Clone #\(idx)\",\n"

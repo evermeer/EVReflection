@@ -92,7 +92,7 @@
                             <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VKI-Qz-qUh">
                                 <rect key="frame" x="20" y="194" width="560" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                <state key="normal" title="Test2 : deserialize array of 3000 user objects "/>
+                                <state key="normal" title="Test2 : deserialize array of 1000 user objects "/>
                                 <connections>
                                     <action selector="test2:" destination="BYZ-38-t0r" eventType="touchUpInside" id="EWW-ni-FXp"/>
                                 </connections>
