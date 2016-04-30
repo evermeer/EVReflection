@@ -2,6 +2,8 @@ disabled_rules:
 - trailing_whitespace
 - variable_name
 - type_name
+- variable_name_min_length
+- type_body_length
 
 #- opening_brace
 #- comma
