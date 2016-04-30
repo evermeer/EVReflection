@@ -729,6 +729,9 @@ final public class EVReflection {
     }
     
 
+    /// cleanupKey cache
+    private static var cleanupKeyCache = [ String : String? ]()
+
     /**
      Try to map a property name to a json/dictionary key by applying some rules like property mapping, snake case conversion or swift keyword fix.
      
@@ -739,6 +742,16 @@ final public class EVReflection {
      - returns: the cleaned up key
      */
     private class func cleanupKey(anyObject: NSObject, key: String, tryMatch: NSDictionary?) -> String? {
+        if let hit = cleanupKeyCache[key] {
+            return hit
+        } else { //Miss:
+            let cleanedUpKey = EVReflection.cleanupKeyNotCached(anyObject, key: key, tryMatch: tryMatch)
+            cleanupKeyCache[key] = cleanedUpKey
+            return cleanedUpKey
+        }
+    }
+    
+    private class func cleanupKeyNotCached(anyObject: NSObject, key: String, tryMatch: NSDictionary?) -> String? {
         var newKey: String = key
         
         if tryMatch?[newKey] != nil {
