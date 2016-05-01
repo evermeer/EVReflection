@@ -759,8 +759,8 @@ final public class EVReflection {
         if let t = tryMatch {
             for (key, _) in t {
                 var k = key
-                for ic in illegalCharacter {
-                    k = k.stringByReplacingOccurrencesOfString(ic, withString: "_")
+                if let kIsString = k as? String {
+                    k = processIllegalCharacters(kIsString)
                 }
                 if k as? String == newKey {
                     return key as? String
@@ -782,14 +782,44 @@ final public class EVReflection {
         return newKey
     }
     
+    /// Character that will be replaced by _ from the keys in a dictionary / json
+    private static let illegalCharacterSet = NSCharacterSet(charactersInString: " -&%#@!$^*()<>?.,:;")
+    /// processIllegalCharacters Cache
+    private static var processIllegalCharactersCache = [ String : String ]()
     /**
-     Convert a CamelCase to Undersores
+     Replace illegal characters to an underscore
+     
+     - parameter input: key
+     
+     - returns: processed string with illegal characters converted to underscores
+     */
+    internal static func processIllegalCharacters(input: String) -> String {
+        
+        if let cacheHit = processIllegalCharactersCache[input] {
+            return cacheHit
+        }
+        
+        let output = input.componentsSeparatedByCharactersInSet(illegalCharacterSet).joinWithSeparator("_")
+        
+        processIllegalCharactersCache[input] = output
+        return output
+    }
+
+    /// camelCaseToUnderscoresCache Cache
+    private static var camelCaseToUnderscoresCache = [ String : String ]()
+    /**
+     Convert a CamelCase to Underscores
      
      - parameter input: the CamelCase string
      
      - returns: the underscore string
      */
     internal static func camelCaseToUnderscores(input: String) -> String {
+
+        if let cacheHit = camelCaseToUnderscoresCache[input] {
+            return cacheHit
+        }
+        
         var output: String = String(input.characters.first!).lowercaseString
         let uppercase: NSCharacterSet = NSCharacterSet.uppercaseLetterCharacterSet()
         for character in input.substringFromIndex(input.startIndex.advancedBy(1)).characters {
@@ -799,15 +829,14 @@ final public class EVReflection {
                 output += "\(String(character))"
             }
         }
+        
+        camelCaseToUnderscoresCache[input] = output
         return output
     }
     
     
     /// List of swift keywords for cleaning up keys
     private static let keywords = ["self", "description", "class", "deinit", "enum", "extension", "func", "import", "init", "let", "protocol", "static", "struct", "subscript", "typealias", "var", "break", "case", "continue", "default", "do", "else", "fallthrough", "if", "in", "for", "return", "switch", "where", "while", "as", "dynamicType", "is", "new", "super", "Self", "Type", "__COLUMN__", "__FILE__", "__FUNCTION__", "__LINE__", "associativity", "didSet", "get", "infix", "inout", "left", "mutating", "none", "nonmutating", "operator", "override", "postfix", "precedence", "prefix", "right", "set", "unowned", "unowned", "safe", "unowned", "unsafe", "weak", "willSet", "private", "public", "internal", "zone"]
-    
-    /// Character that will be replaced by _ from the keys in a dictionary / json
-    private static let illegalCharacter = [" ", "-", "&", "%", "#", "@", "!", "$", "^", "*", "(", ")", "<", ">", "?", ".", ",", ":", ";"]
     
     /**
      Convert a value in the dictionary to the correct type for the object
