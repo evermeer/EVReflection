@@ -21,7 +21,8 @@ final public class EVReflection {
     
     - parameter dictionary: The dictionary that will be converted to an object
     - parameter anyobjectTypeString: The string representation of the object type that will be created
-    
+    - parameter convertionOptions: Option set for the various conversion options.
+     
     - returns: The object that is created from the dictionary
     */
     public class func fromDictionary(dictionary: NSDictionary, anyobjectTypeString: String, convertionOptions: ConvertionOptions = .Default) -> NSObject? {
@@ -41,6 +42,7 @@ final public class EVReflection {
      
      - parameter dictionary: The dictionary that will be converted to an object
      - parameter anyObject: The object where the properties will be set
+     - parameter convertionOptions: Option set for the various conversion options.
      
      - returns: The object that is created from the dictionary
      */
@@ -90,6 +92,7 @@ final public class EVReflection {
      
      - parameter anyObject:  the object for the mapping
      - parameter dictionary: the dictionary that has to be mapped
+     - parameter convertionOptions: Option set for the various conversion options.
      
      - returns: The mapping, keys and values of all properties to items in a dictionary
      */
@@ -118,7 +121,7 @@ final public class EVReflection {
      Convert an object to a dictionary while cleaning up the keys
      
      - parameter theObject: The object that will be converted to a dictionary
-     - parameter performKeyCleanup: indicate if snake or Pascal case key cleanup should be done
+     - parameter convertionOptions: Option set for the various conversion options.
      
      - returns: The dictionary that is created from theObject plus a dictionary of propery types.
      */
@@ -167,6 +170,7 @@ final public class EVReflection {
      
      - parameter type: An instance of the type where the array will be created of.
      - parameter json: The json string that will be converted
+     - parameter convertionOptions: Option set for the various conversion options.
      
      - returns: The array of dictionaries representation of the json
      */
@@ -196,7 +200,7 @@ final public class EVReflection {
      Return a Json string representation of this object
      
      - parameter theObject: The object that will be loged
-     - parameter performKeyCleanup: perform snake and pascal case conversion
+     - parameter convertionOptions: Option set for the various conversion options.
      
      - returns: The string representation of the object
      */
@@ -231,6 +235,7 @@ final public class EVReflection {
      Return a string representation of this object
      
      - parameter theObject: The object that will be loged
+     - parameter convertionOptions: Option set for the various conversion options.
      
      - returns: The string representation of the object
      */
@@ -262,6 +267,7 @@ final public class EVReflection {
      
      - parameter theObject: The object that we want to encode.
      - parameter aCoder: The NSCoder that will be used for encoding the object.
+     - parameter convertionOptions: Option set for the various conversion options.
      */
     public class func encodeWithCoder(theObject: EVObject, aCoder: NSCoder, convertionOptions: ConvertionOptions = .None) {
         let (hasKeys, _) = toDictionary(theObject, convertionOptions: convertionOptions)
@@ -275,6 +281,7 @@ final public class EVReflection {
      
      - parameter theObject: The object that we want to decode.
      - parameter aDecoder: The NSCoder that will be used for decoding the object.
+     - parameter convertionOptions: Option set for the various conversion options.
      */
     public class func decodeObjectWithCoder(theObject: EVObject, aDecoder: NSCoder, convertionOptions: ConvertionOptions = .None) {
         let (hasKeys, _) = toDictionary(theObject, convertionOptions: convertionOptions)
@@ -508,6 +515,7 @@ final public class EVReflection {
      - parameter parentObject: Only needs to be set to the object that has this property when the value is from a property that is an array of optional values
      - parameter key:          Only needs to be set to the name of the property when the value is from a property that is an array of optional values
      - parameter anyValue:     Something of type Any is converted to a type NSObject
+     - parameter convertionOptions: Option set for the various conversion options.
      
      - returns: The value where the Any is converted to AnyObject plus the type of that value as a string
      */
@@ -632,6 +640,7 @@ final public class EVReflection {
      - parameter theValue:        the value that will be set
      - parameter typeInObject: the type of the value
      - parameter valid: False if a vaue is expected and a dictionary 
+     - parameter convertionOptions: Option set for the various conversion options.
      */
     public static func setObjectValue<T where T: NSObject>(anyObject: T, key: String, theValue: AnyObject?, typeInObject: String? = nil, valid: Bool, convertionOptions: ConvertionOptions = .Default ) {
         
@@ -846,6 +855,7 @@ final public class EVReflection {
      - parameter fieldType:  type of the field in object
      - parameter original:  the original value
      - parameter theDictValue: the value from the dictionary
+     - parameter convertionOptions: Option set for the various conversion options.
      
      - returns: The converted value plus a boolean indicating if it's an object
      */
@@ -891,6 +901,7 @@ final public class EVReflection {
      - parameter type: The object type that will be created
      - parameter original: The original value in the object which is used to create a return object
      - parameter dict: The dictionary that will be converted to an object
+     - parameter convertionOptions: Option set for the various conversion options.
      
      - returns: The object that is created from the dictionary
      */
@@ -927,6 +938,7 @@ final public class EVReflection {
      
      - parameter type: The object type that will be created
      - parameter array: The array of dictionaries that will be converted to the array of objects
+     - parameter convertionOptions: Option set for the various conversion options.
      
      - returns: The array of objects that is created from the array of dictionaries
      */
@@ -950,7 +962,7 @@ final public class EVReflection {
             if let evResult = org as? EVObject {
                 org = evResult.getSpecificType(item as? NSDictionary ?? NSDictionary())
             }
-            let (arrayObject, valid) = self.dictToObject(subtype, original:org, dict: item as? NSDictionary ?? NSDictionary(), convertionOptions: convertionOptions)
+            let (arrayObject, valid) = dictToObject(subtype, original:org, dict: item as? NSDictionary ?? NSDictionary(), convertionOptions: convertionOptions)
             if arrayObject != nil && valid {
                 result.append(arrayObject!)
             }
@@ -963,7 +975,7 @@ final public class EVReflection {
      
      - parameter theObject: The object as is
      - parameter reflected: The object parsed using the reflect method.
-     - parameter performKeyCleanup: Do you want camel and snake case conversion
+     - parameter convertionOptions: Option set for the various conversion options.
      
      - returns: The dictionary that is created from the object plus an dictionary of property types.
      */

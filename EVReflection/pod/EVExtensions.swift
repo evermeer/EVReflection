@@ -42,6 +42,7 @@ public extension Array {
     Initialize an array based on a json string
     
     - parameter json: The json string
+    - parameter convertionOptions: Option set for the various conversion options.
     */
     public init(json: String?, convertionOptions: ConvertionOptions = .Default) {
         self.init()
@@ -85,7 +86,7 @@ public extension Array {
     /**
     Convert this array to a json string
     
-    - parameter performKeyCleanup: set to true if you want to cleanup the keys
+    - parameter convertionOptions: Option set for the various conversion options.
     
     - returns: The json string
     */
@@ -96,7 +97,7 @@ public extension Array {
     /**
      Returns the dictionary representation of this array.
      
-     - parameter performKeyCleanup: set to true if you want to cleanup the keys
+     - parameter convertionOptions: Option set for the various conversion options.
      
      - returns: The array of dictionaries
      */

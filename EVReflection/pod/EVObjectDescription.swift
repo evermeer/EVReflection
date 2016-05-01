@@ -90,7 +90,6 @@ public class EVObjectDescription {
     
     :parameter: classString the string representation of the class
     
-    :returns: Nothing
     */
     private func parseNames(classString: String) {
         let characters = Array(classString.characters)

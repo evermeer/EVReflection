@@ -36,7 +36,8 @@ public class EVObject: NSObject, NSCoding { // These are redundant in Swift 2+: 
     /**
     Convenience init for creating an object whith the property values of a dictionary.
     
-    -parameter dictionary: The dictionary that will be used to create this object
+    - parameter dictionary: The dictionary that will be used to create this object
+    - parameter convertionOptions: Option set for the various conversion options.
     */
     public convenience init(dictionary: NSDictionary, convertionOptions: ConvertionOptions = .Default) {
         self.init()
@@ -46,7 +47,8 @@ public class EVObject: NSObject, NSCoding { // These are redundant in Swift 2+: 
     /**
     Convenience init for creating an object whith the contents of a json string.
     
-    :json: The json string that will be used to create this object
+    - parameter json: The json string that will be used to create this object
+    - parameter convertionOptions: Option set for the various conversion options.
     */
     public convenience init(json: String?, convertionOptions: ConvertionOptions = .Default) {
         self.init()
@@ -67,6 +69,7 @@ public class EVObject: NSObject, NSCoding { // These are redundant in Swift 2+: 
     Initialize this object from an archived file from the temp directory
     
     - parameter fileNameInTemp: The filename
+    - parameter convertionOptions: Option set for the various conversion options.
     */
     public convenience init(fileNameInTemp: String, convertionOptions: ConvertionOptions = .None) {
         self.init()
@@ -80,6 +83,7 @@ public class EVObject: NSObject, NSCoding { // These are redundant in Swift 2+: 
     Initialize this object from an archived file from the documents directory
     
     - parameter fileNameInDocuments: The filename
+    - parameter convertionOptions: Option set for the various conversion options.
     */
     public convenience init(fileNameInDocuments: String, convertionOptions: ConvertionOptions = .None) {
         self.init()
@@ -226,6 +230,7 @@ public class EVObject: NSObject, NSCoding { // These are redundant in Swift 2+: 
      This is a general functon where you can filter for specific values (like nil or empty string) when creating a dictionary
      
      - parameter value:  The value that we will test
+     - parameter key: The key for the value 
      
      - returns: True if the value needs to be ignored.
      */
@@ -252,7 +257,7 @@ public class EVObject: NSObject, NSCoding { // These are redundant in Swift 2+: 
     /**
     Returns the dictionary representation of this object.
     
-    - parameter performKeyCleanup: set to true if you want to cleanup the keys
+    - parameter convertionOptions: Option set for the various conversion options.
     
     - returns: The dictionary
     */
@@ -264,7 +269,7 @@ public class EVObject: NSObject, NSCoding { // These are redundant in Swift 2+: 
     /**
      Convert this object to a json string
      
-     - parameter performKeyCleanup: set to true if you want to cleanup the keys
+     - parameter convertionOptions: Option set for the various conversion options.
      
      - returns: The json string
      */
@@ -276,6 +281,7 @@ public class EVObject: NSObject, NSCoding { // These are redundant in Swift 2+: 
      Convenience method for instantiating an array from a json string.
      
      - parameter json: The json string
+     - parameter convertionOptions: Option set for the various conversion options.
      
      - returns: An array of objects
      */
@@ -289,6 +295,8 @@ public class EVObject: NSObject, NSCoding { // These are redundant in Swift 2+: 
      Automattic cammpelCase, PascalCase, snake_case conversion
      Supports propperty mapping and conversion when using EVObject as base class
      
+     - parameter convertionOptions: Option set for the various conversion options.
+
      - returns: The targe object with the mapped values
      */
     public func mapObjectTo<T where T:NSObject>(convertionOptions: ConvertionOptions = .Default) -> T {
