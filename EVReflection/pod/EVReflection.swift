@@ -783,7 +783,7 @@ final public class EVReflection {
     }
     
     /// Character that will be replaced by _ from the keys in a dictionary / json
-    private static let illegalCharacterSet = NSCharacterSet(charactersInString: " -&%#@!$^*()<>?.,:;").invertedSet
+    private static let illegalCharacterSet = NSCharacterSet(charactersInString: " -&%#@!$^*()<>?.,:;")
     /// processIllegalCharacters Cache
     private static var processIllegalCharactersCache = [ String : String ]()
     /**
