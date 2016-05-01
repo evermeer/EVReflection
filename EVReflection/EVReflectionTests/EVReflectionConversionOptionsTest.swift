@@ -52,7 +52,7 @@ class EVReflectionConversionOptionsTest: XCTestCase {
         XCTAssertEqual(json2, "{\n  \"value1\" : \"test1\",\n  \"value5\" : null,\n  \"value2\" : \"\",\n  \"value6\" : [\n    \"arrayElement\"\n  ],\n  \"value3\" : null,\n  \"value7\" : [\n\n  ],\n  \"value4\" : 4,\n  \"value8\" : null\n}", "Incorrect json")
         let b = TestObjectSkipValues(json: json2)
         let json3 = b.toJsonString()
-        XCTAssertEqual(json, json3, "Json should be the same")
+        XCTAssertEqual(json, json3, "Json should be the same")        
     }
 }
 

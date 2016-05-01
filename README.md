@@ -33,6 +33,9 @@ EVReflection is used extensively in [EVCloudKitDao](https://github.com/evermeer/
 - Supporting Printable, Hashable and Equatable while using all properties. (Support for Set in Swift 1.2)
 - Mapping objects from one type to an other
 
+### Quick start
+For a quick start have a look at this [YouTube tutorial](https://www.youtube.com/watch?v=LPWsQD2nxqg).
+
 ## It's easy to use:
 
 Defining an object. You only have to set EVObject as it's base class:

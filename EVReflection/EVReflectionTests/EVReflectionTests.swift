@@ -282,6 +282,13 @@ class EVReflectionTests: XCTestCase {
         XCTAssertNil(theObject.optionalValue)
     }
 
+    func testTypeForKey() {
+        let theObject = TestObject4()
+        let type = theObject.typeForKey("myInt")
+        print("type of myInt = \(type)")
+        XCTAssertEqual("\(type)", "Optional(Swift.Int)")
+    }
+
     func testJSONArray() {
         let a = AA()
         let b = BB()
