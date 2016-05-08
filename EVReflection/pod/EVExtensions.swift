@@ -76,10 +76,10 @@ public extension Array {
             if let obj =  nsobject as? T {
                 return obj
             }
-            assert(true, "Could not instantiate array item instance. will crash")
+            // Could not instantiate array item instance. will crash
             return (nsobject as? T)!
         }
-        assert(true, "Could not instantiate array item instance. will crash")
+        // Could not instantiate array item instance. will crash
         return (NSObject() as? T)!
     }
     

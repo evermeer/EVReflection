@@ -7,10 +7,16 @@
 //
 
 import Foundation
+import EVReflection
 
 /**
-Generate a description for an object by extracting information from the NSStringFromClass
+ Excercice to generate a description for an object by extracting information from the NSStringFromClass
+ 
+ Update: Will not be complete. Will remove this from the pod. For a complete overview see:
+ https://github.com/mattgallagher/CwlDemangle/blob/master/CwlDemangle/CwlDemangle.swift
 */
+
+
 public class EVObjectDescription {
     /// The name of the bundle
     public var bundleName: String = ""

@@ -616,9 +616,10 @@ final public class EVReflection {
             return (NSNumber(char: intValue), "NSNumber", false)
         case let intValue as UInt8:
             return (NSNumber(unsignedChar: intValue), "NSNumber", false)
-        case let stringValue as String:
-            //let s = NSString(string: stringValue)
+        case let stringValue as NSString:
             return (stringValue, "NSString", false)
+        case let stringValue as String:
+            return (NSString(string: stringValue), "NSString", false)
         case let dateValue as NSDate:
             return (dateValue, "NSDate", false)
         case let anyvalue as NSArray:
@@ -997,6 +998,7 @@ final public class EVReflection {
     private class func reflectedSub(theObject: Any, reflected: Mirror, convertionOptions: ConvertionOptions = .Default, isCachable: Bool) -> (NSDictionary, NSDictionary) {
         let propertiesDictionary = NSMutableDictionary()
         let propertiesTypeDictionary = NSMutableDictionary()
+        //TODO: need to fix circular dependency first
         // First add the super class propperties
         if let superReflected = reflected.superclassMirror() {
             let (addProperties, addPropertiesTypes) = reflectedSub(theObject, reflected: superReflected, convertionOptions: convertionOptions, isCachable: isCachable)
@@ -1009,6 +1011,7 @@ final public class EVReflection {
             if let originalKey: String = property.label {
                 var skipThisKey = false
                 var mapKey = originalKey
+                //TODO: need to fix circular dependency first
                 //if convertionOptions.contains(.PropertyMapping) {
                     if let evObject = theObject as? EVObject {
                         if let mapping = evObject.propertyMapping().filter({$0.0 == originalKey}).first {
