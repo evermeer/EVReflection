@@ -83,7 +83,7 @@ class EVReflectionTests: XCTestCase {
         let x = TestObject2c(dictionary: ["objectValue": "tst", "default":"default"])
         XCTAssertEqual(x.objectValue, "tst", "objectValue should have been set")
         XCTAssertEqual(x._default, "default", "default should have been set")
-        let json = x.toJsonString(.Default)
+        let json = x.toJsonString([.DefaultSerialize, .KeyCleanup])
         XCTAssertTrue(!json.containsString("_default"), "Key should have been cleaned up")
         
         let y = EVReflection.fromDictionary(["a":"b"], anyobjectTypeString: "NotExistingClassName")

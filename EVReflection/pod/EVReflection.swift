@@ -21,16 +21,16 @@ final public class EVReflection {
     
     - parameter dictionary: The dictionary that will be converted to an object
     - parameter anyobjectTypeString: The string representation of the object type that will be created
-    - parameter convertionOptions: Option set for the various conversion options.
+    - parameter conversionOptions: Option set for the various conversion options.
      
     - returns: The object that is created from the dictionary
     */
-    public class func fromDictionary(dictionary: NSDictionary, anyobjectTypeString: String, convertionOptions: ConvertionOptions = .Default) -> NSObject? {
+    public class func fromDictionary(dictionary: NSDictionary, anyobjectTypeString: String, conversionOptions: ConversionOptions = .DefaultDeserialize) -> NSObject? {
         if var nsobject = swiftClassFromString(anyobjectTypeString) {
             if let evResult = nsobject as? EVObject {
                 nsobject = evResult.getSpecificType(dictionary)
             }
-            nsobject = setPropertiesfromDictionary(dictionary, anyObject: nsobject, convertionOptions: convertionOptions)
+            nsobject = setPropertiesfromDictionary(dictionary, anyObject: nsobject, conversionOptions: conversionOptions)
             return nsobject
         }
         return nil
@@ -42,16 +42,16 @@ final public class EVReflection {
      
      - parameter dictionary: The dictionary that will be converted to an object
      - parameter anyObject: The object where the properties will be set
-     - parameter convertionOptions: Option set for the various conversion options.
+     - parameter conversionOptions: Option set for the various conversion options.
      
      - returns: The object that is created from the dictionary
      */
-    public class func setPropertiesfromDictionary<T where T: NSObject>(dictionary: NSDictionary, anyObject: T, convertionOptions: ConvertionOptions = .Default) -> T {
+    public class func setPropertiesfromDictionary<T where T: NSObject>(dictionary: NSDictionary, anyObject: T, conversionOptions: ConversionOptions = .DefaultDeserialize) -> T {
         autoreleasepool {
-            let (keyMapping, _, types) = getKeyMapping(anyObject, dictionary: dictionary, convertionOptions: .PropertyMapping)
+            let (keyMapping, _, types) = getKeyMapping(anyObject, dictionary: dictionary, conversionOptions: .PropertyMapping)
             for (k, v) in dictionary {
                 var skipKey = false
-                //if convertionOptions.contains(.PropertyMapping) {
+                //if conversionOptions.contains(.PropertyMapping) {
                     if let evObject = anyObject as? EVObject {
                         if let mapping = evObject.propertyMapping().filter({$0.0 == k as? String}).first {
                             if mapping.1 == nil {
@@ -64,12 +64,12 @@ final public class EVReflection {
                     let mapping = keyMapping[k as? String ?? ""]
                     let useKey: String = (mapping ?? k ?? "") as? String ?? ""
                     let original: NSObject? = getValue(anyObject, key: useKey)
-                    let (dictValue, valid) = dictionaryAndArrayConversion(anyObject, key: k as? String ?? "", fieldType: types[useKey] as? String, original: original, theDictValue: v, convertionOptions: convertionOptions)
+                    let (dictValue, valid) = dictionaryAndArrayConversion(anyObject, key: k as? String ?? "", fieldType: types[useKey] as? String, original: original, theDictValue: v, conversionOptions: conversionOptions)
                     if dictValue != nil {
                         if let key: String = keyMapping[k as? String ?? ""] as? String {
-                            setObjectValue(anyObject, key: key, theValue: (valid ? dictValue: v), typeInObject: types[key] as? String, valid: valid, convertionOptions: convertionOptions)
+                            setObjectValue(anyObject, key: key, theValue: (valid ? dictValue: v), typeInObject: types[key] as? String, valid: valid, conversionOptions: conversionOptions)
                         } else {
-                            setObjectValue(anyObject, key: k as? String ?? "", theValue: (valid ? dictValue : v), typeInObject: types[k as? String ?? ""] as? String, valid: valid, convertionOptions: convertionOptions)
+                            setObjectValue(anyObject, key: k as? String ?? "", theValue: (valid ? dictValue : v), typeInObject: types[k as? String ?? ""] as? String, valid: valid, conversionOptions: conversionOptions)
                         }
                     }
                 }
@@ -92,15 +92,15 @@ final public class EVReflection {
      
      - parameter anyObject:  the object for the mapping
      - parameter dictionary: the dictionary that has to be mapped
-     - parameter convertionOptions: Option set for the various conversion options.
+     - parameter conversionOptions: Option set for the various conversion options.
      
      - returns: The mapping, keys and values of all properties to items in a dictionary
      */
-    private static func getKeyMapping<T where T: NSObject>(anyObject: T, dictionary: NSDictionary, convertionOptions: ConvertionOptions = .Default) -> (keyMapping: NSDictionary, properties: NSDictionary, types: NSDictionary) {
-        let (properties, types) = toDictionary(anyObject, convertionOptions: convertionOptions, isCachable: true)
+    private static func getKeyMapping<T where T: NSObject>(anyObject: T, dictionary: NSDictionary, conversionOptions: ConversionOptions = .DefaultDeserialize) -> (keyMapping: NSDictionary, properties: NSDictionary, types: NSDictionary) {
+        let (properties, types) = toDictionary(anyObject, conversionOptions: conversionOptions, isCachable: true)
         var keyMapping: Dictionary<String, String> = Dictionary<String, String>()
         for (objectKey, _) in properties {
-            //if convertionOptions.contains(.PropertyMapping) {
+            //if conversionOptions.contains(.PropertyMapping) {
                 if let evObject = anyObject as? EVObject {
                     if let mapping = evObject.propertyMapping().filter({$0.1 == objectKey as? String}).first {
                         keyMapping[objectKey as? String ?? ""] = mapping.0
@@ -125,12 +125,12 @@ final public class EVReflection {
      Convert an object to a dictionary while cleaning up the keys
      
      - parameter theObject: The object that will be converted to a dictionary
-     - parameter convertionOptions: Option set for the various conversion options.
+     - parameter conversionOptions: Option set for the various conversion options.
      
      - returns: The dictionary that is created from theObject plus a dictionary of propery types.
      */
-    public class func toDictionary(theObject: NSObject, convertionOptions: ConvertionOptions = .Default, isCachable: Bool = false) -> (NSDictionary, NSDictionary) {
-        let key: String = "\(theObject.dynamicType).\(convertionOptions.rawValue)"
+    public class func toDictionary(theObject: NSObject, conversionOptions: ConversionOptions = .DefaultSerialize, isCachable: Bool = false) -> (NSDictionary, NSDictionary) {
+        let key: String = "\(theObject.dynamicType).\(conversionOptions.rawValue)"
         if isCachable {
             if let p = properiesCache[key] as? NSDictionary, let t = typesCache[key] as? NSDictionary {
                 //NSLog("Returning cashable structure for \(key)")
@@ -141,8 +141,8 @@ final public class EVReflection {
         var tdict: NSDictionary?
         autoreleasepool {
             let reflected = Mirror(reflecting: theObject)
-            var (properties, types) =  reflectedSub(theObject, reflected: reflected, convertionOptions: convertionOptions, isCachable: isCachable)
-            if convertionOptions.contains(.KeyCleanup) {
+            var (properties, types, _) =  reflectedSub(theObject, reflected: reflected, conversionOptions: conversionOptions, isCachable: isCachable)
+            if conversionOptions.contains(.KeyCleanup) {
                  (properties, types) = cleanupKeysAndValues(theObject, properties:properties, types:types)
             }
             pdict = properties
@@ -185,11 +185,11 @@ final public class EVReflection {
      
      - parameter type: An instance of the type where the array will be created of.
      - parameter json: The json string that will be converted
-     - parameter convertionOptions: Option set for the various conversion options.
+     - parameter conversionOptions: Option set for the various conversion options.
      
      - returns: The array of dictionaries representation of the json
      */
-    public class func arrayFromJson<T>(type: T, json: String?, convertionOptions: ConvertionOptions = .Default) -> [T] {
+    public class func arrayFromJson<T>(type: T, json: String?, conversionOptions: ConversionOptions = .DefaultDeserialize) -> [T] {
         var result = [T]()
         if json == nil {
             return result
@@ -204,7 +204,7 @@ final public class EVReflection {
                 }
                 result = jsonDic.map({
                     let nsobject: NSObject = nsobjectype!.init()
-                    return (setPropertiesfromDictionary($0, anyObject: nsobject, convertionOptions: convertionOptions) as? T)!
+                    return (setPropertiesfromDictionary($0, anyObject: nsobject, conversionOptions: conversionOptions) as? T)!
                 })
             }
         } catch _ as NSError {}
@@ -215,14 +215,14 @@ final public class EVReflection {
      Return a Json string representation of this object
      
      - parameter theObject: The object that will be loged
-     - parameter convertionOptions: Option set for the various conversion options.
+     - parameter conversionOptions: Option set for the various conversion options.
      
      - returns: The string representation of the object
      */
-    public class func toJsonString(theObject: NSObject, convertionOptions: ConvertionOptions = .Default) -> String {
+    public class func toJsonString(theObject: NSObject, conversionOptions: ConversionOptions = .DefaultSerialize) -> String {
         var result: String = ""
         autoreleasepool {
-            var (dict, _) = EVReflection.toDictionary(theObject, convertionOptions: convertionOptions)
+            var (dict, _) = EVReflection.toDictionary(theObject, conversionOptions: conversionOptions)
             dict = convertDictionaryForJsonSerialization(dict)
             do {
                 let jsonData = try NSJSONSerialization.dataWithJSONObject(dict, options: .PrettyPrinted)
@@ -250,13 +250,13 @@ final public class EVReflection {
      Return a string representation of this object
      
      - parameter theObject: The object that will be loged
-     - parameter convertionOptions: Option set for the various conversion options.
+     - parameter conversionOptions: Option set for the various conversion options.
      
      - returns: The string representation of the object
      */
-    public class func description(theObject: NSObject, convertionOptions: ConvertionOptions = .Default) -> String {
+    public class func description(theObject: NSObject, conversionOptions: ConversionOptions = .DefaultSerialize) -> String {
         var description: String = swiftStringFromClass(theObject) + " {\n   hash = \(hashValue(theObject))\n"
-        let (hasKeys, _) = toDictionary(theObject, convertionOptions: convertionOptions)
+        let (hasKeys, _) = toDictionary(theObject, conversionOptions: conversionOptions)
         for (key, value) in hasKeys {
             description = description  + "   key = \(key), value = \(value)\n"
         }
@@ -272,7 +272,7 @@ final public class EVReflection {
      - returns: the hashvalue for the object
      */
     public class func hashValue(theObject: NSObject) -> Int {
-        let (hasKeys, _) = toDictionary(theObject, convertionOptions: .None)
+        let (hasKeys, _) = toDictionary(theObject, conversionOptions: .None)
         return Int(hasKeys.map {$1}.reduce(0) {(31 &* $0) &+ $1.hash})
     }
     
@@ -282,10 +282,10 @@ final public class EVReflection {
      
      - parameter theObject: The object that we want to encode.
      - parameter aCoder: The NSCoder that will be used for encoding the object.
-     - parameter convertionOptions: Option set for the various conversion options.
+     - parameter conversionOptions: Option set for the various conversion options.
      */
-    public class func encodeWithCoder(theObject: EVObject, aCoder: NSCoder, convertionOptions: ConvertionOptions = .None) {
-        let (hasKeys, _) = toDictionary(theObject, convertionOptions: convertionOptions)
+    public class func encodeWithCoder(theObject: EVObject, aCoder: NSCoder, conversionOptions: ConversionOptions = .None) {
+        let (hasKeys, _) = toDictionary(theObject, conversionOptions: conversionOptions)
         for (key, value) in hasKeys {
             aCoder.encodeObject(value, forKey: key as? String ?? "")
         }
@@ -296,10 +296,10 @@ final public class EVReflection {
      
      - parameter theObject: The object that we want to decode.
      - parameter aDecoder: The NSCoder that will be used for decoding the object.
-     - parameter convertionOptions: Option set for the various conversion options.
+     - parameter conversionOptions: Option set for the various conversion options.
      */
-    public class func decodeObjectWithCoder(theObject: EVObject, aDecoder: NSCoder, convertionOptions: ConvertionOptions = .None) {
-        let (hasKeys, _) = toDictionary(theObject, convertionOptions: convertionOptions, isCachable: true)
+    public class func decodeObjectWithCoder(theObject: EVObject, aDecoder: NSCoder, conversionOptions: ConversionOptions = .None) {
+        let (hasKeys, _) = toDictionary(theObject, conversionOptions: conversionOptions, isCachable: true)
         let dict = NSMutableDictionary()
         for (key, _) in hasKeys {
             if aDecoder.containsValueForKey((key as? String)!) {
@@ -309,7 +309,7 @@ final public class EVReflection {
                 }
             }
         }
-        EVReflection.setPropertiesfromDictionary(dict, anyObject: theObject, convertionOptions: convertionOptions)
+        EVReflection.setPropertiesfromDictionary(dict, anyObject: theObject, conversionOptions: conversionOptions)
     }
     
     /**
@@ -325,8 +325,8 @@ final public class EVReflection {
             return false
         }
         
-        let (lhsdict, _) = toDictionary(lhs, convertionOptions: .None)
-        let (rhsdict, _) = toDictionary(rhs, convertionOptions: .None)
+        let (lhsdict, _) = toDictionary(lhs, conversionOptions: .None)
+        let (rhsdict, _) = toDictionary(rhs, conversionOptions: .None)
         
         return dictionariesAreEqual(lhsdict, rhsdict: rhsdict)
     }
@@ -530,11 +530,11 @@ final public class EVReflection {
      - parameter parentObject: Only needs to be set to the object that has this property when the value is from a property that is an array of optional values
      - parameter key:          Only needs to be set to the name of the property when the value is from a property that is an array of optional values
      - parameter anyValue:     Something of type Any is converted to a type NSObject
-     - parameter convertionOptions: Option set for the various conversion options.
+     - parameter conversionOptions: Option set for the various conversion options.
      
      - returns: The value where the Any is converted to AnyObject plus the type of that value as a string
      */
-    public class func valueForAny(parentObject: Any? = nil, key: String? = nil, anyValue: Any, convertionOptions: ConvertionOptions = .Default, isCachable: Bool = false) -> (value: AnyObject, type: String, isObject: Bool) {
+    public class func valueForAny(parentObject: Any? = nil, key: String? = nil, anyValue: Any, conversionOptions: ConversionOptions = .DefaultDeserialize, isCachable: Bool = false) -> (value: AnyObject, type: String, isObject: Bool) {
         var theValue = anyValue
         var valueType = "EVObject"
         var mi: Mirror = Mirror(reflecting: theValue)
@@ -565,7 +565,7 @@ final public class EVReflection {
             } else  if let value = theValue as? EVRaw {
                 theValue = value.anyRawValue
             } else if let value = theValue as? EVAssociated {
-                let (enumValue, enumType, _) = valueForAny(theValue, key: value.associated.label, anyValue: value.associated.value, convertionOptions: convertionOptions, isCachable: isCachable)
+                let (enumValue, enumType, _) = valueForAny(theValue, key: value.associated.label, anyValue: value.associated.value, conversionOptions: conversionOptions, isCachable: isCachable)
                 valueType = enumType
                 theValue = enumValue
             } else {
@@ -590,7 +590,7 @@ final public class EVReflection {
                 }
             }
             NSLog("Converting a struct to a dictionary for: \(theValue)")
-            let structAsDict = convertStructureToDictionary(theValue, convertionOptions: convertionOptions, isCachable: isCachable)
+            let structAsDict = convertStructureToDictionary(theValue, conversionOptions: conversionOptions, isCachable: isCachable)
             return (structAsDict, "Struct", false)
         } else {
             valueType = "\(mi.subjectType)"
@@ -641,9 +641,9 @@ final public class EVReflection {
         }
     }
     
-    private static func convertStructureToDictionary(theValue: Any, convertionOptions: ConvertionOptions, isCachable: Bool) -> NSDictionary {
+    private static func convertStructureToDictionary(theValue: Any, conversionOptions: ConversionOptions, isCachable: Bool) -> NSDictionary {
         let reflected = Mirror(reflecting: theValue)
-        let (addProperties, _) = reflectedSub(theValue, reflected: reflected, convertionOptions: convertionOptions, isCachable: isCachable)
+        let (addProperties, _, _) = reflectedSub(theValue, reflected: reflected, conversionOptions: conversionOptions, isCachable: isCachable)
         return addProperties
     }
 
@@ -656,15 +656,15 @@ final public class EVReflection {
      - parameter theValue:        the value that will be set
      - parameter typeInObject: the type of the value
      - parameter valid: False if a vaue is expected and a dictionary 
-     - parameter convertionOptions: Option set for the various conversion options.
+     - parameter conversionOptions: Option set for the various conversion options.
      */
-    public static func setObjectValue<T where T: NSObject>(anyObject: T, key: String, theValue: AnyObject?, typeInObject: String? = nil, valid: Bool, convertionOptions: ConvertionOptions = .Default ) {
+    public static func setObjectValue<T where T: NSObject>(anyObject: T, key: String, theValue: AnyObject?, typeInObject: String? = nil, valid: Bool, conversionOptions: ConversionOptions = .DefaultDeserialize ) {
         
         guard var value = theValue where (value as? NSNull) == nil else {
             return
         }
         
-        if convertionOptions.contains(.PropertyConverter) {
+        if conversionOptions.contains(.PropertyConverter) {
             if let (_, propertySetter, _) = (anyObject as? EVObject)?.propertyConverters().filter({$0.0 == key}).first {
                 guard let propertySetter = propertySetter else {
                     return  // if the propertySetter is nil, skip setting the property
@@ -674,7 +674,7 @@ final public class EVReflection {
             }
         }
         // Let us put a number into a string property by taking it's stringValue
-        let (_, type, _) = valueForAny("", key: key, anyValue: value, convertionOptions: convertionOptions, isCachable: false)
+        let (_, type, _) = valueForAny("", key: key, anyValue: value, conversionOptions: conversionOptions, isCachable: false)
         if (typeInObject == "String" || typeInObject == "NSString") && type == "NSNumber" {
             if let convertedValue = value as? NSNumber {
                 value = convertedValue.stringValue
@@ -871,11 +871,11 @@ final public class EVReflection {
      - parameter fieldType:  type of the field in object
      - parameter original:  the original value
      - parameter theDictValue: the value from the dictionary
-     - parameter convertionOptions: Option set for the various conversion options.
+     - parameter conversionOptions: Option set for the various conversion options.
      
      - returns: The converted value plus a boolean indicating if it's an object
      */
-    private static func dictionaryAndArrayConversion(anyObject: NSObject, key: String, fieldType: String?, original: NSObject?, theDictValue: AnyObject?, convertionOptions: ConvertionOptions = .Default) -> (AnyObject?, Bool) {
+    private static func dictionaryAndArrayConversion(anyObject: NSObject, key: String, fieldType: String?, original: NSObject?, theDictValue: AnyObject?, conversionOptions: ConversionOptions = .DefaultDeserialize) -> (AnyObject?, Bool) {
         var dictValue = theDictValue
         var valid = true
         if let type = fieldType {
@@ -884,7 +884,7 @@ final public class EVReflection {
                     // XMLDictionary fix
                     if let i = (dictValue as? NSDictionary)?.generate().next()?.value as? NSArray {
                         dictValue = i
-                        dictValue = dictArrayToObjectArray(type, array: (dictValue as? [NSDictionary]) ?? [NSDictionary](), convertionOptions: convertionOptions) as NSArray
+                        dictValue = dictArrayToObjectArray(type, array: (dictValue as? [NSDictionary]) ?? [NSDictionary](), conversionOptions: conversionOptions) as NSArray
                     }
                 } else {
                     // Single object array fix
@@ -895,15 +895,15 @@ final public class EVReflection {
             } else if let _ = type.rangeOfString("_NativeDictionaryStorageOwner"), let dict = dictValue as? NSDictionary, let org = anyObject as? EVDictionaryConvertable {
                 dictValue = org.convertDictionary(key, dict: dict)
             } else if type != "NSDictionary" && dictValue as? NSDictionary != nil {
-                let (dict, isValid) = dictToObject(type, original: original, dict: dictValue as? NSDictionary ?? NSDictionary(), convertionOptions: convertionOptions)
+                let (dict, isValid) = dictToObject(type, original: original, dict: dictValue as? NSDictionary ?? NSDictionary(), conversionOptions: conversionOptions)
                 dictValue = dict ?? dictValue
                 valid = isValid
             } else if type.rangeOfString("<NSDictionary>") == nil && dictValue as? [NSDictionary] != nil {
                 // Array of objects
-                dictValue = dictArrayToObjectArray(type, array: dictValue as? [NSDictionary] ?? [NSDictionary](), convertionOptions: convertionOptions) as NSArray
+                dictValue = dictArrayToObjectArray(type, array: dictValue as? [NSDictionary] ?? [NSDictionary](), conversionOptions: conversionOptions) as NSArray
             } else if original is EVObject && dictValue is String {
                 // fixing the conversion from XML without properties
-                let (dict, isValid) = dictToObject(type, original:original, dict:  ["__text": dictValue as? String ?? ""], convertionOptions: convertionOptions)
+                let (dict, isValid) = dictToObject(type, original:original, dict:  ["__text": dictValue as? String ?? ""], conversionOptions: conversionOptions)
                 dictValue = dict ?? dictValue
                 valid = isValid
             }
@@ -917,14 +917,14 @@ final public class EVReflection {
      - parameter type: The object type that will be created
      - parameter original: The original value in the object which is used to create a return object
      - parameter dict: The dictionary that will be converted to an object
-     - parameter convertionOptions: Option set for the various conversion options.
+     - parameter conversionOptions: Option set for the various conversion options.
      
      - returns: The object that is created from the dictionary
      */
-    private class func dictToObject<T where T:NSObject>(type: String, original: T?, dict: NSDictionary, convertionOptions: ConvertionOptions = .Default) -> (T?, Bool) {
+    private class func dictToObject<T where T:NSObject>(type: String, original: T?, dict: NSDictionary, conversionOptions: ConversionOptions = .DefaultDeserialize) -> (T?, Bool) {
         if var returnObject = original {
             if returnObject is EVObject {
-                returnObject = setPropertiesfromDictionary(dict, anyObject: returnObject, convertionOptions: convertionOptions)
+                returnObject = setPropertiesfromDictionary(dict, anyObject: returnObject, conversionOptions: conversionOptions)
             } else {
                 NSLog("WARNING: Cannot set values on type \(type) from dictionary \(dict)")
                 return (returnObject, false)
@@ -937,7 +937,7 @@ final public class EVReflection {
             if let evResult = returnObject as? EVObject {
                 returnObject = evResult.getSpecificType(dict)
             }
-            returnObject = setPropertiesfromDictionary(dict, anyObject: returnObject, convertionOptions: convertionOptions)
+            returnObject = setPropertiesfromDictionary(dict, anyObject: returnObject, conversionOptions: conversionOptions)
             return (returnObject as? T, true)
         }
         
@@ -954,11 +954,11 @@ final public class EVReflection {
      
      - parameter type: The object type that will be created
      - parameter array: The array of dictionaries that will be converted to the array of objects
-     - parameter convertionOptions: Option set for the various conversion options.
+     - parameter conversionOptions: Option set for the various conversion options.
      
      - returns: The array of objects that is created from the array of dictionaries
      */
-    private class func dictArrayToObjectArray(type: String, array: NSArray, convertionOptions: ConvertionOptions = .Default) -> NSArray {
+    private class func dictArrayToObjectArray(type: String, array: NSArray, conversionOptions: ConversionOptions = .DefaultDeserialize) -> NSArray {
         var subtype = "EVObject"
         if type.componentsSeparatedByString("<").count > 1 {
             // Remove the Array prefix
@@ -978,7 +978,7 @@ final public class EVReflection {
             if let evResult = org as? EVObject {
                 org = evResult.getSpecificType(item as? NSDictionary ?? NSDictionary())
             }
-            let (arrayObject, valid) = dictToObject(subtype, original:org, dict: item as? NSDictionary ?? NSDictionary(), convertionOptions: convertionOptions)
+            let (arrayObject, valid) = dictToObject(subtype, original:org, dict: item as? NSDictionary ?? NSDictionary(), conversionOptions: conversionOptions)
             if arrayObject != nil && valid {
                 result.append(arrayObject!)
             }
@@ -991,20 +991,22 @@ final public class EVReflection {
      
      - parameter theObject: The object as is
      - parameter reflected: The object parsed using the reflect method.
-     - parameter convertionOptions: Option set for the various conversion options.
+     - parameter conversionOptions: Option set for the various conversion options.
      
      - returns: The dictionary that is created from the object plus an dictionary of property types.
      */
-    private class func reflectedSub(theObject: Any, reflected: Mirror, convertionOptions: ConvertionOptions = .Default, isCachable: Bool) -> (NSDictionary, NSDictionary) {
+    private class func reflectedSub(theObject: Any, reflected: Mirror, conversionOptions: ConversionOptions = .DefaultDeserialize, isCachable: Bool) -> (NSDictionary, NSDictionary, NSDictionary) {
         let propertiesDictionary = NSMutableDictionary()
         let propertiesTypeDictionary = NSMutableDictionary()
+        let propertiesFullTypeDictionary = NSMutableDictionary()
         //TODO: need to fix circular dependency first
         // First add the super class propperties
         if let superReflected = reflected.superclassMirror() {
-            let (addProperties, addPropertiesTypes) = reflectedSub(theObject, reflected: superReflected, convertionOptions: convertionOptions, isCachable: isCachable)
+            let (addProperties, addPropertiesTypes, addPropertiesFullTypes) = reflectedSub(theObject, reflected: superReflected, conversionOptions: conversionOptions, isCachable: isCachable)
             for (k, v) in addProperties {
                 propertiesDictionary.setValue(v, forKey: k as? String ?? "")
                 propertiesTypeDictionary[k as? String ?? ""] = addPropertiesTypes[k as? String ?? ""]
+                propertiesFullTypeDictionary[k as? String ?? ""] = addPropertiesFullTypes[k as? String ?? ""]
             }
         }
         for property in reflected.children {
@@ -1012,7 +1014,7 @@ final public class EVReflection {
                 var skipThisKey = false
                 var mapKey = originalKey
                 //TODO: need to fix circular dependency first
-                //if convertionOptions.contains(.PropertyMapping) {
+                //if conversionOptions.contains(.PropertyMapping) {
                     if let evObject = theObject as? EVObject {
                         if let mapping = evObject.propertyMapping().filter({$0.0 == originalKey}).first {
                             if mapping.1 == nil {
@@ -1027,9 +1029,9 @@ final public class EVReflection {
                     var value = property.value
                     
                     // Convert the Any value to a NSObject value
-                    var (unboxedValue, valueType, isObject) = valueForAny(theObject, key: originalKey, anyValue: value, convertionOptions: convertionOptions, isCachable: isCachable)
+                    var (unboxedValue, valueType, isObject) = valueForAny(theObject, key: originalKey, anyValue: value, conversionOptions: conversionOptions, isCachable: isCachable)
 
-                    if convertionOptions.contains(.PropertyConverter) {
+                    if conversionOptions.contains(.PropertyConverter) {
                         // If there is a properyConverter, then use the result of that instead.
                         if let (_, _, propertyGetter) = (theObject as? EVObject)?.propertyConverters().filter({$0.0 == originalKey}).first {
                             
@@ -1039,14 +1041,14 @@ final public class EVReflection {
                             
                             value = propertyGetter()
                             
-                            let (unboxedValue2, _, _) = valueForAny(theObject, key: originalKey, anyValue: value, convertionOptions: convertionOptions, isCachable: isCachable)
+                            let (unboxedValue2, _, _) = valueForAny(theObject, key: originalKey, anyValue: value, conversionOptions: conversionOptions, isCachable: isCachable)
                             unboxedValue = unboxedValue2
                         }
                     }
                     
                     if isObject {
                         // sub objects will be added as a dictionary itself.
-                        let (dict, _) = toDictionary(unboxedValue as? NSObject ?? NSObject(), convertionOptions: convertionOptions, isCachable: isCachable)
+                        let (dict, _) = toDictionary(unboxedValue as? NSObject ?? NSObject(), conversionOptions: conversionOptions, isCachable: isCachable)
                         unboxedValue = dict
                     } else if let array = unboxedValue as? [NSObject] {
                         if unboxedValue as? [String] != nil || unboxedValue as? [NSString] != nil || unboxedValue as? [NSDate] != nil || unboxedValue as? [NSNumber] != nil || unboxedValue as? [NSArray] != nil || unboxedValue as? [NSDictionary] != nil {
@@ -1059,12 +1061,12 @@ final public class EVReflection {
                             } else {
                                 item = array.getArrayTypeInstance(array)
                             }
-                            let (_, _, isObject) = valueForAny(anyValue: item, convertionOptions: convertionOptions, isCachable: isCachable)
+                            let (_, _, isObject) = valueForAny(anyValue: item, conversionOptions: conversionOptions, isCachable: isCachable)
                             if isObject {
                                 // If the items are objects, than add a dictionary of each to the array
                                 var tempValue = [NSDictionary]()
                                 for av in array {
-                                    let (dict, _) = toDictionary(av, convertionOptions: convertionOptions, isCachable: isCachable)
+                                    let (dict, _) = toDictionary(av, conversionOptions: conversionOptions, isCachable: isCachable)
                                     tempValue.append(dict)
                                 }
                                 unboxedValue = tempValue
@@ -1072,24 +1074,27 @@ final public class EVReflection {
                         }
                     }
                     
-                    if convertionOptions.contains(.SkipPropertyValue) {
+                    if conversionOptions.contains(.SkipPropertyValue) {
                         if let evObject = theObject as? EVObject {
                             if !evObject.skipPropertyValue(unboxedValue, key: mapKey) {
                                 propertiesDictionary.setValue(unboxedValue, forKey: mapKey)
                                 propertiesTypeDictionary[mapKey] = valueType
+                                propertiesFullTypeDictionary[mapKey] = "\(value.dynamicType)"
                             }
                         } else {
                             propertiesDictionary.setValue(unboxedValue, forKey: mapKey)
                             propertiesTypeDictionary[mapKey] = valueType
+                            propertiesFullTypeDictionary[mapKey] = "\(value.dynamicType)"
                         }
                     } else {
                         propertiesDictionary.setValue(unboxedValue, forKey: mapKey)
                         propertiesTypeDictionary[mapKey] = valueType
+                        propertiesFullTypeDictionary[mapKey] = "\(value.dynamicType)"
                     }
                 }
             }
         }
-        return (propertiesDictionary, propertiesTypeDictionary)
+        return (propertiesDictionary, propertiesTypeDictionary, propertiesFullTypeDictionary)
     }
     
     
@@ -1142,15 +1147,16 @@ final public class EVReflection {
 
 
 
-public struct ConvertionOptions: OptionSetType {
+public struct ConversionOptions: OptionSetType {
     public let rawValue: Int
     public init(rawValue: Int) { self.rawValue = rawValue }
     
-    public static let None = ConvertionOptions(rawValue: 0)
-    public static let PropertyConverter = ConvertionOptions(rawValue: 1)
-    public static let PropertyMapping = ConvertionOptions(rawValue: 2)
-    public static let SkipPropertyValue = ConvertionOptions(rawValue: 4)
-    public static let KeyCleanup = ConvertionOptions(rawValue: 8)
+    public static let None = ConversionOptions(rawValue: 0)
+    public static let PropertyConverter = ConversionOptions(rawValue: 1)
+    public static let PropertyMapping = ConversionOptions(rawValue: 2)
+    public static let SkipPropertyValue = ConversionOptions(rawValue: 4)
+    public static let KeyCleanup = ConversionOptions(rawValue: 8)
     
-    public static let Default: ConvertionOptions = [PropertyConverter, PropertyMapping, SkipPropertyValue, KeyCleanup]
+    public static var DefaultDeserialize: ConversionOptions = [PropertyConverter, PropertyMapping, SkipPropertyValue, KeyCleanup]
+    public static var DefaultSerialize: ConversionOptions = [PropertyConverter, PropertyMapping, SkipPropertyValue]
 }

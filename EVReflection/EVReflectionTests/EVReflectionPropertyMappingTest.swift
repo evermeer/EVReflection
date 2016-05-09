@@ -22,7 +22,7 @@ class EVReflectionPropertyMappingTests: XCTestCase {
         XCTAssertEqual(a.propertyInObject, "value for propertyInObject", "propertyInObject should containt 'value for propertyInObject'")
         XCTAssertEqual(a.ignoredProperty, "", "ignoredProperty should containt ''")
         
-        let toDict = a.toDictionary(.Default)
+        let toDict = a.toDictionary([.DefaultSerialize, .KeyCleanup])
         let dict2 = ["name":"just a field","key_in_json":"value for propertyInObject"]
         XCTAssertEqual(toDict, dict2, "export dictionary should only contain a name and key_in_json")
     }
@@ -41,7 +41,7 @@ class EVReflectionPropertyMappingTests: XCTestCase {
         let s = t.toJsonString(.PropertyConverter) // So no PropertyMapping, SkipPropertyValue or KeyCleanup
         XCTAssertEqual(s, "{\n  \"isGreat\" : \"Sure\"\n}", "The json should contain 'Sure'")
         t.isGreat = false
-        let s2 = t.toJsonString(.Default)
+        let s2 = t.toJsonString([.DefaultSerialize, .KeyCleanup])
         XCTAssertEqual(s2, "{\n  \"is_great\" : \"Nah\"\n}", "The json should contain 'Nah'")
     }
 }

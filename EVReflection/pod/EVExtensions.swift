@@ -42,12 +42,12 @@ public extension Array {
     Initialize an array based on a json string
     
     - parameter json: The json string
-    - parameter convertionOptions: Option set for the various conversion options.
+    - parameter conversionOptions: Option set for the various conversion options.
     */
-    public init(json: String?, convertionOptions: ConvertionOptions = .Default) {
+    public init(json: String?, conversionOptions: ConversionOptions = .DefaultDeserialize) {
         self.init()
         let arrayTypeInstance = getArrayTypeInstance(self)
-        let newArray = EVReflection.arrayFromJson(arrayTypeInstance, json: json, convertionOptions: convertionOptions)
+        let newArray = EVReflection.arrayFromJson(arrayTypeInstance, json: json, conversionOptions: conversionOptions)
         for item in newArray {
             self.append(item)
         }
@@ -86,22 +86,22 @@ public extension Array {
     /**
     Convert this array to a json string
     
-    - parameter convertionOptions: Option set for the various conversion options.
+    - parameter conversionOptions: Option set for the various conversion options.
     
     - returns: The json string
     */
-    public func toJsonString(convertionOptions: ConvertionOptions = .Default) -> String {
-        return "[\n" + self.map({($0 as? EVObject ?? EVObject()).toJsonString(convertionOptions)}).joinWithSeparator(", \n") + "\n]"
+    public func toJsonString(conversionOptions: ConversionOptions = .DefaultSerialize) -> String {
+        return "[\n" + self.map({($0 as? EVObject ?? EVObject()).toJsonString(conversionOptions)}).joinWithSeparator(", \n") + "\n]"
     }
     
     /**
      Returns the dictionary representation of this array.
      
-     - parameter convertionOptions: Option set for the various conversion options.
+     - parameter conversionOptions: Option set for the various conversion options.
      
      - returns: The array of dictionaries
      */
-    public func toDictionaryArray(convertionOptions: ConvertionOptions = .Default) -> NSArray {
-        return self.map({($0 as? EVObject ?? EVObject()).toDictionary(convertionOptions)})
+    public func toDictionaryArray(conversionOptions: ConversionOptions = .DefaultSerialize) -> NSArray {
+        return self.map({($0 as? EVObject ?? EVObject()).toDictionary(conversionOptions)})
     }
 }

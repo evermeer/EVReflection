@@ -30,30 +30,30 @@ public class EVObject: NSObject, NSCoding { // These are redundant in Swift 2+: 
     */
     public convenience required init?(coder: NSCoder) {
         self.init()
-        EVReflection.decodeObjectWithCoder(self, aDecoder: coder, convertionOptions: .None)
+        EVReflection.decodeObjectWithCoder(self, aDecoder: coder, conversionOptions: .None)
     }
     
     /**
     Convenience init for creating an object whith the property values of a dictionary.
     
     - parameter dictionary: The dictionary that will be used to create this object
-    - parameter convertionOptions: Option set for the various conversion options.
+    - parameter conversionOptions: Option set for the various conversion options.
     */
-    public convenience init(dictionary: NSDictionary, convertionOptions: ConvertionOptions = .Default) {
+    public convenience init(dictionary: NSDictionary, conversionOptions: ConversionOptions = .DefaultDeserialize) {
         self.init()
-        EVReflection.setPropertiesfromDictionary(dictionary, anyObject: self, convertionOptions: convertionOptions)
+        EVReflection.setPropertiesfromDictionary(dictionary, anyObject: self, conversionOptions: conversionOptions)
     }
     
     /**
     Convenience init for creating an object whith the contents of a json string.
     
     - parameter json: The json string that will be used to create this object
-    - parameter convertionOptions: Option set for the various conversion options.
+    - parameter conversionOptions: Option set for the various conversion options.
     */
-    public convenience init(json: String?, convertionOptions: ConvertionOptions = .Default) {
+    public convenience init(json: String?, conversionOptions: ConversionOptions = .DefaultDeserialize) {
         self.init()
         let jsonDict = EVReflection.dictionaryFromJson(json)
-        EVReflection.setPropertiesfromDictionary(jsonDict, anyObject: self, convertionOptions: convertionOptions)
+        EVReflection.setPropertiesfromDictionary(jsonDict, anyObject: self, conversionOptions: conversionOptions)
     }
     
     /**
@@ -62,20 +62,20 @@ public class EVObject: NSObject, NSCoding { // These are redundant in Swift 2+: 
     - parameter aCoder: The NSCoder that will be used for encoding the object
     */
     public func encodeWithCoder(aCoder: NSCoder) {
-        EVReflection.encodeWithCoder(self, aCoder: aCoder, convertionOptions: .None)
+        EVReflection.encodeWithCoder(self, aCoder: aCoder, conversionOptions: .None)
     }        
     
     /**
     Initialize this object from an archived file from the temp directory
     
     - parameter fileNameInTemp: The filename
-    - parameter convertionOptions: Option set for the various conversion options.
+    - parameter conversionOptions: Option set for the various conversion options.
     */
-    public convenience init(fileNameInTemp: String, convertionOptions: ConvertionOptions = .None) {
+    public convenience init(fileNameInTemp: String, conversionOptions: ConversionOptions = .None) {
         self.init()
         let filePath = (NSTemporaryDirectory() as NSString).stringByAppendingPathComponent(fileNameInTemp)
         if let temp = NSKeyedUnarchiver.unarchiveObjectWithFile(filePath) as? EVObject {
-            EVReflection.setPropertiesfromDictionary( temp.toDictionary(convertionOptions), anyObject: self, convertionOptions: convertionOptions)
+            EVReflection.setPropertiesfromDictionary( temp.toDictionary(conversionOptions), anyObject: self, conversionOptions: conversionOptions)
         }
     }
     
@@ -83,13 +83,13 @@ public class EVObject: NSObject, NSCoding { // These are redundant in Swift 2+: 
     Initialize this object from an archived file from the documents directory
     
     - parameter fileNameInDocuments: The filename
-    - parameter convertionOptions: Option set for the various conversion options.
+    - parameter conversionOptions: Option set for the various conversion options.
     */
-    public convenience init(fileNameInDocuments: String, convertionOptions: ConvertionOptions = .None) {
+    public convenience init(fileNameInDocuments: String, conversionOptions: ConversionOptions = .None) {
         self.init()
         let filePath = (NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as NSString).stringByAppendingPathComponent(fileNameInDocuments)
         if let temp = NSKeyedUnarchiver.unarchiveObjectWithFile(filePath) as? EVObject {
-            EVReflection.setPropertiesfromDictionary( temp.toDictionary(convertionOptions), anyObject: self, convertionOptions: convertionOptions)
+            EVReflection.setPropertiesfromDictionary( temp.toDictionary(conversionOptions), anyObject: self, conversionOptions: conversionOptions)
         }
     }
     
@@ -257,36 +257,36 @@ public class EVObject: NSObject, NSCoding { // These are redundant in Swift 2+: 
     /**
     Returns the dictionary representation of this object.
     
-    - parameter convertionOptions: Option set for the various conversion options.
+    - parameter conversionOptions: Option set for the various conversion options.
     
     - returns: The dictionary
     */
-    public func toDictionary(convertionOptions: ConvertionOptions = .Default) -> NSDictionary {
-        let (reflected, _) = EVReflection.toDictionary(self, convertionOptions: convertionOptions)
+    public func toDictionary(conversionOptions: ConversionOptions = .DefaultDeserialize) -> NSDictionary {
+        let (reflected, _) = EVReflection.toDictionary(self, conversionOptions: conversionOptions)
         return reflected
     }
     
     /**
      Convert this object to a json string
      
-     - parameter convertionOptions: Option set for the various conversion options.
+     - parameter conversionOptions: Option set for the various conversion options.
      
      - returns: The json string
      */
-    public func toJsonString(convertionOptions: ConvertionOptions = .Default) -> String {
-        return EVReflection.toJsonString(self, convertionOptions: convertionOptions)
+    public func toJsonString(conversionOptions: ConversionOptions = .DefaultDeserialize) -> String {
+        return EVReflection.toJsonString(self, conversionOptions: conversionOptions)
     }
     
     /**
      Convenience method for instantiating an array from a json string.
      
      - parameter json: The json string
-     - parameter convertionOptions: Option set for the various conversion options.
+     - parameter conversionOptions: Option set for the various conversion options.
      
      - returns: An array of objects
      */
-    public class func arrayFromJson<T where T:NSObject>(json: String?, convertionOptions: ConvertionOptions = .Default) -> [T] {
-        return EVReflection.arrayFromJson(T(), json: json, convertionOptions: convertionOptions)
+    public class func arrayFromJson<T where T:NSObject>(json: String?, conversionOptions: ConversionOptions = .DefaultSerialize) -> [T] {
+        return EVReflection.arrayFromJson(T(), json: json, conversionOptions: conversionOptions)
     }
     
     /**
@@ -295,15 +295,15 @@ public class EVObject: NSObject, NSCoding { // These are redundant in Swift 2+: 
      Automattic cammpelCase, PascalCase, snake_case conversion
      Supports propperty mapping and conversion when using EVObject as base class
      
-     - parameter convertionOptions: Option set for the various conversion options.
+     - parameter conversionOptions: Option set for the various conversion options.
 
      - returns: The targe object with the mapped values
      */
-    public func mapObjectTo<T where T:NSObject>(convertionOptions: ConvertionOptions = .Default) -> T {
+    public func mapObjectTo<T where T:NSObject>(conversionOptions: ConversionOptions = .DefaultDeserialize) -> T {
         let nsobjectype: NSObject.Type = T.self as NSObject.Type
         let nsobject: NSObject = nsobjectype.init()
         let dict = self.toDictionary()
-        let result = EVReflection.setPropertiesfromDictionary(dict, anyObject: nsobject, convertionOptions: convertionOptions)
+        let result = EVReflection.setPropertiesfromDictionary(dict, anyObject: nsobject, conversionOptions: conversionOptions)
         return result as? T ?? T()
     }
     
