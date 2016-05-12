@@ -311,5 +311,17 @@ class EVReflectionTests: XCTestCase {
         let myObject = NestedArrays(json: json)
         print(myObject.toJsonString())
     }
-    
+
+    func testIssue81() {
+        let a = A81()
+        a.openId = "value"
+        let json = a.toJsonString()
+        print(json)
+        XCTAssertEqual(json, "{\n  \"openId\" : \"value\"\n}", "Incorrect serialisation to json")
+    }
+}
+
+
+class A81: EVObject {
+    var openId: String = ""
 }

@@ -261,7 +261,7 @@ public class EVObject: NSObject, NSCoding { // These are redundant in Swift 2+: 
     
     - returns: The dictionary
     */
-    public func toDictionary(conversionOptions: ConversionOptions = .DefaultDeserialize) -> NSDictionary {
+    public func toDictionary(conversionOptions: ConversionOptions = .DefaultSerialize) -> NSDictionary {
         let (reflected, _) = EVReflection.toDictionary(self, conversionOptions: conversionOptions)
         return reflected
     }
@@ -273,7 +273,7 @@ public class EVObject: NSObject, NSCoding { // These are redundant in Swift 2+: 
      
      - returns: The json string
      */
-    public func toJsonString(conversionOptions: ConversionOptions = .DefaultDeserialize) -> String {
+    public func toJsonString(conversionOptions: ConversionOptions = .DefaultSerialize) -> String {
         return EVReflection.toJsonString(self, conversionOptions: conversionOptions)
     }
     
@@ -285,7 +285,7 @@ public class EVObject: NSObject, NSCoding { // These are redundant in Swift 2+: 
      
      - returns: An array of objects
      */
-    public class func arrayFromJson<T where T:NSObject>(json: String?, conversionOptions: ConversionOptions = .DefaultSerialize) -> [T] {
+    public class func arrayFromJson<T where T:NSObject>(json: String?, conversionOptions: ConversionOptions = .DefaultDeserialize) -> [T] {
         return EVReflection.arrayFromJson(T(), json: json, conversionOptions: conversionOptions)
     }
     
