@@ -46,7 +46,7 @@ class EVReflectionConversionOptionsTest: XCTestCase {
         a.value7 = [String]()
         let json = a.toJsonString()
         print("json = \(json)")
-        XCTAssertEqual(json, "{\n  \"value6\" : [\n    \"arrayElement\"\n  ],\n  \"value4\" : 4,\n  \"value1\" : \"test1\"\n}", "Incorrect json")
+        XCTAssertEqual(json, "{\n  \"value4\" : 4,\n  \"value1\" : \"test1\",\n  \"value6\" : [\n    \"arrayElement\"\n  ]\n}", "Incorrect json")
         let json2 = a.toJsonString(.None)
         print("json = \(json2)")
         XCTAssertEqual(json2, "{\n  \"value1\" : \"test1\",\n  \"value5\" : null,\n  \"value2\" : \"\",\n  \"value6\" : [\n    \"arrayElement\"\n  ],\n  \"value3\" : null,\n  \"value7\" : [\n\n  ],\n  \"value4\" : 4,\n  \"value8\" : null\n}", "Incorrect json")

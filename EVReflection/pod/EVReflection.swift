@@ -129,7 +129,24 @@ final public class EVReflection {
      
      - returns: The dictionary that is created from theObject plus a dictionary of propery types.
      */
-    public class func toDictionary(theObject: NSObject, conversionOptions: ConversionOptions = .DefaultSerialize, isCachable: Bool = false) -> (NSDictionary, NSDictionary) {
+    public class func toDictionary(theObject: NSObject, conversionOptions: ConversionOptions = .DefaultSerialize, isCachable: Bool = false, parents: [NSObject] = []) -> (NSDictionary, NSDictionary) {
+        var pdict: NSDictionary?
+        var tdict: NSDictionary?
+
+        var i = 1
+        for parent in parents {
+            if parent === theObject {
+                pdict = NSMutableDictionary()
+                pdict!.setValue("\(i)", forKey: "_EVReflection_parent_")
+                tdict = NSMutableDictionary()
+                tdict!.setValue("NSString", forKey: "_EVReflection_parent_")
+                return (pdict!, tdict!)
+            }
+            i = i + 1
+        }
+        var theParents = parents
+        theParents.append(theObject)
+        
         let key: String = "\(theObject.dynamicType).\(conversionOptions.rawValue)"
         if isCachable {
             if let p = properiesCache[key] as? NSDictionary, let t = typesCache[key] as? NSDictionary {
@@ -137,11 +154,9 @@ final public class EVReflection {
                 return (p, t)
             }
         }
-        var pdict: NSDictionary?
-        var tdict: NSDictionary?
         autoreleasepool {
             let reflected = Mirror(reflecting: theObject)
-            var (properties, types) =  reflectedSub(theObject, reflected: reflected, conversionOptions: conversionOptions, isCachable: isCachable)
+            var (properties, types) =  reflectedSub(theObject, reflected: reflected, conversionOptions: conversionOptions, isCachable: isCachable, parents: theParents)
             if conversionOptions.contains(.KeyCleanup) {
                  (properties, types) = cleanupKeysAndValues(theObject, properties:properties, types:types)
             }
@@ -534,7 +549,7 @@ final public class EVReflection {
      
      - returns: The value where the Any is converted to AnyObject plus the type of that value as a string
      */
-    public class func valueForAny(parentObject: Any? = nil, key: String? = nil, anyValue: Any, conversionOptions: ConversionOptions = .DefaultDeserialize, isCachable: Bool = false) -> (value: AnyObject, type: String, isObject: Bool) {
+    public class func valueForAny(parentObject: Any? = nil, key: String? = nil, anyValue: Any, conversionOptions: ConversionOptions = .DefaultDeserialize, isCachable: Bool = false, parents: [NSObject] = []) -> (value: AnyObject, type: String, isObject: Bool) {
         var theValue = anyValue
         var valueType = "EVObject"
         var mi: Mirror = Mirror(reflecting: theValue)
@@ -543,7 +558,7 @@ final public class EVReflection {
             if mi.children.count == 1 {
                 theValue = mi.children.first!.value
                 mi = Mirror(reflecting: theValue)
-                if "\(theValue)".hasPrefix("_TtC") {
+                if "\(theValue.dynamicType)".hasPrefix("_TtC") {
                   valueType = "\(theValue)".componentsSeparatedByString(" ")[0]
                 } else {
                     valueType = "\(theValue.dynamicType)"
@@ -565,7 +580,7 @@ final public class EVReflection {
             } else  if let value = theValue as? EVRaw {
                 theValue = value.anyRawValue
             } else if let value = theValue as? EVAssociated {
-                let (enumValue, enumType, _) = valueForAny(theValue, key: value.associated.label, anyValue: value.associated.value, conversionOptions: conversionOptions, isCachable: isCachable)
+                let (enumValue, enumType, _) = valueForAny(theValue, key: value.associated.label, anyValue: value.associated.value, conversionOptions: conversionOptions, isCachable: isCachable, parents: parents)
                 valueType = enumType
                 theValue = enumValue
             } else {
@@ -590,7 +605,7 @@ final public class EVReflection {
                 }
             }
             NSLog("Converting a struct to a dictionary for: \(theValue)")
-            let structAsDict = convertStructureToDictionary(theValue, conversionOptions: conversionOptions, isCachable: isCachable)
+            let structAsDict = convertStructureToDictionary(theValue, conversionOptions: conversionOptions, isCachable: isCachable, parents: parents)
             return (structAsDict, "Struct", false)
         } else {
             valueType = "\(mi.subjectType)"
@@ -641,9 +656,9 @@ final public class EVReflection {
         }
     }
     
-    private static func convertStructureToDictionary(theValue: Any, conversionOptions: ConversionOptions, isCachable: Bool) -> NSDictionary {
+    private static func convertStructureToDictionary(theValue: Any, conversionOptions: ConversionOptions, isCachable: Bool, parents: [NSObject] = []) -> NSDictionary {
         let reflected = Mirror(reflecting: theValue)
-        let (addProperties, _) = reflectedSub(theValue, reflected: reflected, conversionOptions: conversionOptions, isCachable: isCachable)
+        let (addProperties, _) = reflectedSub(theValue, reflected: reflected, conversionOptions: conversionOptions, isCachable: isCachable, parents: parents)
         return addProperties
     }
 
@@ -658,7 +673,7 @@ final public class EVReflection {
      - parameter valid: False if a vaue is expected and a dictionary 
      - parameter conversionOptions: Option set for the various conversion options.
      */
-    public static func setObjectValue<T where T: NSObject>(anyObject: T, key: String, theValue: AnyObject?, typeInObject: String? = nil, valid: Bool, conversionOptions: ConversionOptions = .DefaultDeserialize ) {
+    public static func setObjectValue<T where T: NSObject>(anyObject: T, key: String, theValue: AnyObject?, typeInObject: String? = nil, valid: Bool, conversionOptions: ConversionOptions = .DefaultDeserialize, parents: [NSObject] = []) {
         
         guard var value = theValue where (value as? NSNull) == nil else {
             return
@@ -674,7 +689,7 @@ final public class EVReflection {
             }
         }
         // Let us put a number into a string property by taking it's stringValue
-        let (_, type, _) = valueForAny("", key: key, anyValue: value, conversionOptions: conversionOptions, isCachable: false)
+        let (_, type, _) = valueForAny("", key: key, anyValue: value, conversionOptions: conversionOptions, isCachable: false, parents: parents)
         if (typeInObject == "String" || typeInObject == "NSString") && type == "NSNumber" {
             if let convertedValue = value as? NSNumber {
                 value = convertedValue.stringValue
@@ -995,13 +1010,13 @@ final public class EVReflection {
      
      - returns: The dictionary that is created from the object plus an dictionary of property types.
      */
-    private class func reflectedSub(theObject: Any, reflected: Mirror, conversionOptions: ConversionOptions = .DefaultDeserialize, isCachable: Bool) -> (NSDictionary, NSDictionary) {
+    private class func reflectedSub(theObject: Any, reflected: Mirror, conversionOptions: ConversionOptions = .DefaultDeserialize, isCachable: Bool, parents: [NSObject] = []) -> (NSDictionary, NSDictionary) {
         let propertiesDictionary = NSMutableDictionary()
         let propertiesTypeDictionary = NSMutableDictionary()
         //TODO: need to fix circular dependency first
         // First add the super class propperties
         if let superReflected = reflected.superclassMirror() {
-            let (addProperties, addPropertiesTypes) = reflectedSub(theObject, reflected: superReflected, conversionOptions: conversionOptions, isCachable: isCachable)
+            let (addProperties, addPropertiesTypes) = reflectedSub(theObject, reflected: superReflected, conversionOptions: conversionOptions, isCachable: isCachable, parents: parents)
             for (k, v) in addProperties {
                 propertiesDictionary.setValue(v, forKey: k as? String ?? "")
                 propertiesTypeDictionary[k as? String ?? ""] = addPropertiesTypes[k as? String ?? ""]
@@ -1027,7 +1042,7 @@ final public class EVReflection {
                     var value = property.value
                     
                     // Convert the Any value to a NSObject value
-                    var (unboxedValue, valueType, isObject) = valueForAny(theObject, key: originalKey, anyValue: value, conversionOptions: conversionOptions, isCachable: isCachable)
+                    var (unboxedValue, valueType, isObject) = valueForAny(theObject, key: originalKey, anyValue: value, conversionOptions: conversionOptions, isCachable: isCachable, parents: parents)
 
                     if conversionOptions.contains(.PropertyConverter) {
                         // If there is a properyConverter, then use the result of that instead.
@@ -1039,14 +1054,14 @@ final public class EVReflection {
                             
                             value = propertyGetter()
                             
-                            let (unboxedValue2, _, _) = valueForAny(theObject, key: originalKey, anyValue: value, conversionOptions: conversionOptions, isCachable: isCachable)
+                            let (unboxedValue2, _, _) = valueForAny(theObject, key: originalKey, anyValue: value, conversionOptions: conversionOptions, isCachable: isCachable, parents: parents)
                             unboxedValue = unboxedValue2
                         }
                     }
                     
                     if isObject {
                         // sub objects will be added as a dictionary itself.
-                        let (dict, _) = toDictionary(unboxedValue as? NSObject ?? NSObject(), conversionOptions: conversionOptions, isCachable: isCachable)
+                        let (dict, _) = toDictionary(unboxedValue as? NSObject ?? NSObject(), conversionOptions: conversionOptions, isCachable: isCachable, parents: parents)
                         unboxedValue = dict
                     } else if let array = unboxedValue as? [NSObject] {
                         if unboxedValue as? [String] != nil || unboxedValue as? [NSString] != nil || unboxedValue as? [NSDate] != nil || unboxedValue as? [NSNumber] != nil || unboxedValue as? [NSArray] != nil || unboxedValue as? [NSDictionary] != nil {
@@ -1059,12 +1074,12 @@ final public class EVReflection {
                             } else {
                                 item = array.getArrayTypeInstance(array)
                             }
-                            let (_, _, isObject) = valueForAny(anyValue: item, conversionOptions: conversionOptions, isCachable: isCachable)
+                            let (_, _, isObject) = valueForAny(anyValue: item, conversionOptions: conversionOptions, isCachable: isCachable, parents: parents)
                             if isObject {
                                 // If the items are objects, than add a dictionary of each to the array
                                 var tempValue = [NSDictionary]()
                                 for av in array {
-                                    let (dict, _) = toDictionary(av, conversionOptions: conversionOptions, isCachable: isCachable)
+                                    let (dict, _) = toDictionary(av, conversionOptions: conversionOptions, isCachable: isCachable, parents: parents)
                                     tempValue.append(dict)
                                 }
                                 unboxedValue = tempValue

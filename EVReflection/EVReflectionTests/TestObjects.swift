@@ -179,9 +179,9 @@ public class Circular2: EVObject {
     var anotherNormalProperty: String? = ""
     var createCircle: Circular1?
     
-    override public func propertyMapping() -> [(String?, String?)] {
-        return [("createCircle", nil)]
-    }
+//    override public func propertyMapping() -> [(String?, String?)] {
+//        return [("createCircle", nil)]
+//    }
 }
 
 public class TestObject7: EVObject {

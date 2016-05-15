@@ -81,9 +81,9 @@ class Foo: EVObject {
     
     // What you need to do to get the correct type for when you deserialize enherited classes
     override func getSpecificType(dict: NSDictionary) -> EVObject {
-        if dict["just_bar"] != nil {
+        if dict["justBar"] != nil {
             return Bar()
-        } else if dict["just_baz"] != nil {
+        } else if dict["justBaz"] != nil {
             return Baz()
         }
         return self
