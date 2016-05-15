@@ -141,7 +141,7 @@ final public class EVReflection {
         var tdict: NSDictionary?
         autoreleasepool {
             let reflected = Mirror(reflecting: theObject)
-            var (properties, types, _) =  reflectedSub(theObject, reflected: reflected, conversionOptions: conversionOptions, isCachable: isCachable)
+            var (properties, types) =  reflectedSub(theObject, reflected: reflected, conversionOptions: conversionOptions, isCachable: isCachable)
             if conversionOptions.contains(.KeyCleanup) {
                  (properties, types) = cleanupKeysAndValues(theObject, properties:properties, types:types)
             }
@@ -643,7 +643,7 @@ final public class EVReflection {
     
     private static func convertStructureToDictionary(theValue: Any, conversionOptions: ConversionOptions, isCachable: Bool) -> NSDictionary {
         let reflected = Mirror(reflecting: theValue)
-        let (addProperties, _, _) = reflectedSub(theValue, reflected: reflected, conversionOptions: conversionOptions, isCachable: isCachable)
+        let (addProperties, _) = reflectedSub(theValue, reflected: reflected, conversionOptions: conversionOptions, isCachable: isCachable)
         return addProperties
     }
 
@@ -995,18 +995,16 @@ final public class EVReflection {
      
      - returns: The dictionary that is created from the object plus an dictionary of property types.
      */
-    private class func reflectedSub(theObject: Any, reflected: Mirror, conversionOptions: ConversionOptions = .DefaultDeserialize, isCachable: Bool) -> (NSDictionary, NSDictionary, NSDictionary) {
+    private class func reflectedSub(theObject: Any, reflected: Mirror, conversionOptions: ConversionOptions = .DefaultDeserialize, isCachable: Bool) -> (NSDictionary, NSDictionary) {
         let propertiesDictionary = NSMutableDictionary()
         let propertiesTypeDictionary = NSMutableDictionary()
-        let propertiesFullTypeDictionary = NSMutableDictionary()
         //TODO: need to fix circular dependency first
         // First add the super class propperties
         if let superReflected = reflected.superclassMirror() {
-            let (addProperties, addPropertiesTypes, addPropertiesFullTypes) = reflectedSub(theObject, reflected: superReflected, conversionOptions: conversionOptions, isCachable: isCachable)
+            let (addProperties, addPropertiesTypes) = reflectedSub(theObject, reflected: superReflected, conversionOptions: conversionOptions, isCachable: isCachable)
             for (k, v) in addProperties {
                 propertiesDictionary.setValue(v, forKey: k as? String ?? "")
                 propertiesTypeDictionary[k as? String ?? ""] = addPropertiesTypes[k as? String ?? ""]
-                propertiesFullTypeDictionary[k as? String ?? ""] = addPropertiesFullTypes[k as? String ?? ""]
             }
         }
         for property in reflected.children {
@@ -1079,22 +1077,19 @@ final public class EVReflection {
                             if !evObject.skipPropertyValue(unboxedValue, key: mapKey) {
                                 propertiesDictionary.setValue(unboxedValue, forKey: mapKey)
                                 propertiesTypeDictionary[mapKey] = valueType
-                                propertiesFullTypeDictionary[mapKey] = "\(value.dynamicType)"
                             }
                         } else {
                             propertiesDictionary.setValue(unboxedValue, forKey: mapKey)
                             propertiesTypeDictionary[mapKey] = valueType
-                            propertiesFullTypeDictionary[mapKey] = "\(value.dynamicType)"
                         }
                     } else {
                         propertiesDictionary.setValue(unboxedValue, forKey: mapKey)
                         propertiesTypeDictionary[mapKey] = valueType
-                        propertiesFullTypeDictionary[mapKey] = "\(value.dynamicType)"
                     }
                 }
             }
         }
-        return (propertiesDictionary, propertiesTypeDictionary, propertiesFullTypeDictionary)
+        return (propertiesDictionary, propertiesTypeDictionary)
     }
     
     
