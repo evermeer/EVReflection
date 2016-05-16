@@ -6,7 +6,7 @@
 [![Build Status](https://travis-ci.org/evermeer/EVReflection.svg?style=flat)](https://travis-ci.org/evermeer/EVReflection)
 [![Issues](https://img.shields.io/github/issues-raw/evermeer/EVReflection.svg?style=flat)](https://github.com/evermeer/EVReflection/issues)
 [![Coverage](https://img.shields.io/badge/coverage-90%-yellow.svg?style=flat)](https://raw.githubusercontent.com/evermeer/EVReflection/master/EVReflection/coverage.png)
-[![Documentation](https://img.shields.io/badge/documented-100%-brightgreen.svg?style=flat)](http://cocoadocs.org/docsets/EVReflection)
+[![Documentation](https://img.shields.io/badge/documented-85%-yellow.svg?style=flat)](http://cocoadocs.org/docsets/EVReflection)
 [![Stars](https://img.shields.io/github/stars/evermeer/EVReflection.svg?style=flat)](https://github.com/evermeer/EVReflection/stargazers)
 
 [![Version](https://img.shields.io/cocoapods/v/EVReflection.svg?style=flat)](http://cocoadocs.org/docsets/EVReflection)
@@ -26,6 +26,27 @@ Run the unit tests to see EVReflection in action.
 
 EVReflection is used extensively in [EVCloudKitDao](https://github.com/evermeer/EVCloudKitDao), [AlamofireJsonToObjects](https://github.com/evermeer/AlamofireJsonToObjects) and [AlamofireXmlToObjects](https://github.com/evermeer/AlamofireXmlToObjects)
 
+In most cases EVReflection is verry easy to use. Just take a look at the [YouTube tutorial](https://www.youtube.com/watch?v=LPWsQD2nxqg) or the section [It's easy to use](https://github.com/evermeer/EVReflection#its-easy-to-use). But if you do want to do non standard specific things, then EVReflection will offer you an extensive range of functionality. For more information see:
+
+- [Main features of EVReflection](https://github.com/evermeer/EVReflection#main-features-of-evreflection)
+- [Quick start](https://github.com/evermeer/EVReflection#quick-start)
+- [It's easy to use](https://github.com/evermeer/EVReflection#its-easy-to-use)
+- [If you have XML instead of JSON](https://github.com/evermeer/EVReflection#if-you-have-xml-instead-of-json)
+- [Using EVReflection in your own App](https://github.com/evermeer/EVReflection#using-evreflection-in-your-own-app)
+- [More Sample code](https://github.com/evermeer/EVReflection#more-sample-code)
+- [Automatic keyword mapping for Swift keywords](https://github.com/evermeer/EVReflection#automatic-keyword-mapping-for-swift-keywords)
+- [Automatic keyword mapping PascalCase or camelCase to snake_case](https://github.com/evermeer/EVReflection#automatic-keyword-mapping-pascalcase-or-camelcase-to-snake_case)
+- [Custom keyword mapping](https://github.com/evermeer/EVReflection#custom-keyword-mapping)
+- [Custom property converters](https://github.com/evermeer/EVReflection#custom-property-converters)
+- [Skip the serialisaton or deserialisation of specific values](https://github.com/evermeer/EVReflection#skip-the-serialisaton-or-deserialisation-of-specific-values)
+- [Property validators](https://github.com/evermeer/EVReflection#property-validators)
+- [Deserialisaton class level validations](https://github.com/evermeer/EVReflection#deserialisaton-class-level-validations)
+- [What to do when you use object enheritance](https://github.com/evermeer/EVReflection#what-to-do-when-you-use-object-enheritance)
+- [Conversion options](https://github.com/evermeer/EVReflection#conversion-options)
+- [Known issues](https://github.com/evermeer/EVReflection#known-issues)
+- [Lisence](https://github.com/evermeer/EVReflection#license)
+- [My other libraries](https://github.com/evermeer/EVReflection#my-other-libraries)
+
 ## Main features of EVReflection:
 - Parsing objects based on NSObject to and from a dictionary.
 - Parsing objects to and from a JSON string.
@@ -33,7 +54,7 @@ EVReflection is used extensively in [EVCloudKitDao](https://github.com/evermeer/
 - Supporting Printable, Hashable and Equatable while using all properties. (Support for Set in Swift 1.2)
 - Mapping objects from one type to an other
 
-### Quick start
+## Quick start
 For a quick start have a look at this [YouTube tutorial](https://www.youtube.com/watch?v=LPWsQD2nxqg).
 
 ## It's easy to use:
