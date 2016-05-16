@@ -44,7 +44,7 @@ In most cases EVReflection is verry easy to use. Just take a look at the [YouTub
 - [What to do when you use object enheritance](https://github.com/evermeer/EVReflection#what-to-do-when-you-use-object-enheritance)
 - [Conversion options](https://github.com/evermeer/EVReflection#conversion-options)
 - [Known issues](https://github.com/evermeer/EVReflection#known-issues)
-- [Lisence](https://github.com/evermeer/EVReflection#license)
+- [License](https://github.com/evermeer/EVReflection#license)
 - [My other libraries](https://github.com/evermeer/EVReflection#my-other-libraries)
 
 ## Main features of EVReflection:
