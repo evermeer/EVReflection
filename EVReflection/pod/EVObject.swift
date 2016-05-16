@@ -198,11 +198,14 @@ public class EVObject: NSObject, NSCoding { // These are redundant in Swift 2+: 
     */
     public override func setValue(value: AnyObject!, forUndefinedKey key: String) {
         if let _ = self as? EVGenericsKVC {
-            NSLog("\nWARNING: Your class should have implemented the setValue forUndefinedKey. \n")
+            self.addStatusMessage(.InvalidClass, message: "class should have implemented the setValue forUndefinedKey.")
+            print("\nWARNING: Your class should have implemented the setValue forUndefinedKey. \n")
+        } else {
+            self.addStatusMessage(.IncorrectKey, message: "The class '\(EVReflection.swiftStringFromClass(self))' is not key value coding-compliant for the key '\(key)'")
+            print("\nWARNING: The class '\(EVReflection.swiftStringFromClass(self))' is not key value coding-compliant for the key '\(key)'\n There is no support for optional type, array of optionals or enum properties.\nAs a workaround you can implement the function 'setValue forUndefinedKey' for this. See the unit tests for more information\n")
+    
         }
-        NSLog("\nWARNING: The class '\(EVReflection.swiftStringFromClass(self))' is not key value coding-compliant for the key '\(key)'\n There is no support for optional type, array of optionals or enum properties.\nAs a workaround you can implement the function 'setValue forUndefinedKey' for this. See the unit tests for more information\n")
     }
-
     
     /**
     Override this method when you want custom property mapping.
@@ -286,7 +289,7 @@ public class EVObject: NSObject, NSCoding { // These are redundant in Swift 2+: 
      - returns: An array of objects
      */
     public class func arrayFromJson<T where T:NSObject>(json: String?, conversionOptions: ConversionOptions = .DefaultDeserialize) -> [T] {
-        return EVReflection.arrayFromJson(T(), json: json, conversionOptions: conversionOptions)
+        return EVReflection.arrayFromJson(nil, type: T(), json: json, conversionOptions: conversionOptions)
     }
     
     /**
@@ -319,6 +322,14 @@ public class EVObject: NSObject, NSCoding { // These are redundant in Swift 2+: 
         return typeForKey(propertyName, mirror: mirror)
     }
     
+    /**
+     get the type of a property
+     
+     - parameter propertyName: The property key
+     - parameter mirror:       The mirror of this object
+     
+     - returns: The type of the property
+     */
     private func typeForKey(propertyName: String, mirror: Mirror) -> Any.Type? {
         for (label, value) in mirror.children {
             if propertyName == label {
@@ -331,5 +342,64 @@ public class EVObject: NSObject, NSCoding { // These are redundant in Swift 2+: 
         }
         
         return typeForKey(propertyName, mirror: superclassMirror)
+    }
+    
+    /**
+     By default there is no aditional validation. Override this function to add your own class level validation rules
+     
+     - parameter dict: The dictionary with keys where the initialisation is called with
+     */
+    public func initValidation(dict: NSDictionary) {
+    }
+    
+    /**
+     Validation function that you will probably call from the initValidation function. This function will make sure
+     the passed on keys are not in the dictionary used for initialisation. 
+     The result of this validation is stored in evReflectionStatus.
+     
+     - parameter keys: The fields that may not be in the dictionary (like an error key)
+     - parameter dict: The dictionary that is passed on from the initValidation function
+     */
+    public func initMayNotContainKeys(keys: [String], dict: NSDictionary) {
+        for key in keys {
+            if dict[key] != nil {
+                addStatusMessage(.IncorrectKey, message: "Invalid key: \(key)")
+            }
+        }
+    }
+    
+    /**
+     Validation function that you will probably call from the initValidation function. This function will make sure
+     the passed on keys are in the dictionary used for initialisation.
+     The result of this validation is stored in evReflectionStatus.
+     
+     - parameter keys: The fields that may not be in the dictionary (like an error key)
+     - parameter dict: The dictionary that is passed on from the initValidation function
+     */
+    public func initMustContainKeys(keys: [String], dict: NSDictionary) {
+        for key in keys {
+            if dict[key] == nil {
+                addStatusMessage(.MissingKey, message: "Missing key: \(key)")
+            }
+        }
+    }
+    
+    // This property will contain an array with
+    public var evReflectionStatuses: [(DeserialisationStatus, String)] = []
+    public func evReflectionStatus() -> DeserialisationStatus {
+        var status: DeserialisationStatus = .None
+        for (s, _) in evReflectionStatuses {
+            status = [status, s]
+        }
+        return status
+    }
+    /**
+     Convenience function for adding a new status message to the evReflectionStatus array
+     
+     - parameter type:    A string to specify the message type
+     - parameter message: The message for the status.
+     */
+    public func addStatusMessage(type: DeserialisationStatus, message: String) {
+        evReflectionStatuses.append(type, message)
     }
 }

@@ -312,6 +312,26 @@ class EVReflectionTests: XCTestCase {
         print(myObject.toJsonString())
     }
 
+    func testValidation() {
+        // Test missing required key
+        let json = "{\"requiredKey1\": \"Value1\", \"requiredKey2\":\"Value2\"}"
+        let test = ValidateObject(json: json)
+        XCTAssertNotEqual(test.evReflectionStatus(), .None, "We should have a not .None status")
+        XCTAssertEqual(test.evReflectionStatuses.count, 1, "We should have 1 validation result")
+        for (status, message) in test.evReflectionStatuses {
+            print("Validation result: Status = \(status), Message = \(message)")
+        }
+
+        // Test aditional key
+        let json2 = "{\"requiredKey1\": \"Value1\", \"requiredKey2\":\"Value2\", \"requiredKey3\":\"Value3\", \"randomKey\":\"Value4\"}"
+        let test2 = ValidateObject(json: json2)
+        XCTAssertNotEqual(test.evReflectionStatus(), .None, "We should have a not .None status")
+        XCTAssertEqual(test2.evReflectionStatuses.count, 1, "We should have 1 validation result")
+        for (status, message) in test2.evReflectionStatuses {
+            print("Validation result: Status = \(status), Message = \(message)")
+        }
+    }
+    
     func testIssue81() {
         let a = A81()
         a.openId = "value"

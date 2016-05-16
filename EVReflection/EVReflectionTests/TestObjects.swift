@@ -178,10 +178,6 @@ public class Circular1: EVObject {
 public class Circular2: EVObject {
     var anotherNormalProperty: String? = ""
     var createCircle: Circular1?
-    
-//    override public func propertyMapping() -> [(String?, String?)] {
-//        return [("createCircle", nil)]
-//    }
 }
 
 public class TestObject7: EVObject {
@@ -229,4 +225,36 @@ class NestedArraysResult: EVObject {
         }
         NSLog("---> setValue for key '\(key)' should be handled.")
     }
+}
+
+public class ValidateObject: EVObject {
+    var requiredKey1: String?
+    var requiredKey2: String?
+    var requiredKey3: String?
+    var optionalKey1: String?
+    var optionalKey2: String?
+    var optionalKey3: String?
+    
+    override public func initValidation(dict: NSDictionary) {
+        self.initMayNotContainKeys(["error"], dict: dict)
+        self.initMustContainKeys(["requiredKey1", "requiredKey2", "requiredKey3"], dict: dict)
+        if dict.valueForKey("requiredKey1") as? String == dict.valueForKey("optionalKey1") as? String {
+            // this could also be called in your property specific validators
+            self.addStatusMessage(.Custom, message: "optionalKey1 should not be the same as requiredKey1")
+        }
+    }
+    
+    func validateOptionalKey3(value: AutoreleasingUnsafeMutablePointer<AnyObject?>) throws {
+        if let theValue = value.memory as? String {
+            if theValue.lengthOfBytesUsingEncoding(NSUTF8StringEncoding) < 3 {
+                self.addStatusMessage(.InvalidValue, message: "optionalKey3 should be at least 3 characters long: '\(value)'")
+                throw MyValidationError.LengthError
+            }
+        } else {
+            self.addStatusMessage(.InvalidValue, message: "optionalKey3 should be string instead of '\(value)'")
+            throw MyValidationError.TypeError
+        }
+    }
+    
+    
 }

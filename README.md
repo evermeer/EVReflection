@@ -5,7 +5,7 @@
  -->
 [![Build Status](https://travis-ci.org/evermeer/EVReflection.svg?style=flat)](https://travis-ci.org/evermeer/EVReflection)
 [![Issues](https://img.shields.io/github/issues-raw/evermeer/EVReflection.svg?style=flat)](https://github.com/evermeer/EVReflection/issues)
-[![Coverage](https://img.shields.io/badge/coverage-99%-brightgreen.svg?style=flat)](https://raw.githubusercontent.com/evermeer/EVReflection/master/EVReflection/coverage.png)
+[![Coverage](https://img.shields.io/badge/coverage-90%-yellow.svg?style=flat)](https://raw.githubusercontent.com/evermeer/EVReflection/master/EVReflection/coverage.png)
 [![Documentation](https://img.shields.io/badge/documented-100%-brightgreen.svg?style=flat)](http://cocoadocs.org/docsets/EVReflection)
 [![Stars](https://img.shields.io/github/stars/evermeer/EVReflection.svg?style=flat)](https://github.com/evermeer/EVReflection/stargazers)
 
@@ -249,6 +249,40 @@ public class GameUser: EVObject {
    }
 }
 ```
+
+### Deserialisaton class level validations
+There is also support for class level validation when deserialising to an object. There are helper functions for making keys required or not allowed. You can also add custom messages. Here is some sample code about how you can implement such a validation
+
+```
+public class ValidateObject: EVObject {
+   var requiredKey1: String?
+   var requiredKey2: String?
+   var optionalKey1: String?
+
+   override public func initValidation(dict: NSDictionary) {
+      self.initMayNotContainKeys(["error"], dict: dict)
+      self.initMustContainKeys(["requiredKey1", "requiredKey2"], dict: dict)
+      if dict.valueForKey("requiredKey1") as? String == dict.valueForKey("optionalKey1") as? String {
+         // this could also be called in your property specific validators
+         self.addStatusMessage(.Custom, message: "optionalKey1 should not be the same as requiredKey1")
+      }
+   }
+}
+```
+You could then test this validation with code like:
+```
+func testValidation() {
+   // Test missing required key
+   let json = "{\"requiredKey1\": \"Value1\"}"
+   let test = ValidateObject(json: json)
+   XCTAssertNotEqual(test.evReflectionStatus(), .None, "We should have a not .None status")
+   XCTAssertEqual(test.evReflectionStatuses.count, 1, "We should have 1 validation result")
+   for (status, message) in test.evReflectionStatuses {
+      print("Validation result: Status = \(status), Message = \(message)")
+   }
+}
+```
+
 
 
 ### What to do when you use object enheritance

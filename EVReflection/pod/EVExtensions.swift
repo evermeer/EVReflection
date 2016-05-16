@@ -47,7 +47,7 @@ public extension Array {
     public init(json: String?, conversionOptions: ConversionOptions = .DefaultDeserialize) {
         self.init()
         let arrayTypeInstance = getArrayTypeInstance(self)
-        let newArray = EVReflection.arrayFromJson(arrayTypeInstance, json: json, conversionOptions: conversionOptions)
+        let newArray = EVReflection.arrayFromJson(nil, type:arrayTypeInstance, json: json, conversionOptions: conversionOptions)
         for item in newArray {
             self.append(item)
         }
