@@ -114,7 +114,9 @@ public class EVObjectDescription {
             return
         }
         if classPathType[classPath.count - 1] == .Function {
-            //TODO: reverse engineer function description. For now only allow parameterless function that return void
+            //Update: Will not be complete. Will remove this from the pod. For a complete overview see:
+            //https://github.com/mattgallagher/CwlDemangle/blob/master/CwlDemangle/CwlDemangle.swift
+
             //No param, no return            FS0_FT_T_L_
             //No param, return object        FS0_FT_CS_
             //String param, return object    FS0_FSSCS_

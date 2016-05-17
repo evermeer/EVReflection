@@ -255,6 +255,4 @@ public class ValidateObject: EVObject {
             throw MyValidationError.TypeError
         }
     }
-    
-    
 }

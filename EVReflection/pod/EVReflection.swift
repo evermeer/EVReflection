@@ -52,7 +52,7 @@ final public class EVReflection {
             let (keyMapping, _, types) = getKeyMapping(anyObject, dictionary: dictionary, conversionOptions: .PropertyMapping)
             for (k, v) in dictionary {
                 var skipKey = false
-                //if conversionOptions.contains(.PropertyMapping) {
+                if conversionOptions.contains(.PropertyMapping) {
                     if let evObject = anyObject as? EVObject {
                         if let mapping = evObject.propertyMapping().filter({$0.0 == k as? String}).first {
                             if mapping.1 == nil {
@@ -60,7 +60,7 @@ final public class EVReflection {
                             }
                         }
                     }
-                //}
+                }
                 if !skipKey {
                     let mapping = keyMapping[k as? String ?? ""]
                     let useKey: String = (mapping ?? k ?? "") as? String ?? ""
@@ -101,13 +101,13 @@ final public class EVReflection {
         let (properties, types) = toDictionary(anyObject, conversionOptions: conversionOptions, isCachable: true)
         var keyMapping: Dictionary<String, String> = Dictionary<String, String>()
         for (objectKey, _) in properties {
-            //if conversionOptions.contains(.PropertyMapping) {
+            if conversionOptions.contains(.PropertyMapping) {
                 if let evObject = anyObject as? EVObject {
                     if let mapping = evObject.propertyMapping().filter({$0.1 == objectKey as? String}).first {
                         keyMapping[objectKey as? String ?? ""] = mapping.0
                     }
                 }
-            //}
+            }
             
             if let dictKey = cleanupKey(anyObject, key: objectKey as? String ?? "", tryMatch: dictionary) {
                 if dictKey != objectKey  as? String {
@@ -1020,7 +1020,6 @@ final public class EVReflection {
     private class func reflectedSub(theObject: Any, reflected: Mirror, conversionOptions: ConversionOptions = .DefaultDeserialize, isCachable: Bool, parents: [NSObject] = []) -> (NSDictionary, NSDictionary) {
         let propertiesDictionary = NSMutableDictionary()
         let propertiesTypeDictionary = NSMutableDictionary()
-        //TODO: need to fix circular dependency first
         // First add the super class propperties
         if let superReflected = reflected.superclassMirror() {
             let (addProperties, addPropertiesTypes) = reflectedSub(theObject, reflected: superReflected, conversionOptions: conversionOptions, isCachable: isCachable, parents: parents)
@@ -1038,8 +1037,7 @@ final public class EVReflection {
                 if originalKey  == "evReflectionStatuses" {
                     skipThisKey = true
                 }
-                //TODO: need to fix circular dependency first
-                //if conversionOptions.contains(.PropertyMapping) {
+                if conversionOptions.contains(.PropertyMapping) {
                     if let evObject = theObject as? EVObject {
                         if let mapping = evObject.propertyMapping().filter({$0.0 == originalKey}).first {
                             if mapping.1 == nil {
@@ -1049,7 +1047,7 @@ final public class EVReflection {
                             }
                         }
                     }
-                //}
+                }
                 if !skipThisKey {
                     var value = property.value
                     
