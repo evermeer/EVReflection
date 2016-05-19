@@ -1180,19 +1180,38 @@ final public class EVReflection {
 
 
 
+/**
+ For specifying what conversion options should be executed
+ */
 public struct ConversionOptions: OptionSetType, CustomStringConvertible {
+    /// The numeric representation of the options
     public let rawValue: Int
+    /**
+     Initialize with a raw value
+     
+     - parameter rawValue: the numeric representation
+     
+     - returns: The ConversionOptions
+     */
     public init(rawValue: Int) { self.rawValue = rawValue }
     
+    /// No conversion options
     public static let None = ConversionOptions(rawValue: 0)
+    /// Execute property converters
     public static let PropertyConverter = ConversionOptions(rawValue: 1)
+    /// Execute property mapping
     public static let PropertyMapping = ConversionOptions(rawValue: 2)
+    /// Skip specific property values
     public static let SkipPropertyValue = ConversionOptions(rawValue: 4)
+    /// Do a key cleanup (CameCase, snake_case)
     public static let KeyCleanup = ConversionOptions(rawValue: 8)
     
+    /// Default used for deserialisation
     public static var DefaultDeserialize: ConversionOptions = [PropertyConverter, PropertyMapping, SkipPropertyValue, KeyCleanup]
+    /// Default used for serialisation
     public static var DefaultSerialize: ConversionOptions = [PropertyConverter, PropertyMapping, SkipPropertyValue]
     
+    /// Get a nice description of the ConversionOptions
     public var description: String {
         let strings = ["PropertyConverter", "PropertyMapping", "SkipPropertyValue", "KeyCleanup"]
         var members = [String]()
@@ -1207,19 +1226,39 @@ public struct ConversionOptions: OptionSetType, CustomStringConvertible {
 
 }
 
+/**
+ Type of status messages after deserialisation
+ */
 public struct DeserialisationStatus: OptionSetType, CustomStringConvertible {
+    /// The numeric representation of the options
     public let rawValue: Int
+    /**
+     Initialize with a raw value
+     
+     - parameter rawValue: the numeric representation
+     
+     - returns: the DeserialisationStatus
+     */
     public init(rawValue: Int) { self.rawValue = rawValue }
 
+    /// No status message
     public static let None = DeserialisationStatus(rawValue: 0)
+    /// Incorrect key error
     public static let IncorrectKey  = DeserialisationStatus(rawValue: 1)
+    /// Missing key error
     public static let MissingKey  = DeserialisationStatus(rawValue: 2)
+    /// Invalid type error
     public static let InvalidType  = DeserialisationStatus(rawValue: 4)
+    /// Invalid value error
     public static let InvalidValue  = DeserialisationStatus(rawValue: 8)
+    /// Invalid class error
     public static let InvalidClass  = DeserialisationStatus(rawValue: 16)
+    /// Missing protocol error
     public static let MissingProtocol  = DeserialisationStatus(rawValue: 32)
+    /// Custom status message
     public static let Custom  = DeserialisationStatus(rawValue: 64)
     
+    /// Get a nice description of the DeserialisationStatus
     public var description: String {
         let strings = ["IncorrectKey", "MissingKey", "InvalidType", "InvalidValue", "InvalidClass", "MissingProtocol", "Custom"]
         var members = [String]()
