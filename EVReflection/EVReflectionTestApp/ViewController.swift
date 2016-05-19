@@ -93,6 +93,16 @@ class ViewController: UIViewController {
         }
     }
 
+    @IBAction func test3(sender: AnyObject) {
+        doTest {
+            let a = TestObject1()
+            a.ListObject2?.append(TestObject2(id: 1))
+            let b = a.toJsonString()
+            let c = TestObject1(json: b)
+            assert(c.ListObject2?.count ?? 0 == 1)
+        }
+    }
+
 
 }
 

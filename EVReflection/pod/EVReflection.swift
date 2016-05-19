@@ -611,50 +611,62 @@ final public class EVReflection {
             valueType = "\(mi.subjectType)"
         }
         
-        switch theValue {
-            // Bool, Int, UInt, Float and Double are casted to NSNumber by default!
-        case let numValue as NSNumber:
-            return (numValue, "NSNumber", false)
-        case let longValue as Int64:
-            return (NSNumber(longLong: longValue), "NSNumber", false)
-        case let longValue as UInt64:
-            return (NSNumber(unsignedLongLong: longValue), "NSNumber", false)
-        case let intValue as Int32:
-            return (NSNumber(int: intValue), "NSNumber", false)
-        case let intValue as UInt32:
-            return (NSNumber(unsignedInt: intValue), "NSNumber", false)
-        case let intValue as Int16:
-            return (NSNumber(short: intValue), "NSNumber", false)
-        case let intValue as UInt16:
-            return (NSNumber(unsignedShort: intValue), "NSNumber", false)
-        case let intValue as Int8:
-            return (NSNumber(char: intValue), "NSNumber", false)
-        case let intValue as UInt8:
-            return (NSNumber(unsignedChar: intValue), "NSNumber", false)
-        case let stringValue as NSString:
-            return (stringValue, "NSString", false)
-        case let stringValue as String:
-            return (NSString(string: stringValue), "NSString", false)
-        case let dateValue as NSDate:
-            return (dateValue, "NSDate", false)
-        case let anyvalue as NSArray:
-            return (anyvalue, valueType, false)
-        case let anyvalue as EVObject:
-            if valueType.containsString("<") {
-                valueType = swiftStringFromClass(anyvalue)
-            }
-            return (anyvalue, valueType, true)
-        case let anyvalue as NSObject:
-            if valueType.containsString("<") {
-                valueType = swiftStringFromClass(anyvalue)
-            }
-            // isObject is false to prevent parsing of objects like CKRecord, CKRecordId and other objects.
-            return (anyvalue, valueType, false)
-        default:
-            (parentObject as? EVObject)?.addStatusMessage(.InvalidType, message: "valueForAny unkown type \(valueType) for value: \(theValue).")
-            print("ERROR: valueForAny unkown type \(valueType) for value: \(theValue).")
-            return (NSNull(), "NSNull", false)
+        return valueForAnyDetail(parentObject, theValue: theValue, valueType: valueType)
+    }
+    
+    public class func valueForAnyDetail(parentObject: Any? = nil, theValue: Any, valueType: String) -> (value: AnyObject, type: String, isObject: Bool) {
+        
+        if theValue is NSNumber {
+            return (theValue as! NSNumber, "NSNumber", false)
         }
+        if theValue is Int64 {
+            return (NSNumber(longLong: theValue as! Int64), "NSNumber", false)
+        }
+        if theValue is UInt64 {
+            return (NSNumber(unsignedLongLong: theValue as! UInt64), "NSNumber", false)
+        }
+        if theValue is Int32 {
+            return (NSNumber(int: theValue as! Int32), "NSNumber", false)
+        }
+        if theValue is UInt32 {
+            return (NSNumber(unsignedInt: theValue as! UInt32), "NSNumber", false)
+        }
+        if theValue is Int16 {
+            return (NSNumber(short: theValue as! Int16), "NSNumber", false)
+        }
+        if theValue is UInt16 {
+            return (NSNumber(unsignedShort: theValue as! UInt16), "NSNumber", false)
+        }
+        if theValue is Int8 {
+            return (NSNumber(char: theValue as! Int8), "NSNumber", false)
+        }
+        if theValue is UInt8 {
+            return (NSNumber(unsignedChar: theValue as! UInt8), "NSNumber", false)
+        }
+        if theValue is NSString {
+            return (theValue as! NSString, "NSString", false)
+        }
+        if theValue is NSDate {
+            return (theValue as! NSDate, "NSDate", false)
+        }
+        if theValue is NSArray {
+            return (theValue as! NSArray, valueType, false)
+        }
+        if theValue is EVObject {
+            if valueType.containsString("<") {
+                return (theValue as! EVObject, swiftStringFromClass(theValue as! EVObject), true)
+            }
+            return (theValue as! EVObject, valueType, true)
+        }
+        if theValue is NSObject {
+            if valueType.containsString("<") {
+                return (theValue as! NSObject, swiftStringFromClass(theValue as! NSObject), true)
+            }
+            return (theValue as! NSObject, valueType, true)
+        }
+        (parentObject as? EVObject)?.addStatusMessage(.InvalidType, message: "valueForAny unkown type \(valueType) for value: \(theValue).")
+        print("ERROR: valueForAny unkown type \(valueType) for value: \(theValue).")
+        return (NSNull(), "NSNull", false)
     }
     
     private static func convertStructureToDictionary(theValue: Any, conversionOptions: ConversionOptions, isCachable: Bool, parents: [NSObject] = []) -> NSDictionary {
