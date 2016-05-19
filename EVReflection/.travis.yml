@@ -5,6 +5,7 @@ before_install:
 - export LANG=en_US.UTF-8
 - brew update
 - if brew outdated | grep -qx xctool; then brew upgrade xctool; fi
+- gem 'coveralls', require: false
 
 script:
 - xctool clean build -project EVReflection/EVReflection.xcodeproj -scheme 'EVReflection iOS Tests' -sdk iphonesimulator9.3 ONLY_ACTIVE_ARCH=NO
