@@ -384,8 +384,13 @@ public class EVObject: NSObject, NSCoding { // These are redundant in Swift 2+: 
         }
     }
     
-    // This property will contain an array with
+    /// This property will contain an array with deserialisation statussses with a description
     public var evReflectionStatuses: [(DeserialisationStatus, String)] = []
+    /**
+     Return a merged status out of the status array
+     
+     - returns: the deserialisation status for the object
+     */
     public func evReflectionStatus() -> DeserialisationStatus {
         var status: DeserialisationStatus = .None
         for (s, _) in evReflectionStatuses {
