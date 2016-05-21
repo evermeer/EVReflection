@@ -30,7 +30,7 @@ public class EVObject: NSObject, NSCoding { // These are redundant in Swift 2+: 
     */
     public convenience required init?(coder: NSCoder) {
         self.init()
-        EVReflection.decodeObjectWithCoder(self, aDecoder: coder, conversionOptions: .None)
+        EVReflection.decodeObjectWithCoder(self, aDecoder: coder, conversionOptions: .DefaultNSCoding)
     }
     
     /**
@@ -62,7 +62,7 @@ public class EVObject: NSObject, NSCoding { // These are redundant in Swift 2+: 
     - parameter aCoder: The NSCoder that will be used for encoding the object
     */
     public func encodeWithCoder(aCoder: NSCoder) {
-        EVReflection.encodeWithCoder(self, aCoder: aCoder, conversionOptions: .None)
+        EVReflection.encodeWithCoder(self, aCoder: aCoder, conversionOptions: .DefaultNSCoding)
     }        
     
     /**
@@ -71,7 +71,7 @@ public class EVObject: NSObject, NSCoding { // These are redundant in Swift 2+: 
     - parameter fileNameInTemp: The filename
     - parameter conversionOptions: Option set for the various conversion options.
     */
-    public convenience init(fileNameInTemp: String, conversionOptions: ConversionOptions = .None) {
+    public convenience init(fileNameInTemp: String, conversionOptions: ConversionOptions = .DefaultNSCoding) {
         self.init()
         let filePath = (NSTemporaryDirectory() as NSString).stringByAppendingPathComponent(fileNameInTemp)
         if let temp = NSKeyedUnarchiver.unarchiveObjectWithFile(filePath) as? EVObject {
@@ -85,7 +85,7 @@ public class EVObject: NSObject, NSCoding { // These are redundant in Swift 2+: 
     - parameter fileNameInDocuments: The filename
     - parameter conversionOptions: Option set for the various conversion options.
     */
-    public convenience init(fileNameInDocuments: String, conversionOptions: ConversionOptions = .None) {
+    public convenience init(fileNameInDocuments: String, conversionOptions: ConversionOptions = .DefaultNSCoding) {
         self.init()
         let filePath = (NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as NSString).stringByAppendingPathComponent(fileNameInDocuments)
         if let temp = NSKeyedUnarchiver.unarchiveObjectWithFile(filePath) as? EVObject {

@@ -299,7 +299,7 @@ final public class EVReflection {
      - parameter aCoder: The NSCoder that will be used for encoding the object.
      - parameter conversionOptions: Option set for the various conversion options.
      */
-    public class func encodeWithCoder(theObject: EVObject, aCoder: NSCoder, conversionOptions: ConversionOptions = .None) {
+    public class func encodeWithCoder(theObject: EVObject, aCoder: NSCoder, conversionOptions: ConversionOptions = .DefaultNSCoding) {
         let (hasKeys, _) = toDictionary(theObject, conversionOptions: conversionOptions)
         for (key, value) in hasKeys {
             aCoder.encodeObject(value, forKey: key as? String ?? "")
@@ -313,7 +313,7 @@ final public class EVReflection {
      - parameter aDecoder: The NSCoder that will be used for decoding the object.
      - parameter conversionOptions: Option set for the various conversion options.
      */
-    public class func decodeObjectWithCoder(theObject: EVObject, aDecoder: NSCoder, conversionOptions: ConversionOptions = .None) {
+    public class func decodeObjectWithCoder(theObject: EVObject, aDecoder: NSCoder, conversionOptions: ConversionOptions = .DefaultNSCoding) {
         let (hasKeys, _) = toDictionary(theObject, conversionOptions: conversionOptions, isCachable: true)
         let dict = NSMutableDictionary()
         for (key, _) in hasKeys {
@@ -1206,6 +1206,8 @@ public struct ConversionOptions: OptionSetType, CustomStringConvertible {
     /// Do a key cleanup (CameCase, snake_case)
     public static let KeyCleanup = ConversionOptions(rawValue: 8)
     
+    /// Default used for NSCoding
+    public static var DefaultNSCoding: ConversionOptions = [None]
     /// Default used for deserialisation
     public static var DefaultDeserialize: ConversionOptions = [PropertyConverter, PropertyMapping, SkipPropertyValue, KeyCleanup]
     /// Default used for serialisation
