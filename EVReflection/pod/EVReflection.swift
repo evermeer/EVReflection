@@ -916,12 +916,17 @@ final public class EVReflection {
                     if let i = (dictValue as? NSDictionary)?.generate().next()?.value as? NSArray {
                         dictValue = i
                         dictValue = dictArrayToObjectArray(type, array: (dictValue as? [NSDictionary]) ?? [NSDictionary](), conversionOptions: conversionOptions) as NSArray
+                    } else {
+                        // Single object array fix
+                        var array: [NSDictionary] = [NSDictionary]()
+                        array.append(dictValue as? NSDictionary ?? NSDictionary())
+                        dictValue = dictArrayToObjectArray(type, array: array, conversionOptions: conversionOptions) as NSArray
                     }
                 } else {
                     // Single object array fix
                     var array: [NSDictionary] = [NSDictionary]()
                     array.append(dictValue as? NSDictionary ?? NSDictionary())
-                    dictValue = array
+                    dictValue = dictArrayToObjectArray(type, array: array, conversionOptions: conversionOptions) as NSArray
                 }
             } else if let _ = type.rangeOfString("_NativeDictionaryStorageOwner"), let dict = dictValue as? NSDictionary, let org = anyObject as? EVDictionaryConvertable {
                 dictValue = org.convertDictionary(key, dict: dict)
