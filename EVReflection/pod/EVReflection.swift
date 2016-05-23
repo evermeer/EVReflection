@@ -287,7 +287,7 @@ final public class EVReflection {
      - returns: the hashvalue for the object
      */
     public class func hashValue(theObject: NSObject) -> Int {
-        let (hasKeys, _) = toDictionary(theObject, conversionOptions: .None)
+        let (hasKeys, _) = toDictionary(theObject, conversionOptions: .DefaultComparing)
         return Int(hasKeys.map {$1}.reduce(0) {(31 &* $0) &+ $1.hash})
     }
     
@@ -340,8 +340,8 @@ final public class EVReflection {
             return false
         }
         
-        let (lhsdict, _) = toDictionary(lhs, conversionOptions: .None)
-        let (rhsdict, _) = toDictionary(rhs, conversionOptions: .None)
+        let (lhsdict, _) = toDictionary(lhs, conversionOptions: .DefaultComparing)
+        let (rhsdict, _) = toDictionary(rhs, conversionOptions: .DefaultComparing)
         
         return dictionariesAreEqual(lhsdict, rhsdict: rhsdict)
     }
@@ -1213,6 +1213,8 @@ public struct ConversionOptions: OptionSetType, CustomStringConvertible {
     
     /// Default used for NSCoding
     public static var DefaultNSCoding: ConversionOptions = [None]
+    /// Default used for comparing / hashing functions
+    public static var DefaultComparing: ConversionOptions = [PropertyConverter, PropertyMapping, SkipPropertyValue]
     /// Default used for deserialisation
     public static var DefaultDeserialize: ConversionOptions = [PropertyConverter, PropertyMapping, SkipPropertyValue, KeyCleanup]
     /// Default used for serialisation
