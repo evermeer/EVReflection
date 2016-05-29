@@ -42,6 +42,10 @@ class TestIssue88: XCTestCase {
         let obj = Note(dictionary: dictionary)
         let str = EVReflection.description(obj)
         print(str)
+
+        let obj2 = Note2(dictionary: dictionary)
+        let str2 = EVReflection.description(obj2)
+        print(str2)
     }
 }
 
@@ -49,6 +53,11 @@ class TestIssue88: XCTestCase {
 class Note: EVObject {
     var notations: [Notations]?
 }
+
+class Note2: EVObject {
+    var notations: [Tied]?
+}
+
 
 class Notations: EVObject {
     var tied: [Tied]?
