@@ -913,8 +913,10 @@ final public class EVReflection {
             if type.hasPrefix("Array<") && dictValue as? NSDictionary != nil {
                 if (dictValue as? NSDictionary)?.count == 1 {
                     // XMLDictionary fix
-                    if let i = (dictValue as? NSDictionary)?.generate().next()?.value as? NSArray {
-                        dictValue = i
+                    let onlyElement = (dictValue as? NSDictionary)?.generate().next()
+                    let t: String = (onlyElement?.key as? String) ?? ""
+                    if onlyElement?.value as? NSArray != nil && type.lowercaseString == "array<\(t)>" {
+                        dictValue = onlyElement?.value as? NSArray
                         dictValue = dictArrayToObjectArray(type, array: (dictValue as? [NSDictionary]) ?? [NSDictionary](), conversionOptions: conversionOptions) as NSArray
                     } else {
                         // Single object array fix

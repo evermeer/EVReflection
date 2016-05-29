@@ -209,13 +209,15 @@ class EVReflectionTests: XCTestCase {
     }
     
     func testXMLDictStructure() {
-        // When using XMLDict, an array will be nested in a singel xml node which you probably want to skip in your object structure
-        let xmlDict =  ["myString": "STR", "array": ["object2":[["objectValue":"STR2"], ["objectValue":"STR3"]]]]
+        // When using XMLDict, an array will be nested in a singel xml node which you probably want to skip in your object structure.
+        // The only requirement is that the name of the key should be the same as the as the object type (in lowercase).
+        let xmlDict =  ["myString": "STR", "array": ["testobject2":[["objectValue":"STR2"], ["objectValue":"STR3"]]]]
         let obj = TestObject4(dictionary: xmlDict)
         XCTAssertEqual(obj.myString, "STR", "object myString value should have been STR")
-        XCTAssertEqual(obj.array.count, 2, "There should be 1 vallue in the array")
+        XCTAssertEqual(obj.array.count, 2, "There should be 2 vallues in the array")
         if obj.array.count == 2 {
             XCTAssertEqual(obj.array[0].objectValue, "STR2", "The first array object myString value should have been STR2")            
+            XCTAssertEqual(obj.array[1].objectValue, "STR3", "The second array object myString value should have been STR3")
         }
     }
     
