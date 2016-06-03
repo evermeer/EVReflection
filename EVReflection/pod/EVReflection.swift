@@ -65,7 +65,7 @@ final public class EVReflection {
                     let mapping = keyMapping[k as? String ?? ""]
                     let useKey: String = (mapping ?? k ?? "") as? String ?? ""
                     let original: NSObject? = getValue(anyObject, key: useKey)
-                    let (dictValue, valid) = dictionaryAndArrayConversion(anyObject, key: k as? String ?? "", fieldType: types[useKey] as? String, original: original, theDictValue: v, conversionOptions: conversionOptions)
+                    let (dictValue, valid) = dictionaryAndArrayConversion(anyObject, key: k as? String ?? "", fieldType: types[k as? String ?? ""] as? String ?? types[useKey] as? String, original: original, theDictValue: v, conversionOptions: conversionOptions)
                     if dictValue != nil {
                         if let key: String = keyMapping[k as? String ?? ""] as? String {
                             setObjectValue(anyObject, key: key, theValue: (valid ? dictValue: v), typeInObject: types[key] as? String, valid: valid, conversionOptions: conversionOptions)
