@@ -52,6 +52,23 @@ public extension Array {
             self.append(item)
         }
     }
+
+    /**
+     Initialize an array based on a dictionary
+     
+     - parameter json: The json string
+     - parameter conversionOptions: Option set for the various conversion options.
+     */
+    public init(dictionaryArray: [NSDictionary], conversionOptions: ConversionOptions = .DefaultDeserialize) {
+        self.init()
+        for item in dictionaryArray {
+            let arrayTypeInstance = getArrayTypeInstance(self)
+            if arrayTypeInstance is EVObject {
+                EVReflection.setPropertiesfromDictionary(item, anyObject: arrayTypeInstance as! EVObject)
+                self.append(arrayTypeInstance)
+            }
+        }
+    }
     
     /**
     Get the type of the object where this array is for
