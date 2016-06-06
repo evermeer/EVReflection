@@ -662,7 +662,8 @@ final public class EVReflection {
             if valueType.containsString("<") {
                 return (theValue as! NSObject, swiftStringFromClass(theValue as! NSObject), true)
             }
-            return (theValue as! NSObject, valueType, true)
+            // isObject is false to prevent parsing of objects like CKRecord, CKRecordId and other objects.
+            return (theValue as! NSObject, valueType, false)
         }
         (parentObject as? EVObject)?.addStatusMessage(.InvalidType, message: "valueForAny unkown type \(valueType) for value: \(theValue).")
         print("ERROR: valueForAny unkown type \(valueType) for value: \(theValue).")
