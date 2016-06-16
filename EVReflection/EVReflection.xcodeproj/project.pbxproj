@@ -20,6 +20,7 @@
 		422668021CB7802C00145E17 /* EVReflectionCustomInitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422667FF1CB77DD000145E17 /* EVReflectionCustomInitTests.swift */; };
 		422668031CB7802D00145E17 /* EVReflectionCustomInitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422667FF1CB77DD000145E17 /* EVReflectionCustomInitTests.swift */; };
 		4A779EC01C77D505006CE342 /* EVWorkaroundHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F9E68111C67728200F0F4D3 /* EVWorkaroundHelpers.swift */; };
+		4F1B6C931D128DCC0028A828 /* EVReflectionIssue96.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F1B6C921D128DCC0028A828 /* EVReflectionIssue96.swift */; };
 		7F1E77911CD3440000F88A9A /* EVReflectionConversionOptionsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F1E778F1CD343D300F88A9A /* EVReflectionConversionOptionsTest.swift */; };
 		7F1E77921CD3440100F88A9A /* EVReflectionConversionOptionsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F1E778F1CD343D300F88A9A /* EVReflectionConversionOptionsTest.swift */; };
 		7F1E77931CD3440200F88A9A /* EVReflectionConversionOptionsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F1E778F1CD343D300F88A9A /* EVReflectionConversionOptionsTest.swift */; };
@@ -156,6 +157,7 @@
 		2DC8AA651C242E0600FA6B8E /* EVReflectionOSX.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EVReflectionOSX.h; sourceTree = "<group>"; };
 		2DC8AA671C242E0600FA6B8E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		422667FF1CB77DD000145E17 /* EVReflectionCustomInitTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVReflectionCustomInitTests.swift; sourceTree = "<group>"; };
+		4F1B6C921D128DCC0028A828 /* EVReflectionIssue96.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVReflectionIssue96.swift; sourceTree = "<group>"; };
 		7F0636B31AFF413900595461 /* .travis.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = .travis.yml; sourceTree = "<group>"; };
 		7F07C5771AF101A9000DF1F3 /* ios-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ios-Info.plist"; sourceTree = "<group>"; };
 		7F07C5841AF10284000DF1F3 /* EVReflection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVReflection.swift; sourceTree = "<group>"; };
@@ -435,6 +437,7 @@
 				7FF4BEB31CF2DA6E0086F999 /* EVReflectionIssue86.swift */,
 				7F3FF3B21CF9A0B800BAE767 /* EVReflectionIssue88.swift */,
 				7F663C301D014D4A00642499 /* EVReflectionIssue91.swift */,
+				4F1B6C921D128DCC0028A828 /* EVReflectionIssue96.swift */,
 			);
 			name = GitHubIssues;
 			sourceTree = "<group>";
@@ -824,6 +827,7 @@
 				7F479E1C1C84D7A000F03BEF /* EVReflectionSyncAlternateDesync.swift in Sources */,
 				7F41ECAD1B91F306003A2236 /* EVObjectDescriptionTests.swift in Sources */,
 				7F41ECB11B91F306003A2236 /* WorkaroundEnumTest.swift in Sources */,
+				4F1B6C931D128DCC0028A828 /* EVReflectionIssue96.swift in Sources */,
 				7F59F9DF1C09BFB900C14CF9 /* EVRelfectionEnheritanceTests.swift in Sources */,
 				7F7BBC661C009EE90046F05E /* EVReflectionMappingTest.swift in Sources */,
 				7F41ECAE1B91F306003A2236 /* EVReflectionJsonTests.swift in Sources */,
