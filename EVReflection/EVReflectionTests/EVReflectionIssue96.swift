@@ -11,7 +11,7 @@ import XCTest
 @testable import EVReflection
 
 
-class News {
+class News: EVObject {
     var id: Int = 0
     var title: String = ""
     var text: String = ""
@@ -51,12 +51,18 @@ class TestIssue96: XCTestCase {
         
         let news1 = "{\"id\":13,\"title\":\"Some title\",\"text\":\"<p>Some HTML Text<\\/p>\",\"date\":\"2016-06-15T16:47:04+0200\"}"
         let news2 = "{\"id\":24,\"title\":\"Some other title\",\"text\":\"<p>Some other HTML Text<\\/p>\",\"date\":\"2016-06-15T19:47:04+0200\"}"
+        
+        let newsObject1 = News(json: news1)
+        print(newsObject1)
+        
+        let newsObject2 = News(json: news2)
+        print(newsObject2)
+        
         let news = "[\(news1),\(news2)]"
-        let payload = "{\"news\":\(news)}"
-        
-        
         let newsArray = [News](json: news)
         print(newsArray)
+        
+        let payload = "{\"news\":\(news)}"
         let payloadObj = PayloadNews(json: payload)
         print(payloadObj)
     }
