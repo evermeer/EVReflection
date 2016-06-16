@@ -36,7 +36,7 @@ public func != (lhs: EVObject, rhs: EVObject) -> Bool {
 /**
 Extending Array with an initializer with a json string
 */
-public extension Array {
+public extension Array where Element: NSObject {
     
     /**
     Initialize an array based on a json string
@@ -77,7 +77,7 @@ public extension Array {
     
     - returns: The object type
     */
-    public func getArrayTypeInstance<T>(arr: Array<T>) -> T {
+    public func getArrayTypeInstance<T: NSObject>(arr: Array<T>) -> T {
         return arr.getTypeInstance()
     }
     
@@ -86,9 +86,9 @@ public extension Array {
     
     - returns: The object type
     */
-    public func getTypeInstance<T>(
+    public func getTypeInstance<T: NSObject>(
         ) -> T {
-        if let nsobjectype: NSObject.Type = T.self as? NSObject.Type {
+        if let nsobjectype: NSObject.Type = T.self {
             let nsobject: NSObject = nsobjectype.init()
             if let obj =  nsobject as? T {
                 return obj
@@ -97,6 +97,8 @@ public extension Array {
             return (nsobject as? T)!
         }
         // Could not instantiate array item instance. will crash
+        assert(false, "You can only instantiate an array of objects that have EVObject (or NSObject) as its base class. Please make this change to your object: \(T.self)")
+
         return (NSObject() as? T)!
     }
     

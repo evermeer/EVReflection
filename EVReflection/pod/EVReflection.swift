@@ -736,7 +736,7 @@ final public class EVReflection {
             
             // Call your own object validators that comply to the format: validate<Key>:Error:
             do {
-               var setValue: AnyObject? = value
+                var setValue: AnyObject? = value
                 try anyObject.validateValue(&setValue, forKey: key)
                 anyObject.setValue(setValue, forKey: key)
             } catch _ {
@@ -962,7 +962,7 @@ final public class EVReflection {
      */
     private class func dictToObject<T where T:NSObject>(type: String, original: T?, dict: NSDictionary, conversionOptions: ConversionOptions = .DefaultDeserialize) -> (T?, Bool) {
         if var returnObject = original {
-            if returnObject is EVObject {
+            if type != "NSNumber" && type != "NSString" && type != "NSDate" {
                 returnObject = setPropertiesfromDictionary(dict, anyObject: returnObject, conversionOptions: conversionOptions)
             } else {
                 (original as? EVObject)?.addStatusMessage(.InvalidClass, message: "Cannot set values on type \(type) from dictionary \(dict)")
