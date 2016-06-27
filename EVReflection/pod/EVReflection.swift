@@ -597,6 +597,12 @@ final public class EVReflection {
                 print("WARNING: An object with a property of type Array with optional objects should implement the EVArrayConvertable protocol. type = \(valueType) for key \(key)")
                 return (NSNull(), "NSNull", false)
             }
+        } else if mi.displayStyle == .Dictionary {
+            valueType = "\(mi.subjectType)"
+            if let dictionaryConverter = parentObject as? EVDictionaryConvertable {
+                let convertedValue = dictionaryConverter.convertDictionary(key!, dict: theValue)
+                return (convertedValue, valueType, false)
+            }
         } else if mi.displayStyle == .Struct {
             valueType = "\(mi.subjectType)"
             if valueType.containsString("_NativeDictionaryStorage") {
@@ -962,7 +968,7 @@ final public class EVReflection {
      */
     private class func dictToObject<T where T:NSObject>(type: String, original: T?, dict: NSDictionary, conversionOptions: ConversionOptions = .DefaultDeserialize) -> (T?, Bool) {
         if var returnObject = original {
-            if type != "NSNumber" && type != "NSString" && type != "NSDate" {
+            if type != "NSNumber" && type != "NSString" && type != "NSDate" && !type.containsString("Dictionary<") {
                 returnObject = setPropertiesfromDictionary(dict, anyObject: returnObject, conversionOptions: conversionOptions)
             } else {
                 (original as? EVObject)?.addStatusMessage(.InvalidClass, message: "Cannot set values on type \(type) from dictionary \(dict)")

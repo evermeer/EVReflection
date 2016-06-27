@@ -119,7 +119,7 @@ class WorkaroundObject: EVObject, EVArrayConvertable, EVDictionaryConvertable {
             if let dict = value as? NSDictionary {
                 self.dict = [:]
                 for (key, value) in dict {
-                    self.dict[key as? String ?? ""] = (value as? SubObject)
+                    self.dict[key as? String ?? ""] = SubObject(dictionary: value as! NSDictionary)
                 }
             }
         case "structType":
@@ -148,7 +148,7 @@ class WorkaroundObject: EVObject, EVArrayConvertable, EVDictionaryConvertable {
 
     // Implementation of the EVDictionaryConvertable protocol for handling a Swift dictionary.
     func convertDictionary(field: String, dict: Any) -> NSDictionary {
-        assert(field == "dict", "convertArray for key \(field) should be handled.")
+        assert(field == "dict", "convertDictionary for key \(field) should be handled.")
     
         let returnDict = NSMutableDictionary()
         for (key, value) in dict as? NSDictionary ?? NSDictionary() {
