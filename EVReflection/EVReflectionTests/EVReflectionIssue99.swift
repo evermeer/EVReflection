@@ -46,6 +46,21 @@ public class Message: EVObject, EVDictionaryConvertable {
     }
 }
 
+class TestObjectIssue99: EVObject, EVDictionaryConvertable {
+    var params: [String: String]?
+    
+    internal func convertDictionary(key: String, dict: Any) -> NSDictionary {
+        assert(key == "params", "convertArray for key \(key) should be handled.")
+        
+        let returnDict = NSMutableDictionary()
+        for (key, value) in dict as? NSDictionary ?? NSDictionary() {
+            returnDict[key as? String ?? ""] = value
+        }
+        return returnDict
+    }
+    
+}
+
 class TestIssue99: XCTestCase {
     
     override func setUp() {
@@ -64,6 +79,17 @@ class TestIssue99: XCTestCase {
         m.users["user1"] = "user data 1"
         let dic = m.toDictionary()
         print(dic)
+        let json = m.toJsonString()
+        print(json)
+    }
+    
+    func testIssue99_2() {
+        let paramsRequest = TestObjectIssue99()
+        paramsRequest.params = [
+            "foo": "bar",
+            "baz": "buzz"
+        ]
+        print(paramsRequest.toJsonString())
     }
     
 }
