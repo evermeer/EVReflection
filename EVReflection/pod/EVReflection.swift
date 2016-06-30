@@ -987,9 +987,7 @@ final public class EVReflection {
             return (returnObject as? T, true)
         }
         
-        if type == "Struct" {
-            (original as? EVObject)?.addStatusMessage(.InvalidClass, message: "Structs should be handled with 'setvalue forUndefinedKey'\ndict:\(dict)")
-        } else {
+        if type != "Struct" {
             (original as? EVObject)?.addStatusMessage(.InvalidClass, message: "Could not create an instance for type \(type)\ndict:\(dict)")
             print("ERROR: Could not create an instance for type \(type)\ndict:\(dict)")
         }
