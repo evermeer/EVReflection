@@ -59,13 +59,6 @@ public protocol EVArrayConvertable {
     func convertArray(key: String, array: Any) -> NSArray
 }
 
-public protocol EVDictionaryConvertable {
-    /**
-     For implementing a function for converting a Swift dictionary to a NSDictionary.
-     */
-    func convertDictionary(key: String, dict: Any) -> NSDictionary
-}
-
 
 /**
  Add a property to an enum to get the associated value

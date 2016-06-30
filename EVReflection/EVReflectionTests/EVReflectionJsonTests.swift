@@ -22,6 +22,7 @@ class Company: EVObject {
     var address: String?
 }
 
+
 /**
 Testing EVReflection for Json
 */
@@ -49,6 +50,7 @@ class EVReflectionJsonTests: XCTestCase {
         var id: Int64 = 0
         var name: String = ""
     }
+
     
     func testSimpleJson() {
         let json2: String = "{\"id\": 24, \"name\": \"Bob\"}"

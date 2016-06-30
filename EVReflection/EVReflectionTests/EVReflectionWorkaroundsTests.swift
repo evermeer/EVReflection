@@ -84,7 +84,7 @@ class EVReflectionWorkaroundsTests: XCTestCase {
 
 
 //
-class WorkaroundObject: EVObject, EVArrayConvertable, EVDictionaryConvertable {
+class WorkaroundObject: EVObject, EVArrayConvertable {
     
     enum StatusType: Int, EVRawInt {
         case NotOK = 0
@@ -129,6 +129,7 @@ class WorkaroundObject: EVObject, EVArrayConvertable, EVDictionaryConvertable {
                 }
             }
         default:
+            self.addStatusMessage(.IncorrectKey, message: "SetValue for key '\(key)' should be handled.")
             print("---> setValue for key '\(key)' should be handled.")
         }
     }
@@ -147,7 +148,7 @@ class WorkaroundObject: EVObject, EVArrayConvertable, EVDictionaryConvertable {
     }
 
     // Implementation of the EVDictionaryConvertable protocol for handling a Swift dictionary.
-    func convertDictionary(field: String, dict: Any) -> NSDictionary {
+    override func convertDictionary(field: String, dict: Any) -> NSDictionary {
         assert(field == "dict", "convertDictionary for key \(field) should be handled.")
     
         let returnDict = NSMutableDictionary()

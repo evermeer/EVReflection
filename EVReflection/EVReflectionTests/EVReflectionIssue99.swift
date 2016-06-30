@@ -10,7 +10,7 @@ import Foundation
 import XCTest
 @testable import EVReflection
 
-public class Message: EVObject, EVDictionaryConvertable {
+public class Message: EVObject {
     var body: String? = ""
     var email: String? = ""
     var subject: String? = "Message"
@@ -33,32 +33,10 @@ public class Message: EVObject, EVDictionaryConvertable {
             print("---> setValue for key '\(key)' should be handled.")
         }
     }
-
-    
-    public func convertDictionary(key: String, dict: Any) -> NSDictionary {
-        assert(key == "users", "convertArray for key \(key) should be handled.")
-        
-        let returnDict = NSMutableDictionary()
-        for (key, value) in dict as? NSDictionary ?? NSDictionary() {
-            returnDict[key as? String ?? ""] = value
-        }
-        return returnDict
-    }
 }
 
-class TestObjectIssue99: EVObject, EVDictionaryConvertable {
-    var params: [String: String]?
-    
-    internal func convertDictionary(key: String, dict: Any) -> NSDictionary {
-        assert(key == "params", "convertArray for key \(key) should be handled.")
-        
-        let returnDict = NSMutableDictionary()
-        for (key, value) in dict as? NSDictionary ?? NSDictionary() {
-            returnDict[key as? String ?? ""] = value
-        }
-        return returnDict
-    }
-    
+class TestObjectIssue99: EVObject {
+    var params: [String: String]?    
 }
 
 class TestIssue99: XCTestCase {
