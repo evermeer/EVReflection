@@ -270,12 +270,10 @@ final public class EVReflection {
      - returns: The string representation of the object
      */
     public class func description(theObject: NSObject, conversionOptions: ConversionOptions = .DefaultSerialize) -> String {
-        var description: String = swiftStringFromClass(theObject) + " {\n   hash = \(hashValue(theObject))\n"
         let (hasKeys, _) = toDictionary(theObject, conversionOptions: conversionOptions)
-        for (key, value) in hasKeys {
-            description = description  + "   key = \(key), value = \(value)\n"
-        }
-        description = description + "}\n"
+
+        var description: String = (swiftStringFromClass(theObject) ?? "?") + " {\n   hash = \(hashValue(theObject))"
+        description = description + hasKeys.map {"   \($0) = \($1)"}.reduce("") {"\($0)\n\($1)"} + "\n}\n"
         return description
     }
     
@@ -715,8 +713,14 @@ final public class EVReflection {
                 value = convertedValue.stringValue
             }
         } else if typeInObject == "NSNumber" && (type == "String" || type == "NSString") {
-            if let convertedValue = value as? String {
-                value = NSNumber(double: Double(convertedValue) ?? 0)
+            if let convertedValue = (value as? String)?.lowercaseString {
+                if convertedValue == "true" || convertedValue == "yes" {
+                    value = 1
+                } else if convertedValue == "false" || convertedValue == "no" {
+                    value = 0
+                } else {
+                    value = NSNumber(double: Double(convertedValue) ?? 0)
+                }
             }
         } else if typeInObject == "NSDate"  && (type == "String" || type == "NSString") {
             if let convertedValue = value as? String {

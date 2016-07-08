@@ -70,4 +70,39 @@ class TestIssue99: XCTestCase {
         print(paramsRequest.toJsonString())
     }
     
+    func testIssue24() {
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.dateFormat = "yyyyMMdd"
+        EVReflection.setDateFormatter(dateFormatter)
+        
+        let json = "[{ \"positiveResponsePercentage\" : 80, \"Description\" : \"The description\", \"myPrimaryObjectId\" : \"ADSF13\", \"numberOfOccurrences\" : 2, \"name\" : \"The name\", \"secondaryObjects\" : [ { \"rating\" : 9, \"dateRecorded\" : \"20160620\", \"mySecondaryObjectId\" : 1, \"userRemarks\" : \"The remarks\" }, { \"rating\" : 8, \"dateRecorded\" : \"20160515\", \"mySecondaryObjectId\" : 2, \"userRemarks\" : \"More remarks\" }]}]"
+        let x = [MyPrimaryObject](json: json)
+        let json2 = x.toJsonString()
+        print(json2)
+    }
+}
+
+
+public class MyPrimaryObject: EVObject {
+    
+    public var myPrimaryObjectId: NSUUID?
+    public var name: String = ""
+    public var myObjectDescription: String?
+    
+    public var numberOfOccurrences: Int = 0
+    public var positiveResponsePercentage: Float = 0
+    
+    public var secondaryObjects: [MySecondaryObject]?
+    
+    override public func propertyMapping() -> [(String?, String?)] {
+        return [("myObjectDescription","Description")]
+        
+    }
+}
+
+public class MySecondaryObject: EVObject {
+    public var mySecondaryObjectId: Int = 0
+    public var dateRecorded: NSDate?
+    public var rating: Int = 0
+    public var userRemarks: String?
 }
