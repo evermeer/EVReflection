@@ -70,6 +70,7 @@ class TestIssue99: XCTestCase {
         print(paramsRequest.toJsonString())
     }
     
+    // Issue reported in AlamofireJsonToObjects
     func testIssue24() {
         let dateFormatter = NSDateFormatter()
         dateFormatter.dateFormat = "yyyyMMdd"
@@ -80,6 +81,43 @@ class TestIssue99: XCTestCase {
         let json2 = x.toJsonString()
         print(json2)
     }
+    
+    
+    func testIssue24b() {
+        //I modified the PublicInfusion.vodkaHistory to be empty instead of nil.  Which is different from my original example
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        EVReflection.setDateFormatter(dateFormatter)
+        
+        //test 1 - PublicInfusion (MyPrimaryObject)
+        //show PublicInfusion without array of secondary objects
+        //result: working
+        
+        let testJson1 = "[{\"InfusionKey\":\"3b7f1f65-937e-4901-8f9c-6ea4d8c0890f\",\"InfusionId\":98,\"Name\":\"Almond\",\"Description\":null,\"InfusionDrinkCount\":2,\"InfusionLikedPercentage\":0.0,\"VodkaHistory\":[]}]"
+        
+        let x1 = [PublicInfusion](json: testJson1)
+        let json1 = x1.toJsonString()
+        print(json1)
+        
+        //test 2 - PublicInfusionCheckmark (MySecondaryObject)
+        //show PublicInfusionCheckmark as a separate array
+        //result: working
+        let testJson2 = "[{\"CheckmarkId\":1,\"DateMarked\":\"2016-06-04T00:03:04.433\",\"VodkaRating\":1,\"Comments\":\"Tastes like marzipan.\"}]"
+        
+        let x2 = [PublicInfusionCheckmark](json: testJson2)
+        let json2 = x2.toJsonString()
+        print(json2)
+        
+        //test 3 - All together now
+        //Tests parsing them together as they would normally come from the server
+        //result: fatal error
+        let testJson3 = "[{\"InfusionKey\":\"3b7f1f65-937e-4901-8f9c-6ea4d8c0890f\",\"InfusionId\":98,\"Name\":\"Almond\",\"InfusionDrinkCount\":2,\"InfusionLikedPercentage\":0.0,\"VodkaHistory\":[{\"CheckmarkId\":1,\"DateMarked\":\"2016-06-04T00:03:04.433\",\"VodkaRating\":1,\"Comments\":\"Tastes like marzipan.\"}]}]"
+        
+        let x3 = [PublicInfusion](json: testJson3)
+        let json3 = x3.toJsonString()
+        print(json3)
+    }
+    
 }
 
 
@@ -105,4 +143,28 @@ public class MySecondaryObject: EVObject {
     public var dateRecorded: NSDate?
     public var rating: Int = 0
     public var userRemarks: String?
+}
+
+public class PublicInfusion: EVObject {
+    
+    public var infusionKey: NSUUID?
+    public var infusionId: Int = 0
+    public var name: String = ""
+    public var infusionDescription: String?
+    
+    public var infusionDrinkCount: Int = 0
+    public var infusionLikedPercentage: Float = 0
+    
+    public var vodkaHistory: [PublicInfusionCheckmark] = []
+    
+    override public func propertyMapping() -> [(String?, String?)] {
+        return [("infusionDescription","Description")]
+    }
+}
+
+public class PublicInfusionCheckmark: EVObject {
+    public var checkmarkId: Int = 0
+    public var dateMarked: NSDate?
+    public var vodkaRating: Int = 0
+    public var comments: String?
 }
