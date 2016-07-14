@@ -28,6 +28,10 @@ class TestIssue102: XCTestCase {
         XCTAssert(a.field1 == "A")
         XCTAssert(a.field2 == true)
 
+        let a2 = XTest(json: "{\"field1\":\"A\",\"field2\":true}")
+        XCTAssert(a2.field1 == "A")
+        XCTAssert(a2.field2 == true)
+
         let b = XTest(json: "{\"field1\":\"A\",\"field2\":\"yes\"}")
         XCTAssert(b.field1 == "A")
         XCTAssert(b.field2 == true)
@@ -40,6 +44,10 @@ class TestIssue102: XCTestCase {
         XCTAssert(d.field1 == "A")
         XCTAssert(d.field2 == false)
 
+        let d2 = XTest(json: "{\"field1\":\"A\",\"field2\":false}")
+        XCTAssert(d2.field1 == "A")
+        XCTAssert(d2.field2 == false)
+        
         let e = XTest(json: "{\"field1\":\"A\",\"field2\":\"no\"}")
         XCTAssert(e.field1 == "A")
         XCTAssert(e.field2 == false)
