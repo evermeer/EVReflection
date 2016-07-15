@@ -412,9 +412,7 @@ final public class EVReflection {
             }
             appName = (bundle.bundleIdentifier!).characters.split(isSeparator: {$0 == "."}).map({ String($0) }).last ?? ""
         }
-        let cleanAppName = appName
-            .stringByReplacingOccurrencesOfString(" ", withString: "_", options: NSStringCompareOptions.CaseInsensitiveSearch, range: nil)
-            .stringByReplacingOccurrencesOfString("-", withString: "_", options: NSStringCompareOptions.CaseInsensitiveSearch, range: nil)
+        let cleanAppName = appName.componentsSeparatedByCharactersInSet(illegalCharacterSet).joinWithSeparator("_")
         return cleanAppName
     }
     
@@ -451,9 +449,7 @@ final public class EVReflection {
     
     private static func bundleForClass(forClass: AnyClass, bundle: NSBundle) -> String {
         let appName = (bundle.infoDictionary![kCFBundleNameKey as String] as? String)!.characters.split(isSeparator: {$0 == "."}).map({ String($0) }).last ?? ""
-        let cleanAppName = appName
-            .stringByReplacingOccurrencesOfString(" ", withString: "_", options: NSStringCompareOptions.CaseInsensitiveSearch, range: nil)
-            .stringByReplacingOccurrencesOfString("-", withString: "_", options: NSStringCompareOptions.CaseInsensitiveSearch, range: nil)
+        let cleanAppName = appName.componentsSeparatedByCharactersInSet(illegalCharacterSet).joinWithSeparator("_")
         return cleanAppName
     }
 
