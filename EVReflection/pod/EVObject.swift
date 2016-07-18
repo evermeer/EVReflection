@@ -41,7 +41,7 @@ public class EVObject: NSObject, NSCoding { // These are redundant in Swift 2+: 
     */
     public convenience init(dictionary: NSDictionary, conversionOptions: ConversionOptions = .DefaultDeserialize) {
         self.init()
-        EVReflection.setPropertiesfromDictionary(dictionary, anyObject: self, conversionOptions: conversionOptions)
+        let _ = EVReflection.setPropertiesfromDictionary(dictionary, anyObject: self, conversionOptions: conversionOptions)
     }
     
     /**
@@ -53,7 +53,7 @@ public class EVObject: NSObject, NSCoding { // These are redundant in Swift 2+: 
     public convenience init(json: String?, conversionOptions: ConversionOptions = .DefaultDeserialize) {
         self.init()
         let jsonDict = EVReflection.dictionaryFromJson(json)
-        EVReflection.setPropertiesfromDictionary(jsonDict, anyObject: self, conversionOptions: conversionOptions)
+        let _ = EVReflection.setPropertiesfromDictionary(jsonDict, anyObject: self, conversionOptions: conversionOptions)
     }
     
     /**
@@ -61,7 +61,7 @@ public class EVObject: NSObject, NSCoding { // These are redundant in Swift 2+: 
     
     - parameter aCoder: The NSCoder that will be used for encoding the object
     */
-    public func encodeWithCoder(aCoder: NSCoder) {
+    public func encode(with aCoder: NSCoder) {
         EVReflection.encodeWithCoder(self, aCoder: aCoder, conversionOptions: .DefaultNSCoding)
     }        
     
@@ -73,9 +73,9 @@ public class EVObject: NSObject, NSCoding { // These are redundant in Swift 2+: 
     */
     public convenience init(fileNameInTemp: String, conversionOptions: ConversionOptions = .DefaultNSCoding) {
         self.init()
-        let filePath = (NSTemporaryDirectory() as NSString).stringByAppendingPathComponent(fileNameInTemp)
-        if let temp = NSKeyedUnarchiver.unarchiveObjectWithFile(filePath) as? EVObject {
-            EVReflection.setPropertiesfromDictionary( temp.toDictionary(conversionOptions), anyObject: self, conversionOptions: conversionOptions)
+        let filePath = (NSTemporaryDirectory() as NSString).appendingPathComponent(fileNameInTemp)
+        if let temp = NSKeyedUnarchiver.unarchiveObject(withFile: filePath) as? EVObject {
+            let _ = EVReflection.setPropertiesfromDictionary( temp.toDictionary(conversionOptions), anyObject: self, conversionOptions: conversionOptions)
         }
     }
     
@@ -87,9 +87,9 @@ public class EVObject: NSObject, NSCoding { // These are redundant in Swift 2+: 
     */
     public convenience init(fileNameInDocuments: String, conversionOptions: ConversionOptions = .DefaultNSCoding) {
         self.init()
-        let filePath = (NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as NSString).stringByAppendingPathComponent(fileNameInDocuments)
-        if let temp = NSKeyedUnarchiver.unarchiveObjectWithFile(filePath) as? EVObject {
-            EVReflection.setPropertiesfromDictionary( temp.toDictionary(conversionOptions), anyObject: self, conversionOptions: conversionOptions)
+        let filePath = (NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as NSString).appendingPathComponent(fileNameInDocuments)
+        if let temp = NSKeyedUnarchiver.unarchiveObject(withFile: filePath) as? EVObject {
+            let _ = EVReflection.setPropertiesfromDictionary( temp.toDictionary(conversionOptions), anyObject: self, conversionOptions: conversionOptions)
         }
     }
     
@@ -145,8 +145,8 @@ public class EVObject: NSObject, NSCoding { // These are redundant in Swift 2+: 
     
     - returns: Nothing
     */
-    public func saveToTemp(fileName: String) -> Bool {
-        let filePath = (NSTemporaryDirectory() as NSString).stringByAppendingPathComponent(fileName)
+    public func saveToTemp(_ fileName: String) -> Bool {
+        let filePath = (NSTemporaryDirectory() as NSString).appendingPathComponent(fileName)
         return NSKeyedArchiver.archiveRootObject(self, toFile: filePath)
     }
 
@@ -162,8 +162,8 @@ public class EVObject: NSObject, NSCoding { // These are redundant in Swift 2+: 
      
         - returns: true if successfull
         */
-        public func saveToDocuments(fileName: String) -> Bool {
-            let filePath = (NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as NSString).stringByAppendingPathComponent(fileName)
+        public func saveToDocuments(_ fileName: String) -> Bool {
+            let filePath = (NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as NSString).appendingPathComponent(fileName)
             return NSKeyedArchiver.archiveRootObject(self, toFile: filePath)
         }
     #endif
@@ -180,7 +180,7 @@ public class EVObject: NSObject, NSCoding { // These are redundant in Swift 2+: 
 
     - returns: Returns true if the object is the same otherwise false
     */
-    public override func isEqual(object: AnyObject?) -> Bool { // for isEqual:
+    public override func isEqual(_ object: AnyObject?) -> Bool { // for isEqual:
         if let dataObject = object as? EVObject {
             return dataObject == self // just use our "==" function
         }
@@ -196,7 +196,7 @@ public class EVObject: NSObject, NSCoding { // These are redundant in Swift 2+: 
     - parameter value: The value that you wanted to set
     - parameter key: The name of the property that you wanted to set
     */
-    public override func setValue(value: AnyObject!, forUndefinedKey key: String) {
+    public override func setValue(_ value: AnyObject!, forUndefinedKey key: String) {
         if let _ = self as? EVGenericsKVC {
             self.addStatusMessage(.InvalidClass, message: "class should have implemented the setValue forUndefinedKey.")
             print("\nWARNING: Your class should have implemented the setValue forUndefinedKey. \n")
@@ -237,7 +237,7 @@ public class EVObject: NSObject, NSCoding { // These are redundant in Swift 2+: 
      
      - returns: True if the value needs to be ignored.
      */
-    public func skipPropertyValue(value: Any, key: String) -> Bool {
+    public func skipPropertyValue(_ value: Any, key: String) -> Bool {
         return false
     }
     
@@ -248,7 +248,7 @@ public class EVObject: NSObject, NSCoding { // These are redundant in Swift 2+: 
      
      - returns: The specific type
      */
-    public func getSpecificType(dict: NSDictionary) -> EVObject {
+    public func getSpecificType(_ dict: NSDictionary) -> EVObject {
         return self
     }
     
@@ -264,7 +264,7 @@ public class EVObject: NSObject, NSCoding { // These are redundant in Swift 2+: 
     
     - returns: The dictionary
     */
-    public func toDictionary(conversionOptions: ConversionOptions = .DefaultSerialize) -> NSDictionary {
+    public func toDictionary(_ conversionOptions: ConversionOptions = .DefaultSerialize) -> NSDictionary {
         let (reflected, _) = EVReflection.toDictionary(self, conversionOptions: conversionOptions)
         return reflected
     }
@@ -276,7 +276,7 @@ public class EVObject: NSObject, NSCoding { // These are redundant in Swift 2+: 
      
      - returns: The json string
      */
-    public func toJsonString(conversionOptions: ConversionOptions = .DefaultSerialize) -> String {
+    public func toJsonString(_ conversionOptions: ConversionOptions = .DefaultSerialize) -> String {
         return EVReflection.toJsonString(self, conversionOptions: conversionOptions)
     }
     
@@ -288,7 +288,7 @@ public class EVObject: NSObject, NSCoding { // These are redundant in Swift 2+: 
      
      - returns: An array of objects
      */
-    public class func arrayFromJson<T where T:NSObject>(json: String?, conversionOptions: ConversionOptions = .DefaultDeserialize) -> [T] {
+    public class func arrayFromJson<T where T:NSObject>(_ json: String?, conversionOptions: ConversionOptions = .DefaultDeserialize) -> [T] {
         return EVReflection.arrayFromJson(nil, type: T(), json: json, conversionOptions: conversionOptions)
     }
     
@@ -302,7 +302,7 @@ public class EVObject: NSObject, NSCoding { // These are redundant in Swift 2+: 
 
      - returns: The targe object with the mapped values
      */
-    public func mapObjectTo<T where T:NSObject>(conversionOptions: ConversionOptions = .DefaultDeserialize) -> T {
+    public func mapObjectTo<T where T:NSObject>(_ conversionOptions: ConversionOptions = .DefaultDeserialize) -> T {
         let nsobjectype: NSObject.Type = T.self as NSObject.Type
         let nsobject: NSObject = nsobjectype.init()
         let dict = self.toDictionary()
@@ -317,7 +317,7 @@ public class EVObject: NSObject, NSCoding { // These are redundant in Swift 2+: 
      
      - returns: The type for the property
      */
-    public func typeForKey(propertyName: String) -> Any.Type? {
+    public func typeForKey(_ propertyName: String) -> Any.Type? {
         let mirror = Mirror(reflecting: self)
         return typeForKey(propertyName, mirror: mirror)
     }
@@ -330,14 +330,14 @@ public class EVObject: NSObject, NSCoding { // These are redundant in Swift 2+: 
      
      - returns: The type of the property
      */
-    private func typeForKey(propertyName: String, mirror: Mirror) -> Any.Type? {
+    private func typeForKey(_ propertyName: String, mirror: Mirror) -> Any.Type? {
         for (label, value) in mirror.children {
             if propertyName == label {
                 return Mirror(reflecting: value).subjectType
             }
         }
         
-        guard let superclassMirror = mirror.superclassMirror() else {
+        guard let superclassMirror = mirror.superclassMirror else {
             return nil
         }
         
@@ -349,7 +349,7 @@ public class EVObject: NSObject, NSCoding { // These are redundant in Swift 2+: 
      
      - parameter dict: The dictionary with keys where the initialisation is called with
      */
-    public func initValidation(dict: NSDictionary) {
+    public func initValidation(_ dict: NSDictionary) {
     }
     
     /**
@@ -360,7 +360,7 @@ public class EVObject: NSObject, NSCoding { // These are redundant in Swift 2+: 
      - parameter keys: The fields that may not be in the dictionary (like an error key)
      - parameter dict: The dictionary that is passed on from the initValidation function
      */
-    public func initMayNotContainKeys(keys: [String], dict: NSDictionary) {
+    public func initMayNotContainKeys(_ keys: [String], dict: NSDictionary) {
         for key in keys {
             if dict[key] != nil {
                 addStatusMessage(.IncorrectKey, message: "Invalid key: \(key)")
@@ -376,7 +376,7 @@ public class EVObject: NSObject, NSCoding { // These are redundant in Swift 2+: 
      - parameter keys: The fields that may not be in the dictionary (like an error key)
      - parameter dict: The dictionary that is passed on from the initValidation function
      */
-    public func initMustContainKeys(keys: [String], dict: NSDictionary) {
+    public func initMustContainKeys(_ keys: [String], dict: NSDictionary) {
         for key in keys {
             if dict[key] == nil {
                 addStatusMessage(.MissingKey, message: "Missing key: \(key)")
@@ -404,7 +404,7 @@ public class EVObject: NSObject, NSCoding { // These are redundant in Swift 2+: 
      - parameter type:    A string to specify the message type
      - parameter message: The message for the status.
      */
-    public func addStatusMessage(type: DeserialisationStatus, message: String) {
+    public func addStatusMessage(_ type: DeserialisationStatus, message: String) {
         evReflectionStatuses.append(type, message)
     }
     
@@ -416,7 +416,7 @@ public class EVObject: NSObject, NSCoding { // These are redundant in Swift 2+: 
      
      - returns: The dictionary converted to a NSDictionary
      */
-    public func convertDictionary(key: String, dict: Any) -> NSDictionary {        
+    public func convertDictionary(_ key: String, dict: Any) -> NSDictionary {        
         let returnDict = NSMutableDictionary()
         for (key, value) in dict as? NSDictionary ?? NSDictionary() {
             returnDict[key as? String ?? ""] = value

@@ -19,7 +19,7 @@ class EVReflectionMappingTests: XCTestCase {
     override func setUp() {
         super.setUp()
         // Put setup code here. This method is called before the invocation of each test method in the class.
-        EVReflection.setBundleIdentifier(TestObject)
+        EVReflection.setBundleIdentifier(TestObject.self)
     }
     
     /**
@@ -36,7 +36,7 @@ class EVReflectionMappingTests: XCTestCase {
     func testSimpleMapping() {
         let player = GamePlayer()
         player.name = "It's Me"
-        player.memberSince = NSDate()
+        player.memberSince = Date()
         player.gamesPlayed = 123
         player.rating = 76
         
@@ -69,26 +69,26 @@ class EVReflectionMappingTests: XCTestCase {
     }
 }
 
-enum MyValidationError: ErrorType {
-    case TypeError,
-    LengthError
+enum MyValidationError: ErrorProtocol {
+    case typeError,
+    lengthError
 }
 
 public class GameUser: EVObject {
     var name: String?
-    var memberSince: NSDate?
+    var memberSince: Date?
     var objectIsNotAValue: TestObject?
     
-    func validateName(value: AutoreleasingUnsafeMutablePointer<AnyObject?>) throws {
-        if let theValue = value.memory as? String {
-            if theValue.lengthOfBytesUsingEncoding(NSUTF8StringEncoding) < 3 {
+    func validateName(_ value: AutoreleasingUnsafeMutablePointer<AnyObject?>) throws {
+        if let theValue = value.pointee as? String {
+            if theValue.lengthOfBytes(using: String.Encoding.utf8) < 3 {
                 NSLog("Validating name is not long enough \(theValue)")
-                throw MyValidationError.LengthError
+                throw MyValidationError.lengthError
             }
             NSLog("Validating name OK: \(theValue)")
         } else {
-            NSLog("Validating name is not a string: \(value.memory)")
-            throw MyValidationError.TypeError
+            NSLog("Validating name is not a string: \(value.pointee)")
+            throw MyValidationError.typeError
         }
     }
 }
@@ -98,7 +98,7 @@ public class GamePlayer: GameUser {
     var rating: Int = 0
 
     // This way we can solve that the JSON has arbitrary keys or wrong values
-    override public func setValue(value: AnyObject!, forUndefinedKey key: String) {
+    override public func setValue(_ value: AnyObject!, forUndefinedKey key: String) {
         NSLog("---> setValue for key '\(key)' should be handled or the value is of the wrong type: \(value).")
     }
 }

@@ -19,7 +19,7 @@ class EVReflectionTests: XCTestCase {
     override func setUp() {
         super.setUp()
         // Put setup code here. This method is called before the invocation of each test method in the class.
-        EVReflection.setBundleIdentifier(TestObject)
+        EVReflection.setBundleIdentifier(TestObject.self)
     }
 
     /**
@@ -84,7 +84,7 @@ class EVReflectionTests: XCTestCase {
         XCTAssertEqual(x.objectValue, "tst", "objectValue should have been set")
         XCTAssertEqual(x._default, "default", "default should have been set")
         let json = x.toJsonString([.DefaultSerialize, .KeyCleanup])
-        XCTAssertTrue(!json.containsString("_default"), "Key should have been cleaned up")
+        XCTAssertTrue(!json.contains("_default"), "Key should have been cleaned up")
         
         let y = EVReflection.fromDictionary(["a":"b"], anyobjectTypeString: "NotExistingClassName")
         XCTAssertNil(y, "Class is unknow, so we should not have an instance")
@@ -164,21 +164,22 @@ class EVReflectionTests: XCTestCase {
      from the first object. You can initiate a diffrent type. Only the properties with matching dictionary keys will be set.
      */
     func testClassToJsonWithDateFormatter() {
-        let dateFormatter = NSDateFormatter()
+        let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyyMMddHHmmss"
         EVReflection.setDateFormatter(dateFormatter)
         
         let theObject = TestObject4()
         theObject.myString = "string"
         theObject.myInt = 4
-        theObject.myDate = NSDate()
+        theObject.myDate = Date()
         let json = theObject.toJsonString()
         NSLog("toJson = \(json)")
-        XCTAssert(!(json.containsString(".") || json.containsString("/") || json.containsString("-")), "Pass") // The objects are not the same
+        
+        XCTAssert(!(json.contains(".") || json.contains("/") || json.contains("-")), "Pass") // The objects are not the same
         
         let newObject = TestObject4(json: json)
         XCTAssertEqual(theObject, newObject, "Should still be the same")
-        theObject.myDate = NSDate().dateByAddingTimeInterval(3600)
+        theObject.myDate = Date().addingTimeInterval(3600)
         XCTAssert(theObject != newObject, "Should not be the same")
         
         EVReflection.setDateFormatter(nil)

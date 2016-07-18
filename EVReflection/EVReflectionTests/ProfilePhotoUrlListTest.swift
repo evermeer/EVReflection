@@ -19,7 +19,7 @@ class ProfilePhotoUrlListTests: XCTestCase {
     override func setUp() {
         super.setUp()
         // Put setup code here. This method is called before the invocation of each test method in the class.
-        EVReflection.setBundleIdentifier(TestObject)
+        EVReflection.setBundleIdentifier(TestObject.self)
     }
     
     /**
@@ -56,7 +56,7 @@ class Base: EVObject {
     var resourceUri: String?
     
     func getResourceId() -> String! {
-        return resourceUri?.componentsSeparatedByString("/").last
+        return resourceUri?.components(separatedBy: "/").last
     }
 }
 

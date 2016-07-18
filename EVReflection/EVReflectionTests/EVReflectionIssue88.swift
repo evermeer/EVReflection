@@ -17,7 +17,7 @@ class TestIssue88: XCTestCase {
     override func setUp() {
         super.setUp()
         // Put setup code here. This method is called before the invocation of each test method in the class.
-        EVReflection.setBundleIdentifier(Encoding)
+        EVReflection.setBundleIdentifier(Encoding.self)
     }
     
     override func tearDown() {
@@ -67,7 +67,7 @@ class Tied: EVObject {
     var _type: StartStopContinueEnum = .none
     var _orientation: OrientationEnum?
     
-    override func setValue(value: AnyObject!, forUndefinedKey key: String) {
+    override func setValue(_ value: AnyObject!, forUndefinedKey key: String) {
         switch key {
         case "_type":
             if let rawValue = value as? String {

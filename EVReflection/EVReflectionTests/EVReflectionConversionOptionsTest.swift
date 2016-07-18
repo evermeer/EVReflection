@@ -21,7 +21,7 @@ class EVReflectionConversionOptionsTest: XCTestCase {
     override func setUp() {
         super.setUp()
         // Put setup code here. This method is called before the invocation of each test method in the class.
-        EVReflection.setBundleIdentifier(TestObject)
+        EVReflection.setBundleIdentifier(TestObject.self)
     }
     
     /**
@@ -67,11 +67,11 @@ class TestObjectSkipValues: EVObject {
     var value8: [String]?
     
     // Put this in your own base class if you want to have this logic in all your classes
-    override func skipPropertyValue(value: Any, key: String) -> Bool {
-        if let value = value as? String where value.characters.count == 0 || value == "null" {
+    override func skipPropertyValue(_ value: Any, key: String) -> Bool {
+        if let value = value as? String , value.characters.count == 0 || value == "null" {
             print("Ignoring empty string for key \(key)")
             return true
-        } else if let value = value as? NSArray where value.count == 0 {
+        } else if let value = value as? NSArray , value.count == 0 {
             print("Ignoring empty NSArray for key\(key)")
             return true
         } else if value is NSNull {
@@ -82,7 +82,7 @@ class TestObjectSkipValues: EVObject {
     }
     
     // Handling the setting of non key-value coding compliant properties
-    override func setValue(value: AnyObject!, forUndefinedKey key: String) {
+    override func setValue(_ value: AnyObject!, forUndefinedKey key: String) {
         switch key {
         case "value4":
             value4 = value as? Int

@@ -20,7 +20,7 @@ class EVReflectionWorkaroundSwiftGenericsTests: XCTestCase {
     override func setUp() {
         super.setUp()
         // Put setup code here. This method is called before the invocation of each test method in the class.
-        EVReflection.setBundleIdentifier(TestObject)
+        EVReflection.setBundleIdentifier(TestObject.self)
     }
     
     /**
@@ -57,7 +57,7 @@ class EVReflectionWorkaroundSwiftGenericsTests: XCTestCase {
     }
 
     func testGenericsJson2() {
-        EVReflection.setBundleIdentifier(InstanceObject)
+        EVReflection.setBundleIdentifier(InstanceObject.self)
         let json: String = "{\"test\":\"test\", \"data\":{\"name\":\"data\"}, \"array\":[{\"name\":\"val1\"}, {\"name\":\"val2\"}, {\"name\":\"val3\"}]}"
         let a = MyGenericObject<InstanceObject>(json: json)
         XCTAssertEqual(a.test, "test", "test should contain test")
@@ -102,7 +102,7 @@ public class MyGenericObject<T where T:NSObject>: MyGenericBase, EVGenericsKVC {
         super.init()
     }
     
-    public override func setValue(value: AnyObject!, forUndefinedKey key: String) {
+    public override func setValue(_ value: AnyObject!, forUndefinedKey key: String) {
         switch key {
         case "data":
             data = value as? T ?? T()
@@ -138,7 +138,7 @@ public class TestGenerics: EVObject {
     var bar: MyGenericObject<InstanceObject> = MyGenericObject<InstanceObject>()
     var unhandledBar: MyGenericObject<InstanceObject> = MyGenericObject<InstanceObject>()
     
-    public override func setValue(value: AnyObject!, forUndefinedKey key: String) {
+    public override func setValue(_ value: AnyObject!, forUndefinedKey key: String) {
         switch key {
         case "bar":
             bar = value as? MyGenericObject<InstanceObject> ?? MyGenericObject<InstanceObject>()

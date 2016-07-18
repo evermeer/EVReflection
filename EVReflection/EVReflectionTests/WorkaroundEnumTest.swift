@@ -21,20 +21,20 @@ class EnumWorkaroundsTests: XCTestCase {
     func testEnumToRaw() {
         let test1 = getRawValue(MyEnumOne.OK)
         XCTAssertTrue(test1 as? String == "OK-2", "Could nog get the rawvalue using a generic function. As a workaround just add the EVRawString protocol")
-        let test2 = getRawValue(MyEnumTwo.OK)
+        let test2 = getRawValue(MyEnumTwo.ok)
         XCTAssertTrue(test2 as? Int == 1, "Could nog get the rawvalue using a generic function. As a workaround just add the EVRawInt protocol")
-        let test3 = getRawValue(MyEnumThree.OK)
+        let test3 = getRawValue(MyEnumThree.ok)
         XCTAssertTrue(test3 as? NSNumber == 1, "Could nog get the rawvalue using a generic function. As a workaround just add the EVRaw protocol")
-        let varTest4 = MyEnumFour.NotOK(message: "realy wrong")
+        let varTest4 = MyEnumFour.notOK(message: "realy wrong")
         let test4 = getRawValue(varTest4) as? String
-        XCTAssertTrue(varTest4.associated.label == "NotOK", "Could nog get the associated value using a generic function")
+        XCTAssertTrue(varTest4.associated.label == "notOK", "Could nog get the associated value using a generic function")
         XCTAssertTrue(test4 == "realy wrong", "Could nog get the associated value using a generic function")
-        let varTest5 = MyEnumFour.OK(level: 3)
+        let varTest5 = MyEnumFour.ok(level: 3)
         let test5 = getRawValue(varTest5) as? Int
-        XCTAssertTrue(varTest5.associated.label == "OK", "Could nog get the rawvalue using a generic function")
+        XCTAssertTrue(varTest5.associated.label == "ok", "Could nog get the rawvalue using a generic function")
         XCTAssertTrue(test5 == 3, "Could nog get the associated value using a generic function")
-        let test6 = getRawValue(MyEnumFive.OK)
-        XCTAssertTrue(test6 as? String == "OK", "So we could get the raw value? Otherwise this would succeed")
+        let test6 = getRawValue(MyEnumFive.ok)
+        XCTAssertTrue(test6 as? String == "ok", "So we could get the raw value? Otherwise this would succeed")
     }
     
     func testArrayNullable() {
@@ -58,7 +58,7 @@ class EnumWorkaroundsTests: XCTestCase {
         XCTAssertNil(a.value, "Associated value should be nil")
     }
     
-    func parseArray(array: Any) -> AnyObject {
+    func parseArray(_ array: Any) -> AnyObject {
         if let arrayObject: AnyObject = array as? AnyObject {
             return arrayObject
         }
@@ -78,27 +78,27 @@ class EnumWorkaroundsTests: XCTestCase {
     }
     
     enum MyEnumTwo: Int, EVRawInt {       // Add , EVRawInt to make the test pass
-        case NotOK = 0
-        case OK = 1
+        case notOK = 0
+        case ok = 1
     }
     
     enum MyEnumThree: Int64, EVRaw {   // Add , EVRaw to make the test pass
-        case NotOK = 0
-        case OK = 1
+        case notOK = 0
+        case ok = 1
         var anyRawValue: Any { get { return self.rawValue }}
     }
     
     enum MyEnumFour: EVAssociated {
-        case NotOK(message: String)
-        case OK(level: Int)
+        case notOK(message: String)
+        case ok(level: Int)
     }
     
     enum MyEnumFive: Int {
-        case NotOK = 0
-        case OK = 1
+        case notOK = 0
+        case ok = 1
     }
     
-    func getRawValue(theEnum: Any) -> Any {        
+    func getRawValue(_ theEnum: Any) -> Any {        
         let (val, _, _) = EVReflection.valueForAny(self, key: "a", anyValue: theEnum)
         return val
     }

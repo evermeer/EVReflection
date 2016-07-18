@@ -17,7 +17,7 @@ class TestIssue86: XCTestCase {
     override func setUp() {
         super.setUp()
         // Put setup code here. This method is called before the invocation of each test method in the class.
-        EVReflection.setBundleIdentifier(Encoding)
+        EVReflection.setBundleIdentifier(Encoding.self)
     }
     
     override func tearDown() {
@@ -65,7 +65,7 @@ class Encoding: EVObject {
     var Xsoftware: [Software]?
     var supports: [Supports]?
 
-    internal override func setValue(value: AnyObject!, forUndefinedKey key: String) {
+    internal override func setValue(_ value: AnyObject!, forUndefinedKey key: String) {
         if key == "software" {
             Xsoftware = (value as! [String]).map { Software(software: $0) }
             return

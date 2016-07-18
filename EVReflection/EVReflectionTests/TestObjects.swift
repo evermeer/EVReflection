@@ -42,7 +42,7 @@ public class TestObject4: EVObject, EVArrayConvertable {
     var myFloat: Float = 0
     var myDouble: Double = 0
     var myBool: Bool = true
-    var myDate: NSDate = NSDate()
+    var myDate: Date = Date()
     var myInt: Int = 0
     var myInt8: Int8 = 0
     var myInt16: Int16 = 0
@@ -66,13 +66,13 @@ public class TestObject4: EVObject, EVArrayConvertable {
     var array5: [TestObject2?]? = [TestObject2(), nil, TestObject2()]
     
     // Implementation of the EVArrayConvertable protocol for handling an array of nullble objects.
-    public func convertArray(key: String, array: Any) -> NSArray {
+    public func convertArray(_ key: String, array: Any) -> NSArray {
         assert(key == "array5", "convertArray for key \(key) should be handled.")
         
         let returnArray = NSMutableArray()
         for item in array as? [TestObject2?] ?? [TestObject2?]() {
             if item != nil {
-                returnArray.addObject(item!)
+                returnArray.add(item!)
             }
         }
         return returnArray
@@ -89,7 +89,7 @@ class TestObject3: EVObject {
     var nullableType: Int?
     
     // This construction can be used to bypass the issue for setting a nullable type field
-    override func setValue(value: AnyObject!, forUndefinedKey key: String) {
+    override func setValue(_ value: AnyObject!, forUndefinedKey key: String) {
         switch key {
         case "nullableType":
             nullableType = value as? Int
@@ -159,7 +159,7 @@ class TestObject8Row: EVObject {
 
 class ArrayObjects: EVObject {
     var strings: [String] = ["a","b"]
-    var dates: [NSDate] = [NSDate(), NSDate()]
+    var dates: [Date] = [Date(), Date()]
     var arrays: [[String]] = [["a","b"], ["c","d"]]
     var dictionaries: [NSDictionary] = [NSDictionary(), NSDictionary()]
     var subobjects: [SubObject] = [SubObject(), SubObject()]
@@ -218,7 +218,7 @@ class NestedArraysResult: EVObject {
     var planets = [String: [[NSNumber]]]()
     
     // This way we can solve that the JSON has arbitrary keys
-    internal override func setValue(value: AnyObject!, forUndefinedKey key: String) {
+    internal override func setValue(_ value: AnyObject!, forUndefinedKey key: String) {
         if let a = value as? [[NSNumber]] {
             planets[key] = a
             return
@@ -235,24 +235,24 @@ public class ValidateObject: EVObject {
     var optionalKey2: String?
     var optionalKey3: String?
     
-    override public func initValidation(dict: NSDictionary) {
+    override public func initValidation(_ dict: NSDictionary) {
         self.initMayNotContainKeys(["error"], dict: dict)
         self.initMustContainKeys(["requiredKey1", "requiredKey2", "requiredKey3"], dict: dict)
-        if dict.valueForKey("requiredKey1") as? String == dict.valueForKey("optionalKey1") as? String {
+        if dict.value(forKey: "requiredKey1") as? String == dict.value(forKey: "optionalKey1") as? String {
             // this could also be called in your property specific validators
             self.addStatusMessage(.Custom, message: "optionalKey1 should not be the same as requiredKey1")
         }
     }
     
-    func validateOptionalKey3(value: AutoreleasingUnsafeMutablePointer<AnyObject?>) throws {
-        if let theValue = value.memory as? String {
-            if theValue.lengthOfBytesUsingEncoding(NSUTF8StringEncoding) < 3 {
+    func validateOptionalKey3(_ value: AutoreleasingUnsafeMutablePointer<AnyObject?>) throws {
+        if let theValue = value.pointee as? String {
+            if theValue.lengthOfBytes(using: String.Encoding.utf8) < 3 {
                 self.addStatusMessage(.InvalidValue, message: "optionalKey3 should be at least 3 characters long: '\(value)'")
-                throw MyValidationError.LengthError
+                throw MyValidationError.lengthError
             }
         } else {
             self.addStatusMessage(.InvalidValue, message: "optionalKey3 should be string instead of '\(value)'")
-            throw MyValidationError.TypeError
+            throw MyValidationError.typeError
         }
     }
 }

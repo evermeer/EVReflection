@@ -14,7 +14,7 @@ class User: EVObject {
     var email: String?
     var company: Company?
     var closeFriends: [User]? = []
-    var birthDate: NSDate?
+    var birthDate: Date?
 }
 
 class Company: EVObject {
@@ -34,7 +34,7 @@ class EVReflectionJsonTests: XCTestCase {
     override func setUp() {
         super.setUp()
         // Put setup code here. This method is called before the invocation of each test method in the class.
-        EVReflection.setBundleIdentifier(TestObject)
+        EVReflection.setBundleIdentifier(TestObject.self)
     }
     
     /**
@@ -108,7 +108,7 @@ class EVReflectionJsonTests: XCTestCase {
         XCTAssertEqual(b.count, 0, "Can't create a dictionairy from nonsence")
         
         NSLog("\n\n===>This will generate a warning because you can't create a dictionary for a non NSObject type")
-        let c = EVReflection.arrayFromJson(type: MyEnumFive.OK, json: "[{\"id\": 24}]")
+        let c = EVReflection.arrayFromJson(type: MyEnumFive.ok, json: "[{\"id\": 24}]")
         XCTAssertEqual(c.count, 0, "Can't create a dictionairy for a non NSObject type")
 
         let d = EVReflection.arrayFromJson(type: User(), json: "[{\"id\": 24}")
@@ -119,8 +119,8 @@ class EVReflectionJsonTests: XCTestCase {
     }
 
     enum MyEnumFive: Int {
-        case NotOK = 0
-        case OK = 1
+        case notOK = 0
+        case ok = 1
     }
 
     func testJsonObject() {
@@ -128,7 +128,7 @@ class EVReflectionJsonTests: XCTestCase {
             "id": 24,
             "name": "John Appleseed",
             "email": "john@appleseed.com",
-            "birthDate": NSDate(),
+            "birthDate": Date(),
             "company": [
                 "name": "Apple",
                 "address": "1 Infinite Loop, Cupertino, CA"
@@ -156,7 +156,7 @@ class EVReflectionJsonTests: XCTestCase {
         XCTAssertEqual(friendsDictArray?.count, 2, "There should now be a dictionary array with 2 dictionaries")
     }
     
-    func validateUser(user: User) {
+    func validateUser(_ user: User) {
         print("Validate user: \n\(user)\n\n")
         XCTAssertTrue(user.id == 24, "id should have been set to 24")
         XCTAssertTrue(user.name == "John Appleseed", "name should have been set to John Appleseed")
