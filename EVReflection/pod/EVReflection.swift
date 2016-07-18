@@ -405,7 +405,7 @@ final public class EVReflection {
         if forObject == nil && EVReflection.bundleIdentifier != nil {
             return EVReflection.bundleIdentifier!
         }
-        var appName = bundle.infoDictionary?["CFBundleName"] as? String ?? ""
+        var appName = bundle.infoDictionary?[kCFBundleNameKey as String] as? String ?? ""
         if appName == "" {
             if bundle.bundleIdentifier == nil {
                 bundle = NSBundle(forClass: EVReflection().dynamicType)
