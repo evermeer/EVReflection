@@ -69,6 +69,10 @@ class EVReflectionWorkaroundsTests: XCTestCase {
     
     func testStruct() {
         let event = WorkaroundObject()
+        event.enumList.append(.OK)
+        event.enumList.append(.OK)
+        event.enumList.append(.NotOK)
+        event.enumList.append(.OK)
         event.structType = CGPoint(x: 2, y: 3)
         
         let json = event.toJsonString()
@@ -77,6 +81,28 @@ class EVReflectionWorkaroundsTests: XCTestCase {
         let newEvent = WorkaroundObject(json:json)
         XCTAssertEqual(newEvent.structType.x, 2, "The location x should have been 2")
         XCTAssertEqual(newEvent.structType.y, 3, "The location y should have been 3")
+    }
+    
+    func testEnumArray() {
+        let event = WorkaroundObject()
+        event.enumList.append(.OK)
+        event.enumList.append(.OK)
+        event.enumList.append(.NotOK)
+        event.enumList.append(.OK)
+        
+        let json = event.toJsonString()
+        print("json = \(json)")
+
+        let event2 = WorkaroundObject(json: json)
+        print(event2)
+        
+        XCTAssertEqual(event.enumList.count, event2.enumList.count, "Now the list should also have 4 items")
+        if event2.enumList.count == 4 {
+            XCTAssertEqual(event2.enumList[0], WorkaroundObject.StatusType.OK, "The first item should be .OK")
+            XCTAssertEqual(event2.enumList[1], WorkaroundObject.StatusType.OK, "The first item should be .OK")
+            XCTAssertEqual(event2.enumList[2], WorkaroundObject.StatusType.NotOK, "The first item should be .NotOK")
+            XCTAssertEqual(event2.enumList[3], WorkaroundObject.StatusType.OK, "The first item should be .OK")            
+        }
     }
 }
 
@@ -93,6 +119,7 @@ class WorkaroundObject: EVObject, EVArrayConvertable {
     
     var nullableType: Int?
     var enumType: StatusType = .OK
+    var enumList: [StatusType] = []
     var list: [WorkaroundObject?] = [WorkaroundObject?]()
     var dict: [String: SubObject] = [:]
     var structType: CGPoint = CGPoint(x: 0, y: 0)
@@ -106,6 +133,15 @@ class WorkaroundObject: EVObject, EVArrayConvertable {
             if let rawValue = value as? Int {
                 if let status =  StatusType(rawValue: rawValue) {
                     self.enumType = status
+                }
+            }
+        case "enumList":
+            if let enumList = value as? NSArray {
+                self.enumList = []
+                for item in enumList {
+                    if let rawValue = item as? NSNumber, let statusType = StatusType(rawValue: Int(rawValue)) {
+                        self.enumList.append(statusType)
+                    }
                 }
             }
         case "list":
@@ -136,12 +172,18 @@ class WorkaroundObject: EVObject, EVArrayConvertable {
     
     // Implementation of the EVArrayConvertable protocol for handling an array of nullble objects.
     func convertArray(key: String, array: Any) -> NSArray {
-        assert(key == "list", "convertArray for key \(key) should be handled.")
+        assert(key == "list" || key == "enumList", "convertArray for key \(key) should be handled.")
 
         let returnArray = NSMutableArray()
-        for item in (array as? [WorkaroundObject?]) ?? [WorkaroundObject?]() {
-            if item != nil {
-                returnArray.addObject(item!)
+        if key == "list" {
+            for item in (array as? [WorkaroundObject?]) ?? [WorkaroundObject?]() {
+                if item != nil {
+                    returnArray.addObject(item!)
+                }
+            }
+        } else {
+            for item in  (array as? [StatusType]) ?? [StatusType]() {
+                returnArray.addObject(item.rawValue)
             }
         }
         return returnArray
