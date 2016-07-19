@@ -89,7 +89,7 @@ class EVReflectionNumbersTests: XCTestCase {
         
         let test2: Float = 458347978508
         let (value2, _, _) = EVReflection.valueForAny("", key: "", anyValue: test2)
-        XCTAssert(value2 as? NSNumber == NSNumber(value: 458347978508), "Values should be same for type Float")
+        XCTAssert((value2 as? NSNumber)?.floatValue == test2, "Values should be same for type Float")
         
         let test3: Double = 458347978508
         let (value3, _, _) = EVReflection.valueForAny("", key: "", anyValue: test3)
