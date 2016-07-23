@@ -607,6 +607,9 @@ final public class EVReflection {
                     return (convertedValue, valueType, false)
                 }
             }
+            if valueType == "Date" {
+                return (theValue as! NSDate, "NSDate", false)
+            }
             let structAsDict = convertStructureToDictionary(theValue, conversionOptions: conversionOptions, isCachable: isCachable, parents: parents)
             return (structAsDict, "Struct", false)
         } else {
@@ -720,7 +723,7 @@ final public class EVReflection {
                     value = NSNumber(value: Double(convertedValue) ?? 0)
                 }
             }
-        } else if typeInObject == "NSDate"  && (type == "String" || type == "NSString") {
+        } else if (typeInObject == "NSDate" || typeInObject == "Date")  && (type == "String" || type == "NSString") {
             if let convertedValue = value as? String {
                 
                 guard let date = getDateFormatter().date(from: convertedValue) else {
@@ -987,7 +990,7 @@ final public class EVReflection {
      */
     private class func dictToObject<T where T:NSObject>(_ type: String, original: T?, dict: NSDictionary, conversionOptions: ConversionOptions = .DefaultDeserialize) -> (T?, Bool) {
         if var returnObject = original {
-            if type != "NSNumber" && type != "NSString" && type != "NSDate" && type.contains("Dictionary<") == false {
+            if type != "NSNumber" && type != "NSString" && type != "NSDate" && type != "Date" && type.contains("Dictionary<") == false {
                 returnObject = setPropertiesfromDictionary(dict, anyObject: returnObject, conversionOptions: conversionOptions)
             } else {
                 if type.contains("Dictionary<") == false {
@@ -998,6 +1001,13 @@ final public class EVReflection {
             }
 
             return (returnObject, true)
+        }
+        
+        if type == "Date" {
+            if let time = dict["_time"] {
+                print("type \(type), original \(original), T \(T.self)")
+                return (NSDate(timeIntervalSinceReferenceDate: TimeInterval(time as! NSNumber)) as? T, true)
+            }
         }
         
         if var returnObject: NSObject = swiftClassFromString(type) {

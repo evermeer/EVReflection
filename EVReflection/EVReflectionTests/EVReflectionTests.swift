@@ -171,7 +171,7 @@ class EVReflectionTests: XCTestCase {
         let theObject = TestObject4()
         theObject.myString = "string"
         theObject.myInt = 4
-        theObject.myDate = Date()
+        theObject.myDate = Date().addingTimeInterval(TimeInterval(99))
         let json = theObject.toJsonString()
         NSLog("toJson = \(json)")
         
