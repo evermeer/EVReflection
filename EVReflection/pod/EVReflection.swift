@@ -72,7 +72,7 @@ final public class EVReflection {
                         if let key: String = keyMapping[k as? String ?? ""] as? String {
                             setObjectValue(anyObject, key: key, theValue: (valid ? dictValue: v), typeInObject: types[key] as? String, valid: valid, conversionOptions: conversionOptions)
                         } else {
-                            setObjectValue(anyObject, key: k as? String ?? "", theValue: (valid ? dictValue : v), typeInObject: types[k as? String ?? ""] as? String, valid: valid, conversionOptions: conversionOptions)
+                            setObjectValue(anyObject, key: k as? String ?? "", theValue: (valid ? dictValue : v), typeInObject: types[dictKey] as? String, valid: valid, conversionOptions: conversionOptions)
                         }
                     }
                 }
@@ -654,6 +654,9 @@ final public class EVReflection {
         if theValue is Date {
             return (theValue as! Date, "NSDate", false)
         }
+        if theValue is UUID {
+            return ((theValue as! UUID).uuidString, "NSString", false)
+        }
         if theValue is NSArray {
             return (theValue as! NSArray, valueType, false)
         }
@@ -734,6 +737,8 @@ final public class EVReflection {
                 
                 value = date
             }
+        } else if typeInObject == "UUID"  && (type == "String" || type == "NSString") {
+            value = UUID(uuidString: value as? String ?? "") ?? UUID()
         }
         if typeInObject == "Struct" {
             anyObject.setValue(value, forUndefinedKey: key)
