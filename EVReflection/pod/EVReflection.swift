@@ -446,6 +446,8 @@ final public class EVReflection {
     private static func nameForBundle(bundle: NSBundle) -> String {
         // get the bundle name from what is set in the infoDictionary
         var appName = bundle.infoDictionary?[kCFBundleNameKey as String] as? String ?? ""
+        
+        // If it was not set, then use the bundleIdentifier (which is the same as kCFBundleIdentifierKey)
         if appName == "" {
             appName = bundle.bundleIdentifier ?? ""
         }
@@ -601,6 +603,17 @@ final public class EVReflection {
                 let convertedValue = dictionaryConverter.convertDictionary(key!, dict: theValue)
                 return (convertedValue, valueType, false)
             }
+        } else if mi.displayStyle == .Set {
+            valueType = "\(mi.subjectType)"
+            if valueType.hasPrefix("Set<") {
+                if let arrayConverter = parentObject as? EVArrayConvertable {
+                    let convertedValue = arrayConverter.convertArray(key!, array: theValue)
+                    return (convertedValue, valueType, false)
+                }
+                (parentObject as? EVObject)?.addStatusMessage(.MissingProtocol, message: "An object with a property of type Set should implement the EVArrayConvertable protocol. type = \(valueType) for key \(key)")
+                print("WARNING: An object with a property of type Set should implement the EVArrayConvertable protocol. type = \(valueType) for key \(key)")
+                return (NSNull(), "NSNull", false)
+            }
         } else if mi.displayStyle == .Struct {
             valueType = "\(mi.subjectType)"
             if valueType.containsString("_NativeDictionaryStorage") {
@@ -672,6 +685,7 @@ final public class EVReflection {
         if valueType.hasPrefix("Array<") && parentObject is EVArrayConvertable {
             return ((parentObject as! EVArrayConvertable).convertArray(key ?? "_unknownKey", array: theValue), valueType, false)
         }
+        
         (parentObject as? EVObject)?.addStatusMessage(.InvalidType, message: "valueForAny unkown type \(valueType) for value: \(theValue).")
         print("ERROR: valueForAny unkown type \(valueType) for value: \(theValue).")
         return (NSNull(), "NSNull", false)
