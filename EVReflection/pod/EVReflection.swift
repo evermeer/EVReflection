@@ -408,7 +408,6 @@ final public class EVReflection {
         }
         
         // use the bundle name from the main bundle, if that's not set use the identifier
-        let bundle = NSBundle.mainBundle()
         return nameForBundle(NSBundle.mainBundle())
     }
     
