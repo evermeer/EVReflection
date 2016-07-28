@@ -397,23 +397,19 @@ final public class EVReflection {
     - returns: A cleaned up name of the app.
     */
     public class func getCleanAppName(forObject: NSObject? = nil) -> String {
-        var bundle = NSBundle.mainBundle()
+        // if an object was specified, then always use the bundle name of that class
         if forObject != nil {
-            bundle = NSBundle(forClass: forObject!.dynamicType)
+            return nameForBundle(NSBundle(forClass: forObject!.dynamicType))
         }
         
-        if forObject == nil && EVReflection.bundleIdentifier != nil {
+        // If no object was specified but an identifier was set, then use that identifier.
+        if EVReflection.bundleIdentifier != nil {
             return EVReflection.bundleIdentifier!
         }
-        var appName = bundle.infoDictionary?["CFBundleName"] as? String ?? ""
-        if appName == "" {
-            if bundle.bundleIdentifier == nil {
-                bundle = NSBundle(forClass: EVReflection().dynamicType)
-            }
-            appName = (bundle.bundleIdentifier!).characters.split(isSeparator: {$0 == "."}).map({ String($0) }).last ?? ""
-        }
-        let cleanAppName = appName.componentsSeparatedByCharactersInSet(illegalCharacterSet).joinWithSeparator("_")
-        return cleanAppName
+        
+        // use the bundle name from the main bundle, if that's not set use the identifier
+        let bundle = NSBundle.mainBundle()
+        return nameForBundle(NSBundle.mainBundle())
     }
     
     /// Variable that can be set using setBundleIdentifier
@@ -429,7 +425,7 @@ final public class EVReflection {
      */
     public class func setBundleIdentifier(forClass: AnyClass) {
         if let bundle: NSBundle = NSBundle(forClass:forClass) {
-            EVReflection.bundleIdentifier = bundleForClass(forClass, bundle: bundle)
+            EVReflection.bundleIdentifier = nameForBundle(bundle)
         }
     }
     
@@ -442,15 +438,21 @@ final public class EVReflection {
         bundleIdentifiers = []
         for aClass in classes {
             if let bundle: NSBundle = NSBundle(forClass: aClass) {
-                bundleIdentifiers?.append(bundleForClass(aClass, bundle: bundle))
+                bundleIdentifiers?.append(nameForBundle(bundle))
             }
         }
     }
     
-    private static func bundleForClass(forClass: AnyClass, bundle: NSBundle) -> String {
-        let appName = (bundle.infoDictionary![kCFBundleNameKey as String] as? String)!.characters.split(isSeparator: {$0 == "."}).map({ String($0) }).last ?? ""
-        let cleanAppName = appName.componentsSeparatedByCharactersInSet(illegalCharacterSet).joinWithSeparator("_")
-        return cleanAppName
+    private static func nameForBundle(bundle: NSBundle) -> String {
+        // get the bundle name from what is set in the infoDictionary
+        var appName = bundle.infoDictionary?[kCFBundleNameKey as String] as? String ?? ""
+        if appName == "" {
+            appName = bundle.bundleIdentifier ?? ""
+        }
+        appName = appName.characters.split(isSeparator: {$0 == "."}).map({ String($0) }).last ?? ""
+        
+        // Clean up special characters
+        return appName.componentsSeparatedByCharactersInSet(illegalCharacterSet).joinWithSeparator("_")
     }
 
     
