@@ -45,13 +45,50 @@ class TestIssue107: XCTestCase {
         let c = [EVAPIConfigurationModel](json: dataList)
         print(c)
         
-        for i:EVAPIConfigurationModel in c {
+        for i: EVAPIConfigurationModel in c {
             if let conf: EVSubConfigurationModel = i.Configurations {
                 print("Errors: \(conf.evReflectionStatuses)")
             }
         }
     }
     
+    func testIssue107b() {
+        let json = "{" +
+            "\"dataList\": [" +
+            "{" +
+            "    \"Unique\": \"1300001020\"," +
+            "    \"Description\": \"E08-017\"," +
+            "    \"Street\": \"Emmalaan\"," +
+            "    \"HouseNumber\": \"1000\"," +
+            "    \"City\": \"Emmen\"," +
+            "    \"ReportCategory\": \"3000000717\"," +
+            "    \"ContainerSpotList\": [" +
+            "        {" +
+            "        \"Unique\": \"A11\"," +
+            "        \"Code\": \"A11\"," +
+            "        \"Description\": \"Restafval Emmen\"," +
+            "        \"ContainerList\": [" +
+            "            {" +
+            "            \"Unique\": \"1000000225\"," +
+            "            \"Code\": \"8017\"," +
+            "            \"Description\": \" \"," +
+            "            \"ReportCategory\": null" +
+            "            } ]" +
+            "        } ]" +
+            "    }" +
+            "]," +
+            "\"data\": null," +
+            "\"status\": true," +
+            "\"messageCode\": 107," +
+            "\"token\": null," +
+            "\"ID\": null," +
+            "\"invalidParameters\": null," +
+            "\"total\": 0" +
+            "}"
+        let data = EVDataListContainerModel(json: json)
+        print(data)
+    }
+
 }
 
 class EVAPIConfigurationModel: EVObject {
@@ -68,4 +105,37 @@ class EVSubConfigurationModel: EVObject {
     override internal func initValidation(dict: NSDictionary) {
         self.initMayNotContainKeys(["desc","morning","evening"], dict: dict)
     }
+}
+
+class EVDataListContainerModel: EVObject {
+    var DataList: [EVListDistrictContainerModel] = []
+}
+
+class EVListDistrictContainerModel: EVObject {
+    
+    var Unique: String?
+    var Description: String?
+    var Street: String?
+    var HouseNumber: String?
+    var City: String?
+    var ReportCategory: String?
+    var ContainerSpotList: [EVContainerSpotListModel] = [EVContainerSpotListModel]()
+}
+
+
+class EVContainerSpotListModel: EVObject {
+    
+    var Unique: String?
+    var Code: String?
+    var Description: String?
+    var ContainerList: [EVContainerListModel] = [EVContainerListModel]()
+    
+}
+
+class EVContainerListModel: EVObject {
+    
+    var Unique: String?
+    var Code: String?
+    var Description: String?
+    var ReportCategory: String? = ""
 }
