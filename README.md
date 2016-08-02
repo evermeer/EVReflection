@@ -164,6 +164,12 @@ func testPrintable() {
     theObject.objectValue = "value1"
     NSLog("theObject = \(theObject)")
 }
+
+func testArrayFunctions() {
+    let dictionaryArray: [NSDictionary] = yourGetDictionaryArrayFunction()
+    let userArray = [User](dictionaryArray: dictionaryArray)
+    let newDictionaryArray = userArray.toDictionaryArray()
+}
 ```
 
 ## Extra information:

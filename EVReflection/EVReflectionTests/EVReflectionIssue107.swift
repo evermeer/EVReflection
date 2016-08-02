@@ -16,7 +16,7 @@ class TestIssue107: XCTestCase {
     override func setUp() {
         super.setUp()
         // Put setup code here. This method is called before the invocation of each test method in the class.
-        EVReflection.setBundleIdentifier(Message)
+        EVReflection.setBundleIdentifier(EVDataListContainerModel)
     }
     
     override func tearDown() {
@@ -112,7 +112,6 @@ class EVDataListContainerModel: EVObject {
 }
 
 class EVListDistrictContainerModel: EVObject {
-    
     var Unique: String?
     var Description: String?
     var Street: String?
@@ -124,7 +123,6 @@ class EVListDistrictContainerModel: EVObject {
 
 
 class EVContainerSpotListModel: EVObject {
-    
     var Unique: String?
     var Code: String?
     var Description: String?
@@ -133,7 +131,6 @@ class EVContainerSpotListModel: EVObject {
 }
 
 class EVContainerListModel: EVObject {
-    
     var Unique: String?
     var Code: String?
     var Description: String?
