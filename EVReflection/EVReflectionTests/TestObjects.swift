@@ -256,3 +256,8 @@ public class ValidateObject: EVObject {
         }
     }
 }
+
+class ImLazy: EVObject {
+    lazy var lazyInt: Int = 0
+    lazy var LazyString: String = ""
+}

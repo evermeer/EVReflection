@@ -341,6 +341,18 @@ class EVReflectionTests: XCTestCase {
         print(json)
         XCTAssertEqual(json, "{\n  \"openId\" : \"value\"\n}", "Incorrect serialisation to json")
     }
+    
+    func testLazy() {
+        let a = ImLazy()
+        var json = a.toJsonString()
+        print(json)
+        a.lazyInt = 66
+        a.LazyString = "D"
+        json = a.toJsonString()
+        print(json)
+        let b = ImLazy(json: json)
+        print(b)
+    }
 }
 
 

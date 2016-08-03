@@ -1096,6 +1096,10 @@ final public class EVReflection {
             if let originalKey: String = property.label {
                 var skipThisKey = false
                 var mapKey = originalKey
+                if mapKey.containsString(".") {
+                    mapKey = mapKey.componentsSeparatedByString(".")[0] // remover the .storage for lazy properties
+                }
+                
                 if originalKey  == "evReflectionStatuses" {
                     skipThisKey = true
                 }
