@@ -17,6 +17,11 @@ public protocol EVGenericsKVC {
      Implement this protocol in a class with generic properties so that we can still use a standard mechanism for setting property values.
      */
     func setValue(value: AnyObject!, forUndefinedKey key: String)
+    
+    /**
+     Add a function so that we can get an instance of T
+     */
+    func getGenericType() -> NSObject
 }
 
 /**

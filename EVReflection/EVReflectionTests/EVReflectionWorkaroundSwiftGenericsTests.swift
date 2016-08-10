@@ -112,6 +112,10 @@ public class MyGenericObject<T where T:NSObject>: MyGenericBase, EVGenericsKVC {
             print("---> setValue '\(value)' for key '\(key)' should be handled.")
         }
     }
+
+    public func getGenericType() -> NSObject {
+        return T()
+    }
 }
 
 
@@ -121,6 +125,10 @@ public class MyIncorrectGenericObject<T where T:NSObject>: MyGenericBase, EVGene
     
     required public init() {
         super.init()
+    }
+
+    public func getGenericType() -> NSObject {
+        return T()
     }
 }
 

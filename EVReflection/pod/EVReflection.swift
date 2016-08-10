@@ -961,18 +961,18 @@ final public class EVReflection {
                     let t: String = (onlyElement?.key as? String) ?? ""
                     if onlyElement?.value as? NSArray != nil && type.lowercaseString == "array<\(t)>" {
                         dictValue = onlyElement?.value as? NSArray
-                        dictValue = dictArrayToObjectArray(type, array: (dictValue as? [NSDictionary]) ?? [NSDictionary](), conversionOptions: conversionOptions) as NSArray
+                        dictValue = dictArrayToObjectArray(anyObject, type: type, array: (dictValue as? [NSDictionary]) ?? [NSDictionary](), conversionOptions: conversionOptions) as NSArray
                     } else {
                         // Single object array fix
                         var array: [NSDictionary] = [NSDictionary]()
                         array.append(dictValue as? NSDictionary ?? NSDictionary())
-                        dictValue = dictArrayToObjectArray(type, array: array, conversionOptions: conversionOptions) as NSArray
+                        dictValue = dictArrayToObjectArray(anyObject, type: type, array: array, conversionOptions: conversionOptions) as NSArray
                     }
                 } else {
                     // Single object array fix
                     var array: [NSDictionary] = [NSDictionary]()
                     array.append(dictValue as? NSDictionary ?? NSDictionary())
-                    dictValue = dictArrayToObjectArray(type, array: array, conversionOptions: conversionOptions) as NSArray
+                    dictValue = dictArrayToObjectArray(anyObject, type: type, array: array, conversionOptions: conversionOptions) as NSArray
                 }
             } else if let _ = type.rangeOfString("_NativeDictionaryStorageOwner"), let dict = dictValue as? NSDictionary, let org = anyObject as? EVObject {
                 dictValue = org.convertDictionary(key, dict: dict)
@@ -982,7 +982,7 @@ final public class EVReflection {
                 valid = isValid
             } else if type.rangeOfString("<NSDictionary>") == nil && dictValue as? [NSDictionary] != nil {
                 // Array of objects
-                dictValue = dictArrayToObjectArray(type, array: dictValue as? [NSDictionary] ?? [NSDictionary](), conversionOptions: conversionOptions) as NSArray
+                dictValue = dictArrayToObjectArray(anyObject, type: type, array: dictValue as? [NSDictionary] ?? [NSDictionary](), conversionOptions: conversionOptions) as NSArray
             } else if original is EVObject && dictValue is String {
                 // fixing the conversion from XML without properties
                 let (dict, isValid) = dictToObject(type, original:original, dict:  ["__text": dictValue as? String ?? ""], conversionOptions: conversionOptions)
@@ -1042,7 +1042,7 @@ final public class EVReflection {
      
      - returns: The array of objects that is created from the array of dictionaries
      */
-    private class func dictArrayToObjectArray(type: String, array: NSArray, conversionOptions: ConversionOptions = .DefaultDeserialize) -> NSArray {
+    private class func dictArrayToObjectArray(anyObject: NSObject, type: String, array: NSArray, conversionOptions: ConversionOptions = .DefaultDeserialize) -> NSArray {
         var subtype = "EVObject"
         if type.componentsSeparatedByString("<").count > 1 {
             // Remove the Array prefix
@@ -1061,6 +1061,9 @@ final public class EVReflection {
             var org = swiftClassFromString(subtype)
             if let evResult = org as? EVObject {
                 org = evResult.getSpecificType(item as? NSDictionary ?? NSDictionary())
+            }
+            if let evResult = anyObject as? EVGenericsKVC {
+                org = evResult.getGenericType()
             }
             let (arrayObject, valid) = dictToObject(subtype, original:org, dict: item as? NSDictionary ?? NSDictionary(), conversionOptions: conversionOptions)
             if arrayObject != nil && valid {
