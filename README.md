@@ -332,7 +332,7 @@ func testValidation() {
 ```
 
 ### What to do when you use object enheritance
-You can deserialize json to an object that uses enheritance. When the properties are specified as the base class, then the correct specific object type will be returned by the function getSecificType. See the sample code below or the unit test in EVReflectionEnheritanceTests.swift
+You can deserialize json to an object that uses enheritance. When the properties are specified as the base class, then the correct specific object type will be returned by the function `getSpecificType`. See the sample code below or the unit test in EVReflectionEnheritanceTests.swift
 
 ```
 class Quz: EVObject {
