@@ -55,6 +55,8 @@
 		7F59F9DB1C07999300C14CF9 /* EVReflectionEVObjectTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F59F9DA1C07999300C14CF9 /* EVReflectionEVObjectTests.swift */; };
 		7F59F9DD1C079A7300C14CF9 /* EVReflectionNumbersTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F59F9DC1C079A7300C14CF9 /* EVReflectionNumbersTests.swift */; };
 		7F59F9DF1C09BFB900C14CF9 /* EVRelfectionEnheritanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F59F9DE1C09BFB900C14CF9 /* EVRelfectionEnheritanceTests.swift */; };
+		7F625FD51D7031DF00F9A304 /* EVWorkaroundHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F9E68111C67728200F0F4D3 /* EVWorkaroundHelpers.swift */; };
+		7F625FD61D7031E000F9A304 /* EVWorkaroundHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F9E68111C67728200F0F4D3 /* EVWorkaroundHelpers.swift */; };
 		7F663C321D014D7B00642499 /* EVReflectionIssue91.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F663C301D014D4A00642499 /* EVReflectionIssue91.swift */; };
 		7F663C331D014D7C00642499 /* EVReflectionIssue91.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F663C301D014D4A00642499 /* EVReflectionIssue91.swift */; };
 		7F663C341D014D7E00642499 /* EVReflectionIssue91.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F663C301D014D4A00642499 /* EVReflectionIssue91.swift */; };
@@ -335,8 +337,8 @@
 				7F9336AF1C28227400AF7076 /* EVReflectionTVOS */,
 				7FD67D801C28463E0071234B /* EVReflection OSX Tests.xctest */,
 				7FD67D811C284A2C0071234B /* EVReflection TVOS Tests.xctest */,
-				7FD67D821C2882320071234B /* EVReflection.framework */,
 				7FD67D831C2882320071234B /* EVReflection iOS Tests.xctest */,
+				7FD67D821C2882320071234B /* EVReflection.framework */,
 				7FD67D841C2882320071234B /* EVReflection.framework */,
 				7FD67D851C2882320071234B /* EVReflection.framework */,
 				7FD67D8B1C288B560071234B /* EVReflection.framework */,
@@ -913,6 +915,7 @@
 			files = (
 				7F9336C81C2822A700AF7076 /* EVExtensions.swift in Sources */,
 				7F9336C51C28229C00AF7076 /* EVReflection.swift in Sources */,
+				7F625FD51D7031DF00F9A304 /* EVWorkaroundHelpers.swift in Sources */,
 				7F9336C61C28229F00AF7076 /* EVObject.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -958,6 +961,7 @@
 			files = (
 				7FD67D961C288B840071234B /* EVExtensions.swift in Sources */,
 				7FD67D931C288B760071234B /* EVReflection.swift in Sources */,
+				7F625FD61D7031E000F9A304 /* EVWorkaroundHelpers.swift in Sources */,
 				7FD67D941C288B7A0071234B /* EVObject.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1306,7 +1310,7 @@
 				SDKROOT = appletvos;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = 3;
-				TVOS_DEPLOYMENT_TARGET = 9.1;
+				TVOS_DEPLOYMENT_TARGET = 9.0;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -1329,7 +1333,7 @@
 				SDKROOT = appletvos;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = 3;
-				TVOS_DEPLOYMENT_TARGET = 9.1;
+				TVOS_DEPLOYMENT_TARGET = 9.0;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -1344,7 +1348,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "nl.evict.EVReflection-TVOS-Tests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
-				TVOS_DEPLOYMENT_TARGET = 9.1;
+				TVOS_DEPLOYMENT_TARGET = 9.0;
 			};
 			name = Debug;
 		};
@@ -1356,7 +1360,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "nl.evict.EVReflection-TVOS-Tests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
-				TVOS_DEPLOYMENT_TARGET = 9.1;
+				TVOS_DEPLOYMENT_TARGET = 9.0;
 			};
 			name = Release;
 		};
