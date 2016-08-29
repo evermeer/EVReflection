@@ -754,6 +754,11 @@ final public class EVReflection {
                 value = date
             }
         }
+        
+        if !(value is NSArray)  && (typeInObject ?? "").containsString("Array") {
+            value = NSArray(array: [value])
+        }
+        
         if typeInObject == "Struct" {
             anyObject.setValue(value, forUndefinedKey: key)
         } else {
