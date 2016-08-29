@@ -353,6 +353,30 @@ class EVReflectionTests: XCTestCase {
         let b = ImLazy(json: json)
         print(b)
     }
+    
+    func testArrayFromNotArray() {
+        let normal = NSDictionary(dictionary: ["bs": [["val": 1], ["val": 2]]])
+        print(String(normal))
+        let aaNormal: AA = AA(dictionary: normal)
+        print(String(aaNormal.toDictionary()))
+        XCTAssertEqual(String(normal), String(aaNormal.toDictionary()))
+        
+        let abnormal = NSDictionary(dictionary: ["bs": ["val": 1]])
+        print(String(abnormal))
+        let aaAbnormal: AA = AA(dictionary: abnormal)
+        print(String(aaAbnormal.toDictionary()))
+        XCTAssertEqual(aaAbnormal.bs[0].val, 1)
+        
+        let arrayDic = NSDictionary(dictionary: ["strings": ["a", "b"]])
+        let arrObj: ArrayObjects = ArrayObjects(dictionary: arrayDic)
+        print(arrObj)
+        XCTAssertEqual((arrayDic["strings"] as! NSArray), NSArray(array: arrObj.strings))
+        
+        let arrayDic2 = NSDictionary(dictionary: ["strings": "a"])
+        let arrObj2: ArrayObjects = ArrayObjects(dictionary: arrayDic2)
+        print(arrObj2)
+        XCTAssertEqual(arrObj2.strings[0], "a")
+    }
 }
 
 
