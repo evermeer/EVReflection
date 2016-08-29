@@ -755,7 +755,7 @@ final public class EVReflection {
             }
         }
         
-        if (value is NSArray) == false && (typeInObject ?? "").lowercaseString.containsString("array") == true {
+        if !(value is NSArray)  && (typeInObject ?? "").containsString("Array") {
             value = NSArray(array: [value])
         }
         
