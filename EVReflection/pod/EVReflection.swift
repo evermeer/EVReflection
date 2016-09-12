@@ -1276,9 +1276,9 @@ public struct ConversionOptions: OptionSetType, CustomStringConvertible {
     public static var DefaultNSCoding: ConversionOptions = [None]
     /// Default used for comparing / hashing functions
     public static var DefaultComparing: ConversionOptions = [PropertyConverter, PropertyMapping, SkipPropertyValue]
-    /// Default used for deserialisation
+    /// Default used for deserialization
     public static var DefaultDeserialize: ConversionOptions = [PropertyConverter, PropertyMapping, SkipPropertyValue, KeyCleanup]
-    /// Default used for serialisation
+    /// Default used for serialization
     public static var DefaultSerialize: ConversionOptions = [PropertyConverter, PropertyMapping, SkipPropertyValue]
     
     /// Get a nice description of the ConversionOptions
@@ -1297,9 +1297,9 @@ public struct ConversionOptions: OptionSetType, CustomStringConvertible {
 }
 
 /**
- Type of status messages after deserialisation
+ Type of status messages after deserialization
  */
-public struct DeserialisationStatus: OptionSetType, CustomStringConvertible {
+public struct DeserializationStatus: OptionSetType, CustomStringConvertible {
     /// The numeric representation of the options
     public let rawValue: Int
     /**
@@ -1307,32 +1307,32 @@ public struct DeserialisationStatus: OptionSetType, CustomStringConvertible {
      
      - parameter rawValue: the numeric representation
      
-     - returns: the DeserialisationStatus
+     - returns: the DeserializationStatus
      */
     public init(rawValue: Int) { self.rawValue = rawValue }
 
     /// No status message
-    public static let None = DeserialisationStatus(rawValue: 0)
+    public static let None = DeserializationStatus(rawValue: 0)
     /// Incorrect key error
-    public static let IncorrectKey  = DeserialisationStatus(rawValue: 1)
+    public static let IncorrectKey  = DeserializationStatus(rawValue: 1)
     /// Missing key error
-    public static let MissingKey  = DeserialisationStatus(rawValue: 2)
+    public static let MissingKey  = DeserializationStatus(rawValue: 2)
     /// Invalid type error
-    public static let InvalidType  = DeserialisationStatus(rawValue: 4)
+    public static let InvalidType  = DeserializationStatus(rawValue: 4)
     /// Invalid value error
-    public static let InvalidValue  = DeserialisationStatus(rawValue: 8)
+    public static let InvalidValue  = DeserializationStatus(rawValue: 8)
     /// Invalid class error
-    public static let InvalidClass  = DeserialisationStatus(rawValue: 16)
+    public static let InvalidClass  = DeserializationStatus(rawValue: 16)
     /// Missing protocol error
-    public static let MissingProtocol  = DeserialisationStatus(rawValue: 32)
+    public static let MissingProtocol  = DeserializationStatus(rawValue: 32)
     /// Custom status message
-    public static let Custom  = DeserialisationStatus(rawValue: 64)
+    public static let Custom  = DeserializationStatus(rawValue: 64)
     
-    /// Get a nice description of the DeserialisationStatus
+    /// Get a nice description of the DeserializationStatus
     public var description: String {
         let strings = ["IncorrectKey", "MissingKey", "InvalidType", "InvalidValue", "InvalidClass", "MissingProtocol", "Custom"]
         var members = [String]()
-        for (flag, string) in strings.enumerate() where contains(DeserialisationStatus(rawValue:1<<(flag))) {
+        for (flag, string) in strings.enumerate() where contains(DeserializationStatus(rawValue:1<<(flag))) {
             members.append(string)
         }
         if members.count == 0 {

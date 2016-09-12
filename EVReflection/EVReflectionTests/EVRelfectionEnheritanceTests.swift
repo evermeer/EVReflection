@@ -62,7 +62,7 @@ class EVRelfectionEnheritanceTests: XCTestCase {
         print("New JSON = \(newJson)")
         
         // The original and new JSON Should be the same
-        XCTAssertEqual(json, newJson, "The json should be the same after serialisation and deserialisation")
+        XCTAssertEqual(json, newJson, "The json should be the same after serialization and deserialization")
     }
     
 }
