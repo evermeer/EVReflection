@@ -39,9 +39,9 @@ In most cases EVReflection is verry easy to use. Just take a look at the [YouTub
 - [Automatic keyword mapping PascalCase or camelCase to snake_case](https://github.com/evermeer/EVReflection#automatic-keyword-mapping-pascalcase-or-camelcase-to-snake_case)
 - [Custom keyword mapping](https://github.com/evermeer/EVReflection#custom-keyword-mapping)
 - [Custom property converters](https://github.com/evermeer/EVReflection#custom-property-converters)
-- [Skip the serialisaton or deserialisation of specific values](https://github.com/evermeer/EVReflection#skip-the-serialisaton-or-deserialisation-of-specific-values)
+- [Skip the serialization or deserialization of specific values](https://github.com/evermeer/EVReflection#skip-the-serialization-or-deserialization-of-specific-values)
 - [Property validators](https://github.com/evermeer/EVReflection#property-validators)
-- [Deserialisaton class level validations](https://github.com/evermeer/EVReflection#deserialisaton-class-level-validations)
+- [Deserialization class level validations](https://github.com/evermeer/EVReflection#deserialization-class-level-validations)
 - [What to do when you use object enheritance](https://github.com/evermeer/EVReflection#what-to-do-when-you-use-object-enheritance)
 - [Known issues](https://github.com/evermeer/EVReflection#known-issues)
 - [License](https://github.com/evermeer/EVReflection#license)
@@ -180,7 +180,7 @@ With almost any EVReflection function you can specify what kind of conversion op
 - None - Do not use any conversion function.
 - [PropertyConverter](https://github.com/evermeer/EVReflection#custom-property-converters) : If specified the function propertyConverters on the EVObject will be called
 - [PropertyMapping](https://github.com/evermeer/EVReflection#custom-keyword-mapping) : If specified the function propertyMapping on the EVObject will be called
-- [SkipPropertyValue](https://github.com/evermeer/EVReflection#skip-the-serialisaton-or-deserialisation-of-specific-values) : If specified the function skipPropertyValue on the EVObject will be called
+- [SkipPropertyValue](https://github.com/evermeer/EVReflection#skip-the-serialization-or-deserialization-of-specific-values) : If specified the function skipPropertyValue on the EVObject will be called
 - [KeyCleanup](https://github.com/evermeer/EVReflection#automatic-keyword-mapping-pascalcase-or-camelcase-to-snake_case) : If specified the automatic pascalCase and snake_case property key mapping will be called.
 
 In EVReflection all functions will use a default conversion option specific to it's function. The following 4 default conversion types are used: 
@@ -244,7 +244,7 @@ public class TestObject6: EVObject {
 }
 ```
 
-### Skip the serialisaton or deserialisation of specific values
+### Skip the serialization or deserialization of specific values
 When there is a need to not (de)serialize specific values like nil NSNull or empty strings you can implement the skipPropertyValue function and return true if the value needs to be skipped. See [Conversion options](https://github.com/evermeer/EVReflection#conversion-options) for when this function will be called.
 
 ```
@@ -298,8 +298,8 @@ public class GameUser: EVObject {
 }
 ```
 
-### Deserialisaton class level validations
-There is also support for class level validation when deserialising to an object. There are helper functions for making keys required or not allowed. You can also add custom messages. Here is some sample code about how you can implement such a validation
+### Deserialization class level validations
+There is also support for class level validation when deserializing to an object. There are helper functions for making keys required or not allowed. You can also add custom messages. Here is some sample code about how you can implement such a validation
 
 ```
 public class ValidateObject: EVObject {
