@@ -384,15 +384,15 @@ public class EVObject: NSObject, NSCoding { // These are redundant in Swift 2+: 
         }
     }
     
-    /// This property will contain an array with deserialisation statussses with a description
-    public var evReflectionStatuses: [(DeserialisationStatus, String)] = []
+    /// This property will contain an array with deserialization statussses with a description
+    public var evReflectionStatuses: [(DeserializationStatus, String)] = []
     /**
      Return a merged status out of the status array
      
-     - returns: the deserialisation status for the object
+     - returns: the deserialization status for the object
      */
-    public func evReflectionStatus() -> DeserialisationStatus {
-        var status: DeserialisationStatus = .None
+    public func evReflectionStatus() -> DeserializationStatus {
+        var status: DeserializationStatus = .None
         for (s, _) in evReflectionStatuses {
             status = [status, s]
         }
@@ -404,7 +404,7 @@ public class EVObject: NSObject, NSCoding { // These are redundant in Swift 2+: 
      - parameter type:    A string to specify the message type
      - parameter message: The message for the status.
      */
-    public func addStatusMessage(type: DeserialisationStatus, message: String) {
+    public func addStatusMessage(type: DeserializationStatus, message: String) {
         evReflectionStatuses.append(type, message)
     }
     
