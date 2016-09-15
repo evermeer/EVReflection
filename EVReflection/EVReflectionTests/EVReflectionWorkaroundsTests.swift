@@ -93,6 +93,7 @@ class EVReflectionWorkaroundsTests: XCTestCase {
         let json = event.toJsonString()
         print("json = \(json)")
 
+        XCTAssert(!json.contains("EVReflection_iOS_Tests.StatusType.ok"), "The rawvalue should have been in the json.")
         let event2 = WorkaroundObject(json: json)
         print(event2)
         

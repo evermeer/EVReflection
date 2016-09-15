@@ -128,9 +128,9 @@ public class MyIncorrectGenericObject<T>: MyGenericBase, EVGenericsKVC where T:N
     }
 
     public func setGenericValue(_ value: AnyObject!, forUndefinedKey key: String) {
-        super.setValue(value, forKey: key)
+        // Not setting anything
     }
-    
+
     public func getGenericType() -> NSObject {
         return T()
     }
