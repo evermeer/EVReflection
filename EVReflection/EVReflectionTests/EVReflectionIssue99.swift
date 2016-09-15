@@ -20,7 +20,7 @@ public class Message: EVObject {
     var users: [String:String] = [String:String]()
     
     // Handling the setting of non key-value coding compliant properties
-    override public func setValue(_ value: AnyObject!, forUndefinedKey key: String) {
+    override public func setValue(_ value: Any!, forUndefinedKey key: String) {
         switch key {
         case "users":
             if let dict = value as? NSDictionary {
@@ -136,15 +136,6 @@ public class MyPrimaryObject: EVObject {
         return [("myObjectDescription","Description")]
         
     }
-    
-    // This way we can solve that the JSON has arbitrary keys
-    public override func setValue(_ value: AnyObject!, forUndefinedKey key: String) {
-        if key == "myPrimaryObjectId" {
-            myPrimaryObjectId = UUID(uuidString: (value as? String) ?? "")
-        }
-        NSLog("---> setValue for key '\(key)' should be handled.")
-    }
-    
 }
 
 public class MySecondaryObject: EVObject {

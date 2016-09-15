@@ -82,7 +82,7 @@ class EVReflectionWorkaroundsTests: XCTestCase {
         XCTAssertEqual(newEvent.structType.x, 2, "The location x should have been 2")
         XCTAssertEqual(newEvent.structType.y, 3, "The location y should have been 3")
     }
-
+    
     func testEnumArray() {
         let event = WorkaroundObject()
         event.enumList.append(.ok)
@@ -92,30 +92,39 @@ class EVReflectionWorkaroundsTests: XCTestCase {
         
         let json = event.toJsonString()
         print("json = \(json)")
-        
+
         let event2 = WorkaroundObject(json: json)
         print(event2)
         
         XCTAssertEqual(event.enumList.count, event2.enumList.count, "Now the list should also have 4 items")
         if event2.enumList.count == 4 {
-            XCTAssertEqual(event2.enumList[0], WorkaroundObject.StatusType.ok, "The first item should be .OK")
-            XCTAssertEqual(event2.enumList[1], WorkaroundObject.StatusType.ok, "The first item should be .OK")
-            XCTAssertEqual(event2.enumList[2], WorkaroundObject.StatusType.notOK, "The first item should be .NotOK")
-            XCTAssertEqual(event2.enumList[3], WorkaroundObject.StatusType.ok, "The first item should be .OK")
+            XCTAssertEqual(event2.enumList[0], StatusType.ok, "The first item should be .OK")
+            XCTAssertEqual(event2.enumList[1], StatusType.ok, "The first item should be .OK")
+            XCTAssertEqual(event2.enumList[2], StatusType.notOK, "The first item should be .NotOK")
+            XCTAssertEqual(event2.enumList[3], StatusType.ok, "The first item should be .OK")            
         }
+    }
+    
+    func testXX() {
+        let a = [StatusType.notOK]
+        let b = Mirror(reflecting: a)
+        let c = b.subjectType
+        print("subjectType = \(c)")
+        let d = b.displayStyle
+        print("displayStyle = \(d)")
     }
 }
 
 
+enum StatusType: Int, EVRawInt {
+    case notOK = 0
+    case ok = 1
+}
 
 
 //
 class WorkaroundObject: EVObject, EVArrayConvertable {
     
-    enum StatusType: Int, EVRawInt {
-        case notOK = 0
-        case ok = 1
-    }
     
     var nullableType: Int?
     var enumType: StatusType = .ok
@@ -125,7 +134,7 @@ class WorkaroundObject: EVObject, EVArrayConvertable {
     var structType: CGPoint = CGPoint(x: 0, y: 0)
     
     // Handling the setting of non key-value coding compliant properties
-    override func setValue(_ value: AnyObject!, forUndefinedKey key: String) {
+    override func setValue(_ value: Any!, forUndefinedKey key: String) {
         switch key {
         case "nullableType":
             nullableType = value as? Int

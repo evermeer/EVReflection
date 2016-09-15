@@ -42,7 +42,7 @@ class EVReflectionAssociatedTests: XCTestCase {
         let label = y.associated.label
         let (token, param) = (y.associated.value as? (String, [String:Any]?))!
         
-        XCTAssertEqual("meLikes", label, "The label of the enum should be meLikes")
+        XCTAssertEqual("meLikes", label, "The label of the enum should be MeLikes")
         XCTAssertEqual("XX", token, "The token associated value of the enum should be XX")
         XCTAssertEqual(19, param?["number"] as? Int, "The number param associated value of the enum should be 19")
         XCTAssertEqual(false, param?["authors_only"] as? Bool, "The authors_only param associated value of the enum should be false")

@@ -88,18 +88,13 @@ public extension Array where Element: NSObject {
     */
     public func getTypeInstance<T: NSObject>(
         ) -> T {
-        if let nsobjectype: NSObject.Type = T.self {
-            let nsobject: NSObject = nsobjectype.init()
-            if let obj =  nsobject as? T {
-                return obj
-            }
-            // Could not instantiate array item instance. will crash
-            return (nsobject as? T)!
+        let nsobjectype: NSObject.Type = T.self
+        let nsobject: NSObject = nsobjectype.init()
+        if let obj =  nsobject as? T {
+            return obj
         }
         // Could not instantiate array item instance. will crash
-        assert(false, "You can only instantiate an array of objects that have EVObject (or NSObject) as its base class. Please make this change to your object: \(T.self)")
-
-        return (NSObject() as? T)!
+        return (nsobject as? T)!
     }
     
     /**
@@ -121,6 +116,6 @@ public extension Array where Element: NSObject {
      - returns: The array of dictionaries
      */
     public func toDictionaryArray(_ conversionOptions: ConversionOptions = .DefaultSerialize) -> NSArray {
-        return self.map({($0 as? EVObject ?? EVObject()).toDictionary(conversionOptions)})
+        return self.map({($0 as? EVObject ?? EVObject()).toDictionary(conversionOptions)}) as NSArray
     }
 }

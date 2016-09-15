@@ -61,6 +61,7 @@ class TestIssue102: XCTestCase {
         XCTAssert(g.field2 == false)
 
     }
+    
 }
 
 

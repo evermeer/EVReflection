@@ -171,10 +171,9 @@ class EVReflectionTests: XCTestCase {
         let theObject = TestObject4()
         theObject.myString = "string"
         theObject.myInt = 4
-        theObject.myDate = Date().addingTimeInterval(TimeInterval(99))
+        theObject.myDate = Date()
         let json = theObject.toJsonString()
         NSLog("toJson = \(json)")
-        
         XCTAssert(!(json.contains(".") || json.contains("/") || json.contains("-")), "Pass") // The objects are not the same
         
         let newObject = TestObject4(json: json)
@@ -212,8 +211,8 @@ class EVReflectionTests: XCTestCase {
     func testXMLDictStructure() {
         // When using XMLDict, an array will be nested in a singel xml node which you probably want to skip in your object structure.
         // The only requirement is that the name of the key should be the same as the as the object type (in lowercase).
-        let xmlDict =  ["myString": "STR", "array": ["testobject2":[["objectValue":"STR2"], ["objectValue":"STR3"]]]]
-        let obj = TestObject4(dictionary: xmlDict)
+        let xmlDict =  ["myString": "STR", "array": ["testobject2":[["objectValue":"STR2"], ["objectValue":"STR3"]]]] as [String : Any]
+        let obj = TestObject4(dictionary: xmlDict as NSDictionary)
         XCTAssertEqual(obj.myString, "STR", "object myString value should have been STR")
         XCTAssertEqual(obj.array.count, 2, "There should be 2 vallues in the array")
         if obj.array.count == 2 {
@@ -319,7 +318,7 @@ class EVReflectionTests: XCTestCase {
         // Test missing required key
         let json = "{\"requiredKey1\": \"Value1\", \"requiredKey2\":\"Value2\"}"
         let test = ValidateObject(json: json)
-        XCTAssertNotEqual(test.evReflectionStatus(), .None, "We should have a not .None status")
+        XCTAssertNotEqual(test.evReflectionStatus(), .none, "We should have a not .None status")
         XCTAssertEqual(test.evReflectionStatuses.count, 1, "We should have 1 validation result")
         for (status, message) in test.evReflectionStatuses {
             print("Validation result: Status = \(status), Message = \(message)")
@@ -328,7 +327,7 @@ class EVReflectionTests: XCTestCase {
         // Test aditional key
         let json2 = "{\"requiredKey1\": \"Value1\", \"requiredKey2\":\"Value2\", \"requiredKey3\":\"Value3\", \"randomKey\":\"Value4\"}"
         let test2 = ValidateObject(json: json2)
-        XCTAssertNotEqual(test.evReflectionStatus(), .None, "We should have a not .None status")
+        XCTAssertNotEqual(test.evReflectionStatus(), .none, "We should have a not .None status")
         XCTAssertEqual(test2.evReflectionStatuses.count, 1, "We should have 1 validation result")
         for (status, message) in test2.evReflectionStatuses {
             print("Validation result: Status = \(status), Message = \(message)")
@@ -340,7 +339,43 @@ class EVReflectionTests: XCTestCase {
         a.openId = "value"
         let json = a.toJsonString()
         print(json)
-        XCTAssertEqual(json, "{\n  \"openId\" : \"value\"\n}", "Incorrect serialisation to json")
+        XCTAssertEqual(json, "{\n  \"openId\" : \"value\"\n}", "Incorrect serialization to json")
+    }
+    
+    func testLazy() {
+        let a = ImLazy()
+        var json = a.toJsonString()
+        print(json)
+        a.lazyInt = 66
+        a.LazyString = "D"
+        json = a.toJsonString()
+        print(json)
+        let b = ImLazy(json: json)
+        print(b)
+    }
+    
+    func testArrayFromNotArray() {
+        let normal = NSDictionary(dictionary: ["bs": [["val": 1], ["val": 2]]])
+        print(String(describing: normal))
+        let aaNormal: AA = AA(dictionary: normal)
+        print(String(describing: aaNormal.toDictionary()))
+        XCTAssertEqual(String(describing: normal), String(describing: aaNormal.toDictionary()))
+        
+        let abnormal = NSDictionary(dictionary: ["bs": ["val": 1]])
+        print(String(describing: abnormal))
+        let aaAbnormal: AA = AA(dictionary: abnormal)
+        print(String(describing: aaAbnormal.toDictionary()))
+        XCTAssertEqual(aaAbnormal.bs[0].val, 1)
+        
+        let arrayDic = NSDictionary(dictionary: ["strings": ["a", "b"]])
+        let arrObj: ArrayObjects = ArrayObjects(dictionary: arrayDic)
+        print(arrObj)
+        XCTAssertEqual((arrayDic["strings"] as! NSArray), NSArray(array: arrObj.strings))
+        
+        let arrayDic2 = NSDictionary(dictionary: ["strings": "a"])
+        let arrObj2: ArrayObjects = ArrayObjects(dictionary: arrayDic2)
+        print(arrObj2)
+        XCTAssertEqual(arrObj2.strings[0], "a")
     }
 }
 

@@ -89,7 +89,7 @@ class TestObject3: EVObject {
     var nullableType: Int?
     
     // This construction can be used to bypass the issue for setting a nullable type field
-    override func setValue(_ value: AnyObject!, forUndefinedKey key: String) {
+    override func setValue(_ value: Any!, forUndefinedKey key: String) {
         switch key {
         case "nullableType":
             nullableType = value as? Int
@@ -218,7 +218,7 @@ class NestedArraysResult: EVObject {
     var planets = [String: [[NSNumber]]]()
     
     // This way we can solve that the JSON has arbitrary keys
-    internal override func setValue(_ value: AnyObject!, forUndefinedKey key: String) {
+    internal override func setValue(_ value: Any!, forUndefinedKey key: String) {
         if let a = value as? [[NSNumber]] {
             planets[key] = a
             return
@@ -255,4 +255,9 @@ public class ValidateObject: EVObject {
             throw MyValidationError.typeError
         }
     }
+}
+
+class ImLazy: EVObject {
+    lazy var lazyInt: Int = 0
+    lazy var LazyString: String = ""
 }

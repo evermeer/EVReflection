@@ -82,7 +82,7 @@ class TestObjectSkipValues: EVObject {
     }
     
     // Handling the setting of non key-value coding compliant properties
-    override func setValue(_ value: AnyObject!, forUndefinedKey key: String) {
+    override func setValue(_ value: Any!, forUndefinedKey key: String) {
         switch key {
         case "value4":
             value4 = value as? Int

@@ -69,7 +69,7 @@ class EVReflectionMappingTests: XCTestCase {
     }
 }
 
-enum MyValidationError: ErrorProtocol {
+enum MyValidationError: Error {
     case typeError,
     lengthError
 }
@@ -98,7 +98,7 @@ public class GamePlayer: GameUser {
     var rating: Int = 0
 
     // This way we can solve that the JSON has arbitrary keys or wrong values
-    override public func setValue(_ value: AnyObject!, forUndefinedKey key: String) {
+    override public func setValue(_ value: Any!, forUndefinedKey key: String) {
         NSLog("---> setValue for key '\(key)' should be handled or the value is of the wrong type: \(value).")
     }
 }

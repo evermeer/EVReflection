@@ -24,7 +24,7 @@ class EVReflectionCustomInitTests: XCTestCase {
         let dictionary = ["number": expectedValue]
         
         // when
-        let object = CustomPropertyClass(dictionary: dictionary)
+        let object = CustomPropertyClass(dictionary: dictionary as NSDictionary)
         
         // then
         XCTAssertEqual(object.number, expectedValue)

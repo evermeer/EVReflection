@@ -34,15 +34,15 @@ In most cases EVReflection is verry easy to use. Just take a look at the [YouTub
 - [If you have XML instead of JSON](https://github.com/evermeer/EVReflection#if-you-have-xml-instead-of-json)
 - [Using EVReflection in your own App](https://github.com/evermeer/EVReflection#using-evreflection-in-your-own-app)
 - [More Sample code](https://github.com/evermeer/EVReflection#more-sample-code)
+- [Conversion options](https://github.com/evermeer/EVReflection#conversion-options)
 - [Automatic keyword mapping for Swift keywords](https://github.com/evermeer/EVReflection#automatic-keyword-mapping-for-swift-keywords)
 - [Automatic keyword mapping PascalCase or camelCase to snake_case](https://github.com/evermeer/EVReflection#automatic-keyword-mapping-pascalcase-or-camelcase-to-snake_case)
 - [Custom keyword mapping](https://github.com/evermeer/EVReflection#custom-keyword-mapping)
 - [Custom property converters](https://github.com/evermeer/EVReflection#custom-property-converters)
-- [Skip the serialisaton or deserialisation of specific values](https://github.com/evermeer/EVReflection#skip-the-serialisaton-or-deserialisation-of-specific-values)
+- [Skip the serialization or deserialization of specific values](https://github.com/evermeer/EVReflection#skip-the-serialization-or-deserialization-of-specific-values)
 - [Property validators](https://github.com/evermeer/EVReflection#property-validators)
-- [Deserialisaton class level validations](https://github.com/evermeer/EVReflection#deserialisaton-class-level-validations)
+- [Deserialization class level validations](https://github.com/evermeer/EVReflection#deserialization-class-level-validations)
 - [What to do when you use object enheritance](https://github.com/evermeer/EVReflection#what-to-do-when-you-use-object-enheritance)
-- [Conversion options](https://github.com/evermeer/EVReflection#conversion-options)
 - [Known issues](https://github.com/evermeer/EVReflection#known-issues)
 - [License](https://github.com/evermeer/EVReflection#license)
 - [My other libraries](https://github.com/evermeer/EVReflection#my-other-libraries)
@@ -122,10 +122,10 @@ use_frameworks!
 pod "EVReflection"
 ```
 
-I have now moved on to Swift 2. If you want to use EVReflection, then get that version by using the podfile command:
+Now there is also a Swift 3 branch (also a 2.3 version). If you want to use EVReflection, then get that version by using the podfile command:
 ```
 use_frameworks!
-pod "EVReflection", '~> 2.6'
+pod "EVReflection", :branch => 'Swift3'
 ```
 
 Version 0.36 of cocoapods will make a dynamic framework of all the pods that you use. Because of that it's only supported in iOS 8.0 or later. When using a framework, you also have to add an import at the top of your swift file like this:
@@ -134,7 +134,7 @@ Version 0.36 of cocoapods will make a dynamic framework of all the pods that you
 import EVReflection
 ```
 
-If you want support for older versions than iOS 8.0, then you can also just copy the files from the pod folder to your project 
+If you want support for older versions than iOS 8.0, then you can also just copy the files from the pod folder to your project. You do have to use the Swift2.3 version or older. iOS 7 support is dropped from Swift 3.
 
 
 ## More Sample code 
@@ -164,27 +164,54 @@ func testPrintable() {
     theObject.objectValue = "value1"
     NSLog("theObject = \(theObject)")
 }
+
+func testArrayFunctions() {
+    let dictionaryArray: [NSDictionary] = yourGetDictionaryArrayFunction()
+    let userArray = [User](dictionaryArray: dictionaryArray)
+    let newDictionaryArray = userArray.toDictionaryArray()
+}
 ```
 
 ## Extra information:
+
+### Conversion options
+With almost any EVReflection function you can specify what kind of conversion options should be used. This is done using an option set. You can use the following conversion options:
+
+- None - Do not use any conversion function.
+- [PropertyConverter](https://github.com/evermeer/EVReflection#custom-property-converters) : If specified the function propertyConverters on the EVObject will be called
+- [PropertyMapping](https://github.com/evermeer/EVReflection#custom-keyword-mapping) : If specified the function propertyMapping on the EVObject will be called
+- [SkipPropertyValue](https://github.com/evermeer/EVReflection#skip-the-serialization-or-deserialization-of-specific-values) : If specified the function skipPropertyValue on the EVObject will be called
+- [KeyCleanup](https://github.com/evermeer/EVReflection#automatic-keyword-mapping-pascalcase-or-camelcase-to-snake_case) : If specified the automatic pascalCase and snake_case property key mapping will be called.
+
+In EVReflection all functions will use a default conversion option specific to it's function. The following 4 default conversion types are used: 
+- DefaultNSCoding = [None]
+- DefaultComparing = [PropertyConverter, PropertyMapping, SkipPropertyValue]
+- DefaultDeserialize = [PropertyConverter, PropertyMapping, SkipPropertyValue, KeyCleanup]
+- DefaultSerialize = [PropertyConverter, PropertyMapping, SkipPropertyValue]
+
+If you want to change one of the default conversion types, then you can do that using something like:
+```
+ConversionOptions.DefaultNSCoding = [.PropertyMapping]
+```
+
 
 ### Automatic keyword mapping for Swift keywords
 If you have JSON fields that are Swift keywords, then prefix the property with an underscore. So the JSON value for self will be stored in the property _self. At this moment the folowing keywords are handled:
 "self", "description", "class", "deinit", "enum", "extension", "func", "import", "init", "let", "protocol", "static", "struct", "subscript", "typealias", "var", "break", "case", "continue", "default", "do", "else", "fallthrough", "if", "in", "for", "return", "switch", "where", "while", "as", "dynamicType", "is", "new", "super", "Self", "Type", "__COLUMN__", "__FILE__", "__FUNCTION__", "__LINE__", "associativity", "didSet", "get", "infix", "inout", "left", "mutating", "none", "nonmutating", "operator", "override", "postfix", "precedence", "prefix", "right", "set", "unowned", "unowned", "safe", "unowned", "unsafe", "weak", "willSet", "private", "public"
 
 ### Automatic keyword mapping PascalCase or camelCase to snake_case
-When creating objects from JSON EVReflection will automatically detect if snake_case (keys are all lowercase and words are separated by an underscore) should be converted to PascalCase or camelCase property names. 
+When creating objects from JSON EVReflection will automatically detect if snake_case (keys are all lowercase and words are separated by an underscore) should be converted to PascalCase or camelCase property names. See [Conversion options](https://github.com/evermeer/EVReflection#conversion-options) for when this function will be called.
 
-When exporting object to a dictionary or JSON string you will have an option to specify that you want a conversion to snace_case or not. The default is yes.
+When exporting object to a dictionary or JSON string you will have an option to specify that you want a conversion to snace_case or not. The default is .DefaultDeserialize which will also convert to snake case.
 
 ```
-let jsonString = myObject.toJsonString(performKeyCleanup:false)
-let dict = myObject.toDictionary(performKeyCleanup:false)
+let jsonString = myObject.toJsonString([.DefaultSerialize])
+let dict = myObject.toDictionary([PropertyConverter, PropertyMapping, SkipPropertyValue])
 ```
 
 
 ### Custom keyword mapping
-It's also possible to create a custom property mapping. You can define if an import should be ignored, if an export should be ignored or you can map a property name to another key name (for the dictionary and json). For this you only need to implement the propertyMapping function in the object like this:
+It's also possible to create a custom property mapping. You can define if an import should be ignored, if an export should be ignored or you can map a property name to another key name (for the dictionary and json). For this you only need to implement the propertyMapping function in the object. See [Conversion options](https://github.com/evermeer/EVReflection#conversion-options) for when this function will be called.
 
 ```
 public class TestObject5: EVObject {
@@ -199,7 +226,7 @@ public class TestObject5: EVObject {
 ```
 
 ### Custom property converters
-You can also use your own property converters. For this you need to implement the propertyConverters function in your object. For each property you can create a custom getter and setter that will then be used by EVReflection. In the sample below the JSON texts 'Sure' and 'Nah' will be converted to true or false for the property isGreat.
+You can also use your own property converters. For this you need to implement the propertyConverters function in your object. For each property you can create a custom getter and setter that will then be used by EVReflection. In the sample below the JSON texts 'Sure' and 'Nah' will be converted to true or false for the property isGreat. See [Conversion options](https://github.com/evermeer/EVReflection#conversion-options) for when this function will be called.
 ```
 public class TestObject6: EVObject {
     var isGreat: Bool = false
@@ -217,8 +244,8 @@ public class TestObject6: EVObject {
 }
 ```
 
-### Skip the serialisaton or deserialisation of specific values
-When there is a need to not (de)serialize specific values like nil NSNull or empty strings you can implement the skipPropertyValue function and return true if the value needs to be skipped.
+### Skip the serialization or deserialization of specific values
+When there is a need to not (de)serialize specific values like nil NSNull or empty strings you can implement the skipPropertyValue function and return true if the value needs to be skipped. See [Conversion options](https://github.com/evermeer/EVReflection#conversion-options) for when this function will be called.
 
 ```
 class TestObjectSkipValues: EVObject {
@@ -271,8 +298,8 @@ public class GameUser: EVObject {
 }
 ```
 
-### Deserialisaton class level validations
-There is also support for class level validation when deserialising to an object. There are helper functions for making keys required or not allowed. You can also add custom messages. Here is some sample code about how you can implement such a validation
+### Deserialization class level validations
+There is also support for class level validation when deserializing to an object. There are helper functions for making keys required or not allowed. You can also add custom messages. Here is some sample code about how you can implement such a validation
 
 ```
 public class ValidateObject: EVObject {
@@ -304,10 +331,8 @@ func testValidation() {
 }
 ```
 
-
-
 ### What to do when you use object enheritance
-You can deserialize json to an object that uses enheritance. When the properties are specified as the base class, then the correct specific object type will be returned by the function getSecificType. See the sample code below or the unit test in EVReflectionEnheritanceTests.swift
+You can deserialize json to an object that uses enheritance. When the properties are specified as the base class, then the correct specific object type will be returned by the function `getSpecificType`. See the sample code below or the unit test in EVReflectionEnheritanceTests.swift
 
 ```
 class Quz: EVObject {
@@ -339,16 +364,6 @@ class Baz: Foo {
 }
 ```
 
-### Conversion options
-Almost any EVReflection functions have a property for ConversionOptions. In most cases the default value of this is set to .Default. In case of NSCoding and related functions (like save and load) the default is set to .None. The available options are:
-
-- PropertyConverter - if true then the propertyConverters function on the object will be called.
-- PropertyMapping - if true then the propertyMapping function on the object will be called.
-- SkipPropertyValue - if true then the skipPropertyValue function on the object will be called.
-- KeyCleanup - If true then the keys will be cleaned up (like pascal case and snake case conversion)
-
-You can use multiple options at the same type by specifying them in array notation. Like the .Default will be all options enabled like: [PropertyConverter, PropertyMapping, SkipPropertyValue, KeyCleanup]
-
 
 ### Known issues
 EVReflection is trying to handle all types. With some types there are limitations in Swift. So far there is a workaround for any of these limitations. Here is an overview:
@@ -357,6 +372,7 @@ EVReflection is trying to handle all types. With some types there are limitation
 - nullable type fields like Int? 
 - properties based on an enum
 - an Array of nullable objects like [MyObject?] 
+- a Set like Set<MyObject>
 - generic properties like var myVal:T = T()
 - structs like CGRect or CGPoint
 
@@ -364,6 +380,7 @@ For all these issues there are workarounds. The easiest workaround is just using
 
 - Instead of an Int? you could use NSNumber?
 - Instead of [MyObject?] use [MyObject]
+- Instead of Set<MyObject> use [MyObject]
 - Instead of 'var status: StatysType' use 'var status:Int' and save the rawValue
 - Instead of a generic property use a specific property that can hold the data (a dictionary?)
 - Instead of using a struct, create your own object model for that struct
@@ -373,8 +390,8 @@ If you want to keep on using the same type, You can override the setValue forUnd
 ####Generic properties
 For generic properties the protocol EVGenericsKVC is required. see WorkaroundSwiftGenericsTests.swift 
 
-####Arrays with nullable objects
-For arrays with nullable objects like [MyObj?] the protocol EVArrayConvertable is required. see WorkaroundsTests.swift
+####Arrays with nullable objects or Set's
+For arrays with nullable objects or Set's like [MyObj?] or Set<MyObj> the protocol EVArrayConvertable is required. see WorkaroundsTests.swift
 
 ####Swift Dictionaries
 For Swift Dictionaries (and not NSDictionary) the protocol EVDictionaryConvertable is required. See WorkaroundsTests.swift
@@ -384,7 +401,7 @@ For Swift Dictionaries (and not NSDictionary) the protocol EVDictionaryConvertab
 EVReflection is available under the MIT 3 license. See the LICENSE file for more info.
 
 ## My other libraries:
-Also see my other open source iOS libraries:
+Also see my other public source iOS libraries:
 
 - [EVReflection](https://github.com/evermeer/EVReflection) - Swift library with reflection functions with support for NSCoding, Printable, Hashable, Equatable and JSON 
 - [EVCloudKitDao](https://github.com/evermeer/EVCloudKitDao) - Simplified access to Apple's CloudKit

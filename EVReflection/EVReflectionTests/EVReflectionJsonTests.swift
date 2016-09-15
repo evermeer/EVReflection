@@ -68,9 +68,9 @@ class EVReflectionJsonTests: XCTestCase {
         let dic = user.toDictionary()
         XCTAssertTrue(dic["closeFriends"] != nil, "should have close_friends")
         if dic["close_friends"] != nil {
-            XCTAssertTrue(dic["close_friends"]!.count == 1, "should have 1 close_friends")
-            if dic["close_friends"]!.count == 1 {
-                XCTAssertTrue(dic["close_friends"]![0]["close_friends"] != nil, "close_friends should have close_friends")
+            XCTAssertTrue((dic["close_friends"]! as? NSArray)?.count == 1, "should have 1 close_friends")
+            if (dic["close_friends"]! as! NSArray).count == 1 {
+                XCTAssertTrue(((dic["close_friends"] as! NSArray)[0] as? NSDictionary)?["close_friends"] != nil, "close_friends should have close_friends")
             }
         }
     }
@@ -137,10 +137,10 @@ class EVReflectionJsonTests: XCTestCase {
                 ["id": 27, "name": "Bob Jefferson"],
                 ["id": 29, "name": "Jen Jackson"]
             ]
-        ]
+        ] as [String : Any]
         print("Initial dictionary:\n\(jsonDictOriginal)\n\n")
         
-        let userOriginal = User(dictionary: jsonDictOriginal)
+        let userOriginal = User(dictionary: jsonDictOriginal as NSDictionary)
         validateUser(userOriginal)
         
         let jsonString = userOriginal.toJsonString()

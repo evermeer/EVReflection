@@ -39,7 +39,7 @@ public class EVObject: NSObject, NSCoding { // These are redundant in Swift 2+: 
     - parameter dictionary: The dictionary that will be used to create this object
     - parameter conversionOptions: Option set for the various conversion options.
     */
-    public convenience init(dictionary: NSDictionary, conversionOptions: ConversionOptions = .DefaultDeserialize) {
+    public convenience required init(dictionary: NSDictionary, conversionOptions: ConversionOptions = .DefaultDeserialize) {
         self.init()
         let _ = EVReflection.setPropertiesfromDictionary(dictionary, anyObject: self, conversionOptions: conversionOptions)
     }
@@ -50,7 +50,7 @@ public class EVObject: NSObject, NSCoding { // These are redundant in Swift 2+: 
     - parameter json: The json string that will be used to create this object
     - parameter conversionOptions: Option set for the various conversion options.
     */
-    public convenience init(json: String?, conversionOptions: ConversionOptions = .DefaultDeserialize) {
+    public convenience required init(json: String?, conversionOptions: ConversionOptions = .DefaultDeserialize) {
         self.init()
         let jsonDict = EVReflection.dictionaryFromJson(json)
         let _ = EVReflection.setPropertiesfromDictionary(jsonDict, anyObject: self, conversionOptions: conversionOptions)
@@ -180,7 +180,7 @@ public class EVObject: NSObject, NSCoding { // These are redundant in Swift 2+: 
 
     - returns: Returns true if the object is the same otherwise false
     */
-    public override func isEqual(_ object: AnyObject?) -> Bool { // for isEqual:
+    public override func isEqual(_ object: Any?) -> Bool { // for isEqual:
         if let dataObject = object as? EVObject {
             return dataObject == self // just use our "==" function
         }
@@ -196,10 +196,9 @@ public class EVObject: NSObject, NSCoding { // These are redundant in Swift 2+: 
     - parameter value: The value that you wanted to set
     - parameter key: The name of the property that you wanted to set
     */
-    public override func setValue(_ value: AnyObject!, forUndefinedKey key: String) {
-        if let _ = self as? EVGenericsKVC {
-            self.addStatusMessage(.InvalidClass, message: "class should have implemented the setValue forUndefinedKey.")
-            print("\nWARNING: Your class should have implemented the setValue forUndefinedKey. \n")
+    public override func setValue(_ value: Any!, forUndefinedKey key: String) {
+        if let kvc = self as? EVGenericsKVC {
+            kvc.setGenericValue(value as AnyObject!, forUndefinedKey: key)
         } else {
             self.addStatusMessage(.IncorrectKey, message: "The class '\(EVReflection.swiftStringFromClass(self))' is not key value coding-compliant for the key '\(key)'")
             print("\nWARNING: The class '\(EVReflection.swiftStringFromClass(self))' is not key value coding-compliant for the key '\(key)'\n There is no support for optional type, array of optionals or enum properties.\nAs a workaround you can implement the function 'setValue forUndefinedKey' for this. See the unit tests for more information\n")
@@ -288,7 +287,7 @@ public class EVObject: NSObject, NSCoding { // These are redundant in Swift 2+: 
      
      - returns: An array of objects
      */
-    public class func arrayFromJson<T where T:NSObject>(_ json: String?, conversionOptions: ConversionOptions = .DefaultDeserialize) -> [T] {
+    public class func arrayFromJson<T>(_ json: String?, conversionOptions: ConversionOptions = .DefaultDeserialize) -> [T] where T:NSObject {
         return EVReflection.arrayFromJson(nil, type: T(), json: json, conversionOptions: conversionOptions)
     }
     
@@ -302,7 +301,7 @@ public class EVObject: NSObject, NSCoding { // These are redundant in Swift 2+: 
 
      - returns: The targe object with the mapped values
      */
-    public func mapObjectTo<T where T:NSObject>(_ conversionOptions: ConversionOptions = .DefaultDeserialize) -> T {
+    public func mapObjectTo<T>(_ conversionOptions: ConversionOptions = .DefaultDeserialize) -> T where T:NSObject {
         let nsobjectype: NSObject.Type = T.self as NSObject.Type
         let nsobject: NSObject = nsobjectype.init()
         let dict = self.toDictionary()
@@ -330,7 +329,7 @@ public class EVObject: NSObject, NSCoding { // These are redundant in Swift 2+: 
      
      - returns: The type of the property
      */
-    private func typeForKey(_ propertyName: String, mirror: Mirror) -> Any.Type? {
+    fileprivate func typeForKey(_ propertyName: String, mirror: Mirror) -> Any.Type? {
         for (label, value) in mirror.children {
             if propertyName == label {
                 return Mirror(reflecting: value).subjectType
@@ -384,15 +383,15 @@ public class EVObject: NSObject, NSCoding { // These are redundant in Swift 2+: 
         }
     }
     
-    /// This property will contain an array with deserialisation statussses with a description
-    public var evReflectionStatuses: [(DeserialisationStatus, String)] = []
+    /// This property will contain an array with deserialization statussses with a description
+    public var evReflectionStatuses: [(DeserializationStatus, String)] = []
     /**
      Return a merged status out of the status array
      
-     - returns: the deserialisation status for the object
+     - returns: the deserialization status for the object
      */
-    public func evReflectionStatus() -> DeserialisationStatus {
-        var status: DeserialisationStatus = .None
+    public func evReflectionStatus() -> DeserializationStatus {
+        var status: DeserializationStatus = .None
         for (s, _) in evReflectionStatuses {
             status = [status, s]
         }
@@ -404,7 +403,7 @@ public class EVObject: NSObject, NSCoding { // These are redundant in Swift 2+: 
      - parameter type:    A string to specify the message type
      - parameter message: The message for the status.
      */
-    public func addStatusMessage(_ type: DeserialisationStatus, message: String) {
+    public func addStatusMessage(_ type: DeserializationStatus, message: String) {
         evReflectionStatuses.append(type, message)
     }
     

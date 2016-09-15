@@ -39,11 +39,11 @@ class TestIssue88: XCTestCase {
                 ],
             ]
         ]
-        let obj = Note(dictionary: dictionary)
+        let obj = Note(dictionary: dictionary as NSDictionary)
         let str = EVReflection.description(obj)
         print(str)
 
-        let obj2 = Note2(dictionary: dictionary)
+        let obj2 = Note2(dictionary: dictionary as NSDictionary)
         let str2 = EVReflection.description(obj2)
         print(str2)
     }
@@ -67,7 +67,7 @@ class Tied: EVObject {
     var _type: StartStopContinueEnum = .none
     var _orientation: OrientationEnum?
     
-    override func setValue(_ value: AnyObject!, forUndefinedKey key: String) {
+    override func setValue(_ value: Any!, forUndefinedKey key: String) {
         switch key {
         case "_type":
             if let rawValue = value as? String {

@@ -41,14 +41,14 @@ class EnumWorkaroundsTests: XCTestCase {
         var testArray: [myClass?] = [myClass]()
         testArray.append(myClass())
         testArray.append(nil)
-        let newArray: [myClass] = parseArray(testArray) as? [myClass] ?? [myClass]()
+        let newArray: [myClass] = (testArray.filter { $0 != nil }) as! [myClass]
         XCTAssertTrue(newArray.count == 1, "We should have 1 object in the array")
     }
     
     func testArrayNotNullable() {
         var testArray: [myClass] = [myClass]()
         testArray.append(myClass())
-        let newArray: [myClass] = parseArray(testArray) as? [myClass] ?? [myClass]()
+        let newArray: [myClass] = (testArray.filter { $0 != nil }) as! [myClass]
         XCTAssertTrue(newArray.count == 1, "We should have 1 object in the array")
     }
     
@@ -56,20 +56,6 @@ class EnumWorkaroundsTests: XCTestCase {
         NSLog("\n\n==>You will get a warning because MyEnumOne.OK does not have an associated value")
         let a = MyEnumOne.OK.associated
         XCTAssertNil(a.value, "Associated value should be nil")
-    }
-    
-    func parseArray(_ array: Any) -> AnyObject {
-        if let arrayObject: AnyObject = array as? AnyObject {
-            return arrayObject
-        }
-        print("array was not an AnyObject")
-        var temp = [AnyObject]()
-        for item in (array as? [myClass?] ?? [myClass?]()) {
-            if item != nil {
-                temp.append(item!)
-            }
-        }
-        return temp
     }
     
     enum MyEnumOne: String, EVRawString, EVAssociated {      // Add , EVRawString to make the test pass

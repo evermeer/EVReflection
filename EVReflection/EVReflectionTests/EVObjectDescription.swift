@@ -52,7 +52,7 @@ public class EVObjectDescription {
     */
     public init(forObject: NSObject) {
         bundleName = EVReflection.getCleanAppName()
-        swiftClassID = NSStringFromClass(forObject.dynamicType)
+        swiftClassID = NSStringFromClass(type(of: forObject))
         
         if swiftClassID.hasPrefix("_T") {
             parseTypes((swiftClassID as NSString).substring(from: 2))
@@ -60,7 +60,7 @@ public class EVObjectDescription {
             className = classPath.last!
         } else {
             // Root objects will already have a . notation
-            classPath = swiftClassID.characters.split(isSeparator: {$0 == "."}).map({String($0)})
+            classPath = swiftClassID.characters.split(whereSeparator: {$0 == "."}).map({String($0)})
             if classPath.count > 1 {
                 bundleName = classPath[0]
                 className = classPath.last!
@@ -75,7 +75,7 @@ public class EVObjectDescription {
     
     - parameter classString: the string representation of a class
     */
-    private func parseTypes(_ classString: String) {
+    fileprivate func parseTypes(_ classString: String) {
         let characters = Array(classString.characters)
         let type: String = String(characters[0])
         if Int(type) == nil {
@@ -97,7 +97,7 @@ public class EVObjectDescription {
     :parameter: classString the string representation of the class
     
     */
-    private func parseNames(_ classString: String) {
+    fileprivate func parseNames(_ classString: String) {
         let characters = Array(classString.characters)
         var numForName = ""
         var index = 0
