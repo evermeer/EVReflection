@@ -21,7 +21,7 @@
 [![Website](https://img.shields.io/badge/website-evict.nl-blue.svg?style=flat)](http://evict.nl)
 [![eMail](https://img.shields.io/badge/email-edwin@evict.nl-blue.svg?style=flat)](mailto:edwin@evict.nl?SUBJECT=About EVReflection)
 
-
+At this moment the master branch is for Swift 2.2 The Swift3 branch will soon be merged to master. If you want to continue using EVReflection in Swift 2.2 (or 2.3) then switch to the Swift2.2 branch.
 Run the unit tests to see EVReflection in action.
 
 EVReflection is used extensively in [EVCloudKitDao](https://github.com/evermeer/EVCloudKitDao), [AlamofireJsonToObjects](https://github.com/evermeer/AlamofireJsonToObjects) and [AlamofireXmlToObjects](https://github.com/evermeer/AlamofireXmlToObjects)
