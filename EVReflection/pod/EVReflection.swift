@@ -573,7 +573,7 @@ final public class EVReflection {
         if mi.displayStyle == .class {
             valueType = "\(mi.subjectType)"
             if valueType == "_SwiftValue" {
-                theValue = "\(theValue)"
+                theValue = "\(theValue)".components(separatedBy: ".").last ?? ""
             }
         } else if mi.displayStyle == .enum {
             valueType = "\(type(of: (theValue) as AnyObject))"
