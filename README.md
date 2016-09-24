@@ -52,7 +52,7 @@ In most cases EVReflection is verry easy to use. Just take a look at the [YouTub
 - [My other libraries](https://github.com/evermeer/EVReflection#my-other-libraries)
 
 ## Main features of EVReflection:
-- Parsing objects based on NSObject to and from a dictionary.
+- Parsing objects based on NSObject to and from a dictionary. (also see the XML and .plist samples!)
 - Parsing objects to and from a JSON string.
 - Support NSCoding function encodeWithCoder and decodeObjectWithCoder
 - Supporting Printable, Hashable and Equatable while using all properties. (Support for Set in Swift 1.2)
@@ -174,6 +174,25 @@ func testArrayFunctions() {
     let userArray = [User](dictionaryArray: dictionaryArray)
     let newDictionaryArray = userArray.toDictionaryArray()
 }
+```
+
+This is how you can parse a .plist into an object model. See EVReflectionIssue124.swift to see it working.
+```
+   if let path = Bundle(for: type(of: self)).path(forResource: "EVReflectionIssue124", ofType: "plist") {
+       if let data = NSDictionary(contentsOfFile: path) {
+          let plistObject = Wrapper(dictionary: data)
+          print(plistObject)
+       }
+   }
+```
+
+If you want to parse XML, then you can use the pod [XMLDictionary](https://github.com/nicklockwood/XMLDictionary) to first parse it to a dictionary.
+```
+   let xml: String = "<data><item name=\"attrib\">itemData</item></data>"
+   if let data = NSDictionary(XMLString: xml) {
+      let xmlObject = MyObject(dictionary: data)
+      print(xmlObject)
+   }
 ```
 
 ## Extra information:

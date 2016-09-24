@@ -27,11 +27,10 @@ class TestIssue124: XCTestCase {
     func testIssue124() {
         if let path = Bundle(for: type(of: self)).path(forResource: "EVReflectionIssue124", ofType: "plist") {
             if let data = NSDictionary(contentsOfFile: path) {
-                let x = Wrapper(dictionary: data)
-                print(x)
+                let plistObject = Wrapper(dictionary: data)
+                print(plistObject)
             }
-        }
-        
+        }        
     }
 }
 
@@ -45,9 +44,9 @@ class MoreSection: EVObject {
 }
 
 class MoreObject: EVObject {
-    var name: String?
-    var imgName: String?
-    var sort_order: String?
-    var segueName: String?
-    var isEnabled: NSNumber?
+    var name: String!
+    var imgName: String!
+    var sort_order: String!
+    var segueName: String!
+    var isEnabled: NSNumber!
 }

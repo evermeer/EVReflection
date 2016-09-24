@@ -570,13 +570,23 @@ final public class EVReflection {
                 return (NSNull(), subtype, false)
             }
         }
+        if mi.displayStyle == .enum {
+            valueType = "\(type(of: theValue))"
+            if valueType.hasPrefix("ImplicitlyUnwrappedOptional<") && "\(theValue)" == "nil" {
+                var subtype: String = "\(mi)"
+                subtype = subtype.substring(from: (subtype.components(separatedBy: "<") [0] + "<").endIndex)
+                subtype = subtype.substring(to: subtype.characters.index(before: subtype.endIndex))
+                return (NSNull(), subtype, false)
+            }
+        }
+        
         if mi.displayStyle == .class {
             valueType = "\(mi.subjectType)"
             if valueType == "_SwiftValue" {
                 theValue = "\(theValue)".components(separatedBy: ".").last ?? ""
             }
         } else if mi.displayStyle == .enum {
-            valueType = "\(type(of: (theValue) as AnyObject))"
+            valueType = "\(type(of: theValue))"
             if let value = theValue as? EVRawString {
                 return (value.rawValue as AnyObject, "\(mi.subjectType)", false)
             } else if let value = theValue as? EVRawInt {
