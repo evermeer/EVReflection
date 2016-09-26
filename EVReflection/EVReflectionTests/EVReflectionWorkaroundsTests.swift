@@ -69,10 +69,6 @@ class EVReflectionWorkaroundsTests: XCTestCase {
     
     func testStruct() {
         let event = WorkaroundObject()
-        event.enumList.append(.ok)
-        event.enumList.append(.ok)
-        event.enumList.append(.notOK)
-        event.enumList.append(.ok)
         event.structType = CGPoint(x: 2, y: 3)
         
         let json = event.toJsonString()

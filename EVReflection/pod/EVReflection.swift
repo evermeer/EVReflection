@@ -1014,15 +1014,17 @@ final public class EVReflection {
                 let (dict, isValid) = dictToObject(type, original:original, dict:  ["__text": dictValue as? String ?? ""], conversionOptions: conversionOptions)
                 dictValue = dict ?? dictValue
                 valid = isValid
-            } else if let array = dictValue as? NSArray {
-                if let org = anyObject as? EVObject {
-                    org.addStatusMessage(DeserializationStatus.InvalidType, message: "Did not expect an array for \(key). Will use the first item instead.")
-                    print("WARNING: Did not expect an array for \(key). Will use the first item instead.")
+            } else if !type.hasPrefix("Array<") {
+                if let array = dictValue as? NSArray {
+                    if let org = anyObject as? EVObject {
+                        org.addStatusMessage(DeserializationStatus.InvalidType, message: "Did not expect an array for \(key). Will use the first item instead.")
+                        print("WARNING: Did not expect an array for \(key). Will use the first item instead.")
+                    }
+                    if array.count > 0 {
+                        return (array[0] as AnyObject?, true)
+                    }
+                    return (NSNull(), true)
                 }
-                if array.count > 0 {
-                    return (array[0] as AnyObject?, true)
-                }
-                return (NSNull(), true)
             }
         }
         return (dictValue, valid)
