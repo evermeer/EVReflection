@@ -117,7 +117,7 @@ let user = User(dictionary: NSDictionary(XMLString: xml))
 'EVReflection' is available through the dependency manager [CocoaPods](http://cocoapods.org). 
 You do have to use cocoapods version 0.36 or later
 
-You can just add EVReflection to your workspace by adding the folowing 2 lines to your Podfile:
+You can just add EVReflection to your workspace by adding the following 2 lines to your Podfile:
 
 ```
 use_frameworks!
@@ -198,7 +198,8 @@ ConversionOptions.DefaultNSCoding = [.PropertyMapping]
 
 
 ### Automatic keyword mapping for Swift keywords
-If you have JSON fields that are Swift keywords, then prefix the property with an underscore. So the JSON value for self will be stored in the property _self. At this moment the folowing keywords are handled:
+If you have JSON fields that are Swift keywords, then prefix the property with an underscore. So the JSON value for self will be stored in the property `\_self`. At this moment the following keywords are handled:
+
 "self", "description", "class", "deinit", "enum", "extension", "func", "import", "init", "let", "protocol", "static", "struct", "subscript", "typealias", "var", "break", "case", "continue", "default", "do", "else", "fallthrough", "if", "in", "for", "return", "switch", "where", "while", "as", "dynamicType", "is", "new", "super", "Self", "Type", "__COLUMN__", "__FILE__", "__FUNCTION__", "__LINE__", "associativity", "didSet", "get", "infix", "inout", "left", "mutating", "none", "nonmutating", "operator", "override", "postfix", "precedence", "prefix", "right", "set", "unowned", "unowned", "safe", "unowned", "unsafe", "weak", "willSet", "private", "public"
 
 ### Automatic keyword mapping PascalCase or camelCase to snake_case
