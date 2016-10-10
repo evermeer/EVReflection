@@ -109,6 +109,10 @@ class EVSubConfigurationModel: EVObject {
 
 class EVDataListContainerModel: EVObject {
     var DataList: [EVListDistrictContainerModel] = []
+
+    var status: Bool = false
+    var messageCode: Int = 0
+    var total: Int = 0
 }
 
 class EVListDistrictContainerModel: EVObject {

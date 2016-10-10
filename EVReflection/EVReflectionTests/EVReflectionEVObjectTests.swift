@@ -163,7 +163,7 @@ class EVReflectionEVObjectTests: XCTestCase {
         inner2.id = "inner2"
         rootObject.array = [inner1, inner2]
 
-        let _ = rootObject.saveToTemp("rootObject.dat")
+        rootObject.saveToTemp("rootObject.dat")
         let result = TestRootObject(fileNameInTemp: "rootObject.dat")
 
         XCTAssert(result.array?.count == 2, "Array size should be 2")

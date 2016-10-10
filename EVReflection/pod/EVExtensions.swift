@@ -64,7 +64,7 @@ public extension Array where Element: NSObject {
         for item in dictionaryArray {
             let arrayTypeInstance = getArrayTypeInstance(self)
             if arrayTypeInstance is EVObject {
-                let _ = EVReflection.setPropertiesfromDictionary(item, anyObject: arrayTypeInstance as! EVObject)
+                EVReflection.setPropertiesfromDictionary(item, anyObject: arrayTypeInstance as! EVObject)
                 self.append(arrayTypeInstance)
             }
         }

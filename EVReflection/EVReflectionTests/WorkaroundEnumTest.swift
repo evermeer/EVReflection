@@ -104,7 +104,6 @@ class EVReflectionTests2: XCTestCase {
         print("\(test)")
         var comments = EVReflection.arrayFromJson(type: Comment(), json: test)
         var comments2 = [Comment](json: test)
-
         print(comments[0].testuserinfo?.uid)
         print(comments2[0].testuserinfo?.uid)
     }

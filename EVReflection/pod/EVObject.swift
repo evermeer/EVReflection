@@ -41,7 +41,7 @@ open class EVObject: NSObject, NSCoding { // These are redundant in Swift 2+: Cu
     */
     public convenience required init(dictionary: NSDictionary, conversionOptions: ConversionOptions = .DefaultDeserialize) {
         self.init()
-        let _ = EVReflection.setPropertiesfromDictionary(dictionary, anyObject: self, conversionOptions: conversionOptions)
+        EVReflection.setPropertiesfromDictionary(dictionary, anyObject: self, conversionOptions: conversionOptions)
     }
     
     /**
@@ -53,7 +53,7 @@ open class EVObject: NSObject, NSCoding { // These are redundant in Swift 2+: Cu
     public convenience required init(json: String?, conversionOptions: ConversionOptions = .DefaultDeserialize) {
         self.init()
         let jsonDict = EVReflection.dictionaryFromJson(json)
-        let _ = EVReflection.setPropertiesfromDictionary(jsonDict, anyObject: self, conversionOptions: conversionOptions)
+        EVReflection.setPropertiesfromDictionary(jsonDict, anyObject: self, conversionOptions: conversionOptions)
     }
     
     /**
@@ -75,7 +75,7 @@ open class EVObject: NSObject, NSCoding { // These are redundant in Swift 2+: Cu
         self.init()
         let filePath = (NSTemporaryDirectory() as NSString).appendingPathComponent(fileNameInTemp)
         if let temp = NSKeyedUnarchiver.unarchiveObject(withFile: filePath) as? EVObject {
-            let _ = EVReflection.setPropertiesfromDictionary( temp.toDictionary(conversionOptions), anyObject: self, conversionOptions: conversionOptions)
+            EVReflection.setPropertiesfromDictionary( temp.toDictionary(conversionOptions), anyObject: self, conversionOptions: conversionOptions)
         }
     }
     
@@ -89,7 +89,7 @@ open class EVObject: NSObject, NSCoding { // These are redundant in Swift 2+: Cu
         self.init()
         let filePath = (NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as NSString).appendingPathComponent(fileNameInDocuments)
         if let temp = NSKeyedUnarchiver.unarchiveObject(withFile: filePath) as? EVObject {
-            let _ = EVReflection.setPropertiesfromDictionary( temp.toDictionary(conversionOptions), anyObject: self, conversionOptions: conversionOptions)
+            EVReflection.setPropertiesfromDictionary( temp.toDictionary(conversionOptions), anyObject: self, conversionOptions: conversionOptions)
         }
     }
     
@@ -145,6 +145,7 @@ open class EVObject: NSObject, NSCoding { // These are redundant in Swift 2+: Cu
     
     - returns: Nothing
     */
+    @discardableResult
     open func saveToTemp(_ fileName: String) -> Bool {
         let filePath = (NSTemporaryDirectory() as NSString).appendingPathComponent(fileName)
         return NSKeyedArchiver.archiveRootObject(self, toFile: filePath)
@@ -162,6 +163,7 @@ open class EVObject: NSObject, NSCoding { // These are redundant in Swift 2+: Cu
      
         - returns: true if successfull
         */
+        @discardableResult
         open func saveToDocuments(_ fileName: String) -> Bool {
             let filePath = (NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as NSString).appendingPathComponent(fileName)
             return NSKeyedArchiver.archiveRootObject(self, toFile: filePath)
