@@ -189,10 +189,14 @@ class EVReflectionTests: XCTestCase {
         let theObject = TestObject4()
         theObject.myString = "string"
         theObject.myInt = 4
+        theObject.array[0].objectValue = "x1"
+        theObject.array[1].objectValue = "x2"
         let dict = theObject.toDictionary()
         NSLog("toDict = \(dict)")
         let newObject = TestObject4(dictionary: dict)
-        
+
+        XCTAssert(theObject == newObject, "Should be the same")
+
         theObject.array.append(TestObject2())
         XCTAssert(theObject != newObject, "Should not be the same")
         newObject.array.append(TestObject2())
@@ -365,7 +369,10 @@ class EVReflectionTests: XCTestCase {
         print(String(describing: abnormal))
         let aaAbnormal: AA = AA(dictionary: abnormal)
         print(String(describing: aaAbnormal.toDictionary()))
-        XCTAssertEqual(aaAbnormal.bs[0].val, 1)
+        XCTAssert(aaAbnormal.bs.count > 0)
+        if aaAbnormal.bs.count > 0 {
+            XCTAssertEqual(aaAbnormal.bs[0].val, 1)
+        }
         
         let arrayDic = NSDictionary(dictionary: ["strings": ["a", "b"]])
         let arrObj: ArrayObjects = ArrayObjects(dictionary: arrayDic)

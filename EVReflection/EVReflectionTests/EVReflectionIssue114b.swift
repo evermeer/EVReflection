@@ -43,6 +43,7 @@ class TestIssue114b: XCTestCase {
         print("Initial dictionary:\n\(jsonDictOriginal)\n\n")
         
         let userOriginal = User114(dictionary: jsonDictOriginal)
+        print("object description: \n\(userOriginal)\n\n")
         
         let jsonString = userOriginal.toJsonString()
         print("JSON string from dictionary: \n\(jsonString)\n\n")

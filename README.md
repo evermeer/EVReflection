@@ -114,6 +114,10 @@ let xml = "<user><id>27</id><name>Bob</name><friends><user><id>20</id><name>Jen<
 let user = User(dictionary: NSDictionary(XMLString: xml))
 ```
 
+## Using EVReflection with Alamofire
+Usually your JSON or XML will come frome a remote network location. The library [Alamofire](https://github.com/Alamofire/Alamofire) is often used for this. I have created 2 helper libraries that will make it verry easy working with EVReflection and Alamofire. Have a look at 
+[AlamofireJsonToObjects](https://github.com/evermeer/AlamofireJsonToObjects) and [AlamofireXmlToObjects](https://github.com/evermeer/AlamofireXmlToObjects). For an extensive sample how to use this, you could take a look at this WordPress (Jetpack) API using AlamofireOauth2 and AlamofireJsonToObjects [EVWordPressAPI](https://github.com/evermeer/EVWordPressAPI)
+
 ## Using EVReflection in your own App 
 
 'EVReflection' is available through the dependency manager [CocoaPods](http://cocoapods.org). 
@@ -140,6 +144,11 @@ import EVReflection
 
 If you want support for older versions than iOS 8.0, then you can also just copy the files from the pod folder to your project. You do have to use the Swift2.3 version or older. iOS 7 support is dropped from Swift 3.
 
+Be aware that when you have your object definitions in a framework and not in your main app, then you have to let EVReflection know that it should also look in that framework for your classes. This can easilly be done by using the following one liner (for instance in the appdelegate)
+```
+EVReflection.setBundleIdentifier(YourDataObject.self)
+```
+ 
 
 ## More Sample code 
 Clone EVReflection to your desktop to see these and more unit tests

@@ -145,7 +145,7 @@ final public class EVReflection {
         var theParents = parents
         theParents.append(theObject)
         
-        let key: String = "\(type(of: theObject)).\(conversionOptions.rawValue)"
+        let key: String = "\(swiftStringFromClass(theObject)).\(conversionOptions.rawValue)"
         if isCachable {
             if let p = properiesCache[key] as? NSDictionary, let t = typesCache[key] as? NSDictionary {
                 return (p, t)
@@ -526,7 +526,7 @@ final public class EVReflection {
      
      - returns: The string representation of the class (name of the bundle dot name of the class)
      */
-    public class func swiftStringFromClass(_ theObject: NSObject) -> String! {
+    public class func swiftStringFromClass(_ theObject: NSObject) -> String {
         return NSStringFromClass(type(of: theObject)).replacingOccurrences(of: getCleanAppName(theObject) + ".", with: "", options: NSString.CompareOptions.caseInsensitive, range: nil)
     }
     
@@ -549,20 +549,16 @@ final public class EVReflection {
             if mi.children.count == 1 {
                 theValue = mi.children.first!.value
                 mi = Mirror(reflecting: theValue)
-                if "\(type(of: (theValue) as AnyObject))".hasPrefix("_TtC") {
-                  valueType = "\(theValue)".components(separatedBy: " ")[0]
-                } else {
-                    valueType = "\(type(of: (theValue) as AnyObject))"
-                }
+                valueType = "\(type(of: (theValue)))"
             } else if mi.children.count == 0 {
-                var subtype: String = "\(type(of: theValue))" //"\(mi)"
+                var subtype: String = "\(type(of: (theValue)))" //"\(mi)"
                 subtype = subtype.substring(from: (subtype.components(separatedBy: "<") [0] + "<").endIndex)
                 subtype = subtype.substring(to: subtype.characters.index(before: subtype.endIndex))
                 return (NSNull(), subtype, false)
             }
         }
         if mi.displayStyle == .enum {
-            valueType = "\(type(of: theValue))"
+            valueType = "\(type(of: (theValue)))"
             if valueType.hasPrefix("ImplicitlyUnwrappedOptional<") && "\(theValue)" == "nil" {
                 var subtype: String = "\(mi)"
                 subtype = subtype.substring(from: (subtype.components(separatedBy: "<") [0] + "<").endIndex)
@@ -577,7 +573,7 @@ final public class EVReflection {
                 theValue = "\(theValue)".components(separatedBy: ".").last ?? ""
             }
         } else if mi.displayStyle == .enum {
-            valueType = "\(type(of: theValue))"
+            valueType = NSStringFromClass(type(of: (theValue as AnyObject)))
             if let value = theValue as? EVRawString {
                 return (value.rawValue as AnyObject, "\(mi.subjectType)", false)
             } else if let value = theValue as? EVRawInt {
@@ -781,8 +777,8 @@ final public class EVReflection {
                 try anyObject.validateValue(&setValue, forKey: key)
                 anyObject.setValue(setValue, forKey: key)
             } catch _ {
-                (anyObject as? EVObject)?.addStatusMessage(.InvalidValue, message: "Not a valid value for object `\(type(of: anyObject))`, type `\(type)`, key  `\(key)`, value `\(value)`")
-                print("INFO: Not a valid value for object `\(type(of: anyObject))`, type `\(type)`, key  `\(key)`, value `\(value)`")
+                (anyObject as? EVObject)?.addStatusMessage(.InvalidValue, message: "Not a valid value for object `\(NSStringFromClass(type(of: (anyObject as AnyObject))))`, type `\(type)`, key  `\(key)`, value `\(value)`")
+                print("INFO: Not a valid value for object `\(NSStringFromClass(type(of: (anyObject as AnyObject))))`, type `\(type)`, key  `\(key)`, value `\(value)`")
             }
             
             /*  TODO: Do I dare? ... For nullable types like Int? we could use this instead of the workaround.
@@ -1084,7 +1080,9 @@ final public class EVReflection {
             }
         }
         
-        var result = [NSObject]()
+        var result: [NSObject] = Mirror(reflecting: anyObject).children.filter { $0.label == key }.first?.value as? [NSObject] ?? [NSObject]()
+        result.removeAll()
+        
         for item in array {
             var org = swiftClassFromString(subtype)
             if let evResult = org as? EVObject {

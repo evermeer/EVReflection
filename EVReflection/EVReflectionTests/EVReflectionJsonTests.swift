@@ -99,7 +99,7 @@ class EVReflectionJsonTests: XCTestCase {
         let json: String = "{\"id\": 24, \"close_friends\": {}}"
         let user = User(json: json)
         XCTAssertTrue(user.id == 24, "id should have been set to 24")
-        XCTAssertTrue(user.closeFriends?.count == 1, "friends should have 1 user")
+        XCTAssertTrue(user.closeFriends?.count == 1, "friends should have 1 (empty) user")
         
         let a = EVReflection.dictionaryFromJson(nil)
         XCTAssertEqual(a.count, 0, "Can't create a dictionairy from nil")
