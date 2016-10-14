@@ -92,7 +92,6 @@ public extension EVAssociated {
     }
 }
 
-
 /**
  Dictionary extension for creating a dictionary from an array of enum values
  */

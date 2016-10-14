@@ -98,6 +98,16 @@ public extension Array where Element: NSObject {
     }
     
     /**
+     Get the string representation of the type of the object where this array is for
+     
+     - returns: The object type
+     */
+    public func getTypeAsString() -> String {
+        let item = self.getTypeInstance()
+        return NSStringFromClass(type(of:item))
+    }
+    
+    /**
     Convert this array to a json string
     
     - parameter conversionOptions: Option set for the various conversion options.

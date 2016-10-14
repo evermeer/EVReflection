@@ -47,6 +47,10 @@ class TestIssue114b: XCTestCase {
         
         let jsonString = userOriginal.toJsonString()
         print("JSON string from dictionary: \n\(jsonString)\n\n")
+        
+        // There is a problem with nested class definitions an arrays.
+        // The root couse of the problem is tested in the testIssueNestedObjects below
+        XCTAssert(userOriginal.friends.count == 2)
     }
     
     
@@ -63,7 +67,27 @@ class TestIssue114b: XCTestCase {
         var address: String?
     }
     
+    func testIssueNestedObjects() {
+        let x = User114()
+        print("type 1 = \(NSStringFromClass(type(of: x.company)))") // output = type 2 = _TtCC22EVReflection_iOS_Tests13TestIssue114b10Company114
+        print("type 2 = \(testIssueNestedObjects(x.friends))")
+        
+    }
     
+    func testIssueNestedObjects(_ theValue: Any) -> String {
+        var valueType = ""
+        let mi = Mirror(reflecting: theValue)
+        valueType = (theValue as! [NSObject]).getTypeAsString() // NSObject
+        valueType = NSStringFromClass(type(of: (theValue as! [NSObject]).getTypeInstance() as NSObject))  //  NSObject
+        valueType = "\(type(of: theValue))"   // Array<User114>
+        valueType = "\(mi.subjectType)"      // Array<User114>
+        valueType = ObjectIdentifier(mi.subjectType).debugDescription //"ObjectIdentifier(0x0000000118b4a0d8)"
+        valueType = (theValue as AnyObject).debugDescription      // <Swift._EmptyArrayStorage 0x10d860b50>
+        valueType = NSStringFromClass(type(of: theValue as AnyObject)) // Swift._EmptyArrayStorage
+        // set breakpont en enter this in output window: (lldb) po type(of: theValue)
+        // Ouput will be: Swift.Array<EVReflection_iOS_Tests.TestIssue114b.User114>
+        return valueType
+    }
 }
 
 

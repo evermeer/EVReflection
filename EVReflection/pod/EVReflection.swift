@@ -588,7 +588,7 @@ final public class EVReflection {
                 theValue = "\(theValue)"
             }
         } else if mi.displayStyle == .collection {
-            valueType = "\(type(of: theValue))" //"\(mi.subjectType)"
+            valueType = "\(type(of: theValue))"   // Array<User114>
             if valueType.hasPrefix("Array<Optional<") || valueType.hasPrefix("Swift.Array<Optional<") {
                 if let arrayConverter = parentObject as? EVArrayConvertable {
                     let convertedValue = arrayConverter.convertArray(key!, array: theValue)
@@ -1084,6 +1084,7 @@ final public class EVReflection {
         result.removeAll()
         
         for item in array {
+            //var org = result.getTypeInstance() does not work !?
             var org = swiftClassFromString(subtype)
             if let evResult = org as? EVObject {
                 org = evResult.getSpecificType(item as? NSDictionary ?? NSDictionary())
@@ -1091,7 +1092,7 @@ final public class EVReflection {
             if let evResult = anyObject as? EVGenericsKVC {
                 org = evResult.getGenericType()
             }
-            
+
             let (arrayObject, valid) = dictToObject(subtype, original:org, dict: item as? NSDictionary ?? NSDictionary(), conversionOptions: conversionOptions)
             if arrayObject != nil && valid {
                 result.append(arrayObject!)
