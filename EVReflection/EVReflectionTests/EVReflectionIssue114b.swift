@@ -50,6 +50,8 @@ class TestIssue114b: XCTestCase {
         
         // There is a problem with nested class definitions an arrays.
         // The root couse of the problem is tested in the testIssueNestedObjects below
+        // There is an open stackoverflow question for this. 
+        // See http://stackoverflow.com/questions/40009345/how-to-get-the-string-representation-of-a-nested-class
         XCTAssert(userOriginal.friends.count == 2)
     }
     
@@ -77,6 +79,8 @@ class TestIssue114b: XCTestCase {
     func testIssueNestedObjects(_ theValue: Any) -> String {
         var valueType = ""
         let mi = Mirror(reflecting: theValue)
+        valueType = String(reflecting: type(of:theValue))
+        valueType = String(describing: type(of:theValue)) // Array<User114>
         valueType = (theValue as! [NSObject]).getTypeAsString() // NSObject
         valueType = NSStringFromClass(type(of: (theValue as! [NSObject]).getTypeInstance() as NSObject))  //  NSObject
         valueType = "\(type(of: theValue))"   // Array<User114>
@@ -91,5 +95,6 @@ class TestIssue114b: XCTestCase {
 }
 
 
-
+//EVReflection_iOS_Tests.TestIssue114b.User114
+//_TtCC22EVReflection_iOS_Tests13TestIssue114b7User114
 

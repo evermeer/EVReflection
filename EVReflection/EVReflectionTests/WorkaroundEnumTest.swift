@@ -18,6 +18,23 @@ Testing The enum workaround. Ignore this. Nothing is used in the actual library
 */
 class EnumWorkaroundsTests: XCTestCase {
     
+    /**
+     For now nothing to setUp
+     */
+    override func setUp() {
+        super.setUp()
+        // Put setup code here. This method is called before the invocation of each test method in the class.
+        EVReflection.setBundleIdentifier(myClass.self)
+    }
+    
+    /**
+     For now nothing to tearDown
+     */
+    override func tearDown() {
+        // Put teardown code here. This method is called after the invocation of each test method in the class.
+        super.tearDown()
+    }
+    
     func testEnumToRaw() {
         let test1 = getRawValue(MyEnumOne.OK)
         XCTAssertTrue(test1 as? String == "OK-2", "Could nog get the rawvalue using a generic function. As a workaround just add the EVRawString protocol")
@@ -98,6 +115,24 @@ class EnumWorkaroundsTests: XCTestCase {
 
 
 class EVReflectionTests2: XCTestCase {
+    
+    /**
+     For now nothing to setUp
+     */
+    override func setUp() {
+        super.setUp()
+        // Put setup code here. This method is called before the invocation of each test method in the class.
+        EVReflection.setBundleIdentifier(Comment.self)
+    }
+    
+    /**
+     For now nothing to tearDown
+     */
+    override func tearDown() {
+        // Put teardown code here. This method is called after the invocation of each test method in the class.
+        super.tearDown()
+    }
+    
     func testTemp() {
         
         let test = "[\n {\n \"status\" : \"0\",\n \"content\" : \"Shuru\",\n \"ctime\" : \"1438250556\",\n \"img\" : \"\",\n \"testuserinfo\" : {\n \"avatar\" : \"/5602503cc79de.jpg\",\n \"uid\" : \"d8b81b21c72f1177300247e2d8d88ec5\",\n \"telnum\" : \"18565280137\",\n \"is_seller\" : \"0\",\n \"sex\" : \"男\",\n \"name\" : \"\",\n \"interest\" : \"\"\n },\n \"fabric\" : null,\n \"commentid\" : \"22\",\n \"sound\" : \"\",\n \"vote\" : \"0\",\n \"isvote\" : 0,\n \"seller_card\" : null\n }\n]"
