@@ -37,6 +37,7 @@ class TestIssueAF30: XCTestCase {
             "  ]" +
             "}"
     
+        print("--> You will now get 2 warnings about an array that is not an element.")
         let object = TestUser(json: json)
         print("\(object)")
     }
