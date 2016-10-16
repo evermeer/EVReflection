@@ -421,6 +421,16 @@ final public class EVReflection {
     public class func setBundleIdentifier(_ forClass: AnyClass) {
         EVReflection.bundleIdentifier = nameForBundle(Bundle(for:forClass))
     }
+
+    /**
+     This method can be used in unit tests to force the bundle where classes can be found
+     
+     - parameter identifier: The identifier that will be used.
+     */
+    public class func setBundleIdentifier(_ identifier: String) {
+        EVReflection.bundleIdentifier = identifier
+    }
+    
     
     /**
      This method can be used in project where models are split between multiple modules.
@@ -431,6 +441,18 @@ final public class EVReflection {
         bundleIdentifiers = []
         for aClass in classes {
             bundleIdentifiers?.append(nameForBundle(Bundle(for: aClass)))
+        }
+    }
+
+    /**
+     This method can be used in project where models are split between multiple modules.
+     
+     - parameter identifiers: The array of identifiers that will be used.
+     */
+    public class func setBundleIdentifiers(_ identifiers: Array<String>) {
+        bundleIdentifiers = []
+        for identifier in identifiers {
+            bundleIdentifiers?.append(identifier)
         }
     }
     
