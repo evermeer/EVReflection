@@ -24,13 +24,12 @@
 
 If you have a question and don't want to create an issue, then we can [![Join the chat at https://gitter.im/evermeer/EVReflection](https://badges.gitter.im/evermeer/EVReflection.svg)](https://gitter.im/evermeer/EVReflection?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-At this moment the master branch is for Swift 2.2 The Swift3 branch will soon be merged to master. If you want to continue using EVReflection in Swift 2.2 (or 2.3) then switch to the Swift2.2 branch.
-
+At this moment the master branch is for Swift3. If you want to continue using EVReflection in Swift 2.2 (or 2.3) then switch to the Swift2.2 branch.
 Run the unit tests to see EVReflection in action.
 
 EVReflection is used extensively in [EVCloudKitDao](https://github.com/evermeer/EVCloudKitDao), [AlamofireJsonToObjects](https://github.com/evermeer/AlamofireJsonToObjects) and [AlamofireXmlToObjects](https://github.com/evermeer/AlamofireXmlToObjects)
 
-In most cases EVReflection is verry easy to use. Just take a look at the [YouTube tutorial](https://www.youtube.com/watch?v=LPWsQD2nxqg) or the section [It's easy to use](https://github.com/evermeer/EVReflection#its-easy-to-use). But if you do want to do non standard specific things, then EVReflection will offer you an extensive range of functionality. For more information see:
+In most cases EVReflection is very easy to use. Just take a look at the [YouTube tutorial](https://www.youtube.com/watch?v=LPWsQD2nxqg) or the section [It's easy to use](https://github.com/evermeer/EVReflection#its-easy-to-use). But if you do want to do non standard specific things, then EVReflection will offer you an extensive range of functionality. For more information see:
 
 - [Main features of EVReflection](https://github.com/evermeer/EVReflection#main-features-of-evreflection)
 - [Quick start](https://github.com/evermeer/EVReflection#quick-start)
@@ -123,7 +122,7 @@ Usually your JSON or XML will come frome a remote network location. The library 
 'EVReflection' is available through the dependency manager [CocoaPods](http://cocoapods.org). 
 You do have to use cocoapods version 0.36 or later
 
-You can just add EVReflection to your workspace by adding the folowing 2 lines to your Podfile:
+You can just add EVReflection to your workspace by adding the following 2 lines to your Podfile:
 
 ```
 use_frameworks!
@@ -229,7 +228,8 @@ ConversionOptions.DefaultNSCoding = [.PropertyMapping]
 
 
 ### Automatic keyword mapping for Swift keywords
-If you have JSON fields that are Swift keywords, then prefix the property with an underscore. So the JSON value for self will be stored in the property _self. At this moment the folowing keywords are handled:
+If you have JSON fields that are Swift keywords, then prefix the property with an underscore. So the JSON value for self will be stored in the property `\_self`. At this moment the following keywords are handled:
+
 "self", "description", "class", "deinit", "enum", "extension", "func", "import", "init", "let", "protocol", "static", "struct", "subscript", "typealias", "var", "break", "case", "continue", "default", "do", "else", "fallthrough", "if", "in", "for", "return", "switch", "where", "while", "as", "dynamicType", "is", "new", "super", "Self", "Type", "__COLUMN__", "__FILE__", "__FUNCTION__", "__LINE__", "associativity", "didSet", "get", "infix", "inout", "left", "mutating", "none", "nonmutating", "operator", "override", "postfix", "precedence", "prefix", "right", "set", "unowned", "unowned", "safe", "unowned", "unsafe", "weak", "willSet", "private", "public"
 
 ### Automatic keyword mapping PascalCase or camelCase to snake_case
