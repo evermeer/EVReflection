@@ -93,8 +93,8 @@ public extension Array where Element: NSObject {
         if let obj =  nsobject as? T {
             return obj
         }
-        // Could not instantiate array item instance. will crash
-        return (nsobject as? T)!
+        // Could not instantiate array item instance.
+        return T()
     }
     
     /**

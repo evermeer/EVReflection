@@ -48,10 +48,6 @@ class TestIssue114b: XCTestCase {
         let jsonString = userOriginal.toJsonString()
         print("JSON string from dictionary: \n\(jsonString)\n\n")
         
-        // There is a problem with nested class definitions an arrays.
-        // The root couse of the problem is tested in the testIssueNestedObjects below
-        // There is an open stackoverflow question for this. 
-        // See http://stackoverflow.com/questions/40009345/how-to-get-the-string-representation-of-a-nested-class
         XCTAssert(userOriginal.friends.count == 2)
     }
     

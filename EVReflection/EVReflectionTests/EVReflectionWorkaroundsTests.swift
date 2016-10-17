@@ -119,10 +119,7 @@ enum StatusType: Int, EVRawInt {
 }
 
 
-//
 class WorkaroundObject: EVObject, EVArrayConvertable {
-    
-    
     var nullableType: Int?
     var enumType: StatusType = .ok
     var enumList: [StatusType] = []

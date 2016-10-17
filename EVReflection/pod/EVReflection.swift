@@ -722,8 +722,10 @@ final public class EVReflection {
             if valueType.contains("<") {
                 return (theValue as! NSObject, swiftStringFromClass(theValue as! NSObject), true)
             }
-            // isObject is false to prevent parsing of objects like CKRecord, CKRecordId and other objects.
-            return (theValue as! NSObject, valueType, false)
+            if valueType != "_SwiftValue" {
+                // isObject is false to prevent parsing of objects like CKRecord, CKRecordId and other objects.
+                return (theValue as! NSObject, valueType, false)
+            }
         }
         if valueType.hasPrefix("Swift.Array<") && parentObject is EVArrayConvertable {
             return ((parentObject as! EVArrayConvertable).convertArray(key ?? "_unknownKey", array: theValue), valueType, false)
