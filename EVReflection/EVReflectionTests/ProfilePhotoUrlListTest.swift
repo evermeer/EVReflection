@@ -19,7 +19,7 @@ class ProfilePhotoUrlListTests: XCTestCase {
     override func setUp() {
         super.setUp()
         // Put setup code here. This method is called before the invocation of each test method in the class.
-        EVReflection.setBundleIdentifier(TestObject)
+        EVReflection.setBundleIdentifier(TestObject.self)
     }
     
     /**
@@ -33,11 +33,11 @@ class ProfilePhotoUrlListTests: XCTestCase {
     
     func testJsonObject() {
         
-        let jsonDictOriginal = ["meta": ["limit": 1000, "offset": 0, "total_count": 4], "objects": [["id": 35, "index": 1, "resource_uri": "/api/v1/profilephotourl/35", "url": "a", "user": "/api/v1/user/1/"], ["id": 37, "index": 0, "resource_uri": "/api/v1/profilephotourl/37/", "url": "b", "user": "/api/v1/user/1/"], ["id": 36, "index": 3, "resource_uri": "/api/v1/profilephotourl/36/", "url": "c", "user": "/api/v1/user/1/"], ["id": 44, "index": 2, "resource_uri": "/api/v1/profilephotourl/44/", "url": "d", "user": "/api/v1/user/1"]]]
+        let jsonDictOriginal = ["meta": ["limit": 1000, "offset": 0, "total_count": 4], "objects": [["id": 35, "index": 1, "resource_uri": "/api/v1/profilephotourl/35", "url": "a", "user": "/api/v1/user/1/"], ["id": 37, "index": 0, "resource_uri": "/api/v1/profilephotourl/37/", "url": "b", "user": "/api/v1/user/1/"], ["id": 36, "index": 3, "resource_uri": "/api/v1/profilephotourl/36/", "url": "c", "user": "/api/v1/user/1/"], ["id": 44, "index": 2, "resource_uri": "/api/v1/profilephotourl/44/", "url": "d", "user": "/api/v1/user/1"]]] as [String : Any]
         
         print("Initial dictionary:\n\(jsonDictOriginal)\n\n")
         
-        let profilePhotoUrlListOriginal = ProfilePhotoUrlList(dictionary: jsonDictOriginal)
+        let profilePhotoUrlListOriginal = ProfilePhotoUrlList(dictionary: jsonDictOriginal as NSDictionary)
         print("Dictionary to an object: \n\(profilePhotoUrlListOriginal)\n\n")
         XCTAssertEqual(profilePhotoUrlListOriginal.objects?.first?.getResourceId(), "35", "resource should end with 35")
         
@@ -56,7 +56,7 @@ class Base: EVObject {
     var resourceUri: String?
     
     func getResourceId() -> String! {
-        return resourceUri?.componentsSeparatedByString("/").last
+        return resourceUri?.components(separatedBy: "/").last
     }
 }
 

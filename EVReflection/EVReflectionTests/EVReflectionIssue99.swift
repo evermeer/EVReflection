@@ -20,7 +20,7 @@ public class Message: EVObject {
     var users: [String:String] = [String:String]()
     
     // Handling the setting of non key-value coding compliant properties
-    override public func setValue(value: AnyObject!, forUndefinedKey key: String) {
+    override public func setValue(_ value: Any!, forUndefinedKey key: String) {
         switch key {
         case "users":
             if let dict = value as? NSDictionary {
@@ -44,7 +44,7 @@ class TestIssue99: XCTestCase {
     override func setUp() {
         super.setUp()
         // Put setup code here. This method is called before the invocation of each test method in the class.
-        EVReflection.setBundleIdentifier(Message)
+        EVReflection.setBundleIdentifier(Message.self)
     }
     
     override func tearDown() {
@@ -72,7 +72,7 @@ class TestIssue99: XCTestCase {
     
     // Issue reported in AlamofireJsonToObjects
     func testIssue24() {
-        let dateFormatter = NSDateFormatter()
+        let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyyMMdd"
         EVReflection.setDateFormatter(dateFormatter)
         
@@ -85,7 +85,7 @@ class TestIssue99: XCTestCase {
     
     func testIssue24b() {
         //I modified the PublicInfusion.vodkaHistory to be empty instead of nil.  Which is different from my original example
-        let dateFormatter = NSDateFormatter()
+        let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
         EVReflection.setDateFormatter(dateFormatter)
         
@@ -123,7 +123,7 @@ class TestIssue99: XCTestCase {
 
 public class MyPrimaryObject: EVObject {
     
-    public var myPrimaryObjectId: NSUUID?
+    public var myPrimaryObjectId: UUID?
     public var name: String = ""
     public var myObjectDescription: String?
     
@@ -140,14 +140,14 @@ public class MyPrimaryObject: EVObject {
 
 public class MySecondaryObject: EVObject {
     public var mySecondaryObjectId: Int = 0
-    public var dateRecorded: NSDate?
+    public var dateRecorded: Date?
     public var rating: Int = 0
     public var userRemarks: String?
 }
 
 public class PublicInfusion: EVObject {
     
-    public var infusionKey: NSUUID?
+    public var infusionKey: UUID?
     public var infusionId: Int = 0
     public var name: String = ""
     public var infusionDescription: String?
@@ -164,7 +164,7 @@ public class PublicInfusion: EVObject {
 
 public class PublicInfusionCheckmark: EVObject {
     public var checkmarkId: Int = 0
-    public var dateMarked: NSDate?
+    public var dateMarked: Date?
     public var vodkaRating: Int = 0
     public var comments: String?
 }

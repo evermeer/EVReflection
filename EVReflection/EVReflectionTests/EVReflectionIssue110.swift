@@ -16,7 +16,7 @@ class TestIssue110: XCTestCase {
     override func setUp() {
         super.setUp()
         // Put setup code here. This method is called before the invocation of each test method in the class.
-        EVReflection.setBundleIdentifier(Message)
+        EVReflection.setBundleIdentifier(Message.self)
     }
     
     override func tearDown() {
@@ -45,13 +45,13 @@ class TestSet: EVObject, EVArrayConvertable {
     var Cities: Set<String> = Set<String>()
     
     // Implementation of the EVArrayConvertable protocol for handling a Set.
-    func convertArray(key: String, array: Any) -> NSArray {
+    func convertArray(_ key: String, array: Any) -> NSArray {
         assert(key == "Cities", "convertArray for key \(key) should be handled.")
         
         let returnArray = NSMutableArray()
         if key == "Cities" {
             for item in (array as? Set<String>) ?? Set<String>() {
-                returnArray.addObject(item)
+                returnArray.add(item)
             }
         }
         return returnArray

@@ -16,7 +16,7 @@ class TestIssue107: XCTestCase {
     override func setUp() {
         super.setUp()
         // Put setup code here. This method is called before the invocation of each test method in the class.
-        EVReflection.setBundleIdentifier(EVDataListContainerModel)
+        EVReflection.setBundleIdentifier(EVDataListContainerModel.self)
     }
     
     override func tearDown() {
@@ -102,13 +102,17 @@ class EVSubConfigurationModel: EVObject {
     var evening: String?
     var morning: String?
     
-    override internal func initValidation(dict: NSDictionary) {
+    override internal func initValidation(_ dict: NSDictionary) {
         self.initMayNotContainKeys(["desc","morning","evening"], dict: dict)
     }
 }
 
 class EVDataListContainerModel: EVObject {
     var DataList: [EVListDistrictContainerModel] = []
+
+    var status: Bool = false
+    var messageCode: Int = 0
+    var total: Int = 0
 }
 
 class EVListDistrictContainerModel: EVObject {

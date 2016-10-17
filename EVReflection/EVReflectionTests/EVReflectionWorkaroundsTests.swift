@@ -20,7 +20,7 @@ class EVReflectionWorkaroundsTests: XCTestCase {
     override func setUp() {
         super.setUp()
         // Put setup code here. This method is called before the invocation of each test method in the class.
-        EVReflection.setBundleIdentifier(TestObject)
+        EVReflection.setBundleIdentifier(TestObject.self)
     }
     
     /**
@@ -35,7 +35,7 @@ class EVReflectionWorkaroundsTests: XCTestCase {
         let json: String = "{\"nullableType\": 1,\"enumType\": 0, \"list\": [ {\"nullableType\": 2}, {\"nullableType\": 3}] }"
         let status = WorkaroundObject(json: json)
         XCTAssertTrue(status.nullableType == 1, "the nullableType should be 1")
-        XCTAssertTrue(status.enumType == .NotOK, "the status should be NotOK")
+        XCTAssertTrue(status.enumType == .notOK, "the status should be NotOK")
         XCTAssertTrue(status.list.count == 2, "the list should have 2 items")
         if status.list.count == 2 {
             XCTAssertTrue(status.list[0]?.nullableType == 2, "the first item in the list should have nullableType 2")
@@ -50,7 +50,7 @@ class EVReflectionWorkaroundsTests: XCTestCase {
         let status = WorkaroundObject(json: json)
         print("To JSON = \(json)")
         XCTAssertTrue(status.nullableType == 1, "the nullableType should be 1")
-        XCTAssertTrue(status.enumType == .NotOK, "the status should be NotOK")
+        XCTAssertTrue(status.enumType == .notOK, "the status should be NotOK")
         XCTAssertTrue(status.list.count == 2, "the list should have 2 items")
         if status.list.count == 2 {
             XCTAssertTrue(status.list[0]?.nullableType == 2, "the first item in the list should have nullableType 2")
@@ -69,10 +69,10 @@ class EVReflectionWorkaroundsTests: XCTestCase {
     
     func testStruct() {
         let event = WorkaroundObject()
-        event.enumList.append(.OK)
-        event.enumList.append(.OK)
-        event.enumList.append(.NotOK)
-        event.enumList.append(.OK)
+        event.enumList.append(.ok)
+        event.enumList.append(.ok)
+        event.enumList.append(.notOK)
+        event.enumList.append(.ok)
         event.structType = CGPoint(x: 2, y: 3)
         
         let json = event.toJsonString()
@@ -85,47 +85,54 @@ class EVReflectionWorkaroundsTests: XCTestCase {
     
     func testEnumArray() {
         let event = WorkaroundObject()
-        event.enumList.append(.OK)
-        event.enumList.append(.OK)
-        event.enumList.append(.NotOK)
-        event.enumList.append(.OK)
+        event.enumList.append(.ok)
+        event.enumList.append(.ok)
+        event.enumList.append(.notOK)
+        event.enumList.append(.ok)
         
         let json = event.toJsonString()
         print("json = \(json)")
 
+        XCTAssert(!json.contains("EVReflection_iOS_Tests.StatusType.ok"), "The rawvalue should have been in the json.")
         let event2 = WorkaroundObject(json: json)
         print(event2)
         
         XCTAssertEqual(event.enumList.count, event2.enumList.count, "Now the list should also have 4 items")
         if event2.enumList.count == 4 {
-            XCTAssertEqual(event2.enumList[0], WorkaroundObject.StatusType.OK, "The first item should be .OK")
-            XCTAssertEqual(event2.enumList[1], WorkaroundObject.StatusType.OK, "The first item should be .OK")
-            XCTAssertEqual(event2.enumList[2], WorkaroundObject.StatusType.NotOK, "The first item should be .NotOK")
-            XCTAssertEqual(event2.enumList[3], WorkaroundObject.StatusType.OK, "The first item should be .OK")            
+            XCTAssertEqual(event2.enumList[0], StatusType.ok, "The first item should be .OK")
+            XCTAssertEqual(event2.enumList[1], StatusType.ok, "The first item should be .OK")
+            XCTAssertEqual(event2.enumList[2], StatusType.notOK, "The first item should be .NotOK")
+            XCTAssertEqual(event2.enumList[3], StatusType.ok, "The first item should be .OK")            
         }
+    }
+    
+    func testXX() {
+        let a = [StatusType.notOK]
+        let b = Mirror(reflecting: a)
+        let c = b.subjectType
+        print("subjectType = \(c)")
+        let d = b.displayStyle
+        print("displayStyle = \(d)")
     }
 }
 
 
+enum StatusType: Int, EVRawInt {
+    case notOK = 0
+    case ok = 1
+}
 
 
-//
 class WorkaroundObject: EVObject, EVArrayConvertable {
-    
-    enum StatusType: Int, EVRawInt {
-        case NotOK = 0
-        case OK = 1
-    }
-    
     var nullableType: Int?
-    var enumType: StatusType = .OK
+    var enumType: StatusType = .ok
     var enumList: [StatusType] = []
     var list: [WorkaroundObject?] = [WorkaroundObject?]()
     var dict: [String: SubObject] = [:]
     var structType: CGPoint = CGPoint(x: 0, y: 0)
     
     // Handling the setting of non key-value coding compliant properties
-    override func setValue(value: AnyObject!, forUndefinedKey key: String) {
+    override func setValue(_ value: Any!, forUndefinedKey key: String) {
         switch key {
         case "nullableType":
             nullableType = value as? Int
@@ -171,26 +178,26 @@ class WorkaroundObject: EVObject, EVArrayConvertable {
     }
     
     // Implementation of the EVArrayConvertable protocol for handling an array of nullble objects.
-    func convertArray(key: String, array: Any) -> NSArray {
+    func convertArray(_ key: String, array: Any) -> NSArray {
         assert(key == "list" || key == "enumList", "convertArray for key \(key) should be handled.")
 
         let returnArray = NSMutableArray()
         if key == "list" {
             for item in (array as? [WorkaroundObject?]) ?? [WorkaroundObject?]() {
                 if item != nil {
-                    returnArray.addObject(item!)
+                    returnArray.add(item!)
                 }
             }
         } else {
             for item in  (array as? [StatusType]) ?? [StatusType]() {
-                returnArray.addObject(item.rawValue)
+                returnArray.add(item.rawValue)
             }
         }
         return returnArray
     }
 
     // Implementation of the EVDictionaryConvertable protocol for handling a Swift dictionary.
-    override func convertDictionary(field: String, dict: Any) -> NSDictionary {
+    override func convertDictionary(_ field: String, dict: Any) -> NSDictionary {
         assert(field == "dict", "convertDictionary for key \(field) should be handled.")
     
         let returnDict = NSMutableDictionary()

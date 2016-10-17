@@ -61,7 +61,7 @@ class EVObjectDescriptionTests: XCTestCase {
         XCTAssert(a.classPath == [bundle, "EVObjectDescriptionTests", "testDescription", ""], "OK... Something has changed. Or did we fixed this? Then remove this test")
     }
     
-    func testDescription(param: String, paramb: Int, paramc: String) -> (a: String, b: EVObjectDescription) {
+    func testDescription(_ param: String, paramb: Int, paramc: String) -> (a: String, b: EVObjectDescription) {
         class FuncSubTest: NSObject {
             var param: Any?
         }

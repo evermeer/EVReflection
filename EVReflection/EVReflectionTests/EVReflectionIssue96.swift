@@ -15,7 +15,7 @@ class News: NSObject {
     var id: Int = 0
     var title: String = ""
     var text: String = ""
-    var date: NSDate = NSDate()
+    var date: Date = Date()
 }
 
 class PayloadClass: EVObject {
@@ -36,7 +36,7 @@ class TestIssue96: XCTestCase {
     override func setUp() {
         super.setUp()
         // Put setup code here. This method is called before the invocation of each test method in the class.
-        EVReflection.setBundleIdentifier(Encoding)
+        EVReflection.setBundleIdentifier(Encoding.self)
     }
     
     override func tearDown() {

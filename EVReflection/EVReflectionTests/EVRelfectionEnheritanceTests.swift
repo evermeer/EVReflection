@@ -22,7 +22,7 @@ class EVRelfectionEnheritanceTests: XCTestCase {
     override func setUp() {
         super.setUp()
         // Put setup code here. This method is called before the invocation of each test method in the class.
-        EVReflection.setBundleIdentifier(TestObject)
+        EVReflection.setBundleIdentifier(TestObject.self)
     }
     
     /**
@@ -80,7 +80,7 @@ class Foo: EVObject {
     var allFoo: String = "all Foo"
     
     // What you need to do to get the correct type for when you deserialize enherited classes
-    override func getSpecificType(dict: NSDictionary) -> EVObject {
+    override func getSpecificType(_ dict: NSDictionary) -> EVObject {
         if dict["justBar"] != nil {
             return Bar()
         } else if dict["justBaz"] != nil {

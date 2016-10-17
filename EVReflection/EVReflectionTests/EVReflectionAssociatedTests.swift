@@ -23,7 +23,7 @@ class EVReflectionAssociatedTests: XCTestCase {
     override func setUp() {
         super.setUp()
         // Put setup code here. This method is called before the invocation of each test method in the class.
-        EVReflection.setBundleIdentifier(TestObject)
+        EVReflection.setBundleIdentifier(TestObject.self)
     }
     
     /**
@@ -37,12 +37,12 @@ class EVReflectionAssociatedTests: XCTestCase {
 
     func testEnumAssociatedValues() {
         let parameters: [usersParameters] = [.number(19), .authors_only(false)]
-        let y = WordPressRequestConvertible.MeLikes("XX", Dictionary(associated: parameters))
+        let y = WordPressRequestConvertible.meLikes("XX", Dictionary(associated: parameters))
         // Now just extract the label and associated values from this enum
         let label = y.associated.label
         let (token, param) = (y.associated.value as? (String, [String:Any]?))!
         
-        XCTAssertEqual("MeLikes", label, "The label of the enum should be MeLikes")
+        XCTAssertEqual("meLikes", label, "The label of the enum should be MeLikes")
         XCTAssertEqual("XX", token, "The token associated value of the enum should be XX")
         XCTAssertEqual(19, param?["number"] as? Int, "The number param associated value of the enum should be 19")
         XCTAssertEqual(false, param?["authors_only"] as? Bool, "The authors_only param associated value of the enum should be false")
@@ -56,11 +56,11 @@ class EVReflectionAssociatedTests: XCTestCase {
 
 // See http://github.com/evermeer/EVWordPressAPI for a full functional usage of associated values
 enum WordPressRequestConvertible: EVAssociated {
-    case Users(String, Dictionary<String, Any>?)
-    case Suggest(String, Dictionary<String, Any>?)
-    case Me(String, Dictionary<String, Any>?)
-    case MeLikes(String, Dictionary<String, Any>?)
-    case Shortcodes(String, Dictionary<String, Any>?)
+    case users(String, Dictionary<String, Any>?)
+    case suggest(String, Dictionary<String, Any>?)
+    case me(String, Dictionary<String, Any>?)
+    case meLikes(String, Dictionary<String, Any>?)
+    case shortcodes(String, Dictionary<String, Any>?)
 }
 
 public enum usersParameters: EVAssociated {

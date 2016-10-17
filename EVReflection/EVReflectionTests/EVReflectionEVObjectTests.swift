@@ -21,7 +21,7 @@ class EVReflectionEVObjectTests: XCTestCase {
     override func setUp() {
         super.setUp()
         // Put setup code here. This method is called before the invocation of each test method in the class.
-        EVReflection.setBundleIdentifier(TestObject)
+        EVReflection.setBundleIdentifier(TestObject.self)
     }
     
     /**
@@ -78,13 +78,13 @@ class EVReflectionEVObjectTests: XCTestCase {
         let theObject = TestObject2()
         theObject.objectValue = "value1"
         
-        let filePath = (NSTemporaryDirectory() as NSString).stringByAppendingPathComponent("temp.dat")
+        let filePath = (NSTemporaryDirectory() as NSString).appendingPathComponent("temp.dat")
         
         // Write object to file
         NSKeyedArchiver.archiveRootObject(theObject, toFile: filePath)
         
         // Read object from file
-        let result = NSKeyedUnarchiver.unarchiveObjectWithFile(filePath) as? TestObject2
+        let result = NSKeyedUnarchiver.unarchiveObject(withFile: filePath) as? TestObject2
         
         // Test if the objects are the same
         XCTAssert(theObject == result, "Pass")
@@ -141,13 +141,13 @@ class EVReflectionEVObjectTests: XCTestCase {
         theObject.objectValue = "value1"
         theObject.nullableType = 3
         
-        let filePath = (NSTemporaryDirectory() as NSString).stringByAppendingPathComponent("temp.dat")
+        let filePath = (NSTemporaryDirectory() as NSString).appendingPathComponent("temp.dat")
         
         // Write object to file
         NSKeyedArchiver.archiveRootObject(theObject, toFile: filePath)
         
         // Read object from file
-        let result = NSKeyedUnarchiver.unarchiveObjectWithFile(filePath) as? TestObject3
+        let result = NSKeyedUnarchiver.unarchiveObject(withFile: filePath) as? TestObject3
         NSLog("unarchived result object = \(result)")
         
         // Test if the objects are the same

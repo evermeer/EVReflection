@@ -17,7 +17,7 @@ class TestIssue91: XCTestCase {
     override func setUp() {
         super.setUp()
         // Put setup code here. This method is called before the invocation of each test method in the class.
-        EVReflection.setBundleIdentifier(Encoding)
+        EVReflection.setBundleIdentifier(Encoding.self)
     }
     
     override func tearDown() {
@@ -67,7 +67,7 @@ class TagObject: BaseObject {
 class TagObject2: BaseObject {
     var subTagArray: [SimpleObject]?
     
-    override func setValue(value: AnyObject!, forUndefinedKey key: String) {
+    override func setValue(_ value: Any!, forUndefinedKey key: String) {
         guard let dict = value as? [NSDictionary] else { return }
         switch key {
         case "provinces", "values", "subTags":

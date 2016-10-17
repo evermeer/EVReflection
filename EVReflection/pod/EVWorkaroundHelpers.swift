@@ -16,7 +16,7 @@ public protocol EVGenericsKVC {
     /**
      Implement this protocol in a class with generic properties so that we can still use a standard mechanism for setting property values.
      */
-    func setValue(value: AnyObject!, forUndefinedKey key: String)
+    func setGenericValue(_ value: AnyObject!, forUndefinedKey key: String)
     
     /**
      Add a function so that we can get an instance of T
@@ -61,7 +61,7 @@ public protocol EVArrayConvertable {
     /**
      For implementing a function for converting a generic array to a specific array.
      */
-    func convertArray(key: String, array: Any) -> NSArray
+    func convertArray(_ key: String, array: Any) -> NSArray
 }
 
 
@@ -91,7 +91,6 @@ public extension EVAssociated {
         }
     }
 }
-
 
 /**
  Dictionary extension for creating a dictionary from an array of enum values

@@ -20,7 +20,7 @@ class EVReflectionWorkaroundSwiftGenericsTests: XCTestCase {
     override func setUp() {
         super.setUp()
         // Put setup code here. This method is called before the invocation of each test method in the class.
-        EVReflection.setBundleIdentifier(TestObject)
+        EVReflection.setBundleIdentifier(TestObject.self)
     }
     
     /**
@@ -33,17 +33,17 @@ class EVReflectionWorkaroundSwiftGenericsTests: XCTestCase {
 
     func testSetValueGenericClass() {
         let a = MyGenericObject<NSString>()
-        a.setValue("data", forUndefinedKey: "data")
-        a.setValue("gone", forUndefinedKey: "wrongKey")
+        a.setGenericValue("data" as AnyObject!, forUndefinedKey: "data")
+        a.setGenericValue("gone" as AnyObject!, forUndefinedKey: "wrongKey")
         XCTAssertEqual(a.data as String, "data", "data should contain data")
     }
 
     func testSetValueIncorrectGenericClass() {
         let a = MyIncorrectGenericObject<NSString>()
         NSLog("\n\n===>You will get a warning that you should implement setValue forUndefinedKey")
-        a.setValue("data", forUndefinedKey: "data")
+        a.setGenericValue("data" as AnyObject!, forUndefinedKey: "data")
         NSLog("\n\n===>You will get a warning. one that you should implement setValue forUndefinedKey")
-        a.setValue("gone", forUndefinedKey: "wrongKey")
+        a.setGenericValue("gone" as AnyObject!, forUndefinedKey: "wrongKey")
         XCTAssertEqual(a.data, "", "data should still be an empty string")
     }
     
@@ -57,7 +57,7 @@ class EVReflectionWorkaroundSwiftGenericsTests: XCTestCase {
     }
 
     func testGenericsJson2() {
-        EVReflection.setBundleIdentifier(InstanceObject)
+        EVReflection.setBundleIdentifier(InstanceObject.self)
         let json: String = "{\"test\":\"test\", \"data\":{\"name\":\"data\"}, \"array\":[{\"name\":\"val1\"}, {\"name\":\"val2\"}, {\"name\":\"val3\"}]}"
         let a = MyGenericObject<InstanceObject>(json: json)
         XCTAssertEqual(a.test, "test", "test should contain test")
@@ -94,7 +94,7 @@ class EVReflectionWorkaroundSwiftGenericsTests: XCTestCase {
 
 // Only put the generic properties in this class. put the rest in a base class
 // Add the protocol EVGenericsKVC so that we still can have a setValue forUndefinedKey like we adr used to
-public class MyGenericObject<T where T:NSObject>: MyGenericBase, EVGenericsKVC {
+public class MyGenericObject<T>: MyGenericBase, EVGenericsKVC where T:NSObject {
     var data: T = T()
     var array: [T] = [T]()
     
@@ -102,7 +102,7 @@ public class MyGenericObject<T where T:NSObject>: MyGenericBase, EVGenericsKVC {
         super.init()
     }
     
-    public override func setValue(value: AnyObject!, forUndefinedKey key: String) {
+    public func setGenericValue(_ value: AnyObject!, forUndefinedKey key: String) {
         switch key {
         case "data":
             data = value as? T ?? T()
@@ -119,12 +119,16 @@ public class MyGenericObject<T where T:NSObject>: MyGenericBase, EVGenericsKVC {
 }
 
 
-public class MyIncorrectGenericObject<T where T:NSObject>: MyGenericBase, EVGenericsKVC {
+public class MyIncorrectGenericObject<T>: MyGenericBase, EVGenericsKVC where T:NSObject {
     var data: T = T()
     var array: [T] = [T]()
     
     required public init() {
         super.init()
+    }
+
+    public func setGenericValue(_ value: AnyObject!, forUndefinedKey key: String) {
+        // Not setting anything
     }
 
     public func getGenericType() -> NSObject {
@@ -146,7 +150,7 @@ public class TestGenerics: EVObject {
     var bar: MyGenericObject<InstanceObject> = MyGenericObject<InstanceObject>()
     var unhandledBar: MyGenericObject<InstanceObject> = MyGenericObject<InstanceObject>()
     
-    public override func setValue(value: AnyObject!, forUndefinedKey key: String) {
+    open override func setValue(_ value: Any!, forUndefinedKey key: String) {
         switch key {
         case "bar":
             bar = value as? MyGenericObject<InstanceObject> ?? MyGenericObject<InstanceObject>()
