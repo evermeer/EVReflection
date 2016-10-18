@@ -71,6 +71,7 @@
 		7F663C321D014D7B00642499 /* EVReflectionIssue91.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F663C301D014D4A00642499 /* EVReflectionIssue91.swift */; };
 		7F663C331D014D7C00642499 /* EVReflectionIssue91.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F663C301D014D4A00642499 /* EVReflectionIssue91.swift */; };
 		7F663C341D014D7E00642499 /* EVReflectionIssue91.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F663C301D014D4A00642499 /* EVReflectionIssue91.swift */; };
+		7F66EA071DB5FC9000A9FE1A /* .swift-version in Resources */ = {isa = PBXBuildFile; fileRef = 7F66EA061DB5FC9000A9FE1A /* .swift-version */; };
 		7F6C9FB31CB90E6D00F19811 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F6C9FB21CB90E6D00F19811 /* AppDelegate.swift */; };
 		7F6C9FB51CB90E6D00F19811 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F6C9FB41CB90E6D00F19811 /* ViewController.swift */; };
 		7F6C9FB81CB90E6D00F19811 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7F6C9FB61CB90E6D00F19811 /* Main.storyboard */; };
@@ -222,6 +223,7 @@
 		7F59F9DC1C079A7300C14CF9 /* EVReflectionNumbersTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVReflectionNumbersTests.swift; sourceTree = "<group>"; };
 		7F59F9DE1C09BFB900C14CF9 /* EVRelfectionEnheritanceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVRelfectionEnheritanceTests.swift; sourceTree = "<group>"; };
 		7F663C301D014D4A00642499 /* EVReflectionIssue91.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVReflectionIssue91.swift; sourceTree = "<group>"; };
+		7F66EA061DB5FC9000A9FE1A /* .swift-version */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ".swift-version"; sourceTree = "<group>"; };
 		7F6C9F9C1CB90DE200F19811 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7F6C9F9E1CB90DE200F19811 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		7F6C9FA11CB90DE200F19811 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -343,6 +345,7 @@
 		7F07C5541AF101A9000DF1F3 = {
 			isa = PBXGroup;
 			children = (
+				7F66EA061DB5FC9000A9FE1A /* .swift-version */,
 				7F36405C1CC9F2E600D7F055 /* .swiftlint.yml */,
 				7F159DFB1BA2FA2F00247CB1 /* .gitignore */,
 				7F0636B31AFF413900595461 /* .travis.yml */,
@@ -745,6 +748,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7F66EA071DB5FC9000A9FE1A /* .swift-version in Resources */,
 				7F1DD7101D90965200E99D4D /* EVReflectionIssue124.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
