@@ -56,6 +56,7 @@ In most cases EVReflection is very easy to use. Just take a look at the [YouTube
 - Support NSCoding function encodeWithCoder and decodeObjectWithCoder
 - Supporting Printable, Hashable and Equatable while using all properties. (Support for Set in Swift 1.2)
 - Mapping objects from one type to an other
+- Support for property mapping, converters, validators and key cleanup
 
 ## Quick start
 For a quick start have a look at this [YouTube tutorial](https://www.youtube.com/watch?v=LPWsQD2nxqg).
