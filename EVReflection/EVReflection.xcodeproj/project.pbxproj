@@ -66,6 +66,7 @@
 		7F59F9DB1C07999300C14CF9 /* EVReflectionEVObjectTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F59F9DA1C07999300C14CF9 /* EVReflectionEVObjectTests.swift */; };
 		7F59F9DD1C079A7300C14CF9 /* EVReflectionNumbersTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F59F9DC1C079A7300C14CF9 /* EVReflectionNumbersTests.swift */; };
 		7F59F9DF1C09BFB900C14CF9 /* EVRelfectionEnheritanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F59F9DE1C09BFB900C14CF9 /* EVRelfectionEnheritanceTests.swift */; };
+		7F5FD7D41DB89FD400AA17A8 /* .travis.yml in Resources */ = {isa = PBXBuildFile; fileRef = 7F5FD7D31DB89FD400AA17A8 /* .travis.yml */; };
 		7F625FD51D7031DF00F9A304 /* EVWorkaroundHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F9E68111C67728200F0F4D3 /* EVWorkaroundHelpers.swift */; };
 		7F625FD61D7031E000F9A304 /* EVWorkaroundHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F9E68111C67728200F0F4D3 /* EVWorkaroundHelpers.swift */; };
 		7F663C321D014D7B00642499 /* EVReflectionIssue91.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F663C301D014D4A00642499 /* EVReflectionIssue91.swift */; };
@@ -192,7 +193,6 @@
 		2DC8AA671C242E0600FA6B8E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		422667FF1CB77DD000145E17 /* EVReflectionCustomInitTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = EVReflectionCustomInitTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		7F057CEE1D4A84F500F3053E /* EVReflectionIssue110.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVReflectionIssue110.swift; sourceTree = "<group>"; };
-		7F0636B31AFF413900595461 /* .travis.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = .travis.yml; sourceTree = "<group>"; };
 		7F07C5771AF101A9000DF1F3 /* ios-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ios-Info.plist"; sourceTree = "<group>"; };
 		7F07C5841AF10284000DF1F3 /* EVReflection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVReflection.swift; sourceTree = "<group>"; };
 		7F07C5861AF10296000DF1F3 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; lineEnding = 0; name = README.md; path = ../README.md; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.markdown; };
@@ -222,6 +222,7 @@
 		7F59F9DA1C07999300C14CF9 /* EVReflectionEVObjectTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = EVReflectionEVObjectTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		7F59F9DC1C079A7300C14CF9 /* EVReflectionNumbersTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVReflectionNumbersTests.swift; sourceTree = "<group>"; };
 		7F59F9DE1C09BFB900C14CF9 /* EVRelfectionEnheritanceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVRelfectionEnheritanceTests.swift; sourceTree = "<group>"; };
+		7F5FD7D31DB89FD400AA17A8 /* .travis.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .travis.yml; sourceTree = "<group>"; };
 		7F663C301D014D4A00642499 /* EVReflectionIssue91.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVReflectionIssue91.swift; sourceTree = "<group>"; };
 		7F66EA0A1DB6372D00A9FE1A /* .swift-version */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = ".swift-version"; path = "../.swift-version"; sourceTree = "<group>"; };
 		7F6C9F9C1CB90DE200F19811 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -345,10 +346,10 @@
 		7F07C5541AF101A9000DF1F3 = {
 			isa = PBXGroup;
 			children = (
+				7F159DFB1BA2FA2F00247CB1 /* .gitignore */,
 				7F66EA0A1DB6372D00A9FE1A /* .swift-version */,
 				7F36405C1CC9F2E600D7F055 /* .swiftlint.yml */,
-				7F159DFB1BA2FA2F00247CB1 /* .gitignore */,
-				7F0636B31AFF413900595461 /* .travis.yml */,
+				7F5FD7D31DB89FD400AA17A8 /* .travis.yml */,
 				7F07C5861AF10296000DF1F3 /* README.md */,
 				7F07C58D1AF11861000DF1F3 /* EVReflection.podspec */,
 				7F07C58E1AF11861000DF1F3 /* LICENSE */,
@@ -748,6 +749,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7F5FD7D41DB89FD400AA17A8 /* .travis.yml in Resources */,
 				7F66EA0B1DB6372D00A9FE1A /* .swift-version in Resources */,
 				7F1DD7101D90965200E99D4D /* EVReflectionIssue124.plist in Resources */,
 			);
