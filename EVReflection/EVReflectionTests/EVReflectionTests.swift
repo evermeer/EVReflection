@@ -384,9 +384,23 @@ class EVReflectionTests: XCTestCase {
         print(arrObj2)
         XCTAssertEqual(arrObj2.strings[0], "a")
     }
+    
+    func testIssue33() {
+        let json = "{\"id\":121,\"active\":false}"
+        let object = MyObject(json: json)
+        let newJson = object.toJsonString()
+        print("back to json = \(newJson)\n\nobject description = \(object)")
+    }
 }
 
 
 class A81: EVObject {
     var openId: String = ""
+}
+
+
+class MyObject : EVObject {
+    
+    var id : Int = 0
+    var active: Bool = false
 }

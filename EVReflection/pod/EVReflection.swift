@@ -67,9 +67,9 @@ final public class EVReflection {
                 let useKey: String = (mapping ?? objectKey) as? String ?? ""
                 let original: Any? = getValue(anyObject, key: useKey)
                 let dictKey: String = cleanupKey(anyObject, key: objectKey, tryMatch: types) ?? ""
-                let (dictValue, valid) = dictionaryAndArrayConversion(anyObject, key: objectKey, fieldType: types[dictKey] as? String ?? types[useKey] as? String, original: original, theDictValue: v as AnyObject?, conversionOptions: conversionOptions)
+                let (dictValue, valid) = dictionaryAndArrayConversion(anyObject, key: objectKey, fieldType: types[dictKey] as? String ?? types[useKey] as? String, original: original, theDictValue: v as Any?, conversionOptions: conversionOptions)
                 if dictValue != nil {
-                    let value: AnyObject? = valid ? dictValue : (v as AnyObject)
+                    let value: Any? = valid ? dictValue : (v as Any)
                     if let key: String = keyMapping[k as? String ?? ""] as? String {
                         setObjectValue(anyObject, key: key, theValue: value, typeInObject: types[key] as? String, valid: valid, conversionOptions: conversionOptions)
                     } else {
@@ -177,17 +177,16 @@ final public class EVReflection {
     - returns: The dictionary representation of the json
     */
     public class func dictionaryFromJson(_ json: String?) -> NSDictionary {
-        var result = NSDictionary()
+        let result = NSMutableDictionary()
         if json == nil {
-            return result
-        }
-        if let jsonData = json!.data(using: String.Encoding.utf8) {
+            print("ERROR: nil is not valid json!")
+        } else if let jsonData = json!.data(using: String.Encoding.utf8) {
             do {
                 if let jsonDic = try JSONSerialization.jsonObject(with: jsonData, options: JSONSerialization.ReadingOptions.mutableContainers) as? NSDictionary {
-                    result = jsonDic
+                    return jsonDic
                 }
             } catch {
-                print("ERROR: Invalid json!")
+                print("ERROR: Invalid json! \(error.localizedDescription)")
             }
         }
         return result
@@ -205,6 +204,7 @@ final public class EVReflection {
     public class func arrayFromJson<T>(_ theObject: NSObject? = nil, type: T, json: String?, conversionOptions: ConversionOptions = .DefaultDeserialize) -> [T] {
         var result = [T]()
         if json == nil {
+            print("ERROR: nil is not valid json!")
             return result
         }
         let jsonData = json!.data(using: String.Encoding.utf8)!
@@ -221,7 +221,7 @@ final public class EVReflection {
                 })
             }
         } catch {
-            print("ERROR: Invalid json!")
+            print("ERROR: Invalid json! \(error.localizedDescription)")
         }        
         return result
     }
@@ -268,12 +268,12 @@ final public class EVReflection {
      - returns: The string representation of the object
      */
     public class func description(_ theObject: NSObject, conversionOptions: ConversionOptions = .DefaultSerialize) -> String {
-        let (hasKeys, _) = toDictionary(theObject, conversionOptions: conversionOptions)
-
+        let (dict, _) = toDictionary(theObject, conversionOptions: conversionOptions)
         var description: String = (swiftStringFromClass(theObject)) + " {\n   hash = \(hashValue(theObject))"
-        description = description + hasKeys.map {"   \($0) = \($1)"}.reduce("") {"\($0)\n\($1)"} + "\n}\n"
+        description = description + dict.map {"   \($0) = \($1)"}.reduce("") {"\($0)\n\($1)"} + "\n}\n"
         return description
     }
+
     
     /**
      Create a hashvalue for the object
@@ -591,7 +591,7 @@ final public class EVReflection {
             } else  if let value = theValue as? EVRaw {
                 theValue = value.anyRawValue
             } else if let value = theValue as? EVAssociated {
-                let (enumValue, enumType, _) = valueForAny(theValue, key: value.associated.label, anyValue: value.associated.value, conversionOptions: conversionOptions, isCachable: isCachable, parents: parents)
+                let (enumValue, enumType, _) = valueForAny(theValue, key: value.associated.label, anyValue: value.associated.value as Any, conversionOptions: conversionOptions, isCachable: isCachable, parents: parents)
                 valueType = enumType
                 theValue = enumValue
             } else {
@@ -753,7 +753,7 @@ final public class EVReflection {
      - parameter valid: False if a vaue is expected and a dictionary 
      - parameter conversionOptions: Option set for the various conversion options.
      */
-    public static func setObjectValue<T>(_ anyObject: T, key: String, theValue: AnyObject?, typeInObject: String? = nil, valid: Bool, conversionOptions: ConversionOptions = .DefaultDeserialize, parents: [NSObject] = []) where T: NSObject {
+    public static func setObjectValue<T>(_ anyObject: T, key: String, theValue: Any?, typeInObject: String? = nil, valid: Bool, conversionOptions: ConversionOptions = .DefaultDeserialize, parents: [NSObject] = []) where T: NSObject {
         
         guard var value = theValue , (value as? NSNull) == nil else {
             return
@@ -811,7 +811,7 @@ final public class EVReflection {
             
             // Call your own object validators that comply to the format: validate<Key>:Error:
             do {
-                var setValue: AnyObject? = value
+                var setValue: AnyObject? = value as AnyObject?
                 try anyObject.validateValue(&setValue, forKey: key)
                 anyObject.setValue(setValue, forKey: key)
             } catch _ {
@@ -1001,7 +1001,7 @@ final public class EVReflection {
      
      - returns: The converted value plus a boolean indicating if it's an object
      */
-    fileprivate static func dictionaryAndArrayConversion(_ anyObject: NSObject, key: String, fieldType: String?, original: Any?, theDictValue: AnyObject?, conversionOptions: ConversionOptions = .DefaultDeserialize) -> (AnyObject?, Bool) {
+    fileprivate static func dictionaryAndArrayConversion(_ anyObject: NSObject, key: String, fieldType: String?, original: Any?, theDictValue: Any?, conversionOptions: ConversionOptions = .DefaultDeserialize) -> (Any?, Bool) {
         var dictValue = theDictValue
         var valid = true
         if let type = fieldType {
@@ -1069,10 +1069,10 @@ final public class EVReflection {
      */
     fileprivate class func dictToObject<T>(_ type: String, original: T?, dict: NSDictionary, conversionOptions: ConversionOptions = .DefaultDeserialize) -> (T?, Bool) where T:NSObject {
         if var returnObject = original {
-            if type != "NSNumber" && type != "NSString" && type != "NSDate" && type.contains("Dictionary<") == false {
+            if type != "NSNumber" && type != "NSString" && type != "NSDate" && type != "Struct" && type.contains("Dictionary<") == false {
                 returnObject = setPropertiesfromDictionary(dict, anyObject: returnObject, conversionOptions: conversionOptions)
             } else {
-                if type.contains("Dictionary<") == false {
+                if type.contains("Dictionary<") == false && type != "Struct" {
                     (original as? EVObject)?.addStatusMessage(.InvalidClass, message: "Cannot set values on type \(type) from dictionary \(dict)")
                     print("WARNING: Cannot set values on type \(type) from dictionary \(dict)")
                 }
@@ -1204,7 +1204,7 @@ final public class EVReflection {
                                 continue    // if propertyGetter is nil, skip getting the property
                             }
                             
-                            value = propertyGetter()
+                            value = propertyGetter() as Any
                             
                             let (unboxedValue2, _, _) = valueForAny(theObject, key: originalKey, anyValue: value, conversionOptions: conversionOptions, isCachable: isCachable, parents: parents)
                             unboxedValue = unboxedValue2
@@ -1297,7 +1297,7 @@ final public class EVReflection {
             return convertDictionaryForJsonSerialization(ok, theObject: theObject)
         default:
             (theObject as? EVObject)?.addStatusMessage(.InvalidType, message: "Unexpected type while converting value for JsonSerialization: \(value)")
-            NSLog("ERROR: Unexpected type while converting value for JsonSerialization")
+            NSLog("ERROR: Unexpected type while converting value for JsonSerialization: \(value)")
             return "\(value)" as AnyObject
         }
     }

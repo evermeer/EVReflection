@@ -95,15 +95,17 @@ class EVReflectionJsonTests: XCTestCase {
         print("json = \(json2)")
     }
 
-    func testJsonUser() {
+    func testInvalidJsonOrObject() {
         let json: String = "{\"id\": 24, \"close_friends\": {}}"
         let user = User(json: json)
         XCTAssertTrue(user.id == 24, "id should have been set to 24")
         XCTAssertTrue(user.closeFriends?.count == 1, "friends should have 1 (empty) user")
         
+        NSLog("\n\n===>This will generate an error because you can't create a dictionary for invalid json")
         let a = EVReflection.dictionaryFromJson(nil)
         XCTAssertEqual(a.count, 0, "Can't create a dictionairy from nil")
 
+        NSLog("\n\n===>This will generate an error because you can't create a dictionary for invalid json")
         let b = EVReflection.dictionaryFromJson("[{\"asdf\"}")
         XCTAssertEqual(b.count, 0, "Can't create a dictionairy from nonsence")
         
@@ -111,9 +113,11 @@ class EVReflectionJsonTests: XCTestCase {
         let c = EVReflection.arrayFromJson(type: MyEnumFive.ok, json: "[{\"id\": 24}]")
         XCTAssertEqual(c.count, 0, "Can't create a dictionairy for a non NSObject type")
 
+        NSLog("\n\n===>This will generate an error because you can't create a dictionary for invalid json")
         let d = EVReflection.arrayFromJson(type: User(), json: "[{\"id\": 24}")
         XCTAssertEqual(d.count, 0, "Can't create a dictionairy for invalid json")
 
+        NSLog("\n\n===>This will generate an error because you can't create a dictionary for invalid json")
         let e = EVReflection.arrayFromJson(type: User(), json: "")
         XCTAssertEqual(e.count, 0, "Can't create a dictionairy for invalid json")
     }

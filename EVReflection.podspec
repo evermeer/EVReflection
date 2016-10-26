@@ -8,7 +8,7 @@ Pod::Spec.new do |s|
 #
 
 s.name         = "EVReflection"
-s.version      = "3.1.2"
+s.version      = "3.1.3"
 s.summary      = "iOS: Swift helper library with reflection functions"
 s.description  = "Swift helper library with reflection functions including support for NSCoding, Printable, Hashable, Equatable and JSON"
 s.homepage     = "https://github.com/evermeer/EVReflection"
@@ -35,6 +35,7 @@ s.license      = { :type => "MIT", :file => "LICENSE" }
 #
 
 s.author    = "evermeer"
+s.authors   = { 'Edwin Vermeer' => 'edwin@evict.nl' }
 s.social_media_url   = "http://twitter.com/evermeer"
 
 # ――― Platform Specifics ――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
