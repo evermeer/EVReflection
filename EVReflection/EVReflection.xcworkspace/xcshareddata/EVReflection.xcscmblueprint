@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "C340B50EE85733D3EA247F313D2350126F116920",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "C340B50EE85733D3EA247F313D2350126F116920" : 0,
+    "2610CEC535D215E472B67F0331FC31EA5E7AA5A7" : 9223372036854775807
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "4F6A49C5-0D66-4AEA-B0A5-8480B55469B3",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "C340B50EE85733D3EA247F313D2350126F116920" : "EVReflection\/",
+    "2610CEC535D215E472B67F0331FC31EA5E7AA5A7" : "AlamofireJsonToObjects\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "EVReflection",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "EVReflection\/EVReflection.xcworkspace",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/evermeer\/AlamofireJsonToObjects.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "2610CEC535D215E472B67F0331FC31EA5E7AA5A7"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/evermeer\/EVReflection.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "C340B50EE85733D3EA247F313D2350126F116920"
+    }
+  ]
+}

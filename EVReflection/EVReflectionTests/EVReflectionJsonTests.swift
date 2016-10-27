@@ -212,4 +212,14 @@ class EVReflectionJsonTests: XCTestCase {
         XCTAssertEqual(a.myBool, true, "myBool should contain true")
     }
     
+    func testJsonAsData() {
+        let path = Bundle(for: type(of: self)).url(forResource: "sample", withExtension: "json")
+        let data = try! Data(contentsOf: path!)
+        let a = TestObject4(data: data)
+        XCTAssertEqual(a.myString, "1", "myString should contain 1")
+        XCTAssertEqual(a.myInt, 2, "myInt should contain 2")
+        XCTAssertEqual(a.myFloat, 2.1, "myFloat should contain 2.1")
+        XCTAssertEqual(a.myBool, true, "myBool should contain true")
+
+    }
 }

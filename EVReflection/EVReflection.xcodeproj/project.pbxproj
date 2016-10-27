@@ -132,6 +132,9 @@
 		7FD67D931C288B760071234B /* EVReflection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F07C5841AF10284000DF1F3 /* EVReflection.swift */; };
 		7FD67D941C288B7A0071234B /* EVObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F0E5E591AF4D94000A10E51 /* EVObject.swift */; };
 		7FD67D961C288B840071234B /* EVExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F1BA5261B971CBF009F9DB8 /* EVExtensions.swift */; };
+		7FDE786B1DC2154700C2AC1C /* sample.json in Resources */ = {isa = PBXBuildFile; fileRef = 7FDE78661DC2144700C2AC1C /* sample.json */; };
+		7FDE786C1DC2154900C2AC1C /* sample.json in Resources */ = {isa = PBXBuildFile; fileRef = 7FDE78661DC2144700C2AC1C /* sample.json */; };
+		7FDE786D1DC2154B00C2AC1C /* sample.json in Resources */ = {isa = PBXBuildFile; fileRef = 7FDE78661DC2144700C2AC1C /* sample.json */; };
 		7FF4BEAF1CF0FBF50086F999 /* EVReflectionIssue84.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF4BEAD1CF0FB920086F999 /* EVReflectionIssue84.swift */; };
 		7FF4BEB01CF0FBF60086F999 /* EVReflectionIssue84.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF4BEAD1CF0FB920086F999 /* EVReflectionIssue84.swift */; };
 		7FF4BEB11CF0FBF80086F999 /* EVReflectionIssue84.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF4BEAD1CF0FB920086F999 /* EVReflectionIssue84.swift */; };
@@ -259,6 +262,7 @@
 		7FD67D8B1C288B560071234B /* EVReflection.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = EVReflection.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7FD67D8D1C288B560071234B /* EVReflectionWatchOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EVReflectionWatchOS.h; sourceTree = "<group>"; };
 		7FD67D8F1C288B560071234B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7FDE78661DC2144700C2AC1C /* sample.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = sample.json; path = ../../../AlamofireJsonToObjects/AlamofireJsonToObjectsTests/sample.json; sourceTree = "<group>"; };
 		7FF4BEAD1CF0FB920086F999 /* EVReflectionIssue84.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVReflectionIssue84.swift; sourceTree = "<group>"; };
 		7FF4BEB31CF2DA6E0086F999 /* EVReflectionIssue86.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVReflectionIssue86.swift; sourceTree = "<group>"; };
 		7FFCCC361BB440F400EE9312 /* coverage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = coverage.png; sourceTree = "<group>"; };
@@ -376,6 +380,7 @@
 		7F07C5751AF101A9000DF1F3 /* EVReflectionTests */ = {
 			isa = PBXGroup;
 			children = (
+				7FDE78661DC2144700C2AC1C /* sample.json */,
 				7F41ECA41B91F2E0003A2236 /* TestObjects.swift */,
 				7F41ECA81B91F306003A2236 /* EVReflectionTests.swift */,
 				7F59F9DA1C07999300C14CF9 /* EVReflectionEVObjectTests.swift */,
@@ -768,6 +773,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7F1DD70A1D90949100E99D4D /* EVReflectionIssue124.plist in Resources */,
+				7FDE786B1DC2154700C2AC1C /* sample.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -776,6 +782,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7F1DD70B1D90949100E99D4D /* EVReflectionIssue124.plist in Resources */,
+				7FDE786C1DC2154900C2AC1C /* sample.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -803,6 +810,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7F1DD70C1D90949100E99D4D /* EVReflectionIssue124.plist in Resources */,
+				7FDE786D1DC2154B00C2AC1C /* sample.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

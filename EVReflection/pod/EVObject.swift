@@ -57,6 +57,19 @@ open class EVObject: NSObject, NSCoding { // These are redundant in Swift 2+: Cu
     }
     
     /**
+     Convenience init for creating an object whith the property values of json Data.
+     
+     - parameter dictionary: The dictionary that will be used to create this object
+     - parameter conversionOptions: Option set for the various conversion options.
+     */
+    public convenience required init(data: Data, conversionOptions: ConversionOptions = .DefaultDeserialize) {
+        self.init()
+        let dictionary: NSDictionary = try! JSONSerialization.jsonObject(with: data, options: []) as? NSDictionary ?? NSDictionary()
+        EVReflection.setPropertiesfromDictionary(dictionary, anyObject: self, conversionOptions: conversionOptions)
+    }
+    
+    
+    /**
     Encode this object using a NSCoder
     
     - parameter aCoder: The NSCoder that will be used for encoding the object
