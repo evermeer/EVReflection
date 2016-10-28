@@ -113,7 +113,7 @@ open class EVObject: NSObject, NSCoding, EVReflectable  {
      
      - parameter dict: The dictionary with keys where the initialisation is called with
      */
-    public func initValidation(_ dict: NSDictionary) {
+    open func initValidation(_ dict: NSDictionary) {
     }
     
     /**
@@ -123,7 +123,7 @@ open class EVObject: NSObject, NSCoding, EVReflectable  {
      
      - returns: Return an array with value pairs of the object property name and json key name.
      */
-    public func propertyMapping() -> [(String?, String?)] {
+    open func propertyMapping() -> [(String?, String?)] {
         return []
     }
     
@@ -134,7 +134,7 @@ open class EVObject: NSObject, NSCoding, EVReflectable  {
      
      - returns: Returns an array where each item is a combination of the folowing 3 values: A string for the property name where the custom conversion is for, a setter function and a getter function.
      */
-    public func propertyConverters() -> [(String?, ((Any?)->())?, (() -> Any?)? )] {
+    open func propertyConverters() -> [(String?, ((Any?)->())?, (() -> Any?)? )] {
         return []
     }
     
@@ -146,7 +146,7 @@ open class EVObject: NSObject, NSCoding, EVReflectable  {
      
      - returns: True if the value needs to be ignored.
      */
-    public func skipPropertyValue(_ value: Any, key: String) -> Bool {
+    open func skipPropertyValue(_ value: Any, key: String) -> Bool {
         return false
     }
     
@@ -157,7 +157,7 @@ open class EVObject: NSObject, NSCoding, EVReflectable  {
      
      - returns: The specific type
      */
-    public func getSpecificType(_ dict: NSDictionary) -> EVReflectable {
+    open func getSpecificType(_ dict: NSDictionary) -> EVReflectable {
         return self
     }
 }
