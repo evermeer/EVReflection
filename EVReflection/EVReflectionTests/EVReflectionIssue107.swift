@@ -102,7 +102,7 @@ class EVSubConfigurationModel: EVObject {
     var evening: String?
     var morning: String?
     
-    override internal func initValidation(_ dict: NSDictionary) {
+    internal override func initValidation(_ dict: NSDictionary) {
         self.initMayNotContainKeys(["desc","morning","evening"], dict: dict)
     }
 }

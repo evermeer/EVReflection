@@ -197,7 +197,7 @@ class WorkaroundObject: EVObject, EVArrayConvertable {
     }
 
     // Implementation of the EVDictionaryConvertable protocol for handling a Swift dictionary.
-    override func convertDictionary(_ field: String, dict: Any) -> NSDictionary {
+    func convertDictionary(_ field: String, dict: Any) -> NSDictionary {
         assert(field == "dict", "convertDictionary for key \(field) should be handled.")
     
         let returnDict = NSMutableDictionary()

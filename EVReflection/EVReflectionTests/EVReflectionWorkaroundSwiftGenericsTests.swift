@@ -102,6 +102,10 @@ public class MyGenericObject<T>: MyGenericBase, EVGenericsKVC where T:NSObject {
         super.init()
     }
     
+    required public init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     public func setGenericValue(_ value: AnyObject!, forUndefinedKey key: String) {
         switch key {
         case "data":
@@ -125,6 +129,10 @@ public class MyIncorrectGenericObject<T>: MyGenericBase, EVGenericsKVC where T:N
     
     required public init() {
         super.init()
+    }
+    
+    required public init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 
     public func setGenericValue(_ value: AnyObject!, forUndefinedKey key: String) {

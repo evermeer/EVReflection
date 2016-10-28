@@ -1,5 +1,5 @@
 //
-//  EVExtensions.swift
+//  ArrayExtension.swift
 //  EVReflection
 //
 //  Created by Edwin Vermeer on 9/2/15.
@@ -9,32 +9,7 @@
 import Foundation
 
 /**
-Implementation for Equatable ==
-
-- parameter lhs: The object at the left side of the ==
-- parameter rhs: The object at the right side of the ==
-
- - returns: True if the objects are the same, otherwise false.
-*/
-public func == (lhs: EVObject, rhs: EVObject) -> Bool {
-    return EVReflection.areEqual(lhs, rhs: rhs)
-}
-
-/**
-Implementation for Equatable !=
-
-- parameter lhs: The object at the left side of the ==
-- parameter rhs: The object at the right side of the ==
-
- - returns: False if the objects are the the same, otherwise true.
-*/
-public func != (lhs: EVObject, rhs: EVObject) -> Bool {
-    return !EVReflection.areEqual(lhs, rhs: rhs)
-}
-
-
-/**
-Extending Array with an initializer with a json string
+Extending Array with an some EVReflection functions where the elements can be of type NSObject
 */
 public extension Array where Element: NSObject {
     
@@ -63,10 +38,8 @@ public extension Array where Element: NSObject {
         self.init()
         for item in dictionaryArray {
             let arrayTypeInstance = getArrayTypeInstance(self)
-            if arrayTypeInstance is EVObject {
-                EVReflection.setPropertiesfromDictionary(item, anyObject: arrayTypeInstance as! EVObject)
-                self.append(arrayTypeInstance)
-            }
+            EVReflection.setPropertiesfromDictionary(item, anyObject: arrayTypeInstance)
+            self.append(arrayTypeInstance)
         }
     }
     
@@ -107,17 +80,25 @@ public extension Array where Element: NSObject {
         return NSStringFromClass(type(of:item))
     }
     
+    
+}
+
+
+/**
+ Extending Array with an some EVReflection functions where the elements can be of type EVReflectable
+ */
+public extension Array where Element: EVReflectable {
     /**
-    Convert this array to a json string
-    
-    - parameter conversionOptions: Option set for the various conversion options.
-    
-    - returns: The json string
-    */
+     Convert this array to a json string
+     
+     - parameter conversionOptions: Option set for the various conversion options.
+     
+     - returns: The json string
+     */
     public func toJsonString(_ conversionOptions: ConversionOptions = .DefaultSerialize) -> String {
-        return "[\n" + self.map({($0 as? EVObject ?? EVObject()).toJsonString(conversionOptions)}).joined(separator: ", \n") + "\n]"
+        return "[\n" + self.map({($0).toJsonString(conversionOptions)}).joined(separator: ", \n") + "\n]"
     }
-    
+
     /**
      Returns the dictionary representation of this array.
      
@@ -126,6 +107,6 @@ public extension Array where Element: NSObject {
      - returns: The array of dictionaries
      */
     public func toDictionaryArray(_ conversionOptions: ConversionOptions = .DefaultSerialize) -> NSArray {
-        return self.map({($0 as? EVObject ?? EVObject()).toDictionary(conversionOptions)}) as NSArray
+        return self.map({($0).toDictionary(conversionOptions)}) as NSArray
     }
 }

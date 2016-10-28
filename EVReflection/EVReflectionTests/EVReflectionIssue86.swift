@@ -87,7 +87,7 @@ class Supports: EVObject {
     var _attribute: String = ""
     var _value: YesNoEnum = .none
     
-    override internal func propertyConverters() -> [(String?, ((Any?) -> ())?, (() -> Any?)?)] {
+    override func propertyConverters() -> [(String?, ((Any?) -> ())?, (() -> Any?)?)] {
         return [
             (
                 "_type"

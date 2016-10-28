@@ -75,7 +75,7 @@ public class B: EVObject {
         }
     }
     
-    override public func propertyMapping() -> [(String?, String?)] {
+    public override func propertyMapping() -> [(String?, String?)] {
         return [("intProp", nil)]
     }
 }

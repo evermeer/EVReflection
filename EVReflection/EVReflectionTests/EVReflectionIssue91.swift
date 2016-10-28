@@ -46,7 +46,6 @@ class TestIssue91: XCTestCase {
 }
 
 class BaseObject: EVObject {
-    
 }
 
 class SimpleObject: BaseObject {

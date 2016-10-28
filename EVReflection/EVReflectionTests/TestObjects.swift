@@ -117,7 +117,7 @@ public class TestObject5: EVObject {
     var propertyInObject: String = "" // will be written to or read from keyInJson
     var ignoredProperty: String = "" // Will not be written or read to/from json 
     
-    override public func propertyMapping() -> [(String?, String?)] {
+    public override func propertyMapping() -> [(String?, String?)] {
         return [("ignoredProperty", nil), ("propertyInObject", "keyInJson")]
     }
 }
@@ -129,7 +129,7 @@ For testing the custom property conversion
 public class TestObject6: EVObject {
     var isGreat: Bool = false
     
-    override public func propertyConverters() -> [(String?, ((Any?)->())?, (() -> Any?)? )] {
+    public override func propertyConverters() -> [(String?, ((Any?)->())?, (() -> Any?)? )] {
         return [
             ( // We want a custom converter for the field isGreat
               "isGreat",
@@ -189,7 +189,7 @@ public class TestObjectWithNilConverters: EVObject {
     
     var optionalValue: String?
     
-    override public func propertyConverters() -> [(String?, ((Any?)->())?, (() -> Any?)? )] {
+    public override func propertyConverters() -> [(String?, ((Any?)->())?, (() -> Any?)? )] {
         return [("optionalValue", nil, nil)]
     }
 }
@@ -235,7 +235,7 @@ public class ValidateObject: EVObject {
     var optionalKey2: String?
     var optionalKey3: String?
     
-    override public func initValidation(_ dict: NSDictionary) {
+    public override func initValidation(_ dict: NSDictionary) {
         self.initMayNotContainKeys(["error"], dict: dict)
         self.initMustContainKeys(["requiredKey1", "requiredKey2", "requiredKey3"], dict: dict)
         if dict.value(forKey: "requiredKey1") as? String == dict.value(forKey: "optionalKey1") as? String {

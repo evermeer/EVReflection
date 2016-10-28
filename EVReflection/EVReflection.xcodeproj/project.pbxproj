@@ -11,11 +11,11 @@
 		2DC8AA401C24215500FA6B8E /* EVReflection.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DC8AA3F1C24215500FA6B8E /* EVReflection.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2DC8AA541C2421D600FA6B8E /* EVReflection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F07C5841AF10284000DF1F3 /* EVReflection.swift */; };
 		2DC8AA551C2421D600FA6B8E /* EVObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F0E5E591AF4D94000A10E51 /* EVObject.swift */; };
-		2DC8AA571C2421D600FA6B8E /* EVExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F1BA5261B971CBF009F9DB8 /* EVExtensions.swift */; };
+		2DC8AA571C2421D600FA6B8E /* EVArrayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F1BA5261B971CBF009F9DB8 /* EVArrayExtension.swift */; };
 		2DC8AA661C242E0600FA6B8E /* EVReflectionOSX.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DC8AA651C242E0600FA6B8E /* EVReflectionOSX.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2DC8AA7C1C242ECC00FA6B8E /* EVReflection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F07C5841AF10284000DF1F3 /* EVReflection.swift */; };
 		2DC8AA7D1C242ECE00FA6B8E /* EVObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F0E5E591AF4D94000A10E51 /* EVObject.swift */; };
-		2DC8AA7F1C242ED200FA6B8E /* EVExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F1BA5261B971CBF009F9DB8 /* EVExtensions.swift */; };
+		2DC8AA7F1C242ED200FA6B8E /* EVArrayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F1BA5261B971CBF009F9DB8 /* EVArrayExtension.swift */; };
 		422668011CB77DD800145E17 /* EVReflectionCustomInitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422667FF1CB77DD000145E17 /* EVReflectionCustomInitTests.swift */; };
 		422668021CB7802C00145E17 /* EVReflectionCustomInitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422667FF1CB77DD000145E17 /* EVReflectionCustomInitTests.swift */; };
 		422668031CB7802D00145E17 /* EVReflectionCustomInitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422667FF1CB77DD000145E17 /* EVReflectionCustomInitTests.swift */; };
@@ -92,6 +92,9 @@
 		7F83A6721D132F6200A4C508 /* EVReflectionIssue96.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F83A66F1D132F5400A4C508 /* EVReflectionIssue96.swift */; };
 		7F83A6731D132F6300A4C508 /* EVReflectionIssue96.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F83A66F1D132F5400A4C508 /* EVReflectionIssue96.swift */; };
 		7F8818F91C04447100E17072 /* EVReflectionPropertyMappingTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F8818F81C04447100E17072 /* EVReflectionPropertyMappingTest.swift */; };
+		7F925AB61DC325E50059F4F2 /* EVReflectable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF033F71DC2A0DF00B25070 /* EVReflectable.swift */; };
+		7F925AB71DC325E60059F4F2 /* EVReflectable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF033F71DC2A0DF00B25070 /* EVReflectable.swift */; };
+		7F925AB81DC325E70059F4F2 /* EVReflectable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF033F71DC2A0DF00B25070 /* EVReflectable.swift */; };
 		7F9336951C23F2EB00AF7076 /* EVReflectionEVObjectTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F59F9DA1C07999300C14CF9 /* EVReflectionEVObjectTests.swift */; };
 		7F9336961C23F2F100AF7076 /* EVReflectionPropertyMappingTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F8818F81C04447100E17072 /* EVReflectionPropertyMappingTest.swift */; };
 		7F9336971C23F2F700AF7076 /* EVReflectionAssociatedTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F59F9D81C07986200C14CF9 /* EVReflectionAssociatedTests.swift */; };
@@ -100,7 +103,7 @@
 		7F9336B11C28227400AF7076 /* EVReflectionTVOS.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F9336B01C28227400AF7076 /* EVReflectionTVOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7F9336C51C28229C00AF7076 /* EVReflection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F07C5841AF10284000DF1F3 /* EVReflection.swift */; };
 		7F9336C61C28229F00AF7076 /* EVObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F0E5E591AF4D94000A10E51 /* EVObject.swift */; };
-		7F9336C81C2822A700AF7076 /* EVExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F1BA5261B971CBF009F9DB8 /* EVExtensions.swift */; };
+		7F9336C81C2822A700AF7076 /* EVArrayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F1BA5261B971CBF009F9DB8 /* EVArrayExtension.swift */; };
 		7F9336C91C2822B200AF7076 /* TestObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F41ECA41B91F2E0003A2236 /* TestObjects.swift */; };
 		7F9336CA1C2822B700AF7076 /* EVReflectionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F41ECA81B91F306003A2236 /* EVReflectionTests.swift */; };
 		7F9336CB1C2822B700AF7076 /* EVReflectionEVObjectTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F59F9DA1C07999300C14CF9 /* EVReflectionEVObjectTests.swift */; };
@@ -131,10 +134,11 @@
 		7FD67D8E1C288B560071234B /* EVReflectionWatchOS.h in Headers */ = {isa = PBXBuildFile; fileRef = 7FD67D8D1C288B560071234B /* EVReflectionWatchOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7FD67D931C288B760071234B /* EVReflection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F07C5841AF10284000DF1F3 /* EVReflection.swift */; };
 		7FD67D941C288B7A0071234B /* EVObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F0E5E591AF4D94000A10E51 /* EVObject.swift */; };
-		7FD67D961C288B840071234B /* EVExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F1BA5261B971CBF009F9DB8 /* EVExtensions.swift */; };
-		7FDE786B1DC2154700C2AC1C /* sample.json in Resources */ = {isa = PBXBuildFile; fileRef = 7FDE78661DC2144700C2AC1C /* sample.json */; };
-		7FDE786C1DC2154900C2AC1C /* sample.json in Resources */ = {isa = PBXBuildFile; fileRef = 7FDE78661DC2144700C2AC1C /* sample.json */; };
-		7FDE786D1DC2154B00C2AC1C /* sample.json in Resources */ = {isa = PBXBuildFile; fileRef = 7FDE78661DC2144700C2AC1C /* sample.json */; };
+		7FD67D961C288B840071234B /* EVArrayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F1BA5261B971CBF009F9DB8 /* EVArrayExtension.swift */; };
+		7FDC390F1DC358A40091D27E /* sample.json in Resources */ = {isa = PBXBuildFile; fileRef = 7FDC390D1DC3582F0091D27E /* sample.json */; };
+		7FDC39101DC358A60091D27E /* sample.json in Resources */ = {isa = PBXBuildFile; fileRef = 7FDC390D1DC3582F0091D27E /* sample.json */; };
+		7FDC39111DC358A70091D27E /* sample.json in Resources */ = {isa = PBXBuildFile; fileRef = 7FDC390D1DC3582F0091D27E /* sample.json */; };
+		7FF033F81DC2A0E000B25070 /* EVReflectable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF033F71DC2A0DF00B25070 /* EVReflectable.swift */; };
 		7FF4BEAF1CF0FBF50086F999 /* EVReflectionIssue84.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF4BEAD1CF0FB920086F999 /* EVReflectionIssue84.swift */; };
 		7FF4BEB01CF0FBF60086F999 /* EVReflectionIssue84.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF4BEAD1CF0FB920086F999 /* EVReflectionIssue84.swift */; };
 		7FF4BEB11CF0FBF80086F999 /* EVReflectionIssue84.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF4BEAD1CF0FB920086F999 /* EVReflectionIssue84.swift */; };
@@ -203,7 +207,7 @@
 		7F07C58E1AF11861000DF1F3 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		7F0E5E591AF4D94000A10E51 /* EVObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = EVObject.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		7F159DFB1BA2FA2F00247CB1 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
-		7F1BA5261B971CBF009F9DB8 /* EVExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVExtensions.swift; sourceTree = "<group>"; };
+		7F1BA5261B971CBF009F9DB8 /* EVArrayExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVArrayExtension.swift; sourceTree = "<group>"; };
 		7F1DD7071D90946800E99D4D /* EVReflectionIssue124.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVReflectionIssue124.swift; sourceTree = "<group>"; };
 		7F1DD7091D90949100E99D4D /* EVReflectionIssue124.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = EVReflectionIssue124.plist; sourceTree = "<group>"; };
 		7F1E778F1CD343D300F88A9A /* EVReflectionConversionOptionsTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVReflectionConversionOptionsTest.swift; sourceTree = "<group>"; };
@@ -262,7 +266,8 @@
 		7FD67D8B1C288B560071234B /* EVReflection.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = EVReflection.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7FD67D8D1C288B560071234B /* EVReflectionWatchOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EVReflectionWatchOS.h; sourceTree = "<group>"; };
 		7FD67D8F1C288B560071234B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		7FDE78661DC2144700C2AC1C /* sample.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = sample.json; path = ../../../AlamofireJsonToObjects/AlamofireJsonToObjectsTests/sample.json; sourceTree = "<group>"; };
+		7FDC390D1DC3582F0091D27E /* sample.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = sample.json; sourceTree = "<group>"; };
+		7FF033F71DC2A0DF00B25070 /* EVReflectable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVReflectable.swift; sourceTree = "<group>"; };
 		7FF4BEAD1CF0FB920086F999 /* EVReflectionIssue84.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVReflectionIssue84.swift; sourceTree = "<group>"; };
 		7FF4BEB31CF2DA6E0086F999 /* EVReflectionIssue86.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVReflectionIssue86.swift; sourceTree = "<group>"; };
 		7FFCCC361BB440F400EE9312 /* coverage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = coverage.png; sourceTree = "<group>"; };
@@ -380,7 +385,7 @@
 		7F07C5751AF101A9000DF1F3 /* EVReflectionTests */ = {
 			isa = PBXGroup;
 			children = (
-				7FDE78661DC2144700C2AC1C /* sample.json */,
+				7FDC390D1DC3582F0091D27E /* sample.json */,
 				7F41ECA41B91F2E0003A2236 /* TestObjects.swift */,
 				7F41ECA81B91F306003A2236 /* EVReflectionTests.swift */,
 				7F59F9DA1C07999300C14CF9 /* EVReflectionEVObjectTests.swift */,
@@ -421,7 +426,8 @@
 			children = (
 				7F07C5841AF10284000DF1F3 /* EVReflection.swift */,
 				7F0E5E591AF4D94000A10E51 /* EVObject.swift */,
-				7F1BA5261B971CBF009F9DB8 /* EVExtensions.swift */,
+				7FF033F71DC2A0DF00B25070 /* EVReflectable.swift */,
+				7F1BA5261B971CBF009F9DB8 /* EVArrayExtension.swift */,
 				7F9E68111C67728200F0F4D3 /* EVWorkaroundHelpers.swift */,
 			);
 			path = pod;
@@ -773,7 +779,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7F1DD70A1D90949100E99D4D /* EVReflectionIssue124.plist in Resources */,
-				7FDE786B1DC2154700C2AC1C /* sample.json in Resources */,
+				7FDC390F1DC358A40091D27E /* sample.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -782,7 +788,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7F1DD70B1D90949100E99D4D /* EVReflectionIssue124.plist in Resources */,
-				7FDE786C1DC2154900C2AC1C /* sample.json in Resources */,
+				7FDC39101DC358A60091D27E /* sample.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -810,7 +816,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7F1DD70C1D90949100E99D4D /* EVReflectionIssue124.plist in Resources */,
-				7FDE786D1DC2154B00C2AC1C /* sample.json in Resources */,
+				7FDC39111DC358A70091D27E /* sample.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -863,7 +869,8 @@
 				7F9E68121C67728200F0F4D3 /* EVWorkaroundHelpers.swift in Sources */,
 				2DC8AA541C2421D600FA6B8E /* EVReflection.swift in Sources */,
 				2DC8AA551C2421D600FA6B8E /* EVObject.swift in Sources */,
-				2DC8AA571C2421D600FA6B8E /* EVExtensions.swift in Sources */,
+				7FF033F81DC2A0E000B25070 /* EVReflectable.swift in Sources */,
+				2DC8AA571C2421D600FA6B8E /* EVArrayExtension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -872,8 +879,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				4A779EC01C77D505006CE342 /* EVWorkaroundHelpers.swift in Sources */,
-				2DC8AA7F1C242ED200FA6B8E /* EVExtensions.swift in Sources */,
+				2DC8AA7F1C242ED200FA6B8E /* EVArrayExtension.swift in Sources */,
 				2DC8AA7C1C242ECC00FA6B8E /* EVReflection.swift in Sources */,
+				7F925AB61DC325E50059F4F2 /* EVReflectable.swift in Sources */,
 				2DC8AA7D1C242ECE00FA6B8E /* EVObject.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -968,9 +976,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7F9336C81C2822A700AF7076 /* EVExtensions.swift in Sources */,
+				7F9336C81C2822A700AF7076 /* EVArrayExtension.swift in Sources */,
 				7F9336C51C28229C00AF7076 /* EVReflection.swift in Sources */,
 				7F625FD51D7031DF00F9A304 /* EVWorkaroundHelpers.swift in Sources */,
+				7F925AB71DC325E60059F4F2 /* EVReflectable.swift in Sources */,
 				7F9336C61C28229F00AF7076 /* EVObject.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1017,9 +1026,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7FD67D961C288B840071234B /* EVExtensions.swift in Sources */,
+				7FD67D961C288B840071234B /* EVArrayExtension.swift in Sources */,
 				7FD67D931C288B760071234B /* EVReflection.swift in Sources */,
 				7F625FD61D7031E000F9A304 /* EVWorkaroundHelpers.swift in Sources */,
+				7F925AB81DC325E70059F4F2 /* EVReflectable.swift in Sources */,
 				7FD67D941C288B7A0071234B /* EVObject.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

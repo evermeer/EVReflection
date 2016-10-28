@@ -119,11 +119,11 @@ class EVReflectionTests: XCTestCase {
     Test the convenience methods for getting a dictionary and creating an object based on a dictionary.
     */
     func testClassToAndFromDictionaryConvenienceMethods() {
-        let theObject = TestObject2()
+        let theObject: TestObject2 = TestObject2()
         theObject.objectValue = "testing"
         let toDict = theObject.toDictionary()
         NSLog("toDictionary = \(toDict)")
-        let result = TestObject2(dictionary: toDict)
+        let result: TestObject2 = TestObject2(dictionary: toDict)
         XCTAssert(theObject == result, "Pass")
     }
 

@@ -132,7 +132,7 @@ public class MyPrimaryObject: EVObject {
     
     public var secondaryObjects: [MySecondaryObject]?
     
-    override public func propertyMapping() -> [(String?, String?)] {
+    public override func propertyMapping() -> [(String?, String?)] {
         return [("myObjectDescription","Description")]
         
     }
@@ -157,7 +157,7 @@ public class PublicInfusion: EVObject {
     
     public var vodkaHistory: [PublicInfusionCheckmark] = []
     
-    override public func propertyMapping() -> [(String?, String?)] {
+    public override func propertyMapping() -> [(String?, String?)] {
         return [("infusionDescription","Description")]
     }
 }
