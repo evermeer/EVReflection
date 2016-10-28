@@ -149,7 +149,7 @@ open class EVObject: NSObject, NSCoding, EVReflectable  {
     open func skipPropertyValue(_ value: Any, key: String) -> Bool {
         return false
     }
-    
+        
     /**
      When a property is declared as a base type for multiple enherited classes, then this function will let you pick the right specific type based on the suplied dictionary.
      
@@ -157,8 +157,8 @@ open class EVObject: NSObject, NSCoding, EVReflectable  {
      
      - returns: The specific type
      */
-    open func getSpecificType(_ dict: NSDictionary) -> EVReflectable {
-        return self
+    open func getSpecificType(_ dict: NSDictionary) -> EVReflectable? {
+        return nil
     }
 }
 

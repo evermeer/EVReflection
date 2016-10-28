@@ -28,8 +28,13 @@ final public class EVReflection {
     public class func fromDictionary(_ dictionary: NSDictionary, anyobjectTypeString: String, conversionOptions: ConversionOptions = .DefaultDeserialize) -> NSObject? {
         if var nsobject = swiftClassFromString(anyobjectTypeString) {
             if let evResult = nsobject as? EVReflectable {
+                if let type = evResult.getType(dictionary) as? NSObject {
+                    nsobject = type
+                }
                 if let specific = evResult.getSpecificType(dictionary) as? NSObject {
                     nsobject = specific
+                } else if let evResult = nsobject as? EVGenericsKVC {
+                    nsobject = evResult.getGenericType()
                 }
             }
             nsobject = setPropertiesfromDictionary(dictionary, anyObject: nsobject, conversionOptions: conversionOptions)
@@ -1090,10 +1095,16 @@ final public class EVReflection {
             subtype = subtype.substring(to: subtype.characters.index(before: subtype.endIndex))
             useType = subtype
         }
+        
         if var returnObject: NSObject = swiftClassFromString(useType) {
             if let evResult = returnObject as? EVReflectable {
+                if let type = evResult.getType(dict) as? NSObject {
+                    returnObject = type
+                }
                 if let specific = evResult.getSpecificType(dict) as? NSObject {
                     returnObject = specific
+                } else if let evResult = returnObject as? EVGenericsKVC {
+                    returnObject = evResult.getGenericType()
                 }
             }
             returnObject = setPropertiesfromDictionary(dict, anyObject: returnObject, conversionOptions: conversionOptions)
@@ -1134,22 +1145,28 @@ final public class EVReflection {
         result.removeAll()
         
         for item in array {
-            //var org = result.getTypeInstance() does not work !?
-            var org = swiftClassFromString(subtype)
-            if let evResult = org as? EVReflectable {
-                if let specific = evResult.getSpecificType(item as? NSDictionary ?? NSDictionary()) as? NSObject {
-                    org = specific
-                }
-            }
-            if let evResult = anyObject as? EVGenericsKVC {
-                org = evResult.getGenericType()
-            }
+            let org = getTypeFor(anyObject: anyObject, key: key, type: type, item: item)
             let (arrayObject, valid) = dictToObject(subtype, original:org, dict: item as? NSDictionary ?? NSDictionary(), conversionOptions: conversionOptions)
             if arrayObject != nil && valid {
                 result.append(arrayObject!)
             }
         }
         return result as NSArray
+    }
+    
+    fileprivate class func getTypeFor(anyObject: NSObject, key: String, type: String, item: Any) -> NSObject? {
+        var org = swiftClassFromString(type)
+        if let evResult = org as? EVReflectable {
+            if let type = evResult.getType(item as? NSDictionary ?? NSDictionary()) as? NSObject {
+                org = type
+            }
+            if let specific = evResult.getSpecificType(item as? NSDictionary ?? NSDictionary()) as? NSObject {
+                org = specific
+            } else if let evResult = anyObject as? EVGenericsKVC {
+                org = evResult.getGenericType()
+            }
+        }
+        return org
     }
     
     /**

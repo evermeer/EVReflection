@@ -44,13 +44,22 @@ public protocol EVReflectable: class, NSObjectProtocol  {
     func skipPropertyValue(_ value: Any, key: String) -> Bool
     
     /**
+     Get the type of this object.
+     
+     - parameter dict: The dictionary for the specific type
+     
+     - returns: The specific type
+     */
+    func getType(_ dict: NSDictionary) -> EVReflectable
+
+    /**
      When a property is declared as a base type for multiple enherited classes, then this function will let you pick the right specific type based on the suplied dictionary.
      
      - parameter dict: The dictionary for the specific type
      
      - returns: The specific type
      */
-    func getSpecificType(_ dict: NSDictionary) -> EVReflectable
+    func getSpecificType(_ dict: NSDictionary) -> EVReflectable?
 
     /**
      Declaration for Equatable ==
@@ -248,14 +257,25 @@ extension EVReflectable {
     }
     
     /**
+     Get the type of this object
+     
+     - parameter dict: The dictionary for the specific type
+     
+     - returns: The specific type
+     */
+    public func getType(_ dict: NSDictionary) -> EVReflectable {
+        return self
+    }
+
+    /**
      When a property is declared as a base type for multiple enherited classes, then this function will let you pick the right specific type based on the suplied dictionary.
      
      - parameter dict: The dictionary for the specific type
      
      - returns: The specific type
      */
-    public func getSpecificType(_ dict: NSDictionary) -> EVReflectable {
-        return self
+    public func getSpecificType(_ dict: NSDictionary) -> EVReflectable? {
+        return nil
     }
 
     // MARK: - extension methods
