@@ -94,7 +94,7 @@ extension EVReflectable where Self: NSObject {
      - parameter dictionary: The dictionary that will be used to create this object
      - parameter conversionOptions: Option set for the various conversion options.
      */
-    public init(dictionary: NSDictionary, conversionOptions: ConversionOptions = .DefaultDeserialize) {
+    public init(dictionary: NSDictionary, conversionOptions: ConversionOptions = .DefaultDeserialize, forKeyPath: String? = nil) {
         self.init()
         EVReflection.setPropertiesfromDictionary(dictionary, anyObject: self, conversionOptions: conversionOptions)
     }
@@ -105,7 +105,7 @@ extension EVReflectable where Self: NSObject {
      - parameter json: The json string that will be used to create this object
      - parameter conversionOptions: Option set for the various conversion options.
      */
-    public init(json: String?, conversionOptions: ConversionOptions = .DefaultDeserialize) {
+    public init(json: String?, conversionOptions: ConversionOptions = .DefaultDeserialize, forKeyPath: String? = nil) {
         self.init()
         let jsonDict = EVReflection.dictionaryFromJson(json)
         EVReflection.setPropertiesfromDictionary(jsonDict, anyObject: self, conversionOptions: conversionOptions)
@@ -117,7 +117,7 @@ extension EVReflectable where Self: NSObject {
      - parameter dictionary: The dictionary that will be used to create this object
      - parameter conversionOptions: Option set for the various conversion options.
      */
-    public init(data: Data, conversionOptions: ConversionOptions = .DefaultDeserialize) {
+    public init(data: Data, conversionOptions: ConversionOptions = .DefaultDeserialize, forKeyPath: String? = nil) {
         self.init()
         let dictionary: NSDictionary = (((try! JSONSerialization.jsonObject(with: data, options: []) as? NSDictionary))  ?? NSDictionary())!
         EVReflection.setPropertiesfromDictionary(dictionary, anyObject: self, conversionOptions: conversionOptions)

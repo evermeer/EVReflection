@@ -19,7 +19,7 @@ public extension Array where Element: NSObject {
     - parameter json: The json string
     - parameter conversionOptions: Option set for the various conversion options.
     */
-    public init(json: String?, conversionOptions: ConversionOptions = .DefaultDeserialize) {
+    public init(json: String?, conversionOptions: ConversionOptions = .DefaultDeserialize, forKeyPath: String? = nil) {
         self.init()
         let arrayTypeInstance = getArrayTypeInstance(self)
         let newArray = EVReflection.arrayFromJson(nil, type:arrayTypeInstance, json: json, conversionOptions: conversionOptions)
@@ -42,6 +42,28 @@ public extension Array where Element: NSObject {
             self.append(arrayTypeInstance)
         }
     }
+
+    /**
+     Initialize an array based on a dictionary
+     
+     - parameter json: The json string
+     - parameter conversionOptions: Option set for the various conversion options.
+     */
+    public init(dictionary: NSDictionary, forKeyPath: String, conversionOptions: ConversionOptions = .DefaultDeserialize) {
+        self.init()
+        
+        guard let dictionaryArray = dictionary.value(forKeyPath: forKeyPath) as? [NSDictionary] else {
+            print("ERROR: The forKeyPath '\(forKeyPath)' resulted in an empty array")
+            return
+        }
+        
+        for item in dictionaryArray {
+            let arrayTypeInstance = getArrayTypeInstance(self)
+            EVReflection.setPropertiesfromDictionary(item, anyObject: arrayTypeInstance)
+            self.append(arrayTypeInstance)
+        }
+    }
+    
     
     /**
     Get the type of the object where this array is for

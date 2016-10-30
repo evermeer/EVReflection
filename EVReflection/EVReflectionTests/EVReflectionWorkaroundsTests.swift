@@ -34,6 +34,7 @@ class EVReflectionWorkaroundsTests: XCTestCase {
     func testWorkaroundsSmoketest() {
         let json: String = "{\"nullableType\": 1,\"enumType\": 0, \"list\": [ {\"nullableType\": 2}, {\"nullableType\": 3}] }"
         let status = WorkaroundObject(json: json)
+        print("\(status.toJsonString())")
         XCTAssertTrue(status.nullableType == 1, "the nullableType should be 1")
         XCTAssertTrue(status.enumType == .notOK, "the status should be NotOK")
         XCTAssertTrue(status.list.count == 2, "the list should have 2 items")
@@ -97,6 +98,9 @@ class EVReflectionWorkaroundsTests: XCTestCase {
         let event2 = WorkaroundObject(json: json)
         print(event2)
         
+        //TODO: This is a Swift 3 bug for which I don't have a workaround (yet?)
+        //See https://bugs.swift.org/browse/SR-3083
+        //this is failing because Mirror is returning the displayStyle .class for the items in the array instead of displayStyle .enum.
         XCTAssertEqual(event.enumList.count, event2.enumList.count, "Now the list should also have 4 items")
         if event2.enumList.count == 4 {
             XCTAssertEqual(event2.enumList[0], StatusType.ok, "The first item should be .OK")
@@ -117,7 +121,7 @@ class EVReflectionWorkaroundsTests: XCTestCase {
 }
 
 
-enum StatusType: Int, EVRawInt {
+@objc enum StatusType: Int, EVRawInt {
     case notOK = 0
     case ok = 1
 }

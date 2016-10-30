@@ -54,10 +54,16 @@ final public class EVReflection {
      - returns: The object that is created from the dictionary
      */
     @discardableResult
-    public class func setPropertiesfromDictionary<T>(_ dictionary: NSDictionary, anyObject: T, conversionOptions: ConversionOptions = .DefaultDeserialize) -> T where T: NSObject {
-            (anyObject as? EVReflectable)?.initValidation(dictionary)
-        let (keyMapping, _, types) = getKeyMapping(anyObject, dictionary: dictionary, conversionOptions: .PropertyMapping)
-        for (k, v) in dictionary {
+    public class func setPropertiesfromDictionary<T>(_ dictionary: NSDictionary, anyObject: T, conversionOptions: ConversionOptions = .DefaultDeserialize, forKeyPath: String? = nil) -> T where T: NSObject {
+        
+        guard let dict = ((forKeyPath == nil) ? dictionary : dictionary.value(forKeyPath: forKeyPath!) as? NSDictionary) else {
+            print("ERROR: The forKeyPath '\(forKeyPath)' did not return a dictionary")
+            return anyObject
+        }
+        
+        (anyObject as? EVReflectable)?.initValidation(dict)
+        let (keyMapping, _, types) = getKeyMapping(anyObject, dictionary: dict, conversionOptions: .PropertyMapping)
+        for (k, v) in dict {
             var skipKey = false
             if conversionOptions.contains(.PropertyMapping) {
                 if let reflectable = anyObject as? EVReflectable {
