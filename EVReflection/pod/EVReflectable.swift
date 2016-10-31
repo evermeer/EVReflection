@@ -354,7 +354,7 @@ extension EVReflectable {
      - returns: An array of objects
      */
     public static func arrayFromJson<T>(_ json: String?, conversionOptions: ConversionOptions = .DefaultDeserialize) -> [T] where T:NSObject {
-        return EVReflection.arrayFromJson(nil, type: T(), json: json, conversionOptions: conversionOptions)
+        return EVReflection.arrayFromJson(type: T(), json: json, conversionOptions: conversionOptions)
     }
     
     /**

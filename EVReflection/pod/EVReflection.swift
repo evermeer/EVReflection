@@ -205,6 +205,7 @@ final public class EVReflection {
         return result
     }
     
+    
     /**
      Return an array representation for the json string
      
@@ -214,18 +215,15 @@ final public class EVReflection {
      
      - returns: The array of dictionaries representation of the json
      */
-    public class func arrayFromJson<T>(_ theObject: NSObject? = nil, type: T, json: String?, conversionOptions: ConversionOptions = .DefaultDeserialize, forKeyPath: String? = nil) -> [T] {
+    public class func arrayFromData<T>(_ theObject: NSObject? = nil, type: T, data: Data?, conversionOptions: ConversionOptions = .DefaultDeserialize, forKeyPath: String? = nil) -> [T] {
         var result = [T]()
-        if json == nil {
-            print("ERROR: nil is not valid json!")
+        if data == nil {
+            print("ERROR: json data is nil!")
             return result
         }
-        guard let jsonData = json!.data(using: String.Encoding.utf8) else {
-            print("ERROR: Could not get Data from json string using utf8 encoding")
-            return result
-        }
+
         do {
-            var serialized = try JSONSerialization.jsonObject(with: jsonData, options: JSONSerialization.ReadingOptions.mutableContainers)
+            var serialized = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers)
             if serialized is NSDictionary {
                 if forKeyPath == nil {
                     print("ERROR: The root of the json is an object and not an array. Specify a forKeyPath to get an item as an array")
@@ -248,8 +246,30 @@ final public class EVReflection {
             }
         } catch {
             print("ERROR: Invalid json! \(error.localizedDescription)")
-        }        
+        }
         return result
+    }
+    
+    /**
+     Return an array representation for the json string
+     
+     - parameter type: An instance of the type where the array will be created of.
+     - parameter json: The json string that will be converted
+     - parameter conversionOptions: Option set for the various conversion options.
+     
+     - returns: The array of dictionaries representation of the json
+     */
+    public class func arrayFromJson<T>(type: T, json: String?, conversionOptions: ConversionOptions = .DefaultDeserialize, forKeyPath: String? = nil) -> [T] {
+        let result = [T]()
+        if json == nil {
+            print("ERROR: nil is not valid json!")
+            return result
+        }
+        guard let data = json!.data(using: String.Encoding.utf8) else {
+            print("ERROR: Could not get Data from json string using utf8 encoding")
+            return result
+        }
+        return arrayFromData(type: type, data: data, conversionOptions: conversionOptions, forKeyPath: forKeyPath)
     }
     
     /**

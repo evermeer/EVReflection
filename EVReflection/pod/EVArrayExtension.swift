@@ -22,12 +22,27 @@ public extension Array where Element: NSObject {
     public init(json: String?, conversionOptions: ConversionOptions = .DefaultDeserialize, forKeyPath: String? = nil) {
         self.init()
         let arrayTypeInstance = getArrayTypeInstance(self)
-        let newArray = EVReflection.arrayFromJson(nil, type:arrayTypeInstance, json: json, conversionOptions: conversionOptions, forKeyPath: forKeyPath)
+        let newArray = EVReflection.arrayFromJson(type: arrayTypeInstance, json: json, conversionOptions: conversionOptions, forKeyPath: forKeyPath)
         for item in newArray {
             self.append(item)
         }
     }
 
+    /**
+     Initialize an array based on a json string
+     
+     - parameter json: The json string
+     - parameter conversionOptions: Option set for the various conversion options.
+     */
+    public init(data: Data?, conversionOptions: ConversionOptions = .DefaultDeserialize, forKeyPath: String? = nil) {
+        self.init()
+        let arrayTypeInstance = getArrayTypeInstance(self)
+        let newArray = EVReflection.arrayFromData(nil, type:arrayTypeInstance, data: data, conversionOptions: conversionOptions, forKeyPath: forKeyPath)
+        for item in newArray {
+            self.append(item)
+        }
+    }
+    
     /**
      Initialize an array based on a dictionary
      
