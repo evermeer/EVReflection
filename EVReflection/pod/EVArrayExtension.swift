@@ -22,7 +22,7 @@ public extension Array where Element: NSObject {
     public init(json: String?, conversionOptions: ConversionOptions = .DefaultDeserialize, forKeyPath: String? = nil) {
         self.init()
         let arrayTypeInstance = getArrayTypeInstance(self)
-        let newArray = EVReflection.arrayFromJson(nil, type:arrayTypeInstance, json: json, conversionOptions: conversionOptions)
+        let newArray = EVReflection.arrayFromJson(nil, type:arrayTypeInstance, json: json, conversionOptions: conversionOptions, forKeyPath: forKeyPath)
         for item in newArray {
             self.append(item)
         }

@@ -214,18 +214,31 @@ final public class EVReflection {
      
      - returns: The array of dictionaries representation of the json
      */
-    public class func arrayFromJson<T>(_ theObject: NSObject? = nil, type: T, json: String?, conversionOptions: ConversionOptions = .DefaultDeserialize) -> [T] {
+    public class func arrayFromJson<T>(_ theObject: NSObject? = nil, type: T, json: String?, conversionOptions: ConversionOptions = .DefaultDeserialize, forKeyPath: String? = nil) -> [T] {
         var result = [T]()
         if json == nil {
             print("ERROR: nil is not valid json!")
             return result
         }
-        let jsonData = json!.data(using: String.Encoding.utf8)!
+        guard let jsonData = json!.data(using: String.Encoding.utf8) else {
+            print("ERROR: Could not get Data from json string using utf8 encoding")
+            return result
+        }
         do {
-            if let jsonDic: [Dictionary<String, AnyObject>] = try JSONSerialization.jsonObject(with: jsonData, options: JSONSerialization.ReadingOptions.mutableContainers) as? [Dictionary<String, AnyObject>] {
+            var serialized = try JSONSerialization.jsonObject(with: jsonData, options: JSONSerialization.ReadingOptions.mutableContainers)
+            if serialized is NSDictionary {
+                if forKeyPath == nil {
+                    print("ERROR: The root of the json is an object and not an array. Specify a forKeyPath to get an item as an array")
+                    return result
+                } else {
+                    serialized = (serialized as! NSDictionary).value(forKeyPath: forKeyPath!) as? [NSDictionary] ?? []
+                }
+            }
+            
+            if let jsonDic: [Dictionary<String, AnyObject>] = serialized as? [Dictionary<String, AnyObject>] {
                 let nsobjectype: NSObject.Type? = T.self as? NSObject.Type
                 if nsobjectype == nil {
-                    print("WARNING: EVReflection can only be used with types with NSObject as it's minimal base type")
+                    print("ERROR: EVReflection can only be used with types with NSObject as it's minimal base type")
                     return result
                 }
                 result = jsonDic.map({
