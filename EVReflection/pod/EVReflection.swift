@@ -301,7 +301,7 @@ final public class EVReflection {
     
     - parameter theObject: The object that will be loged
     */
-    public class func logObject(_ theObject: NSObject) {
+    public class func logObject(_ theObject: EVReflectable) {
         NSLog(description(theObject))
     }
     
@@ -313,11 +313,12 @@ final public class EVReflection {
      
      - returns: The string representation of the object
      */
-    public class func description(_ theObject: NSObject, conversionOptions: ConversionOptions = .DefaultSerialize) -> String {
-        let (dict, _) = toDictionary(theObject, conversionOptions: conversionOptions)
-        var description: String = (swiftStringFromClass(theObject)) + " {\n   hash = \(hashValue(theObject))"
-        description = description + dict.map {"   \($0) = \($1)"}.reduce("") {"\($0)\n\($1)"} + "\n}\n"
-        return description
+    public class func description(_ theObject: EVReflectable, conversionOptions: ConversionOptions = .DefaultSerialize) -> String {
+        if let obj = theObject as? NSObject {
+            return "\(swiftStringFromClass(obj)) = \(theObject.toJsonString())"
+        }
+        print("ERROR: \(String(reflecting: theObject)) should have NSObject as it's base type.")
+        return "\(String(reflecting: theObject))"
     }
 
     

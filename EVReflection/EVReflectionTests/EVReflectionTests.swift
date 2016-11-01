@@ -389,7 +389,7 @@ class EVReflectionTests: XCTestCase {
         let json = "{\"id\":121,\"active\":false}"
         let object = MyObject(json: json)
         let newJson = object.toJsonString()
-        print("back to json = \(newJson)\n\nobject description = \(object)")
+        print("back to json = \(newJson)\n\n\(object)")
     }
 }
 
