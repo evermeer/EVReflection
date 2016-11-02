@@ -24,7 +24,7 @@
 
 If you have a question and don't want to create an issue, then we can [![Join the chat at https://gitter.im/evermeer/EVReflection](https://badges.gitter.im/evermeer/EVReflection.svg)](https://gitter.im/evermeer/EVReflection?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-At this moment the master branch is for Swift3. If you want to continue using EVReflection in Swift 2.2 (or 2.3) then switch to the Swift2.2 branch.
+At this moment the master branch is for Swift 3. If you want to continue using EVReflection in Swift 2.2 (or 2.3) then switch to the Swift2.2 or Swift2.3 branch.
 Run the unit tests to see EVReflection in action.
 
 EVReflection is used extensively in [EVCloudKitDao](https://github.com/evermeer/EVCloudKitDao), [AlamofireJsonToObjects](https://github.com/evermeer/AlamofireJsonToObjects) and [AlamofireXmlToObjects](https://github.com/evermeer/AlamofireXmlToObjects)
@@ -37,6 +37,7 @@ In most cases EVReflection is very easy to use. Just take a look at the [YouTube
 - [If you have XML instead of JSON](https://github.com/evermeer/EVReflection#if-you-have-xml-instead-of-json)
 - [Using EVReflection in your own App](https://github.com/evermeer/EVReflection#using-evreflection-in-your-own-app)
 - [More Sample code](https://github.com/evermeer/EVReflection#more-sample-code)
+- [Extending existing objects](https://github.com/evermeer/EVReflection#extending-existing-objects)
 - [Conversion options](https://github.com/evermeer/EVReflection#conversion-options)
 - [Automatic keyword mapping for Swift keywords](https://github.com/evermeer/EVReflection#automatic-keyword-mapping-for-swift-keywords)
 - [Automatic keyword mapping PascalCase or camelCase to snake_case](https://github.com/evermeer/EVReflection#automatic-keyword-mapping-pascalcase-or-camelcase-to-snake_case)
@@ -54,7 +55,7 @@ In most cases EVReflection is very easy to use. Just take a look at the [YouTube
 - Parsing objects based on NSObject to and from a dictionary. (also see the XML and .plist samples!)
 - Parsing objects to and from a JSON string.
 - Support NSCoding function encodeWithCoder and decodeObjectWithCoder
-- Supporting Printable, Hashable and Equatable while using all properties. (Support for Set in Swift 1.2)
+- Supporting Printable, Hashable and Equatable while using all properties.
 - Mapping objects from one type to an other
 - Support for property mapping, converters, validators and key cleanup
 
@@ -204,6 +205,15 @@ If you want to parse XML, then you can use the pod [XMLDictionary](https://githu
       print(xmlObject)
    }
 ```
+
+## Extending existing objects:
+It is possible to extend other objects with the EVReflectable protocol instead of changing the base class to EVObject. This will let you add the power of EVReflection to objects that also need another framework. If for instance you are using Realm, you can extend all your Object classes with the power of EVReflection by only adding these lines of code:
+
+```
+import EVReflection
+extension Object : EVReflectable { }
+```
+You can do the same with NSManagedObject
 
 ## Extra information:
 
