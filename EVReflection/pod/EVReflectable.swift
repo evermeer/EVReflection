@@ -6,6 +6,9 @@
 //  Copyright © 2016 evict. All rights reserved.
 //
 
+import Foundation
+
+
 // MARK: - Protocol with the overridable functions. All functionality is added to this in the extension below.
 public protocol EVReflectable: class, NSObjectProtocol  {
     /**

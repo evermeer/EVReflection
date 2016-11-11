@@ -10,7 +10,7 @@ import Foundation
 import XCTest
 @testable import EVReflection
 
-public class Message: EVObject {
+open class Message: EVObject {
     var body: String? = ""
     var email: String? = ""
     var subject: String? = "Message"
@@ -20,7 +20,7 @@ public class Message: EVObject {
     var users: [String:String] = [String:String]()
     
     // Handling the setting of non key-value coding compliant properties
-    override public func setValue(_ value: Any!, forUndefinedKey key: String) {
+    override open func setValue(_ value: Any!, forUndefinedKey key: String) {
         switch key {
         case "users":
             if let dict = value as? NSDictionary {
@@ -121,50 +121,50 @@ class TestIssue99: XCTestCase {
 }
 
 
-public class MyPrimaryObject: EVObject {
+open class MyPrimaryObject: EVObject {
     
-    public var myPrimaryObjectId: UUID?
-    public var name: String = ""
-    public var myObjectDescription: String?
+    open var myPrimaryObjectId: UUID?
+    open var name: String = ""
+    open var myObjectDescription: String?
     
-    public var numberOfOccurrences: Int = 0
-    public var positiveResponsePercentage: Float = 0
+    open var numberOfOccurrences: Int = 0
+    open var positiveResponsePercentage: Float = 0
     
-    public var secondaryObjects: [MySecondaryObject]?
+    open var secondaryObjects: [MySecondaryObject]?
     
-    public override func propertyMapping() -> [(String?, String?)] {
+    open override func propertyMapping() -> [(String?, String?)] {
         return [("myObjectDescription","Description")]
         
     }
 }
 
-public class MySecondaryObject: EVObject {
-    public var mySecondaryObjectId: Int = 0
-    public var dateRecorded: Date?
-    public var rating: Int = 0
-    public var userRemarks: String?
+open class MySecondaryObject: EVObject {
+    open var mySecondaryObjectId: Int = 0
+    open var dateRecorded: Date?
+    open var rating: Int = 0
+    open var userRemarks: String?
 }
 
-public class PublicInfusion: EVObject {
+open class PublicInfusion: EVObject {
     
-    public var infusionKey: UUID?
-    public var infusionId: Int = 0
-    public var name: String = ""
-    public var infusionDescription: String?
+    open var infusionKey: UUID?
+    open var infusionId: Int = 0
+    open var name: String = ""
+    open var infusionDescription: String?
     
-    public var infusionDrinkCount: Int = 0
-    public var infusionLikedPercentage: Float = 0
+    open var infusionDrinkCount: Int = 0
+    open var infusionLikedPercentage: Float = 0
     
-    public var vodkaHistory: [PublicInfusionCheckmark] = []
+    open var vodkaHistory: [PublicInfusionCheckmark] = []
     
-    public override func propertyMapping() -> [(String?, String?)] {
+    open override func propertyMapping() -> [(String?, String?)] {
         return [("infusionDescription","Description")]
     }
 }
 
-public class PublicInfusionCheckmark: EVObject {
-    public var checkmarkId: Int = 0
-    public var dateMarked: Date?
-    public var vodkaRating: Int = 0
-    public var comments: String?
+open class PublicInfusionCheckmark: EVObject {
+    open var checkmarkId: Int = 0
+    open var dateMarked: Date?
+    open var vodkaRating: Int = 0
+    open var comments: String?
 }
