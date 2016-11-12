@@ -94,7 +94,7 @@ class EVReflectionWorkaroundSwiftGenericsTests: XCTestCase {
 
 // Only put the generic properties in this class. put the rest in a base class
 // Add the protocol EVGenericsKVC so that we still can have a setValue forUndefinedKey like we adr used to
-public class MyGenericObject<T>: MyGenericBase, EVGenericsKVC where T:NSObject {
+open class MyGenericObject<T>: MyGenericBase, EVGenericsKVC where T:NSObject {
     var data: T = T()
     var array: [T] = [T]()
     
@@ -123,7 +123,7 @@ public class MyGenericObject<T>: MyGenericBase, EVGenericsKVC where T:NSObject {
 }
 
 
-public class MyIncorrectGenericObject<T>: MyGenericBase, EVGenericsKVC where T:NSObject {
+open class MyIncorrectGenericObject<T>: MyGenericBase, EVGenericsKVC where T:NSObject {
     var data: T = T()
     var array: [T] = [T]()
     
@@ -146,15 +146,15 @@ public class MyIncorrectGenericObject<T>: MyGenericBase, EVGenericsKVC where T:N
 
 
 // Put the rest of the properties in a base class like this. Otherwise you have to handle each in the setValue forUndefinedKey
-public class MyGenericBase: EVObject {
+open class MyGenericBase: EVObject {
     var test: String = ""
 }
 
-public class InstanceObject: EVObject {
+open class InstanceObject: EVObject {
     var name: String?
 }
 
-public class TestGenerics: EVObject {
+open class TestGenerics: EVObject {
     var bar: MyGenericObject<InstanceObject> = MyGenericObject<InstanceObject>()
     var unhandledBar: MyGenericObject<InstanceObject> = MyGenericObject<InstanceObject>()
     

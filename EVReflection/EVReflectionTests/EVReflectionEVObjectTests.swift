@@ -178,13 +178,13 @@ class EVReflectionEVObjectTests: XCTestCase {
 }
 
 
-public class TestBaseObject: EVObject {
+open class TestBaseObject: EVObject {
     var id: String?
 }
 
-public class TestRootObject: TestBaseObject {
+open class TestRootObject: TestBaseObject {
     var array: [TestInnerObject]?
 }
 
-public class TestInnerObject: TestBaseObject {
+open class TestInnerObject: TestBaseObject {
 }

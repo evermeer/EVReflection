@@ -17,17 +17,17 @@ import EVReflection
 */
 
 
-public class EVObjectDescription {
+open class EVObjectDescription {
     /// The name of the bundle
-    public var bundleName: String = ""
+    open var bundleName: String = ""
     /// The name of the class
-    public var className: String = ""
+    open var className: String = ""
     /// The classpath starting from the bundle
-    public var classPath: [String] = []
+    open var classPath: [String] = []
     /// The types of the items in the classpath
-    public var classPathType: [ObjectType] = []
+    open var classPathType: [ObjectType] = []
     /// The string representation used by Swift for the classpath
-    public var swiftClassID: String = ""
+    open var swiftClassID: String = ""
     
     /**
     Enum for the difrent types that can be part of an object description

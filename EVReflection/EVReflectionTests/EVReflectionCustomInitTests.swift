@@ -31,9 +31,9 @@ class EVReflectionCustomInitTests: XCTestCase {
     }
 }
 
-public class CustomPropertyClass: EVObject {
+open class CustomPropertyClass: EVObject {
     
-    public var number: Int
+    open var number: Int
     
     /*  
      Note: `init` is the _only_ required initializer inherited from `EVObject`.

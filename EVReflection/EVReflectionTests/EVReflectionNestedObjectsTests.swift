@@ -50,9 +50,9 @@ class EVRelfectionNestedObjectsTests: XCTestCase {
     }
 }
 
-public class A: EVObject {
-    public var b = B()
-    public var s = "test A"
+open class A: EVObject {
+    open var b = B()
+    open var s = "test A"
     
     public required init() {
         super.init()
@@ -60,22 +60,22 @@ public class A: EVObject {
     }
 }
 
-public class B: EVObject {
+open class B: EVObject {
     
-    public var t = "test B"
+    open var t = "test B"
     
     public required init() {
         super.init()
         intProp = 5
     }
     
-    public var intProp = 0 {
+    open var intProp = 0 {
         didSet {
             print("intProp set to \(intProp)")
         }
     }
     
-    public override func propertyMapping() -> [(String?, String?)] {
+    open override func propertyMapping() -> [(String?, String?)] {
         return [("intProp", nil)]
     }
 }

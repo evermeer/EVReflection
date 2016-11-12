@@ -74,7 +74,7 @@ enum MyValidationError: Error {
     lengthError
 }
 
-public class GameUser: EVObject {
+open class GameUser: EVObject {
     var name: String?
     var memberSince: Date?
     var objectIsNotAValue: TestObject?
@@ -93,25 +93,25 @@ public class GameUser: EVObject {
     }
 }
 
-public class GamePlayer: GameUser {
+open class GamePlayer: GameUser {
     var gamesPlayed: Int = 0
     var rating: Int = 0
 
     // This way we can solve that the JSON has arbitrary keys or wrong values
-    override public func setValue(_ value: Any!, forUndefinedKey key: String) {
+    override open func setValue(_ value: Any!, forUndefinedKey key: String) {
         NSLog("---> setValue for key '\(key)' should be handled or the value is of the wrong type: \(value).")
     }
 }
 
-public class GameAdministrator: GameUser {
+open class GameAdministrator: GameUser {
     var usersBanned: Int = 0
     var level: Int = 0
     
-    public override func propertyMapping() -> [(String?, String?)] {
+    open override func propertyMapping() -> [(String?, String?)] {
         return [("level","rating")]
     }
 
-    public override func propertyConverters() -> [(String?, ((Any?)->())?, (() -> Any?)? )] {
+    open override func propertyConverters() -> [(String?, ((Any?)->())?, (() -> Any?)? )] {
         return [
             ( // We want a custom converter for the field isGreat
                 "level",

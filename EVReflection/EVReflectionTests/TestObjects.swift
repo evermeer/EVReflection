@@ -13,7 +13,7 @@ import CoreGraphics
 /**
 First test object where the base class is just an NSObject
 */
-public class TestObject: NSObject {
+open class TestObject: NSObject {
     var objectValue: String = ""
 }
 
@@ -21,7 +21,7 @@ public class TestObject: NSObject {
 /**
 Second test object where the base class is an EVObject so that we have support for the protocols NSObject, NSCoding, Printable, Hashable, Equatable plus convenience methods.
 */
-public class TestObject2: EVObject {
+open class TestObject2: EVObject {
     var objectValue: String = ""
     var objectValue2: String?
 }
@@ -29,7 +29,7 @@ public class TestObject2: EVObject {
 /**
 Variant of TestObject2 to test that they are not equal
 */
-public class TestObject2b {
+open class TestObject2b {
     var objectValue: String = ""
 }
 
@@ -37,7 +37,7 @@ public class TestObject2b {
 /**
 For testing the automatic conversion from and to string and int
 */
-public class TestObject4: EVObject, EVArrayConvertable {
+open class TestObject4: EVObject, EVArrayConvertable {
     var myString: String = ""
     var myFloat: Float = 0
     var myDouble: Double = 0
@@ -66,7 +66,7 @@ public class TestObject4: EVObject, EVArrayConvertable {
     var array5: [TestObject2?]? = [TestObject2(), nil, TestObject2()]
     
     // Implementation of the EVArrayConvertable protocol for handling an array of nullble objects.
-    public func convertArray(_ key: String, array: Any) -> NSArray {
+    open func convertArray(_ key: String, array: Any) -> NSArray {
         assert(key == "array5", "convertArray for key \(key) should be handled.")
         
         let returnArray = NSMutableArray()
@@ -103,7 +103,7 @@ class TestObject3: EVObject {
 /**
  Variant of TestObject2 to show automatic property mapping
  */
-public class TestObject2c: EVObject {
+open class TestObject2c: EVObject {
     var objectValue: String = ""
     var _default: String?
 }
@@ -112,12 +112,12 @@ public class TestObject2c: EVObject {
 /**
 For testing the custom property maping
 */
-public class TestObject5: EVObject {
+open class TestObject5: EVObject {
     var Name: String = "" // Using the default mapping
     var propertyInObject: String = "" // will be written to or read from keyInJson
     var ignoredProperty: String = "" // Will not be written or read to/from json 
     
-    public override func propertyMapping() -> [(String?, String?)] {
+    open override func propertyMapping() -> [(String?, String?)] {
         return [("ignoredProperty", nil), ("propertyInObject", "keyInJson")]
     }
 }
@@ -126,10 +126,10 @@ public class TestObject5: EVObject {
 /**
 For testing the custom property conversion
 */
-public class TestObject6: EVObject {
+open class TestObject6: EVObject {
     var isGreat: Bool = false
     
-    public override func propertyConverters() -> [(String?, ((Any?)->())?, (() -> Any?)? )] {
+    open override func propertyConverters() -> [(String?, ((Any?)->())?, (() -> Any?)? )] {
         return [
             ( // We want a custom converter for the field isGreat
               "isGreat",
@@ -170,26 +170,26 @@ class SubObject: EVObject {
 }
 
 
-public class Circular1: EVObject {
+open class Circular1: EVObject {
     var normalProperty: String? = ""
     var startCircle: Circular2?
 }
 
-public class Circular2: EVObject {
+open class Circular2: EVObject {
     var anotherNormalProperty: String? = ""
     var createCircle: Circular1?
 }
 
-public class TestObject7: EVObject {
+open class TestObject7: EVObject {
     var subOne: SubObject?
     var subTwo: SubObject?
 }
 
-public class TestObjectWithNilConverters: EVObject {
+open class TestObjectWithNilConverters: EVObject {
     
     var optionalValue: String?
     
-    public override func propertyConverters() -> [(String?, ((Any?)->())?, (() -> Any?)? )] {
+    open override func propertyConverters() -> [(String?, ((Any?)->())?, (() -> Any?)? )] {
         return [("optionalValue", nil, nil)]
     }
 }
@@ -200,12 +200,12 @@ class DicTest: EVObject {
     }
 }
 
-public class AA: EVObject {
-    public var bs: [BB] = []
+open class AA: EVObject {
+    open var bs: [BB] = []
 }
 
-public class BB: EVObject {
-    public var val: Int = 0
+open class BB: EVObject {
+    open var val: Int = 0
 }
 
 class NestedArrays: EVObject {
@@ -227,7 +227,7 @@ class NestedArraysResult: EVObject {
     }
 }
 
-public class ValidateObject: EVObject {
+open class ValidateObject: EVObject {
     var requiredKey1: String?
     var requiredKey2: String?
     var requiredKey3: String?
@@ -235,7 +235,7 @@ public class ValidateObject: EVObject {
     var optionalKey2: String?
     var optionalKey3: String?
     
-    public override func initValidation(_ dict: NSDictionary) {
+    open override func initValidation(_ dict: NSDictionary) {
         self.initMayNotContainKeys(["error"], dict: dict)
         self.initMustContainKeys(["requiredKey1", "requiredKey2", "requiredKey3"], dict: dict)
         if dict.value(forKey: "requiredKey1") as? String == dict.value(forKey: "optionalKey1") as? String {
