@@ -766,8 +766,8 @@ final public class EVReflection {
         if theValue is UUID {
             return ((theValue as! UUID).uuidString as AnyObject, "NSString", false)
         }
-        if theValue is NSArray {
-            return (theValue as! NSArray, valueType, false)
+        if theValue is Array<Any> {
+            return ((theValue as! Array<Any>) as AnyObject, valueType, false)
         }
         if theValue is EVReflectable && theValue is NSObject {
             if valueType.contains("<") {
@@ -1289,14 +1289,36 @@ final public class EVReflection {
                         let (dict, _) = toDictionary(unboxedValue as? NSObject ?? NSObject(), conversionOptions: conversionOptions, isCachable: isCachable, parents: parents)
                         unboxedValue = dict
                     } else if let array = unboxedValue as? [NSObject] {
-                        let item: NSObject
-                        if array.count > 0 {
-                            item = array[0]
-                        } else {
-                            item = array.getArrayTypeInstance(array)
-                        }
-                        let (_, _, isObject) = valueForAny(anyValue: item, conversionOptions: conversionOptions, isCachable: isCachable, parents: parents)
-                        if isObject {
+						var item: Any
+						
+						if array.count > 0 {
+							item = array[0]
+							
+							// Workaround to fix issue in which enum arrays are not converted correctly when cast as [NSObject]
+							// or [AnyObject]. See test testEnumArray() in EVReflectionWorkaroundTests.swift.
+							// See https://bugs.swift.org/browse/SR-3083
+							if let possibleEnumArray = unboxedValue as? [Any] {
+								let possibleEnum = possibleEnumArray[0]
+								
+								if type(of: item) != type(of: possibleEnum) {
+									item = possibleEnum
+									var newArray: [AnyObject] = []
+									
+									for anEnum in possibleEnumArray {
+										let (value, _, _) = valueForAny(anyValue: anEnum)
+										newArray.append(value)
+									}
+									
+									unboxedValue = newArray as AnyObject
+								}
+							}
+						} else {
+							item = array.getArrayTypeInstance(array)
+						}
+						
+						let (_, _, isObject) = valueForAny(anyValue: item, conversionOptions: conversionOptions, isCachable: isCachable, parents: parents)
+						
+						if isObject {
                             // If the items are objects, than add a dictionary of each to the array
                             var tempValue = [NSDictionary]()
                             for av in array {
