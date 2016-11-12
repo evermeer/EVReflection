@@ -281,16 +281,8 @@ final public class EVReflection {
      - returns: The string representation of the object
      */
     public class func toJsonString(_ theObject: NSObject, conversionOptions: ConversionOptions = .DefaultSerialize) -> String {
-        var result: String = ""
-        var (dict, _) = EVReflection.toDictionary(theObject, conversionOptions: conversionOptions)
-        dict = convertDictionaryForJsonSerialization(dict, theObject: theObject)
-        do {
-            let jsonData = try JSONSerialization.data(withJSONObject: dict, options: .prettyPrinted)
-            if let jsonString = NSString(data:jsonData, encoding:String.Encoding.utf8.rawValue) {
-                result =  jsonString as String
-            }
-        } catch { }
-        return result
+		let data = toJsonData(theObject, conversionOptions: conversionOptions)
+		return String(data: data, encoding: .utf8) ?? ""
     }
 
     /**
