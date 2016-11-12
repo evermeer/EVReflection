@@ -159,6 +159,39 @@ class EVReflectionJsonTests: XCTestCase {
         let friendsDictArray = userRegenerated.closeFriends?.toDictionaryArray()
         XCTAssertEqual(friendsDictArray?.count, 2, "There should now be a dictionary array with 2 dictionaries")
     }
+
+    func testJsonObjectUsingData() {
+        let jsonDictOriginal = [
+            "id": 24,
+            "name": "John Appleseed",
+            "email": "john@appleseed.com",
+            "birthDate": Date(),
+            "company": [
+                "name": "Apple",
+                "address": "1 Infinite Loop, Cupertino, CA"
+            ],
+            "close_friends": [
+                ["id": 27, "name": "Bob Jefferson"],
+                ["id": 29, "name": "Jen Jackson"]
+            ]
+            ] as [String : Any]
+        print("Initial dictionary:\n\(jsonDictOriginal)\n\n")
+        
+        let userOriginal = User(dictionary: jsonDictOriginal as NSDictionary)
+        validateUser(userOriginal)
+        
+        let jsonData = userOriginal.toJsonData()
+        print("JSON data from dictionary: \n\(jsonData)\n\n")
+        
+        let userRegenerated = User(data: jsonData)
+        validateUser(userRegenerated)
+        
+        print("original = \(EVReflection.description(userOriginal))")
+        print("regenerated = \(EVReflection.description(userRegenerated))")
+        
+        let friendsDictArray = userRegenerated.closeFriends?.toDictionaryArray()
+        XCTAssertEqual(friendsDictArray?.count, 2, "There should now be a dictionary array with 2 dictionaries")
+    }
     
     func validateUser(_ user: User) {
         print("Validate user: \n\(user)\n\n")

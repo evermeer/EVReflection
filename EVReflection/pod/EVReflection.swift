@@ -292,6 +292,24 @@ final public class EVReflection {
         } catch { }
         return result
     }
+
+    /**
+     Return a Json Data representation of this object
+     
+     - parameter theObject: The object that will be loged
+     - parameter conversionOptions: Option set for the various conversion options.
+     
+     - returns: The Data representation of the object
+     */
+    public class func toJsonData(_ theObject: NSObject, conversionOptions: ConversionOptions = .DefaultSerialize) -> Data {
+        var (dict, _) = EVReflection.toDictionary(theObject, conversionOptions: conversionOptions)
+        dict = convertDictionaryForJsonSerialization(dict, theObject: theObject)
+        do {
+             return try JSONSerialization.data(withJSONObject: dict, options: .prettyPrinted)
+        } catch { }
+        return Data()
+    }
+
     
     
     // MARK: - Adding functionality to objects

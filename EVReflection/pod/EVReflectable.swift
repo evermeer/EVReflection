@@ -347,6 +347,22 @@ extension EVReflectable {
         print("ERROR: You should only extend object with EVReflectable that are derived from NSObject!")
         return "{}"
     }
+
+    /**
+     Convert this object to a json Data
+     
+     - parameter conversionOptions: Option set for the various conversion options.
+     
+     - returns: The json Data
+     */
+    public func toJsonData(_ conversionOptions: ConversionOptions = .DefaultSerialize) -> Data {
+        if let obj = self as? NSObject {
+            return EVReflection.toJsonData(obj, conversionOptions: conversionOptions)
+        }
+        print("ERROR: You should only extend object with EVReflectable that are derived from NSObject!")
+        return Data()
+    }
+
     
     /**
      Convenience method for instantiating an array from a json string.
