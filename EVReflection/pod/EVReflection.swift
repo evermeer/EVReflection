@@ -1272,13 +1272,10 @@ final public class EVReflection {
                     if conversionOptions.contains(.PropertyConverter) {
                         // If there is a properyConverter, then use the result of that instead.
                         if let (_, _, propertyGetter) = (theObject as? EVReflectable)?.propertyConverters().filter({$0.0 == originalKey}).first {
-                            
                             guard let propertyGetter = propertyGetter else {
                                 continue    // if propertyGetter is nil, skip getting the property
                             }
-                            
-                            value = propertyGetter() as Any
-                            
+                            value = propertyGetter() as Any                            
                             let (unboxedValue2, _, _) = valueForAny(theObject, key: originalKey, anyValue: value, conversionOptions: conversionOptions, isCachable: isCachable, parents: parents)
                             unboxedValue = unboxedValue2
                         }
@@ -1290,25 +1287,18 @@ final public class EVReflection {
                         unboxedValue = dict
                     } else if let array = unboxedValue as? [NSObject] {
 						var item: Any
-						
 						if array.count > 0 {
 							item = array[0]
-							
-							// Workaround to fix issue in which enum arrays are not converted correctly when cast as [NSObject]
-							// or [AnyObject]. See test testEnumArray() in EVReflectionWorkaroundTests.swift.
-							// See https://bugs.swift.org/browse/SR-3083
+                            // Workaround for bug https://bugs.swift.org/browse/SR-3083
 							if let possibleEnumArray = unboxedValue as? [Any] {
 								let possibleEnum = possibleEnumArray[0]
-								
 								if type(of: item) != type(of: possibleEnum) {
 									item = possibleEnum
 									var newArray: [AnyObject] = []
-									
 									for anEnum in possibleEnumArray {
 										let (value, _, _) = valueForAny(anyValue: anEnum)
 										newArray.append(value)
 									}
-									
 									unboxedValue = newArray as AnyObject
 								}
 							}
@@ -1372,7 +1362,7 @@ final public class EVReflection {
      
      - returns: The converted value
      */
-    fileprivate class func convertValueForJsonSerialization(_ value: AnyObject, theObject: NSObject) -> AnyObject {
+    fileprivate class func convertValueForJsonSerialization(_ value: Any, theObject: NSObject) -> AnyObject {
         switch value {
         case let stringValue as NSString:
             return stringValue
@@ -1383,7 +1373,7 @@ final public class EVReflection {
         case let arrayValue as NSArray:
             let tempArray: NSMutableArray = NSMutableArray()
             for value in arrayValue {
-                tempArray.add(convertValueForJsonSerialization(value as AnyObject, theObject: theObject))
+                tempArray.add(convertValueForJsonSerialization(value as Any, theObject: theObject))
             }
             return tempArray
         case let date as Date:
