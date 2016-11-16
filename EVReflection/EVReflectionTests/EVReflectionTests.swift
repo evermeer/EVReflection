@@ -391,6 +391,38 @@ class EVReflectionTests: XCTestCase {
         let newJson = object.toJsonString()
         print("back to json = \(newJson)\n\n\(object)")
     }
+  
+    func testImplicitlyUnwrappedOptionalProperty() {
+        let nested = NSDictionary(dictionary: ["property1": 10, "property2": 20])
+        print(String(describing: nested))
+        let parentWithChild = NSDictionary(dictionary: ["iuoObject": nested, "control": "testVal"])
+        print(String(describing: parentWithChild))
+        
+        let a: NestedIUOObject = NestedIUOObject(dictionary: nested)
+        XCTAssertEqual(a.property1, 10)
+        XCTAssertEqual(a.property2, 20)
+        
+        let b = NestedIUOObjectParent(dictionary: parentWithChild)
+        XCTAssertNotNil(b.iuoObject)
+        XCTAssertEqual(b.iuoObject.property1, 10)
+        XCTAssertEqual(b.iuoObject.property2, 20)
+        XCTAssertEqual(b.control, "testVal")
+        
+        let parentNoChild = NSDictionary(dictionary: ["control": "testVal"])
+        print(String(describing: parentWithChild))
+        let c = NestedIUOObjectParent(dictionary: parentNoChild)
+        XCTAssertNil(c.iuoObject)
+        XCTAssertEqual(c.control, "testVal")
+        
+        let parentWithChildren = NSDictionary(dictionary: ["iuoObjects": [nested, nested], "control": "testVal"])
+        let d: NestedIUOObjectsArrayParent = NestedIUOObjectsArrayParent(dictionary: parentWithChildren)
+        XCTAssertNotNil(d.iuoObjects)
+        XCTAssertEqual(d.iuoObjects.count, 2)
+        let child1 = d.iuoObjects[0]
+        XCTAssertEqual(child1.property1, 10)
+        XCTAssertEqual(child1.property2, 20)
+        XCTAssertEqual(d.control, "testVal")
+    }
 }
 
 
