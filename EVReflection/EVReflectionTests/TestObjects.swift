@@ -261,3 +261,18 @@ class ImLazy: EVObject {
     lazy var lazyInt: Int = 0
     lazy var LazyString: String = ""
 }
+
+open class NestedIUOObject: EVObject {
+    var property1: Int = 0
+    var property2: Int = 0
+}
+
+open class NestedIUOObjectParent: EVObject {
+    var iuoObject: NestedIUOObject!
+    var control: String?
+}
+
+open class NestedIUOObjectsArrayParent: EVObject {
+    var iuoObjects: [NestedIUOObject]!
+    var control: String?
+}
