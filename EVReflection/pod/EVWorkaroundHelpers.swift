@@ -25,26 +25,6 @@ public protocol EVGenericsKVC {
 }
 
 /**
- Protocol for the workaround when using an enum with a rawValue of type Int
- */
-public protocol EVRawInt {
-    /**
-     Protocol EVRawString can be added to an Enum that has Int as it's rawValue so that we can detect from a generic enum what it's rawValue is.
-     */
-    var rawValue: Int { get }
-}
-
-/**
- Protocol for the workaround when using an enum with a rawValue of type String
- */
-public protocol EVRawString {
-    /**
-     Protocol EVRawString can be added to an Enum that has String as it's rawValue so that we can detect from a generic enum what it's rawValue is.
-     */
-    var rawValue: String { get }
-}
-
-/**
  Protocol for the workaround when using an enum with a rawValue of an undefined type
  */
 public protocol EVRaw {
@@ -52,6 +32,17 @@ public protocol EVRaw {
      For implementing a function that will return the rawValue for a non sepecific enum
      */
     var anyRawValue: Any { get }
+}
+
+/**
+ Default implementation for getting the rawValue for any other type
+ */
+extension EVRaw where Self: RawRepresentable {
+    var anyRawValue: Any {
+        get {
+            return rawValue as Any
+        }
+    }
 }
 
 /**

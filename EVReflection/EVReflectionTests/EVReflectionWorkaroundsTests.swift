@@ -121,7 +121,7 @@ class EVReflectionWorkaroundsTests: XCTestCase {
 }
 
 
-@objc enum StatusType: Int, EVRawInt {
+@objc enum StatusType: Int, EVRaw {
     case notOK = 0
     case ok = 1
 }

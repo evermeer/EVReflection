@@ -87,13 +87,13 @@ class Tied: EVObject {
     }
 }
 
-enum StartStopContinueEnum: String, EVRawString {
+enum StartStopContinueEnum: String, EVRaw {
     case none = "none"
     case start = "start"
     case stop = "stop"
 }
 
-enum OrientationEnum: String, EVRawString {
+enum OrientationEnum: String, EVRaw {
     case over = "over"
     case under = "under"
 }

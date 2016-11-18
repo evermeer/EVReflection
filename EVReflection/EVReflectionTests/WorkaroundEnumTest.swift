@@ -75,12 +75,12 @@ class EnumWorkaroundsTests: XCTestCase {
         XCTAssertNil(a.value, "Associated value should be nil")
     }
     
-    enum MyEnumOne: String, EVRawString, EVAssociated {      // Add , EVRawString to make the test pass
+    enum MyEnumOne: String, EVRaw, EVAssociated {      // Add , EVRawString to make the test pass
         case NotOK = "NotOK-1"
         case OK = "OK-2"
     }
     
-    enum MyEnumTwo: Int, EVRawInt {       // Add , EVRawInt to make the test pass
+    enum MyEnumTwo: Int, EVRaw {       // Add , EVRawInt to make the test pass
         case notOK = 0
         case ok = 1
     }
@@ -88,7 +88,6 @@ class EnumWorkaroundsTests: XCTestCase {
     enum MyEnumThree: Int64, EVRaw {   // Add , EVRaw to make the test pass
         case notOK = 0
         case ok = 1
-        var anyRawValue: Any { get { return self.rawValue }}
     }
     
     enum MyEnumFour: EVAssociated {
