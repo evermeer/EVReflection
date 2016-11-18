@@ -656,9 +656,10 @@ final public class EVReflection {
                 subtype = subtype.substring(to: subtype.characters.index(before: subtype.endIndex))
                 valueType = convertToInternalSwiftRepresentation(type: subtype)
 
-                if "\(theValue)" == "nil" {
+                if mi.children.count == 0 {
                     return (NSNull(), valueType, false)
                 }
+                theValue = mi.children.first?.value ?? theValue
                 let (val, _, _) =  valueForAnyDetail(parentObject, key: key, theValue: theValue, valueType: valueType)
                 return (val, valueType, false)
             } else {
