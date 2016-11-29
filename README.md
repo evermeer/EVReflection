@@ -64,7 +64,7 @@ For a quick start have a look at this [YouTube tutorial](https://www.youtube.com
 
 ## It's easy to use:
 
-Defining an object. You only have to set EVObject as it's base class:
+Defining an object. You only have to set EVObject as it's base class (or extend an NSObject with EVReflectable):
 ```
 class User: EVObject {
     var id: Int = 0
