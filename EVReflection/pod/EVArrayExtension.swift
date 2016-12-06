@@ -132,8 +132,8 @@ public extension Array where Element: EVReflectable {
      
      - returns: The json string
      */
-    public func toJsonString(_ conversionOptions: ConversionOptions = .DefaultSerialize) -> String {
-        return "[\n" + self.map({($0).toJsonString(conversionOptions)}).joined(separator: ", \n") + "\n]"
+    public func toJsonString(_ conversionOptions: ConversionOptions = .DefaultSerialize, prettyPrinted: Bool = false) -> String {
+        return "[\n" + self.map({($0).toJsonString(conversionOptions, prettyPrinted: prettyPrinted)}).joined(separator: ", \n") + "\n]"
     }
 
     /**

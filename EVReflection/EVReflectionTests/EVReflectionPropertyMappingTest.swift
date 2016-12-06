@@ -39,9 +39,9 @@ class EVReflectionPropertyMappingTests: XCTestCase {
         let t = TestObject6(json: json)
         XCTAssertTrue(t.isGreat, "This mapping should make true from 'Sure'")
         let s = t.toJsonString(.PropertyConverter) // So no PropertyMapping, SkipPropertyValue or KeyCleanup
-        XCTAssertEqual(s, "{\n  \"isGreat\" : \"Sure\"\n}", "The json should contain 'Sure'")
+        XCTAssertEqual(s, "{\"isGreat\":\"Sure\"}", "The json should contain 'Sure'")
         t.isGreat = false
         let s2 = t.toJsonString([.DefaultSerialize, .KeyCleanup])
-        XCTAssertEqual(s2, "{\n  \"is_great\" : \"Nah\"\n}", "The json should contain 'Nah'")
+        XCTAssertEqual(s2, "{\"is_great\":\"Nah\"}", "The json should contain 'Nah'")
     }
 }

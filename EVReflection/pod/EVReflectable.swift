@@ -340,9 +340,9 @@ extension EVReflectable {
      
      - returns: The json string
      */
-    public func toJsonString(_ conversionOptions: ConversionOptions = .DefaultSerialize) -> String {
+    public func toJsonString(_ conversionOptions: ConversionOptions = .DefaultSerialize, prettyPrinted: Bool = false) -> String {
         if let obj = self as? NSObject {
-            return EVReflection.toJsonString(obj, conversionOptions: conversionOptions)
+            return EVReflection.toJsonString(obj, conversionOptions: conversionOptions, prettyPrinted: prettyPrinted)
         }
         print("ERROR: You should only extend object with EVReflectable that are derived from NSObject!")
         return "{}"
@@ -355,9 +355,9 @@ extension EVReflectable {
      
      - returns: The json Data
      */
-    public func toJsonData(_ conversionOptions: ConversionOptions = .DefaultSerialize) -> Data {
+    public func toJsonData(_ conversionOptions: ConversionOptions = .DefaultSerialize, prettyPrinted: Bool = false) -> Data {
         if let obj = self as? NSObject {
-            return EVReflection.toJsonData(obj, conversionOptions: conversionOptions)
+            return EVReflection.toJsonData(obj, conversionOptions: conversionOptions, prettyPrinted: prettyPrinted)
         }
         print("ERROR: You should only extend object with EVReflectable that are derived from NSObject!")
         return Data()

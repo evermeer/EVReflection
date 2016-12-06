@@ -280,8 +280,8 @@ final public class EVReflection {
      
      - returns: The string representation of the object
      */
-    public class func toJsonString(_ theObject: NSObject, conversionOptions: ConversionOptions = .DefaultSerialize) -> String {
-		let data = toJsonData(theObject, conversionOptions: conversionOptions)
+    public class func toJsonString(_ theObject: NSObject, conversionOptions: ConversionOptions = .DefaultSerialize, prettyPrinted: Bool = false) -> String {
+		let data = toJsonData(theObject, conversionOptions: conversionOptions, prettyPrinted: prettyPrinted)
 		return String(data: data, encoding: .utf8) ?? ""
     }
 
@@ -293,13 +293,16 @@ final public class EVReflection {
      
      - returns: The Data representation of the object
      */
-    public class func toJsonData(_ theObject: NSObject, conversionOptions: ConversionOptions = .DefaultSerialize) -> Data {
+    public class func toJsonData(_ theObject: NSObject, conversionOptions: ConversionOptions = .DefaultSerialize, prettyPrinted: Bool = false) -> Data {
         var (dict, _) = EVReflection.toDictionary(theObject, conversionOptions: conversionOptions)
         dict = convertDictionaryForJsonSerialization(dict, theObject: theObject)
         do {
-             return try JSONSerialization.data(withJSONObject: dict, options: .prettyPrinted)
+            if prettyPrinted {
+                return try JSONSerialization.data(withJSONObject: dict, options: .prettyPrinted)
+            }
+            return try JSONSerialization.data(withJSONObject: dict, options: [])
         } catch { }
-        return Data()
+        return Data()        
     }
 
     
@@ -311,8 +314,8 @@ final public class EVReflection {
     
     - parameter theObject: The object that will be loged
     */
-    public class func logObject(_ theObject: EVReflectable) {
-        NSLog(description(theObject))
+    public class func logObject(_ theObject: EVReflectable, prettyPrinted: Bool = true) {
+        NSLog(description(theObject, prettyPrinted: prettyPrinted))
     }
     
     /**
@@ -323,9 +326,9 @@ final public class EVReflection {
      
      - returns: The string representation of the object
      */
-    public class func description(_ theObject: EVReflectable, conversionOptions: ConversionOptions = .DefaultSerialize) -> String {
+    public class func description(_ theObject: EVReflectable, conversionOptions: ConversionOptions = .DefaultSerialize, prettyPrinted: Bool = true) -> String {
         if let obj = theObject as? NSObject {
-            return "\(swiftStringFromClass(obj)) = \(theObject.toJsonString())"
+            return "\(swiftStringFromClass(obj)) = \(theObject.toJsonString(prettyPrinted: prettyPrinted))"
         }
         print("ERROR: \(String(reflecting: theObject)) should have NSObject as it's base type.")
         return "\(String(reflecting: theObject))"

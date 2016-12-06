@@ -62,7 +62,7 @@ open class EVObject: NSObject, NSCoding, EVReflectable  {
      */
     open override var description: String {
         get {
-            return EVReflection.description(self)
+            return EVReflection.description(self, prettyPrinted: true)
         }
     }
     
@@ -73,7 +73,7 @@ open class EVObject: NSObject, NSCoding, EVReflectable  {
      */
     open override var debugDescription: String {
         get {
-            return EVReflection.description(self)
+            return EVReflection.description(self, prettyPrinted: true)
         }
     }
     

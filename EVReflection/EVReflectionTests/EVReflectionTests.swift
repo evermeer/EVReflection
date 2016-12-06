@@ -343,7 +343,7 @@ class EVReflectionTests: XCTestCase {
         a.openId = "value"
         let json = a.toJsonString()
         print(json)
-        XCTAssertEqual(json, "{\n  \"openId\" : \"value\"\n}", "Incorrect serialization to json")
+        XCTAssertEqual(json, "{\"openId\":\"value\"}", "Incorrect serialization to json")
     }
     
     func testLazy() {
