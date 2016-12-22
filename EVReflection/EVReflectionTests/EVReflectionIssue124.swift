@@ -34,6 +34,7 @@ class TestIssue124: XCTestCase {
     }
 }
 
+
 class Wrapper: EVObject {
     var data: [MoreSection]?
 }

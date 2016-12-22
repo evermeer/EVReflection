@@ -202,6 +202,7 @@ final public class EVReflection {
                 print("ERROR: Invalid json! \(error.localizedDescription)")
             }
         }
+                
         return result
     }
     
@@ -862,6 +863,8 @@ final public class EVReflection {
                 }                
                 value = date as AnyObject
             }
+        } else if typeInObject == "AnyObject" {
+            
         }
         
         if !(value is NSArray)  && (typeInObject ?? "").contains("Swift.Array") {
@@ -1094,11 +1097,11 @@ final public class EVReflection {
                 }
             } else if let _ = type.range(of: "_NativeDictionaryStorageOwner"), let dict = dictValue as? NSDictionary, let org = anyObject as? EVReflectable {
                 dictValue = org.convertDictionary(key, dict: dict)
-            } else if type != "NSDictionary" && dictValue as? NSDictionary != nil { //TODO this too? && original is NSObject
+            } else if type != "NSDictionary" && type != "__NSDictionary0" && type != "AnyObject" && dictValue as? NSDictionary != nil { //TODO this too? && original is NSObject
                 let (dict, isValid) = dictToObject(type, original: original as? NSObject, dict: dictValue as? NSDictionary ?? NSDictionary(), conversionOptions: conversionOptions)
                 dictValue = dict ?? dictValue
                 valid = isValid
-            } else if type.range(of: "<NSDictionary>") == nil && dictValue as? [NSDictionary] != nil {
+            } else if type.range(of: "<NSDictionary>") == nil && type.range(of: "<AnyObject>") == nil && dictValue as? [NSDictionary] != nil {
                 // Array of objects
                 dictValue = dictArrayToObjectArray(anyObject, key: key, type: type, array: dictValue as? [NSDictionary] as NSArray? ?? [NSDictionary]() as NSArray, conversionOptions: conversionOptions) as NSArray
             } else if dictValue is String && original is NSObject && original is EVReflectable {
