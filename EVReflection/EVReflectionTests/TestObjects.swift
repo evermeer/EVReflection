@@ -163,6 +163,10 @@ class ArrayObjects: EVObject {
     var arrays: [[String]] = [["a","b"], ["c","d"]]
     var dictionaries: [NSDictionary] = [NSDictionary(), NSDictionary()]
     var subobjects: [SubObject] = [SubObject(), SubObject()]
+    var nilObjects: [SubObject]?
+    var nilStrings: [String]?
+    var nilObjectsForced: [SubObject]!
+    var nilStringsForced: [String]!
 }
 
 class SubObject: EVObject {

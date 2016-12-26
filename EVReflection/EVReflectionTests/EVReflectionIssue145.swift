@@ -83,8 +83,8 @@ class User145c: EVObject {
     var id: Int = 0
     var name: String = ""
     var email: String?
-    var company: AnyObject = NSDictionary()
-    var workHistory: [AnyObject] = []
+    var company: AnyObject? = NSDictionary()
+    var workHistory: [AnyObject]? = []
 }
 
 class Company145: EVObject {

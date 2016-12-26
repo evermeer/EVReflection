@@ -252,7 +252,7 @@ class EVReflectionTests: XCTestCase {
      */
     func testArrays() {
         let x = ArrayObjects()
-        print(x.toJsonString())
+        print(x)
     }
     
     func testCircular() {

@@ -745,40 +745,40 @@ final public class EVReflection {
             return (theValue as! NSNumber, "NSNumber", false)
         }
         if theValue is Int64 {
-            return (NSNumber(value: theValue as! Int64 as Int64), "NSNumber", false)
+            return (NSNumber(value: theValue as! Int64), "NSNumber", false)
         }
         if theValue is UInt64 {
-            return (NSNumber(value: theValue as! UInt64 as UInt64), "NSNumber", false)
+            return (NSNumber(value: theValue as! UInt64), "NSNumber", false)
         }
         if theValue is Int32 {
-            return (NSNumber(value: theValue as! Int32 as Int32), "NSNumber", false)
+            return (NSNumber(value: theValue as! Int32), "NSNumber", false)
         }
         if theValue is UInt32 {
-            return (NSNumber(value: theValue as! UInt32 as UInt32), "NSNumber", false)
+            return (NSNumber(value: theValue as! UInt32), "NSNumber", false)
         }
         if theValue is Int16 {
-            return (NSNumber(value: theValue as! Int16 as Int16), "NSNumber", false)
+            return (NSNumber(value: theValue as! Int16), "NSNumber", false)
         }
         if theValue is UInt16 {
-            return (NSNumber(value: theValue as! UInt16 as UInt16), "NSNumber", false)
+            return (NSNumber(value: theValue as! UInt16), "NSNumber", false)
         }
         if theValue is Int8 {
-            return (NSNumber(value: theValue as! Int8 as Int8), "NSNumber", false)
+            return (NSNumber(value: theValue as! Int8), "NSNumber", false)
         }
         if theValue is UInt8 {
-            return (NSNumber(value: theValue as! UInt8 as UInt8), "NSNumber", false)
+            return (NSNumber(value: theValue as! UInt8), "NSNumber", false)
         }
         if theValue is NSString {
             return (theValue as! NSString, "NSString", false)
         }
         if theValue is Date {
-            return (theValue as! Date as AnyObject, "NSDate", false)
+            return (theValue as AnyObject, "NSDate", false)
         }
         if theValue is UUID {
             return ((theValue as! UUID).uuidString as AnyObject, "NSString", false)
         }
         if theValue is Array<Any> {
-            return ((theValue as! Array<Any>) as AnyObject, valueType, false)
+            return (theValue as AnyObject, valueType, false)
         }
         if theValue is EVReflectable && theValue is NSObject {
             if valueType.contains("<") {
