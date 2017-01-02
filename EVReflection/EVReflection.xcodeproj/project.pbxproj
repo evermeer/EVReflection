@@ -728,6 +728,7 @@
 					};
 					7F6C9FAF1CB90E6D00F19811 = {
 						CreatedOnToolsVersion = 7.3;
+						DevelopmentTeam = 443FV7F3ZK;
 					};
 					7F9336AD1C28227400AF7076 = {
 						CreatedOnToolsVersion = 7.2;
@@ -1364,6 +1365,7 @@
 				CLANG_ANALYZER_NONNULL = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 443FV7F3ZK;
 				INFOPLIST_FILE = EVReflectionTestApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = nl.evict.EVReflectionTestApp;
@@ -1379,6 +1381,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ANALYZER_NONNULL = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = 443FV7F3ZK;
 				INFOPLIST_FILE = EVReflectionTestApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = nl.evict.EVReflectionTestApp;

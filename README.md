@@ -9,6 +9,8 @@
 [![Documentation](https://img.shields.io/badge/documented-97%-green.svg?style=flat)](http://cocoadocs.org/docsets/EVReflection)
 [![Stars](https://img.shields.io/github/stars/evermeer/EVReflection.svg?style=flat)](https://github.com/evermeer/EVReflection/stargazers)
 [![Awesome](https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg)](https://github.com/matteocrippa/awesome-swift#json)
+[![Downloads](https://img.shields.io/cocoapods/dt/EVReflection.svg?style=flat)](https://cocoapods.org/pods/EVReflection)
+
 
 [![Version](https://img.shields.io/cocoapods/v/EVReflection.svg?style=flat)](http://cocoadocs.org/docsets/EVReflection)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)

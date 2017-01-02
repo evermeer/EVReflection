@@ -704,6 +704,9 @@ final public class EVReflection {
             if valueType == "Foundation.Date" {
                 return (theValue as! NSDate, "NSDate", false)
             }
+            if valueType == "Foundation.Data" {
+                return (theValue as! NSData, "NSData", false)
+            }
             let structAsDict = convertStructureToDictionary(theValue, conversionOptions: conversionOptions, isCachable: isCachable, parents: parents)
             return (structAsDict, "Struct", false)
         } else {
