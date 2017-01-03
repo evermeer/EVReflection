@@ -1,5 +1,5 @@
 //
-//  EVRelfectionEnheritanceTests.swift
+//  EVRelfectionInheritanceTests.swift
 //  EVReflection
 //
 //  Created by Edwin Vermeer on 11/28/15.
@@ -12,9 +12,9 @@ import XCTest
 
 
 /**
- Testing The serialize and deserialize when using object enheritance.
+ Testing The serialize and deserialize when using object inheritance.
  */
-class EVRelfectionEnheritanceTests: XCTestCase {
+class EVRelfectionInheritanceTests: XCTestCase {
     
     /**
      For now nothing to setUp

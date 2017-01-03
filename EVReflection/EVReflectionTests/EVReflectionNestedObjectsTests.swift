@@ -12,7 +12,7 @@ import XCTest
 
 
 /**
- Testing The serialize and deserialize when using object enheritance.
+ Testing The serialize and deserialize when using object inheritance.
  */
 class EVRelfectionNestedObjectsTests: XCTestCase {
     
