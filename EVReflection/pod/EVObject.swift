@@ -154,7 +154,7 @@ open class EVObject: NSObject, NSCoding, EVReflectable  {
     }
         
     /**
-     When a property is declared as a base type for multiple enherited classes, then this function will let you pick the right specific type based on the suplied dictionary.
+     When a property is declared as a base type for multiple inherited classes, then this function will let you pick the right specific type based on the suplied dictionary.
      
      - parameter dict: The dictionary for the specific type
      
