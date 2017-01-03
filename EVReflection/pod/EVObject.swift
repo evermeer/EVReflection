@@ -276,8 +276,8 @@ public class EVObject: NSObject, NSCoding { // These are redundant in Swift 2+: 
      
      - returns: The json string
      */
-    public func toJsonString(conversionOptions: ConversionOptions = .DefaultSerialize) -> String {
-        return EVReflection.toJsonString(self, conversionOptions: conversionOptions)
+    public func toJsonString(conversionOptions: ConversionOptions = .DefaultSerialize, prettyPrinted: Bool = false) -> String {
+        return EVReflection.toJsonString(self, conversionOptions: conversionOptions, prettyPrinted: prettyPrinted)
     }
     
     /**

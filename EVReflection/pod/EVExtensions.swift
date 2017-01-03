@@ -109,8 +109,8 @@ public extension Array where Element: NSObject {
     
     - returns: The json string
     */
-    public func toJsonString(conversionOptions: ConversionOptions = .DefaultSerialize) -> String {
-        return "[\n" + self.map({($0 as? EVObject ?? EVObject()).toJsonString(conversionOptions)}).joinWithSeparator(", \n") + "\n]"
+    public func toJsonString(conversionOptions: ConversionOptions = .DefaultSerialize, prettyPrinted: Bool = false) -> String {
+        return "[\n" + self.map({($0 as? EVObject ?? EVObject()).toJsonString(conversionOptions, prettyPrinted: prettyPrinted)}).joinWithSeparator(", \n") + "\n]"
     }
     
     /**

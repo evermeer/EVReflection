@@ -236,15 +236,22 @@ final public class EVReflection {
      
      - returns: The string representation of the object
      */
-    public class func toJsonString(theObject: NSObject, conversionOptions: ConversionOptions = .DefaultSerialize) -> String {
+    public class func toJsonString(theObject: NSObject, conversionOptions: ConversionOptions = .DefaultSerialize, prettyPrinted: Bool = false) -> String {
         var result: String = ""
         autoreleasepool {
             var (dict, _) = EVReflection.toDictionary(theObject, conversionOptions: conversionOptions)
             dict = convertDictionaryForJsonSerialization(dict, theObject: theObject)
             do {
-                let jsonData = try NSJSONSerialization.dataWithJSONObject(dict, options: .PrettyPrinted)
-                if let jsonString = NSString(data:jsonData, encoding:NSUTF8StringEncoding) {
-                    result =  jsonString as String
+                if prettyPrinted {
+                    let jsonData = try NSJSONSerialization.dataWithJSONObject(dict, options: .PrettyPrinted)
+                    if let jsonString = NSString(data:jsonData, encoding:NSUTF8StringEncoding) {
+                        result =  jsonString as String
+                    }
+                } else {
+                    let jsonData = try NSJSONSerialization.dataWithJSONObject(dict, options: NSJSONWritingOptions(rawValue: 0))
+                    if let jsonString = NSString(data:jsonData, encoding:NSUTF8StringEncoding) {
+                        result =  jsonString as String
+                    }
                 }
             } catch { }
         }
