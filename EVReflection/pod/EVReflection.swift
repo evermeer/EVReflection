@@ -845,6 +845,14 @@ final public class EVReflection {
             if let convertedValue = value as? NSNumber {
                 value = convertedValue.stringValue as AnyObject
             }
+        } else if typeInObject == "Bool" && (type == "String" || type == "NSString") {
+            if let convertedValue = (value as? String)?.lowercaseString {
+                if convertedValue == "true" || convertedValue == "yes" {
+                    value = true
+                } else if convertedValue == "false" || convertedValue == "no" {
+                    value = false
+                }
+            }
         } else if typeInObject == "NSNumber" && (type == "String" || type == "NSString") {
             if let convertedValue = (value as? String)?.lowercased() {
                 if convertedValue == "true" || convertedValue == "yes" {
