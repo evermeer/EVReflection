@@ -280,3 +280,15 @@ open class NestedIUOObjectsArrayParent: EVObject {
     var iuoObjects: [NestedIUOObject]!
     var control: String?
 }
+
+public class TestBaseObject: EVObject {
+    var id: String?
+}
+
+public class TestRootObject: TestBaseObject {
+    var array: [TestInnerObject]?
+}
+
+public class TestInnerObject: TestBaseObject {
+
+}
