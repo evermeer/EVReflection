@@ -15,11 +15,6 @@ import Foundation
 open class EVObject: NSObject, NSCoding, EVReflectable  {
     // These are redundant in Swift 2+: CustomDebugStringConvertible, CustomStringConvertible, Hashable, Equatable
     
-    
-    /// This property will contain an array with deserialization statussses with a description.
-    open var evReflectionStatuses: [(DeserializationStatus, String)] = []
-
-    
     /**
      Implementation of the setValue forUndefinedKey so that we can catch exceptions for when we use an optional Type like Int? in our object. Instead of using Int? you should use NSNumber?
      

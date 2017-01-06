@@ -318,6 +318,25 @@ class EVReflectionTests: XCTestCase {
         print(myObject.toJsonString())
     }
 
+    func testValidationStorage() {
+        let test1 = EVObject()
+        let test2 = EVObject()
+        let test3 = EVObject()
+
+        test1.addStatusMessage(DeserializationStatus.Custom, message: "Custom1")
+        test1.addStatusMessage(DeserializationStatus.MissingKey, message: "Custom2")
+        test2.addStatusMessage(DeserializationStatus.Custom, message: "Custom3")
+        test3.addStatusMessage(DeserializationStatus.IncorrectKey, message: "Custom4")
+        
+        XCTAssertEqual(test1.evReflectionStatuses.count, 2, "We should have 2 validation result")
+        XCTAssertEqual(test2.evReflectionStatuses.count, 1, "We should have 1 validation result")
+        XCTAssertEqual(test3.evReflectionStatuses.count, 1, "We should have 1 validation result")
+
+        XCTAssertEqual(test1.evReflectionStatus(), [.Custom, .MissingKey], "We should have a .Custom and .MissingKey status")
+        XCTAssertEqual(test2.evReflectionStatus(), .Custom, "We should have a .Custom status")
+        XCTAssertEqual(test3.evReflectionStatus(), .IncorrectKey, "We should have a .IncorrectKey status")
+    }
+    
     func testValidation() {
         // Test missing required key
         let json = "{\"requiredKey1\": \"Value1\", \"requiredKey2\":\"Value2\"}"

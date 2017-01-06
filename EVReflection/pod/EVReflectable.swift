@@ -83,13 +83,37 @@ public protocol EVReflectable: class, NSObjectProtocol  {
      - returns: False if the objects are the the same, otherwise true.
      */
     static func !=(lhs: EVReflectable, rhs: EVReflectable) -> Bool
+    
+    /**
+     Protocol container property for the reflection statusses
+     */
+    var evReflectionStatuses: [(DeserializationStatus, String)] { get set }
 }
 
 
 // MARK: - extending EVReflectable with the initialisation functions (which need NSObject)
 
-
+var EVReflectableStatusesObjectKey = "EVReflectableStatuses"
 extension EVReflectable where Self: NSObject {
+    /**
+     Trick for storing a property in a protocol only
+     */
+    public var evReflectionStatuses: [(DeserializationStatus, String)] {
+        get {
+            var statuses: [(DeserializationStatus, String)]? = objc_getAssociatedObject(self, &EVReflectableStatusesObjectKey) as? [(DeserializationStatus, String)]
+            if let statuses = statuses {
+                return statuses
+            } else {
+                statuses = [(DeserializationStatus, String)]()
+                objc_setAssociatedObject(self, &EVReflectableStatusesObjectKey, statuses, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN)
+                return statuses!
+            }
+        }
+        set {
+            objc_setAssociatedObject(self, &EVReflectableStatusesObjectKey, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN)
+        }
+    }
+    
     
     /**
      Convenience init for creating an object whith the property values of a dictionary.
@@ -136,7 +160,7 @@ extension EVReflectable where Self: NSObject {
     public init(fileNameInTemp: String, conversionOptions: ConversionOptions = .DefaultNSCoding) {
         self.init()
         let filePath = (NSTemporaryDirectory() as NSString).appendingPathComponent(fileNameInTemp)
-        if let temp = NSKeyedUnarchiver.unarchiveObject(withFile: filePath) as? EVObject {
+        if let temp = NSKeyedUnarchiver.unarchiveObject(withFile: filePath) as? EVReflectable {
             EVReflection.setPropertiesfromDictionary( temp.toDictionary(conversionOptions), anyObject: self, conversionOptions: conversionOptions)
         }
     }
@@ -150,7 +174,7 @@ extension EVReflectable where Self: NSObject {
     public init(fileNameInDocuments: String, conversionOptions: ConversionOptions = .DefaultNSCoding) {
         self.init()
         let filePath = (NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as NSString).appendingPathComponent(fileNameInDocuments)
-        if let temp = NSKeyedUnarchiver.unarchiveObject(withFile: filePath) as? EVObject {
+        if let temp = NSKeyedUnarchiver.unarchiveObject(withFile: filePath) as? EVReflectable {
             EVReflection.setPropertiesfromDictionary( temp.toDictionary(conversionOptions), anyObject: self, conversionOptions: conversionOptions)
         }
     }
@@ -380,7 +404,7 @@ extension EVReflectable {
      Auto map an opbject to an object of an other type.
      Properties with the same name will be mapped automattically.
      Automattic cammpelCase, PascalCase, snake_case conversion
-     Supports propperty mapping and conversion when using EVObject as base class
+     Supports propperty mapping and conversion when using EVReflectable as a protocol
      
      - parameter conversionOptions: Option set for the various conversion options.
      
@@ -487,7 +511,7 @@ extension EVReflectable {
      */
     public func evReflectionStatus() -> DeserializationStatus {
         var status: DeserializationStatus = .None
-        for (s, _) in (self as? EVObject)?.evReflectionStatuses ?? [] {
+        for (s, _) in self.evReflectionStatuses {
             status = [status, s]
         }
         return status
@@ -500,6 +524,6 @@ extension EVReflectable {
      - parameter message: The message for the status.
      */
     public func addStatusMessage(_ type: DeserializationStatus, message: String) {
-        (self as? EVObject)?.evReflectionStatuses.append(type, message)
+        self.evReflectionStatuses.append(type, message)
     }
 }
