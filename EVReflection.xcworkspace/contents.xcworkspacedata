@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workspace
+   version = "1.0">
+   <FileRef
+      location = "group:Carthage/.gitignore">
+   </FileRef>
+   <FileRef
+      location = "group:Carthage/../.swift-version">
+   </FileRef>
+   <FileRef
+      location = "group:Carthage/../README.md">
+   </FileRef>
+   <FileRef
+      location = "group:Carthage/../EVReflection.podspec">
+   </FileRef>
+   <FileRef
+      location = "group:Carthage/../LICENSE">
+   </FileRef>
+   <FileRef
+      location = "group:Podfile">
+   </FileRef>
+   <FileRef
+      location = "group:Source">
+   </FileRef>
+   <FileRef
+      location = "group:UnitTests/UnitTests.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:PerformanceTest/PerformanceTest.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:Demo/Demo.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:/Users/evermeer/Desktop/dev/GitHub/EVReflection/Carthage/Carthage.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:Pods/Pods.xcodeproj">
+   </FileRef>
+</Workspace>

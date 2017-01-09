@@ -1,0 +1,5 @@
+#import <Foundation/Foundation.h>
+@interface PodsDummy_EVReflection_Alamofire_Core_Moya_MoyaReactiveCocoa_MoyaRxSwift : NSObject
+@end
+@implementation PodsDummy_EVReflection_Alamofire_Core_Moya_MoyaReactiveCocoa_MoyaRxSwift
+@end

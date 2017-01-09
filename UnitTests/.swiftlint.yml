@@ -1,0 +1,70 @@
+disabled_rules:
+- trailing_whitespace
+- variable_name
+- type_name
+- variable_name_min_length
+- type_body_length
+
+#- opening_brace
+#- comma
+#- colon
+#- control_statement
+#- statement_position
+
+#opt_in_rules:
+#- empty_count
+#- missing_docs
+
+
+excluded:
+- Pods/
+- Sparen/Common/Generated/
+- Sparen/Resources
+- GlobalAPIKey
+- _name
+
+force_cast: warning
+
+force_try: warning
+
+function_parameter_count:
+- 5
+- 12
+
+function_body_length:
+- 50
+- 120
+
+cyclomatic_complexity:
+- 20
+- 60
+
+line_length:
+- 200
+- 800
+
+type_body_length:
+- 500
+- 1000
+
+file_length:
+- 500
+- 2000
+
+type_name:
+ min_length:
+  warning: 5
+  error: 2
+ max_length:
+  warning: 40
+  error: 60
+
+variable_name:
+ min_length:
+  warning: 5
+  error: 2
+ max_length:
+  warning: 80
+  error: 50
+
+#reporter: "csv" # reporter type (xcode, json, csv, checkstyle)

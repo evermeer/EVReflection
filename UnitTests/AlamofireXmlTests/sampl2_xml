@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<JDBOR date="2016-04-01 04:12:10" version="1.1.4 / 4.1.3 ORPHANET [2014-10-03]" copyright="Orphanet (c) 2016">
+    <DisorderList count="9366">
+        <Disorder id="17601">
+            <OrphaNumber>166024</OrphaNumber>
+            <ExpertLink lang="en">http://www.orpha.net/consor/cgi-bin/OC_Exp.php?lng=en&amp;Expert=166024</ExpertLink>
+            <Name lang="en">Multiple epiphyseal dysplasia, Al-Gazali type</Name>
+            <DisorderFlagList count="1">
+                <DisorderFlag id="476">
+                <Label>on-line</Label>
+            </DisorderFlagList>
+        </Disorder>
+    </DisorderList>
+</JDBOR>

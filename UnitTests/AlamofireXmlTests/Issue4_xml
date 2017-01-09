@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<requestl>
+    <qlist>
+        <piname>MONTY CHICOLA</piname>
+        <picell>318-730-5705</picell>
+        <pihome>318-442-3893</pihome>
+        <rinum>FAAAAANI</rinum>
+        <dev>$00046728</dev>
+        <riapt>KFOE</riapt>
+        <rifbo>00001</rifbo>
+        <ridatr>08/04/2016 07:06</ridatr>
+        <ridats />
+        <riacft>N2244</riacft>
+        <riftyp>AVGAS</riftyp>
+        <rifunt>GAL</rifunt>
+        <rifuel>0</rifuel>
+    </qlist>
+    <qlist>
+        <piname>MONTY CHICOLA</piname>
+        <picell>318-730-5705</picell>
+        <pihome>318-442-3893</pihome>
+        <rinum>FAAAAANL</rinum>
+        <dev>$00046728</dev>
+        <riapt>KFOE</riapt>
+        <rifbo>00001</rifbo>
+        <ridatr>08/04/2016-18:58</ridatr>
+        <ridats />
+        <riacft>N55MC</riacft>
+        <riftyp>AVGAS</riftyp>
+        <rifunt>GAL</rifunt>
+        <rifuel>00100</rifuel>
+    </qlist>
+    <qlist>
+        <piname>MONTY CHICOLA</piname>
+        <picell>318-730-5705</picell>
+        <pihome>318-442-3893</pihome>
+        <rinum>FAAAAANM</rinum>
+        <dev>$00046728</dev>
+        <riapt>KAEX</riapt>
+        <rifbo>00001</rifbo>
+        <ridatr>08/04/2016-19:01</ridatr>
+        <ridats />
+        <riacft>N5JT</riacft>
+        <riftyp>JET/A</riftyp>
+        <rifunt>GAL</rifunt>
+        <rifuel>100</rifuel>
+    </qlist>
+    <qlist>
+        <piname>MONTY CHICOLA</piname>
+        <picell>318-730-5705</picell>
+        <pihome>318-442-3893</pihome>
+        <rinum>FAAAAANN</rinum>
+        <dev>$00046728</dev>
+        <riapt>KAEX</riapt>
+        <rifbo>00001</rifbo>
+        <ridatr>08/04/2016-19:06</ridatr>
+        <ridats />
+        <riacft>N2244</riacft>
+        <riftyp>AVGAS</riftyp>
+        <rifunt>GAL</rifunt>
+        <rifuel>0</rifuel>
+    </qlist>
+</requestl>

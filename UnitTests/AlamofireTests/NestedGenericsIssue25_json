@@ -1,0 +1,36 @@
+{
+    "success":true,
+    "reason":"OK",
+    "content":[
+        {
+            "total":1,
+            "per_page":15,
+            "current_page":1,
+            "last_page":1,
+            "next_page_url":null,
+            "prev_page_url":null,
+            "from":1,
+            "to":1,
+            "data":[
+                {
+                    "id":1,
+                    "newsTypeId":"2",
+                    "newsOrder":"0",
+                    "isCommentActive":"1",
+                    "placeTypeId":"1",
+                    "link":"11111",
+                    "title":"22222",
+                    "description":"33333",
+                    "pubDate":"",
+                    "imageUrl":"uploads\/74d41d1a8b39541ce2e7b6fc1f844ef0_04_IP-MAN-3_Courtesy-of-Well-Go-USA_0-752x440.jpg",
+                    "imageThumUrl":"",
+                    "appId":"1",
+                    "projectId":"1",
+                    "isValid":"1",
+                    "created_at":"2016-06-29 12:15:23",
+                    "updated_at":"2016-06-29 12:15:23"
+                }
+            ]
+        }
+    ]
+}

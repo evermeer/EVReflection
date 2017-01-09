@@ -1,93 +1,65 @@
 Pod::Spec.new do |s|
+  s.name         = "EVReflection"
+  s.version      = "4.0.0"
+  s.summary      = "Reflection based (dictionary, Json or XML) object mapping (including extensions for Alamofire and Moya with RxSwift or ReactiveSwift)"
 
-# ―――  Spec Metadata  ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
-#
-#  These will help people to find your library, and whilst it
-#  can feel like a chore to fill in it's definitely to your advantage. The
-#  summary should be tweet-length, and the description more in depth.
-#
+  s.description  = <<-EOS
+[EVReflection](https://github.com/evermeer/EVReflection) based object mapping (dictionary, Json, XML, CKRecord)
+including extensions for [Alamofire](https://github.com/Alamofire/Alamofire) and [Moya](https://github.com/Moya/Moya) for network abstraction.
+And on top of that extension for [RxSwift](https://github.com/ReactiveX/RxSwift/) and [ReactiveCocoa]
+EOS
 
-s.name         = "EVReflection"
-s.version      = "3.7.0"
-s.summary      = "iOS: Swift helper library with reflection functions"
-s.description  = "Swift helper library with reflection functions including support for NSCoding, Printable, Hashable, Equatable and JSON"
-s.homepage     = "https://github.com/evermeer/EVReflection"
+  s.homepage     = "https://github.com/evermeer/EVReflection"
+  s.license      = { :type => "MIT", :file => "License" }
+  s.author             = { "Edwin Vermeer" => "edwin@evict.nl" }
+  s.social_media_url   = "http://twitter.com/evermeer"
 
+  s.ios.deployment_target = '8.0'
+  s.osx.deployment_target = '10.10'
+  s.watchos.deployment_target = '2.0'
+  s.tvos.deployment_target = '9.0'
 
-# ―――  Spec License  ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
-#
-#  Licensing your code is important. See http://choosealicense.com for more info.
-#  CocoaPods will detect a license file if there is a named LICENSE*
-#  Popular ones are 'MIT', 'BSD' and 'Apache License, Version 2.0'.
-#
+  s.source       = { :git => "https://github.com/evermeer/EVReflection.git", :tag => s.version }
+  s.default_subspec = "Core"
 
-s.license      = { :type => "MIT", :file => "LICENSE" }
+  s.subspec "Core" do |ss|
+    ss.source_files  = "Source/*.swift"
+    ss.framework  = "Foundation"
+  end
 
+  s.subspec "XML" do |ss|
+    ss.source_files  = "Source/XML/*.swift"
+    ss.dependency "EVReflection/Core"
+    ss.dependency "XMLDictionary"
+  end
 
-# ――― Author Metadata  ――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
-#
-#  Specify the authors of the library, with email addresses. Email addresses
-#  of the authors are extracted from the SCM log. E.g. $ git log. CocoaPods also
-#  accepts just a name if you'd rather not provide an email address.
-#
-#  Specify a social_media_url where others can refer to, for example a twitter
-#  profile URL.
-#
+  s.subspec "Alamofire" do |ss|
+    ss.source_files  = "Source/Alamofire/*.swift"
+    ss.dependency "EVReflection/Core"
+    ss.dependency "Alamofire", "~> 4.2"
+  end
 
-s.author    = "evermeer"
-s.authors   = { 'Edwin Vermeer' => 'edwin@evict.nl' }
-s.social_media_url   = "http://twitter.com/evermeer"
+  s.subspec "AlamofireXML" do |ss|
+    ss.source_files  = "Source/Alamofire/XML/*.swift"
+    ss.dependency "EVReflection/XML"
+    ss.dependency "EVReflection/Alamofire"
+  end
 
-# ――― Platform Specifics ――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
-#
-#  If this Pod runs only on iOS or OS X, then specify the platform and
-#  the deployment target. You can optionally include the target after the platform.
-#
-# s.platform     = :ios, "8.0"
+  s.subspec "Moya" do |ss|
+    ss.source_files  = "Source/Alamofire/Moya/*.swift"
+    ss.dependency "Moya", "~> 8.0"
+    ss.dependency "EVReflection/Core"
+  end
 
-# ――― Deployment targets ――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
-#
-#  Specify the minimum deployment target
-#
-s.ios.deployment_target = '8.0'
-s.osx.deployment_target = '10.9'
-s.watchos.deployment_target = '2.0'
-s.tvos.deployment_target = '9.0'
+  s.subspec "MoyaRxSwift" do |ss|
+    ss.source_files = "Source/Alamofire/Moya/RxSwift/*.swift"
+    ss.dependency "Moya/RxSwift"
+    ss.dependency "EVReflection/Moya"
+  end
 
-
-# ――― Source Location ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
-#
-#  Specify the location from where the source should be retrieved.
-#  Supports git, hg, bzr, svn and HTTP.
-#
-
-s.source       = { :git => "https://github.com/evermeer/EVReflection.git", :tag => s.version.to_s }
-
-# ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
-#
-#  CocoaPods is smart about how it includes source code. For source files
-#  giving a folder will include any h, m, mm, c & cpp files. For header
-#  files it will include any header in the folder.
-#  Not including the public_header_files will make all headers public.
-#
-
-s.source_files  = 'EVReflection/pod/*'
-
-# ――― Project Linking ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
-#
-#  Link your library with frameworks, or libraries. Libraries do not include
-#  the lib prefix of their name.
-#
-
-s.frameworks = "Foundation"
-
-# ――― Project Settings ――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
-#
-#  If your library depends on compiler flags you can set them in the xcconfig hash
-#  where they will only apply to your library. If you depend on other Podspecs
-#  you can include multiple dependencies to ensure it works.
-
-s.requires_arc = true
-
-
+  s.subspec "MoyaReactiveCocoa" do |ss|
+    ss.source_files = "Source/Alamofire/Moya/ReactiveCocoa/*.swift"
+    ss.dependency "Moya/ReactiveCocoa"
+    ss.dependency "EVReflection/Moya"
+  end
 end

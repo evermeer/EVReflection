@@ -1,0 +1,14 @@
+<data>
+<channel name="HMIP-SWDO 0000D3C98C9E08:0" ise_id="1281" visible="true" operate="true">
+<datapoint name="HmIP-RF.0000D3C98C9E08:0.CONFIG_PENDING" type="CONFIG_PENDING" ise_id="1282" value="" valuetype="2" valueunit="" timestamp="0" operations="0"/>
+<datapoint name="HmIP-RF.0000D3C98C9E08:0.DUTY_CYCLE" type="DUTY_CYCLE" ise_id="1286" value="false" valuetype="2" valueunit="" timestamp="1472726147" operations="5"/>
+<datapoint name="HmIP-RF.0000D3C98C9E08:0.ERROR_CODE" type="ERROR_CODE" ise_id="1287" value="0" valuetype="8" valueunit="" timestamp="1472726147" operations="5"/>
+<datapoint name="HmIP-RF.0000D3C98C9E08:0.LOW_BAT" type="LOW_BAT" ise_id="1288" value="false" valuetype="2" valueunit="" timestamp="1472726147" operations="5"/>
+<datapoint name="HmIP-RF.0000D3C98C9E08:0.OPERATING_VOLTAGE" type="OPERATING_VOLTAGE" ise_id="1292" value="1.300000" valuetype="4" valueunit="" timestamp="1472726147" operations="5"/>
+<datapoint name="HmIP-RF.0000D3C98C9E08:0.SABOTAGE" type="SABOTAGE" ise_id="1293" value="false" valuetype="2" valueunit="" timestamp="1472726147" operations="5"/>
+<datapoint name="HmIP-RF.0000D3C98C9E08:0.UNREACH" type="UNREACH" ise_id="1297" value="false" valuetype="2" valueunit="" timestamp="1472726147" operations="5"/>
+</channel>
+<channel name="HMIP-SWDO 0000D3C98C9E08:1" ise_id="1301" visible="true" operate="true">
+<datapoint name="HmIP-RF.0000D3C98C9E08:1.STATE" type="STATE" ise_id="1302" value="0" valuetype="16" valueunit="""" timestamp="1472726147" operations="5"/>
+</channel>
+</data>

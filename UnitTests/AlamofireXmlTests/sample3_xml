@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<allgames>
+    <StateProv stateprov_name="Arkansas" stateprov_id="AR">
+        <game game_id="101" game_name="Powerball" update_time="WED 2016-06-01 23:00:34 EST">
+            <lastdraw_date>06/01/2016</lastdraw_date>
+            <lastdraw_numbers>23-30-33-40-69, Powerball: 12, Power Play: 5</lastdraw_numbers>
+            <nextdraw_date>06/04/2016</nextdraw_date>
+            <jackpot date="06/04/2016">110000000</jackpot>
+        </game>
+        <game game_id="113" game_name="MEGA Millions" update_time="FRI 2016-06-03 23:01:31 EST">
+            <lastdraw_date>06/03/2016</lastdraw_date>
+            <lastdraw_numbers>32-54-65-66-71, Mega Ball: 10, Megaplier: 3</lastdraw_numbers>
+            <nextdraw_date>06/07/2016</nextdraw_date>
+            <jackpot date="06/03/2016">251000000</jackpot>
+        </game>
+        <game game_id="132" game_name="Lucky For Life" update_time="THU 2016-06-02 22:54:02 EST">
+            <lastdraw_date>06/02/2016</lastdraw_date>
+            <lastdraw_numbers>11-19-36-37-42, Lucky Ball: 10</lastdraw_numbers>
+            <nextdraw_date>06/06/2016</nextdraw_date>
+        </game>
+        <game game_id="AR1" game_name="Natural State Jackpot" update_time="FRI 2016-06-03 21:19:03 EST">
+            <lastdraw_date>06/03/2016</lastdraw_date>
+            <lastdraw_numbers>04-18-19-21-33</lastdraw_numbers>
+            <nextdraw_date>06/04/2016</nextdraw_date>
+            <jackpot date="06/04/2016">105000</jackpot>
+        </game>
+        <game game_id="ARD" game_name="Cash 4 Midday" update_time="FRI 2016-06-03 14:10:03 EST">
+            <lastdraw_date>06/03/2016</lastdraw_date>
+            <lastdraw_numbers>6-0-8-3</lastdraw_numbers>
+            <nextdraw_date>06/04/2016</nextdraw_date>
+        </game>
+        <game game_id="ARB" game_name="Cash 3 Midday" update_time="FRI 2016-06-03 14:09:03 EST">
+            <lastdraw_date>06/03/2016</lastdraw_date>
+            <lastdraw_numbers>4-7-4</lastdraw_numbers>
+            <nextdraw_date>06/04/2016</nextdraw_date>
+        </game>
+        <game game_id="ARC" game_name="Cash 4 Evening" update_time="FRI 2016-06-03 20:10:02 EST">
+            <lastdraw_date>06/03/2016</lastdraw_date>
+            <lastdraw_numbers>2-6-4-1</lastdraw_numbers>
+            <nextdraw_date>06/04/2016</nextdraw_date>
+        </game>
+        <game game_id="ARA" game_name="Cash 3 Evening" update_time="FRI 2016-06-03 20:12:12 EST">
+            <lastdraw_date>06/03/2016</lastdraw_date>
+            <lastdraw_numbers>5-2-0</lastdraw_numbers>
+            <nextdraw_date>06/04/2016</nextdraw_date>
+        </game>
+    </StateProv>
+</allgames>

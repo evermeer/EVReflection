@@ -1,0 +1,273 @@
+{
+"status": 200,
+"reason": "success",
+"model": [
+{
+"id": 28,
+"name": "ff",
+"products": []
+},
+{
+"id": 27,
+"name": "sudgd",
+"products": []
+},
+{
+"id": 13,
+"name": "Testt",
+"products": [
+{
+"id": 2079,
+"name": "Coca Cola",
+"shortDescription": "250 g (1 kg = 12,99 €)",
+"retailPrice": 1.45,
+"brand": "Ülker",
+"maxOrderAmount": 10,
+"qualityGroup": null,
+"features": [
+"Halal",
+"Laktosefrei"
+],
+"image": "https://files.billa.at/files/artikel/00-74150_01__1200x1200.jpg",
+"sale": null,
+"status": "VISIBLE",
+"amount": 8
+},
+{
+"id": 3278,
+"name": "Nöm Vollmilch 3,5%",
+"shortDescription": "250 g (1 kg = 12,99 €)",
+"retailPrice": 0.79,
+"brand": "Ülker",
+"maxOrderAmount": 10,
+"qualityGroup": null,
+"features": [
+"Halal"
+],
+"image": "http://noem.at/media/products/image/15/NOEM_Vollmilch_ESL_500ml_Tetra-Eifel_V2-img.png",
+"sale": {
+"description": "Falan Filan",
+"salePercent": 25,
+"salePrice": 5.65346400657789,
+"amount": 5,
+"endDate": "30.09.2016 23:00",
+"productIds": [
+3278
+],
+"images": []
+},
+"status": "VISIBLE",
+"amount": 2
+},
+{
+"id": 3898,
+"name": "Türkische Gurken",
+"shortDescription": "250 g (1 kg = 12,99 €)",
+"retailPrice": 4.38,
+"brand": "Ülker",
+"maxOrderAmount": 10,
+"qualityGroup": null,
+"features": [
+"Halal"
+],
+"image": "http://www.kalorien-guide.de/images/gurke-kalorien.jpg",
+"sale": null,
+"status": "HIDDEN",
+"amount": 19
+},
+{
+"id": 3818,
+"name": "Orangen 1 kg",
+"shortDescription": "250 g (1 kg = 12,99 €)",
+"retailPrice": 5,
+"brand": "Ülker",
+"maxOrderAmount": 10,
+"qualityGroup": null,
+"features": [
+"Halal"
+],
+"image": "http://www.kochform.de/artikelbilder/Orangen_kk.jpg",
+"sale": null,
+"status": "VISIBLE",
+"amount": 1
+}
+]
+},
+{
+"id": 1,
+"name": "aaaaa",
+"products": [
+{
+"id": 2004,
+"name": "12 ntm Rouge Pomegranate/Black Currant Sparkling Beverage",
+"shortDescription": "250 g (1 kg = 12,99 €)",
+"retailPrice": 11.68,
+"brand": "Ülker",
+"maxOrderAmount": 10,
+"qualityGroup": null,
+"features": [
+"Halal"
+],
+"image": "http://cdn.foodfacts.com/images/products/137213.jpg",
+"sale": null,
+"status": "VISIBLE",
+"amount": 8
+},
+{
+"id": 3278,
+"name": "Nöm Vollmilch 3,5%",
+"shortDescription": "250 g (1 kg = 12,99 €)",
+"retailPrice": 0.79,
+"brand": "Ülker",
+"maxOrderAmount": 10,
+"qualityGroup": null,
+"features": [
+"Halal"
+],
+"image": "http://noem.at/media/products/image/15/NOEM_Vollmilch_ESL_500ml_Tetra-Eifel_V2-img.png",
+"sale": {
+"description": "Falan Filan",
+"salePercent": 25,
+"salePrice": 5.65346400657789,
+"amount": 5,
+"endDate": "30.09.2016 23:00",
+"productIds": [
+3278
+],
+"images": []
+},
+"status": "VISIBLE",
+"amount": 6
+},
+{
+"id": 3019,
+"name": "Red Bull Cola",
+"shortDescription": "250 g (1 kg = 12,99 €)",
+"retailPrice": 5.16,
+"brand": "Ülker",
+"maxOrderAmount": 10,
+"qualityGroup": null,
+"features": [
+"Halal"
+],
+"image": "https://files.billa.at/files/artikel/00-905298_01__600x600.jpg",
+"sale": null,
+"status": "VISIBLE",
+"amount": 1
+},
+{
+"id": 3898,
+"name": "Türkische Gurken",
+"shortDescription": "250 g (1 kg = 12,99 €)",
+"retailPrice": 4.38,
+"brand": "Ülker",
+"maxOrderAmount": 10,
+"qualityGroup": null,
+"features": [
+"Halal"
+],
+"image": "http://www.kalorien-guide.de/images/gurke-kalorien.jpg",
+"sale": null,
+"status": "HIDDEN",
+"amount": 13
+},
+{
+"id": 3818,
+"name": "Orangen 1 kg",
+"shortDescription": "250 g (1 kg = 12,99 €)",
+"retailPrice": 5,
+"brand": "Ülker",
+"maxOrderAmount": 10,
+"qualityGroup": null,
+"features": [
+"Halal"
+],
+"image": "http://www.kochform.de/artikelbilder/Orangen_kk.jpg",
+"sale": null,
+"status": "VISIBLE",
+"amount": 3
+}
+]
+},
+{
+"id": 3,
+"name": "Liste 3",
+"products": [
+{
+"id": 2004,
+"name": "12 ntm Rouge Pomegranate/Black Currant Sparkling Beverage",
+"shortDescription": "250 g (1 kg = 12,99 €)",
+"retailPrice": 11.68,
+"brand": "Ülker",
+"maxOrderAmount": 10,
+"qualityGroup": null,
+"features": [
+"Halal"
+],
+"image": "http://cdn.foodfacts.com/images/products/137213.jpg",
+"sale": null,
+"status": "VISIBLE",
+"amount": 1
+},
+{
+"id": 3898,
+"name": "Türkische Gurken",
+"shortDescription": "250 g (1 kg = 12,99 €)",
+"retailPrice": 4.38,
+"brand": "Ülker",
+"maxOrderAmount": 10,
+"qualityGroup": null,
+"features": [
+"Halal"
+],
+"image": "http://www.kalorien-guide.de/images/gurke-kalorien.jpg",
+"sale": null,
+"status": "HIDDEN",
+"amount": 1
+},
+{
+"id": 3818,
+"name": "Orangen 1 kg",
+"shortDescription": "250 g (1 kg = 12,99 €)",
+"retailPrice": 5,
+"brand": "Ülker",
+"maxOrderAmount": 10,
+"qualityGroup": null,
+"features": [
+"Halal"
+],
+"image": "http://www.kochform.de/artikelbilder/Orangen_kk.jpg",
+"sale": null,
+"status": "VISIBLE",
+"amount": 2
+},
+{
+"id": 3278,
+"name": "Nöm Vollmilch 3,5%",
+"shortDescription": "250 g (1 kg = 12,99 €)",
+"retailPrice": 0.79,
+"brand": "Ülker",
+"maxOrderAmount": 10,
+"qualityGroup": null,
+"features": [
+"Halal"
+],
+"image": "http://noem.at/media/products/image/15/NOEM_Vollmilch_ESL_500ml_Tetra-Eifel_V2-img.png",
+"sale": {
+"description": "Falan Filan",
+"salePercent": 25,
+"salePrice": 5.65346400657789,
+"amount": 5,
+"endDate": "30.09.2016 23:00",
+"productIds": [
+3278
+],
+"images": []
+},
+"status": "VISIBLE",
+"amount": 2
+}
+]
+}
+]
+}

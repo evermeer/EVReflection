@@ -1,0 +1,11 @@
+ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES
+CODE_SIGN_IDENTITY =
+FRAMEWORK_SEARCH_PATHS = $(inherited) "$PODS_CONFIGURATION_BUILD_DIR/Alamofire-OSX" "$PODS_CONFIGURATION_BUILD_DIR/EVReflection-98e59a5e" "$PODS_CONFIGURATION_BUILD_DIR/Moya-OSX" "$PODS_CONFIGURATION_BUILD_DIR/ReactiveSwift-OSX" "$PODS_CONFIGURATION_BUILD_DIR/Result-OSX" "$PODS_CONFIGURATION_BUILD_DIR/RxSwift-OSX" "$PODS_CONFIGURATION_BUILD_DIR/XMLDictionary-OSX"
+GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
+LD_RUNPATH_SEARCH_PATHS = $(inherited) '@executable_path/../Frameworks' '@loader_path/Frameworks'
+OTHER_CFLAGS = $(inherited) -iquote "$PODS_CONFIGURATION_BUILD_DIR/Alamofire-OSX/Alamofire.framework/Headers" -iquote "$PODS_CONFIGURATION_BUILD_DIR/EVReflection-98e59a5e/EVReflection.framework/Headers" -iquote "$PODS_CONFIGURATION_BUILD_DIR/Moya-OSX/Moya.framework/Headers" -iquote "$PODS_CONFIGURATION_BUILD_DIR/ReactiveSwift-OSX/ReactiveSwift.framework/Headers" -iquote "$PODS_CONFIGURATION_BUILD_DIR/Result-OSX/Result.framework/Headers" -iquote "$PODS_CONFIGURATION_BUILD_DIR/RxSwift-OSX/RxSwift.framework/Headers" -iquote "$PODS_CONFIGURATION_BUILD_DIR/XMLDictionary-OSX/XMLDictionary.framework/Headers"
+OTHER_LDFLAGS = $(inherited) -framework "Alamofire" -framework "EVReflection" -framework "Moya" -framework "ReactiveSwift" -framework "Result" -framework "RxSwift" -framework "XMLDictionary"
+OTHER_SWIFT_FLAGS = $(inherited) "-D" "COCOAPODS"
+PODS_BUILD_DIR = $BUILD_DIR
+PODS_CONFIGURATION_BUILD_DIR = $PODS_BUILD_DIR/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)
+PODS_ROOT = ${SRCROOT}/../Pods
