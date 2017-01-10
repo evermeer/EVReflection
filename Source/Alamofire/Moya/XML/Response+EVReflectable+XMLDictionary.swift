@@ -9,7 +9,7 @@ import Foundation
 import Moya
 import XMLDictionary
 
-public extension Response {
+open extension Response {
     
     /// Maps data received from the signal into an object which implements the EVReflectable protocol.
     /// If the conversion fails, the signal errors.

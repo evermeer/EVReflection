@@ -9,10 +9,10 @@ import Foundation
 import Xml2Dictionary
 import Alamofire
 
-extension DataRequest {
+public extension DataRequest {
     open static var outputXMLresult: Bool = false
     
-    internal static func EVReflectionXMLSerializer<T: EVObject>(_ keyPath: String?, mapToObject object: T? = nil) -> DataResponseSerializer<T> {
+    internal static func EVReflectionXMLSerializer<T: EVReflectable>(_ keyPath: String?, mapToObject object: T? = nil) -> DataResponseSerializer<T> where T: NSObject {
         return DataResponseSerializer { request, response, data, error in
             guard error == nil else {
                 return .failure(error!)
@@ -24,26 +24,13 @@ extension DataRequest {
                 return .failure(error)
             }
             
-            let object = T()
             let xml: String = NSString(data: data ?? Data(), encoding: String.Encoding.utf8.rawValue) as? String ?? ""
-            if let result = NSDictionary(xmlString: xml ) {
-                if DataRequest.outputXMLresult {
-                    print("Dictionary from XML = \(result)")
-                }
-                
-                var XMLToMap: NSDictionary!
-                if let keyPath = keyPath, keyPath.isEmpty == false {
-                    XMLToMap = result.value(forKeyPath: keyPath) as? NSDictionary ?? NSDictionary()
-                } else {
-                    XMLToMap = result
-                }
-                
-                let _ = EVReflection.setPropertiesfromDictionary(XMLToMap, anyObject: object)
+            if DataRequest.outputXMLresult {
+                print("Dictionary from XML = \(xml)")
+            }
+            if let object = T(xml: xml) {
                 return .success(object)
             } else {
-                if DataRequest.outputXMLresult {
-                    print("XML string = \(xml)")
-                }
                 let failureReason = "Data could not be serialized. Could not get a dictionary from the XML."
                 let error = newError(.noData, failureReason: failureReason)
                 return .failure(error)

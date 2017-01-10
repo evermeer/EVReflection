@@ -21,7 +21,7 @@ open class EVNetworkingObject: EVObject {
 }
 
 
-extension DataRequest {
+public extension DataRequest {
     
     enum ErrorCode: Int {
         case noData = 1

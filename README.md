@@ -24,14 +24,31 @@
 [![Website](https://img.shields.io/badge/website-evict.nl-blue.svg?style=flat)](http://evict.nl)
 [![eMail](https://img.shields.io/badge/email-edwin@evict.nl-blue.svg?style=flat)](mailto:edwin@evict.nl?SUBJECT=About EVReflection)
 
+# General information
+
 If you have a question and don't want to create an issue, then we can [![Join the chat at https://gitter.im/evermeer/EVReflection](https://badges.gitter.im/evermeer/EVReflection.svg)](https://gitter.im/evermeer/EVReflection?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 At this moment the master branch is for Swift 3. If you want to continue using EVReflection in Swift 2.2 (or 2.3) then switch to the Swift2.2 or Swift2.3 branch.
 Run the unit tests to see EVReflection in action.
 
-EVReflection is used extensively in [EVCloudKitDao](https://github.com/evermeer/EVCloudKitDao), [AlamofireJsonToObjects](https://github.com/evermeer/AlamofireJsonToObjects) and [AlamofireXmlToObjects](https://github.com/evermeer/AlamofireXmlToObjects)
+EVReflection is used in [EVCloudKitDao](https://github.com/evermeer/EVCloudKitDao) and [EVWordPressAPI](https://github.com/evermeer/EVWordPressAPI)
 
 In most cases EVReflection is very easy to use. Just take a look at the [YouTube tutorial](https://www.youtube.com/watch?v=LPWsQD2nxqg) or the section [It's easy to use](https://github.com/evermeer/EVReflection#its-easy-to-use). But if you do want to do non standard specific things, then EVReflection will offer you an extensive range of functionality. For more information see:
+
+
+### Available extensions
+There are extension available for using EVReflection with [XMLDictionairy](https://github.com/nicklockwood/XMLDictionary), [Alamofire](https://github.com/Alamofire/Alamofire) or [Moya](https://github.com/Moya/Moya) with [RxSwift](https://github.com/ReactiveX/RxSwift) or [ReactiveSwift](https://github.com/ReactiveCocoa/ReactiveSwift)
+
+- [XML](https://github.com/evermeer/EVReflection/tree/master/Source/XML)
+- [Alamofire](https://github.com/evermeer/EVReflection/tree/master/Source/Alamofire)
+- [AlamofireXML](https://github.com/evermeer/EVReflection/tree/master/Source/XML)
+- [Moya](https://github.com/evermeer/EVReflection/tree/master/Source/Alamofire/Moya)
+- [MoyaXML](https://github.com/evermeer/EVReflection/tree/master/Source/Alamofire/Moya/XML)
+- [MoyaRxSwift](https://github.com/evermeer/EVReflection/tree/master/Source/Alamofire/Moya/RxSwift)
+- [MoyaReactiveCocoa](https://github.com/evermeer/EVReflection/tree/master/Source/Alamofire/Moya/ReactiveCocoa)
+
+
+## Index
 
 - [Main features of EVReflection](https://github.com/evermeer/EVReflection#main-features-of-evreflection)
 - [Quick start](https://github.com/evermeer/EVReflection#quick-start)
@@ -116,10 +133,6 @@ If you want to do the same but you have XML, then you can achieve that using the
 let xml = "<user><id>27</id><name>Bob</name><friends><user><id>20</id><name>Jen</name></user></friends></user>"
 let user = User(dictionary: NSDictionary(XMLString: xml))
 ```
-
-## Using EVReflection with Alamofire
-Usually your JSON or XML will come frome a remote network location. The library [Alamofire](https://github.com/Alamofire/Alamofire) is often used for this. I have created 2 helper libraries that will make it verry easy working with EVReflection and Alamofire. Have a look at 
-[AlamofireJsonToObjects](https://github.com/evermeer/AlamofireJsonToObjects) and [AlamofireXmlToObjects](https://github.com/evermeer/AlamofireXmlToObjects). For an extensive sample how to use this, you could take a look at this WordPress (Jetpack) API using AlamofireOauth2 and AlamofireJsonToObjects [EVWordPressAPI](https://github.com/evermeer/EVWordPressAPI)
 
 ## Using EVReflection in your own App 
 
