@@ -1,72 +1,58 @@
-EVReflection/AlamofireXML
+EVReflection/MoyaXML
 ============
 
-This is the sub specification for a Alamofire with XML Response extension for EVReflection
+This is the sub specification for a Moya Response extension for mapping XML with EVReflection 
 
 # Installation
 
 ## CocoaPods
 
 ```ruby
-pod 'EVReflection/Alamofire'
+pod 'EVReflection/MoyaXML'
 ```
+
+# Advanced object mapping
+This subspec can use all [EVReflection](https://github.com/evermeer/EVReflection) features like property mapping, converters, validators and key kleanup. See [EVReflection](https://github.com/evermeer/EVReflection) for more information.
 
 # Usage
 
-Create a class which has `EVNetworkingObject` as it's base class.
+Create a class which has `EVObject` as it's base class. You could also use any `NSObject` based class and extend it with the `EVReflectable` protocol. 
 
+```swift
+import Foundation
+import EVReflection
+
+class Repository: EVObject {
+    var identifier: NSNumber?
+    var language: String?
+    var url: String?
+}
 ```
-class WeatherResponse: EVNetworkingObject {
-var location: String?
-var three_day_forecast: [Forecast] = [Forecast]()
-}
 
-class Forecast: EVNetworkingObject {
-var day: String?
-var temperature: NSNumber?
-var conditions: String?
-}
+```swift
+GitHubProvider.request(.userRepositories(username), completion: { result in
+    var success = true
+    var message = "Unable to fetch from GitHub"
 
-class AlamofireJsonToObjectsTests: XCTestCase { 
-func testResponseObject() {
-let URL = "https://raw.githubusercontent.com/evermeer/AlamofireJsonToObjects/master/AlamofireJsonToObjectsTests/sample_json"
-Alamofire.request(URL)
-.responseObject { (response: DataResponse<WeatherResponse>) in
-if let result = response.result.value {
-// That was all... You now have a WeatherResponse object with data
-}
-}
-waitForExpectationsWithTimeout(10, handler: { (error: NSError!) -> Void in
-XCTAssertNil(error, "\(error)")
+    switch result {
+        case let .success(response):
+            do {
+                if let repos = try response.mapArray(Repository) {
+                    self.repos = repos
+                } else {
+                    success = false
+                }
+            } catch {
+                success = false
+            }
+            self.tableView.reloadData()
+        case let .failure(error):
+            guard let error = error as? CustomStringConvertible else {
+                break
+            }
+            message = error.description
+            success = false
+    }
 })
-}
-}
-```
-
-The code above will pass the folowing json to the objects:
 
 ```
-{  
-"location": "Toronto, Canada",    
-"three_day_forecast": [
-{ 
-"conditions": "Partly cloudy",
-"day" : "Monday",
-"temperature": 20 
-}, { 
-"conditions": "Showers",
-"day" : "Tuesday",
-"temperature": 22 
-}, { 
-"conditions": "Sunny",
-"day" : "Wednesday",
-"temperature": 28 
-}
-]
-}
-```
-
-
-## Handling HTTP status >= 300
-When a network call returns a [HTTP error status](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes) (300 or highter) then this will be added to the evReflectionStatuses as a custom error. see the unit test testErrorResponse as a sample. In order to make this work, you do have to set EVNetworkingObject as your bass class and not EVObject. You then also have to be aware that if you override the initValidation or the propertyMapping function, that you also have to call the super for that function.
-

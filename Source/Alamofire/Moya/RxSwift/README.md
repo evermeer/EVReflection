@@ -11,6 +11,9 @@ This is the sub specification for a Moya plus RxSwift Observable extension for E
 pod 'EVReflection/MoyaRxSwift'
 ```
 
+# Advanced object mapping
+This subspec can use all [EVReflection](https://github.com/evermeer/EVReflection) features like property mapping, converters, validators and key kleanup. See [EVReflection](https://github.com/evermeer/EVReflection) for more information.
+
 # Usage
 
 For more information about using Moya plus RxSwift have a look at the [Moya](https://github.com/Moya/Moya) project.

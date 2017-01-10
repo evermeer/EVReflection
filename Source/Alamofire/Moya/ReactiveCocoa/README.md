@@ -10,6 +10,8 @@ This is the sub specification for a Moya plus ReactiveCocoa SignalProducer exten
 ```ruby
 pod 'EVReflection/MoyaReactiveCocoa'
 ```
+# Advanced object mapping
+This subspec can use all [EVReflection](https://github.com/evermeer/EVReflection) features like property mapping, converters, validators and key kleanup. See [EVReflection](https://github.com/evermeer/EVReflection) for more information.
 
 # Usage
 

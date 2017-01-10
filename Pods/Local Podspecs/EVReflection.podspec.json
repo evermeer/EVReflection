@@ -78,6 +78,18 @@
       }
     },
     {
+      "name": "MoyaXML",
+      "source_files": "Source/Alamofire/Moya/XML/*.swift",
+      "dependencies": {
+        "EVReflection/XML": [
+
+        ],
+        "EVReflection/Moya": [
+
+        ]
+      }
+    },
+    {
       "name": "MoyaRxSwift",
       "source_files": "Source/Alamofire/Moya/RxSwift/*.swift",
       "dependencies": {

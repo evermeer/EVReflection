@@ -11,6 +11,9 @@ This is the sub specification for a Moya Response extension for EVReflection
 pod 'EVReflection/Moya'
 ```
 
+# Advanced object mapping
+This subspec can use all [EVReflection](https://github.com/evermeer/EVReflection) features like property mapping, converters, validators and key kleanup. See [EVReflection](https://github.com/evermeer/EVReflection) for more information.
+
 # Usage
 
 Create a class which has `EVObject` as it's base class. You could also use any `NSObject` based class and extend it with the `EVReflectable` protocol. 
@@ -53,21 +56,4 @@ GitHubProvider.request(.userRepositories(username), completion: { result in
     }
 })
 
-```
-
-## 2. With RxSwift
-
-```swift
-GitHubProvider.request(.userRepositories(username))
-  .mapArray(Repository)
-  .subscribe { event -> Void in
-    switch event {
-    case .Next(let repos):
-      self.repos = repos
-    case .Error(let error):
-      print(error)
-    default:
-      break
-    }
-  }.addDisposableTo(disposeBag)
 ```

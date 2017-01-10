@@ -25,7 +25,7 @@ public extension Response {
     }
     
     /// Create the object from the dictionary
-    private func map<T: EVReflectable>(from: NSDictionary?) -> T where T: NSObject {
+    internal func map<T: EVReflectable>(from: NSDictionary?) -> T where T: NSObject {
         let instance: T = T()
         let parsedObject: T = ((instance.getSpecificType(from ?? NSDictionary()) as? T) ?? instance)
         let _ = EVReflection.setPropertiesfromDictionary(from ?? NSDictionary(), anyObject: parsedObject)

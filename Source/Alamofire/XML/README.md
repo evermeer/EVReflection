@@ -1,14 +1,14 @@
-EVReflection/Alamofire
+EVReflection/AlamofireXML
 ============
 
-This is the sub specification for an Alamofire Response extension for EVReflection
+This is the sub specification for a Alamofire with XML Response extension for EVReflection
 
 # Installation
 
 ## CocoaPods
 
 ```ruby
-pod 'EVReflection/Alamofire'
+pod 'EVReflection/AlamofireXML'
 ```
 
 # Advanced object mapping
@@ -52,20 +52,19 @@ The code above will pass the folowing json to the objects:
 {  
     "location": "Toronto, Canada",    
     "three_day_forecast": [
-        { 
-            "conditions": "Partly cloudy",
-            "day" : "Monday",
-            "temperature": 20 
-        }, { 
-            "conditions": "Showers",
-            "day" : "Tuesday",
-            "temperature": 22 
-        }, { 
-            "conditions": "Sunny",
-            "day" : "Wednesday",
-            "temperature": 28 
-        }
-    ]
+    { 
+        "conditions": "Partly cloudy",
+        "day" : "Monday",
+        "temperature": 20 
+    }, { 
+        "conditions": "Showers",
+        "day" : "Tuesday",
+        "temperature": 22 
+    }, { 
+        "conditions": "Sunny",
+        "day" : "Wednesday",
+        "temperature": 28 
+    }]
 }
 ```
 
