@@ -6,7 +6,7 @@ workspace 'EVReflection'
 def libraries
   pod 'EVReflection/AlamofireXML', :path => "./"
   pod 'EVReflection/MoyaRxSwift', :path => "./"
-  pod 'EVReflection/MoyaReactiveCocoa', :path => "./"
+  pod 'EVReflection/MoyaReactiveSwift', :path => "./"
 end
 
 target 'PerformanceTest' do

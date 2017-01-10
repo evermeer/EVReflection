@@ -37,7 +37,7 @@ In most cases EVReflection is very easy to use. Just take a look at the [YouTube
 
 
 ### Available extensions
-There are extension available for using EVReflection with [XMLDictionairy](https://github.com/nicklockwood/XMLDictionary), [Alamofire](https://github.com/Alamofire/Alamofire) or [Moya](https://github.com/Moya/Moya) with [RxSwift](https://github.com/ReactiveX/RxSwift) or [ReactiveSwift](https://github.com/ReactiveCocoa/ReactiveSwift)
+There are extension available for using EVReflection with [XMLDictionairy](https://github.com/nicklockwood/XMLDictionary), [Alamofire](https://github.com/Alamofire/Alamofire) or [Moya](https://github.com/Moya/Moya) with [RxSwift](https://github.com/ReactiveX/RxSwift) or [ReactiveSwift](https://github.com/ReactiveSwift/ReactiveSwift)
 
 - [XML](https://github.com/evermeer/EVReflection/tree/master/Source/XML)
 - [Alamofire](https://github.com/evermeer/EVReflection/tree/master/Source/Alamofire)
@@ -45,7 +45,7 @@ There are extension available for using EVReflection with [XMLDictionairy](https
 - [Moya](https://github.com/evermeer/EVReflection/tree/master/Source/Alamofire/Moya)
 - [MoyaXML](https://github.com/evermeer/EVReflection/tree/master/Source/Alamofire/Moya/XML)
 - [MoyaRxSwift](https://github.com/evermeer/EVReflection/tree/master/Source/Alamofire/Moya/RxSwift)
-- [MoyaReactiveCocoa](https://github.com/evermeer/EVReflection/tree/master/Source/Alamofire/Moya/ReactiveCocoa)
+- [MoyaReactiveSwift](https://github.com/evermeer/EVReflection/tree/master/Source/Alamofire/Moya/ReactiveSwift)
 
 
 ## Index
@@ -126,12 +126,11 @@ let administrator: Administrator = user.mapObjectTo()
 
 ## If you have XML instead of JSON
 
-If you want to do the same but you have XML, then you can achieve that using the XMLDictionary library.[XMLDictionary](https://github.com/nicklockwood/XMLDictionary) Is a simple way to parse and generate XML. Converts an XML file to an NSDictionary. With that library your code will look like this:
-
+If you want to do the same but you have XML, then you can achieve that using the XML subspec 'pod EVReflection/XML' It is a simple way to parse XML. With that your code will look like this:
 
 ```
 let xml = "<user><id>27</id><name>Bob</name><friends><user><id>20</id><name>Jen</name></user></friends></user>"
-let user = User(dictionary: NSDictionary(XMLString: xml))
+let user = User(xml: xml)
 ```
 
 ## Using EVReflection in your own App 
@@ -212,13 +211,11 @@ This is how you can parse a .plist into an object model. See EVReflectionIssue12
    }
 ```
 
-If you want to parse XML, then you can use the pod [XMLDictionary](https://github.com/nicklockwood/XMLDictionary) to first parse it to a dictionary.
+If you want to parse XML, then you can use the pod subxpec EVReflection/XML
 ```
-   let xml: String = "<data><item name=\"attrib\">itemData</item></data>"
-   if let data = NSDictionary(XMLString: xml) {
-      let xmlObject = MyObject(dictionary: data)
-      print(xmlObject)
-   }
+    let xml: String = "<data><item name=\"attrib\">itemData</item></data>"
+    let xmlObject = MyObject(xml: xml)
+    print(xmlObject)
 ```
 
 ## Extending existing objects:

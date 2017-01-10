@@ -11,7 +11,7 @@ If you have a question and don't want to create an issue, then we can [![Join th
 EVReflection is used in [EVCloudKitDao](https://github.com/evermeer/EVCloudKitDao) and [EVWordPressAPI](https://github.com/evermeer/EVWordPressAPI)
 
 ### Available extensions
-There are extension available for using EVReflection with [XMLDictionairy](https://github.com/nicklockwood/XMLDictionary), [Alamofire](https://github.com/Alamofire/Alamofire) or [Moya](https://github.com/Moya/Moya) with [RxSwift](https://github.com/ReactiveX/RxSwift) or [ReactiveSwift](https://github.com/ReactiveCocoa/ReactiveSwift)
+There are extension available for using EVReflection with [XMLDictionairy](https://github.com/nicklockwood/XMLDictionary), [Alamofire](https://github.com/Alamofire/Alamofire) or [Moya](https://github.com/Moya/Moya) with [RxSwift](https://github.com/ReactiveX/RxSwift) or [ReactiveSwift](https://github.com/ReactiveSwift/ReactiveSwift)
 
 - [XML](https://github.com/evermeer/EVReflection/tree/master/Source/XML)
 - [Alamofire](https://github.com/evermeer/EVReflection/tree/master/Source/Alamofire)
@@ -19,6 +19,6 @@ There are extension available for using EVReflection with [XMLDictionairy](https
 - [Moya](https://github.com/evermeer/EVReflection/tree/master/Source/Alamofire/Moya)
 - [MoyaXML](https://github.com/evermeer/EVReflection/tree/master/Source/Alamofire/Moya/XML)
 - [MoyaRxSwift](https://github.com/evermeer/EVReflection/tree/master/Source/Alamofire/Moya/RxSwift)
-- [MoyaReactiveCocoa](https://github.com/evermeer/EVReflection/tree/master/Source/Alamofire/Moya/ReactiveCocoa)
+- [MoyaReactiveSwift](https://github.com/evermeer/EVReflection/tree/master/Source/Alamofire/Moya/ReactiveSwift)
 
 

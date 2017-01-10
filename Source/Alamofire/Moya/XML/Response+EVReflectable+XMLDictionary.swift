@@ -7,7 +7,7 @@
 
 import Foundation
 import Moya
-import XMLDictionary
+import Xml2Dictionary
 
 open extension Response {
     

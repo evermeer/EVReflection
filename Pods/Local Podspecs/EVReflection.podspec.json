@@ -1,8 +1,8 @@
 {
   "name": "EVReflection",
-  "version": "4.0.1",
+  "version": "4.0.2",
   "summary": "Reflection based (dictionary, Json or XML) object mapping (including extensions for Alamofire and Moya with RxSwift or ReactiveSwift)",
-  "description": "[EVReflection](https://github.com/evermeer/EVReflection) based object mapping (dictionary, Json, XML, CKRecord)\nincluding extensions for [Alamofire](https://github.com/Alamofire/Alamofire) and [Moya](https://github.com/Moya/Moya) for network abstraction.\nAnd on top of that extension for [RxSwift](https://github.com/ReactiveX/RxSwift/) and [ReactiveCocoa]",
+  "description": "[EVReflection](https://github.com/evermeer/EVReflection) based object mapping (dictionary, Json, XML, CKRecord)\nincluding extensions for [Alamofire](https://github.com/Alamofire/Alamofire) and [Moya](https://github.com/Moya/Moya) for network abstraction.\nAnd on top of that extension for [RxSwift](https://github.com/ReactiveX/RxSwift/) and [ReactiveSwift]",
   "homepage": "https://github.com/evermeer/EVReflection",
   "license": {
     "type": "MIT",
@@ -20,7 +20,7 @@
   },
   "source": {
     "git": "https://github.com/evermeer/EVReflection.git",
-    "tag": "4.0.1"
+    "tag": "4.0.2"
   },
   "default_subspecs": "Core",
   "subspecs": [
@@ -102,10 +102,10 @@
       }
     },
     {
-      "name": "MoyaReactiveCocoa",
-      "source_files": "Source/Alamofire/Moya/ReactiveCocoa/*.swift",
+      "name": "MoyaReactiveSwift",
+      "source_files": "Source/Alamofire/Moya/ReactiveSwift/*.swift",
       "dependencies": {
-        "Moya/ReactiveCocoa": [
+        "Moya/ReactiveSwift": [
 
         ],
         "EVReflection/Moya": [

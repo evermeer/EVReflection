@@ -1,12 +1,12 @@
 Pod::Spec.new do |s|
   s.name         = "EVReflection"
-  s.version      = "4.0.2"
+  s.version      = "4.0.3"
   s.summary      = "Reflection based (dictionary, Json or XML) object mapping (including extensions for Alamofire and Moya with RxSwift or ReactiveSwift)"
 
   s.description  = <<-EOS
 [EVReflection](https://github.com/evermeer/EVReflection) based object mapping (dictionary, Json, XML, CKRecord)
 including extensions for [Alamofire](https://github.com/Alamofire/Alamofire) and [Moya](https://github.com/Moya/Moya) for network abstraction.
-And on top of that extension for [RxSwift](https://github.com/ReactiveX/RxSwift/) and [ReactiveCocoa]
+And on top of that extension for [RxSwift](https://github.com/ReactiveX/RxSwift/) and [ReactiveSwift]
 EOS
 
   s.homepage     = "https://github.com/evermeer/EVReflection"
@@ -63,9 +63,9 @@ EOS
     ss.dependency "EVReflection/Moya"
   end
 
-  s.subspec "MoyaReactiveCocoa" do |ss|
-    ss.source_files = "Source/Alamofire/Moya/ReactiveCocoa/*.swift"
-    ss.dependency "Moya/ReactiveCocoa"
+  s.subspec "MoyaReactiveSwift" do |ss|
+    ss.source_files = "Source/Alamofire/Moya/ReactiveSwift/*.swift"
+    ss.dependency "Moya/ReactiveSwift"
     ss.dependency "EVReflection/Moya"
   end
 end

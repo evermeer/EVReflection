@@ -1,21 +1,21 @@
-EVReflection/MoyaReactiveCocoa
+EVReflection/MoyaReactiveSwift
 ============
 
-This is the sub specification for a Moya plus ReactiveCocoa SignalProducer extension for EVReflection
+This is the sub specification for a Moya plus ReactiveSwift SignalProducer extension for EVReflection
 
 # Installation
 
 ## CocoaPods
 
 ```ruby
-pod 'EVReflection/MoyaReactiveCocoa'
+pod 'EVReflection/MoyaReactiveSwift'
 ```
 # Advanced object mapping
 This subspec can use all [EVReflection](https://github.com/evermeer/EVReflection) features like property mapping, converters, validators and key kleanup. See [EVReflection](https://github.com/evermeer/EVReflection) for more information.
 
 # Usage
 
-For more information about using Moya plus ReactiveCocoa have a look at the [Moya](https://github.com/Moya/Moya) project.
+For more information about using Moya plus ReactiveSwift have a look at the [Moya](https://github.com/Moya/Moya) project.
 For more information about the usage of EVReflection have a look at the cor [EVReflection](https://github.com/evermeer/EVReflection) functionality
 
 Create a class which has `EVObject` as it's base class. You could also use any `NSObject` based class and extend it with the `EVReflectable` protocol. 

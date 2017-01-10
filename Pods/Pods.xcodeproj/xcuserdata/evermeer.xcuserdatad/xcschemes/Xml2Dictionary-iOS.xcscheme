@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "33598EFFB05FCE48382574B477BB6DAF"
+               BlueprintIdentifier = "5035C92886415E20A60114BCD368489A"
                BuildableName = "Xml2Dictionary.framework"
                BlueprintName = "Xml2Dictionary-iOS"
                ReferencedContainer = "container:Pods.xcodeproj">
@@ -45,7 +45,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "33598EFFB05FCE48382574B477BB6DAF"
+            BlueprintIdentifier = "5035C92886415E20A60114BCD368489A"
             BuildableName = "Xml2Dictionary.framework"
             BlueprintName = "Xml2Dictionary-iOS"
             ReferencedContainer = "container:Pods.xcodeproj">
