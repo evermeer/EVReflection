@@ -1,0 +1,6 @@
+framework module Xml2Dictionary {
+  umbrella header "Xml2Dictionary-OSX-umbrella.h"
+
+  export *
+  module * { export * }
+}

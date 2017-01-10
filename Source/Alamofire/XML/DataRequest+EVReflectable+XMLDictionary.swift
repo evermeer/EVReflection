@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import XMLDictionary
+import Xml2Dictionary
 import Alamofire
 
 extension DataRequest {

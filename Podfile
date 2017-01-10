@@ -31,10 +31,7 @@ end
 target 'UnitTestsTVOS' do
     project 'UnitTests/UnitTests'
     platform :tvos, '9.0'
-    # no libraries, XMLDictionary does not support TVOS
-    pod 'EVReflection/Alamofire', :path => "./"
-    pod 'EVReflection/MoyaRxSwift', :path => "./"
-    pod 'EVReflection/MoyaReactiveCocoa', :path => "./"
+    libraries
 end
 
 target 'Demo' do

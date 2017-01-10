@@ -1,6 +1,0 @@
-framework module XMLDictionary {
-  umbrella header "XMLDictionary-OSX-umbrella.h"
-
-  export *
-  module * { export * }
-}

@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "7359E2858838BA3801651DF3DD0999CD"
-               BuildableName = "EVReflection.framework"
-               BlueprintName = "EVReflection-Alamofire-Core-Moya-MoyaReactiveCocoa-MoyaRxSwift"
+               BlueprintIdentifier = "E280F250A5786A4DA56C41D5AE364789"
+               BuildableName = "Xml2Dictionary.framework"
+               BlueprintName = "Xml2Dictionary-tvOS"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -45,9 +45,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "7359E2858838BA3801651DF3DD0999CD"
-            BuildableName = "EVReflection.framework"
-            BlueprintName = "EVReflection-Alamofire-Core-Moya-MoyaReactiveCocoa-MoyaRxSwift"
+            BlueprintIdentifier = "E280F250A5786A4DA56C41D5AE364789"
+            BuildableName = "Xml2Dictionary.framework"
+            BlueprintName = "Xml2Dictionary-tvOS"
             ReferencedContainer = "container:Pods.xcodeproj">
          </BuildableReference>
       </MacroExpansion>

@@ -1,5 +1,5 @@
 #ifdef __OBJC__
-#import <UIKit/UIKit.h>
+#import <Cocoa/Cocoa.h>
 #else
 #ifndef FOUNDATION_EXPORT
 #if defined(__cplusplus)
@@ -12,6 +12,6 @@
 
 #import "XMLDictionary.h"
 
-FOUNDATION_EXPORT double XMLDictionaryVersionNumber;
-FOUNDATION_EXPORT const unsigned char XMLDictionaryVersionString[];
+FOUNDATION_EXPORT double Xml2DictionaryVersionNumber;
+FOUNDATION_EXPORT const unsigned char Xml2DictionaryVersionString[];
 

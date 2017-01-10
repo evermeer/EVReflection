@@ -89,20 +89,22 @@ strip_invalid_archs() {
 
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
-  install_framework "$BUILT_PRODUCTS_DIR/EVReflection-Alamofire-Core-Moya-MoyaReactiveCocoa-MoyaRxSwift/EVReflection.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/EVReflection-0308519b/EVReflection.framework"
   install_framework "$BUILT_PRODUCTS_DIR/Alamofire-tvOS/Alamofire.framework"
   install_framework "$BUILT_PRODUCTS_DIR/Moya-tvOS/Moya.framework"
   install_framework "$BUILT_PRODUCTS_DIR/ReactiveSwift-tvOS/ReactiveSwift.framework"
   install_framework "$BUILT_PRODUCTS_DIR/Result-tvOS/Result.framework"
   install_framework "$BUILT_PRODUCTS_DIR/RxSwift-tvOS/RxSwift.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/Xml2Dictionary-tvOS/Xml2Dictionary.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
-  install_framework "$BUILT_PRODUCTS_DIR/EVReflection-Alamofire-Core-Moya-MoyaReactiveCocoa-MoyaRxSwift/EVReflection.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/EVReflection-0308519b/EVReflection.framework"
   install_framework "$BUILT_PRODUCTS_DIR/Alamofire-tvOS/Alamofire.framework"
   install_framework "$BUILT_PRODUCTS_DIR/Moya-tvOS/Moya.framework"
   install_framework "$BUILT_PRODUCTS_DIR/ReactiveSwift-tvOS/ReactiveSwift.framework"
   install_framework "$BUILT_PRODUCTS_DIR/Result-tvOS/Result.framework"
   install_framework "$BUILT_PRODUCTS_DIR/RxSwift-tvOS/RxSwift.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/Xml2Dictionary-tvOS/Xml2Dictionary.framework"
 fi
 if [ "${COCOAPODS_PARALLEL_CODE_SIGN}" == "true" ]; then
   wait

@@ -1,24 +1,24 @@
 PODS:
   - Alamofire (4.2.0)
-  - EVReflection/Alamofire (4.0.0):
+  - EVReflection/Alamofire (4.0.1):
     - Alamofire (~> 4.2)
     - EVReflection/Core
-  - EVReflection/AlamofireXML (4.0.0):
+  - EVReflection/AlamofireXML (4.0.1):
     - EVReflection/Alamofire
     - EVReflection/XML
-  - EVReflection/Core (4.0.0)
-  - EVReflection/Moya (4.0.0):
+  - EVReflection/Core (4.0.1)
+  - EVReflection/Moya (4.0.1):
     - EVReflection/Core
     - Moya (~> 8.0)
-  - EVReflection/MoyaReactiveCocoa (4.0.0):
+  - EVReflection/MoyaReactiveCocoa (4.0.1):
     - EVReflection/Moya
     - Moya/ReactiveCocoa
-  - EVReflection/MoyaRxSwift (4.0.0):
+  - EVReflection/MoyaRxSwift (4.0.1):
     - EVReflection/Moya
     - Moya/RxSwift
-  - EVReflection/XML (4.0.0):
+  - EVReflection/XML (4.0.1):
     - EVReflection/Core
-    - XMLDictionary
+    - Xml2Dictionary
   - Moya (8.0.0):
     - Moya/Core (= 8.0.0)
   - Moya/Core (8.0.0):
@@ -36,10 +36,9 @@ PODS:
     - Result (~> 3.1)
   - Result (3.1.0)
   - RxSwift (3.1.0)
-  - XMLDictionary (1.4)
+  - Xml2Dictionary (1.4)
 
 DEPENDENCIES:
-  - EVReflection/Alamofire (from `./`)
   - EVReflection/AlamofireXML (from `./`)
   - EVReflection/Core (from `./`)
   - EVReflection/MoyaReactiveCocoa (from `./`)
@@ -51,13 +50,13 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Alamofire: aa2e09d871c9160ac53c90e83c68064a94e3dfbe
-  EVReflection: f79469c7cb22cd4ca9acbbd517ba2fac63731b13
+  EVReflection: 4508bba6009be65b39baf978813aa4395146df44
   Moya: 850a166ab8241bd1c1cea6dbe012e3a2ad62944a
   ReactiveSwift: f391724ee318a2cfd3e37dfb041cd49ecf4e7869
   Result: 4e3ed5995ed94d0cd6a09be9a431fce3f3624bbf
   RxSwift: 83ff553e7593fdfdcb2562933a64c0284dffdadc
-  XMLDictionary: f9f51601ba76678b594ab485f2b00ec1fed23724
+  Xml2Dictionary: 7ffcbb0eef29876b71ae827acfc247051a6f9c06
 
-PODFILE CHECKSUM: 2a2ee2f5eb3fa14677992f1e9ed451c734fb327b
+PODFILE CHECKSUM: 01b0cf186a48a2f0e01eeb77310454b854644428
 
 COCOAPODS: 1.2.0.beta.3

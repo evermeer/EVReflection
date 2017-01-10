@@ -1,6 +1,0 @@
-framework module EVReflection {
-  umbrella header "EVReflection-Alamofire-Core-Moya-MoyaReactiveCocoa-MoyaRxSwift-umbrella.h"
-
-  export *
-  module * { export * }
-}

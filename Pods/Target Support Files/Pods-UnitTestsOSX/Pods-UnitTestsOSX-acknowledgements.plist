@@ -211,7 +211,7 @@ freely, subject to the following restrictions:
 			<key>License</key>
 			<string>zlib</string>
 			<key>Title</key>
-			<string>XMLDictionary</string>
+			<string>Xml2Dictionary</string>
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 		</dict>

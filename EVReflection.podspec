@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "EVReflection"
-  s.version      = "4.0.0"
+  s.version      = "4.0.1"
   s.summary      = "Reflection based (dictionary, Json or XML) object mapping (including extensions for Alamofire and Moya with RxSwift or ReactiveSwift)"
 
   s.description  = <<-EOS
@@ -30,7 +30,7 @@ EOS
   s.subspec "XML" do |ss|
     ss.source_files  = "Source/XML/*.swift"
     ss.dependency "EVReflection/Core"
-    ss.dependency "XMLDictionary"
+    ss.dependency "Xml2Dictionary"
   end
 
   s.subspec "Alamofire" do |ss|
