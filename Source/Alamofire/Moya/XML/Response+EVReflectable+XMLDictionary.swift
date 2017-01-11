@@ -14,6 +14,8 @@ public extension Response {
     /// Maps data received from the signal into an object which implements the EVReflectable protocol.
     /// If the conversion fails, the signal errors.
     public func mapXml<T: EVReflectable>(to type:T.Type) throws -> T where T: NSObject {
-        return map(from: Xml2Dictionary.dictionaryWithXMLData(data: data))
+        let dict: NSDictionary = NSDictionary(xmlString: String(data: data, encoding: .utf8))
+        let result: T = map(from: dict)
+        return result
     }
 }

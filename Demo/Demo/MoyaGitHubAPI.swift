@@ -23,6 +23,7 @@ public enum GitHub {
     case zen
     case userProfile(String)
     case userRepositories(String)
+    case xml
 }
 
 extension GitHub: TargetType {
@@ -30,7 +31,17 @@ extension GitHub: TargetType {
         return  URLEncoding.queryString
     }
     
-    public var baseURL: URL { return URL(string: "https://api.github.com")! }
+    public var baseURL: URL {
+        switch self {
+        case .xml:
+            return URL(string: "http://raw.githubusercontent.com/evermeer/AlamofireXmlToObjects/master/AlamofireXmlToObjectsTests")!
+        default:
+            return URL(string: "https://api.github.com")!
+        }
+    }
+
+    
+    
     
     public var path: String {
         switch self {
@@ -40,6 +51,8 @@ extension GitHub: TargetType {
             return "/users/\(name.urlEscapedString)"
         case .userRepositories(let name):
             return "/users/\(name.urlEscapedString)/repos"
+        case .xml:
+            return "/sample_xml"
         }
     }
     
@@ -68,6 +81,8 @@ extension GitHub: TargetType {
             return "{\"login\": \"\(name)\", \"id\": 100}".data(using: String.Encoding.utf8)!
         case .userRepositories(_):
             return "[{\"name\": \"Repo Name\"}]".data(using: String.Encoding.utf8)!
+        case .xml:
+            return "<wheather><location>Toronto, Canada</location></wheather>".data(using: String.Encoding.utf8)!
         }
     }
 }

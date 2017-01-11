@@ -5,6 +5,7 @@ workspace 'EVReflection'
 # Our Libraries (just include everything for the demo)
 def libraries
   pod 'EVReflection/AlamofireXML', :path => "./"
+  pod 'EVReflection/MoyaXML', :path => "./"
   pod 'EVReflection/MoyaRxSwift', :path => "./"
   pod 'EVReflection/MoyaReactiveSwift', :path => "./"
 end

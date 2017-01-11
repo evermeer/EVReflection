@@ -70,6 +70,43 @@ class MoyaRxSwiftTests: XCTestCase {
         }
     }
 
+    func testDownloadWeatherResponseXML() {
+        let expectation = self.expectation(description: "evermeer")
+        
+        GitHubMoyaProvider.request(.xml, completion: { result in
+            var success = true
+            var message = "Could not parse XML"
+            switch result {
+            case let .success(response):
+                do {
+                    let repos: WeatherResponse? = try response.mapXml(to: WeatherResponse.self)
+                    if repos != nil {
+                        print("WeatherResponse = \(repos!)")
+                        expectation.fulfill()
+                    } else {
+                        success = false
+                    }
+                } catch {
+                    message = error.localizedDescription
+                    success = false
+                }
+            case let .failure(error):
+                guard let error = error as? CustomStringConvertible else {
+                    break
+                }
+                message = error.description
+                success = false
+            }
+            
+            XCTAssert(success, message)
+        })
+        
+        waitForExpectations(timeout: 10) { error in
+            XCTAssertNil(error, "\(error)")
+        }
+    }
+    
+    
     
     func testDownloadZen() {
         let expectation = self.expectation(description: "evermeer")

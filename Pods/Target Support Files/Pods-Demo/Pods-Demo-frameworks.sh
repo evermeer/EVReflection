@@ -89,7 +89,7 @@ strip_invalid_archs() {
 
 
 if [[ "$CONFIGURATION" == "Release" ]]; then
-  install_framework "$BUILT_PRODUCTS_DIR/EVReflection-744ca033/EVReflection.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/EVReflection-04b2a133/EVReflection.framework"
   install_framework "$BUILT_PRODUCTS_DIR/Alamofire-iOS/Alamofire.framework"
   install_framework "$BUILT_PRODUCTS_DIR/Moya-iOS/Moya.framework"
   install_framework "$BUILT_PRODUCTS_DIR/ReactiveSwift-iOS/ReactiveSwift.framework"
@@ -98,7 +98,7 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/Xml2Dictionary-iOS/Xml2Dictionary.framework"
 fi
 if [[ "$CONFIGURATION" == "Debug" ]]; then
-  install_framework "$BUILT_PRODUCTS_DIR/EVReflection-744ca033/EVReflection.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/EVReflection-04b2a133/EVReflection.framework"
   install_framework "$BUILT_PRODUCTS_DIR/Alamofire-iOS/Alamofire.framework"
   install_framework "$BUILT_PRODUCTS_DIR/Moya-iOS/Moya.framework"
   install_framework "$BUILT_PRODUCTS_DIR/ReactiveSwift-iOS/ReactiveSwift.framework"

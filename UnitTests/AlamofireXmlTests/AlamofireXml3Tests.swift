@@ -58,8 +58,6 @@ class AlamofireXmlToObjects3Tests: XCTestCase {
         let URL: URLConvertible = "http://raw.githubusercontent.com/evermeer/AlamofireXmlToObjects/master/AlamofireXmlToObjectsTests/sample3_xml"
         let expectation = self.expectation(description: "\(URL)")
 
-        DataRequest.outputXMLresult = true
-
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale(identifier: "en_US_POSIX")
         dateFormatter.timeZone = TimeZone(secondsFromGMT: 0)
