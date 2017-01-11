@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "EVReflection"
-  s.version      = "4.0.5"
+  s.version      = "4.0.6"
   s.summary      = "Reflection based (dictionary, Json or XML) object mapping (including extensions for Alamofire and Moya with RxSwift or ReactiveSwift)"
 
   s.description  = <<-EOS

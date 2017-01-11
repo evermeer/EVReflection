@@ -10,8 +10,6 @@ import Xml2Dictionary
 import Alamofire
 
 public extension DataRequest {
-    public static var outputXMLresult: Bool = false
-    
     internal func EVReflectionXMLSerializer<T: EVReflectable>(_ keyPath: String?, mapToObject object: T? = nil) -> DataResponseSerializer<T> where T: NSObject {
         return DataResponseSerializer { request, response, data, error in
             guard error == nil else {
@@ -25,9 +23,6 @@ public extension DataRequest {
             }
             
             let xml: String = NSString(data: data ?? Data(), encoding: String.Encoding.utf8.rawValue) as? String ?? ""
-            if DataRequest.outputXMLresult {
-                print("Dictionary from XML = \(xml)")
-            }
             if let object = T(xml: xml) {
                 return .success(object)
             } else {
