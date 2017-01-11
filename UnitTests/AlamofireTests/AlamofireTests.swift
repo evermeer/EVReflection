@@ -88,6 +88,29 @@ class AlamofireTests: XCTestCase {
             XCTAssertNil(error, "\(error)")
         }
     }
+
+    func testErrorResponsenseNoJson() {
+        let URL: URLConvertible = "http://raw.githubusercontent.com/evermeer/AlamofireJsonToObjects/master/AlamofireJsonToObjectsTests/AlamofireTests.swift"
+        let exp = expectation(description: "\(URL)")
+        
+        Alamofire.request(URL)
+            .responseObject { (response: DataResponse<WeatherResponse>) in
+                if !response.result.isFailure {
+                    XCTAssert(false, "Should not have been no result")
+                }
+                if let result = response.result.value {
+                    XCTAssert(false, "Should have been no result from service. Actual result: \(result)")
+                } else {
+                    print("\(response.result.error?.localizedDescription ?? "")")
+                    XCTAssert(response.result.error?.localizedDescription == "The operation couldn’t be completed. Data could not be serialized. Input data was not json.", "Should have been an other error.")
+                }
+                exp.fulfill()
+        }
+        
+        waitForExpectations(timeout: 10) { error in
+            XCTAssertNil(error, "\(error)")
+        }
+    }
     
 
     func testResponseObject2() {

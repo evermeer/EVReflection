@@ -2,7 +2,7 @@
 import Foundation
 import EVReflection
 
-class Repository: NSObject, EVReflectable {
+class Repository: EVObject { // Could also use any NSObject with EVReflectable but then you should also implement most methods of EVObject (like setValue forUndefinedKey and debugDescription 
   var keysUrl: String?
   var statusesUrl: String?
   var issuesUrl: String?

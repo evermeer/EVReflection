@@ -17,4 +17,3 @@ public extension Response {
         return map(from: Xml2Dictionary.dictionaryWithXMLData(data: data))
     }
 }
-

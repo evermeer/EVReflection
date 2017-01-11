@@ -10,9 +10,9 @@ import Xml2Dictionary
 import Alamofire
 
 public extension DataRequest {
-    open static var outputXMLresult: Bool = false
+    public static var outputXMLresult: Bool = false
     
-    internal static func EVReflectionXMLSerializer<T: EVReflectable>(_ keyPath: String?, mapToObject object: T? = nil) -> DataResponseSerializer<T> where T: NSObject {
+    internal func EVReflectionXMLSerializer<T: EVReflectable>(_ keyPath: String?, mapToObject object: T? = nil) -> DataResponseSerializer<T> where T: NSObject {
         return DataResponseSerializer { request, response, data, error in
             guard error == nil else {
                 return .failure(error!)
@@ -20,7 +20,7 @@ public extension DataRequest {
             
             guard let _ = data else {
                 let failureReason = "Data could not be serialized. Input data was nil."
-                let error = newError(.noData, failureReason: failureReason)
+                let error = self.newError(.noData, failureReason: failureReason)
                 return .failure(error)
             }
             
@@ -32,7 +32,7 @@ public extension DataRequest {
                 return .success(object)
             } else {
                 let failureReason = "Data could not be serialized. Could not get a dictionary from the XML."
-                let error = newError(.noData, failureReason: failureReason)
+                let error = self.newError(.noData, failureReason: failureReason)
                 return .failure(error)
             }
         }
@@ -51,7 +51,7 @@ public extension DataRequest {
     @discardableResult
     open func responseObjectFromXML<T: EVObject>(queue: DispatchQueue? = nil, keyPath: String? = nil, mapToObject object: T? = nil, completionHandler: @escaping (DataResponse<T>) -> Void) -> Self {
         
-        let serializer = DataRequest.EVReflectionXMLSerializer(keyPath, mapToObject: object)
+        let serializer = self.EVReflectionXMLSerializer(keyPath, mapToObject: object)
         return response(queue: queue, responseSerializer: serializer, completionHandler: completionHandler)
     }
 }

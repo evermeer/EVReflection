@@ -17,7 +17,8 @@ public extension ObservableType where E == Response {
   /// If the conversion fails, the signal errors.
   public func map<T: EVReflectable>(to type: T.Type) -> Observable<T> where T: NSObject {
     return flatMap { response -> Observable<T> in
-        return Observable.just(try response.map(to: T.self))
+        let result = try response.map(to: T.self)
+        return Observable.just(result)
       }
   }
 
@@ -26,7 +27,8 @@ public extension ObservableType where E == Response {
   /// If the conversion fails, the signal errors.
   public func map<T: EVReflectable>(toArray type: T.Type) -> Observable<[T]>  where T: NSObject {
     return flatMap { response -> Observable<[T]> in
-        return Observable.just(try response.map(toArray: T.self))
+        let result = try response.map(toArray: T.self)
+        return Observable.just(result)
       }
   }
 }

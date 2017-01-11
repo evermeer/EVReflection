@@ -2,7 +2,7 @@
 import Foundation
 import EVReflection
 
-class Owner: NSObject, EVReflectable {
+class Owner: EVObject { // Could also use any NSObject with EVReflectable but then you should also implement most methods of EVObject (like setValue forUndefinedKey and debugDescription 
   var id: NSNumber?
   var organizationsUrl: String?
   var receivedEventsUrl: String?

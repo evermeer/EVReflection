@@ -67,7 +67,7 @@ class AlamofireXmlToObjects3Tests: XCTestCase {
         EVReflection.setDateFormatter(dateFormatter)
 
         Alamofire.request(URL)
-            .responseObject { (response: DataResponse<AllGames>) in
+            .responseObjectFromXML { (response: DataResponse<AllGames>) in
                 expectation.fulfill()
                 if let error = response.result.error {
                     XCTAssert(false, "ERROR: \(error.localizedDescription)")

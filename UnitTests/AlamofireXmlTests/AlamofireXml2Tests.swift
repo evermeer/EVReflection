@@ -66,7 +66,7 @@ class AlamofireXmlTests: XCTestCase {
             .responseString { (response: DataResponse<String>) in
                 print("\(response.result.value)")
             }
-            .responseObject { (response: DataResponse<JDBOR>) in                
+            .responseObjectFromXML { (response: DataResponse<JDBOR>) in
                 expectation.fulfill()
                 if let error = response.result.error {
                     XCTAssert(false, "ERROR: \(error.localizedDescription)")

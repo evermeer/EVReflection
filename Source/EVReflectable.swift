@@ -525,5 +525,5 @@ extension EVReflectable {
      */
     public func addStatusMessage(_ type: DeserializationStatus, message: String) {
         self.evReflectionStatuses.append(type, message)
-    }
+    }    
 }

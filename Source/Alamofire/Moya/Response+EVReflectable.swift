@@ -29,6 +29,9 @@ public extension Response {
         let instance: T = T()
         let parsedObject: T = ((instance.getSpecificType(from ?? NSDictionary()) as? T) ?? instance)
         let _ = EVReflection.setPropertiesfromDictionary(from ?? NSDictionary(), anyObject: parsedObject)
+        if self.statusCode > 300  {
+            instance.addStatusMessage(DeserializationStatus.Custom, message: "HTTP status code: \(self.statusCode)")
+        }
         return parsedObject
     }
 }

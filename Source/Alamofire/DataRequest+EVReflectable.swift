@@ -27,7 +27,7 @@ public extension DataRequest {
         case noData = 1
     }
     
-    internal static func newError(_ code: ErrorCode, failureReason: String) -> NSError {
+    internal func newError(_ code: ErrorCode, failureReason: String) -> NSError {
         let errorDomain = "com.alamofirejsontoobjects.error"
         
         let userInfo = [NSLocalizedFailureReasonErrorKey: failureReason]
@@ -36,7 +36,7 @@ public extension DataRequest {
         return returnError
     }
     
-    internal static func EVReflectionSerializer<T: EVObject>(_ keyPath: String?, mapToObject object: T? = nil) -> DataResponseSerializer<T> {
+    internal func EVReflectionSerializer<T: EVObject>(_ keyPath: String?, mapToObject object: T? = nil) -> DataResponseSerializer<T> {
         return DataResponseSerializer { request, response, data, error in
             guard error == nil else {
                 return .failure(error!)
@@ -44,12 +44,17 @@ public extension DataRequest {
             
             guard let _ = data else {
                 let failureReason = "Data could not be serialized. Input data was nil."
-                let error = newError(.noData, failureReason: failureReason)
+                let error = self.newError(.noData, failureReason: failureReason)
                 return .failure(error)
             }
             
             let jsonResponseSerializer = DataRequest.jsonResponseSerializer(options: .allowFragments)
             let result = jsonResponseSerializer.serializeResponse(request, response, data, error)
+            if result.value == nil {
+                let failureReason = "Data could not be serialized. Input data was not json."
+                let error = self.newError(.noData, failureReason: failureReason)
+                return .failure(error)
+            }
             
             var JSONToMap: NSDictionary?
             if let keyPath = keyPath , keyPath.isEmpty == false {
@@ -91,12 +96,12 @@ public extension DataRequest {
     @discardableResult
     open func responseObject<T: EVObject>(queue: DispatchQueue? = nil, keyPath: String? = nil, mapToObject object: T? = nil, completionHandler: @escaping (DataResponse<T>) -> Void) -> Self {
         
-        let serializer = DataRequest.EVReflectionSerializer(keyPath, mapToObject: object)
+        let serializer = self.EVReflectionSerializer(keyPath, mapToObject: object)
         return response(queue: queue, responseSerializer: serializer, completionHandler: completionHandler)
     }
     
     
-    internal static func EVReflectionArraySerializer<T: EVObject>(_ keyPath: String?, mapToObject object: T? = nil) -> DataResponseSerializer<[T]> {
+    internal func EVReflectionArraySerializer<T: EVObject>(_ keyPath: String?, mapToObject object: T? = nil) -> DataResponseSerializer<[T]> {
         return DataResponseSerializer { request, response, data, error in
             guard error == nil else {
                 return .failure(error!)
@@ -104,7 +109,7 @@ public extension DataRequest {
             
             guard let _ = data else {
                 let failureReason = "Data could not be serialized. Input data was nil."
-                let error = newError(.noData, failureReason: failureReason)
+                let error = self.newError(.noData, failureReason: failureReason)
                 return .failure(error)
             }
             
@@ -153,7 +158,7 @@ public extension DataRequest {
      */
     @discardableResult
     open func responseArray<T: EVObject>(queue: DispatchQueue? = nil, keyPath: String? = nil, mapToObject object: T? = nil, completionHandler: @escaping (DataResponse<[T]>) -> Void) -> Self {
-        let serializer = DataRequest.EVReflectionArraySerializer(keyPath, mapToObject: object)
+        let serializer = self.EVReflectionArraySerializer(keyPath, mapToObject: object)
         return response(queue: queue, responseSerializer: serializer, completionHandler: completionHandler)
     }
 }
