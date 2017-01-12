@@ -7,6 +7,7 @@
 //
 
 import XCTest
+import CloudKit
 @testable import EVReflection
 
 /**
@@ -38,10 +39,17 @@ class CloudKitTests: XCTestCase {
         let news = CloudNews()
         news.Title = "the title"
         news.Text = "The text"
-        let record = news.toCKRecord()
+        let record1 = news.toCKRecord()
+        print ("\(record1)")
         
-        let newNews = CKDataObject(record)
-        print(newNews)
+        let record2 = CKRecord(news)
+        print ("\(record2)")
+        
+        let newNews1 = CKDataObject(record1)
+        print(newNews1)
+        
+        let newNews2 = record2!.toDataObject()
+        print("\(newNews2)")
     }
 }
 
