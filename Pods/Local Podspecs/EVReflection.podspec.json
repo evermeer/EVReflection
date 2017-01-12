@@ -1,8 +1,8 @@
 {
   "name": "EVReflection",
-  "version": "4.0.6",
-  "summary": "Reflection based (dictionary, Json or XML) object mapping (including extensions for Alamofire and Moya with RxSwift or ReactiveSwift)",
-  "description": "[EVReflection](https://github.com/evermeer/EVReflection) based object mapping (dictionary, Json, XML, CKRecord)\nincluding extensions for [Alamofire](https://github.com/Alamofire/Alamofire) and [Moya](https://github.com/Moya/Moya) for network abstraction.\nAnd on top of that extension for [RxSwift](https://github.com/ReactiveX/RxSwift/) and [ReactiveSwift]",
+  "version": "4.0.7",
+  "summary": "Reflection based (dictionary, JSON or XML) object mapping (including extensions for Alamofire and Moya with RxSwift or ReactiveSwift)",
+  "description": "[Reflection](https://github.com/evermeer/EVReflection) based object mapping (dictionary, Json, XML, CKRecord)\nincluding extensions for [Alamofire](https://github.com/Alamofire/Alamofire) and [Moya](https://github.com/Moya/Moya) for network abstraction. And on top of that extension for [RxSwift](https://github.com/ReactiveX/RxSwift/) and [ReactiveSwift]",
   "homepage": "https://github.com/evermeer/EVReflection",
   "license": {
     "type": "MIT",
@@ -20,7 +20,7 @@
   },
   "source": {
     "git": "https://github.com/evermeer/EVReflection.git",
-    "tag": "4.0.6"
+    "tag": "4.0.7"
   },
   "default_subspecs": "Core",
   "subspecs": [
@@ -40,6 +40,16 @@
 
         ]
       }
+    },
+    {
+      "name": "CloudKit",
+      "source_files": "Source/CloudKit/*.swift",
+      "dependencies": {
+        "EVReflection/Core": [
+
+        ]
+      },
+      "frameworks": "CloudKit"
     },
     {
       "name": "Alamofire",
@@ -72,7 +82,7 @@
         "Moya": [
           "~> 8.0"
         ],
-        "EVReflection/Core": [
+        "EVReflection/Alamofire": [
 
         ]
       }
@@ -81,7 +91,7 @@
       "name": "MoyaXML",
       "source_files": "Source/Alamofire/Moya/XML/*.swift",
       "dependencies": {
-        "EVReflection/XML": [
+        "EVReflection/AlamofireXML": [
 
         ],
         "EVReflection/Moya": [
@@ -102,6 +112,18 @@
       }
     },
     {
+      "name": "MoyaRxSwiftXML",
+      "source_files": "Source/Alamofire/Moya/RxSwift/XML/*.swift",
+      "dependencies": {
+        "EVReflection/MoyaRxSwift": [
+
+        ],
+        "EVReflection/MoyaXML": [
+
+        ]
+      }
+    },
+    {
       "name": "MoyaReactiveSwift",
       "source_files": "Source/Alamofire/Moya/ReactiveSwift/*.swift",
       "dependencies": {
@@ -109,6 +131,18 @@
 
         ],
         "EVReflection/Moya": [
+
+        ]
+      }
+    },
+    {
+      "name": "MoyaReactiveSwiftXML",
+      "source_files": "Source/Alamofire/Moya/ReactiveSwift/XML/*.swift",
+      "dependencies": {
+        "EVReflection/MoyaReactiveSwift": [
+
+        ],
+        "EVReflection/MoyaXML": [
 
         ]
       }

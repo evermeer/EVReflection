@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "915E01B202774C81483940C1E6E0657F"
+               BlueprintIdentifier = "0FE88B613146659850C46FD10D7F80D0"
                BuildableName = "EVReflection.framework"
-               BlueprintName = "EVReflection-540c02c4"
+               BlueprintName = "EVReflection-e8b65197"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -45,9 +45,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "915E01B202774C81483940C1E6E0657F"
+            BlueprintIdentifier = "0FE88B613146659850C46FD10D7F80D0"
             BuildableName = "EVReflection.framework"
-            BlueprintName = "EVReflection-540c02c4"
+            BlueprintName = "EVReflection-e8b65197"
             ReferencedContainer = "container:Pods.xcodeproj">
          </BuildableReference>
       </MacroExpansion>

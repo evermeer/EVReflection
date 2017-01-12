@@ -2,37 +2,34 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:Carthage/.gitignore">
+      location = "group:UnitTests/../Carthage/.gitignore">
    </FileRef>
    <FileRef
-      location = "group:Carthage/../.swift-version">
+      location = "absolute:/Users/evermeer/Desktop/dev/GitHub/EVReflection/Carthage/../.swift-version">
    </FileRef>
    <FileRef
-      location = "group:Carthage/../README.md">
+      location = "absolute:/Users/evermeer/Desktop/dev/GitHub/EVReflection/Carthage/../README.md">
    </FileRef>
    <FileRef
-      location = "group:Carthage/../EVReflection.podspec">
+      location = "absolute:/Users/evermeer/Desktop/dev/GitHub/EVReflection/Carthage/../EVReflection.podspec">
    </FileRef>
    <FileRef
-      location = "group:Carthage/../LICENSE">
+      location = "absolute:/Users/evermeer/Desktop/dev/GitHub/EVReflection/Carthage/../LICENSE">
    </FileRef>
    <FileRef
-      location = "group:Podfile">
+      location = "group:UnitTests/../Podfile">
    </FileRef>
    <FileRef
-      location = "group:Source">
-   </FileRef>
-   <FileRef
-      location = "group:UnitTests/UnitTests.xcodeproj">
-   </FileRef>
-   <FileRef
-      location = "group:PerformanceTest/PerformanceTest.xcodeproj">
+      location = "group:UnitTests/../Source">
    </FileRef>
    <FileRef
       location = "group:Demo/Demo.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:/Users/evermeer/Desktop/dev/GitHub/EVReflection/Carthage/Carthage.xcodeproj">
+      location = "group:PerformanceTest/PerformanceTest.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:UnitTests/UnitTests.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:Pods/Pods.xcodeproj">

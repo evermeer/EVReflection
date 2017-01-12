@@ -70,6 +70,29 @@ class MoyaRxSwiftTests: XCTestCase {
         }
     }
 
+    func testDownloadWheatherResponseRxSwiftXML() {
+        let expectation = self.expectation(description: "evermeer")
+        
+        GitHubRxMoyaProvider.request(.xml)
+            .mapXml(to: WeatherResponse.self)
+            .subscribe { event -> Void in
+                switch event {
+                case .next(let result):
+                    print(result)
+                    expectation.fulfill()
+                case .error(let error):
+                    XCTAssert(false, "no result from service")
+                    print(error)
+                default:
+                    break
+                }
+            }.addDisposableTo(disposeBag)
+        
+        waitForExpectations(timeout: 10) { error in
+            XCTAssertNil(error, "\(error)")
+        }
+    }
+
     func testDownloadWeatherResponseXML() {
         let expectation = self.expectation(description: "evermeer")
         

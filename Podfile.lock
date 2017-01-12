@@ -1,25 +1,33 @@
 PODS:
   - Alamofire (4.2.0)
-  - EVReflection/Alamofire (4.0.6):
+  - EVReflection/Alamofire (4.0.7):
     - Alamofire (~> 4.2)
     - EVReflection/Core
-  - EVReflection/AlamofireXML (4.0.6):
+  - EVReflection/AlamofireXML (4.0.7):
     - EVReflection/Alamofire
     - EVReflection/XML
-  - EVReflection/Core (4.0.6)
-  - EVReflection/Moya (4.0.6):
+  - EVReflection/CloudKit (4.0.7):
     - EVReflection/Core
+  - EVReflection/Core (4.0.7)
+  - EVReflection/Moya (4.0.7):
+    - EVReflection/Alamofire
     - Moya (~> 8.0)
-  - EVReflection/MoyaReactiveSwift (4.0.6):
+  - EVReflection/MoyaReactiveSwift (4.0.7):
     - EVReflection/Moya
     - Moya/ReactiveSwift
-  - EVReflection/MoyaRxSwift (4.0.6):
+  - EVReflection/MoyaReactiveSwiftXML (4.0.7):
+    - EVReflection/MoyaReactiveSwift
+    - EVReflection/MoyaXML
+  - EVReflection/MoyaRxSwift (4.0.7):
     - EVReflection/Moya
     - Moya/RxSwift
-  - EVReflection/MoyaXML (4.0.6):
+  - EVReflection/MoyaRxSwiftXML (4.0.7):
+    - EVReflection/MoyaRxSwift
+    - EVReflection/MoyaXML
+  - EVReflection/MoyaXML (4.0.7):
+    - EVReflection/AlamofireXML
     - EVReflection/Moya
-    - EVReflection/XML
-  - EVReflection/XML (4.0.6):
+  - EVReflection/XML (4.0.7):
     - EVReflection/Core
     - Xml2Dictionary
   - Moya (8.0.0):
@@ -40,11 +48,10 @@ PODS:
   - Xml2Dictionary (1.4)
 
 DEPENDENCIES:
-  - EVReflection/AlamofireXML (from `./`)
+  - EVReflection/CloudKit (from `./`)
   - EVReflection/Core (from `./`)
-  - EVReflection/MoyaReactiveSwift (from `./`)
-  - EVReflection/MoyaRxSwift (from `./`)
-  - EVReflection/MoyaXML (from `./`)
+  - EVReflection/MoyaReactiveSwiftXML (from `./`)
+  - EVReflection/MoyaRxSwiftXML (from `./`)
 
 EXTERNAL SOURCES:
   EVReflection:
@@ -52,13 +59,13 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Alamofire: aa2e09d871c9160ac53c90e83c68064a94e3dfbe
-  EVReflection: 987bb3893563917b2e0066a736add7fc0a2de0bb
+  EVReflection: 9ef58bfecec2315e022a7105289a3131bf5763fc
   Moya: 850a166ab8241bd1c1cea6dbe012e3a2ad62944a
   ReactiveSwift: f391724ee318a2cfd3e37dfb041cd49ecf4e7869
   Result: 4e3ed5995ed94d0cd6a09be9a431fce3f3624bbf
   RxSwift: 83ff553e7593fdfdcb2562933a64c0284dffdadc
   Xml2Dictionary: 7ffcbb0eef29876b71ae827acfc247051a6f9c06
 
-PODFILE CHECKSUM: 6bf546d6163d241d66b39035bf8aab3c9cb80a95
+PODFILE CHECKSUM: 103b07549558be1a7c1e6872c6d037a70297b259
 
 COCOAPODS: 1.2.0.beta.3

@@ -1,12 +1,11 @@
 Pod::Spec.new do |s|
   s.name         = "EVReflection"
-  s.version      = "4.0.7"
-  s.summary      = "Reflection based (dictionary, Json or XML) object mapping (including extensions for Alamofire and Moya with RxSwift or ReactiveSwift)"
+  s.version      = "4.0.8"
+  s.summary      = "Reflection based (dictionary, JSON or XML) object mapping (including extensions for Alamofire and Moya with RxSwift or ReactiveSwift)"
 
   s.description  = <<-EOS
-[EVReflection](https://github.com/evermeer/EVReflection) based object mapping (dictionary, Json, XML, CKRecord)
-including extensions for [Alamofire](https://github.com/Alamofire/Alamofire) and [Moya](https://github.com/Moya/Moya) for network abstraction.
-And on top of that extension for [RxSwift](https://github.com/ReactiveX/RxSwift/) and [ReactiveSwift]
+[Reflection](https://github.com/evermeer/EVReflection) based object mapping (dictionary, Json, XML, CKRecord)
+including extensions for [Alamofire](https://github.com/Alamofire/Alamofire) and [Moya](https://github.com/Moya/Moya) for network abstraction. And on top of that extension for [RxSwift](https://github.com/ReactiveX/RxSwift/) and [ReactiveSwift]
 EOS
 
   s.homepage     = "https://github.com/evermeer/EVReflection"
@@ -33,6 +32,12 @@ EOS
     ss.dependency "Xml2Dictionary"
   end
 
+  s.subspec "CloudKit" do |ss|
+    ss.source_files  = "Source/CloudKit/*.swift"
+    ss.dependency "EVReflection/Core"
+    ss.framework  = "CloudKit"
+  end
+
   s.subspec "Alamofire" do |ss|
     ss.source_files  = "Source/Alamofire/*.swift"
     ss.dependency "EVReflection/Core"
@@ -48,12 +53,12 @@ EOS
   s.subspec "Moya" do |ss|
     ss.source_files  = "Source/Alamofire/Moya/*.swift"
     ss.dependency "Moya", "~> 8.0"
-    ss.dependency "EVReflection/Core"
+    ss.dependency "EVReflection/Alamofire"
   end
 
   s.subspec "MoyaXML" do |ss|
     ss.source_files  = "Source/Alamofire/Moya/XML/*.swift"
-    ss.dependency "EVReflection/XML"
+    ss.dependency "EVReflection/AlamofireXML"
     ss.dependency "EVReflection/Moya"
   end
 
@@ -63,9 +68,21 @@ EOS
     ss.dependency "EVReflection/Moya"
   end
 
+  s.subspec "MoyaRxSwiftXML" do |ss|
+    ss.source_files = "Source/Alamofire/Moya/RxSwift/XML/*.swift"
+    ss.dependency "EVReflection/MoyaRxSwift"
+    ss.dependency "EVReflection/MoyaXML"
+  end
+
   s.subspec "MoyaReactiveSwift" do |ss|
     ss.source_files = "Source/Alamofire/Moya/ReactiveSwift/*.swift"
     ss.dependency "Moya/ReactiveSwift"
     ss.dependency "EVReflection/Moya"
+  end
+
+  s.subspec "MoyaReactiveSwiftXML" do |ss|
+    ss.source_files = "Source/Alamofire/Moya/ReactiveSwift/XML/*.swift"
+    ss.dependency "EVReflection/MoyaReactiveSwift"
+    ss.dependency "EVReflection/MoyaXML"
   end
 end

@@ -23,7 +23,7 @@ public extension DataRequest {
             }
             
             let xml: String = NSString(data: data ?? Data(), encoding: String.Encoding.utf8.rawValue) as? String ?? ""
-            if let object = T(xml: xml) {
+            if let object = T(xmlString: xml) {
                 return .success(object)
             } else {
                 let failureReason = "Data could not be serialized. Could not get a dictionary from the XML."
@@ -44,7 +44,7 @@ public extension DataRequest {
      - returns: The request.
      */
     @discardableResult
-    open func responseObjectFromXML<T: EVObject>(queue: DispatchQueue? = nil, keyPath: String? = nil, mapToObject object: T? = nil, completionHandler: @escaping (DataResponse<T>) -> Void) -> Self {
+    public func responseObjectFromXML<T: EVObject>(queue: DispatchQueue? = nil, keyPath: String? = nil, mapToObject object: T? = nil, completionHandler: @escaping (DataResponse<T>) -> Void) -> Self {
         
         let serializer = self.EVReflectionXMLSerializer(keyPath, mapToObject: object)
         return response(queue: queue, responseSerializer: serializer, completionHandler: completionHandler)

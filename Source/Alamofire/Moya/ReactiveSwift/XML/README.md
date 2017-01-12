@@ -1,7 +1,7 @@
 EVReflection/MoyaReactiveSwift
 ============
 
-This is the sub specification for a Moya plus ReactiveSwift SignalProducer extension for EVReflection
+This is the sub specification for a Moya plus ReactiveSwift SignalProducer and XMLDictionary extension for EVReflection
 
 # General information
 
@@ -29,7 +29,7 @@ There are extension available for using EVReflection with [XMLDictionairy](https
 ## CocoaPods
 
 ```ruby
-pod 'EVReflection/MoyaReactiveSwift'
+pod 'EVReflection/MoyaReactiveSwiftXML'
 ```
 # Advanced object mapping
 This subspec can use all [EVReflection](https://github.com/evermeer/EVReflection) features like property mapping, converters, validators and key kleanup. See [EVReflection](https://github.com/evermeer/EVReflection) for more information.
@@ -52,10 +52,10 @@ class Repository: EVObject {
 }
 ```
 
-Then on the Moya provider execute a `.map(toArray:` or a `.map(to:)` and then `.subscribe` to it.
+Then on the Moya provider execute a `.mapXml(to:` or a `.map(to:)` and then `.subscribe` to it.
 
 ```swift
-GitHubProvider.request(.userRepositories(username))
-.map(toArray: Repository)
-.??? TODO
+    GitHubProvider.request(.userRepositories(username))
+    .mapXml(to: Repository)
+    .??? TODO
 ```
