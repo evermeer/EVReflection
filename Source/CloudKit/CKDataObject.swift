@@ -7,7 +7,6 @@
 //
 
 import CloudKit
-import EVReflection
 
 /**
  Conversion functions from and to CKRecord plus properties for easy access to system fields.
@@ -117,7 +116,7 @@ open class CKDataObject: EVObject {
             record = CKRecord(recordType: EVReflection.swiftStringFromClass(self), recordID: self.recordID)
         }
         let (fromDict, _) = EVReflection.toDictionary(self)
-        CKDataObject.dictToCKRecord(record, dict: fromDict)
+        dictToCKRecord(record, dict: fromDict)
         
         return record
     }
@@ -129,7 +128,7 @@ open class CKDataObject: EVObject {
      - parameter dict:   the dictionary
      - parameter root:   used for expanding the property name
      */
-    fileprivate static func dictToCKRecord(_ record: CKRecord, dict: NSDictionary, root: String = "") {
+    fileprivate func dictToCKRecord(_ record: CKRecord, dict: NSDictionary, root: String = "") {
         for (key, value) in dict {
             if !(["recordID", "recordType", "creationDate", "creatorUserRecordID", "modificationDate", "lastModifiedUserRecordID", "recordChangeTag", "encodedSystemFields"]).contains(key as! String) {
                 if value is NSNull {
@@ -164,7 +163,7 @@ public extension CKRecord {
             self.init(recordType: EVReflection.swiftStringFromClass(dataObject), recordID: dataObject.recordID)
         }
         let (fromDict, _) = EVReflection.toDictionary(dataObject)
-        CKDataObject.dictToCKRecord(self, dict: fromDict)
+        dataObject.dictToCKRecord(self, dict: fromDict)
     }
     
     

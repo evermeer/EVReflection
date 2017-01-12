@@ -7,7 +7,6 @@
 
 import ReactiveSwift
 import Moya
-import EVReflection
 
 /// Extension for processing Responses into Mappable objects through ObjectMapper
 extension SignalProducerProtocol where Value == Moya.Response, Error == MoyaError {
