@@ -12,6 +12,6 @@
 
 #import "XMLDictionary.h"
 
-FOUNDATION_EXPORT double Xml2DictionaryVersionNumber;
-FOUNDATION_EXPORT const unsigned char Xml2DictionaryVersionString[];
+FOUNDATION_EXPORT double XMLDictionaryVersionNumber;
+FOUNDATION_EXPORT const unsigned char XMLDictionaryVersionString[];
 

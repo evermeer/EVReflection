@@ -1,7 +1,7 @@
 EVReflection/XML
 ============
 
-This is the sub specification for a Xml2Dictionary extension for EVReflection
+This is the sub specification for a XMLDictionary extension for EVReflection
 
 # General information
 

@@ -95,7 +95,7 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/ReactiveSwift-OSX/ReactiveSwift.framework"
   install_framework "$BUILT_PRODUCTS_DIR/Result-OSX/Result.framework"
   install_framework "$BUILT_PRODUCTS_DIR/RxSwift-OSX/RxSwift.framework"
-  install_framework "$BUILT_PRODUCTS_DIR/Xml2Dictionary-OSX/Xml2Dictionary.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/XMLDictionary-OSX/XMLDictionary.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/EVReflection-e8b65197/EVReflection.framework"
@@ -104,7 +104,7 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/ReactiveSwift-OSX/ReactiveSwift.framework"
   install_framework "$BUILT_PRODUCTS_DIR/Result-OSX/Result.framework"
   install_framework "$BUILT_PRODUCTS_DIR/RxSwift-OSX/RxSwift.framework"
-  install_framework "$BUILT_PRODUCTS_DIR/Xml2Dictionary-OSX/Xml2Dictionary.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/XMLDictionary-OSX/XMLDictionary.framework"
 fi
 if [ "${COCOAPODS_PARALLEL_CODE_SIGN}" == "true" ]; then
   wait

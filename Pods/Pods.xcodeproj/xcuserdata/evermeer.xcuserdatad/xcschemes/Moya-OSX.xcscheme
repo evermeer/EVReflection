@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "9EDD17F640E8F6D22D26592BC1FDFF93"
+               BlueprintIdentifier = "9CC201FE24B45E7B67AAECEC403CAB46"
                BuildableName = "Moya.framework"
                BlueprintName = "Moya-OSX"
                ReferencedContainer = "container:Pods.xcodeproj">
@@ -45,7 +45,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "9EDD17F640E8F6D22D26592BC1FDFF93"
+            BlueprintIdentifier = "9CC201FE24B45E7B67AAECEC403CAB46"
             BuildableName = "Moya.framework"
             BlueprintName = "Moya-OSX"
             ReferencedContainer = "container:Pods.xcodeproj">

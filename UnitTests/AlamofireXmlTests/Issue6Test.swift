@@ -10,7 +10,7 @@
 
 import XCTest
 import Alamofire
-import Xml2Dictionary
+import XMLDictionary
 import EVReflection
 
 

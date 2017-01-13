@@ -1,6 +1,0 @@
-framework module Xml2Dictionary {
-  umbrella header "Xml2Dictionary-iOS-umbrella.h"
-
-  export *
-  module * { export * }
-}

@@ -29,7 +29,7 @@ EOS
   s.subspec "XML" do |ss|
     ss.source_files  = "Source/XML/*.swift"
     ss.dependency "EVReflection/Core"
-    ss.dependency "Xml2Dictionary"
+    ss.dependency "XMLDictionary"
   end
 
   s.subspec "CloudKit" do |ss|

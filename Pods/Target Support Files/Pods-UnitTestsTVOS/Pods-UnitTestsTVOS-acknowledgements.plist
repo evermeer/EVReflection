@@ -189,7 +189,6 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 		<dict>
 			<key>FooterText</key>
 			<string>XMLDictionary
-version 1.4, April 16th, 2014
 
 Copyright (C) 2011 Charcoal Design
 
@@ -211,7 +210,7 @@ freely, subject to the following restrictions:
 			<key>License</key>
 			<string>zlib</string>
 			<key>Title</key>
-			<string>Xml2Dictionary</string>
+			<string>XMLDictionary</string>
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 		</dict>

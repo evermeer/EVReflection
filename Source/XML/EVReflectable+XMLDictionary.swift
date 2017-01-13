@@ -5,7 +5,7 @@
 //  Copyright © 2017 Edwin Vermeer. All rights reserved.
 //
 
-import Xml2Dictionary
+import XMLDictionary
 
 extension EVReflectable where Self: NSObject {
     /**
