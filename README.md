@@ -6,7 +6,7 @@
  -->
 [![Issues](https://img.shields.io/github/issues-raw/evermeer/EVReflection.svg?style=flat)](https://github.com/evermeer/EVReflection/issues)
 [![Coverage](https://img.shields.io/badge/coverage-79%25-yellow.svg?style=flat)](https://raw.githubusercontent.com/evermeer/EVReflection/master/UnitTests/coverage.png)
-[![Documentation](https://img.shields.io/badge/documented-97%25-green.svg?style=flat)](http://cocoadocs.org/docsets/EVReflection)
+[![Documentation](https://img.shields.io/badge/documented-97%25-green.svg?style=flat)](http://cocoadocs.org/docsets/EVReflection/3.7.0/)
 [![Stars](https://img.shields.io/github/stars/evermeer/EVReflection.svg?style=flat)](https://github.com/evermeer/EVReflection/stargazers)
 [![Awesome](https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg)](https://github.com/matteocrippa/awesome-swift#json)
 [![Downloads](https://img.shields.io/cocoapods/dt/EVReflection.svg?style=flat)](https://cocoapods.org/pods/EVReflection)

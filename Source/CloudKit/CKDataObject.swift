@@ -173,7 +173,7 @@ public extension CKRecord {
      - parameter record: The CKRecord that will be converted to an object
      :return: The object that is created from the record
      */
-    open func toDataObject() -> CKDataObject? {
+    public func toDataObject() -> CKDataObject? {
         if let theObject = EVReflection.fromDictionary(self.toDictionary(), anyobjectTypeString: self.recordType) as? CKDataObject {
             theObject.recordID = self.recordID
             theObject.recordType = self.recordType
@@ -198,7 +198,7 @@ public extension CKRecord {
      
      :return: The dictionary that is created from the record
      */
-    open func toDictionary() -> NSDictionary {
+    public func toDictionary() -> NSDictionary {
         let dictionary = NSMutableDictionary()
         for key in self.allKeys() {
             if let value = self.object(forKey: key) {
