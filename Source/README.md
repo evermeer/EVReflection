@@ -11,9 +11,10 @@ If you have a question and don't want to create an issue, then we can [![Join th
 EVReflection is used in [EVCloudKitDao](https://github.com/evermeer/EVCloudKitDao) and [EVWordPressAPI](https://github.com/evermeer/EVWordPressAPI)
 
 ### Available extensions
-There are extension available for using EVReflection with [XMLDictionairy](https://github.com/nicklockwood/XMLDictionary), [Alamofire](https://github.com/Alamofire/Alamofire) and [Moya](https://github.com/Moya/Moya) with [RxSwift](https://github.com/ReactiveX/RxSwift) or [ReactiveSwift](https://github.com/ReactiveSwift/ReactiveSwift)
+There are extension available for using EVReflection with [XMLDictionairy](https://github.com/nicklockwood/XMLDictionary), [CloudKit](https://developer.apple.com/library/content/documentation/DataManagement/Conceptual/CloudKitQuickStart/Introduction/Introduction.html), [Alamofire](https://github.com/Alamofire/Alamofire) and [Moya](https://github.com/Moya/Moya) with [RxSwift](https://github.com/ReactiveX/RxSwift) or [ReactiveSwift](https://github.com/ReactiveSwift/ReactiveSwift)
 
 - [XML](https://github.com/evermeer/EVReflection/tree/master/Source/XML)
+- [CloudKit](https://github.com/evermeer/EVReflection/tree/master/Source/CloudKit)
 - [Alamofire](https://github.com/evermeer/EVReflection/tree/master/Source/Alamofire)
 - [AlamofireXML](https://github.com/evermeer/EVReflection/tree/master/Source/XML)
 - [Moya](https://github.com/evermeer/EVReflection/tree/master/Source/Alamofire/Moya)
