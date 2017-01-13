@@ -87,8 +87,7 @@ news.ActionUrl = "https://github.com/evermeer"
 
 // Add an image asset
 if let path = Bundle(for: CloudKitTests.self).path(forResource: "coverage", ofType: "png") {
-    let url = URL(fileURLWithPath: path)
-    let asset = Asset(name: "coverage", type: "png", url: url)
+    let asset = Asset(name: "coverage", type: "png", url: URL(fileURLWithPath: path))
     news.setAssetFields(asset)
 
     let myImage: UIImage? = asset.File?.image()
@@ -103,9 +102,10 @@ print ("\(record1)")
 let record2 = CKRecord(news)
 print ("\(record2)")
 
-let newNews1 = CKDataObject(record1)
+let newNews1 = CloudNews(record1)
 print(newNews1)
 
 let newNews2 = record2!.toDataObject()
 print("\(newNews2)")
+
 ```
