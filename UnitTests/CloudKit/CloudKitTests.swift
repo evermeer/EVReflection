@@ -36,9 +36,24 @@ class CloudKitTests: XCTestCase {
      Get the string name for a class and then generate a class based on that string
      */
     func testCloudkitSmokeTest() {
+        // A news object
         let news = CloudNews()
-        news.Title = "the title"
-        news.Text = "The text"
+        news.Subject = "the title"
+        news.Body = "The body text"
+        news.ActionUrl = "https://github.com/evermeer"
+
+        // Add an image asset
+        if let path = Bundle(for: CloudKitTests.self).path(forResource: "coverage", ofType: "png") {
+            let url = URL(fileURLWithPath: path)
+            let asset = Asset(name: "coverage", type: "png", url: url)
+            news.setAssetFields(asset)
+
+            let myImage: UIImage? = asset.File?.image()
+            XCTAssertNotNil(myImage, "Image was not set")
+        } else {
+            XCTAssert(false, "Could not find resource coverage.png")
+        }
+        
         let record1 = news.toCKRecord()
         print ("\(record1)")
         
@@ -54,6 +69,29 @@ class CloudKitTests: XCTestCase {
 }
 
 class CloudNews: CKDataObject {
-    var Title: String?
-    var Text: String?
+    var Subject: String = ""
+    var Body: String = ""
+    var ActionUrl: String = ""
+    
+    // When using a CKReference, then also store a string representation of the recordname for simplifying predecate queries that also can be used agains an object array.
+    var Asset: CKReference?
+    var Asset_ID: String = ""
+    func setAssetFields(_ asset: Asset) {
+        self.Asset_ID = asset.recordID.recordName
+        self.Asset = CKReference(recordID: CKRecordID(recordName: asset.recordID.recordName), action: CKReferenceAction.none)
+    }
+}
+
+// It's adviced to store your assets in a seperate table
+class Asset: CKDataObject {
+    var File: CKAsset?
+    var FileName: String = ""
+    var FileType: String = ""
+    
+    convenience init(name: String, type: String, url: URL) {
+        self.init()
+        FileName = name
+        FileType = type
+        File = CKAsset(fileURL: url)
+    }
 }

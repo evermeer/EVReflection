@@ -31,6 +31,21 @@
 		7F1D69421E27974C00F5AE15 /* CloudKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F1D69411E27974C00F5AE15 /* CloudKitTests.swift */; };
 		7F1D69431E27974C00F5AE15 /* CloudKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F1D69411E27974C00F5AE15 /* CloudKitTests.swift */; };
 		7F1D69441E27974C00F5AE15 /* CloudKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F1D69411E27974C00F5AE15 /* CloudKitTests.swift */; };
+		7F1D69451E28B39400F5AE15 /* AlamofireXmlTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F9930161E2426B500792CF1 /* AlamofireXmlTests.swift */; };
+		7F1D69461E28B39800F5AE15 /* AlamofireXml2Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F9930131E2426B500792CF1 /* AlamofireXml2Tests.swift */; };
+		7F1D69471E28B39B00F5AE15 /* AlamofireXml3Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F9930141E2426B500792CF1 /* AlamofireXml3Tests.swift */; };
+		7F1D69481E28B3A000F5AE15 /* Issue4_xml in Resources */ = {isa = PBXBuildFile; fileRef = 7F9930171E2426B500792CF1 /* Issue4_xml */; };
+		7F1D69491E28B3A600F5AE15 /* Issue4Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F9930181E2426B500792CF1 /* Issue4Test.swift */; };
+		7F1D694A1E28B3A600F5AE15 /* Issue6_xml in Resources */ = {isa = PBXBuildFile; fileRef = 7F9930191E2426B500792CF1 /* Issue6_xml */; };
+		7F1D694B1E28B3A600F5AE15 /* Issue6Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F99301A1E2426B500792CF1 /* Issue6Test.swift */; };
+		7F1D694C1E28B3A600F5AE15 /* sampl2_xml in Resources */ = {isa = PBXBuildFile; fileRef = 7F99301B1E2426B500792CF1 /* sampl2_xml */; };
+		7F1D694D1E28B3A600F5AE15 /* sample3_xml in Resources */ = {isa = PBXBuildFile; fileRef = 7F99301C1E2426B500792CF1 /* sample3_xml */; };
+		7F1D694E1E28B3A600F5AE15 /* sample_xml in Resources */ = {isa = PBXBuildFile; fileRef = 7F99301D1E2426B500792CF1 /* sample_xml */; };
+		7F1D694F1E28BC2900F5AE15 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F1D69371E267B1D00F5AE15 /* User.swift */; };
+		7F1D69501E28BC2900F5AE15 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F1D69371E267B1D00F5AE15 /* User.swift */; };
+		7F1D69511E28BF3B00F5AE15 /* coverage.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FFCCC361BB440F400EE9312 /* coverage.png */; };
+		7F1D69521E28BF3B00F5AE15 /* coverage.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FFCCC361BB440F400EE9312 /* coverage.png */; };
+		7F1D69531E28BF3C00F5AE15 /* coverage.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FFCCC361BB440F400EE9312 /* coverage.png */; };
 		7F1DD70D1D9094B300E99D4D /* EVReflectionIssue124.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F1DD7071D90946800E99D4D /* EVReflectionIssue124.swift */; };
 		7F1DD70E1D9094B300E99D4D /* EVReflectionIssue124.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F1DD7071D90946800E99D4D /* EVReflectionIssue124.swift */; };
 		7F1DD70F1D9094B400E99D4D /* EVReflectionIssue124.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F1DD7071D90946800E99D4D /* EVReflectionIssue124.swift */; };
@@ -573,6 +588,7 @@
 				7F1C9D491E23D76D00A18776 /* ArrayConversionIssue_json in Resources */,
 				7F1C9D4F1E23D76D00A18776 /* sample_json in Resources */,
 				7F99302E1E2426B500792CF1 /* sample3_xml in Resources */,
+				7F1D69511E28BF3B00F5AE15 /* coverage.png in Resources */,
 				7F9930301E2426B500792CF1 /* sample_xml in Resources */,
 				7F1C9D4C1E23D76D00A18776 /* NestedGenericsIssue25_json in Resources */,
 				7F1C9D2D1E23CABC00A18776 /* sample.json in Resources */,
@@ -590,6 +606,7 @@
 				7F9930251E2426B500792CF1 /* Issue4_xml in Resources */,
 				7F9930311E2426B500792CF1 /* sample_xml in Resources */,
 				7F99302F1E2426B500792CF1 /* sample3_xml in Resources */,
+				7F1D69521E28BF3B00F5AE15 /* coverage.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -598,6 +615,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				7F1C9D2F1E23CABD00A18776 /* sample.json in Resources */,
+				7F1D694C1E28B3A600F5AE15 /* sampl2_xml in Resources */,
+				7F1D694A1E28B3A600F5AE15 /* Issue6_xml in Resources */,
+				7F1D69481E28B3A000F5AE15 /* Issue4_xml in Resources */,
+				7F1D694E1E28B3A600F5AE15 /* sample_xml in Resources */,
+				7F1D694D1E28B3A600F5AE15 /* sample3_xml in Resources */,
+				7F1D69531E28BF3C00F5AE15 /* coverage.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -835,6 +858,7 @@
 				7F3FF3B51CF9A0F800BAE767 /* EVReflectionIssue88.swift in Sources */,
 				7F70E80F1D96C0AC0020DB2C /* EVReflectionIssueAF30.swift in Sources */,
 				7F1D69431E27974C00F5AE15 /* CloudKitTests.swift in Sources */,
+				7F1D694F1E28BC2900F5AE15 /* User.swift in Sources */,
 				7F9930211E2426B500792CF1 /* AlamofireXml3Tests.swift in Sources */,
 				7F3E31931BB909A7001E6788 /* EVReflectionJsonTests.swift in Sources */,
 				7F9336981C23F2FD00AF7076 /* EVRelfectionInheritanceTests.swift in Sources */,
@@ -879,12 +903,17 @@
 				7F9801931E260A4D00D6C5C0 /* MoyaGitHubAPI.swift in Sources */,
 				7FB099E51D2F83C500D94204 /* EVReflectionIssue102.swift in Sources */,
 				7FF4BEB71CF2DA8E0086F999 /* EVReflectionIssue86.swift in Sources */,
+				7F1D69451E28B39400F5AE15 /* AlamofireXmlTests.swift in Sources */,
 				7F663C341D014D7E00642499 /* EVReflectionIssue91.swift in Sources */,
 				7F1E77931CD3440200F88A9A /* EVReflectionConversionOptionsTest.swift in Sources */,
 				7F1D69441E27974C00F5AE15 /* CloudKitTests.swift in Sources */,
+				7F1D694B1E28B3A600F5AE15 /* Issue6Test.swift in Sources */,
+				7F1D69471E28B39B00F5AE15 /* AlamofireXml3Tests.swift in Sources */,
 				7F99300F1E241E9300792CF1 /* AlamofireTests.swift in Sources */,
 				7F98019D1E260AD000D6C5C0 /* MoyaRxSwiftTests.swift in Sources */,
 				7F9336D31C2822B700AF7076 /* EVReflectionNumbersTests.swift in Sources */,
+				7F1D69461E28B39800F5AE15 /* AlamofireXml2Tests.swift in Sources */,
+				7F1D69501E28BC2900F5AE15 /* User.swift in Sources */,
 				422668031CB7802D00145E17 /* EVReflectionCustomInitTests.swift in Sources */,
 				7F3FF3B61CF9A0F900BAE767 /* EVReflectionIssue88.swift in Sources */,
 				7F70E8101D96C0AC0020DB2C /* EVReflectionIssueAF30.swift in Sources */,
@@ -904,6 +933,7 @@
 				7F9336C91C2822B200AF7076 /* TestObjects.swift in Sources */,
 				7F99300E1E241E9000792CF1 /* AlamofireExternalTests.swift in Sources */,
 				7FE271681DDDCFA200C8B4CD /* EVReflectionIssue141.swift in Sources */,
+				7F1D69491E28B3A600F5AE15 /* Issue4Test.swift in Sources */,
 				7F9801991E260A4D00D6C5C0 /* Owner.swift in Sources */,
 				7F9336D21C2822B700AF7076 /* EVRelfectionInheritanceTests.swift in Sources */,
 				7F9930111E241E9800792CF1 /* ArrayConversionIssue.swift in Sources */,
