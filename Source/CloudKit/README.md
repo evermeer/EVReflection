@@ -109,3 +109,19 @@ let newNews2 = record2!.toDataObject()
 print("\(newNews2)")
 
 ```
+
+The code above does use this Extension
+```swift
+import CloudKit
+import UIKit
+
+public extension CKAsset {
+    public func image() -> UIImage? {
+        if let data = try? Data(contentsOf: self.fileURL) {
+            return UIImage(data: data)
+        }
+        return nil
+    }
+}
+```
+

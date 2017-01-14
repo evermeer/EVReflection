@@ -7,6 +7,7 @@
 //
 
 import CloudKit
+import UIKit
 
 public extension CKAsset {
     public func image() -> UIImage? {

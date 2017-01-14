@@ -11,7 +11,7 @@ end
 
 target 'PerformanceTest' do
   project 'PerformanceTest/PerformanceTest'
-  platform :ios, '8.0'/Users/evermeer/Desktop/dev/GitHub/EVCloudKitDao
+  platform :ios, '8.0'
   pod 'EVReflection/Core', :path => "./"
 end
 
