@@ -39,7 +39,7 @@ This subspec can use all [EVReflection](https://github.com/evermeer/EVReflection
 # Usage
 
 For more information about using Moya plus RxSwift have a look at the [Moya](https://github.com/Moya/Moya) project.
-For more information about the usage of EVReflection have a look at the cor [EVReflection](https://github.com/evermeer/EVReflection) functionality
+For more information about the usage of EVReflection have a look at the core [EVReflection](https://github.com/evermeer/EVReflection) functionality
 
 Create a class which has `EVObject` as it's base class. You could also use any `NSObject` based class and extend it with the `EVReflectable` protocol. 
 

@@ -121,7 +121,7 @@ XCTAssert(user == newUser, "Pass")
 Saving and loading an object to and from a file:
 ```
 user.saveToTemp("temp.dat")
-let result = TestObject2(fileNameInTemp: "temp.dat")
+let result = User(fileNameInTemp: "temp.dat")
 XCTAssert(theObject == result, "Pass")
 ```
 
@@ -466,15 +466,14 @@ EVReflection is available under the MIT 3 license. See the LICENSE file for more
 ## My other libraries:
 Also see my other public source iOS libraries:
 
-- [EVReflection](https://github.com/evermeer/EVReflection) - Swift library with reflection functions with support for NSCoding, Printable, Hashable, Equatable and JSON 
+- [EVReflection](https://github.com/evermeer/EVReflection) - Reflection based (Dictionary, CKRecord, JSON and XML) object mapping with extensions for Alamofire and Moya with RxSwift or ReactiveSwift 
 - [EVCloudKitDao](https://github.com/evermeer/EVCloudKitDao) - Simplified access to Apple's CloudKit
 - [EVFaceTracker](https://github.com/evermeer/EVFaceTracker) - Calculate the distance and angle of your device with regards to your face in order to simulate a 3D effect
 - [EVURLCache](https://github.com/evermeer/EVURLCache) - a NSURLCache subclass for handling all web requests that use NSURLReques
-- [AlamofireJsonToObject](https://github.com/evermeer/AlamofireJsonToObjects) - An Alamofire extension which converts JSON response data into swift objects using EVReflection
-- [AlamofireXmlToObject](https://github.com/evermeer/AlamofireXmlToObjects) - An Alamofire extension which converts XML response data into swift objects using EVReflection and XMLDictionary
 - [AlamofireOauth2](https://github.com/evermeer/AlamofireOauth2) - A swift implementation of OAuth2 using Alamofire
 - [EVWordPressAPI](https://github.com/evermeer/EVWordPressAPI) - Swift Implementation of the WordPress (Jetpack) API using AlamofireOauth2, AlomofireJsonToObjects and EVReflection (work in progress)
 - [PassportScanner](https://github.com/evermeer/PassportScanner) - Scan the MRZ code of a passport and extract the firstname, lastname, passport number, nationality, date of birth, expiration date and personal numer.
+- [AttributedTextView](https://github.com/evermeer/AttributedTextView) - Easiest way to create an attributed UITextView with support for multiple links (url, hashtags, mentions).
 
 ## Evolution of EVReflection (Gource Visualization)
 [![Evolution of EVReflection (Gource Visualization)](https://img.youtube.com/vi/FIETlttIFh8/0.jpg)](https://www.youtube.com/watch?v=FIETlttIFh8)
