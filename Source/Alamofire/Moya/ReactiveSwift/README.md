@@ -53,10 +53,13 @@ class Repository: EVObject {
 }
 ```
 
-Then on the Moya provider execute a `.map(toArray:` or a `.map(to:)` and then `.subscribe` to it.
+Then on the Moya provider execute a `.map(toArray:` or a `.map(to:)` and then `.on value` process the data and `.start()` the request
 
 ```swift
 GitHubProvider.request(.userRepositories(username))
 .map(toArray: Repository)
-.??? TODO
+.on(value: { [weak self] (repositories) in
+    self?.repositories.value = repositories
+})
+.start()
 ```

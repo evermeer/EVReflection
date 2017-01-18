@@ -27,9 +27,6 @@ public enum GitHub {
 }
 
 extension GitHub: TargetType {
-    public var parameterEncoding: ParameterEncoding {
-        return  URLEncoding.queryString
-    }
     
     public var baseURL: URL {
         switch self {
@@ -39,9 +36,6 @@ extension GitHub: TargetType {
             return URL(string: "https://api.github.com")!
         }
     }
-
-    
-    
     
     public var path: String {
         switch self {
@@ -69,6 +63,10 @@ extension GitHub: TargetType {
         }
     }
     
+    public var parameterEncoding: ParameterEncoding {
+        return  URLEncoding.queryString
+    }
+
     public var task: Task {
         return .request
     }
