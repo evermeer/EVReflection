@@ -189,9 +189,9 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		2DC8AA3C1C24215500FA6B8E /* EVReflection iOS */ = {
+		2DC8AA3C1C24215500FA6B8E /* EVReflection_iOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 2DC8AA521C24215500FA6B8E /* Build configuration list for PBXNativeTarget "EVReflection iOS" */;
+			buildConfigurationList = 2DC8AA521C24215500FA6B8E /* Build configuration list for PBXNativeTarget "EVReflection_iOS" */;
 			buildPhases = (
 				2DC8AA381C24215500FA6B8E /* Sources */,
 				2DC8AA391C24215500FA6B8E /* Frameworks */,
@@ -202,14 +202,14 @@
 			);
 			dependencies = (
 			);
-			name = "EVReflection iOS";
+			name = EVReflection_iOS;
 			productName = EVReflection;
 			productReference = 7F1C9D291E23C6C100A18776 /* EVReflection.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		2DC8AA621C242E0600FA6B8E /* EVReflection OSX */ = {
+		2DC8AA621C242E0600FA6B8E /* EVReflection_OSX */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 2DC8AA741C242E0600FA6B8E /* Build configuration list for PBXNativeTarget "EVReflection OSX" */;
+			buildConfigurationList = 2DC8AA741C242E0600FA6B8E /* Build configuration list for PBXNativeTarget "EVReflection_OSX" */;
 			buildPhases = (
 				2DC8AA5E1C242E0600FA6B8E /* Sources */,
 				2DC8AA5F1C242E0600FA6B8E /* Frameworks */,
@@ -220,14 +220,14 @@
 			);
 			dependencies = (
 			);
-			name = "EVReflection OSX";
+			name = EVReflection_OSX;
 			productName = EVReflectionOSX;
 			productReference = 7F1C9D2A1E23C6C100A18776 /* EVReflection.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		7F9336AD1C28227400AF7076 /* EVReflection TVOS */ = {
+		7F9336AD1C28227400AF7076 /* EVReflection_TVOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 7F9336BF1C28227400AF7076 /* Build configuration list for PBXNativeTarget "EVReflection TVOS" */;
+			buildConfigurationList = 7F9336BF1C28227400AF7076 /* Build configuration list for PBXNativeTarget "EVReflection_TVOS" */;
 			buildPhases = (
 				7F9336A91C28227400AF7076 /* Sources */,
 				7F9336AA1C28227400AF7076 /* Frameworks */,
@@ -238,14 +238,14 @@
 			);
 			dependencies = (
 			);
-			name = "EVReflection TVOS";
+			name = EVReflection_TVOS;
 			productName = "EVReflection TVOS";
 			productReference = 7F1C9D2B1E23C6C100A18776 /* EVReflection.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		7FD67D8A1C288B560071234B /* EVReflection WatchOS */ = {
+		7FD67D8A1C288B560071234B /* EVReflection_WatchOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 7FD67D901C288B560071234B /* Build configuration list for PBXNativeTarget "EVReflection WatchOS" */;
+			buildConfigurationList = 7FD67D901C288B560071234B /* Build configuration list for PBXNativeTarget "EVReflection_WatchOS" */;
 			buildPhases = (
 				7FD67D861C288B560071234B /* Sources */,
 				7FD67D871C288B560071234B /* Frameworks */,
@@ -256,7 +256,7 @@
 			);
 			dependencies = (
 			);
-			name = "EVReflection WatchOS";
+			name = EVReflection_WatchOS;
 			productName = EVReflectionWatchOS;
 			productReference = 7F1C9D2C1E23C6C100A18776 /* EVReflection.framework */;
 			productType = "com.apple.product-type.framework";
@@ -300,10 +300,10 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				2DC8AA3C1C24215500FA6B8E /* EVReflection iOS */,
-				2DC8AA621C242E0600FA6B8E /* EVReflection OSX */,
-				7F9336AD1C28227400AF7076 /* EVReflection TVOS */,
-				7FD67D8A1C288B560071234B /* EVReflection WatchOS */,
+				2DC8AA3C1C24215500FA6B8E /* EVReflection_iOS */,
+				2DC8AA621C242E0600FA6B8E /* EVReflection_OSX */,
+				7F9336AD1C28227400AF7076 /* EVReflection_TVOS */,
+				7FD67D8A1C288B560071234B /* EVReflection_WatchOS */,
 			);
 		};
 /* End PBXProject section */
@@ -407,7 +407,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MODULE_NAME = EVReflection;
-				PRODUCT_BUNDLE_IDENTIFIER = evermeer.EVReflectioniOS;
+				PRODUCT_BUNDLE_IDENTIFIER = nl.evict.EVReflectioniOS;
 				PRODUCT_NAME = EVReflection;
 				SKIP_INSTALL = YES;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -429,7 +429,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MODULE_NAME = EVReflection;
-				PRODUCT_BUNDLE_IDENTIFIER = evermeer.EVReflectioniOS;
+				PRODUCT_BUNDLE_IDENTIFIER = nl.evict.EVReflectioniOS;
 				PRODUCT_NAME = EVReflection;
 				SKIP_INSTALL = YES;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -453,7 +453,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				MODULE_NAME = EVReflection;
-				PRODUCT_BUNDLE_IDENTIFIER = evermeer.EVReflectionOSX;
+				PRODUCT_BUNDLE_IDENTIFIER = nl.evict.EVReflectionOSX;
 				PRODUCT_NAME = EVReflection;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
@@ -478,7 +478,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				MODULE_NAME = EVReflection;
-				PRODUCT_BUNDLE_IDENTIFIER = evermeer.EVReflectionOSX;
+				PRODUCT_BUNDLE_IDENTIFIER = nl.evict.EVReflectionOSX;
 				PRODUCT_NAME = EVReflection;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
@@ -597,7 +597,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MODULE_NAME = EVReflection;
-				PRODUCT_BUNDLE_IDENTIFIER = evermeer.EVReflectionTVOS;
+				PRODUCT_BUNDLE_IDENTIFIER = nl.evict.EVReflectionTVOS;
 				PRODUCT_NAME = EVReflection;
 				SDKROOT = appletvos;
 				SKIP_INSTALL = YES;
@@ -621,7 +621,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MODULE_NAME = EVReflection;
-				PRODUCT_BUNDLE_IDENTIFIER = evermeer.EVReflectionTVOS;
+				PRODUCT_BUNDLE_IDENTIFIER = nl.evict.EVReflectionTVOS;
 				PRODUCT_NAME = EVReflection;
 				SDKROOT = appletvos;
 				SKIP_INSTALL = YES;
@@ -684,7 +684,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		2DC8AA521C24215500FA6B8E /* Build configuration list for PBXNativeTarget "EVReflection iOS" */ = {
+		2DC8AA521C24215500FA6B8E /* Build configuration list for PBXNativeTarget "EVReflection_iOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2DC8AA4E1C24215500FA6B8E /* Debug */,
@@ -693,7 +693,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		2DC8AA741C242E0600FA6B8E /* Build configuration list for PBXNativeTarget "EVReflection OSX" */ = {
+		2DC8AA741C242E0600FA6B8E /* Build configuration list for PBXNativeTarget "EVReflection_OSX" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2DC8AA751C242E0600FA6B8E /* Debug */,
@@ -711,7 +711,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		7F9336BF1C28227400AF7076 /* Build configuration list for PBXNativeTarget "EVReflection TVOS" */ = {
+		7F9336BF1C28227400AF7076 /* Build configuration list for PBXNativeTarget "EVReflection_TVOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				7F9336C01C28227400AF7076 /* Debug */,
@@ -720,7 +720,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		7FD67D901C288B560071234B /* Build configuration list for PBXNativeTarget "EVReflection WatchOS" */ = {
+		7FD67D901C288B560071234B /* Build configuration list for PBXNativeTarget "EVReflection_WatchOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				7FD67D911C288B560071234B /* Debug */,

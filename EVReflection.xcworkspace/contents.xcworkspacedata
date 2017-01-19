@@ -23,6 +23,9 @@
       location = "group:UnitTests/../Source">
    </FileRef>
    <FileRef
+      location = "group:Carthage/Carthage.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:Demo/Demo.xcodeproj">
    </FileRef>
    <FileRef
