@@ -1,33 +1,33 @@
 PODS:
   - Alamofire (4.2.0)
-  - EVReflection/Alamofire (4.0.9):
+  - EVReflection/Alamofire (4.0.10):
     - Alamofire (~> 4.2)
     - EVReflection/Core
-  - EVReflection/AlamofireXML (4.0.9):
+  - EVReflection/AlamofireXML (4.0.10):
     - EVReflection/Alamofire
     - EVReflection/XML
-  - EVReflection/CloudKit (4.0.9):
+  - EVReflection/CloudKit (4.0.10):
     - EVReflection/Core
-  - EVReflection/Core (4.0.9)
-  - EVReflection/Moya (4.0.9):
+  - EVReflection/Core (4.0.10)
+  - EVReflection/Moya (4.0.10):
     - EVReflection/Alamofire
     - Moya (~> 8.0)
-  - EVReflection/MoyaReactiveSwift (4.0.9):
+  - EVReflection/MoyaReactiveSwift (4.0.10):
     - EVReflection/Moya
     - Moya/ReactiveSwift
-  - EVReflection/MoyaReactiveSwiftXML (4.0.9):
+  - EVReflection/MoyaReactiveSwiftXML (4.0.10):
     - EVReflection/MoyaReactiveSwift
     - EVReflection/MoyaXML
-  - EVReflection/MoyaRxSwift (4.0.9):
+  - EVReflection/MoyaRxSwift (4.0.10):
     - EVReflection/Moya
     - Moya/RxSwift
-  - EVReflection/MoyaRxSwiftXML (4.0.9):
+  - EVReflection/MoyaRxSwiftXML (4.0.10):
     - EVReflection/MoyaRxSwift
     - EVReflection/MoyaXML
-  - EVReflection/MoyaXML (4.0.9):
+  - EVReflection/MoyaXML (4.0.10):
     - EVReflection/AlamofireXML
     - EVReflection/Moya
-  - EVReflection/XML (4.0.9):
+  - EVReflection/XML (4.0.10):
     - EVReflection/Core
     - XMLDictionary
   - Moya (8.0.0):
@@ -59,13 +59,13 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Alamofire: aa2e09d871c9160ac53c90e83c68064a94e3dfbe
-  EVReflection: 464149e115a7f2f6f4f5ce73484bebc0e4a80848
+  EVReflection: a89a0b25d98b77a4b64f1c6c5ca0b5e9155bcbea
   Moya: 850a166ab8241bd1c1cea6dbe012e3a2ad62944a
   ReactiveSwift: f391724ee318a2cfd3e37dfb041cd49ecf4e7869
   Result: 4e3ed5995ed94d0cd6a09be9a431fce3f3624bbf
   RxSwift: 83ff553e7593fdfdcb2562933a64c0284dffdadc
   XMLDictionary: fa07b6ff422b3a91d47a5de9bc82e3fc04fbd167
 
-PODFILE CHECKSUM: 103b07549558be1a7c1e6872c6d037a70297b259
+PODFILE CHECKSUM: b15728a9265a991e3a58b9a85107f89316f45cf5
 
 COCOAPODS: 1.2.0.beta.3

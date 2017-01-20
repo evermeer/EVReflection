@@ -1,0 +1,6 @@
+framework module Result {
+  umbrella header "Result-tvOS9.0-umbrella.h"
+
+  export *
+  module * { export * }
+}

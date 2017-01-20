@@ -97,15 +97,7 @@ class EVReflectionWorkaroundSwiftGenericsTests: XCTestCase {
 open class MyGenericObject<T>: MyGenericBase, EVGenericsKVC where T:NSObject {
     var data: T = T()
     var array: [T] = [T]()
-    
-    required public init() {
-        super.init()
-    }
-    
-    required public init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
+
     public func setGenericValue(_ value: AnyObject!, forUndefinedKey key: String) {
         switch key {
         case "data":
@@ -127,14 +119,6 @@ open class MyIncorrectGenericObject<T>: MyGenericBase, EVGenericsKVC where T:NSO
     var data: T = T()
     var array: [T] = [T]()
     
-    required public init() {
-        super.init()
-    }
-    
-    required public init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-
     public func setGenericValue(_ value: AnyObject!, forUndefinedKey key: String) {
         // Not setting anything
     }

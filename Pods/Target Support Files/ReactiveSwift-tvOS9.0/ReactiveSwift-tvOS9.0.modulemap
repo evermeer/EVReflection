@@ -1,0 +1,6 @@
+framework module ReactiveSwift {
+  umbrella header "ReactiveSwift-tvOS9.0-umbrella.h"
+
+  export *
+  module * { export * }
+}

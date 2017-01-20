@@ -89,22 +89,22 @@ strip_invalid_archs() {
 
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
-  install_framework "$BUILT_PRODUCTS_DIR/EVReflection-e8b65197/EVReflection.framework"
-  install_framework "$BUILT_PRODUCTS_DIR/Alamofire-OSX/Alamofire.framework"
-  install_framework "$BUILT_PRODUCTS_DIR/Moya-OSX/Moya.framework"
-  install_framework "$BUILT_PRODUCTS_DIR/ReactiveSwift-OSX/ReactiveSwift.framework"
-  install_framework "$BUILT_PRODUCTS_DIR/Result-OSX/Result.framework"
-  install_framework "$BUILT_PRODUCTS_DIR/RxSwift-OSX/RxSwift.framework"
-  install_framework "$BUILT_PRODUCTS_DIR/XMLDictionary-OSX/XMLDictionary.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/EVReflection-620ced63/EVReflection.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/Alamofire-OSX10.10/Alamofire.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/Moya-OSX10.10/Moya.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/ReactiveSwift-OSX10.10/ReactiveSwift.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/Result-OSX10.10/Result.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/RxSwift-OSX10.10/RxSwift.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/XMLDictionary-OSX10.10/XMLDictionary.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
-  install_framework "$BUILT_PRODUCTS_DIR/EVReflection-e8b65197/EVReflection.framework"
-  install_framework "$BUILT_PRODUCTS_DIR/Alamofire-OSX/Alamofire.framework"
-  install_framework "$BUILT_PRODUCTS_DIR/Moya-OSX/Moya.framework"
-  install_framework "$BUILT_PRODUCTS_DIR/ReactiveSwift-OSX/ReactiveSwift.framework"
-  install_framework "$BUILT_PRODUCTS_DIR/Result-OSX/Result.framework"
-  install_framework "$BUILT_PRODUCTS_DIR/RxSwift-OSX/RxSwift.framework"
-  install_framework "$BUILT_PRODUCTS_DIR/XMLDictionary-OSX/XMLDictionary.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/EVReflection-620ced63/EVReflection.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/Alamofire-OSX10.10/Alamofire.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/Moya-OSX10.10/Moya.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/ReactiveSwift-OSX10.10/ReactiveSwift.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/Result-OSX10.10/Result.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/RxSwift-OSX10.10/RxSwift.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/XMLDictionary-OSX10.10/XMLDictionary.framework"
 fi
 if [ "${COCOAPODS_PARALLEL_CODE_SIGN}" == "true" ]; then
   wait

@@ -47,8 +47,10 @@ class CloudKitTests: XCTestCase {
             let asset = Asset(name: "coverage", type: "png", url: URL(fileURLWithPath: path))
             news.setAssetFields(asset)
 
-            let myImage: UIImage? = asset.File?.image()
-            XCTAssertNotNil(myImage, "Image was not set")
+            #if os(iOS)
+                let myImage: UIImage? = asset.File?.image()
+                XCTAssertNotNil(myImage, "Image was not set")
+            #endif
         } else {
             XCTAssert(false, "Could not find resource coverage.png")
         }

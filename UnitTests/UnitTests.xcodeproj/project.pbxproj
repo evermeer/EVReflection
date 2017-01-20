@@ -549,7 +549,7 @@
 					};
 					7F3E31841BB9095C001E6788 = {
 						CreatedOnToolsVersion = 7.0;
-						DevelopmentTeam = WTH4QGEA23;
+						DevelopmentTeam = 8829GZ84Q6;
 						ProvisioningStyle = Automatic;
 					};
 					7F9336B61C28227400AF7076 = {
@@ -1082,7 +1082,7 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = WTH4QGEA23;
+				DEVELOPMENT_TEAM = 8829GZ84Q6;
 				INFOPLIST_FILE = "EVReflectionTests/osx-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
@@ -1099,7 +1099,7 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = WTH4QGEA23;
+				DEVELOPMENT_TEAM = 8829GZ84Q6;
 				INFOPLIST_FILE = "EVReflectionTests/osx-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;

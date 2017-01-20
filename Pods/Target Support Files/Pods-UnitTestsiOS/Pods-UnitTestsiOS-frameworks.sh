@@ -89,22 +89,22 @@ strip_invalid_archs() {
 
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
-  install_framework "$BUILT_PRODUCTS_DIR/EVReflection-3b1e4bbb/EVReflection.framework"
-  install_framework "$BUILT_PRODUCTS_DIR/Alamofire-iOS/Alamofire.framework"
-  install_framework "$BUILT_PRODUCTS_DIR/Moya-iOS/Moya.framework"
-  install_framework "$BUILT_PRODUCTS_DIR/ReactiveSwift-iOS/ReactiveSwift.framework"
-  install_framework "$BUILT_PRODUCTS_DIR/Result-iOS/Result.framework"
-  install_framework "$BUILT_PRODUCTS_DIR/RxSwift-iOS/RxSwift.framework"
-  install_framework "$BUILT_PRODUCTS_DIR/XMLDictionary-iOS/XMLDictionary.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/EVReflection-9a22f02f/EVReflection.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/Alamofire-iOS9.0/Alamofire.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/Moya-iOS9.0/Moya.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/ReactiveSwift-iOS9.0/ReactiveSwift.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/Result-iOS9.0/Result.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/RxSwift-iOS9.0/RxSwift.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/XMLDictionary-iOS9.0/XMLDictionary.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
-  install_framework "$BUILT_PRODUCTS_DIR/EVReflection-3b1e4bbb/EVReflection.framework"
-  install_framework "$BUILT_PRODUCTS_DIR/Alamofire-iOS/Alamofire.framework"
-  install_framework "$BUILT_PRODUCTS_DIR/Moya-iOS/Moya.framework"
-  install_framework "$BUILT_PRODUCTS_DIR/ReactiveSwift-iOS/ReactiveSwift.framework"
-  install_framework "$BUILT_PRODUCTS_DIR/Result-iOS/Result.framework"
-  install_framework "$BUILT_PRODUCTS_DIR/RxSwift-iOS/RxSwift.framework"
-  install_framework "$BUILT_PRODUCTS_DIR/XMLDictionary-iOS/XMLDictionary.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/EVReflection-9a22f02f/EVReflection.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/Alamofire-iOS9.0/Alamofire.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/Moya-iOS9.0/Moya.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/ReactiveSwift-iOS9.0/ReactiveSwift.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/Result-iOS9.0/Result.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/RxSwift-iOS9.0/RxSwift.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/XMLDictionary-iOS9.0/XMLDictionary.framework"
 fi
 if [ "${COCOAPODS_PARALLEL_CODE_SIGN}" == "true" ]; then
   wait

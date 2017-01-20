@@ -1,0 +1,6 @@
+framework module ReactiveSwift {
+  umbrella header "ReactiveSwift-iOS8.0-umbrella.h"
+
+  export *
+  module * { export * }
+}
