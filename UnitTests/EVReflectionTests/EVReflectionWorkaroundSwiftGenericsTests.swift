@@ -34,6 +34,7 @@ class EVReflectionWorkaroundSwiftGenericsTests: XCTestCase {
     func testSetValueGenericClass() {
         let a = MyGenericObject<NSString>()
         a.setGenericValue("data" as AnyObject!, forUndefinedKey: "data")
+        NSLog("\n\n===>You will get a warning that you should implement setValue forUndefinedKey")
         a.setGenericValue("gone" as AnyObject!, forUndefinedKey: "wrongKey")
         XCTAssertEqual(a.data as String, "data", "data should contain data")
     }
@@ -105,7 +106,7 @@ open class MyGenericObject<T>: MyGenericBase, EVGenericsKVC where T:NSObject {
         case "array":
             array = value as? [T] ?? [T]()
         default:
-            print("---> setValue '\(value)' for key '\(key)' should be handled.")
+            print("---> setGenericValue '\(value)' forUndefinedKey '\(key)' should be handled.")
         }
     }
 
@@ -120,7 +121,7 @@ open class MyIncorrectGenericObject<T>: MyGenericBase, EVGenericsKVC where T:NSO
     var array: [T] = [T]()
     
     public func setGenericValue(_ value: AnyObject!, forUndefinedKey key: String) {
-        // Not setting anything
+        print("---> setGenericValue '\(value)' forUndefinedKey '\(key)' should be handled.")
     }
 
     public func getGenericType() -> NSObject {
@@ -147,7 +148,7 @@ open class TestGenerics: EVObject {
         case "bar":
             bar = value as? MyGenericObject<InstanceObject> ?? MyGenericObject<InstanceObject>()
         default:
-            print("---> setValue '\(value)' for key '\(key)' should be handled.")
+            print("---> setGenericValue '\(value)' forUndefinedKey '\(key)' should be handled.")
         }
     }
 }
