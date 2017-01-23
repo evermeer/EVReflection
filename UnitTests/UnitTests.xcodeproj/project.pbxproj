@@ -27,7 +27,7 @@
 		7F1C9D4E1E23D76D00A18776 /* sample_array_json in Resources */ = {isa = PBXBuildFile; fileRef = 7F1C9D431E23D76D00A18776 /* sample_array_json */; };
 		7F1C9D4F1E23D76D00A18776 /* sample_json in Resources */ = {isa = PBXBuildFile; fileRef = 7F1C9D441E23D76D00A18776 /* sample_json */; };
 		7F1C9D501E23D76D00A18776 /* sample_users_array_json in Resources */ = {isa = PBXBuildFile; fileRef = 7F1C9D451E23D76D00A18776 /* sample_users_array_json */; };
-		7F1D69381E267B1D00F5AE15 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F1D69371E267B1D00F5AE15 /* User.swift */; };
+		7F1D69381E267B1D00F5AE15 /* GitHubUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F1D69371E267B1D00F5AE15 /* GitHubUser.swift */; };
 		7F1D69421E27974C00F5AE15 /* CloudKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F1D69411E27974C00F5AE15 /* CloudKitTests.swift */; };
 		7F1D69431E27974C00F5AE15 /* CloudKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F1D69411E27974C00F5AE15 /* CloudKitTests.swift */; };
 		7F1D69441E27974C00F5AE15 /* CloudKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F1D69411E27974C00F5AE15 /* CloudKitTests.swift */; };
@@ -41,8 +41,8 @@
 		7F1D694C1E28B3A600F5AE15 /* sampl2_xml in Resources */ = {isa = PBXBuildFile; fileRef = 7F99301B1E2426B500792CF1 /* sampl2_xml */; };
 		7F1D694D1E28B3A600F5AE15 /* sample3_xml in Resources */ = {isa = PBXBuildFile; fileRef = 7F99301C1E2426B500792CF1 /* sample3_xml */; };
 		7F1D694E1E28B3A600F5AE15 /* sample_xml in Resources */ = {isa = PBXBuildFile; fileRef = 7F99301D1E2426B500792CF1 /* sample_xml */; };
-		7F1D694F1E28BC2900F5AE15 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F1D69371E267B1D00F5AE15 /* User.swift */; };
-		7F1D69501E28BC2900F5AE15 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F1D69371E267B1D00F5AE15 /* User.swift */; };
+		7F1D694F1E28BC2900F5AE15 /* GitHubUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F1D69371E267B1D00F5AE15 /* GitHubUser.swift */; };
+		7F1D69501E28BC2900F5AE15 /* GitHubUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F1D69371E267B1D00F5AE15 /* GitHubUser.swift */; };
 		7F1D69511E28BF3B00F5AE15 /* coverage.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FFCCC361BB440F400EE9312 /* coverage.png */; };
 		7F1D69521E28BF3B00F5AE15 /* coverage.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FFCCC361BB440F400EE9312 /* coverage.png */; };
 		7F1D69531E28BF3C00F5AE15 /* coverage.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FFCCC361BB440F400EE9312 /* coverage.png */; };
@@ -52,6 +52,9 @@
 		7F1E77911CD3440000F88A9A /* EVReflectionConversionOptionsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F1E778F1CD343D300F88A9A /* EVReflectionConversionOptionsTest.swift */; };
 		7F1E77921CD3440100F88A9A /* EVReflectionConversionOptionsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F1E778F1CD343D300F88A9A /* EVReflectionConversionOptionsTest.swift */; };
 		7F1E77931CD3440200F88A9A /* EVReflectionConversionOptionsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F1E778F1CD343D300F88A9A /* EVReflectionConversionOptionsTest.swift */; };
+		7F1F1E471E3261C9002CCF02 /* Issue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F1F1E461E3261C9002CCF02 /* Issue.swift */; };
+		7F1F1E481E3261C9002CCF02 /* Issue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F1F1E461E3261C9002CCF02 /* Issue.swift */; };
+		7F1F1E491E3261C9002CCF02 /* Issue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F1F1E461E3261C9002CCF02 /* Issue.swift */; };
 		7F3E31911BB909A7001E6788 /* TestObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F41ECA41B91F2E0003A2236 /* TestObjects.swift */; };
 		7F3E31921BB909A7001E6788 /* EVObjectDescriptionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F41ECA61B91F306003A2236 /* EVObjectDescriptionTests.swift */; };
 		7F3E31931BB909A7001E6788 /* EVReflectionJsonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F41ECA71B91F306003A2236 /* EVReflectionJsonTests.swift */; };
@@ -199,11 +202,12 @@
 		7F1C9D431E23D76D00A18776 /* sample_array_json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = sample_array_json; sourceTree = "<group>"; };
 		7F1C9D441E23D76D00A18776 /* sample_json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = sample_json; sourceTree = "<group>"; };
 		7F1C9D451E23D76D00A18776 /* sample_users_array_json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = sample_users_array_json; sourceTree = "<group>"; };
-		7F1D69371E267B1D00F5AE15 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		7F1D69371E267B1D00F5AE15 /* GitHubUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GitHubUser.swift; sourceTree = "<group>"; };
 		7F1D69411E27974C00F5AE15 /* CloudKitTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CloudKitTests.swift; sourceTree = "<group>"; };
 		7F1DD7071D90946800E99D4D /* EVReflectionIssue124.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVReflectionIssue124.swift; sourceTree = "<group>"; };
 		7F1DD7091D90949100E99D4D /* EVReflectionIssue124.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = EVReflectionIssue124.plist; sourceTree = "<group>"; };
 		7F1E778F1CD343D300F88A9A /* EVReflectionConversionOptionsTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVReflectionConversionOptionsTest.swift; sourceTree = "<group>"; };
+		7F1F1E461E3261C9002CCF02 /* Issue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Issue.swift; sourceTree = "<group>"; };
 		7F29762A1BB913910074C85A /* osx-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "osx-Info.plist"; sourceTree = "<group>"; };
 		7F36405C1CC9F2E600D7F055 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = .swiftlint.yml; sourceTree = "<group>"; };
 		7F3E19291B8526CA00A6E6C6 /* EVObjectDescription.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = EVObjectDescription.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -399,7 +403,8 @@
 				7F98018D1E260A4D00D6C5C0 /* MoyaGitHubAPI.swift */,
 				7F98018E1E260A4D00D6C5C0 /* Repository.swift */,
 				7F98018F1E260A4D00D6C5C0 /* Owner.swift */,
-				7F1D69371E267B1D00F5AE15 /* User.swift */,
+				7F1D69371E267B1D00F5AE15 /* GitHubUser.swift */,
+				7F1F1E461E3261C9002CCF02 /* Issue.swift */,
 			);
 			name = API;
 			path = ../Demo/Demo;
@@ -789,7 +794,7 @@
 				7F1D69421E27974C00F5AE15 /* CloudKitTests.swift in Sources */,
 				7F7663391DA922FB00740ACA /* EVReflectionIssue114b.swift in Sources */,
 				7F98019B1E260AD000D6C5C0 /* MoyaRxSwiftTests.swift in Sources */,
-				7F1D69381E267B1D00F5AE15 /* User.swift in Sources */,
+				7F1D69381E267B1D00F5AE15 /* GitHubUser.swift in Sources */,
 				7F1C9D461E23D76D00A18776 /* AlamofireExternalTests.swift in Sources */,
 				7F41ECB21B91F306003A2236 /* EVReflectionWorkaroundsTests.swift in Sources */,
 				7FD407AC1E0BF78100AEBF1B /* EVReflectionIssue145.swift in Sources */,
@@ -811,6 +816,7 @@
 				7F3FF3B41CF9A0F600BAE767 /* EVReflectionIssue88.swift in Sources */,
 				7F70E80E1D96C0AB0020DB2C /* EVReflectionIssueAF30.swift in Sources */,
 				7F59F9DB1C07999300C14CF9 /* EVReflectionEVObjectTests.swift in Sources */,
+				7F1F1E471E3261C9002CCF02 /* Issue.swift in Sources */,
 				7F8818F91C04447100E17072 /* EVReflectionPropertyMappingTest.swift in Sources */,
 				7F41ECA51B91F2E0003A2236 /* TestObjects.swift in Sources */,
 				7F9E680C1C62396500F0F4D3 /* EVReflectionNestedObjectsTests.swift in Sources */,
@@ -862,8 +868,9 @@
 				7F3FF3B51CF9A0F800BAE767 /* EVReflectionIssue88.swift in Sources */,
 				7F70E80F1D96C0AC0020DB2C /* EVReflectionIssueAF30.swift in Sources */,
 				7F1D69431E27974C00F5AE15 /* CloudKitTests.swift in Sources */,
-				7F1D694F1E28BC2900F5AE15 /* User.swift in Sources */,
+				7F1D694F1E28BC2900F5AE15 /* GitHubUser.swift in Sources */,
 				7F9930211E2426B500792CF1 /* AlamofireXml3Tests.swift in Sources */,
+				7F1F1E481E3261C9002CCF02 /* Issue.swift in Sources */,
 				7F3E31931BB909A7001E6788 /* EVReflectionJsonTests.swift in Sources */,
 				7F9336981C23F2FD00AF7076 /* EVRelfectionInheritanceTests.swift in Sources */,
 				7F3E31981BB909B1001E6788 /* WorkaroundEnumTest.swift in Sources */,
@@ -917,8 +924,9 @@
 				7F98019D1E260AD000D6C5C0 /* MoyaRxSwiftTests.swift in Sources */,
 				7F9336D31C2822B700AF7076 /* EVReflectionNumbersTests.swift in Sources */,
 				7F1D69461E28B39800F5AE15 /* AlamofireXml2Tests.swift in Sources */,
-				7F1D69501E28BC2900F5AE15 /* User.swift in Sources */,
+				7F1D69501E28BC2900F5AE15 /* GitHubUser.swift in Sources */,
 				422668031CB7802D00145E17 /* EVReflectionCustomInitTests.swift in Sources */,
+				7F1F1E491E3261C9002CCF02 /* Issue.swift in Sources */,
 				7F3FF3B61CF9A0F900BAE767 /* EVReflectionIssue88.swift in Sources */,
 				7F70E8101D96C0AC0020DB2C /* EVReflectionIssueAF30.swift in Sources */,
 				7F9336D61C2822C100AF7076 /* WorkaroundEnumTest.swift in Sources */,

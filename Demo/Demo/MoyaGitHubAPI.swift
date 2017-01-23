@@ -23,6 +23,8 @@ public enum GitHub {
     case zen
     case userProfile(String)
     case userRepositories(String)
+    case repo(String)
+    case issues(String)
     case xml
 }
 
@@ -45,6 +47,10 @@ extension GitHub: TargetType {
             return "/users/\(name.urlEscapedString)"
         case .userRepositories(let name):
             return "/users/\(name.urlEscapedString)/repos"
+        case .repo(let name):
+            return "/repos/\(name)"
+        case .issues(let repositoryName):
+            return "/repos/\(repositoryName)/issues"
         case .xml:
             return "/sample_xml"
         }
@@ -79,6 +85,10 @@ extension GitHub: TargetType {
             return "{\"login\": \"\(name)\", \"id\": 100}".data(using: String.Encoding.utf8)!
         case .userRepositories(_):
             return "[{\"name\": \"Repo Name\"}]".data(using: String.Encoding.utf8)!
+        case .repo(_):
+            return "{\"id\": \"1\", \"language\": \"Swift\", \"url\": \"https://api.github.com/repos/mjacko/Router\", \"name\": \"Router\"}".data(using: .utf8)!
+        case .issues(_):
+            return "{\"id\": 132942471, \"number\": 405, \"title\": \"Updates example with fix to String extension by changing to Optional\", \"body\": \"Fix it pls.\"}".data(using: .utf8)!
         case .xml:
             return "<wheather><location>Toronto, Canada</location></wheather>".data(using: String.Encoding.utf8)!
         }

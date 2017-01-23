@@ -49,7 +49,6 @@ class MoyaRxSwiftTests: XCTestCase {
 
     func testDownloadUserProfile() {
         let expectation = self.expectation(description: "evermeer")
-        
         GitHubRxMoyaProvider.request(.userProfile("evermeer"))
             .map(to: GitHubUser.self)
             .subscribe { event -> Void in
@@ -70,6 +69,51 @@ class MoyaRxSwiftTests: XCTestCase {
         }
     }
 
+    func testDownloadRepositoryInfo() {
+        let expectation = self.expectation(description: "EVReflection")
+        GitHubRxMoyaProvider.request(.repo("evermeer/EVReflection"))
+            .map(to: Repository.self)
+            .subscribe { event -> Void in
+                switch event {
+                case .next(let result):
+                    print(result)
+                    expectation.fulfill()
+                case .error(let error):
+                    XCTAssert(false, "no result from service")
+                    print(error)
+                default:
+                    break
+                }
+            }.addDisposableTo(disposeBag)
+        
+        waitForExpectations(timeout: 10) { error in
+            XCTAssertNil(error, "\(error)")
+        }
+    }
+
+    func testDownloadRepositoryIssues() {
+        let expectation = self.expectation(description: "EVReflection")
+        GitHubRxMoyaProvider.request(.issues("evermeer/EVReflection"))
+            .map(toArray: Issue.self)
+            .subscribe { event -> Void in
+                switch event {
+                case .next(let result):
+                    print(result)
+                    expectation.fulfill()
+                case .error(let error):
+                    XCTAssert(false, "no result from service")
+                    print(error)
+                default:
+                    break
+                }
+            }.addDisposableTo(disposeBag)
+        
+        waitForExpectations(timeout: 10) { error in
+            XCTAssertNil(error, "\(error)")
+        }
+    }
+    
+    
     func testDownloadWheatherResponseRxSwiftXML() {
         let expectation = self.expectation(description: "evermeer")
         

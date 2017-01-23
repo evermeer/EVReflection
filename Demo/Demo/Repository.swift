@@ -15,6 +15,8 @@ class Repository: EVObject { // Could also use any NSObject with EVReflectable b
   var watchers: NSNumber?
   var gitCommitsUrl: String?
   var subscribersUrl: String?
+  var subscribersCount: NSNumber?
+  var networkCount: NSNumber?
   var cloneUrl: String?
   var hasWiki: Bool = false
   var Url: String?

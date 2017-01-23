@@ -1,4 +1,4 @@
-[![CircleCI](https://img.shields.io/circleci/project/github/Moya/Moya.svg)](https://circleci.com/gh/Moya/Moya)
+[![CircleCI](https://circleci.com/gh/Moya/Moya/tree/master.svg?style=svg)](https://circleci.com/gh/Moya/Moya/tree/master)
 [![codecov.io](https://codecov.io/github/Moya/Moya/coverage.svg?branch=master)](https://codecov.io/github/Moya/Moya?branch=master)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 [![CocoaPods compatible](https://img.shields.io/cocoapods/v/Moya.svg)](https://cocoapods.org/pods/Moya)
@@ -57,34 +57,28 @@ Because of the many Swift versions Moya supports, it might be confusing to
 find the version of Moya that you need. Below is a table that shows which version of Moya
 you should use for your Swift version.
 
-| Swift version | Moya version    |
-| ------------- | --------------- |
-| 3.X           | >= 8.0.0-beta.1 |
-| 2.3           | 7.0.2 - 7.0.3   |
-| 2.2           | <= 7.0.1        |
+| Swift version | Moya version  |
+| ------------- | ------------- |
+| 3.X           | >= 8.0.0      |
+| 2.3           | 7.0.2 - 7.0.3 |
+| 2.2           | <= 7.0.1      |
 
 ### Swift Package Manager
 
-To integrate using Apple's swift package manager, add the following as a dependency to your Package.swift:
+To integrate using Apple's Swift package manager, add the following as a dependency to your `Package.swift`:
 
 ```swift
 .Package(url: "https://github.com/Moya/Moya", majorVersion: 8)
 ```
 
 and then specify `.Target(name: "Moya")` as a dependency of the Target in which you wish to use Moya.
-Here's an example PackageDescription:
+Here's an example `PackageDescription`:
 
 ```swift
 import PackageDescription
 
 let package = Package(
   name: "MyApp",
-  targets: [
-    Target(
-      name: "MyApp",
-      dependencies: [.Target(name: "Moya")]  
-    )
-  ],
   dependencies: [
     .Package(url: "https://github.com/Moya/Moya", majorVersion: 8)
   ]
@@ -96,7 +90,7 @@ let package = Package(
 For Moya, use the following entry in your Podfile:
 
 ```rb
-pod 'Moya', '8.0.0-beta.6'
+pod 'Moya', '8.0.0'
 ```
 
 In any file you'd like to use Moya in, don't forget to
@@ -112,7 +106,6 @@ pod 'Moya/RxSwift'
 # or
 
 pod 'Moya/ReactiveSwift'
-pod 'ReactiveSwift', '1.0.0-alpha.4'
 ```
 
 Then run `pod install`.
@@ -121,9 +114,8 @@ Then run `pod install`.
 
 Carthage users can point to this repository and use whichever
 generated framework they'd like, `Moya`, `RxMoya`, or `ReactiveMoya`.
-The full Moya framework is bundled in each of those frameworks;
-importing more than one framework in a single file will result in
-ambiguous lookups at compile time.
+When linking frameworks remember to always link `Moya` along with `RxMoya` and 
+`ReactiveMoya`, if you use any of these.
 
 ```
 github "Moya/Moya"
@@ -277,6 +269,7 @@ Moya has a great community around it and some people have created some very help
 - [Moya-JASONMapper](https://github.com/AvdLee/Moya-JASONMapper) - JASON bindings for Moya for easier JSON serialization
 - [Moya-Unbox](https://github.com/RyogaK/Moya-Unbox) - Unbox bindings for Moya for easier JSON serialization
 - [MoyaSugar](https://github.com/devxoul/MoyaSugar) – Syntactic sugar for Moya
+- [Moya-EVReflection](https://github.com/evermeer/EVReflection/tree/master/Source/Alamofire/Moya) - EVReflection bindings for Moya for easier JSON serialization (including subspecs for [RxSwift](https://github.com/evermeer/EVReflection/tree/master/Source/Alamofire/Moya/RxSwift) and [ReactiveCocoa](https://github.com/evermeer/EVReflection/tree/master/Source/Alamofire/Moya/ReactiveCocoa))
 
 We appreciate all the work being done by the community around Moya. If you would like to have your extension featured in the list above, simply create a pull request adding your extensions to the list.
 
