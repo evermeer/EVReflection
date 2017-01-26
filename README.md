@@ -206,6 +206,12 @@ func testArrayFunctions() {
     let newDictionaryArray = userArray.toDictionaryArray()
 }
 
+func testMapping() {
+    let player = GamePlayer()
+    player.name = "It's Me"
+
+    let administrator = GameAdministrator(usingValuesFrom: player)
+}
 ```
 
 This is how you can parse a .plist into an object model. See EVReflectionIssue124.swift to see it working.

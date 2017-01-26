@@ -180,6 +180,20 @@ extension EVReflectable where Self: NSObject {
     }
     
     /**
+     Convenience init for creating an object whith the property values of an other object.
+     
+     - parameter usingValuesFrom: The object of whicht the values will be used to create this object
+     - parameter conversionOptions: Option set for the various conversion options.
+     */
+    public init(usingValuesFrom: EVReflectable, conversionOptions: ConversionOptions = .None) {
+        self.init()
+        let dict = usingValuesFrom.toDictionary()
+        let _ = EVReflection.setPropertiesfromDictionary(dict, anyObject: self, conversionOptions: conversionOptions)
+    }
+    
+    
+    
+    /**
      Returns the hashvalue of this object
      
      - returns: The hashvalue of this object

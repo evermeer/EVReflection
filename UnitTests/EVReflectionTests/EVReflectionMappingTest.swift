@@ -43,9 +43,12 @@ class EVReflectionMappingTests: XCTestCase {
         NSLog("\n\n===> This will output a warning because GameAdministrator does not have the propery gamesPlayed")
         let administrator: GameAdministrator = player.mapObjectTo()
         
+        let administrator2 = GameAdministrator(usingValuesFrom: player)
+        
         // Remember that printing will use the property converter and multiply the administrator level with 4. So it will print the same as the player.
         NSLog("player = \(player)")
         NSLog("administrator = \(administrator)")
+        NSLog("administrator2 = \(administrator2)")
 
         XCTAssertEqual(administrator.name, player.name, "The names should be the same")
         XCTAssertEqual(administrator.memberSince, player.memberSince, "The member since dates should be the same.")
