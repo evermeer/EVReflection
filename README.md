@@ -91,7 +91,7 @@ For a quick start have a look at this [YouTube tutorial](https://www.youtube.com
 ## It's easy to use:
 
 Defining an object. You only have to set EVObject as it's base class (or extend an NSObject with EVReflectable):
-```
+```swift
 class User: EVObject {
     var id: Int = 0
     var name: String = ""
@@ -100,33 +100,33 @@ class User: EVObject {
 ```
 
 Parsing JSON to an object:
-```
+```swift
 let json:String = "{\"id\": 24, \"name\": \"Bob Jefferson\", \"friends\": [{\"id\": 29, \"name\": \"Jen Jackson\"}]}"
 let user = User(json: json)
 ```
 
 Parsing JSON to an array of objects:
-```
+```swift
 let json:String = "[{\"id\": 27, \"name\": \"Bob Jefferson\"}, {\"id\": 29, \"name\": \"Jen Jackson\"}]"
 let array = [User](json: json)
 ```
 
 Parsing from and to a dictionary:
-```
+```swift
 let dict = user.toDictionary()
 let newUser = User(dictionary: dict)
 XCTAssert(user == newUser, "Pass")
 ```
 
 Saving and loading an object to and from a file:
-```
+```swift
 user.saveToTemp("temp.dat")
 let result = User(fileNameInTemp: "temp.dat")
 XCTAssert(theObject == result, "Pass")
 ```
 
 Mapping object to another type:
-```
+```swift
 let administrator: Administrator = user.mapObjectTo()
 ```
 
@@ -135,7 +135,7 @@ let administrator: Administrator = user.mapObjectTo()
 
 If you want to do the same but you have XML, then you can achieve that using the XML subspec 'pod EVReflection/XML' It is a simple way to parse XML. With that your code will look like this:
 
-```
+```swift
 let xml = "<user><id>27</id><name>Bob</name><friends><user><id>20</id><name>Jen</name></user></friends></user>"
 let user = User(xml: xml)
 ```
@@ -160,14 +160,14 @@ pod "EVReflection"', :git => 'https://github.com/evermeer/EVReflection.git', :br
 
 Version 0.36 of cocoapods will make a dynamic framework of all the pods that you use. Because of that it's only supported in iOS 8.0 or later. When using a framework, you also have to add an import at the top of your swift file like this:
 
-```
+```swift
 import EVReflection
 ```
 
 If you want support for older versions than iOS 8.0, then you can also just copy the files from the pod folder to your project. You do have to use the Swift2.3 version or older. iOS 7 support is dropped from Swift 3.
 
 Be aware that when you have your object definitions in a framework and not in your main app, then you have to let EVReflection know that it should also look in that framework for your classes. This can easilly be done by using the following one liner (for instance in the appdelegate)
-```
+```swift
 EVReflection.setBundleIdentifier(YourDataObject.self)
 ```
  
@@ -175,7 +175,7 @@ EVReflection.setBundleIdentifier(YourDataObject.self)
 ## More Sample code 
 Clone EVReflection to your desktop to see these and more unit tests
 
-```
+```swift
 func testEquatable() {
     var theObjectA = TestObject2()
     theObjectA.objectValue = "value1"
@@ -215,7 +215,7 @@ func testMapping() {
 ```
 
 This is how you can parse a .plist into an object model. See EVReflectionIssue124.swift to see it working.
-```
+```swift
    if let path = Bundle(for: type(of: self)).path(forResource: "EVReflectionIssue124", ofType: "plist") {
        if let data = NSDictionary(contentsOfFile: path) {
           let plistObject = Wrapper(dictionary: data)
@@ -225,7 +225,7 @@ This is how you can parse a .plist into an object model. See EVReflectionIssue12
 ```
 
 If you want to parse XML, then you can use the pod subxpec EVReflection/XML
-```
+```swift
     let xml: String = "<data><item name=\"attrib\">itemData</item></data>"
     let xmlObject = MyObject(xml: xml)
     print(xmlObject)
@@ -234,7 +234,7 @@ If you want to parse XML, then you can use the pod subxpec EVReflection/XML
 ## Extending existing objects:
 It is possible to extend other objects with the EVReflectable protocol instead of changing the base class to EVObject. This will let you add the power of EVReflection to objects that also need another framework. If for instance you are using Realm, you can extend all your Object classes with the power of EVReflection by only adding these lines of code:
 
-```
+```swift
 import EVReflection
 extension Object : EVReflectable { }
 ```
@@ -258,7 +258,7 @@ In EVReflection all functions will use a default conversion option specific to i
 - DefaultSerialize = [PropertyConverter, PropertyMapping, SkipPropertyValue]
 
 If you want to change one of the default conversion types, then you can do that using something like:
-```
+```swift
 ConversionOptions.DefaultNSCoding = [.PropertyMapping]
 ```
 
@@ -273,7 +273,7 @@ When creating objects from JSON EVReflection will automatically detect if snake_
 
 When exporting object to a dictionary or JSON string you will have an option to specify that you want a conversion to snace_case or not. The default is .DefaultDeserialize which will also convert to snake case.
 
-```
+```swift
 let jsonString = myObject.toJsonString([.DefaultSerialize])
 let dict = myObject.toDictionary([PropertyConverter, PropertyMapping, SkipPropertyValue])
 ```
@@ -282,7 +282,7 @@ let dict = myObject.toDictionary([PropertyConverter, PropertyMapping, SkipProper
 ### Custom keyword mapping
 It's also possible to create a custom property mapping. You can define if an import should be ignored, if an export should be ignored or you can map a property name to another key name (for the dictionary and json). For this you only need to implement the propertyMapping function in the object. See [Conversion options](https://github.com/evermeer/EVReflection#conversion-options) for when this function will be called.
 
-```
+```swift
 public class TestObject5: EVObject {
     var Name: String = "" // Using the default mapping
     var propertyInObject: String = "" // will be written to or read from keyInJson
@@ -296,7 +296,7 @@ public class TestObject5: EVObject {
 
 ### Custom property converters
 You can also use your own property converters. For this you need to implement the propertyConverters function in your object. For each property you can create a custom getter and setter that will then be used by EVReflection. In the sample below the JSON texts 'Sure' and 'Nah' will be converted to true or false for the property isGreat. See [Conversion options](https://github.com/evermeer/EVReflection#conversion-options) for when this function will be called.
-```
+```swift
 public class TestObject6: EVObject {
     var isGreat: Bool = false
 
@@ -316,7 +316,7 @@ public class TestObject6: EVObject {
 ### Skip the serialization or deserialization of specific values
 When there is a need to not (de)serialize specific values like nil NSNull or empty strings you can implement the skipPropertyValue function and return true if the value needs to be skipped. See [Conversion options](https://github.com/evermeer/EVReflection#conversion-options) for when this function will be called.
 
-```
+```swift
 class TestObjectSkipValues: EVObject {
    var value1: String? 
    var value2: [String]?
@@ -341,7 +341,7 @@ class TestObjectSkipValues: EVObject {
 ### Property validators
 Before setting a value the value will always be validated using the standard validateValue KVO function. This means that for every property you can also create a validation function for that property. See the sample below where there is a validateName function for the name property.
 
-```
+```swift
 enum MyValidationError: ErrorType {
    case TypeError,
    LengthError
@@ -370,7 +370,7 @@ public class GameUser: EVObject {
 ### Deserialization class level validations
 There is also support for class level validation when deserializing to an object. There are helper functions for making keys required or not allowed. You can also add custom messages. Here is some sample code about how you can implement such a validation
 
-```
+```swift
 public class ValidateObject: EVObject {
    var requiredKey1: String?
    var requiredKey2: String?
@@ -387,7 +387,7 @@ public class ValidateObject: EVObject {
 }
 ```
 You could then test this validation with code like:
-```
+```swift
 func testValidation() {
    // Test missing required key
    let json = "{\"requiredKey1\": \"Value1\"}"
@@ -403,7 +403,7 @@ func testValidation() {
 ### What to do when you use object inheritance
 You can deserialize json to an object that uses inheritance. When the properties are specified as the base class, then the correct specific object type will be returned by the function `getSpecificType`. See the sample code below or the unit test in EVReflectionInheritanceTests.swift
 
-```
+```swift
 class Quz: EVObject {
     var fooArray: Array<Foo> = []
     var fooBar: Foo?
