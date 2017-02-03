@@ -93,7 +93,7 @@ platform :ios, '10.0'
 use_frameworks!
 
 target '<Your Target Name>' do
-    pod 'Alamofire', '~> 4.0'
+    pod 'Alamofire', '~> 4.3'
 end
 ```
 
@@ -117,10 +117,22 @@ $ brew install carthage
 To integrate Alamofire into your Xcode project using Carthage, specify it in your `Cartfile`:
 
 ```ogdl
-github "Alamofire/Alamofire" ~> 4.0
+github "Alamofire/Alamofire" ~> 4.3
 ```
 
 Run `carthage update` to build the framework and drag the built `Alamofire.framework` into your Xcode project.
+
+### Swift Pacakge Manager
+
+The [Swift Pacakage Manager](https://swift.org/package-manager/) is a tool for automating the distribution of Swift code and is integrated into the `swift` compiler. It is in early development, but Alamofire does support its use on supported platforms. 
+
+Once you have your Swift package set up, adding Alamofire as a dependency is as easy as adding it to the `dependencies` value of your `Package.swift`.
+
+```swift
+dependencies: [
+    .Package(url: "https://github.com/Alamofire/Alamofire.git", majorVersion: 4)
+]
+```
 
 ### Manually
 
@@ -595,6 +607,8 @@ Alamofire.request("https://httpbin.org/basic-auth/\(user)/\(password)")
 
 Requests made in Alamofire that fetch data from a server can download the data in-memory or on-disk. The `Alamofire.request` APIs used in all the examples so far always downloads the server data in-memory. This is great for smaller payloads because it's more efficient, but really bad for larger payloads because the download could run your entire application out-of-memory. Because of this, you can also use the `Alamofire.download` APIs to download the server data to a temporary file on-disk.
 
+> This will only work on `macOS` as is. Other platforms don't allow access to the filesystem outside of your app's sandbox. To download files on other platforms, see the [Download File Destination](#download-file-destination) section.
+
 ```swift
 Alamofire.download("https://httpbin.org/image/png").responseData { response in
 	if let data = response.result.value {
@@ -1010,8 +1024,8 @@ Alamofire.request(urlString, method: .post)
 let url = URL(string: urlString)!
 Alamofire.request(url, method: .post)
 
-let urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: true)
-Alamofire.request(.post, URLComponents)
+let urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: true)!
+Alamofire.request(urlComponents, method: .post)
 ```
 
 Applications interacting with web applications in a significant manner are encouraged to have custom types conform to `URLConvertible` as a convenient way to map domain-specific models to server resources.
@@ -1088,7 +1102,7 @@ enum Router: URLRequestConvertible {
 ```
 
 ```swift
-Alamofire.request(Router.search(query: "foo bar", page: 1)) // ?q=foo%20bar&offset=50
+Alamofire.request(Router.search(query: "foo bar", page: 1)) // https://example.com/search?q=foo%20bar&offset=50
 ```
 
 ##### CRUD & Authorization
@@ -1153,7 +1167,7 @@ enum Router: URLRequestConvertible {
 ```
 
 ```swift
-Alamofire.request(Router.readUser("mattt")) // GET /users/mattt
+Alamofire.request(Router.readUser("mattt")) // GET https://example.com/users/mattt
 ```
 
 ### Adapting and Retrying Requests
@@ -1177,7 +1191,7 @@ class AccessTokenAdapter: RequestAdapter {
 	func adapt(_ urlRequest: URLRequest) throws -> URLRequest {
 	    var urlRequest = urlRequest
 
-	    if urlRequest.urlString.hasPrefix("https://httpbin.org") {
+        if let urlString = urlRequest.url?.absoluteString, urlString.hasPrefix("https://httpbin.org") {
 		    urlRequest.setValue("Bearer " + accessToken, forHTTPHeaderField: "Authorization")
 	    }
 
@@ -1234,7 +1248,7 @@ class OAuth2Handler: RequestAdapter, RequestRetrier {
     // MARK: - RequestAdapter
 
     func adapt(_ urlRequest: URLRequest) throws -> URLRequest {
-        if let url = urlRequest.url, url.urlString.hasPrefix(baseURLString) {
+        if let urlString = urlRequest.url?.absoluteString, urlString.hasPrefix(baseURLString) {
             var urlRequest = urlRequest
             urlRequest.setValue("Bearer " + accessToken, forHTTPHeaderField: "Authorization")
             return urlRequest
@@ -1248,7 +1262,7 @@ class OAuth2Handler: RequestAdapter, RequestRetrier {
     func should(_ manager: SessionManager, retry request: Request, with error: Error, completion: @escaping RequestRetryCompletion) {
         lock.lock() ; defer { lock.unlock() }
 
-        if let response = request.task.response as? HTTPURLResponse, response.statusCode == 401 {
+        if let response = request.task?.response as? HTTPURLResponse, response.statusCode == 401 {
             requestsToRetry.append(completion)
 
             if !isRefreshing {

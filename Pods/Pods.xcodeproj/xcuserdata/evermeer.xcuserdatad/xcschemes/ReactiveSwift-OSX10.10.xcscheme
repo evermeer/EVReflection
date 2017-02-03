@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "83E67B4BAF539D75ADF3BCD61E231A1D"
+               BlueprintIdentifier = "D5A1A134CB075758ED7F61CC9C436F6B"
                BuildableName = "ReactiveSwift.framework"
                BlueprintName = "ReactiveSwift-OSX10.10"
                ReferencedContainer = "container:Pods.xcodeproj">
@@ -45,7 +45,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "83E67B4BAF539D75ADF3BCD61E231A1D"
+            BlueprintIdentifier = "D5A1A134CB075758ED7F61CC9C436F6B"
             BuildableName = "ReactiveSwift.framework"
             BlueprintName = "ReactiveSwift-OSX10.10"
             ReferencedContainer = "container:Pods.xcodeproj">

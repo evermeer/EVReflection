@@ -442,6 +442,30 @@ class EVReflectionTests: XCTestCase {
         XCTAssertEqual(child1.property2, 20)
         XCTAssertEqual(d.control, "testVal")
     }
+    
+    func testDictionaryToJson() {
+        let dict1: [String: Any] = [
+            "requestId": "request",
+            "postcode": "1111AA",
+            "houseNumber": "1"
+        ]
+        let json = dict1.toJsonString()
+        print("dict:\n\(dict1)\n\njson:\n\(json)")
+        let dict2 = Dictionary<String, Any>(json: json)
+        print("dict2:\n\(dict2)")
+
+        let dict3: [String: Any] = [
+            "requestId": "post",
+            "postcode": "1234AA",
+            "houseNumber": "3"
+        ]
+        let array:[NSDictionary] = [dict1 as NSDictionary, dict2 as NSDictionary, dict3 as NSDictionary]
+        let jsonArray = array.toJsonStringArray()
+        
+        print("json array: \n\(jsonArray)")
+        let array2 = [NSDictionary](jsonArray: jsonArray)
+        print("array2:\n\(array2)")
+    }
 }
 
 

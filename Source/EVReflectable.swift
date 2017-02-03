@@ -116,7 +116,7 @@ extension EVReflectable where Self: NSObject {
     
     
     /**
-     Convenience init for creating an object whith the property values of a dictionary.
+    init for creating an object whith the property values of a dictionary.
      
      - parameter dictionary: The dictionary that will be used to create this object
      - parameter conversionOptions: Option set for the various conversion options.
@@ -127,7 +127,7 @@ extension EVReflectable where Self: NSObject {
     }
     
     /**
-     Convenience init for creating an object whith the contents of a json string.
+    init for creating an object whith the contents of a json string.
      
      - parameter json: The json string that will be used to create this object
      - parameter conversionOptions: Option set for the various conversion options.
@@ -139,7 +139,7 @@ extension EVReflectable where Self: NSObject {
     }
     
     /**
-     Convenience init for creating an object whith the property values of json Data.
+    init for creating an object whith the property values of json Data.
      
      - parameter dictionary: The dictionary that will be used to create this object
      - parameter conversionOptions: Option set for the various conversion options.
@@ -180,7 +180,7 @@ extension EVReflectable where Self: NSObject {
     }
     
     /**
-     Convenience init for creating an object whith the property values of an other object.
+    init for creating an object whith the property values of an other object.
      
      - parameter usingValuesFrom: The object of whicht the values will be used to create this object
      - parameter conversionOptions: Option set for the various conversion options.
@@ -403,7 +403,7 @@ extension EVReflectable {
 
     
     /**
-     Convenience method for instantiating an array from a json string.
+    method for instantiating an array from a json string.
      
      - parameter json: The json string
      - parameter conversionOptions: Option set for the various conversion options.
@@ -532,7 +532,7 @@ extension EVReflectable {
     }
     
     /**
-     Convenience function for adding a new status message to the evReflectionStatus array
+    function for adding a new status message to the evReflectionStatus array
      
      - parameter type:    A string to specify the message type
      - parameter message: The message for the status.

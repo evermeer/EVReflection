@@ -116,8 +116,6 @@ public extension Array where Element: NSObject {
         let item = self.getTypeInstance()
         return NSStringFromClass(type(of:item))
     }
-    
-    
 }
 
 
@@ -146,4 +144,48 @@ public extension Array where Element: EVReflectable {
     public func toDictionaryArray(_ conversionOptions: ConversionOptions = .DefaultSerialize) -> NSArray {
         return self.map({($0).toDictionary(conversionOptions)}) as NSArray
     }
+}
+
+
+/**
+ Extending Array with an some EVReflection functions where the elements can be of type NSObject
+ */
+public extension Array where Element: NSDictionary {
+    
+    /**
+     Initialize a dictionary array based on a json string
+     
+     - parameter json: The json string
+     */
+    public init(jsonArray: String) {
+        self.init()
+
+        let dictArray = EVReflection.dictionaryArrayFromJson(jsonArray)
+        
+        for item in dictArray {
+            self.append(item as! Element)
+        }
+    }
+    
+    /**
+     Initialize a dictionary array based on a json string
+     
+     - parameter json: The json string
+     */
+    public init(dataArray: Data) {
+        self.init(jsonArray: String(data: dataArray, encoding: .utf8) ?? "")
+    }
+    
+    /**
+     Convert this array to a json string
+     
+     - parameter conversionOptions: Option set for the various conversion options.
+     
+     - returns: The json string
+     */
+    public func toJsonStringArray(prettyPrinted: Bool = false) -> String {
+        let jsonArray: [String] = self.map { ($0 as! Dictionary<String, Any>).toJsonString(prettyPrinted: prettyPrinted) }
+        return "[\n" + jsonArray.joined(separator: ", \n") + "\n]"
+    }
+
 }

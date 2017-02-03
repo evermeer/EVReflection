@@ -205,6 +205,30 @@ final public class EVReflection {
                 
         return result
     }
+
+    /**
+     Return an array of dictionaries as the representation for the json string
+     
+     - parameter json: The json string that will be converted
+     
+     - returns: The dictionary representation of the json
+     */
+    public class func dictionaryArrayFromJson(_ json: String?) -> [NSDictionary] {
+        let result = [NSDictionary]()
+        if json == nil {
+            print("ERROR: nil is not valid json!")
+        } else if let jsonData = json!.data(using: String.Encoding.utf8) {
+            do {
+                if let jsonDic = try JSONSerialization.jsonObject(with: jsonData, options: JSONSerialization.ReadingOptions.mutableContainers) as? [NSDictionary] {
+                    return jsonDic
+                }
+            } catch {
+                print("ERROR: Invalid json! \(error.localizedDescription)")
+            }
+        }
+        
+        return result
+    }
     
     
     /**
@@ -556,7 +580,7 @@ final public class EVReflection {
         dateFormatter = DateFormatter()
         dateFormatter!.locale = Locale(identifier: "en_US_POSIX")
         dateFormatter!.timeZone = TimeZone(secondsFromGMT: 0)
-        dateFormatter!.dateFormat = "yyyy'-'MM'-'dd'T'HH':'mm':'ssZ"
+        dateFormatter!.dateFormat = "yyyy'-'MM'-'dd' 'HH':'mm':'ssZ"
         return dateFormatter!
     }
     
