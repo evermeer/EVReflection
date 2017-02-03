@@ -444,22 +444,22 @@ class EVReflectionTests: XCTestCase {
     }
     
     func testDictionaryToJson() {
-        let dict1: [String: Any] = [
+        let dict1: NSDictionary = [
             "requestId": "request",
             "postcode": "1111AA",
             "houseNumber": "1"
         ]
         let json = dict1.toJsonString()
         print("dict:\n\(dict1)\n\njson:\n\(json)")
-        let dict2 = Dictionary<String, Any>(json: json)
+        let dict2 = NSMutableDictionary(json: json)
         print("dict2:\n\(dict2)")
 
-        let dict3: [String: Any] = [
+        let dict3: NSDictionary = [
             "requestId": "post",
             "postcode": "1234AA",
             "houseNumber": "3"
         ]
-        let array:[NSDictionary] = [dict1 as NSDictionary, dict2 as NSDictionary, dict3 as NSDictionary]
+        let array:[NSDictionary] = [dict1, dict2, dict3]
         let jsonArray = array.toJsonStringArray()
         
         print("json array: \n\(jsonArray)")

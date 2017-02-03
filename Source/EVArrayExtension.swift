@@ -184,7 +184,7 @@ public extension Array where Element: NSDictionary {
      - returns: The json string
      */
     public func toJsonStringArray(prettyPrinted: Bool = false) -> String {
-        let jsonArray: [String] = self.map { ($0 as! Dictionary<String, Any>).toJsonString(prettyPrinted: prettyPrinted) }
+        let jsonArray: [String] = self.map { ($0 as NSDictionary).toJsonString(prettyPrinted: prettyPrinted) as String }
         return "[\n" + jsonArray.joined(separator: ", \n") + "\n]"
     }
 

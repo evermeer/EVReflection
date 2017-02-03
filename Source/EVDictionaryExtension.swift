@@ -12,12 +12,12 @@ import Foundation
 /**
  Dictionary extension for creating a json strin from an array of enum values
  */
-public extension Dictionary where Key: ExpressibleByStringLiteral, Value: Any {
+public extension NSMutableDictionary {
     
     /**
      Initialize a Dictionary based on a json string
      */
-    init(json: String) {
+    convenience init(json: String) {
         self.init()
         let jsonDict = EVReflection.dictionaryFromJson(json)
         for (key, value) in jsonDict {
@@ -30,10 +30,12 @@ public extension Dictionary where Key: ExpressibleByStringLiteral, Value: Any {
     /**
      Initialize a Dictionary based on json data
      */
-    init(data: Data) {
+    convenience init(data: Data) {
         self.init(json: String(data: data, encoding: .utf8) ?? "")
     }
-    
+}
+
+public extension NSDictionary {
     /**
      Create a json string based on this dictionary
      
