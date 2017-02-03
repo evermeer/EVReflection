@@ -33,7 +33,7 @@ Run the unit tests to see EVReflection in action.
 
 EVReflection is used in [EVCloudKitDao](https://github.com/evermeer/EVCloudKitDao) and [EVWordPressAPI](https://github.com/evermeer/EVWordPressAPI)
 
-In most cases EVReflection is very easy to use. Just take a look at the [YouTube tutorial](https://www.youtube.com/watch?v=LPWsQD2nxqg) or the section [It's easy to use](https://github.com/evermeer/EVReflection#its-easy-to-use). But if you do want to do non standard specific things, then EVReflection will offer you an extensive range of functionality. 
+In most cases EVReflection is very easy to use. Just take a look the section [It's easy to use](https://github.com/evermeer/EVReflection#its-easy-to-use). But if you do want to do non standard specific things, then EVReflection will offer you an extensive range of functionality. 
 
 ### Available extensions
 There are extension available for using EVReflection with [XMLDictionairy](https://github.com/nicklockwood/XMLDictionary), [CloudKit](https://developer.apple.com/library/content/documentation/DataManagement/Conceptual/CloudKitQuickStart/Introduction/Introduction.html), [Alamofire](https://github.com/Alamofire/Alamofire) and [Moya](https://github.com/Moya/Moya) with [RxSwift](https://github.com/ReactiveX/RxSwift) or [ReactiveSwift](https://github.com/ReactiveSwift/ReactiveSwift)
@@ -213,6 +213,25 @@ func testMapping() {
     let administrator = GameAdministrator(usingValuesFrom: player)
 }
 ```
+
+Direct conversion from a NSDictionary (or an array of NSDictionaries) to json and back.
+```swift
+let dict1: NSDictionary = [
+  "requestId": "request",
+  "postcode": "1111AA",
+  "houseNumber": "1"
+]
+let json = dict1.toJsonString()
+let dict2 = NSMutableDictionary(json: json)
+print("dict:\n\(dict1)\n\njson:\n\(json)\n\ndict2:\n\(dict2)")
+
+// You can do the same with arrays
+let array:[NSDictionary] = [dict1, dict2]
+let jsonArray = array.toJsonStringArray()
+let array2 = [NSDictionary](jsonArray: jsonArray)
+print("json array: \n\(jsonArray)\n\narray2:\n\(array2)")
+```
+
 
 This is how you can parse a .plist into an object model. See EVReflectionIssue124.swift to see it working.
 ```swift
