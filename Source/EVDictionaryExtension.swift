@@ -21,9 +21,7 @@ public extension NSMutableDictionary {
         self.init()
         let jsonDict = EVReflection.dictionaryFromJson(json)
         for (key, value) in jsonDict {
-            if let k = key as? Key, let v = value as? Value {
-                self[k] = v
-            }
+            self[key] = value
         }
     }
     

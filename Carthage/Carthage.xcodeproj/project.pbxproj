@@ -10,6 +10,10 @@
 		2DC8AA401C24215500FA6B8E /* EVReflection.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DC8AA3F1C24215500FA6B8E /* EVReflection.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2DC8AA661C242E0600FA6B8E /* EVReflectionOSX.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DC8AA651C242E0600FA6B8E /* EVReflectionOSX.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7F1C9D311E23CD6900A18776 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 7F1C9D301E23CD6900A18776 /* README.md */; };
+		7F75C54B1E463786003B08C5 /* EVDictionaryExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F75C54A1E463786003B08C5 /* EVDictionaryExtension.swift */; };
+		7F75C54C1E4637A0003B08C5 /* EVDictionaryExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F75C54A1E463786003B08C5 /* EVDictionaryExtension.swift */; };
+		7F75C54D1E4637A1003B08C5 /* EVDictionaryExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F75C54A1E463786003B08C5 /* EVDictionaryExtension.swift */; };
+		7F75C54E1E4637A2003B08C5 /* EVDictionaryExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F75C54A1E463786003B08C5 /* EVDictionaryExtension.swift */; };
 		7FD67D8E1C288B560071234B /* EVReflectionWatchOS.h in Headers */ = {isa = PBXBuildFile; fileRef = 7FD67D8D1C288B560071234B /* EVReflectionWatchOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7FF9B82A1E237F910089A3A1 /* EVArrayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF9B8251E237F910089A3A1 /* EVArrayExtension.swift */; };
 		7FF9B82B1E237F910089A3A1 /* EVArrayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF9B8251E237F910089A3A1 /* EVArrayExtension.swift */; };
@@ -44,6 +48,7 @@
 		7F1C9D2B1E23C6C100A18776 /* EVReflection.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = EVReflection.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7F1C9D2C1E23C6C100A18776 /* EVReflection.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = EVReflection.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7F1C9D301E23CD6900A18776 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		7F75C54A1E463786003B08C5 /* EVDictionaryExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EVDictionaryExtension.swift; path = ../Source/EVDictionaryExtension.swift; sourceTree = "<group>"; };
 		7F9336B01C28227400AF7076 /* EVReflectionTVOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EVReflectionTVOS.h; sourceTree = "<group>"; };
 		7F9336B21C28227400AF7076 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7FD67D8D1C288B560071234B /* EVReflectionWatchOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EVReflectionWatchOS.h; sourceTree = "<group>"; };
@@ -143,6 +148,7 @@
 			isa = PBXGroup;
 			children = (
 				7FF9B8251E237F910089A3A1 /* EVArrayExtension.swift */,
+				7F75C54A1E463786003B08C5 /* EVDictionaryExtension.swift */,
 				7FF9B8261E237F910089A3A1 /* EVObject.swift */,
 				7FF9B8271E237F910089A3A1 /* EVReflectable.swift */,
 				7FF9B8281E237F910089A3A1 /* EVReflection.swift */,
@@ -346,6 +352,7 @@
 			files = (
 				7F1C9D311E23CD6900A18776 /* README.md in Sources */,
 				7FF9B83A1E237F910089A3A1 /* EVWorkaroundHelpers.swift in Sources */,
+				7F75C54B1E463786003B08C5 /* EVDictionaryExtension.swift in Sources */,
 				7FF9B82A1E237F910089A3A1 /* EVArrayExtension.swift in Sources */,
 				7FF9B82E1E237F910089A3A1 /* EVObject.swift in Sources */,
 				7FF9B8321E237F910089A3A1 /* EVReflectable.swift in Sources */,
@@ -357,6 +364,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7F75C54C1E4637A0003B08C5 /* EVDictionaryExtension.swift in Sources */,
 				7FF9B83B1E237F910089A3A1 /* EVWorkaroundHelpers.swift in Sources */,
 				7FF9B82B1E237F910089A3A1 /* EVArrayExtension.swift in Sources */,
 				7FF9B82F1E237F910089A3A1 /* EVObject.swift in Sources */,
@@ -369,6 +377,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7F75C54D1E4637A1003B08C5 /* EVDictionaryExtension.swift in Sources */,
 				7FF9B83C1E237F910089A3A1 /* EVWorkaroundHelpers.swift in Sources */,
 				7FF9B82C1E237F910089A3A1 /* EVArrayExtension.swift in Sources */,
 				7FF9B8301E237F910089A3A1 /* EVObject.swift in Sources */,
@@ -381,6 +390,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7F75C54E1E4637A2003B08C5 /* EVDictionaryExtension.swift in Sources */,
 				7FF9B83D1E237F910089A3A1 /* EVWorkaroundHelpers.swift in Sources */,
 				7FF9B82D1E237F910089A3A1 /* EVArrayExtension.swift in Sources */,
 				7FF9B8311E237F910089A3A1 /* EVObject.swift in Sources */,
