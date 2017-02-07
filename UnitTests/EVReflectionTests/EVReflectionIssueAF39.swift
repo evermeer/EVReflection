@@ -58,6 +58,17 @@ class EVReflectionIssueAF39: XCTestCase {
         }
     }
 
+    func testGenericsJson3() {
+        let json: String = "{\"success\":11, \"message\":\"test\", \"data\":{\"someField\":\"value1\"}}"
+        let a = ApiResponse<RandomObject>(json: json)
+        print("object = \(a)")
+        XCTAssertEqual(a.success, 11, "success should contain 11")
+        XCTAssertEqual(a.message, "test", "message should contain test")
+        XCTAssertEqual(a.data.count, 1, "array should contain 3 elements")
+        if a.data.count == 2 {
+            XCTAssertEqual(a.data[0].someField, "value1", "array[0].name should contain val1")
+        }
+    }
 }
 
 open class ApiGenericBase39: EVNetworkingObject {
@@ -86,3 +97,8 @@ open class ApiResponse<T>: ApiGenericBase39, EVGenericsKVC where T:NSObject {
 public class Vehicle: EVNetworkingObject {
     var uuid: String?
 }
+
+public class RandomObject: EVNetworkingObject {
+    var someField: String?
+}
+
