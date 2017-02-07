@@ -183,6 +183,7 @@
 		7FF4BEB51CF2DA8B0086F999 /* EVReflectionIssue86.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF4BEB31CF2DA6E0086F999 /* EVReflectionIssue86.swift */; };
 		7FF4BEB61CF2DA8C0086F999 /* EVReflectionIssue86.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF4BEB31CF2DA6E0086F999 /* EVReflectionIssue86.swift */; };
 		7FF4BEB71CF2DA8E0086F999 /* EVReflectionIssue86.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF4BEB31CF2DA6E0086F999 /* EVReflectionIssue86.swift */; };
+		7FF953671E4A8237003B40A6 /* EVReflectionIssueAF39.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF953661E4A8237003B40A6 /* EVReflectionIssueAF39.swift */; };
 		FBFF595CD3FC646CA2D354CA /* Pods_UnitTestsOSX.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B70F70D2DAAF91D8FE83F9BB /* Pods_UnitTestsOSX.framework */; };
 /* End PBXBuildFile section */
 
@@ -256,6 +257,7 @@
 		7FE271641DDDCF8400C8B4CD /* EVReflectionIssue141.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVReflectionIssue141.swift; sourceTree = "<group>"; };
 		7FF4BEAD1CF0FB920086F999 /* EVReflectionIssue84.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVReflectionIssue84.swift; sourceTree = "<group>"; };
 		7FF4BEB31CF2DA6E0086F999 /* EVReflectionIssue86.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVReflectionIssue86.swift; sourceTree = "<group>"; };
+		7FF953661E4A8237003B40A6 /* EVReflectionIssueAF39.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVReflectionIssueAF39.swift; sourceTree = "<group>"; };
 		7FF9B8711E23A4430089A3A1 /* UnitTestsiOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UnitTestsiOS.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7FF9B8721E23A4430089A3A1 /* UnitTestsOSX.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UnitTestsOSX.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7FF9B8731E23A4430089A3A1 /* UnitTestsTVOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UnitTestsTVOS.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -445,6 +447,7 @@
 				7F7663371DA922A300740ACA /* EVReflectionIssue114b.swift */,
 				7FE271641DDDCF8400C8B4CD /* EVReflectionIssue141.swift */,
 				7FD407AA1E0BE8BE00AEBF1B /* EVReflectionIssue145.swift */,
+				7FF953661E4A8237003B40A6 /* EVReflectionIssueAF39.swift */,
 			);
 			name = GitHubIssues;
 			sourceTree = "<group>";
@@ -830,6 +833,7 @@
 				7F83A6711D132F6100A4C508 /* EVReflectionIssue96.swift in Sources */,
 				7F57C0301D21A658006070E1 /* EVReflectionIssue99.swift in Sources */,
 				7F59F9DF1C09BFB900C14CF9 /* EVRelfectionInheritanceTests.swift in Sources */,
+				7FF953671E4A8237003B40A6 /* EVReflectionIssueAF39.swift in Sources */,
 				7F7BBC661C009EE90046F05E /* EVReflectionMappingTest.swift in Sources */,
 				7FE271661DDDCF9F00C8B4CD /* EVReflectionIssue141.swift in Sources */,
 				7F1C9D471E23D76D00A18776 /* AlamofireTests.swift in Sources */,
