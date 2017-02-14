@@ -1,0 +1,56 @@
+{
+    "GroupId": 1067820,
+    "Reference": "imageAttachment",
+    "SentDate": "2017-02-14T13:58:39.8130000",
+    "DocumentTypeName": "fasdsad",
+    "TradingPartnerName": "Timocratic Peoples Republic of the North Island",
+    "Direction": "Send",
+    "Status": "Complete",
+    "HasDownloadableDocuments": true,
+    "HasUndownloadedDocuments": false,
+    "GroupedDocuments": [
+                         {
+                         "Id": 1067820,
+                         "Reference": "imageAttachment",
+                         "DocumentTypeName": "fasdsads",
+                         "Status": "FileSplitted",
+                         "InternalDocumentType": "Sender",
+                         "Label": "asddagasd",
+                         "IsLongtail": true,
+                         "Success": false,
+                         "StatusCode": 0
+                         },
+                         {
+                         "Id": 1067821,
+                         "Reference": "imageAttachment",
+                         "DocumentTypeName": "Invoice",
+                         "Status": "asdasdgfasd",
+                         "InternalDocumentType": "asdadgfF",
+                         "Label": "TRAA TTT",
+                         "IsLongtail": false,
+                         "Success": false,
+                         "StatusCode": 0
+                         }
+                         ],
+    "DocumentAttachmentLinks": [
+                                {
+                                "Id": 20,
+                                "DocumentId": 1067820,
+                                "FileName": "Screen Shot 2016-04-05 at 2.08.47 pm.png",
+                                "AttachmentId": "8d95da0ef14942da9375f872ba7c1714",
+                                "DateCreated": "2017-02-14T13:58:39.9056956+13:00",
+                                "DateDownloaded": "2017-02-14T01:01:57.5855438+00:00"
+                                },
+                                {
+                                "Id": 21,
+                                "DocumentId": 1067822,
+                                "FileName": "imageAttachment_Preview.pdf",
+                                "AttachmentId": "ce861c30662f450588e4466a01b8519e",
+                                "DateCreated": "2017-02-14T13:59:02.6122139+13:00",
+                                "DateDownloaded": "0001-01-01T00:00:00.0000000+00:00"
+                                }
+                                ],
+    "Success": true,
+    "Message": "OK",
+    "StatusCode": 200
+}
