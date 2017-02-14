@@ -393,10 +393,19 @@ class EVReflectionTests: XCTestCase {
             XCTAssertEqual(aaAbnormal.bs[0].val, 1)
         }
         
-        let arrayDic = NSDictionary(dictionary: ["strings": ["a", "b"]])
+        let arrayDic = NSDictionary(dictionary: [
+            "strings": ["a", "b"],
+            "nilObjects": [["field" : "value1"],["field": "value2"]],
+            "nilObjectsForced": [["field" : "value3"],["field": "value4"]],
+            "subobjects": [["field" : "value5"],["field": "value6"]]
+            ])
+        
         let arrObj: ArrayObjects = ArrayObjects(dictionary: arrayDic)
         print(arrObj)
         XCTAssertEqual((arrayDic["strings"] as! NSArray), NSArray(array: arrObj.strings))
+        XCTAssert(arrObj.nilObjects?.count ?? 0 == 2, "Should have contained 2 objects")
+        XCTAssert(arrObj.nilObjectsForced.count == 2, "Should have contained 2 objects")
+        XCTAssert(arrObj.subobjects.count == 2, "Should have contained 2 objects")
         
         let arrayDic2 = NSDictionary(dictionary: ["strings": "a"])
         let arrObj2: ArrayObjects = ArrayObjects(dictionary: arrayDic2)
