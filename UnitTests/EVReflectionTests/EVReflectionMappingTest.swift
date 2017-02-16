@@ -114,13 +114,15 @@ open class GameAdministrator: GameUser {
         return [("level","rating")]
     }
 
-    open override func propertyConverters() -> [(String?, ((Any?)->())?, (() -> Any?)? )] {
+    override open func propertyConverters() -> [(key: String, decodeConverter: ((Any?) -> ()), encodeConverter: (() -> Any?))] {
         return [
             ( // We want a custom converter for the field isGreat
-                "level",
+                key: "level",
                 // isGreat will be true if the json says 'Sure'
-                { self.level = ((($0 as? Int) ?? 0) / 4) },
+                decodeConverter: { self.level = ((($0 as? Int) ?? 0) / 4) },
                 // The json will say 'Sure  if isGreat is true, otherwise it will say 'Nah'
-                { return self.level * 4})]
+                encodeConverter: {
+                    return self.level * 4
+            })]
     }
 }

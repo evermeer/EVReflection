@@ -34,7 +34,7 @@ public protocol EVReflectable: class, NSObjectProtocol  {
      
      - returns: Returns an array where each item is a combination of the folowing 3 values: A string for the property name where the custom conversion is for, a setter function and a getter function.
      */
-    func propertyConverters() -> [(String?, ((Any?)->())?, (() -> Any?)? )]
+    func propertyConverters() -> [(key: String, decodeConverter: ((Any?)->()), encodeConverter: (() -> Any?))]
     
     /**
      This is a general functon where you can filter for specific values (like nil or empty string) when creating a dictionary
@@ -281,7 +281,7 @@ extension EVReflectable {
      
      - returns: Returns an array where each item is a combination of the folowing 3 values: A string for the property name where the custom conversion is for, a setter function and a getter function.
      */
-    public func propertyConverters() -> [(String?, ((Any?)->())?, (() -> Any?)? )] {
+    public func propertyConverters() -> [(key: String, decodeConverter: ((Any?)->()), encodeConverter: (() -> Any?))] {
         return []
     }
     

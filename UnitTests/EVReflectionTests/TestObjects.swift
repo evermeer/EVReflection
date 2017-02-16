@@ -129,14 +129,13 @@ For testing the custom property conversion
 open class TestObject6: EVObject {
     var isGreat: Bool = false
     
-    open override func propertyConverters() -> [(String?, ((Any?)->())?, (() -> Any?)? )] {
-        return [
-            ( // We want a custom converter for the field isGreat
-              "isGreat",
-              // isGreat will be true if the json says 'Sure'
-              { self.isGreat = ($0 as? String == "Sure") },
-              // The json will say 'Sure  if isGreat is true, otherwise it will say 'Nah'
-              { return self.isGreat ? "Sure": "Nah"})]
+    override open func propertyConverters() -> [(key: String, decodeConverter: ((Any?) -> ()), encodeConverter: (() -> Any?))] {
+        return [( // We want a custom converter for the field isGreat
+                key: "isGreat",
+                // isGreat will be true if the json says 'Sure'
+                decodeConverter: { self.isGreat = ($0 as? String == "Sure") },
+                // The json will say 'Sure  if isGreat is true, otherwise it will say 'Nah'
+                encodeConverter: { return self.isGreat ? "Sure": "Nah"})]
     }
 }
 
@@ -193,8 +192,8 @@ open class TestObjectWithNilConverters: EVObject {
     
     var optionalValue: String?
     
-    open override func propertyConverters() -> [(String?, ((Any?)->())?, (() -> Any?)? )] {
-        return [("optionalValue", nil, nil)]
+    override open func propertyConverters() -> [(key: String, decodeConverter: ((Any?) -> ()), encodeConverter: (() -> Any?))] {
+        return [(key: "optionalValue", decodeConverter: {_ in }, encodeConverter: { return nil})]
     }
 }
 

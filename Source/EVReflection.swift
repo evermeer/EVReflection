@@ -856,9 +856,6 @@ final public class EVReflection {
         
         if conversionOptions.contains(.PropertyConverter) {
             if let (_, propertySetter, _) = (anyObject as? EVReflectable)?.propertyConverters().filter({$0.0 == key}).first {
-                guard let propertySetter = propertySetter else {
-                    return  // if the propertySetter is nil, skip setting the property
-                }
                 propertySetter(value)
                 return
             }
@@ -1312,9 +1309,6 @@ final public class EVReflection {
                     if conversionOptions.contains(.PropertyConverter) {
                         // If there is a properyConverter, then use the result of that instead.
                         if let (_, _, propertyGetter) = (theObject as? EVReflectable)?.propertyConverters().filter({$0.0 == originalKey}).first {
-                            guard let propertyGetter = propertyGetter else {
-                                continue    // if propertyGetter is nil, skip getting the property
-                            }
                             value = propertyGetter() as Any                            
                             let (unboxedValue2, _, _) = valueForAny(theObject, key: originalKey, anyValue: value, conversionOptions: conversionOptions, isCachable: isCachable, parents: parents)
                             unboxedValue = unboxedValue2

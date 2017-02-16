@@ -319,14 +319,14 @@ You can also use your own property converters. For this you need to implement th
 public class TestObject6: EVObject {
     var isGreat: Bool = false
 
-    override public func propertyConverters() -> [(String?, (Any?)->(), () -> Any? )] {
+    override func propertyConverters() -> [(key: String, decodeConverter: ((Any?) -> ()), encodeConverter: (() -> Any?))] {
         return [
             ( // We want a custom converter for the field isGreat
-              "isGreat"
+              key: "isGreat"
               // isGreat will be true if the json says 'Sure'
-              , { self.isGreat = ($0 as? String == "Sure") }
+              , decodeConverter: { self.isGreat = ($0 as? String == "Sure") }
               // The json will say 'Sure  if isGreat is true, otherwise it will say 'Nah'
-              , { return self.isGreat ? "Sure": "Nah"})
+              , encodeConverter: { return self.isGreat ? "Sure": "Nah"})
         ]
     }
 }

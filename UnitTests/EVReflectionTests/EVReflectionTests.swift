@@ -273,10 +273,11 @@ class EVReflectionTests: XCTestCase {
         let theObject = TestObjectWithNilConverters()
         theObject.optionalValue = "123"
 
-        let json = theObject.toDictionary()
+        let dict = theObject.toDictionary()
+        print("dict = \(dict)")
         
-        let optionalValue = json["optionalValue"]
-        XCTAssertNil(optionalValue)
+        let optionalValue = dict["optionalValue"]
+        XCTAssert(optionalValue as? NSNull != nil, "Should have been NSNull")
     }
     
     func testNilPropertySetter() {

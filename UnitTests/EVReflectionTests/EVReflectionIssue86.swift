@@ -86,15 +86,15 @@ class Supports: EVObject {
     var _element: String = ""
     var _attribute: String = ""
     var _value: YesNoEnum = .none
-    
-    override func propertyConverters() -> [(String?, ((Any?) -> ())?, (() -> Any?)?)] {
-        return [( "_type", {
+
+    override func propertyConverters() -> [(key: String, decodeConverter: ((Any?) -> ()), encodeConverter: (() -> Any?))] {
+        return [(key: "_type", decodeConverter: {
             self._type = (YesNoEnum(rawValue: ($0 as? String)!))!
-        }, {
+        }, encodeConverter: {
             return self._type
-        }), ( "_value", {
+        }), ( key: "_value", decodeConverter: {
             self._value = (YesNoEnum(rawValue: ($0 as? String)!))!
-        }, {
+        },  encodeConverter: {
             return self._value
         })]
     }
