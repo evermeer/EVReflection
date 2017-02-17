@@ -110,8 +110,8 @@ open class GameAdministrator: GameUser {
     var usersBanned: Int = 0
     var level: Int = 0
     
-    open override func propertyMapping() -> [(String?, String?)] {
-        return [("level","rating")]
+    override open func propertyMapping() -> [(keyInObject: String?, keyInResource: String?)] {
+        return [(keyInObject: "level", keyInResource: "rating")]
     }
 
     override open func propertyConverters() -> [(key: String, decodeConverter: ((Any?) -> ()), encodeConverter: (() -> Any?))] {

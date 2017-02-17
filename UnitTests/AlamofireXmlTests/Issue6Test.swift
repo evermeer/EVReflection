@@ -61,8 +61,8 @@ class XMLResult: EVObject {
     var channel: [HMChannel]?
     var datapoint: [HMDatapoint]?
 
-    override internal func propertyMapping() -> [(String?, String?)] {
-        return [("name", "__name")]
+    override internal func propertyMapping() -> [(keyInObject: String?, keyInResource: String?)] {
+        return [(keyInObject: "name", keyInResource: "__name")]
     }
 }
 
@@ -84,8 +84,22 @@ class HMChannel: EVObject {
     var operate: String = ""
     var transmission_mode: String = ""
 
-    override internal func propertyMapping() -> [(String?, String?)] {
-        return [("name", "_name"), ("ise_id", "_ise_id"), ("device_type", "_device_type"), ("address", "_address"), ("group_partner", "_group_partner"), ("type", "_type"), ("ready_config", "_ready_config"), ("interface", "_interface"), ("visible", "_visible"), ("aes_available", "_aes_available"), ("direction", "_direction"), ("parent_device", "_parent_device"), ("index", "_index"), ("operate", "_operate"), ("transmission_mode", "_transmission_mode")]
+    override internal func propertyMapping() -> [(keyInObject: String?, keyInResource: String?)] {
+        return [(keyInObject: "name", keyInResource: "_name"),
+                (keyInObject: "ise_id", keyInResource:"_ise_id"),
+                (keyInObject: "device_type", keyInResource: "_device_type"),
+                (keyInObject: "address", keyInResource: "_address"),
+                (keyInObject: "group_partner", keyInResource: "_group_partner"),
+                (keyInObject: "type", keyInResource: "_type"),
+                (keyInObject: "ready_config", keyInResource: "_ready_config"),
+                (keyInObject: "interface", keyInResource: "_interface"),
+                (keyInObject: "visible", keyInResource: "_visible"),
+                (keyInObject: "aes_available", keyInResource: "_aes_available"),
+                (keyInObject: "direction", keyInResource: "_direction"),
+                (keyInObject: "parent_device", keyInResource: "_parent_device"),
+                (keyInObject: "index", keyInResource: "_index"),
+                (keyInObject: "operate", keyInResource: "_operate"),
+                (keyInObject: "transmission_mode", keyInResource: "_transmission_mode")]
     }
 }
 
@@ -99,7 +113,14 @@ class HMDatapoint: EVObject {
     var timestamp: Int = 0
     var operations: String?
 
-    override internal func propertyMapping() -> [(String?, String?)] {
-        return [("name", "_name"), ("ise_id", "_ise_id"), ("type", "_type"), ("value", "_value"), ("valuetype", "_valuetype"), ("valueunit","_valueunit"), ("timestamp","_timestamp"), ("operations","_operations")]
+    override internal func propertyMapping() -> [(keyInObject: String?, keyInResource: String?)] {
+        return [(keyInObject: "name", keyInResource: "_name"),
+                (keyInObject: "ise_id", keyInResource: "_ise_id"),
+                (keyInObject: "type", keyInResource: "_type"),
+                (keyInObject: "value", keyInResource: "_value"),
+                (keyInObject: "valuetype", keyInResource: "_valuetype"),
+                (keyInObject: "valueunit", keyInResource: "_valueunit"),
+                (keyInObject: "timestamp", keyInResource: "_timestamp"),
+                (keyInObject: "operations", keyInResource: "_operations")]
     }
 }

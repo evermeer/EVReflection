@@ -67,7 +67,7 @@ final public class EVReflection {
             var skipKey = false
             if conversionOptions.contains(.PropertyMapping) {
                 if let reflectable = anyObject as? EVReflectable {
-                    if let mapping = reflectable.propertyMapping().filter({$0.0 == k as? String}).first {
+                    if let mapping = reflectable.propertyMapping().filter({$0.keyInObject == k as? String}).first {
                         if mapping.1 == nil {
                             skipKey = true
                         }
@@ -113,8 +113,8 @@ final public class EVReflection {
         for (objectKey, _) in properties {
             if conversionOptions.contains(.PropertyMapping) {
                 if let reflectable = anyObject as? EVReflectable {
-                    if let mapping = reflectable.propertyMapping().filter({$0.1 == objectKey as? String}).first {
-                        keyMapping[objectKey as? String ?? ""] = mapping.0
+                    if let mapping = reflectable.propertyMapping().filter({$0.keyInResource == objectKey as? String}).first {
+                        keyMapping[objectKey as? String ?? ""] = mapping.keyInObject
                     }
                 }
             }
@@ -1291,7 +1291,7 @@ final public class EVReflection {
                 }
                 if conversionOptions.contains(.PropertyMapping) {
                     if let reflectable = theObject as? EVReflectable {
-                        if let mapping = reflectable.propertyMapping().filter({$0.0 == originalKey}).first {
+                        if let mapping = reflectable.propertyMapping().filter({$0.keyInObject == originalKey}).first {
                             if mapping.1 == nil {
                                 skipThisKey = true
                             } else {

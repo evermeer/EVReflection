@@ -132,9 +132,8 @@ open class MyPrimaryObject: EVObject {
     
     open var secondaryObjects: [MySecondaryObject]?
     
-    open override func propertyMapping() -> [(String?, String?)] {
-        return [("myObjectDescription","Description")]
-        
+    override open func propertyMapping() -> [(keyInObject: String?, keyInResource: String?)] {
+        return [(keyInObject: "myObjectDescription", keyInResource: "Description")]
     }
 }
 
@@ -157,8 +156,8 @@ open class PublicInfusion: EVObject {
     
     open var vodkaHistory: [PublicInfusionCheckmark] = []
     
-    open override func propertyMapping() -> [(String?, String?)] {
-        return [("infusionDescription","Description")]
+    override open func propertyMapping() -> [(keyInObject: String?, keyInResource: String?)] {
+        return [(keyInObject: "infusionDescription", keyInResource: "Description")]
     }
 }
 

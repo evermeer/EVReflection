@@ -57,8 +57,8 @@ class TagObject: BaseObject {
     
     var subTagArray: [SimpleObject]?
     
-    override func propertyMapping() -> [(String?, String?)] {
-        return [("subTagArray", "provinces")]
+    override func propertyMapping() -> [(keyInObject: String?, keyInResource: String?)] {
+        return [(keyInObject: "subTagArray", keyInResource: "provinces")]
     }
 
 }

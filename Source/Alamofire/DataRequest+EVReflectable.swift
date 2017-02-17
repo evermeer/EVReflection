@@ -15,8 +15,8 @@ open class EVNetworkingObject: EVObject {
         }
     }
     
-    override open func propertyMapping() -> [(String?, String?)] {
-        return [("__response_statusCode", nil)]
+    override open func propertyMapping() -> [(keyInObject: String?, keyInResource: String?)] {
+        return [(keyInObject: "__response_statusCode", keyInResource: nil)]
     }
 }
 

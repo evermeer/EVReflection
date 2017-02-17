@@ -121,7 +121,7 @@ open class EVObject: NSObject, NSCoding, EVReflectable  {
      
      - returns: Return an array with value pairs of the object property name and json key name.
      */
-    open func propertyMapping() -> [(String?, String?)] {
+    open func propertyMapping() -> [(keyInObject: String?, keyInResource: String?)] {
         return []
     }
     

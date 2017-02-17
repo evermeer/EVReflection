@@ -75,8 +75,8 @@ open class B: EVObject {
         }
     }
     
-    open override func propertyMapping() -> [(String?, String?)] {
-        return [("intProp", nil)]
+    override open func propertyMapping() -> [(keyInObject: String?, keyInResource: String?)] {
+        return [(keyInObject: "intProp", keyInResource: nil)]
     }
 }
 

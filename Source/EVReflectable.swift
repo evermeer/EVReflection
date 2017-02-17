@@ -25,7 +25,7 @@ public protocol EVReflectable: class, NSObjectProtocol  {
      
      - returns: Return an array with value pairs of the object property name and json key name.
      */
-    func propertyMapping() -> [(String?, String?)]
+    func propertyMapping() -> [(keyInObject: String?, keyInResource: String?)]
     
     /**
      Override this method when you want custom property value conversion
@@ -270,7 +270,7 @@ extension EVReflectable {
      
      - returns: Return an array with value pairs of the object property name and json key name.
      */
-    public func propertyMapping() -> [(String?, String?)] {
+    public func propertyMapping() -> [(keyInObject: String?, keyInResource: String?)] {
         return []
     }
     

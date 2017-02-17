@@ -117,8 +117,9 @@ open class TestObject5: EVObject {
     var propertyInObject: String = "" // will be written to or read from keyInJson
     var ignoredProperty: String = "" // Will not be written or read to/from json 
     
-    open override func propertyMapping() -> [(String?, String?)] {
-        return [("ignoredProperty", nil), ("propertyInObject", "keyInJson")]
+    override open func propertyMapping() -> [(keyInObject: String?, keyInResource: String?)] {
+        return [(keyInObject: "ignoredProperty", keyInResource: nil),
+                (keyInObject: "propertyInObject", keyInResource: "keyInJson")]
     }
 }
 
