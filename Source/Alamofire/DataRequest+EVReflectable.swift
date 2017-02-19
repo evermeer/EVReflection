@@ -59,12 +59,16 @@ public extension DataRequest {
             var JSONToMap: NSDictionary?
             if let keyPath = keyPath , keyPath.isEmpty == false {
                 JSONToMap = (result.value as AnyObject?)?.value(forKeyPath: keyPath) as? NSDictionary
-            } else {
-                JSONToMap = result.value as? NSDictionary
+            } else if let dict = result.value as? NSDictionary {
+                JSONToMap = dict
+            } else if let array = result.value as? NSArray {
+                JSONToMap = NSDictionary.init(dictionary: ["": array])
             }
+            
             if JSONToMap == nil {
                 JSONToMap = NSDictionary()
             }
+            
             if response?.statusCode ?? 0 > 300 {
                 let newDict = NSMutableDictionary(dictionary: JSONToMap!)
                 newDict["__response_statusCode"] = response?.statusCode ?? 0
@@ -119,9 +123,12 @@ public extension DataRequest {
             var JSONToMap: NSArray?
             if let keyPath = keyPath, keyPath.isEmpty == false {
                 JSONToMap = (result.value as AnyObject?)?.value(forKeyPath: keyPath) as? NSArray
-            } else {
-                JSONToMap = result.value as? NSArray
+            } else if let array = result.value as? NSArray {
+                JSONToMap = array
+            } else if let dict = result.value as? NSDictionary {
+                JSONToMap = [dict]
             }
+            
             if JSONToMap == nil {
                 JSONToMap = NSArray()
             }

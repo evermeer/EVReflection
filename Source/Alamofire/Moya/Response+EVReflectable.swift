@@ -13,13 +13,26 @@ public extension Response {
     /// Maps data received from the signal into an object which implements the EVReflectable protocol.
     /// If the conversion fails, the signal errors.
     public func map<T: EVReflectable>(to type:T.Type) throws -> T where T: NSObject {
-        return map(from: try mapJSON() as? NSDictionary)
+        let json = try mapJSON()
+        var dict: NSDictionary = NSDictionary()
+        if let d = json as? NSDictionary {
+            dict = d
+        } else if let a = json as? NSArray {
+            dict = ["": a]
+        }        
+        return map(from: dict)
     }
     
     /// Maps data received from the signal into an array of objects which implement the ALSwiftyJSONAble protocol
     /// If the conversion fails, the signal errors.
     public func map<T: EVReflectable>(toArray type:T.Type) throws -> [T] where T: NSObject {
-        let array: NSArray = try mapJSON() as? NSArray ?? NSArray()
+        let json = try mapJSON()
+        var array: NSArray = NSArray()
+        if let a = json as? NSArray {
+            array = a
+        } else if let dict = json as? NSDictionary {
+            array = [dict]
+        }
         let parsedArray:[T] = array.map { map(from: $0 as? NSDictionary) } as [T]
         return parsedArray
     }
