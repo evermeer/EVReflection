@@ -9,7 +9,7 @@ import Foundation
 import Moya
 
 public extension Response {
-
+    
     /// Maps data received from the signal into an object which implements the EVReflectable protocol.
     /// If the conversion fails, the signal errors.
     public func map<T: EVReflectable>(to type:T.Type, forKeyPath: String? = nil) throws -> T where T: NSObject {
@@ -19,21 +19,33 @@ public extension Response {
             dict = d
         } else if let a = json as? NSArray {
             dict = ["": a]
-        }        
+        }
         return map(from: dict, forKeyPath: forKeyPath)
     }
     
     /// Maps data received from the signal into an array of objects which implement the ALSwiftyJSONAble protocol
     /// If the conversion fails, the signal errors.
     public func map<T: EVReflectable>(toArray type:T.Type, forKeyPath: String? = nil) throws -> [T] where T: NSObject {
-        let json = try mapJSON()
         var array: NSArray = NSArray()
+        
+        var json = try mapJSON()
+        if forKeyPath != nil {
+            guard let arr = (json as? NSDictionary)?.value(forKeyPath: forKeyPath!) else {
+                print("ERROR: The forKeyPath '\(forKeyPath)' did not return an array")
+                return []
+            }
+            json = arr
+        }
+        
         if let a = json as? NSArray {
             array = a
         } else if let dict = json as? NSDictionary {
             array = [dict]
+        } else {
+            print("ERROR: JSON mapping failed. Did not get a dictionary or array")
+            return []
         }
-        let parsedArray:[T] = array.map { map(from: $0 as? NSDictionary, forKeyPath: forKeyPath) } as [T]
+        let parsedArray:[T] = array.map { map(from: $0 as? NSDictionary) } as [T]
         return parsedArray
     }
     
