@@ -17,6 +17,9 @@
       location = "absolute:/Users/evermeer/Desktop/dev/GitHub/EVReflection/Carthage/../LICENSE">
    </FileRef>
    <FileRef
+      location = "group:UnitTests/../CHANGELOG.md">
+   </FileRef>
+   <FileRef
       location = "group:UnitTests/../Podfile">
    </FileRef>
    <FileRef
