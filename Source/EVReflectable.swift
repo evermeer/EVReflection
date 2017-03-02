@@ -63,7 +63,14 @@ public protocol EVReflectable: class, NSObjectProtocol  {
      - returns: The specific type
      */
     func getSpecificType(_ dict: NSDictionary) -> EVReflectable?
-
+    
+    /**
+     Return a custom object for the object
+     
+     - returns: The custom object that will be parsed (single value, dictionary or array)
+     */
+    func customConverter() -> AnyObject?
+    
     /**
      Declaration for Equatable ==
      

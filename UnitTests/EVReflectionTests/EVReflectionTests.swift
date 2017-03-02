@@ -475,7 +475,7 @@ class EVReflectionTests: XCTestCase {
         print("json array: \n\(jsonArray)")
         let array2 = [NSDictionary](jsonArray: jsonArray)
         print("array2:\n\(array2)")
-    }
+    }    
 }
 
 
@@ -489,3 +489,5 @@ class MyObject : EVObject {
     var id : Int = 0
     var active: Bool = false
 }
+
+

@@ -158,6 +158,17 @@ open class EVObject: NSObject, NSCoding, EVReflectable  {
     open func getSpecificType(_ dict: NSDictionary) -> EVReflectable? {
         return nil
     }
+
+    
+    /**
+     Return a custom object for the object
+     
+     - returns: The custom object (single value, dictionary or array)
+     */
+    open func customConverter() -> AnyObject? {
+        return nil
+    }
+
 }
 
 

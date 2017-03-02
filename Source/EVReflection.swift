@@ -1316,9 +1316,19 @@ final public class EVReflection {
                     }
                     
                     if isObject {
-                        // sub objects will be added as a dictionary itself.
-                        let (dict, _) = toDictionary(unboxedValue as? NSObject ?? NSObject(), conversionOptions: conversionOptions, isCachable: isCachable, parents: parents)
-                        unboxedValue = dict
+                        if let obj = unboxedValue as? EVReflectable {
+                            if let json = obj.customConverter() {
+                                unboxedValue = json as AnyObject
+                            } else {
+                                // sub objects will be added as a dictionary itself.
+                                let (dict, _) = toDictionary(unboxedValue as? NSObject ?? NSObject(), conversionOptions: conversionOptions, isCachable: isCachable, parents: parents)
+                                unboxedValue = dict                                
+                            }
+                        } else {
+                            // sub objects will be added as a dictionary itself.
+                            let (dict, _) = toDictionary(unboxedValue as? NSObject ?? NSObject(), conversionOptions: conversionOptions, isCachable: isCachable, parents: parents)
+                            unboxedValue = dict
+                        }
                     } else if let array = unboxedValue as? [NSObject] {
 						var item: Any
 						if array.count > 0 {

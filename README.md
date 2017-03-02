@@ -69,6 +69,7 @@ pod 'EVReflection/MoyaRxSwift'
 - [Automatic keyword mapping PascalCase or camelCase to snake_case](https://github.com/evermeer/EVReflection#automatic-keyword-mapping-pascalcase-or-camelcase-to-snake_case)
 - [Custom keyword mapping](https://github.com/evermeer/EVReflection#custom-keyword-mapping)
 - [Custom property converters](https://github.com/evermeer/EVReflection#custom-property-converters)
+- [Custom object converter](https://github.com/evermeer/EVReflection#custom-object-converter)
 - [Skip the serialization or deserialization of specific values](https://github.com/evermeer/EVReflection#skip-the-serialization-or-deserialization-of-specific-values)
 - [Property validators](https://github.com/evermeer/EVReflection#property-validators)
 - [Deserialization class level validations](https://github.com/evermeer/EVReflection#deserialization-class-level-validations)
@@ -329,6 +330,15 @@ public class TestObject6: EVObject {
               , encodeConverter: { return self.isGreat ? "Sure": "Nah"})
         ]
     }
+}
+```
+
+### Custom object converter
+If you want to serialize an object to a dictionary or json but the structure should be different than the object itself, then instead of using propertyConverers, you can also convert the entire object by implementing the customConverter function. In the example below the entire object will be serialized to just a string. You could also return a dictionary that represents the custom structure or an array if the object should have been an array
+
+```swift
+override func customConverter() -> AnyObject? {
+    return "Object not serialized"
 }
 ```
 
