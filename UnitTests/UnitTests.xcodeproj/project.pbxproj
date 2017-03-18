@@ -96,6 +96,7 @@
 		7F7663391DA922FB00740ACA /* EVReflectionIssue114b.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F7663371DA922A300740ACA /* EVReflectionIssue114b.swift */; };
 		7F76633A1DA922FB00740ACA /* EVReflectionIssue114b.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F7663371DA922A300740ACA /* EVReflectionIssue114b.swift */; };
 		7F76633B1DA922FC00740ACA /* EVReflectionIssue114b.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F7663371DA922A300740ACA /* EVReflectionIssue114b.swift */; };
+		7F7903CA1E7D4F760086D111 /* EVReflectionExtendingNSObjects.swif.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F7903C91E7D4F750086D111 /* EVReflectionExtendingNSObjects.swif.swift */; };
 		7F7BBC661C009EE90046F05E /* EVReflectionMappingTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F7BBC651C009EE80046F05E /* EVReflectionMappingTest.swift */; };
 		7F7BBC671C00A22B0046F05E /* EVReflectionMappingTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F7BBC651C009EE80046F05E /* EVReflectionMappingTest.swift */; };
 		7F83A6711D132F6100A4C508 /* EVReflectionIssue96.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F83A66F1D132F5400A4C508 /* EVReflectionIssue96.swift */; };
@@ -236,6 +237,7 @@
 		7F734AB61E53AE5E007A5688 /* EVReflectionIssue159.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVReflectionIssue159.swift; sourceTree = "<group>"; };
 		7F734AB81E53AF03007A5688 /* EVReflectionIssue159.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = EVReflectionIssue159.json; sourceTree = "<group>"; };
 		7F7663371DA922A300740ACA /* EVReflectionIssue114b.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVReflectionIssue114b.swift; sourceTree = "<group>"; };
+		7F7903C91E7D4F750086D111 /* EVReflectionExtendingNSObjects.swif.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVReflectionExtendingNSObjects.swif.swift; sourceTree = "<group>"; };
 		7F7BBC651C009EE80046F05E /* EVReflectionMappingTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = EVReflectionMappingTest.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		7F83A66F1D132F5400A4C508 /* EVReflectionIssue96.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVReflectionIssue96.swift; sourceTree = "<group>"; };
 		7F8818F81C04447100E17072 /* EVReflectionPropertyMappingTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVReflectionPropertyMappingTest.swift; sourceTree = "<group>"; };
@@ -330,6 +332,7 @@
 				7FDC390D1DC3582F0091D27E /* sample.json */,
 				7F41ECA41B91F2E0003A2236 /* TestObjects.swift */,
 				7F41ECA81B91F306003A2236 /* EVReflectionTests.swift */,
+				7F7903C91E7D4F750086D111 /* EVReflectionExtendingNSObjects.swif.swift */,
 				7FA506E31E68C953003D83E7 /* EVReflectionCustomConverterTests.swift */,
 				7F59F9DA1C07999300C14CF9 /* EVReflectionEVObjectTests.swift */,
 				7F8818F81C04447100E17072 /* EVReflectionPropertyMappingTest.swift */,
@@ -566,7 +569,7 @@
 					};
 					7F3E31841BB9095C001E6788 = {
 						CreatedOnToolsVersion = 7.0;
-						DevelopmentTeam = 8829GZ84Q6;
+						DevelopmentTeam = 443FV7F3ZK;
 						ProvisioningStyle = Automatic;
 					};
 					7F9336B61C28227400AF7076 = {
@@ -820,6 +823,7 @@
 				7F663C321D014D7B00642499 /* EVReflectionIssue91.swift in Sources */,
 				7F1E77911CD3440000F88A9A /* EVReflectionConversionOptionsTest.swift in Sources */,
 				7F44151C1E2A84E00077F033 /* CKAsset+UIImage.swift in Sources */,
+				7F7903CA1E7D4F760086D111 /* EVReflectionExtendingNSObjects.swif.swift in Sources */,
 				7F9930201E2426B500792CF1 /* AlamofireXml3Tests.swift in Sources */,
 				7F9801971E260A4D00D6C5C0 /* Owner.swift in Sources */,
 				7F41ECB01B91F306003A2236 /* ProfilePhotoUrlListTest.swift in Sources */,
@@ -1106,7 +1110,7 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = 8829GZ84Q6;
+				DEVELOPMENT_TEAM = 443FV7F3ZK;
 				INFOPLIST_FILE = "EVReflectionTests/osx-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
@@ -1123,7 +1127,7 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = 8829GZ84Q6;
+				DEVELOPMENT_TEAM = 443FV7F3ZK;
 				INFOPLIST_FILE = "EVReflectionTests/osx-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;

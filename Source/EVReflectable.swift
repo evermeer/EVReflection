@@ -305,6 +305,15 @@ extension EVReflectable {
     }
     
     /**
+     Return a custom object for the object
+     
+     - returns: The custom object that will be parsed (single value, dictionary or array)
+     */
+    public func customConverter() -> AnyObject? {
+        return nil
+    }
+
+    /**
      Get the type of this object
      
      - parameter dict: The dictionary for the specific type

@@ -51,7 +51,7 @@ class EnumWorkaroundsTests: XCTestCase {
         XCTAssertTrue(varTest5.associated.label == "ok", "Could nog get the rawvalue using a generic function")
         XCTAssertTrue(test5 == 3, "Could nog get the associated value using a generic function")
         let test6 = getRawValue(MyEnumFive.ok)
-        XCTAssertTrue(test6 as? String == "ok", "So we could get the raw value? Otherwise this would succeed")
+        XCTAssertTrue(test6 as? String == "ok", "So we could get the raw value? Otherwise this would fail")
     }
     
     func testArrayNullable() {

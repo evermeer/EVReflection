@@ -479,6 +479,7 @@ class EVReflectionTests: XCTestCase {
 }
 
 
+
 class A81: EVObject {
     var openId: String = ""
 }
