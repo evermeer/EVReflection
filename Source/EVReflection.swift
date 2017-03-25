@@ -129,8 +129,9 @@ final public class EVReflection {
     }
     
     
-    static var properiesCache = NSMutableDictionary()
-    static var typesCache = NSMutableDictionary()
+    private static var properiesCache = NSMutableDictionary()
+    private static var typesCache = NSMutableDictionary()
+    private static var queue = DispatchQueue(label: "nl.evict.evreflection.cache")
     
     /**
      Convert an object to a dictionary while cleaning up the keys
@@ -160,7 +161,13 @@ final public class EVReflection {
         
         let key: String = "\(swiftStringFromClass(theObject)).\(conversionOptions.rawValue)"
         if isCachable {
-            if let p = properiesCache[key] as? NSDictionary, let t = typesCache[key] as? NSDictionary {
+            var p: NSDictionary?
+            var t: NSDictionary?
+            queue.sync {
+                p = properiesCache[key] as? NSDictionary
+                t = typesCache[key] as? NSDictionary
+            }
+            if let p = p, let t = t {
                 return (p, t)
             }
         }
@@ -173,8 +180,10 @@ final public class EVReflection {
         tdict = types
 
         if isCachable && typesCache[key] == nil {
-            properiesCache[key] = pdict!
-            typesCache[key] = tdict!
+            queue.sync {
+                properiesCache[key] = pdict!
+                typesCache[key] = tdict!
+            }
         }
         return (pdict!, tdict!)
     }

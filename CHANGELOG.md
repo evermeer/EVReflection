@@ -16,7 +16,25 @@ For more information see the [installation instructions](https://github.com/ever
 
 ## Master
 
-Is published as version 4.4.1
+Is published as version 4.6.0
+
+## 4.6.0 (2017-3-25)
+
+#### Bug Fixes
+
+* Cache access now thread safe
+
+## 4.5.1 (2017-3-18)
+
+#### Enhancements
+
+* default implementation for customConverter
+
+## 4.5.0 (2017-3-2)
+
+#### Enhancements
+
+* added the customConverter function
 
 ## 4.4.1 (2017-2-22)
 
