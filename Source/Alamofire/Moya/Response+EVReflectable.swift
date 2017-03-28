@@ -31,7 +31,7 @@ public extension Response {
         var json = try mapJSON()
         if forKeyPath != nil {
             guard let arr = (json as? NSDictionary)?.value(forKeyPath: forKeyPath!) else {
-                print("ERROR: The forKeyPath '\(forKeyPath)' did not return an array")
+                print("ERROR: The forKeyPath '\(forKeyPath ?? "")' did not return an array")
                 return []
             }
             json = arr

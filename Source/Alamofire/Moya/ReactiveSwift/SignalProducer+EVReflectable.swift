@@ -30,10 +30,10 @@ extension SignalProducerProtocol where Value == Moya.Response, Error == MoyaErro
 }
 
 /// Maps throwable to SignalProducer
-private func unwrapThrowable<T>(_ throwable: () throws -> T) -> SignalProducer<T, Moya.Error> {
+private func unwrapThrowable<T>(_ throwable: () throws -> T) -> SignalProducer<T, Moya.MoyaError> {
     do {
         return SignalProducer(value: try throwable())
     } catch {
-        return SignalProducer(error: error as! Moya.Error)
+        return SignalProducer(error: error as! Moya.MoyaError)
     }
 }

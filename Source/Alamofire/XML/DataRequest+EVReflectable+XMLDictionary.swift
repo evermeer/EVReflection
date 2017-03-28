@@ -22,7 +22,7 @@ public extension DataRequest {
                 return .failure(error)
             }
             
-            let xml: String = NSString(data: data ?? Data(), encoding: String.Encoding.utf8.rawValue) as? String ?? ""
+            let xml: String = NSString(data: data ?? Data(), encoding: String.Encoding.utf8.rawValue) as String? ?? ""
             if let object = T(xmlString: xml) {
                 return .success(object)
             } else {

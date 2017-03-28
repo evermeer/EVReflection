@@ -129,8 +129,17 @@ public func materialize<T>(_ f: () throws -> T) -> Result<T, NSError> {
 public func materialize<T>(_ f: @autoclosure () throws -> T) -> Result<T, NSError> {
 	do {
 		return .success(try f())
-	} catch let error as NSError {
-		return .failure(error)
+	} catch {
+// This isn't great, but it lets us maintain compatibility until this deprecated
+// method can be removed.
+#if _runtime(_ObjC)
+		return .failure(error as NSError)
+#else
+		// https://github.com/apple/swift-corelibs-foundation/blob/swift-3.0.2-RELEASE/Foundation/NSError.swift#L314
+		let userInfo = _swift_Foundation_getErrorDefaultUserInfo(error) as? [String: Any]
+		let nsError = NSError(domain: error._domain, code: error._code, userInfo: userInfo)
+		return .failure(nsError)
+#endif
 	}
 }
 
@@ -213,6 +222,31 @@ extension AnyError: CustomStringConvertible {
 		return String(describing: error)
 	}
 }
+
+// There appears to be a bug in Foundation on Linux which prevents this from working:
+// https://bugs.swift.org/browse/SR-3565
+// Don't forget to comment the tests back in when removing this check when it's fixed!
+#if !os(Linux)
+
+extension AnyError: LocalizedError {
+	public var errorDescription: String? {
+		return error.localizedDescription
+	}
+
+	public var failureReason: String? {
+		return (error as? LocalizedError)?.failureReason
+	}
+
+	public var helpAnchor: String? {
+		return (error as? LocalizedError)?.helpAnchor
+	}
+
+	public var recoverySuggestion: String? {
+		return (error as? LocalizedError)?.recoverySuggestion
+	}
+}
+
+#endif
 
 // MARK: - migration support
 extension Result {

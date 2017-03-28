@@ -115,7 +115,7 @@ class EVReflectionWorkaroundsTests: XCTestCase {
         let b = Mirror(reflecting: a)
         let c = b.subjectType
         print("subjectType = \(c)")
-        let d = b.displayStyle
+        let d = b.displayStyle.debugDescription 
         print("displayStyle = \(d)")
     }
 }

@@ -43,7 +43,7 @@ class MoyaRxSwiftTests: XCTestCase {
             }.addDisposableTo(disposeBag)
         
         waitForExpectations(timeout: 10) { error in
-            XCTAssertNil(error, "\(error)")
+            XCTAssertNil(error, "\(error?.localizedDescription ?? "" )")
         }
     }
 

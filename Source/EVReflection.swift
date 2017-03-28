@@ -57,7 +57,7 @@ final public class EVReflection {
     public class func setPropertiesfromDictionary<T>(_ dictionary: NSDictionary, anyObject: T, conversionOptions: ConversionOptions = .DefaultDeserialize, forKeyPath: String? = nil) -> T where T: NSObject {
         
         guard let dict = ((forKeyPath == nil) ? dictionary : dictionary.value(forKeyPath: forKeyPath!) as? NSDictionary) else {
-            print("ERROR: The forKeyPath '\(forKeyPath)' did not return a dictionary")
+            print("ERROR: The forKeyPath '\(forKeyPath ?? "")' did not return a dictionary")
             return anyObject
         }
         
@@ -705,8 +705,8 @@ final public class EVReflection {
                     let convertedValue = arrayConverter.convertArray(key!, array: theValue)
                     return (convertedValue, valueType, false)
                 }
-                (parentObject as? EVReflectable)?.addStatusMessage(.MissingProtocol, message: "An object with a property of type Array with optional objects should implement the EVArrayConvertable protocol. type = \(valueType) for key \(key)")
-                print("WARNING: An object with a property of type Array with optional objects should implement the EVArrayConvertable protocol. type = \(valueType) for key \(key)")
+                (parentObject as? EVReflectable)?.addStatusMessage(.MissingProtocol, message: "An object with a property of type Array with optional objects should implement the EVArrayConvertable protocol. type = \(valueType) for key \(key ?? "")")
+                print("WARNING: An object with a property of type Array with optional objects should implement the EVArrayConvertable protocol. type = \(valueType) for key \(key ?? "")")
                 return (NSNull(), "NSNull", false)
             }
         } else if mi.displayStyle == .dictionary {
@@ -722,8 +722,8 @@ final public class EVReflection {
                     let convertedValue = arrayConverter.convertArray(key!, array: theValue)
                     return (convertedValue, valueType, false)
                 }
-                (parentObject as? EVReflectable)?.addStatusMessage(.MissingProtocol, message: "An object with a property of type Set should implement the EVArrayConvertable protocol. type = \(valueType) for key \(key)")
-                print("WARNING: An object with a property of type Set should implement the EVArrayConvertable protocol. type = \(valueType) for key \(key)")
+                (parentObject as? EVReflectable)?.addStatusMessage(.MissingProtocol, message: "An object with a property of type Set should implement the EVArrayConvertable protocol. type = \(valueType) for key \(key ?? "")")
+                print("WARNING: An object with a property of type Set should implement the EVArrayConvertable protocol. type = \(valueType) for key \(key ?? "")")
                 return (NSNull(), "NSNull", false)
             }
         } else if mi.displayStyle == .struct {
@@ -1430,7 +1430,7 @@ final public class EVReflection {
             }
             return tempArray
         case let date as Date:
-            return (getDateFormatter().string(from: date) as AnyObject? ?? "" as AnyObject)
+            return getDateFormatter().string(from: date) as NSString
         case let reflectable as EVReflectable:
             return convertDictionaryForJsonSerialization(reflectable.toDictionary(), theObject: theObject)
         case let ok as NSDictionary:

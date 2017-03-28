@@ -70,7 +70,7 @@ public extension DataRequest {
             }
             
             if response?.statusCode ?? 0 > 300 {
-                let newDict = NSMutableDictionary(dictionary: JSONToMap!)
+                let newDict = NSMutableDictionary(dictionary: JSONToMap! as! [AnyHashable : Any])
                 newDict["__response_statusCode"] = response?.statusCode ?? 0
                 JSONToMap = newDict
             }
@@ -135,7 +135,7 @@ public extension DataRequest {
             
             if response?.statusCode ?? 0 > 300  {
                 if JSONToMap?.count ?? 0 > 0 {
-                    let newDict = NSMutableDictionary(dictionary: JSONToMap![0] as? NSDictionary ?? NSDictionary())
+                    let newDict = NSMutableDictionary(dictionary: (JSONToMap![0] as? NSDictionary ?? NSDictionary()) as! [AnyHashable : Any])
                     newDict["__response_statusCode"] = response?.statusCode ?? 0
                     let newArray: NSMutableArray = NSMutableArray(array: JSONToMap!)
                     newArray.replaceObject(at: 0, with: newDict)

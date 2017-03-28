@@ -200,10 +200,10 @@ class EVReflectionJsonTests: XCTestCase {
         XCTAssertTrue(user.email == "john@appleseed.com", "email should have been set to john@appleseed.com")
         
         XCTAssertNotNil(user.company, "company should not be nil")
-        print("company = \(user.company)\n")
+        print("company = \(user.company.debugDescription)\n")
 
         XCTAssertTrue(user.company?.name == "Apple", "company name should have been set to Apple")
-        print("company name = \(user.company?.name)\n")
+        print("company name = \(user.company?.name ?? "")\n")
         XCTAssertTrue(user.company?.address == "1 Infinite Loop, Cupertino, CA", "company address should have been set to 1 Infinite Loop, Cupertino, CA")
         
         XCTAssertNotNil(user.closeFriends, "friends should not be nil")

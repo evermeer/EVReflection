@@ -5,6 +5,7 @@
 [![Carthage Compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 [![Platform](https://img.shields.io/cocoapods/p/Alamofire.svg?style=flat)](http://cocoadocs.org/docsets/Alamofire)
 [![Twitter](https://img.shields.io/badge/twitter-@AlamofireSF-blue.svg?style=flat)](http://twitter.com/AlamofireSF)
+[![Gitter](https://badges.gitter.im/Alamofire/Alamofire.svg)](https://gitter.im/Alamofire/Alamofire?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
 Alamofire is an HTTP networking library written in Swift.
 
@@ -93,7 +94,7 @@ platform :ios, '10.0'
 use_frameworks!
 
 target '<Your Target Name>' do
-    pod 'Alamofire', '~> 4.3'
+    pod 'Alamofire', '~> 4.4'
 end
 ```
 
@@ -117,14 +118,14 @@ $ brew install carthage
 To integrate Alamofire into your Xcode project using Carthage, specify it in your `Cartfile`:
 
 ```ogdl
-github "Alamofire/Alamofire" ~> 4.3
+github "Alamofire/Alamofire" ~> 4.4
 ```
 
 Run `carthage update` to build the framework and drag the built `Alamofire.framework` into your Xcode project.
 
-### Swift Pacakge Manager
+### Swift Package Manager
 
-The [Swift Pacakage Manager](https://swift.org/package-manager/) is a tool for automating the distribution of Swift code and is integrated into the `swift` compiler. It is in early development, but Alamofire does support its use on supported platforms. 
+The [Swift Package Manager](https://swift.org/package-manager/) is a tool for automating the distribution of Swift code and is integrated into the `swift` compiler. It is in early development, but Alamofire does support its use on supported platforms. 
 
 Once you have your Swift package set up, adding Alamofire as a dependency is as easy as adding it to the `dependencies` value of your `Package.swift`.
 
@@ -445,9 +446,9 @@ let parameters: Parameters = [
 ]
 
 // All three of these calls are equivalent
-Alamofire.request("https://httpbin.org/post", parameters: parameters)
-Alamofire.request("https://httpbin.org/post", parameters: parameters, encoding: URLEncoding.default)
-Alamofire.request("https://httpbin.org/post", parameters: parameters, encoding: URLEncoding.httpBody)
+Alamofire.request("https://httpbin.org/post", method: .post, parameters: parameters)
+Alamofire.request("https://httpbin.org/post", method: .post, parameters: parameters, encoding: URLEncoding.default)
+Alamofire.request("https://httpbin.org/post", method: .post, parameters: parameters, encoding: URLEncoding.httpBody)
 
 // HTTP body: foo=bar&baz[]=a&baz[]=1&qux[x]=1&qux[y]=2&qux[z]=3
 ```
@@ -913,7 +914,7 @@ let sessionManager = Alamofire.SessionManager(configuration: configuration)
 #### Modifying the Session Configuration
 
 ```swift
-var defaultHeaders = Alamofire.SessionManager.default.defaultHTTPHeaders
+var defaultHeaders = Alamofire.SessionManager.defaultHTTPHeaders
 defaultHeaders["DNT"] = "1 (Do Not Track Enabled)"
 
 let configuration = URLSessionConfiguration.default
@@ -1352,6 +1353,94 @@ Another important note is that this authentication system could be shared betwee
 
 ### Custom Response Serialization
 
+Alamofire provides built-in response serialization for data, strings, JSON, and property lists:
+
+```swift
+Alamofire.request(...).responseData { (resp: DataResponse<Data>) in ... }
+Alamofire.request(...).responseString { (resp: DataResponse<String>) in ... }
+Alamofire.request(...).responseJSON { (resp: DataResponse<Any>) in ... }
+Alamofire.request(...).responsePropertyList { resp: DataResponse<Any>) in ... }
+```
+
+Those responses wrap deserialized *values* (Data, String, Any) or *errors* (network, validation errors), as well as *meta-data* (URL request, HTTP headers, status code, [metrics](#statistical-metrics), ...).
+
+You have several ways to customize all of those response elements:
+
+- [Response Mapping](#response-mapping)
+- [Handling Errors](#handling-errors)
+- [Creating a Custom Response Serializer](#creating-a-custom-response-serializer)
+- [Generic Response Object Serialization](#generic-response-object-serialization)
+
+#### Response Mapping
+
+Response mapping is the simplest way to produce customized responses. It transforms the value of a response, while preserving eventual errors and meta-data. For example, you can turn a json response `DataResponse<Any>` into a response that holds an application model, such as `DataResponse<User>`. You perform response mapping with the `DataResponse.map` method:
+
+```swift
+Alamofire.request("https://example.com/users/mattt").responseJSON { (response: DataResponse<Any>) in
+    let userResponse = response.map { json in
+        // We assume an existing User(json: Any) initializer
+        return User(json: json)
+    }
+
+    // Process userResponse, of type DataResponse<User>:
+    if let user = userResponse.value {
+        print("User: { username: \(user.username), name: \(user.name) }")
+    }
+}
+```
+
+When the transformation may throw an error, use `flatMap` instead:
+
+```swift
+Alamofire.request("https://example.com/users/mattt").responseJSON { response in
+    let userResponse = response.flatMap { json in
+        try User(json: json)
+    }
+}
+```
+
+Response mapping is a good fit for your custom completion handlers:
+
+```swift
+@discardableResult
+func loadUser(completionHandler: @escaping (DataResponse<User>) -> Void) -> Alamofire.DataRequest {
+    return Alamofire.request("https://example.com/users/mattt").responseJSON { response in
+        let userResponse = response.flatMap { json in
+            try User(json: json)
+        }
+
+        completionHandler(userResponse)
+    }
+}
+
+loadUser { response in
+    if let user = userResponse.value {
+        print("User: { username: \(user.username), name: \(user.name) }")
+    }
+}
+```
+
+When the map/flatMap closure may process a big amount of data, make sure you execute it outside of the main thread:
+
+```swift
+@discardableResult
+func loadUser(completionHandler: @escaping (DataResponse<User>) -> Void) -> Alamofire.DataRequest {
+    let utilityQueue = DispatchQueue.global(qos: .utility)
+
+    return Alamofire.request("https://example.com/users/mattt").responseJSON(queue: utilityQueue) { response in
+        let userResponse = response.flatMap { json in
+            try User(json: json)
+        }
+
+        DispatchQueue.main.async {
+            completionHandler(userResponse)
+        }
+    }
+}
+```
+
+`map` and `flatMap` are also available for [download responses](#downloading-data-to-a-file).
+
 #### Handling Errors
 
 Before implementing custom response serializers or object serialization methods, it's important to consider how to handle any errors that may occur. There are two basic options: passing existing errors along unmodified, to be dealt with at response time; or, wrapping all errors in an `Error` type specific to your app.
@@ -1578,7 +1667,7 @@ The `ServerTrustPolicy` enumeration evaluates the server trust generally provide
 
 ```swift
 let serverTrustPolicy = ServerTrustPolicy.pinCertificates(
-    certificates: ServerTrustPolicy.certificatesInBundle(),
+    certificates: ServerTrustPolicy.certificates(),
     validateCertificateChain: true,
     validateHost: true
 )
@@ -1599,7 +1688,7 @@ The `ServerTrustPolicyManager` is responsible for storing an internal mapping of
 ```swift
 let serverTrustPolicies: [String: ServerTrustPolicy] = [
     "test.example.com": .pinCertificates(
-        certificates: ServerTrustPolicy.certificatesInBundle(),
+        certificates: ServerTrustPolicy.certificates(),
         validateCertificateChain: true,
         validateHost: true
     ),
@@ -1700,6 +1789,7 @@ manager?.startListening()
 ```
 
 > Make sure to remember to retain the `manager` in the above example, or no status changes will be reported.
+> Also, do not include the scheme in the `host` string or reachability won't function correctly.
 
 There are some important things to remember when using network reachability to determine what to do next.
 

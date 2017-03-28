@@ -51,6 +51,14 @@ public extension ResultProtocol {
 			ifFailure: Result<U, Error>.failure)
 	}
 
+	/// Returns a Result with a tuple of the receiver and `other` values if both
+	/// are `Success`es, or re-wrapping the error of the earlier `Failure`.
+	public func fanout<R: ResultProtocol>(_ other: @autoclosure () -> R) -> Result<(Value, R.Value), Error>
+		where Error == R.Error
+	{
+		return self.flatMap { left in other().map { right in (left, right) } }
+	}
+
 	/// Returns a new Result by mapping `Failure`'s values using `transform`, or re-wrapping `Success`es’ values.
 	public func mapError<Error2>(_ transform: (Error) -> Error2) -> Result<Value, Error2> {
 		return flatMapError { .failure(transform($0)) }
@@ -61,6 +69,14 @@ public extension ResultProtocol {
 		return analysis(
 			ifSuccess: Result<Value, Error2>.success,
 			ifFailure: transform)
+	}
+
+	/// Returns a new Result by mapping `Success`es’ values using `success`, and by mapping `Failure`'s values using `failure`.
+	public func bimap<U, Error2>(success: (Value) -> U, failure: (Error) -> Error2) -> Result<U, Error2> {
+		return analysis(
+			ifSuccess: { .success(success($0)) },
+			ifFailure: { .failure(failure($0)) }
+		)
 	}
 }
 
@@ -108,10 +124,11 @@ public extension ResultProtocol where Error: ErrorProtocolConvertible {
 infix operator &&& : LogicalConjunctionPrecedence
 
 /// Returns a Result with a tuple of `left` and `right` values if both are `Success`es, or re-wrapping the error of the earlier `Failure`.
+@available(*, deprecated, renamed: "ResultProtocol.fanout(self:_:)")
 public func &&& <L: ResultProtocol, R: ResultProtocol> (left: L, right: @autoclosure () -> R) -> Result<(L.Value, R.Value), L.Error>
 	where L.Error == R.Error
 {
-	return left.flatMap { left in right().map { right in (left, right) } }
+	return left.fanout(right)
 }
 
 precedencegroup ChainingPrecedence {
@@ -124,6 +141,7 @@ infix operator >>- : ChainingPrecedence
 /// Returns the result of applying `transform` to `Success`es’ values, or re-wrapping `Failure`’s errors.
 ///
 /// This is a synonym for `flatMap`.
+@available(*, deprecated, renamed: "ResultProtocol.flatMap(self:_:)")
 public func >>- <T: ResultProtocol, U> (result: T, transform: (T.Value) -> Result<U, T.Error>) -> Result<U, T.Error> {
 	return result.flatMap(transform)
 }

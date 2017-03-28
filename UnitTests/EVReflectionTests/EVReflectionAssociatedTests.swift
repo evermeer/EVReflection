@@ -47,7 +47,7 @@ class EVReflectionAssociatedTests: XCTestCase {
         XCTAssertEqual(19, param?["number"] as? Int, "The number param associated value of the enum should be 19")
         XCTAssertEqual(false, param?["authors_only"] as? Bool, "The authors_only param associated value of the enum should be false")
         
-        print("\(label) = {token = \(token), params = \(param)")
+        print("\(label) = {token = \(token), params = \(param?.debugDescription ?? "")")
     }
 
 }

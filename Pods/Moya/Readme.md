@@ -1,4 +1,4 @@
-[![CircleCI](https://circleci.com/gh/Moya/Moya/tree/master.svg?style=svg)](https://circleci.com/gh/Moya/Moya/tree/master)
+[![CircleCI](https://img.shields.io/circleci/project/github/Moya/Moya/master.svg)](https://circleci.com/gh/Moya/Moya/tree/master)
 [![codecov.io](https://codecov.io/github/Moya/Moya/coverage.svg?branch=master)](https://codecov.io/github/Moya/Moya?branch=master)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 [![CocoaPods compatible](https://img.shields.io/cocoapods/v/Moya.svg)](https://cocoapods.org/pods/Moya)
@@ -60,7 +60,7 @@ you should use for your Swift version.
 | Swift version | Moya version  |
 | ------------- | ------------- |
 | 3.X           | >= 8.0.0      |
-| 2.3           | 7.0.2 - 7.0.3 |
+| 2.3           | 7.0.2 - 7.0.4 |
 | 2.2           | <= 7.0.1      |
 
 ### Swift Package Manager
@@ -90,17 +90,10 @@ let package = Package(
 For Moya, use the following entry in your Podfile:
 
 ```rb
-pod 'Moya', '8.0.1'
-```
+pod 'Moya'
 
-In any file you'd like to use Moya in, don't forget to
-import the framework with `import Moya`.
+# or 
 
-For RxSwift or ReactiveSwift extensions, this project will include
-them as dependencies. You can do this via CocoaPods subspecs, but you will also
-need to include the pre-release versions of RxSwift or ReactiveSwift manually.
-
-```rb
 pod 'Moya/RxSwift'
 
 # or
@@ -110,12 +103,13 @@ pod 'Moya/ReactiveSwift'
 
 Then run `pod install`.
 
+In any file you'd like to use Moya in, don't forget to
+import the framework with `import Moya`.
+
 ### Carthage
 
 Carthage users can point to this repository and use whichever
 generated framework they'd like, `Moya`, `RxMoya`, or `ReactiveMoya`.
-When linking frameworks remember to always link `Moya` along with `RxMoya` and 
-`ReactiveMoya`, if you use any of these.
 
 ```
 github "Moya/Moya"
@@ -270,6 +264,7 @@ Moya has a great community around it and some people have created some very help
 - [Moya-Unbox](https://github.com/RyogaK/Moya-Unbox) - Unbox bindings for Moya for easier JSON serialization
 - [MoyaSugar](https://github.com/devxoul/MoyaSugar) – Syntactic sugar for Moya
 - [Moya-EVReflection](https://github.com/evermeer/EVReflection/tree/master/Source/Alamofire/Moya) - EVReflection bindings for Moya for easier JSON serialization (including subspecs for [RxSwift](https://github.com/evermeer/EVReflection/tree/master/Source/Alamofire/Moya/RxSwift) and [ReactiveCocoa](https://github.com/evermeer/EVReflection/tree/master/Source/Alamofire/Moya/ReactiveCocoa))
+- [Moya-Marshal](https://github.com/JARMourato/Moya-Marshal) - Marshal bindings for Moya for easier JSON serialization
 
 We appreciate all the work being done by the community around Moya. If you would like to have your extension featured in the list above, simply create a pull request adding your extensions to the list.
 

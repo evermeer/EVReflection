@@ -64,7 +64,7 @@ class AlamofireXmlTests: XCTestCase {
         
         Alamofire.request(URL)
             .responseString { (response: DataResponse<String>) in
-                print("\(response.result.value)")
+                print("\(response.result.value ?? "")")
             }
             .responseObjectFromXML { (response: DataResponse<JDBOR>) in
                 expectation.fulfill()
@@ -81,7 +81,7 @@ class AlamofireXmlTests: XCTestCase {
         }
         
         waitForExpectations(timeout: 10) { error in
-            XCTAssertNil(error, "\(error)")
+            XCTAssertNil(error, "\(error?.localizedDescription ?? "")")
         }
     }
     

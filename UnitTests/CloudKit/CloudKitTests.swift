@@ -59,13 +59,13 @@ class CloudKitTests: XCTestCase {
         print ("\(record1)")
         
         let record2 = CKRecord(news)
-        print ("\(record2)")
+        print ("\(record2?.description ?? "")")
         
         let newNews1 = CloudNews(record1)
         print(newNews1)
         
         let newNews2 = record2!.toDataObject()
-        print("\(newNews2)")
+        print("\(newNews2?.description ?? "")")
     }
 }
 

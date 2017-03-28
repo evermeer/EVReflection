@@ -150,7 +150,7 @@ class EVReflectionEVObjectTests: XCTestCase {
         
         // Read object from file
         let result = NSKeyedUnarchiver.unarchiveObject(withFile: filePath) as? TestObject3
-        NSLog("unarchived result object = \(result)")
+        NSLog("unarchived result object = \(result?.debugDescription ?? "")")
         
         // Test if the objects are the same
         XCTAssert(theObject == result, "Pass")
