@@ -14,7 +14,7 @@ import XCTest
 
 //: 0. Extend Realm List with EVCustomReflectable to enable custom parsing
 
-extension List : EVCustomReflectable {}
+extension List : EVCustomReflectable { }
 
 
 //: I. Define the data entities
@@ -90,16 +90,18 @@ class RealmTests: XCTestCase {
         
         let wife = Person(json: "{\"name\": \"Jennifer\", \"age\": \"47\", \"cars\": [{\"brand\": \"DeLorean\", \"name\": \"Outatime\", \"year\": 1981} , {\"brand\": \"Volkswagen\", \"year\": 2014}]}")
         
-        print("wife = \(wife)")
-        
         let husband = Person(value: [
             "name": "Marty",
-            "age": 47,
+            "age": 48,
             "spouse": wife
             ])
         
         wife.spouse = husband
 
+        // You will see _EVReflection_parent_ with the value 1 to indicate that there is a circular reference to it's parent 1 level up.
+        print("wife = \(wife.toJsonString())")
+        
+        
         //: IV. Write objects to the realm
         
         try! realm.write {
