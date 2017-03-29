@@ -9,7 +9,9 @@
 import Foundation
 
 // Protocol that can be used for sub objects to define that parsing will be done in the parent using the 'setValue forKey' function
-protocol EVCustomReflectable {}
+protocol EVCustomReflectable {
+    func constructWith(value: Any?)
+}
 
 // MARK: - Protocol with the overridable functions. All functionality is added to this in the extension below.
 public protocol EVReflectable: class, NSObjectProtocol  {

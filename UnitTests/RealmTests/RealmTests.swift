@@ -14,7 +14,18 @@ import XCTest
 
 //: 0. Extend Realm List with EVCustomReflectable to enable custom parsing
 
-extension List : EVCustomReflectable { }
+extension List : EVCustomReflectable {
+    public func constructWith(value: Any?) {
+        if let array = value as? [NSDictionary] {
+            self.removeAll()
+            for dict in array {
+                if let element: T = EVReflection.fromDictionary(dict, anyobjectTypeString: _rlmArray.objectClassName) as? T {
+                    self.append(element)
+                }
+            }
+        }
+    }
+}
 
 
 //: I. Define the data entities
@@ -27,23 +38,10 @@ class Person: Object, EVReflectable {
     
     override var description: String { return "Person {\(name), \(age), \(spouse?.name ?? "")}" }
     
-    
     func propertyConverters() -> [(key: String, decodeConverter: ((Any?)->()), encodeConverter: (() -> Any?))] {
-        return [
-            ( // We want a custom converter for the field isGreat
-                key: "cars",
-                // We do the list parsing ourselves.
-                decodeConverter: {
-                    for dict in ($0 as? NSArray) ?? NSArray() {
-                        if let dict = dict as? NSDictionary {
-                            self.cars.append(Car(dictionary: dict))
-                        }
-                    }
-                },
-                // The json will say 'Sure  if isGreat is true, otherwise it will say 'Nah'
-                encodeConverter: {
-                    return self.cars.map { $0.toDictionary() }
-            })]
+        return [( key: "cars",
+                  decodeConverter: { self.cars.constructWith(value: $0) },
+                  encodeConverter: { return self.cars })]
     }    
 }
 
