@@ -82,7 +82,10 @@ final public class EVReflection {
                 let dictKey: String = cleanupKey(anyObject, key: objectKey, tryMatch: types) ?? ""
                 let (dictValue, valid) = dictionaryAndArrayConversion(anyObject, key: objectKey, fieldType: types[dictKey] as? String ?? types[useKey] as? String, original: original, theDictValue: v as Any?, conversionOptions: conversionOptions)
                 if dictValue != nil {
-                    let value: Any? = valid ? dictValue : (v as Any)
+                    var value: Any? = valid ? dictValue : (v as Any)
+                    if let custom = original as? EVCustomReflectable {
+                        value = custom.constructWith(value: value)
+                    }
                     if let key: String = keyMapping[k as? String ?? ""] as? String {
                         setObjectValue(anyObject, key: key, theValue: value, typeInObject: types[key] as? String, valid: valid, conversionOptions: conversionOptions)
                     } else {

@@ -12,8 +12,8 @@ import XCTest
 @testable import EVReflection
 
 
-//: 0. Extend Realm List with EVCustomReflectable to enable custom parsing
-
+//: I. Extend Realm List with EVCustomReflectable to enable custom parsing
+//extension Object: EVReflectable { } // Only works when not useing propertyConverters or propertyMapping functions
 extension List : EVCustomReflectable {
     public func constructWith(value: Any?) {
         if let array = value as? [NSDictionary] {
@@ -25,24 +25,21 @@ extension List : EVCustomReflectable {
             }
         }
     }
+    public func toJsonString() -> String {
+        return "[\(self.enumerated().map { ($0.element as? EVReflectable)?.toJsonString() ?? "" }.joined(separator: ", "))]"
+    }
 }
 
 
-//: I. Define the data entities
+//: II. Define the data entities
 
 class Person: Object, EVReflectable {
     dynamic var name = ""
     dynamic var age = 0
     dynamic var spouse: Person?
-    var cars = List<Car>()
+    let cars = List<Car>()
     
     override var description: String { return "Person {\(name), \(age), \(spouse?.name ?? "")}" }
-    
-    func propertyConverters() -> [(key: String, decodeConverter: ((Any?)->()), encodeConverter: (() -> Any?))] {
-        return [( key: "cars",
-                  decodeConverter: { self.cars.constructWith(value: $0) },
-                  encodeConverter: { return self.cars })]
-    }    
 }
 
 class Car: Object, EVReflectable {
@@ -77,14 +74,14 @@ class RealmTests: XCTestCase {
         super.tearDown()
     }
     
-    //: II. Init the realm file
+    //: III. Init the realm file
     let realm = try! Realm(configuration: Realm.Configuration(inMemoryIdentifier: "TemporaryRealm"))
 
     /**
      Get the string name for a class and then generate a class based on that string
      */
     func testRealmSmokeTest() {
-        //: III. Create the objects
+        //: IV. Create the objects
         
         let wife = Person(json: "{\"name\": \"Jennifer\", \"age\": \"47\", \"cars\": [{\"brand\": \"DeLorean\", \"name\": \"Outatime\", \"year\": 1981} , {\"brand\": \"Volkswagen\", \"year\": 2014}]}")
         
@@ -100,13 +97,13 @@ class RealmTests: XCTestCase {
         print("wife = \(wife.toJsonString())")
         
         
-        //: IV. Write objects to the realm
+        //: V. Write objects to the realm
         
         try! realm.write {
             realm.add(husband)
         }
         
-        //: V. Read objects back from the realm
+        //: VI. Read objects back from the realm
         
         let favorites = ["Jennifer"]
         
@@ -124,7 +121,7 @@ class RealmTests: XCTestCase {
                 print("year = \(car.year)")
             }
             
-            //: VI. Update objects
+            //: VII. Update objects
             guard let car = person.cars.first else {
                 continue
             }
@@ -136,7 +133,7 @@ class RealmTests: XCTestCase {
             print("new car.year = \(car.year)")
         }
         
-        //: VII. Delete objects
+        //: VIII. Delete objects
         print("Number of persons in database before delete = \(realm.objects(Person.self).count)")
         
         try! realm.write {
