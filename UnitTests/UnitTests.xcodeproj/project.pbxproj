@@ -169,6 +169,9 @@
 		7FB099E31D2F83C400D94204 /* EVReflectionIssue102.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FB099E11D2F82DE00D94204 /* EVReflectionIssue102.swift */; };
 		7FB099E41D2F83C500D94204 /* EVReflectionIssue102.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FB099E11D2F82DE00D94204 /* EVReflectionIssue102.swift */; };
 		7FB099E51D2F83C500D94204 /* EVReflectionIssue102.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FB099E11D2F82DE00D94204 /* EVReflectionIssue102.swift */; };
+		7FC41DE81E8B8C2C0080DB80 /* RealmTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FC41DE71E8B8C2C0080DB80 /* RealmTests.swift */; };
+		7FC41DE91E8B8C2C0080DB80 /* RealmTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FC41DE71E8B8C2C0080DB80 /* RealmTests.swift */; };
+		7FC41DEA1E8B8C2C0080DB80 /* RealmTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FC41DE71E8B8C2C0080DB80 /* RealmTests.swift */; };
 		7FCD1D491D3FADA800F51BE0 /* EVReflectionIssue107.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FCD1D471D3FAD0900F51BE0 /* EVReflectionIssue107.swift */; };
 		7FCD1D4A1D3FADA900F51BE0 /* EVReflectionIssue107.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FCD1D471D3FAD0900F51BE0 /* EVReflectionIssue107.swift */; };
 		7FCD1D4B1D3FADAB00F51BE0 /* EVReflectionIssue107.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FCD1D471D3FAD0900F51BE0 /* EVReflectionIssue107.swift */; };
@@ -259,6 +262,7 @@
 		7F9E680A1C6238E900F0F4D3 /* EVReflectionNestedObjectsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = EVReflectionNestedObjectsTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		7FA506E31E68C953003D83E7 /* EVReflectionCustomConverterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVReflectionCustomConverterTests.swift; sourceTree = "<group>"; };
 		7FB099E11D2F82DE00D94204 /* EVReflectionIssue102.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVReflectionIssue102.swift; sourceTree = "<group>"; };
+		7FC41DE71E8B8C2C0080DB80 /* RealmTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RealmTests.swift; path = RealmTests/RealmTests.swift; sourceTree = "<group>"; };
 		7FCD1D471D3FAD0900F51BE0 /* EVReflectionIssue107.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVReflectionIssue107.swift; sourceTree = "<group>"; };
 		7FD407AA1E0BE8BE00AEBF1B /* EVReflectionIssue145.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVReflectionIssue145.swift; sourceTree = "<group>"; };
 		7FDC390D1DC3582F0091D27E /* sample.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = sample.json; sourceTree = "<group>"; };
@@ -314,6 +318,7 @@
 				7F36405C1CC9F2E600D7F055 /* .swiftlint.yml */,
 				7FFCCC361BB440F400EE9312 /* coverage.png */,
 				7F07C5751AF101A9000DF1F3 /* EVReflectionTests */,
+				7FC41DE61E8B8BBF0080DB80 /* RealmTests */,
 				7F1D69401E27973000F5AE15 /* CloudKit */,
 				7F1C9D3A1E23D76D00A18776 /* AlamofireTests */,
 				7F9930121E2426B500792CF1 /* AlamofireXmlTests */,
@@ -437,6 +442,14 @@
 				7F99301D1E2426B500792CF1 /* sample_xml */,
 			);
 			path = AlamofireXmlTests;
+			sourceTree = "<group>";
+		};
+		7FC41DE61E8B8BBF0080DB80 /* RealmTests */ = {
+			isa = PBXGroup;
+			children = (
+				7FC41DE71E8B8C2C0080DB80 /* RealmTests.swift */,
+			);
+			name = RealmTests;
 			sourceTree = "<group>";
 		};
 		7FF4BEB21CF2DA3F0086F999 /* GitHubIssues */ = {
@@ -823,6 +836,7 @@
 				7F663C321D014D7B00642499 /* EVReflectionIssue91.swift in Sources */,
 				7F1E77911CD3440000F88A9A /* EVReflectionConversionOptionsTest.swift in Sources */,
 				7F44151C1E2A84E00077F033 /* CKAsset+UIImage.swift in Sources */,
+				7FC41DE81E8B8C2C0080DB80 /* RealmTests.swift in Sources */,
 				7F7903CA1E7D4F760086D111 /* EVReflectionExtendingNSObjects.swift in Sources */,
 				7F9930201E2426B500792CF1 /* AlamofireXml3Tests.swift in Sources */,
 				7F9801971E260A4D00D6C5C0 /* Owner.swift in Sources */,
@@ -869,6 +883,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7F9930271E2426B500792CF1 /* Issue4Test.swift in Sources */,
+				7FC41DE91E8B8C2C0080DB80 /* RealmTests.swift in Sources */,
 				7F98019C1E260AD000D6C5C0 /* MoyaRxSwiftTests.swift in Sources */,
 				7F76633A1DA922FB00740ACA /* EVReflectionIssue114b.swift in Sources */,
 				7F3E31961BB909A7001E6788 /* EVReflectionWorkaroundsTests.swift in Sources */,
@@ -925,6 +940,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7F76633B1DA922FC00740ACA /* EVReflectionIssue114b.swift in Sources */,
+				7FC41DEA1E8B8C2C0080DB80 /* RealmTests.swift in Sources */,
 				7F9336CC1C2822B700AF7076 /* EVObjectDescriptionTests.swift in Sources */,
 				7FD407AE1E0BF78300AEBF1B /* EVReflectionIssue145.swift in Sources */,
 				7FD41E0C1CDF441800746FB8 /* EVObjectDescription.swift in Sources */,
