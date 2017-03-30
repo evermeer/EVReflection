@@ -14,11 +14,6 @@ import EVReflection
 
 //: I. Extend Realm List with EVCustomReflectable to enable custom parsing
 
-// Only works when not useing propertyConverters or propertyMapping functions
-// Otherwise you would get the error: Declarations from extension cannot be overwritten yet
-//extension Object: EVReflectable { }
-
-
 extension List : EVCustomReflectable {
     public func constructWith(value: Any?) {
         if let array = value as? [NSDictionary] {
@@ -35,6 +30,11 @@ extension List : EVCustomReflectable {
     }
 }
 
+
+// Only works when not using propertyConverters or propertyMapping functions
+// Otherwise you would get the error: Declarations from extension cannot be overwritten yet
+//extension Object: EVReflectable { }
+// So for now we will add EVReflectable to every object
 
 
 //: II. Define the data entities
@@ -55,7 +55,7 @@ class Car: Object, EVReflectable {
 
 
 /**
- Testing EVReflection
+ Testing Realm with EVReflection
  */
 class RealmTests: XCTestCase {
     
@@ -102,6 +102,7 @@ class RealmTests: XCTestCase {
             realm.add(wife)
         }
         
+        
         //: VI. Read objects back from the realm
         
         let favorites = ["Jennifer"]
@@ -131,6 +132,7 @@ class RealmTests: XCTestCase {
             }
             print("new car.year = \(car.year)")
         }
+        
         
         //: VIII. Delete objects
         print("Number of persons in database before delete = \(realm.objects(Person.self).count)")
