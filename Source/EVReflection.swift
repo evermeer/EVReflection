@@ -82,9 +82,9 @@ final public class EVReflection {
                 let dictKey: String = cleanupKey(anyObject, key: objectKey, tryMatch: types) ?? ""
                 let (dictValue, valid) = dictionaryAndArrayConversion(anyObject, key: objectKey, fieldType: types[dictKey] as? String ?? types[useKey] as? String, original: original, theDictValue: v as Any?, conversionOptions: conversionOptions)
                 if dictValue != nil {
-                    var value: Any? = valid ? dictValue : (v as Any)
+                    let value: Any? = valid ? dictValue : (v as Any)
                     if let custom = original as? EVCustomReflectable {
-                        value = custom.constructWith(value: value)
+                        custom.constructWith(value: value)
                     }
                     if let key: String = keyMapping[k as? String ?? ""] as? String {
                         setObjectValue(anyObject, key: key, theValue: value, typeInObject: types[key] as? String, valid: valid, conversionOptions: conversionOptions)
@@ -662,6 +662,7 @@ final public class EVReflection {
     public class func valueForAny(_ parentObject: Any? = nil, key: String? = nil, anyValue: Any, conversionOptions: ConversionOptions = .DefaultDeserialize, isCachable: Bool = false, parents: [NSObject] = []) -> (value: AnyObject, type: String, isObject: Bool) {
         var theValue = anyValue
         var valueType: String = ""
+        
         var mi: Mirror = Mirror(reflecting: theValue)
         
         if mi.displayStyle == .optional {
@@ -839,7 +840,7 @@ final public class EVReflection {
         }
         
         (parentObject as? EVReflectable)?.addStatusMessage(.InvalidType, message: "valueForAny unkown type \(valueType) for value: \(theValue).")
-        print("ERROR: valueForAny unkown type \(valueType) for value: \(theValue).")
+        print("ERROR: valueForAny unkown type \(valueType) for key: \(key ?? "") and value: \(theValue).")
         return (NSNull(), "NSNull", false)
     }
     
@@ -872,6 +873,7 @@ final public class EVReflection {
                 return
             }
         }
+        
         // Let us put a number into a string property by taking it's stringValue
         let (_, type, _) = valueForAny("", key: key, anyValue: value, conversionOptions: conversionOptions, isCachable: false, parents: parents)
         if (typeInObject == "String" || typeInObject == "NSString") && type == "NSNumber" {
@@ -1319,6 +1321,12 @@ final public class EVReflection {
                     
                     // Convert the Any value to a NSObject value
                     var (unboxedValue, valueType, isObject) = valueForAny(theObject, key: originalKey, anyValue: value, conversionOptions: conversionOptions, isCachable: isCachable, parents: parents)
+
+                    if let v = value as? EVCustomReflectable {
+                        unboxedValue = v.toCodableValue() as AnyObject
+                        valueType = "String"
+                        isObject = false
+                    }
 
                     if conversionOptions.contains(.PropertyConverter) {
                         // If there is a properyConverter, then use the result of that instead.

@@ -10,6 +10,7 @@ import Alamofire
 import EVReflection
 
 class WeatherResponse: EVNetworkingObject {
+    var __name: String?
     var location: String?
     var three_day_forecast: [Forecast] = [Forecast]()
 }
@@ -85,7 +86,7 @@ class AlamofireTests: XCTestCase {
         }
         
         waitForExpectations(timeout: 10) { error in
-            XCTAssertNil(error, "\(error)")
+            XCTAssertNil(error, "\(error?.localizedDescription ?? "")")
         }
     }
 
@@ -191,7 +192,7 @@ class AlamofireTests: XCTestCase {
         }
         
         waitForExpectations(timeout: 10) { error in
-            XCTAssertNil(error, "\(error)")
+            XCTAssertNil(error, "\(error?.localizedDescription ?? "")")
         }
     }
 
@@ -218,7 +219,7 @@ class AlamofireTests: XCTestCase {
         }
         
         waitForExpectations(timeout: 10) { error in
-            XCTAssertNil(error, "\(error)")
+            XCTAssertNil(error, "\(error?.localizedDescription ?? "")")
         }
     }
     

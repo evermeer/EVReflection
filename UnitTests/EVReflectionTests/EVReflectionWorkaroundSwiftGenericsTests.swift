@@ -78,7 +78,7 @@ class EVReflectionWorkaroundSwiftGenericsTests: XCTestCase {
         NSLog("swiftStringFromClass = \(theObjectString)")
         
         let nsobject = EVReflection.swiftClassFromString(theObjectString)
-        NSLog("object = \(nsobject)")
+        NSLog("object = \(String(describing: nsobject))")
         XCTAssert(nsobject != nil, "Pass")
     }
     

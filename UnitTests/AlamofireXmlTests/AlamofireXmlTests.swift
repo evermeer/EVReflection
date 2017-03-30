@@ -32,7 +32,7 @@ class AlamofireXmlToObjectsTests: XCTestCase {
                         
             Alamofire.request(URL)
             .responseString { (response: DataResponse<String>) in
-                print("\(response.result.value)")
+                print("\(response.result.value ?? "")")
             }
             .responseObjectFromXML { (response: DataResponse<WeatherResponse>) in
                 expectation.fulfill()
@@ -52,7 +52,7 @@ class AlamofireXmlToObjectsTests: XCTestCase {
             }
             
             waitForExpectations(timeout: 10) { error in
-                XCTAssertNil(error, "\(error)")
+                XCTAssertNil(error, "\(error?.localizedDescription ?? "")")
             }
     }
     
@@ -82,7 +82,7 @@ class AlamofireXmlToObjectsTests: XCTestCase {
             }
             
             waitForExpectations(timeout: 10) { error in
-                XCTAssertNil(error, "\(error)")
+                XCTAssertNil(error, "\(error?.localizedDescription ?? "")")
             }
         }
     }

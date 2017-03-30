@@ -14,6 +14,7 @@ import EVReflection
 
 
 class XmlResponse: EVObject {
+    var __name: String?
     var qlist: [QList]?
 }
 
@@ -21,6 +22,15 @@ class QList: EVObject {
     var piname: String?
     var picell: String?
     var rinum: String?
+    var rifunt: String?
+    var ridatr: String?
+    var riapt: String?
+    var riacft: String?
+    var rifbo: String?
+    var dev: String?
+    var rifuel: String?
+    var riftyp: String?
+    var pihome: String?
 }
 
 
@@ -60,7 +70,7 @@ class Issue4Test: XCTestCase {
         }
 
         waitForExpectations(timeout: 10) { error in
-            XCTAssertNil(error, "\(error)")
+            XCTAssertNil(error, "\(error?.localizedDescription ?? "")")
         }
     }
 }

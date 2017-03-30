@@ -40,7 +40,7 @@ class EVReflectionTests: XCTestCase {
         NSLog("swiftStringFromClass = \(theObjectString)")
 
         let nsobject = EVReflection.swiftClassFromString(theObjectString)
-        NSLog("object = \(nsobject)")
+        NSLog("object = \(nsobject.debugDescription )")
         XCTAssert(nsobject != nil, "Pass")
 
         let theObject2 = SubObject2()
@@ -48,7 +48,7 @@ class EVReflectionTests: XCTestCase {
         NSLog("swiftStringFromClass = \(theObject2String)")
         
         let nsobject2 = EVReflection.swiftClassFromString(theObject2String)
-        NSLog("object = \(nsobject2)")
+        NSLog("object = \(nsobject2.debugDescription )")
         XCTAssert(nsobject != nil, "Pass")
         
         
@@ -75,7 +75,7 @@ class EVReflectionTests: XCTestCase {
         let (toDict, _) = EVReflection.toDictionary(theObject)
         NSLog("toDictionary = \(toDict)")
         let nsobject = EVReflection.fromDictionary(toDict, anyobjectTypeString: theObjectString) as? TestObject2
-        NSLog("object = \(nsobject), objectValue = \(nsobject?.objectValue)")
+        NSLog("object = \(nsobject.debugDescription), objectValue = \(nsobject?.objectValue ?? "")")
         XCTAssert(theObject == nsobject, "Pass")
     }
 
@@ -111,7 +111,7 @@ class EVReflectionTests: XCTestCase {
         let (toDict, _) = EVReflection.toDictionary(theObject)
         NSLog("toDictionary = \(toDict)")
         let nsobject = EVReflection.fromDictionary(toDict, anyobjectTypeString: theObjectString) as? TestObject3
-        NSLog("object = \(nsobject), objectValue = \(nsobject?.objectValue)")
+        NSLog("object = \(nsobject.debugDescription), objectValue = \(nsobject?.objectValue ?? "")")
         XCTAssert(theObject == nsobject, "Pass")
     }
 
@@ -292,8 +292,8 @@ class EVReflectionTests: XCTestCase {
     func testTypeForKey() {
         let theObject = TestObject4()
         let type = theObject.typeForKey("myInt")
-        print("type of myInt = \(type)")
-        XCTAssertEqual("\(type)", "Optional(Swift.Int)")
+        print("type of myInt = \(type.debugDescription)")
+        XCTAssertEqual("\(type.debugDescription)", "Optional(Swift.Int)")
     }
 
     func testJSONArray() {

@@ -9,11 +9,16 @@
 import Foundation
 import RealmSwift
 import XCTest
-@testable import EVReflection
+import EVReflection
 
 
 //: I. Extend Realm List with EVCustomReflectable to enable custom parsing
-//extension Object: EVReflectable { } // Only works when not useing propertyConverters or propertyMapping functions
+
+// Only works when not useing propertyConverters or propertyMapping functions
+// Otherwise you would get the error: Declarations from extension cannot be overwritten yet
+//extension Object: EVReflectable { }
+
+
 extension List : EVCustomReflectable {
     public func constructWith(value: Any?) {
         if let array = value as? [NSDictionary] {
@@ -25,10 +30,11 @@ extension List : EVCustomReflectable {
             }
         }
     }
-    public func toJsonString() -> String {
-        return "[\(self.enumerated().map { ($0.element as? EVReflectable)?.toJsonString() ?? "" }.joined(separator: ", "))]"
+    public func toCodableValue() -> Any {
+        return self.enumerated().map { ($0.element as? EVReflectable)?.toDictionary() ?? NSDictionary() }
     }
 }
+
 
 
 //: II. Define the data entities
@@ -38,16 +44,12 @@ class Person: Object, EVReflectable {
     dynamic var age = 0
     dynamic var spouse: Person?
     let cars = List<Car>()
-    
-    override var description: String { return "Person {\(name), \(age), \(spouse?.name ?? "")}" }
 }
 
 class Car: Object, EVReflectable {
     dynamic var brand = ""
     dynamic var name: String?
     dynamic var year = 0
-    
-    override var description: String { return "Car {\(brand), \(name ?? ""), \(year)}" }
 }
 
 
@@ -83,24 +85,21 @@ class RealmTests: XCTestCase {
     func testRealmSmokeTest() {
         //: IV. Create the objects
         
-        let wife = Person(json: "{\"name\": \"Jennifer\", \"age\": \"47\", \"cars\": [{\"brand\": \"DeLorean\", \"name\": \"Outatime\", \"year\": 1981} , {\"brand\": \"Volkswagen\", \"year\": 2014}]}")
-        
-        let husband = Person(value: [
-            "name": "Marty",
-            "age": 48,
-            "spouse": wife
-            ])
-        
-        wife.spouse = husband
+        let wife = Person(json: "{\"name\": \"Jennifer\", \"age\": \"47\", \"cars\": [{\"brand\": \"DeLorean\", \"name\": \"Outatime\", \"year\": 1981} , {\"brand\": \"Volkswagen\", \"year\": 2014}], \"spouse\": {\"name\": \"Marty\", \"age\": \"48\"}}")
 
+        // set the circular reference: The spouse of my spouse is me
+        wife.spouse?.spouse = wife
+        
         // You will see _EVReflection_parent_ with the value 1 to indicate that there is a circular reference to it's parent 1 level up.
         print("wife = \(wife.toJsonString())")
+        // Now the object printed using Realm output functionality which just repeats itself until maximum depth is exeeded
+        print("wife = \(wife)")
         
         
         //: V. Write objects to the realm
         
         try! realm.write {
-            realm.add(husband)
+            realm.add(wife)
         }
         
         //: VI. Read objects back from the realm

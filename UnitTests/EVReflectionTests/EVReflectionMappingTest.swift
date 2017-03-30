@@ -90,7 +90,7 @@ open class GameUser: EVObject {
             }
             NSLog("Validating name OK: \(theValue)")
         } else {
-            NSLog("Validating name is not a string: \(value.pointee)")
+            NSLog("Validating name is not a string: \(value.pointee.debugDescription )")
             throw MyValidationError.typeError
         }
     }

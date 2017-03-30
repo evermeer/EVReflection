@@ -73,4 +73,5 @@ class Repository: EVObject { // Could also use any NSObject with EVReflectable b
   var watchersCount: NSNumber?
   var language: String?
   var hasPages: Bool = false
+  var hasProjects: Bool = false
 }

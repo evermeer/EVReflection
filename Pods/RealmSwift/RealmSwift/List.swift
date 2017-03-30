@@ -78,9 +78,6 @@ public final class List<T: Object>: ListBase {
         super.init(array: rlmArray)
     }
 
-    public func newElement() -> T {
-        return T()
-    }
     
     // MARK: Index Retrieval
 

@@ -23,9 +23,11 @@ class JDBOR: EVObject {
 class DisorderListObject: EVObject {
     var _id: NSNumber?
     var Disorder: DisorderObject?
+    var _count: NSNumber?
 }
 
 class DisorderObject: EVObject {
+    var _id: NSNumber?
     var OrphaNumber: NSNumber?
     var ExpertLink: LocalizedText?
     var Name: LocalizedText?
@@ -34,10 +36,13 @@ class DisorderObject: EVObject {
 
 class DisorderFlagListObject: EVObject {
     var _count: NSNumber?
-    var DisorderFlag: NSNumber?
+    var DisorderFlag: DisorderFlag?
     var Label: String?
 }
-
+class DisorderFlag: EVObject {
+    var _id: NSNumber?
+    var Label: String?
+}
 class LocalizedText: EVObject {
     var _lang: String?
     var __text: String?

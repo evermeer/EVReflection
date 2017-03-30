@@ -65,7 +65,7 @@ class MoyaRxSwiftTests: XCTestCase {
             }.addDisposableTo(disposeBag)
         
         waitForExpectations(timeout: 10) { error in
-            XCTAssertNil(error, "\(error)")
+            XCTAssertNil(error, "\(error?.localizedDescription ?? "")")
         }
     }
 
@@ -87,7 +87,7 @@ class MoyaRxSwiftTests: XCTestCase {
             }.addDisposableTo(disposeBag)
         
         waitForExpectations(timeout: 10) { error in
-            XCTAssertNil(error, "\(error)")
+            XCTAssertNil(error, "\(error?.localizedDescription ?? "")")
         }
     }
 
@@ -109,7 +109,7 @@ class MoyaRxSwiftTests: XCTestCase {
             }.addDisposableTo(disposeBag)
         
         waitForExpectations(timeout: 10) { error in
-            XCTAssertNil(error, "\(error)")
+            XCTAssertNil(error, "\(error?.localizedDescription ?? "")")
         }
     }
     
@@ -133,7 +133,7 @@ class MoyaRxSwiftTests: XCTestCase {
             }.addDisposableTo(disposeBag)
         
         waitForExpectations(timeout: 10) { error in
-            XCTAssertNil(error, "\(error)")
+            XCTAssertNil(error, "\(error?.localizedDescription ?? "")")
         }
     }
 
@@ -158,10 +158,7 @@ class MoyaRxSwiftTests: XCTestCase {
                     success = false
                 }
             case let .failure(error):
-                guard let error = error as? CustomStringConvertible else {
-                    break
-                }
-                message = error.description
+                message = error.localizedDescription
                 success = false
             }
             
@@ -169,7 +166,7 @@ class MoyaRxSwiftTests: XCTestCase {
         })
         
         waitForExpectations(timeout: 10) { error in
-            XCTAssertNil(error, "\(error)")
+            XCTAssertNil(error, "\(error?.localizedDescription ?? "")")
         }
     }
     
@@ -194,7 +191,7 @@ class MoyaRxSwiftTests: XCTestCase {
             }.addDisposableTo(disposeBag)
 
         waitForExpectations(timeout: 10) { error in
-            XCTAssertNil(error, "\(error)")
+            XCTAssertNil(error, "\(error?.localizedDescription ?? "")")
         }
     }
 }

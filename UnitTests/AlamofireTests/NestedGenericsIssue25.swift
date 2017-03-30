@@ -158,7 +158,7 @@ class NestedGenericsIssue25: XCTestCase {
 
         // Fail if the test takes longer than 10 seconds.
         waitForExpectations(timeout: 10) { error in
-            XCTAssertNil(error, "\(error)")
+            XCTAssertNil(error, "\(error.debugDescription)")
         }
     }
 }
