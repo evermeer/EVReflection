@@ -8,13 +8,13 @@
       location = "absolute:/Users/evermeer/Desktop/dev/GitHub/EVReflection/Carthage/../.swift-version">
    </FileRef>
    <FileRef
-      location = "absolute:/Users/evermeer/Desktop/dev/GitHub/EVReflection/Carthage/../README.md">
+      location = "group:README.md">
    </FileRef>
    <FileRef
-      location = "absolute:/Users/evermeer/Desktop/dev/GitHub/EVReflection/Carthage/../EVReflection.podspec">
+      location = "group:EVReflection.podspec">
    </FileRef>
    <FileRef
-      location = "absolute:/Users/evermeer/Desktop/dev/GitHub/EVReflection/Carthage/../LICENSE">
+      location = "group:LICENSE">
    </FileRef>
    <FileRef
       location = "group:UnitTests/../CHANGELOG.md">

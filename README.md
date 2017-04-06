@@ -469,7 +469,7 @@ class Foo: EVObject {
     var allFoo: String = "all Foo"
 
     // What you need to do to get the correct type for when you deserialize inherited classes
-    override func getSpecificType(dict: NSDictionary) -> EVObject {
+    override func getSpecificType(_ dict: NSDictionary) -> EVReflectable {
         if dict["justBar"] != nil {
             return Bar()
         } else if dict["justBaz"] != nil {

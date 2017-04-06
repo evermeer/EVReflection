@@ -140,6 +140,19 @@ open class TestObject6: EVObject {
     }
 }
 
+open class TestObject6child: EVObject {
+    var seconOverride: String?
+    override open func propertyConverters() -> [(key: String, decodeConverter: ((Any?) -> ()), encodeConverter: (() -> Any?))] {
+        return [( // We want a custom converter for the field isGreat
+            key: "seconOverride",
+            // isGreat will be true if the json says 'Sure'
+            decodeConverter: { self.seconOverride = $0 as? String ?? "") },
+            // The json will say 'Sure  if isGreat is true, otherwise it will say 'Nah'
+            encodeConverter: { return self.seconOverride })].append(contentsOf: super.propertyConverters())
+    }
+}
+
+
 class TestObject8: EVObject {
     var containers: [TestObject8Container] = []
 }
