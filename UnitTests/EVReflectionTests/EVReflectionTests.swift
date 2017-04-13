@@ -498,14 +498,7 @@ class EVReflectionTests: XCTestCase {
 
 class A81a: EVObject {
     var array: [A81] = []
-    
-    override func setValue(_ value: Any!, forUndefinedKey key: String) {
-        if key == "data" {
-            if let value = value as? [NSDictionary] {
-                array = [A81](dictionaryArray: value)
-            }
-        }
-    }
+
 }
 
 class A81b: EVObject {
