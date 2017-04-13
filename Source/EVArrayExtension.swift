@@ -28,6 +28,7 @@ public extension Array where Element: NSObject {
         }
     }
 
+
     /**
      Initialize an array based on a json string
      

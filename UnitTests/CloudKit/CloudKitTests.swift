@@ -8,7 +8,37 @@
 
 import XCTest
 import CloudKit
-@testable import EVReflection
+import EVReflection
+
+
+class CloudNews: CKDataObject {
+    var Subject: String = ""
+    var Body: String = ""
+    var ActionUrl: String = ""
+    
+    // When using a CKReference, then also store a string representation of the recordname for simplifying predecate queries that also can be used agains an object array.
+    var Asset: CKReference?
+    var Asset_ID: String = ""
+    func setAssetFields(_ asset: Asset) {
+        self.Asset_ID = asset.recordID.recordName
+        self.Asset = CKReference(recordID: CKRecordID(recordName: asset.recordID.recordName), action: CKReferenceAction.none)
+    }
+}
+
+// It's adviced to store your assets in a seperate table
+class Asset: CKDataObject {
+    var File: CKAsset?
+    var FileName: String = ""
+    var FileType: String = ""
+    
+    convenience init(name: String, type: String, url: URL) {
+        self.init()
+        FileName = name
+        FileType = type
+        File = CKAsset(fileURL: url)
+    }
+}
+
 
 /**
  Testing EVReflection
@@ -69,30 +99,4 @@ class CloudKitTests: XCTestCase {
     }
 }
 
-class CloudNews: CKDataObject {
-    var Subject: String = ""
-    var Body: String = ""
-    var ActionUrl: String = ""
-    
-    // When using a CKReference, then also store a string representation of the recordname for simplifying predecate queries that also can be used agains an object array.
-    var Asset: CKReference?
-    var Asset_ID: String = ""
-    func setAssetFields(_ asset: Asset) {
-        self.Asset_ID = asset.recordID.recordName
-        self.Asset = CKReference(recordID: CKRecordID(recordName: asset.recordID.recordName), action: CKReferenceAction.none)
-    }
-}
-
-// It's adviced to store your assets in a seperate table
-class Asset: CKDataObject {
-    var File: CKAsset?
-    var FileName: String = ""
-    var FileType: String = ""
-    
-    convenience init(name: String, type: String, url: URL) {
-        self.init()
-        FileName = name
-        FileType = type
-        File = CKAsset(fileURL: url)
-    }
-}
+ 

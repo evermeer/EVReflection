@@ -475,10 +475,46 @@ class EVReflectionTests: XCTestCase {
         print("json array: \n\(jsonArray)")
         let array2 = [NSDictionary](jsonArray: jsonArray)
         print("array2:\n\(array2)")
-    }    
+    }
+
+    func testWrappedArray(){
+        let json = "{\"array\":{ \"data\":[{\"openId\":\"value1\"},{\"openId\":\"value2\"}]}}"
+        let obj = A81a(json: json)
+        print(obj)
+    }
+
+    func testNestedArray(){
+        let json = "{\"array\":[[{\"openId\":\"value1\"},{\"openId\":\"value2\"}],[{\"openId\":\"value3\"},{\"openId\":\"value4\"}]]}"
+        let obj = A81b(json: json)
+        print(obj)
+    }
+
+    func testNestedNestedArray(){
+        let json = "{\"array\":[[[{\"openId\":\"value1\"},{\"openId\":\"value2\"}],[{\"openId\":\"value3\"},{\"openId\":\"value4\"}]]]}"
+        let obj = A81c(json: json)
+        print(obj)
+    }
 }
 
+class A81a: EVObject {
+    var array: [A81] = []
+    
+    override func setValue(_ value: Any!, forUndefinedKey key: String) {
+        if key == "data" {
+            if let value = value as? [NSDictionary] {
+                array = [A81](dictionaryArray: value)
+            }
+        }
+    }
+}
 
+class A81b: EVObject {
+    var array: [[A81]] = [[]]
+}
+
+class A81c: EVObject {
+    var array: [[[A81]]] = [[[]]]
+}
 
 class A81: EVObject {
     var openId: String = ""

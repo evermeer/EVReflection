@@ -21,7 +21,7 @@ end
 
 target 'UnitTestsiOS' do
     project 'UnitTests/UnitTests'
-    platform :ios, '9.0'
+    platform :ios, '8.0'
     libraries
 end
 

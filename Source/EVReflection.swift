@@ -1117,8 +1117,8 @@ final public class EVReflection {
                 if (dictValue as? NSDictionary)?.count == 1 {
                     // XMLDictionary fix
                     let onlyElement = (dictValue as? NSDictionary)?.makeIterator().next()
-                    let t: String = ((onlyElement?.key as? String) ?? "")
-                    if onlyElement?.value as? NSArray != nil && type.hasPrefix("Swift.Array<") && type.lowercased().hasSuffix("\(t)>") {
+                    //let t: String = ((onlyElement?.key as? String) ?? "")
+                    if onlyElement?.value as? NSArray != nil && type.hasPrefix("Swift.Array<")  { // && type.lowercased().hasSuffix("\(t)>")
                         dictValue = onlyElement?.value as? NSArray
                         dictValue = dictArrayToObjectArray(anyObject, key: key, type: type, array: (dictValue as? [NSDictionary] as NSArray?) ?? [NSDictionary]() as NSArray, conversionOptions: conversionOptions) as NSArray
                     } else {
