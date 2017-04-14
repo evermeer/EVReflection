@@ -135,7 +135,7 @@ extension EVReflectable where Self: NSObject {
      */
     public init(dictionary: NSDictionary, conversionOptions: ConversionOptions = .DefaultDeserialize, forKeyPath: String? = nil) {
         self.init()
-        EVReflection.setPropertiesfromDictionary(dictionary, anyObject: self, conversionOptions: conversionOptions)
+        EVReflection.setPropertiesfromDictionary(dictionary, anyObject: self, conversionOptions: conversionOptions, forKeyPath: forKeyPath)
     }
     
     /**
@@ -147,7 +147,7 @@ extension EVReflectable where Self: NSObject {
     public init(json: String?, conversionOptions: ConversionOptions = .DefaultDeserialize, forKeyPath: String? = nil) {
         self.init()
         let jsonDict = EVReflection.dictionaryFromJson(json)
-        EVReflection.setPropertiesfromDictionary(jsonDict, anyObject: self, conversionOptions: conversionOptions)
+        EVReflection.setPropertiesfromDictionary(jsonDict, anyObject: self, conversionOptions: conversionOptions, forKeyPath: forKeyPath)
     }
     
     /**
@@ -159,7 +159,7 @@ extension EVReflectable where Self: NSObject {
     public init(data: Data, conversionOptions: ConversionOptions = .DefaultDeserialize, forKeyPath: String? = nil) {
         self.init()
         let dictionary: NSDictionary = (((try! JSONSerialization.jsonObject(with: data, options: []) as? NSDictionary))  ?? NSDictionary())!
-        EVReflection.setPropertiesfromDictionary(dictionary, anyObject: self, conversionOptions: conversionOptions)
+        EVReflection.setPropertiesfromDictionary(dictionary, anyObject: self, conversionOptions: conversionOptions, forKeyPath: forKeyPath)
     }
     
     

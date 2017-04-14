@@ -496,6 +496,11 @@ class EVReflectionTests: XCTestCase {
     }
 }
 
+
+class MKPolygon: NSObject { }
+extension MKPolygon: EVReflectable { }
+
+
 class A81a: EVObject {
     var array: [A81] = []
 

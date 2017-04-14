@@ -41,6 +41,6 @@ extension EVReflectable where Self: NSObject {
         if xmlData == nil {
             return nil
         }
-        self.init(xmlString: String(data: xmlData!, encoding: .utf8) ?? "")
+        self.init(xmlString: String(data: xmlData!, encoding: .utf8) ?? "", forKeyPath: forKeyPath)
     }
 }

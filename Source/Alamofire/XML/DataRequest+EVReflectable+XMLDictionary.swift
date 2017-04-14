@@ -23,7 +23,7 @@ public extension DataRequest {
             }
             
             let xml: String = NSString(data: data ?? Data(), encoding: String.Encoding.utf8.rawValue) as String? ?? ""
-            if let object = T(xmlString: xml) {
+            if let object = T(xmlString: xml, forKeyPath: keyPath) {
                 return .success(object)
             } else {
                 let failureReason = "Data could not be serialized. Could not get a dictionary from the XML."
