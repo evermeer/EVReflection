@@ -1,0 +1,6 @@
+framework module EVReflection {
+  umbrella header "EVReflection-e8b65197-umbrella.h"
+
+  export *
+  module * { export * }
+}

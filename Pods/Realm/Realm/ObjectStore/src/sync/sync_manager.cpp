@@ -44,6 +44,7 @@ void SyncManager::configure_file_system(const std::string& base_file_path,
         std::string identity;
         std::string user_token;
         util::Optional<std::string> server_url;
+        bool is_admin;
     };
 
     std::vector<UserCreationData> users_to_add;
@@ -106,8 +107,14 @@ void SyncManager::configure_file_system(const std::string& base_file_path,
             auto user_token = user_data.user_token();
             auto identity = user_data.identity();
             auto server_url = user_data.server_url();
+            bool is_admin = user_data.is_admin();
             if (user_token) {
-                UserCreationData data = { std::move(identity), std::move(*user_token), std::move(server_url) };
+                UserCreationData data = {
+                    std::move(identity),
+                    std::move(*user_token),
+                    std::move(server_url),
+                    is_admin,
+                };
                 users_to_add.emplace_back(std::move(data));
             }
         }
@@ -133,9 +140,9 @@ void SyncManager::configure_file_system(const std::string& base_file_path,
     {
         std::lock_guard<std::mutex> lock(m_user_mutex);
         for (auto& user_data : users_to_add) {
-            m_users.insert({ user_data.identity, std::make_shared<SyncUser>(user_data.user_token,
-                                                                            user_data.identity,
-                                                                            user_data.server_url) });
+            auto user = std::make_shared<SyncUser>(user_data.user_token, user_data.identity, user_data.server_url);
+            user->set_is_admin(user_data.is_admin);
+            m_users.insert({ user_data.identity, std::move(user) });
         }
     }
 }
@@ -267,6 +274,14 @@ bool SyncManager::client_should_validate_ssl() const noexcept
     return m_client_validate_ssl;
 }
 
+void SyncManager::reconnect()
+{
+    std::lock_guard<std::mutex> lock(m_mutex);
+    if (m_sync_client) {
+        m_sync_client->cancel_reconnect_delay();
+    }
+}
+
 util::Logger::Level SyncManager::log_level() const noexcept
 {
     std::lock_guard<std::mutex> lock(m_mutex);
@@ -286,13 +301,13 @@ bool SyncManager::perform_metadata_update(std::function<void(const SyncMetadataM
 std::shared_ptr<SyncUser> SyncManager::get_user(const std::string& identity,
                                                 std::string refresh_token,
                                                 util::Optional<std::string> auth_server_url,
-                                                bool is_admin)
+                                                SyncUser::TokenType token_type)
 {
     std::lock_guard<std::mutex> lock(m_user_mutex);
     auto it = m_users.find(identity);
     if (it == m_users.end()) {
         // No existing user.
-        auto new_user = std::make_shared<SyncUser>(std::move(refresh_token), identity, auth_server_url, is_admin);
+        auto new_user = std::make_shared<SyncUser>(std::move(refresh_token), identity, auth_server_url, token_type);
         m_users.insert({ identity, new_user });
         return new_user;
     } else {
@@ -300,8 +315,8 @@ std::shared_ptr<SyncUser> SyncManager::get_user(const std::string& identity,
         if (auth_server_url && *auth_server_url != user->server_url()) {
             throw std::invalid_argument("Cannot retrieve an existing user specifying a different auth server.");
         }
-        if (is_admin != user->is_admin()) {
-            throw std::invalid_argument("Cannot retrieve an existing user with a different admin status.");
+        if (user->token_type() != token_type) {
+            throw std::invalid_argument("Cannot retrieve a user specifying a different token type.");
         }
         if (user->state() == SyncUser::State::Error) {
             return nullptr;

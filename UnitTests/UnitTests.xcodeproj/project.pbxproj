@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1387E85F1EA92A55007522BB /* EVReflectionIssue186.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1387E85E1EA92A55007522BB /* EVReflectionIssue186.swift */; };
+		1387E8621EA92D31007522BB /* EVReflectionIssue186.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1387E85E1EA92A55007522BB /* EVReflectionIssue186.swift */; };
+		1387E8631EA92D31007522BB /* EVReflectionIssue186.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1387E85E1EA92A55007522BB /* EVReflectionIssue186.swift */; };
 		31FCBC8CF3D2576BB3363734 /* Pods_UnitTestsTVOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37492FC6831949793D3C20B0 /* Pods_UnitTestsTVOS.framework */; };
 		422668011CB77DD800145E17 /* EVReflectionCustomInitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422667FF1CB77DD000145E17 /* EVReflectionCustomInitTests.swift */; };
 		422668021CB7802C00145E17 /* EVReflectionCustomInitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422667FF1CB77DD000145E17 /* EVReflectionCustomInitTests.swift */; };
@@ -195,6 +198,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1387E85E1EA92A55007522BB /* EVReflectionIssue186.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVReflectionIssue186.swift; sourceTree = "<group>"; };
 		37492FC6831949793D3C20B0 /* Pods_UnitTestsTVOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UnitTestsTVOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		422667FF1CB77DD000145E17 /* EVReflectionCustomInitTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = EVReflectionCustomInitTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		6B0BBA6E27DA1405434D8881 /* Pods-UnitTestsiOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UnitTestsiOS.release.xcconfig"; path = "../Pods/Target Support Files/Pods-UnitTestsiOS/Pods-UnitTestsiOS.release.xcconfig"; sourceTree = "<group>"; };
@@ -473,6 +477,7 @@
 				7FF953661E4A8237003B40A6 /* EVReflectionIssueAF39.swift */,
 				7F734AB61E53AE5E007A5688 /* EVReflectionIssue159.swift */,
 				7F734AB81E53AF03007A5688 /* EVReflectionIssue159.json */,
+				1387E85E1EA92A55007522BB /* EVReflectionIssue186.swift */,
 			);
 			name = GitHubIssues;
 			sourceTree = "<group>";
@@ -691,7 +696,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		250996FF6BCC8673ABE841DB /* [CP] Embed Pods Frameworks */ = {
@@ -780,7 +785,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		B5BC516995CDE69B4717E8DE /* [CP] Check Pods Manifest.lock */ = {
@@ -795,7 +800,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		F3E03DBADC7424939D68203D /* [CP] Embed Pods Frameworks */ = {
@@ -863,6 +868,7 @@
 				7F83A6711D132F6100A4C508 /* EVReflectionIssue96.swift in Sources */,
 				7F57C0301D21A658006070E1 /* EVReflectionIssue99.swift in Sources */,
 				7F59F9DF1C09BFB900C14CF9 /* EVRelfectionInheritanceTests.swift in Sources */,
+				1387E85F1EA92A55007522BB /* EVReflectionIssue186.swift in Sources */,
 				7FF953671E4A8237003B40A6 /* EVReflectionIssueAF39.swift in Sources */,
 				7F7BBC661C009EE90046F05E /* EVReflectionMappingTest.swift in Sources */,
 				7FE271661DDDCF9F00C8B4CD /* EVReflectionIssue141.swift in Sources */,
@@ -928,6 +934,7 @@
 				7FE271671DDDCFA100C8B4CD /* EVReflectionIssue141.swift in Sources */,
 				7F3E31921BB909A7001E6788 /* EVObjectDescriptionTests.swift in Sources */,
 				7F9930101E241E9700792CF1 /* ArrayConversionIssue.swift in Sources */,
+				1387E8621EA92D31007522BB /* EVReflectionIssue186.swift in Sources */,
 				7FCD1D4A1D3FADA900F51BE0 /* EVReflectionIssue107.swift in Sources */,
 				7F9336971C23F2F700AF7076 /* EVReflectionAssociatedTests.swift in Sources */,
 				7FF4BEB01CF0FBF60086F999 /* EVReflectionIssue84.swift in Sources */,
@@ -985,6 +992,7 @@
 				7F9801991E260A4D00D6C5C0 /* Owner.swift in Sources */,
 				7F9336D21C2822B700AF7076 /* EVRelfectionInheritanceTests.swift in Sources */,
 				7F9930111E241E9800792CF1 /* ArrayConversionIssue.swift in Sources */,
+				1387E8631EA92D31007522BB /* EVReflectionIssue186.swift in Sources */,
 				7FCD1D4B1D3FADAB00F51BE0 /* EVReflectionIssue107.swift in Sources */,
 				7F9336D41C2822B700AF7076 /* EVReflectionWorkaroundsTests.swift in Sources */,
 				7FF4BEB11CF0FBF80086F999 /* EVReflectionIssue84.swift in Sources */,

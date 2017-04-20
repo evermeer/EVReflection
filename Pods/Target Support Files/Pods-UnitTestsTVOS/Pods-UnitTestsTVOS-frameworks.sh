@@ -89,26 +89,26 @@ strip_invalid_archs() {
 
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
-  install_framework "$BUILT_PRODUCTS_DIR/EVReflection-fc76335f/EVReflection.framework"
-  install_framework "$BUILT_PRODUCTS_DIR/Alamofire-tvOS9.0/Alamofire.framework"
-  install_framework "$BUILT_PRODUCTS_DIR/Moya-tvOS9.0/Moya.framework"
-  install_framework "$BUILT_PRODUCTS_DIR/ReactiveSwift-tvOS9.0/ReactiveSwift.framework"
-  install_framework "$BUILT_PRODUCTS_DIR/Realm-tvOS9.0/Realm.framework"
-  install_framework "$BUILT_PRODUCTS_DIR/RealmSwift-tvOS9.0/RealmSwift.framework"
-  install_framework "$BUILT_PRODUCTS_DIR/Result-tvOS9.0/Result.framework"
-  install_framework "$BUILT_PRODUCTS_DIR/RxSwift-tvOS9.0/RxSwift.framework"
-  install_framework "$BUILT_PRODUCTS_DIR/XMLDictionary-tvOS9.0/XMLDictionary.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/EVReflection-1eb814ba/EVReflection.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/Alamofire-tvOS/Alamofire.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/Moya-tvOS/Moya.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/ReactiveSwift-tvOS/ReactiveSwift.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/Realm-tvOS/Realm.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/RealmSwift-tvOS/RealmSwift.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/Result-tvOS/Result.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/RxSwift-tvOS/RxSwift.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/XMLDictionary-tvOS/XMLDictionary.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
-  install_framework "$BUILT_PRODUCTS_DIR/EVReflection-fc76335f/EVReflection.framework"
-  install_framework "$BUILT_PRODUCTS_DIR/Alamofire-tvOS9.0/Alamofire.framework"
-  install_framework "$BUILT_PRODUCTS_DIR/Moya-tvOS9.0/Moya.framework"
-  install_framework "$BUILT_PRODUCTS_DIR/ReactiveSwift-tvOS9.0/ReactiveSwift.framework"
-  install_framework "$BUILT_PRODUCTS_DIR/Realm-tvOS9.0/Realm.framework"
-  install_framework "$BUILT_PRODUCTS_DIR/RealmSwift-tvOS9.0/RealmSwift.framework"
-  install_framework "$BUILT_PRODUCTS_DIR/Result-tvOS9.0/Result.framework"
-  install_framework "$BUILT_PRODUCTS_DIR/RxSwift-tvOS9.0/RxSwift.framework"
-  install_framework "$BUILT_PRODUCTS_DIR/XMLDictionary-tvOS9.0/XMLDictionary.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/EVReflection-1eb814ba/EVReflection.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/Alamofire-tvOS/Alamofire.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/Moya-tvOS/Moya.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/ReactiveSwift-tvOS/ReactiveSwift.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/Realm-tvOS/Realm.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/RealmSwift-tvOS/RealmSwift.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/Result-tvOS/Result.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/RxSwift-tvOS/RxSwift.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/XMLDictionary-tvOS/XMLDictionary.framework"
 fi
 if [ "${COCOAPODS_PARALLEL_CODE_SIGN}" == "true" ]; then
   wait

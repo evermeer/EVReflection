@@ -31,6 +31,12 @@ public protocol PropertyProtocol: class, BindingSource {
 }
 
 extension PropertyProtocol {
+	/// Observe the property by sending all of future value changes to the
+	/// given `observer` during the given `lifetime`.
+	///
+	/// - parameters:
+	///   - observer: An observer to send the events to.
+	///   - lifetime: A lifetime of the observing object.
 	@discardableResult
 	public func observe(_ observer: Observer<Value, NoError>, during lifetime: Lifetime) -> Disposable? {
 		return producer.observe(observer, during: lifetime)
@@ -399,8 +405,8 @@ extension PropertyProtocol where Value == Bool {
 	/// Create a property that computes a logical NOT in the latest values of `self`.
 	///
 	/// - returns: A property that contains the logial NOT results.
-	public var negated: Property<Value> {
-		return self.lift { $0.negated }
+	public func negate() -> Property<Value> {
+		return self.lift { $0.negate() }
 	}
 	
 	/// Create a property that computes a logical AND between the latest values of `self`

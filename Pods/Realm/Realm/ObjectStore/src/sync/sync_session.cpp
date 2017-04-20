@@ -413,6 +413,7 @@ void SyncSession::handle_error(SyncError error)
             // Connection level errors
             case ProtocolError::connection_closed:
             case ProtocolError::other_error:
+            case ProtocolError::pong_timeout:
                 // Not real errors, don't need to be reported to the binding.
                 return;
             case ProtocolError::unknown_message:
@@ -500,6 +501,7 @@ void SyncSession::handle_error(SyncError error)
             case ClientError::bad_request_ident:
             case ClientError::bad_error_code:
             case ClientError::bad_compression:
+            case ClientError::bad_client_version:
                 // Don't do anything special for these errors.
                 // Future functionality may require special-case handling for existing
                 // errors, or newly introduced error codes.
@@ -585,6 +587,7 @@ void SyncSession::create_sync_session()
     REALM_ASSERT(!m_session);
     sync::Session::Config session_config;
     session_config.changeset_cooker = m_config.transformer;
+    session_config.encryption_key = m_config.realm_encryption_key;
     m_session = std::make_unique<sync::Session>(m_client.client, m_realm_path, session_config);
 
     // The next time we get a token, call `bind()` instead of `refresh()`.

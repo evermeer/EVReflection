@@ -27,7 +27,7 @@ KVO observing, async operations and streams are all unified under [abstraction o
 
 * [why use rx?](Documentation/Why.md)
 * [the basics, getting started with RxSwift](Documentation/GettingStarted.md)
-* [units](Documentation/Units.md) - what is `Driver`, `ControlProperty`, and `Variable` ... and why do they exist?
+* [traits](Documentation/Traits.md) - what are `Single`, `Completable`, `Maybe`, `Driver`, `ControlProperty`, and `Variable` ... and why do they exist?
 * [testing](Documentation/UnitTests.md)
 * [tips and common errors](Documentation/Tips.md)
 * [debugging](Documentation/GettingStarted.md#debugging)
@@ -81,11 +81,10 @@ KVO observing, async operations and streams are all unified under [abstraction o
 let searchResults = searchBar.rx.text.orEmpty
     .throttle(0.3, scheduler: MainScheduler.instance)
     .distinctUntilChanged()
-    .flatMapLatest { query -> Observable<[Repository]> in
+    .flatMapLatest { query -> Observable&lt;[Repository]&gt; in
         if query.isEmpty {
             return .just([])
         }
-
         return searchGitHub(query)
             .catchErrorJustReturn([])
     }
@@ -97,7 +96,7 @@ let searchResults = searchBar.rx.text.orEmpty
   <tr>
     <td width="30%"><div class="highlight highlight-source-swift"><pre>
 searchResults
-    .bindTo(tableView.rx.items(cellIdentifier: "Cell")) {
+    .bind(to: tableView.rx.items(cellIdentifier: "Cell")) {
         (index, repository: Repository, cell) in
         cell.textLabel?.text = repository.name
         cell.detailTextLabel?.text = repository.url

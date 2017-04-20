@@ -637,7 +637,7 @@ extension SignalProtocol where Value: OptionalProtocol {
 	///
 	/// - returns: A signal that sends only non-nil values.
 	public func skipNil() -> Signal<Value.Wrapped, Error> {
-		return filter { $0.optional != nil }.map { $0.optional! }
+		return filterMap { $0.optional }
 	}
 }
 
@@ -974,6 +974,8 @@ extension SignalProtocol {
 	/// - note: failed and `interrupted` events are always scheduled
 	///         immediately.
 	///
+	/// - precondition: `interval` must be non-negative number.
+	///
 	/// - parameters:
 	///   - interval: Interval to delay `value` and `completed` events by.
 	///   - scheduler: A scheduler to deliver delayed events on.
@@ -1002,6 +1004,8 @@ extension SignalProtocol {
 	}
 
 	/// Skip first `count` number of values then act as usual.
+	///
+	/// - precondition: `count` must be non-negative number.
 	///
 	/// - parameters:
 	///   - count: A number of values to skip.
@@ -1496,8 +1500,7 @@ extension SignalProtocol {
 				}
 			}
 			.filter { !$0.repeated }
-			.map { $0.value }
-			.skipNil()
+			.filterMap { $0.value }
 	}
 
 	/// Do not forward any values from `self` until `predicate` returns false,
@@ -1740,6 +1743,8 @@ extension SignalProtocol {
 	///         a value is being throttled, and if there is a new value sent,
 	///         the new value will be passed anyway.
 	///
+	/// - precondition: `interval` must be non-negative number.
+	///
 	/// - parameters:
 	///   - interval: Number of seconds to wait between sent values.
 	///   - scheduler: A scheduler to deliver events on.
@@ -1913,6 +1918,8 @@ extension SignalProtocol {
 	/// - note: If the input signal terminates while a value is being debounced, 
 	///         that value will be discarded and the returned signal will 
 	///         terminate immediately.
+	///
+	/// - precondition: `interval` must be non-negative number.
 	///
 	/// - parameters:
 	///   - interval: A number of seconds to wait before sending a value.
@@ -2194,6 +2201,8 @@ extension SignalProtocol {
 	///         The signal must complete synchronously (or on a faster
 	///         scheduler) to avoid the timeout.
 	///
+	/// - precondition: `interval` must be non-negative number.
+	///
 	/// - parameters:
 	///   - error: Error to send with failed event if `self` is not completed
 	///            when `interval` passes.
@@ -2280,7 +2289,7 @@ extension SignalProtocol where Value == Bool {
 	/// Create a signal that computes a logical NOT in the latest values of `self`.
 	///
 	/// - returns: A signal that emits the logical NOT results.
-	public var negated: Signal<Value, Error> {
+	public func negate() -> Signal<Value, Error> {
 		return self.map(!)
 	}
 	
