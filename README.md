@@ -492,7 +492,7 @@ class Baz: Foo {
 ### Known issues
 EVReflection is trying to handle all types. With some types there are limitations in Swift. So far there is a workaround for any of these limitations. Here is an overview:
 
-####It's not possible in Swift to use .setObjectForKey for:
+#### It's not possible in Swift to use .setObjectForKey for:
 - nullable type fields like Int? 
 - properties based on an enum
 - an Array of nullable objects like [MyObject?] 
@@ -511,13 +511,13 @@ For all these issues there are workarounds. The easiest workaround is just using
 
 If you want to keep on using the same type, You can override the setValue forUndefinedKey in the object itself. See WorkaroundsTests.swift and WorkaroundSwiftGenericsTests.swift to see the workaround for all these types in action. 
 
-####Generic properties
+#### Generic properties
 For generic properties the protocol EVGenericsKVC is required. see WorkaroundSwiftGenericsTests.swift 
 
-####Arrays with nullable objects or Set's
+#### Arrays with nullable objects or Set's
 For arrays with nullable objects or Set's like [MyObj?] or Set<MyObj> the protocol EVArrayConvertable is required. see WorkaroundsTests.swift
 
-####Swift Dictionaries
+#### Swift Dictionaries
 For Swift Dictionaries (and not NSDictionary) the protocol EVDictionaryConvertable is required. See WorkaroundsTests.swift
 
 ## License
