@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "EVReflection"
-  s.version      = "4.8.3"
+  s.version      = "4.9.0"
   s.summary      = "Reflection based (dictionary, JSON or XML) object mapping (including extensions for Alamofire and Moya with RxSwift or ReactiveSwift)"
 
   s.description  = <<-EOS
@@ -32,6 +32,13 @@ EOS
     ss.source_files  = "Source/XML/*.swift"
     ss.dependency "EVReflection/Core"
     ss.dependency "XMLDictionary"
+  end
+
+# Extending EVReflection with Realm functions.
+  s.subspec "Realm" do |ss|
+    ss.source_files  = "Source/Realm/*.swift"
+    ss.dependency "EVReflection/Core"
+    ss.dependency "RealmSwift"
   end
 
 # Extending EVReflection with mapping functions for CKRecord (CloudKit)

@@ -1,7 +1,7 @@
-EVReflection/MoyaRxSwift
+EVReflection/Realm
 ============
 
-This is the sub specification for a Moya plus RxSwift Observable extension for EVReflection
+This is the sub specification for a [Realm](https://realm.io) extension for EVReflection
 
 # General information
 
@@ -25,13 +25,12 @@ There are extension available for using EVReflection with [Realm](https://realm.
 - [MoyaRxSwiftXML](https://github.com/evermeer/EVReflection/tree/master/Source/Alamofire/Moya/RxSwift/XML)
 - [MoyaReactiveSwift](https://github.com/evermeer/EVReflection/tree/master/Source/Alamofire/Moya/ReactiveSwift)
 - [MoyaReactiveSwiftXML](https://github.com/evermeer/EVReflection/tree/master/Source/Alamofire/Moya/ReactiveSwift/XML)
-
 # Installation
 
 ## CocoaPods
 
 ```ruby
-pod 'EVReflection/MoyaRxSwift'
+pod 'EVReflection/Realm'
 ```
 
 # Advanced object mapping
@@ -39,35 +38,94 @@ This subspec can use all [EVReflection](https://github.com/evermeer/EVReflection
 
 # Usage
 
-For more information about using Moya plus RxSwift have a look at the [Moya](https://github.com/Moya/Moya) project.
-For more information about the usage of EVReflection have a look at the core [EVReflection](https://github.com/evermeer/EVReflection) functionality
-
-Create a class which has `EVObject` as it's base class. You could also use any `NSObject` based class and extend it with the `EVReflectable` protocol. 
+Extend your Realm objects with the EVReflectable protocol
 
 ```swift
 import Foundation
 import EVReflection
+import RealmSwift
 
-class Repository: EVObject {
-    var identifier: NSNumber?
-    var language: String?
-    var url: String?
+class Person: Object, EVReflectable {
+   dynamic var name = ""
+   dynamic var age = 0
+   dynamic var spouse: Person?
+   let cars = List<Car>()
+}
+
+class Car: Object, EVReflectable {
+   dynamic var brand = ""  
+   dynamic var name: String?
+   dynamic var year = 0
+}
+
+```
+
+You can then..:
+```swift
+// Init the realm file
+let realm = try! Realm(configuration: Realm.Configuration(inMemoryIdentifier: "TemporaryRealm"))
+
+func testRealmSmokeTest() {
+   // Create the objects
+
+   let wife = Person(json: "{\"name\": \"Jennifer\", \"age\": \"47\", \"cars\": [{\"brand\": \"DeLorean\", \"name\": \"Outatime\", \"year\": 1981} , {\"brand\": \"Volkswagen\", \"year\": 2014}], \"spouse\": {\"name\": \"Marty\", \"age\": \"48\"}}")
+
+   // set the circular reference: The spouse of my spouse is me
+   wife.spouse?.spouse = wife
+
+   // You will see _EVReflection_parent_ with the value 1 to indicate that there is a circular reference to it's parent 1 level up.
+   print("wife = \(wife.toJsonString())")
+   // Now the object printed using Realm output functionality which just repeats itself until maximum depth is exeeded
+   print("wife = \(wife)")
+
+
+   // Write objects to the realm
+
+   try! realm.write {
+      realm.add(wife)
+   }
+
+
+   // Read objects back from the realm
+
+   let favorites = ["Jennifer"]
+
+   let favoritePeopleWithSpousesAndCars = realm.objects(Person.self)
+      .filter("cars.@count > 1 && spouse != nil && name IN %@", favorites)
+      .sorted(byKeyPath: "age")
+
+   for person in favoritePeopleWithSpousesAndCars { 
+      print(person.name)
+      print(person.age)
+
+      for car in person.cars {
+         print("car.name = \(car.name ?? "")")
+         print("car.brand = \(car.brand)")
+         print("year = \(car.year)")
+      }
+
+      // Update objects
+      guard let car = person.cars.first else {
+         continue
+      }
+
+      print("old car.year = \(car.year)")
+      try! realm.write {
+         car.year += 3
+      }
+      print("new car.year = \(car.year)")
+   }
+
+
+   // Delete objects
+   print("Number of persons in database before delete = \(realm.objects(Person.self).count)")
+
+   try! realm.write {
+      realm.deleteAll()
+   }
+
+   print("Number of persons in database after delete = \(realm.objects(Person.self).count)")
+   // Thanks! To learn more about Realm go to https://realm.io    
 }
 ```
 
-Then on the Moya provider execute a `.map(toArray:` or a `.map(to:)` and then `.subscribe` to it.
-
-```swift
-GitHubProvider.request(.userRepositories(username))
-.map(toArray: Repository)
-.subscribe { event -> Void in
-    switch event {
-        case .Next(let repos):
-            self.repos = repos
-        case .Error(let error):
-            print(error)
-        default:
-            break
-    }
-}.addDisposableTo(disposeBag)
-```

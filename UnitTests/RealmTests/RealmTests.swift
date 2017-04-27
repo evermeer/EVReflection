@@ -12,41 +12,12 @@ import XCTest
 import EVReflection
 
 
-//: I. Extend Realm List with EVCustomReflectable to enable custom parsing
-
-extension List : EVCustomReflectable {
-    public func constructWith(value: Any?) {
-        if let array = value as? [NSDictionary] {
-            self.removeAll()
-            for dict in array {
-                if let element: T = EVReflection.fromDictionary(dict, anyobjectTypeString: _rlmArray.objectClassName) as? T {
-                    self.append(element)
-                }
-            }
-        }
-    }
-    public func toCodableValue() -> Any {
-        let e = self.enumerated()
-        let r = e.map { o -> NSDictionary in
-            if let b = o as? EVReflectable {
-                return b.toDictionary()
-            }
-            return NSDictionary()
-        }
-        return r
-        // Why do we need all this code? Should be the same as:
-        //return self.enumerated().map { ($0.element as? EVReflectable)?.toDictionary() ?? NSDictionary() }
-    }
-}
-
-
-// Only works when not using propertyConverters or propertyMapping functions
+// Extending only works when not using propertyConverters or propertyMapping functions
 // Otherwise you would get the error: Declarations from extension cannot be overwritten yet
 //extension Object: EVReflectable { }
 // So for now we will add EVReflectable to every object
 
-
-//: II. Define the data entities
+//: I. Define the data entities
 
 class Person: Object, EVReflectable {
     dynamic var name = ""
@@ -69,7 +40,7 @@ class Car: Object, EVReflectable {
 class RealmTests: XCTestCase {
     
     /**
-     For now nothing to setUp
+     Let EVReflection know that we are using this test bundle instead of the main bundle.
      */
     override func setUp() {
         super.setUp()
@@ -85,14 +56,14 @@ class RealmTests: XCTestCase {
         super.tearDown()
     }
     
-    //: III. Init the realm file
+    //: II. Init the realm file
     let realm = try! Realm(configuration: Realm.Configuration(inMemoryIdentifier: "TemporaryRealm"))
 
     /**
      Get the string name for a class and then generate a class based on that string
      */
     func testRealmSmokeTest() {
-        //: IV. Create the objects
+        //: III. Create the objects
 
         let wife = Person(json: "{\"name\": \"Jennifer\", \"age\": \"47\", \"cars\": [{\"brand\": \"DeLorean\", \"name\": \"Outatime\", \"year\": 1981} , {\"brand\": \"Volkswagen\", \"year\": 2014}], \"spouse\": {\"name\": \"Marty\", \"age\": \"48\"}}")
 
@@ -105,14 +76,14 @@ class RealmTests: XCTestCase {
         print("wife = \(wife)")
         
         
-        //: V. Write objects to the realm
+        //: IV. Write objects to the realm
         
         try! realm.write {
             realm.add(wife)
         }
         
         
-        //: VI. Read objects back from the realm
+        //: V. Read objects back from the realm
         
         let favorites = ["Jennifer"]
         
@@ -130,7 +101,7 @@ class RealmTests: XCTestCase {
                 print("year = \(car.year)")
             }
             
-            //: VII. Update objects
+            //: VI. Update objects
             guard let car = person.cars.first else {
                 continue
             }
@@ -143,7 +114,7 @@ class RealmTests: XCTestCase {
         }
         
         
-        //: VIII. Delete objects
+        //: VII. Delete objects
         print("Number of persons in database before delete = \(realm.objects(Person.self).count)")
         
         try! realm.write {

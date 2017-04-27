@@ -5,9 +5,6 @@
       location = "group:UnitTests/../Carthage/.gitignore">
    </FileRef>
    <FileRef
-      location = "absolute:/Users/evermeer/Desktop/dev/GitHub/EVReflection/Carthage/../.swift-version">
-   </FileRef>
-   <FileRef
       location = "group:README.md">
    </FileRef>
    <FileRef

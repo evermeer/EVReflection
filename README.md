@@ -14,15 +14,15 @@
 
 [![Version](https://img.shields.io/cocoapods/v/EVReflection.svg?style=flat)](http://cocoadocs.org/docsets/EVReflection)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
-[![Language](https://img.shields.io/badge/language-swift 3-f48041.svg?style=flat)](https://developer.apple.com/swift)
+[![Language](https://img.shields.io/badge/language-swift%203-f48041.svg?style=flat)](https://developer.apple.com/swift)
 [![Platform](https://img.shields.io/cocoapods/p/EVReflection.svg?style=flat)](http://cocoadocs.org/docsets/EVReflection)
 [![License](https://img.shields.io/cocoapods/l/EVReflection.svg?style=flat)](http://cocoadocs.org/docsets/EVReflection)
 
 [![Git](https://img.shields.io/badge/GitHub-evermeer-blue.svg?style=flat)](https://github.com/evermeer)
 [![Twitter](https://img.shields.io/badge/twitter-@evermeer-blue.svg?style=flat)](http://twitter.com/evermeer)
-[![LinkedIn](https://img.shields.io/badge/linkedin-Edwin Vermeer-blue.svg?style=flat)](http://nl.linkedin.com/in/evermeer/en)
+[![LinkedIn](https://img.shields.io/badge/linkedin-Edwin%20Vermeer-blue.svg?style=flat)](http://nl.linkedin.com/in/evermeer/en)
 [![Website](https://img.shields.io/badge/website-evict.nl-blue.svg?style=flat)](http://evict.nl)
-[![eMail](https://img.shields.io/badge/email-edwin@evict.nl-blue.svg?style=flat)](mailto:edwin@evict.nl?SUBJECT=About EVReflection)
+[![eMail](https://img.shields.io/badge/email-edwin@evict.nl-blue.svg?style=flat)](mailto:edwin@evict.nl?SUBJECT=About%20EVReflection)
 
 # General information
 
@@ -40,6 +40,7 @@ There are extension available for using EVReflection with [XMLDictionairy](https
 
 - [XML](https://github.com/evermeer/EVReflection/tree/master/Source/XML)
 - [CloudKit](https://github.com/evermeer/EVReflection/tree/master/Source/CloudKit)
+- [Realm](https://github.com/evermeer/EVReflection/tree/master/Source/Realm)
 - [Alamofire](https://github.com/evermeer/EVReflection/tree/master/Source/Alamofire)
 - [AlamofireXML](https://github.com/evermeer/EVReflection/tree/master/Source/XML)
 - [Moya](https://github.com/evermeer/EVReflection/tree/master/Source/Alamofire/Moya)
@@ -253,13 +254,12 @@ If you want to parse XML, then you can use the pod subxpec EVReflection/XML
 ```
 
 ## Extending existing objects:
-It is possible to extend other objects with the EVReflectable protocol instead of changing the base class to EVObject. This will let you add the power of EVReflection to objects that also need another framework. If for instance you are using Realm, you can extend all your Object classes with the power of EVReflection by only adding these lines of code:
+It is possible to extend other objects with the EVReflectable protocol instead of changing the base class to EVObject. This will let you add the power of EVReflection to objects that also need another framework. In some cases you still need some aditional code. For a sample see the Realm and NSManagedObject subspecs. The most basic way to extend your objects is like this:
 
 ```swift
 import EVReflection
-extension Object : EVReflectable { }
+extension MyObject : EVReflectable { }
 ```
-You can do the same with NSManagedObject
 
 ## Extra information:
 
@@ -345,7 +345,7 @@ override func customConverter() -> AnyObject? {
 
 
 ### Custom type converter
-If you have a custom type that requires special conversion, then you can extend it with the EVCustomReflectable protocol. A good implementation for this can be found in the Realm unit test for the List type. The converter is implemented like this:
+If you have a custom type that requires special conversion, then you can extend it with the EVCustomReflectable protocol. A good implementation for this can be found in the Realm subspec for the List type. The converter is implemented like this:
 
 ```swift
 extension List : EVCustomReflectable {
@@ -365,7 +365,7 @@ extension List : EVCustomReflectable {
 }
 ```
 
-For the usage, please have a look at [the Realm unittest](https://github.com/evermeer/EVReflection/blob/master/UnitTests/RealmTests/RealmTests.swift#L42)
+For the usage, please have a look at [the Realm unittest](https://github.com/evermeer/EVReflection/blob/master/UnitTests/RealmTests/RealmTests.swift)
 
 
 ### Skip the serialization or deserialization of specific values

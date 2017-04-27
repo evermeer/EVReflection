@@ -503,11 +503,19 @@ extension MKPolygon: EVReflectable { }
 
 class A81a: EVObject {
     var array: [A81] = []
-
 }
 
 class A81b: EVObject {
     var array: [[A81]] = [[]]
+    
+    override func propertyConverters() -> [(key: String, decodeConverter: ((Any?) -> ()), encodeConverter: (() -> Any?))] {
+        return [(key: "-array",
+                 decodeConverter: {
+                    let x = $0
+                    let v = (((x as! NSArray)[0] as! NSArray)[0] as! NSDictionary)["openId"]!
+                    self.array = x as? [[A81]] ?? [[A81]]()
+                 }, encodeConverter: { return self.array })]
+    }
 }
 
 class A81c: EVObject {
@@ -520,7 +528,6 @@ class A81: EVObject {
 
 
 class MyObject : EVObject {
-    
     var id : Int = 0
     var active: Bool = false
 }

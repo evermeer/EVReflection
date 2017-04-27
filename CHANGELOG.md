@@ -16,7 +16,21 @@ For more information see the [installation instructions](https://github.com/ever
 
 ## Master
 
-Is published as version 4.6.0
+Is published as version 4.9.0
+
+## 4.9.0 (2017-4-27)
+
+#### Enhancements
+
+* Added a sub spec for realm
+* Easy dict to array mapping
+* Added missing keyPath implementations
+
+## 4.7.0 (2017-3-28)
+
+#### Enhancements
+
+* Update for Swift 3.1
 
 ## 4.6.0 (2017-3-25)
 

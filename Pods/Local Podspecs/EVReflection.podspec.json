@@ -42,6 +42,18 @@
       }
     },
     {
+      "name": "Realm",
+      "source_files": "Source/Realm/*.swift",
+      "dependencies": {
+        "EVReflection/Core": [
+
+        ],
+        "RealmSwift": [
+
+        ]
+      }
+    },
+    {
       "name": "CloudKit",
       "source_files": "Source/CloudKit/*.swift",
       "dependencies": {

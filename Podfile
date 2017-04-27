@@ -7,9 +7,7 @@ def libraries
   pod 'EVReflection/CloudKit', :path => "./"
   pod 'EVReflection/MoyaRxSwiftXML', :path => "./"
   pod 'EVReflection/MoyaReactiveSwiftXML', :path => "./"
-
-  # Also test if it works with Realm
-  pod 'RealmSwift'
+  pod 'EVReflection/Realm', :path => "./"
 end
 
 target 'PerformanceTest' do
