@@ -8,7 +8,6 @@
 
 import Foundation
 import RealmSwift
-import EVReflection
 
 extension List : EVCustomReflectable {
     public func constructWith(value: Any?) {
