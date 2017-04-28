@@ -505,6 +505,7 @@ class A81a: EVObject {
     var array: [A81] = []
 }
 
+//TODO: fix nested array bug
 class A81b: EVObject {
     var array: [[A81]] = [[]]
     
@@ -531,5 +532,6 @@ class MyObject : EVObject {
     var id : Int = 0
     var active: Bool = false
 }
+
 
 
