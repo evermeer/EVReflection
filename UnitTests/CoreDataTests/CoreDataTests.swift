@@ -62,5 +62,35 @@ class CoreDataTests: XCTestCase {
     }
     
     
+    /**
+     Get the string name for a class and then generate a class based on that string
+     */
+    func testCoreDataArraySmokeTest() {
+        let data = EVReflectionTestsData() // We use an in memory database here. So it's allwais empty.
+        
+        let count = data.listRecords(CoreDataPerson.self).count // should be 0
+        
+        // For this test also using moc (same as listRecords) because sync between boc and moc are on different threads.
+        let arr = [CoreDataPerson](context: data.moc, json: "[{\"firstName\" : \"Edwin\", \"lastName\" : \"Vermeer\"},{\"firstName\" : \"Edwin 2\", \"lastName\" : \"Vermeer 2\"}]")
+        do {
+            try data.moc.save()
+        } catch {
+            fatalError("Failure to save context: \(error)")
+        }
+        
+        // Just testing if the json parse was successfull
+        let status = arr.first?.evReflectionStatus() ?? [.None]
+        print("Json parse errors : \(status)")
+        XCTAssertEqual(status, .None, "We should have a .None status")
+        
+        // Read and dump all records, assert if the count was still 0
+        let list = data.listRecords(CoreDataPerson.self)
+        for person in list {
+            print("\(person.firstName ?? "") \(person.lastName ?? "")")
+        }
+        let newCount = list.count
+        XCTAssert(count + 2 == newCount, "Should have one extra record")
+    }
+    
 
 }

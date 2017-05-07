@@ -67,9 +67,19 @@ do {
 }
 ```
 
+Parsing an object array is just as easy:
+```swift
+let arr = [CoreDataPerson](context: data.moc, json: "[{\"firstName\" : \"Edwin\", \"lastName\" : \"Vermeer\"},{\"firstName\" : \"Edwin 2\", \"lastName\" : \"Vermeer 2\"}]")
+do {
+    try data.moc.save()
+} catch {
+    fatalError("Failure to save context: \(error)")
+}
+```
+
+
 TODO:
-- object arrays
-- relationships
+- sub objects and relationships
 
 
 

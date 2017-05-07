@@ -33,7 +33,7 @@ open class EVManagedObject: NSManagedObject, EVReflectable {
         EVReflection.setPropertiesfromDictionary(jsonDictionary, anyObject: self, forKeyPath: forKeyPath)
     }
     
-    public override init(entity: NSEntityDescription, insertInto context: NSManagedObjectContext?) {
+    public required override init(entity: NSEntityDescription, insertInto context: NSManagedObjectContext?) {
         super.init(entity: entity, insertInto: context)
     }
     
