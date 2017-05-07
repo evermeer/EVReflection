@@ -60,6 +60,7 @@ Then creating an instance in your database based on a json string will work like
 let moc: NSManagedObjectContext = EVReflectionTestsData().moc // Your code for getting the NSManagedObjectContext.
 
 let obj = CoreDataPerson(context: moc, json: "{\"firstName\" : \"Edwin\", \"lastName\" : \"Vermeer\"}")
+
 do {
     try data.moc.save()
 } catch {
@@ -69,7 +70,10 @@ do {
 
 Parsing an object array is just as easy:
 ```swift
-let arr = [CoreDataPerson](context: data.moc, json: "[{\"firstName\" : \"Edwin\", \"lastName\" : \"Vermeer\"},{\"firstName\" : \"Edwin 2\", \"lastName\" : \"Vermeer 2\"}]")
+let moc: NSManagedObjectContext = EVReflectionTestsData().moc // Your code for getting the NSManagedObjectContext.
+
+let arr = [CoreDataPerson](context: moc, json: "[{\"firstName\" : \"Edwin\", \"lastName\" : \"Vermeer\"},{\"firstName\" : \"Edwin 2\", \"lastName\" : \"Vermeer 2\"}]")
+
 do {
     try data.moc.save()
 } catch {
