@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CoreData
 
 /**
  Extending Array with an some EVReflection functions where the elements can be of type NSObject
