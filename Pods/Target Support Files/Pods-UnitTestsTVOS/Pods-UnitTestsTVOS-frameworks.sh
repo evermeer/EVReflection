@@ -89,7 +89,7 @@ strip_invalid_archs() {
 
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
-  install_framework "$BUILT_PRODUCTS_DIR/EVReflection-8fede52f/EVReflection.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/EVReflection-18115d1d/EVReflection.framework"
   install_framework "$BUILT_PRODUCTS_DIR/Alamofire-tvOS/Alamofire.framework"
   install_framework "$BUILT_PRODUCTS_DIR/Moya-tvOS/Moya.framework"
   install_framework "$BUILT_PRODUCTS_DIR/ReactiveSwift-tvOS/ReactiveSwift.framework"
@@ -100,7 +100,7 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/XMLDictionary-tvOS/XMLDictionary.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
-  install_framework "$BUILT_PRODUCTS_DIR/EVReflection-8fede52f/EVReflection.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/EVReflection-18115d1d/EVReflection.framework"
   install_framework "$BUILT_PRODUCTS_DIR/Alamofire-tvOS/Alamofire.framework"
   install_framework "$BUILT_PRODUCTS_DIR/Moya-tvOS/Moya.framework"
   install_framework "$BUILT_PRODUCTS_DIR/ReactiveSwift-tvOS/ReactiveSwift.framework"

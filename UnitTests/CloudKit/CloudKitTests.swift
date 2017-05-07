@@ -10,7 +10,6 @@ import XCTest
 import CloudKit
 import EVReflection
 
-
 class CloudNews: CKDataObject {
     var Subject: String = ""
     var Body: String = ""

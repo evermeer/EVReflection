@@ -503,6 +503,29 @@ final public class EVReflection {
         // use the bundle name from the main bundle, if that's not set use the identifier
         return nameForBundle(Bundle.main)
     }
+
+    /**
+     Get the app name from the 'Bundle name' and if that's empty, then from the 'Bundle identifier' otherwise we assume it's a EVReflection unit test and use that bundle identifier
+     
+     - parameter aClass: Pass an AnyClass to this method if you know a class from the bundele where you want the name for.
+     
+     - returns: A cleaned up name of the app.
+     */
+    public class func getCleanAppName(_ aClass: AnyClass?) -> String {
+        // if an object was specified, then always use the bundle name of that class
+        if aClass != nil {
+            return nameForBundle(Bundle(for: aClass!))
+        }
+        
+        // If no object was specified but an identifier was set, then use that identifier.
+        if EVReflection.bundleIdentifier != nil {
+            return EVReflection.bundleIdentifier!
+        }
+        
+        // use the bundle name from the main bundle, if that's not set use the identifier
+        return nameForBundle(Bundle.main)
+    }
+
     
     /// Variable that can be set using setBundleIdentifier
     fileprivate static var bundleIdentifier: String? = nil
@@ -648,6 +671,18 @@ final public class EVReflection {
     public class func swiftStringFromClass(_ theObject: NSObject) -> String {
         return NSStringFromClass(type(of: theObject)).replacingOccurrences(of: getCleanAppName(theObject) + ".", with: "", options: NSString.CompareOptions.caseInsensitive, range: nil)
     }
+
+    /**
+     Get the class name as a string from a swift class
+     
+     - parameter aClass: An AnyClass for whitch the string representation of the class will be returned
+     
+     - returns: The string representation of the class (name of the bundle dot name of the class)
+     */
+    public class func swiftStringFromClass(_ aClass: AnyClass) -> String {
+        return NSStringFromClass(aClass).replacingOccurrences(of: getCleanAppName(aClass) + ".", with: "", options: NSString.CompareOptions.caseInsensitive, range: nil)
+    }
+
     
     /**
      Helper function to convert an Any to AnyObject

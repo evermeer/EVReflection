@@ -33,6 +33,7 @@
 #include <realm/util/to_string.hpp>
 
 using namespace realm;
+using namespace std::chrono;
 
 using PrimaryKey = Property::PrimaryKey;
 using Indexed = Property::Indexed;
@@ -59,6 +60,50 @@ Permission::AccessLevel extract_access_level(Object& permission, CppContext& con
     return Permission::AccessLevel::None;
 }
 
+/// Turn a system time point value into the 64-bit integer representing ns since the Unix epoch.
+int64_t ns_since_unix_epoch(const system_clock::time_point& point)
+{
+    tm unix_epoch{};
+    unix_epoch.tm_year = 70;
+    time_t epoch_time = mktime(&unix_epoch);
+    auto epoch_point = system_clock::from_time_t(epoch_time);
+    return duration_cast<nanoseconds>(point - epoch_point).count();
+}
+
+}
+
+// MARK: - Permission
+
+std::string Permission::description_for_access_level(AccessLevel level)
+{
+    switch (level) {
+        case AccessLevel::None: return "none";
+        case AccessLevel::Read: return "read";
+        case AccessLevel::Write: return "write";
+        case AccessLevel::Admin: return "admin";
+    }
+    REALM_UNREACHABLE();
+}
+
+bool Permission::paths_are_equivalent(std::string path_1, std::string path_2,
+                                      const std::string& user_id_1, const std::string& user_id_2)
+{
+    REALM_ASSERT_DEBUG(path_1.length() > 0);
+    REALM_ASSERT_DEBUG(path_2.length() > 0);
+    if (path_1 == path_2) {
+        // If both paths are identical and contain `/~/`, the user IDs must match.
+        return (path_1.find("/~/") == std::string::npos) || (user_id_1 == user_id_2);
+    }
+    // Make substitutions for the first `/~/` in the string.
+    size_t index = path_1.find("/~/");
+    if (index != std::string::npos)
+        path_1.replace(index + 1, 1, user_id_1);
+
+    index = path_2.find("/~/");
+    if (index != std::string::npos)
+        path_2.replace(index + 1, 1, user_id_2);
+
+    return path_1 == path_2;
 }
 
 // MARK: - PermissionResults
@@ -67,10 +112,11 @@ Permission PermissionResults::get(size_t index)
 {
     Object permission(m_results.get_realm(), m_results.get_object_schema(), m_results.get(index));
     CppContext context;
-    return {
+    return Permission{
         any_cast<std::string>(permission.get_property_value<util::Any>(&context, "path")),
         extract_access_level(permission, context),
-        { any_cast<std::string>(permission.get_property_value<util::Any>(&context, "userId")) }
+        { any_cast<std::string>(permission.get_property_value<util::Any>(&context, "userId")) },
+        any_cast<Timestamp>(permission.get_property_value<util::Any>(&context, "updatedAt"))
     };
 }
 
@@ -140,12 +186,17 @@ void Permissions::set_permission(std::shared_ptr<SyncUser> user,
     auto realm = Permissions::management_realm(std::move(user), make_config);
     CppContext context;
 
+    // Get the current time.
+    int64_t ns_since_epoch = ns_since_unix_epoch(system_clock::now());
+    int64_t s_arg = ns_since_epoch / (int64_t)Timestamp::nanoseconds_per_second;
+    int32_t ns_arg = ns_since_epoch % Timestamp::nanoseconds_per_second;
+
     // Write the permission object.
     realm->begin_transaction();
     auto raw = Object::create<util::Any>(&context, realm, *realm->schema().find("PermissionChange"), AnyDict{
         { "id", util::uuid_string() },
-        { "createdAt", Timestamp(0, 0) },
-        { "updatedAt", Timestamp(0, 0) },
+        { "createdAt", Timestamp(s_arg, ns_arg) },
+        { "updatedAt", Timestamp(s_arg, ns_arg) },
         { "userId", permission.condition.user_id },
         { "realmUrl", realm_url },
         { "mayRead", permission.access != Permission::AccessLevel::None },

@@ -64,6 +64,9 @@ typedef void(^RLMSyncErrorReportingBlock)(NSError *, RLMSyncSession * _Nullable)
 /**
  A block which can optionally be set to report sync-related errors to your application.
 
+ Any error reported through this block will be of the `RLMSyncError` type, and marked
+ with the `RLMSyncErrorDomain` domain.
+
  Errors reported through this mechanism are fatal, with several exceptions. Please consult
  `RLMSyncError` for information about the types of errors that can be reported through
  the block, and for for suggestions on handling recoverable error codes.
@@ -79,12 +82,16 @@ typedef void(^RLMSyncErrorReportingBlock)(NSError *, RLMSyncSession * _Nullable)
 @property (nonatomic, copy) NSString *appID;
 
 /**
- Whether SSL certificate validation should be disabled. SSL certificate validation is ON by default. Setting this
- property after at least one synced Realm or standalone Session has been opened is a no-op.
+ Whether SSL certificate validation should be disabled.
+ 
+ Once this value is set (either way), it will be used as the default value for SSL
+ validation when initializing new sync configuration values. A given configuration's
+ SSL validation setting can still be overriden from the global default by setting it
+ explicitly.
 
  @warning NEVER disable certificate validation for clients and servers in production.
  */
-@property (nonatomic) BOOL disableSSLValidation;
+@property (nonatomic) BOOL disableSSLValidation __deprecated_msg("Set `enableSSLValidation` on individual configurations instead.");
 
 /**
  The logging threshold which newly opened synced Realms will use. Defaults to

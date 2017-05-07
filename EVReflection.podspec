@@ -14,7 +14,7 @@ EOS
   s.social_media_url   = "http://twitter.com/evermeer"
 
   s.ios.deployment_target = '8.0'
-  s.osx.deployment_target = '10.10'
+  s.osx.deployment_target = '10.11'
   s.watchos.deployment_target = '2.0'
   s.tvos.deployment_target = '9.0'
 
@@ -48,11 +48,18 @@ EOS
     ss.framework  = "CloudKit"
   end
 
+# Extending EVReflection with mapping functions for NSManagedObject (CoreData)
+  s.subspec "CoreData" do |ss|
+    ss.source_files  = "Source/CoreData/*.swift"
+    ss.dependency "EVReflection/Core"
+    ss.framework  = "CoreData"
+  end
+
 # Adding easy Json to object mapping to Alamofire using EVReflection
   s.subspec "Alamofire" do |ss|
     ss.source_files  = "Source/Alamofire/*.swift"
     ss.dependency "EVReflection/Core"
-    ss.dependency "Alamofire", "~> 4.2"
+    ss.dependency "Alamofire"
   end
 
 # Adding easy XML to object mapping to Alamofire using XMLDictionary and EVReflection
@@ -65,7 +72,7 @@ EOS
 # Adding easy Json to object mapping to Moya using EVReflection
   s.subspec "Moya" do |ss|
     ss.source_files  = "Source/Alamofire/Moya/*.swift"
-    ss.dependency "Moya", "~> 8.0"
+    ss.dependency "Moya"
     ss.dependency "EVReflection/Alamofire"
   end
 

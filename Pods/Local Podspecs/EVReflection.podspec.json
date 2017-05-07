@@ -1,6 +1,6 @@
 {
   "name": "EVReflection",
-  "version": "4.8.3",
+  "version": "4.9.1",
   "summary": "Reflection based (dictionary, JSON or XML) object mapping (including extensions for Alamofire and Moya with RxSwift or ReactiveSwift)",
   "description": "[Reflection](https://github.com/evermeer/EVReflection) based object mapping (dictionary, Json, XML, CKRecord)\nincluding extensions for [Alamofire](https://github.com/Alamofire/Alamofire) and [Moya](https://github.com/Moya/Moya) for network abstraction. And on top of that extension for [RxSwift](https://github.com/ReactiveX/RxSwift/) and [ReactiveSwift]",
   "homepage": "https://github.com/evermeer/EVReflection",
@@ -14,13 +14,13 @@
   "social_media_url": "http://twitter.com/evermeer",
   "platforms": {
     "ios": "8.0",
-    "osx": "10.10",
+    "osx": "10.11",
     "watchos": "2.0",
     "tvos": "9.0"
   },
   "source": {
     "git": "https://github.com/evermeer/EVReflection.git",
-    "tag": "4.8.3"
+    "tag": "4.9.1"
   },
   "default_subspecs": "Core",
   "subspecs": [
@@ -64,6 +64,16 @@
       "frameworks": "CloudKit"
     },
     {
+      "name": "CoreData",
+      "source_files": "Source/CoreData/*.swift",
+      "dependencies": {
+        "EVReflection/Core": [
+
+        ]
+      },
+      "frameworks": "CoreData"
+    },
+    {
       "name": "Alamofire",
       "source_files": "Source/Alamofire/*.swift",
       "dependencies": {
@@ -71,7 +81,7 @@
 
         ],
         "Alamofire": [
-          "~> 4.2"
+
         ]
       }
     },
@@ -92,7 +102,7 @@
       "source_files": "Source/Alamofire/Moya/*.swift",
       "dependencies": {
         "Moya": [
-          "~> 8.0"
+
         ],
         "EVReflection/Alamofire": [
 

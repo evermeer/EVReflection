@@ -2,28 +2,25 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:UnitTests/../Carthage/.gitignore">
+      location = "group:LICENSE">
    </FileRef>
    <FileRef
       location = "group:README.md">
    </FileRef>
    <FileRef
+      location = "group:CHANGELOG.md">
+   </FileRef>
+   <FileRef
       location = "group:EVReflection.podspec">
    </FileRef>
    <FileRef
-      location = "group:LICENSE">
+      location = "group:Podfile">
    </FileRef>
    <FileRef
-      location = "group:UnitTests/../CHANGELOG.md">
+      location = "group:Source">
    </FileRef>
    <FileRef
-      location = "group:UnitTests/../Podfile">
-   </FileRef>
-   <FileRef
-      location = "group:UnitTests/../Source">
-   </FileRef>
-   <FileRef
-      location = "group:Carthage/Carthage.xcodeproj">
+      location = "group:Pods/../Carthage/Carthage.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:Demo/Demo.xcodeproj">

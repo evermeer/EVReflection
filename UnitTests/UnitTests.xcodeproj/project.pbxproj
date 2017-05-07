@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1303F12C1EBC5AEF00D9182D /* CoreDataPerson+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1303F12A1EBC5AEF00D9182D /* CoreDataPerson+CoreDataClass.swift */; };
+		1303F12E1EBC5AEF00D9182D /* CoreDataPerson+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1303F12A1EBC5AEF00D9182D /* CoreDataPerson+CoreDataClass.swift */; };
+		1303F1361EBC656600D9182D /* CoreDataPerson+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1303F12B1EBC5AEF00D9182D /* CoreDataPerson+CoreDataProperties.swift */; };
+		1303F1381EBC656700D9182D /* CoreDataPerson+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1303F12B1EBC5AEF00D9182D /* CoreDataPerson+CoreDataProperties.swift */; };
+		1303F1391EBC77CD00D9182D /* CoreDataPerson+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1303F12B1EBC5AEF00D9182D /* CoreDataPerson+CoreDataProperties.swift */; };
+		1303F13A1EBC77D200D9182D /* CoreDataPerson+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1303F12A1EBC5AEF00D9182D /* CoreDataPerson+CoreDataClass.swift */; };
 		131200E31EB31EA700A189C8 /* EVReflectionExtendingNSObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F7903C91E7D4F750086D111 /* EVReflectionExtendingNSObjects.swift */; };
 		131200E41EB31EA800A189C8 /* EVReflectionExtendingNSObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F7903C91E7D4F750086D111 /* EVReflectionExtendingNSObjects.swift */; };
 		131200E51EB31EC400A189C8 /* EVReflectionCustomConverterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FA506E31E68C953003D83E7 /* EVReflectionCustomConverterTests.swift */; };
@@ -14,14 +20,32 @@
 		131200E81EB3B47000A189C8 /* EVReflectionEventKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 131200E71EB3B47000A189C8 /* EVReflectionEventKitTests.swift */; };
 		131200E91EB3B47000A189C8 /* EVReflectionEventKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 131200E71EB3B47000A189C8 /* EVReflectionEventKitTests.swift */; };
 		131200EA1EB3B47000A189C8 /* EVReflectionEventKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 131200E71EB3B47000A189C8 /* EVReflectionEventKitTests.swift */; };
+		131200EB1EB4B58300A189C8 /* EVReflectionIssueAF39.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF953661E4A8237003B40A6 /* EVReflectionIssueAF39.swift */; };
+		131200EC1EB4B58400A189C8 /* EVReflectionIssueAF39.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF953661E4A8237003B40A6 /* EVReflectionIssueAF39.swift */; };
+		131200ED1EB4B58800A189C8 /* EVReflectionIssue159.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F734AB61E53AE5E007A5688 /* EVReflectionIssue159.swift */; };
+		131200EE1EB4B58900A189C8 /* EVReflectionIssue159.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F734AB61E53AE5E007A5688 /* EVReflectionIssue159.swift */; };
+		131200EF1EB4B59000A189C8 /* EVReflectionIssue159.json in Resources */ = {isa = PBXBuildFile; fileRef = 7F734AB81E53AF03007A5688 /* EVReflectionIssue159.json */; };
+		131200F01EB4B59100A189C8 /* EVReflectionIssue159.json in Resources */ = {isa = PBXBuildFile; fileRef = 7F734AB81E53AF03007A5688 /* EVReflectionIssue159.json */; };
+		131200F81EB8B04500A189C8 /* CloudKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F1D69411E27974C00F5AE15 /* CloudKitTests.swift */; };
+		131200FF1EB9307B00A189C8 /* Pods_UnitTestsiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 131200F21EB5039600A189C8 /* Pods_UnitTestsiOS.framework */; };
+		131201131EBC4E6D00A189C8 /* CoreDataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 131201121EBC4E6D00A189C8 /* CoreDataTests.swift */; };
+		131201141EBC4E6D00A189C8 /* CoreDataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 131201121EBC4E6D00A189C8 /* CoreDataTests.swift */; };
+		131201151EBC4E6D00A189C8 /* CoreDataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 131201121EBC4E6D00A189C8 /* CoreDataTests.swift */; };
+		131C31BE1EBDF6A900EF2039 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 131C31BD1EBDF6A900EF2039 /* CoreDataStack.swift */; };
+		131C31BF1EBDF6A900EF2039 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 131C31BD1EBDF6A900EF2039 /* CoreDataStack.swift */; };
+		131C31C01EBDF6A900EF2039 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 131C31BD1EBDF6A900EF2039 /* CoreDataStack.swift */; };
+		131C31C11EBF1EAF00EF2039 /* EVReflectionTest.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 13F5E81B1EBC7AEE0038EDB4 /* EVReflectionTest.xcdatamodeld */; };
+		131C31C21EBF1EB100EF2039 /* EVReflectionTest.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 13F5E81B1EBC7AEE0038EDB4 /* EVReflectionTest.xcdatamodeld */; };
+		131C31C31EBF1EB200EF2039 /* EVReflectionTest.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 13F5E81B1EBC7AEE0038EDB4 /* EVReflectionTest.xcdatamodeld */; };
+		131C31C51EBF2D2700EF2039 /* EVReflectionTestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 131C31C41EBF2D2700EF2039 /* EVReflectionTestData.swift */; };
+		131C31C61EBF2D2700EF2039 /* EVReflectionTestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 131C31C41EBF2D2700EF2039 /* EVReflectionTestData.swift */; };
+		131C31C71EBF2D2700EF2039 /* EVReflectionTestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 131C31C41EBF2D2700EF2039 /* EVReflectionTestData.swift */; };
 		1387E85F1EA92A55007522BB /* EVReflectionIssue186.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1387E85E1EA92A55007522BB /* EVReflectionIssue186.swift */; };
 		1387E8621EA92D31007522BB /* EVReflectionIssue186.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1387E85E1EA92A55007522BB /* EVReflectionIssue186.swift */; };
 		1387E8631EA92D31007522BB /* EVReflectionIssue186.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1387E85E1EA92A55007522BB /* EVReflectionIssue186.swift */; };
-		31FCBC8CF3D2576BB3363734 /* Pods_UnitTestsTVOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37492FC6831949793D3C20B0 /* Pods_UnitTestsTVOS.framework */; };
 		422668011CB77DD800145E17 /* EVReflectionCustomInitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422667FF1CB77DD000145E17 /* EVReflectionCustomInitTests.swift */; };
 		422668021CB7802C00145E17 /* EVReflectionCustomInitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422667FF1CB77DD000145E17 /* EVReflectionCustomInitTests.swift */; };
 		422668031CB7802D00145E17 /* EVReflectionCustomInitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422667FF1CB77DD000145E17 /* EVReflectionCustomInitTests.swift */; };
-		76D6F6718F1F79F5BF042AAF /* Pods_UnitTestsiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F65C8B938B44FD44F26FD855 /* Pods_UnitTestsiOS.framework */; };
 		7F057CF01D4A851300F3053E /* EVReflectionIssue110.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F057CEE1D4A84F500F3053E /* EVReflectionIssue110.swift */; };
 		7F057CF11D4A851400F3053E /* EVReflectionIssue110.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F057CEE1D4A84F500F3053E /* EVReflectionIssue110.swift */; };
 		7F057CF21D4A851400F3053E /* EVReflectionIssue110.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F057CEE1D4A84F500F3053E /* EVReflectionIssue110.swift */; };
@@ -38,7 +62,6 @@
 		7F1C9D4F1E23D76D00A18776 /* sample_json in Resources */ = {isa = PBXBuildFile; fileRef = 7F1C9D441E23D76D00A18776 /* sample_json */; };
 		7F1C9D501E23D76D00A18776 /* sample_users_array_json in Resources */ = {isa = PBXBuildFile; fileRef = 7F1C9D451E23D76D00A18776 /* sample_users_array_json */; };
 		7F1D69381E267B1D00F5AE15 /* GitHubUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F1D69371E267B1D00F5AE15 /* GitHubUser.swift */; };
-		7F1D69421E27974C00F5AE15 /* CloudKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F1D69411E27974C00F5AE15 /* CloudKitTests.swift */; };
 		7F1D69431E27974C00F5AE15 /* CloudKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F1D69411E27974C00F5AE15 /* CloudKitTests.swift */; };
 		7F1D69441E27974C00F5AE15 /* CloudKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F1D69411E27974C00F5AE15 /* CloudKitTests.swift */; };
 		7F1D69451E28B39400F5AE15 /* AlamofireXmlTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F9930161E2426B500792CF1 /* AlamofireXmlTests.swift */; };
@@ -201,14 +224,27 @@
 		7FF4BEB61CF2DA8C0086F999 /* EVReflectionIssue86.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF4BEB31CF2DA6E0086F999 /* EVReflectionIssue86.swift */; };
 		7FF4BEB71CF2DA8E0086F999 /* EVReflectionIssue86.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF4BEB31CF2DA6E0086F999 /* EVReflectionIssue86.swift */; };
 		7FF953671E4A8237003B40A6 /* EVReflectionIssueAF39.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF953661E4A8237003B40A6 /* EVReflectionIssueAF39.swift */; };
-		FBFF595CD3FC646CA2D354CA /* Pods_UnitTestsOSX.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B70F70D2DAAF91D8FE83F9BB /* Pods_UnitTestsOSX.framework */; };
+		BD2BFCDD3A3E46AF3E7AC341 /* Pods_UnitTestsOSX.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 16F24E2F358BA7E02E9739C7 /* Pods_UnitTestsOSX.framework */; };
+		CEBCAD0ACFB5064E90E04896 /* Pods_UnitTestsiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F65C8B938B44FD44F26FD855 /* Pods_UnitTestsiOS.framework */; };
+		ED61C31F4CFB3DAA6E8CEFF0 /* Pods_UnitTestsTVOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 47E08CAF57F8BB1CBE89AD73 /* Pods_UnitTestsTVOS.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1303F12A1EBC5AEF00D9182D /* CoreDataPerson+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "CoreDataPerson+CoreDataClass.swift"; path = "CoreDataTests/CoreDataPerson+CoreDataClass.swift"; sourceTree = "<group>"; };
+		1303F12B1EBC5AEF00D9182D /* CoreDataPerson+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "CoreDataPerson+CoreDataProperties.swift"; path = "CoreDataTests/CoreDataPerson+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		131200E71EB3B47000A189C8 /* EVReflectionEventKitTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVReflectionEventKitTests.swift; sourceTree = "<group>"; };
+		131200F21EB5039600A189C8 /* Pods_UnitTestsiOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Pods_UnitTestsiOS.framework; path = "../../../../../Library/Developer/Xcode/DerivedData/EVReflection-acuxwktlyarcomfyldzsaxagjnqz/Build/Products/Debug-iphonesimulator/Pods_UnitTestsiOS.framework"; sourceTree = "<group>"; };
+		131200F91EB8B09C00A189C8 /* Pods_UnitTestsTVOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Pods_UnitTestsTVOS.framework; path = "../../../../../Library/Developer/Xcode/DerivedData/EVReflection-acuxwktlyarcomfyldzsaxagjnqz/Build/Products/Debug-appletvos/Pods_UnitTestsTVOS.framework"; sourceTree = "<group>"; };
+		131200FC1EB9292F00A189C8 /* EVReflection.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EVReflection.framework; path = "../../../../../Library/Developer/Xcode/DerivedData/EVReflection-acuxwktlyarcomfyldzsaxagjnqz/Build/Products/Debug/EVReflection-b3b349e7/EVReflection.framework"; sourceTree = "<group>"; };
+		1312010F1EB9331D00A189C8 /* EVReflection.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EVReflection.framework; path = "../../../../../Library/Developer/Xcode/DerivedData/EVReflection-acuxwktlyarcomfyldzsaxagjnqz/Build/Products/Debug-iphonesimulator/EVReflection-e77f4950/EVReflection.framework"; sourceTree = "<group>"; };
+		131201121EBC4E6D00A189C8 /* CoreDataTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CoreDataTests.swift; path = CoreDataTests/CoreDataTests.swift; sourceTree = "<group>"; };
+		131C31BD1EBDF6A900EF2039 /* CoreDataStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CoreDataStack.swift; path = CoreDataTests/CoreDataStack.swift; sourceTree = "<group>"; };
+		131C31C41EBF2D2700EF2039 /* EVReflectionTestData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVReflectionTestData.swift; sourceTree = "<group>"; };
 		1387E85E1EA92A55007522BB /* EVReflectionIssue186.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVReflectionIssue186.swift; sourceTree = "<group>"; };
-		37492FC6831949793D3C20B0 /* Pods_UnitTestsTVOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UnitTestsTVOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		13F5E81C1EBC7AEE0038EDB4 /* EVReflectionTest.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = EVReflectionTest.xcdatamodel; sourceTree = "<group>"; };
+		16F24E2F358BA7E02E9739C7 /* Pods_UnitTestsOSX.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UnitTestsOSX.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		422667FF1CB77DD000145E17 /* EVReflectionCustomInitTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = EVReflectionCustomInitTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		47E08CAF57F8BB1CBE89AD73 /* Pods_UnitTestsTVOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UnitTestsTVOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6B0BBA6E27DA1405434D8881 /* Pods-UnitTestsiOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UnitTestsiOS.release.xcconfig"; path = "../Pods/Target Support Files/Pods-UnitTestsiOS/Pods-UnitTestsiOS.release.xcconfig"; sourceTree = "<group>"; };
 		7F057CEE1D4A84F500F3053E /* EVReflectionIssue110.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVReflectionIssue110.swift; sourceTree = "<group>"; };
 		7F07C5771AF101A9000DF1F3 /* ios-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ios-Info.plist"; sourceTree = "<group>"; };
@@ -288,7 +324,6 @@
 		7FFCCC361BB440F400EE9312 /* coverage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = coverage.png; sourceTree = "<group>"; };
 		8AF55D93C0A4446596F7BB1E /* Pods-UnitTestsiOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UnitTestsiOS.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-UnitTestsiOS/Pods-UnitTestsiOS.debug.xcconfig"; sourceTree = "<group>"; };
 		9185D92B512CEDE8E6B1E6F5 /* Pods-UnitTestsOSX.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UnitTestsOSX.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-UnitTestsOSX/Pods-UnitTestsOSX.debug.xcconfig"; sourceTree = "<group>"; };
-		B70F70D2DAAF91D8FE83F9BB /* Pods_UnitTestsOSX.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UnitTestsOSX.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C1DB04455B4C047E59F00D6D /* Pods-UnitTestsTVOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UnitTestsTVOS.release.xcconfig"; path = "../Pods/Target Support Files/Pods-UnitTestsTVOS/Pods-UnitTestsTVOS.release.xcconfig"; sourceTree = "<group>"; };
 		D84A591B41596A5F1C0BD756 /* Pods-UnitTestsTVOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UnitTestsTVOS.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-UnitTestsTVOS/Pods-UnitTestsTVOS.debug.xcconfig"; sourceTree = "<group>"; };
 		F65C8B938B44FD44F26FD855 /* Pods_UnitTestsiOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UnitTestsiOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -300,7 +335,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				76D6F6718F1F79F5BF042AAF /* Pods_UnitTestsiOS.framework in Frameworks */,
+				131200FF1EB9307B00A189C8 /* Pods_UnitTestsiOS.framework in Frameworks */,
+				CEBCAD0ACFB5064E90E04896 /* Pods_UnitTestsiOS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -308,7 +344,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FBFF595CD3FC646CA2D354CA /* Pods_UnitTestsOSX.framework in Frameworks */,
+				BD2BFCDD3A3E46AF3E7AC341 /* Pods_UnitTestsOSX.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -316,13 +352,34 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				31FCBC8CF3D2576BB3363734 /* Pods_UnitTestsTVOS.framework in Frameworks */,
+				ED61C31F4CFB3DAA6E8CEFF0 /* Pods_UnitTestsTVOS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		131201111EBC4E1700A189C8 /* CoreDataTests */ = {
+			isa = PBXGroup;
+			children = (
+				131C31C81EBF390600EF2039 /* Model */,
+				131201121EBC4E6D00A189C8 /* CoreDataTests.swift */,
+			);
+			name = CoreDataTests;
+			sourceTree = "<group>";
+		};
+		131C31C81EBF390600EF2039 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				13F5E81B1EBC7AEE0038EDB4 /* EVReflectionTest.xcdatamodeld */,
+				131C31BD1EBDF6A900EF2039 /* CoreDataStack.swift */,
+				131C31C41EBF2D2700EF2039 /* EVReflectionTestData.swift */,
+				1303F12A1EBC5AEF00D9182D /* CoreDataPerson+CoreDataClass.swift */,
+				1303F12B1EBC5AEF00D9182D /* CoreDataPerson+CoreDataProperties.swift */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
 		7F07C5541AF101A9000DF1F3 = {
 			isa = PBXGroup;
 			children = (
@@ -330,6 +387,7 @@
 				7F36405C1CC9F2E600D7F055 /* .swiftlint.yml */,
 				7FFCCC361BB440F400EE9312 /* coverage.png */,
 				7F07C5751AF101A9000DF1F3 /* EVReflectionTests */,
+				131201111EBC4E1700A189C8 /* CoreDataTests */,
 				7FC41DE61E8B8BBF0080DB80 /* RealmTests */,
 				7F1D69401E27973000F5AE15 /* CloudKit */,
 				7F1C9D3A1E23D76D00A18776 /* AlamofireTests */,
@@ -507,9 +565,13 @@
 		F74D54681A9B21542590F1C6 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				B70F70D2DAAF91D8FE83F9BB /* Pods_UnitTestsOSX.framework */,
-				37492FC6831949793D3C20B0 /* Pods_UnitTestsTVOS.framework */,
+				1312010F1EB9331D00A189C8 /* EVReflection.framework */,
+				131200FC1EB9292F00A189C8 /* EVReflection.framework */,
+				131200F91EB8B09C00A189C8 /* Pods_UnitTestsTVOS.framework */,
+				131200F21EB5039600A189C8 /* Pods_UnitTestsiOS.framework */,
 				F65C8B938B44FD44F26FD855 /* Pods_UnitTestsiOS.framework */,
+				16F24E2F358BA7E02E9739C7 /* Pods_UnitTestsOSX.framework */,
+				47E08CAF57F8BB1CBE89AD73 /* Pods_UnitTestsTVOS.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -658,6 +720,7 @@
 				7F9930311E2426B500792CF1 /* sample_xml in Resources */,
 				7F99302F1E2426B500792CF1 /* sample3_xml in Resources */,
 				7F1D69521E28BF3B00F5AE15 /* coverage.png in Resources */,
+				131200EF1EB4B59000A189C8 /* EVReflectionIssue159.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -672,6 +735,7 @@
 				7F1D694E1E28B3A600F5AE15 /* sample_xml in Resources */,
 				7F1D694D1E28B3A600F5AE15 /* sample3_xml in Resources */,
 				7F1D69531E28BF3C00F5AE15 /* coverage.png in Resources */,
+				131200F01EB4B59100A189C8 /* EVReflectionIssue159.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -834,20 +898,23 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7F1D69421E27974C00F5AE15 /* CloudKitTests.swift in Sources */,
 				7F7663391DA922FB00740ACA /* EVReflectionIssue114b.swift in Sources */,
+				1303F1381EBC656700D9182D /* CoreDataPerson+CoreDataProperties.swift in Sources */,
 				7F98019B1E260AD000D6C5C0 /* MoyaRxSwiftTests.swift in Sources */,
 				7F1D69381E267B1D00F5AE15 /* GitHubUser.swift in Sources */,
 				7F1C9D461E23D76D00A18776 /* AlamofireExternalTests.swift in Sources */,
+				1303F12C1EBC5AEF00D9182D /* CoreDataPerson+CoreDataClass.swift in Sources */,
 				7F41ECB21B91F306003A2236 /* EVReflectionWorkaroundsTests.swift in Sources */,
 				7FD407AC1E0BF78100AEBF1B /* EVReflectionIssue145.swift in Sources */,
 				7FD41E0A1CDF441400746FB8 /* EVObjectDescription.swift in Sources */,
+				131C31BE1EBDF6A900EF2039 /* CoreDataStack.swift in Sources */,
 				7F057CF01D4A851300F3053E /* EVReflectionIssue110.swift in Sources */,
 				7F59F9DD1C079A7300C14CF9 /* EVReflectionNumbersTests.swift in Sources */,
 				7FB099E31D2F83C400D94204 /* EVReflectionIssue102.swift in Sources */,
 				7F9801911E260A4D00D6C5C0 /* MoyaGitHubAPI.swift in Sources */,
 				7FF4BEB51CF2DA8B0086F999 /* EVReflectionIssue86.swift in Sources */,
 				7F663C321D014D7B00642499 /* EVReflectionIssue91.swift in Sources */,
+				131C31C51EBF2D2700EF2039 /* EVReflectionTestData.swift in Sources */,
 				7F1E77911CD3440000F88A9A /* EVReflectionConversionOptionsTest.swift in Sources */,
 				7F44151C1E2A84E00077F033 /* CKAsset+UIImage.swift in Sources */,
 				7FC41DE81E8B8C2C0080DB80 /* RealmTests.swift in Sources */,
@@ -871,6 +938,7 @@
 				7F59F9D91C07986200C14CF9 /* EVReflectionAssociatedTests.swift in Sources */,
 				7F734AB71E53AE5E007A5688 /* EVReflectionIssue159.swift in Sources */,
 				7F479E1C1C84D7A000F03BEF /* EVReflectionSyncAlternateDesync.swift in Sources */,
+				131C31C21EBF1EB100EF2039 /* EVReflectionTest.xcdatamodeld in Sources */,
 				7F41ECAD1B91F306003A2236 /* EVObjectDescriptionTests.swift in Sources */,
 				7F9801941E260A4D00D6C5C0 /* Repository.swift in Sources */,
 				7F99302A1E2426B500792CF1 /* Issue6Test.swift in Sources */,
@@ -887,8 +955,10 @@
 				7F99301E1E2426B500792CF1 /* AlamofireXml2Tests.swift in Sources */,
 				7F41ECAE1B91F306003A2236 /* EVReflectionJsonTests.swift in Sources */,
 				7FCD1D491D3FADA800F51BE0 /* EVReflectionIssue107.swift in Sources */,
+				131201131EBC4E6D00A189C8 /* CoreDataTests.swift in Sources */,
 				7F41ECAF1B91F306003A2236 /* EVReflectionTests.swift in Sources */,
 				7F1C9D4B1E23D76D00A18776 /* NestedGenericsIssue25.swift in Sources */,
+				131200F81EB8B04500A189C8 /* CloudKitTests.swift in Sources */,
 				7FF4BEAF1CF0FBF50086F999 /* EVReflectionIssue84.swift in Sources */,
 				7F1DD70D1D9094B300E99D4D /* EVReflectionIssue124.swift in Sources */,
 			);
@@ -899,8 +969,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				7F9930271E2426B500792CF1 /* Issue4Test.swift in Sources */,
+				131200EB1EB4B58300A189C8 /* EVReflectionIssueAF39.swift in Sources */,
 				7FC41DE91E8B8C2C0080DB80 /* RealmTests.swift in Sources */,
 				7F98019C1E260AD000D6C5C0 /* MoyaRxSwiftTests.swift in Sources */,
+				1303F13A1EBC77D200D9182D /* CoreDataPerson+CoreDataClass.swift in Sources */,
 				7F76633A1DA922FB00740ACA /* EVReflectionIssue114b.swift in Sources */,
 				7F3E31961BB909A7001E6788 /* EVReflectionWorkaroundsTests.swift in Sources */,
 				7FD407AD1E0BF78200AEBF1B /* EVReflectionIssue145.swift in Sources */,
@@ -923,7 +995,9 @@
 				7F1D694F1E28BC2900F5AE15 /* GitHubUser.swift in Sources */,
 				7F9930211E2426B500792CF1 /* AlamofireXml3Tests.swift in Sources */,
 				7F1F1E481E3261C9002CCF02 /* Issue.swift in Sources */,
+				1303F1391EBC77CD00D9182D /* CoreDataPerson+CoreDataProperties.swift in Sources */,
 				7F3E31931BB909A7001E6788 /* EVReflectionJsonTests.swift in Sources */,
+				131200ED1EB4B58800A189C8 /* EVReflectionIssue159.swift in Sources */,
 				7F9336981C23F2FD00AF7076 /* EVRelfectionInheritanceTests.swift in Sources */,
 				7F3E31981BB909B1001E6788 /* WorkaroundEnumTest.swift in Sources */,
 				131200E51EB31EC400A189C8 /* EVReflectionCustomConverterTests.swift in Sources */,
@@ -931,9 +1005,12 @@
 				7F9336951C23F2EB00AF7076 /* EVReflectionEVObjectTests.swift in Sources */,
 				7F7BBC671C00A22B0046F05E /* EVReflectionMappingTest.swift in Sources */,
 				131200E31EB31EA700A189C8 /* EVReflectionExtendingNSObjects.swift in Sources */,
+				131C31C11EBF1EAF00EF2039 /* EVReflectionTest.xcdatamodeld in Sources */,
 				7F99300C1E241E4200792CF1 /* AlamofireTests.swift in Sources */,
+				131C31C61EBF2D2700EF2039 /* EVReflectionTestData.swift in Sources */,
 				7F479E1D1C84D7A100F03BEF /* EVReflectionSyncAlternateDesync.swift in Sources */,
 				7F3E31911BB909A7001E6788 /* TestObjects.swift in Sources */,
+				131201141EBC4E6D00A189C8 /* CoreDataTests.swift in Sources */,
 				7F9801951E260A4D00D6C5C0 /* Repository.swift in Sources */,
 				7F3E31951BB909A7001E6788 /* ProfilePhotoUrlListTest.swift in Sources */,
 				7F83A6721D132F6200A4C508 /* EVReflectionIssue96.swift in Sources */,
@@ -944,6 +1021,7 @@
 				7F99300D1E241E8E00792CF1 /* AlamofireExternalTests.swift in Sources */,
 				7F9930331E24273C00792CF1 /* NestedGenericsIssue25.swift in Sources */,
 				7F9336961C23F2F100AF7076 /* EVReflectionPropertyMappingTest.swift in Sources */,
+				131C31BF1EBDF6A900EF2039 /* CoreDataStack.swift in Sources */,
 				7FE271671DDDCFA100C8B4CD /* EVReflectionIssue141.swift in Sources */,
 				7F3E31921BB909A7001E6788 /* EVObjectDescriptionTests.swift in Sources */,
 				7F9930101E241E9700792CF1 /* ArrayConversionIssue.swift in Sources */,
@@ -960,6 +1038,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				7F76633B1DA922FC00740ACA /* EVReflectionIssue114b.swift in Sources */,
+				1303F12E1EBC5AEF00D9182D /* CoreDataPerson+CoreDataClass.swift in Sources */,
+				131200EC1EB4B58400A189C8 /* EVReflectionIssueAF39.swift in Sources */,
 				7FC41DEA1E8B8C2C0080DB80 /* RealmTests.swift in Sources */,
 				7F9336CC1C2822B700AF7076 /* EVObjectDescriptionTests.swift in Sources */,
 				7FD407AE1E0BF78300AEBF1B /* EVReflectionIssue145.swift in Sources */,
@@ -974,6 +1054,7 @@
 				7F1D69451E28B39400F5AE15 /* AlamofireXmlTests.swift in Sources */,
 				7F663C341D014D7E00642499 /* EVReflectionIssue91.swift in Sources */,
 				7F1E77931CD3440200F88A9A /* EVReflectionConversionOptionsTest.swift in Sources */,
+				1303F1361EBC656600D9182D /* CoreDataPerson+CoreDataProperties.swift in Sources */,
 				7F1D69441E27974C00F5AE15 /* CloudKitTests.swift in Sources */,
 				7F1D694B1E28B3A600F5AE15 /* Issue6Test.swift in Sources */,
 				7F1D69471E28B39B00F5AE15 /* AlamofireXml3Tests.swift in Sources */,
@@ -985,6 +1066,7 @@
 				422668031CB7802D00145E17 /* EVReflectionCustomInitTests.swift in Sources */,
 				7F1F1E491E3261C9002CCF02 /* Issue.swift in Sources */,
 				7F3FF3B61CF9A0F900BAE767 /* EVReflectionIssue88.swift in Sources */,
+				131200EE1EB4B58900A189C8 /* EVReflectionIssue159.swift in Sources */,
 				7F70E8101D96C0AC0020DB2C /* EVReflectionIssueAF30.swift in Sources */,
 				7F9336D61C2822C100AF7076 /* WorkaroundEnumTest.swift in Sources */,
 				131200E61EB31EC400A189C8 /* EVReflectionCustomConverterTests.swift in Sources */,
@@ -992,9 +1074,12 @@
 				7F9336CF1C2822B700AF7076 /* EVReflectionMappingTest.swift in Sources */,
 				7F9E680E1C62396700F0F4D3 /* EVReflectionNestedObjectsTests.swift in Sources */,
 				131200E41EB31EA800A189C8 /* EVReflectionExtendingNSObjects.swift in Sources */,
+				131C31C31EBF1EB200EF2039 /* EVReflectionTest.xcdatamodeld in Sources */,
 				7F9336D51C2822B700AF7076 /* EVReflectionWorkaroundSwiftGenericsTests.swift in Sources */,
+				131C31C71EBF2D2700EF2039 /* EVReflectionTestData.swift in Sources */,
 				7F9336CB1C2822B700AF7076 /* EVReflectionEVObjectTests.swift in Sources */,
 				7F479E1E1C84D7A200F03BEF /* EVReflectionSyncAlternateDesync.swift in Sources */,
+				131201151EBC4E6D00A189C8 /* CoreDataTests.swift in Sources */,
 				7F9336CE1C2822B700AF7076 /* EVReflectionJsonTests.swift in Sources */,
 				7F9336D11C2822B700AF7076 /* ProfilePhotoUrlListTest.swift in Sources */,
 				7F83A6731D132F6300A4C508 /* EVReflectionIssue96.swift in Sources */,
@@ -1005,6 +1090,7 @@
 				7F99300E1E241E9000792CF1 /* AlamofireExternalTests.swift in Sources */,
 				7FE271681DDDCFA200C8B4CD /* EVReflectionIssue141.swift in Sources */,
 				7F1D69491E28B3A600F5AE15 /* Issue4Test.swift in Sources */,
+				131C31C01EBDF6A900EF2039 /* CoreDataStack.swift in Sources */,
 				7F9801991E260A4D00D6C5C0 /* Owner.swift in Sources */,
 				7F9336D21C2822B700AF7076 /* EVRelfectionInheritanceTests.swift in Sources */,
 				7F9930111E241E9800792CF1 /* ArrayConversionIssue.swift in Sources */,
@@ -1153,7 +1239,7 @@
 				DEVELOPMENT_TEAM = 443FV7F3ZK;
 				INFOPLIST_FILE = "EVReflectionTests/osx-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				PRODUCT_BUNDLE_IDENTIFIER = "nl.evict.EVReflection-OSX-Tests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
@@ -1170,7 +1256,7 @@
 				DEVELOPMENT_TEAM = 443FV7F3ZK;
 				INFOPLIST_FILE = "EVReflectionTests/osx-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				PRODUCT_BUNDLE_IDENTIFIER = "nl.evict.EVReflection-OSX-Tests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
@@ -1247,6 +1333,20 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		13F5E81B1EBC7AEE0038EDB4 /* EVReflectionTest.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				13F5E81C1EBC7AEE0038EDB4 /* EVReflectionTest.xcdatamodel */,
+			);
+			currentVersion = 13F5E81C1EBC7AEE0038EDB4 /* EVReflectionTest.xcdatamodel */;
+			name = EVReflectionTest.xcdatamodeld;
+			path = CoreDataTests/EVReflectionTest.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 7F07C5551AF101A9000DF1F3 /* Project object */;
 }

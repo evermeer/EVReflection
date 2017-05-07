@@ -40,6 +40,7 @@ There are extension available for using EVReflection with [XMLDictionairy](https
 
 - [XML](https://github.com/evermeer/EVReflection/tree/master/Source/XML)
 - [CloudKit](https://github.com/evermeer/EVReflection/tree/master/Source/CloudKit)
+- [CoreData](https://github.com/evermeer/EVReflection/tree/master/Source/CoreData)
 - [Realm](https://github.com/evermeer/EVReflection/tree/master/Source/Realm)
 - [Alamofire](https://github.com/evermeer/EVReflection/tree/master/Source/Alamofire)
 - [AlamofireXML](https://github.com/evermeer/EVReflection/tree/master/Source/XML)
