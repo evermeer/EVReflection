@@ -61,11 +61,7 @@ let moc: NSManagedObjectContext = EVReflectionTestsData().moc // Your code for g
 
 let obj = CoreDataPerson(context: moc, json: "{\"firstName\" : \"Edwin\", \"lastName\" : \"Vermeer\"}")
 
-do {
-    try moc.save()
-} catch {
-    fatalError("Failure to save context: \(error)")
-}
+try! moc.save() //TODO: implement error handling
 ```
 
 Parsing an object array is just as easy:
@@ -74,11 +70,7 @@ let moc: NSManagedObjectContext = EVReflectionTestsData().moc // Your code for g
 
 let arr = [CoreDataPerson](context: moc, json: "[{\"firstName\" : \"Edwin\", \"lastName\" : \"Vermeer\"},{\"firstName\" : \"Edwin 2\", \"lastName\" : \"Vermeer 2\"}]")
 
-do {
-    try moc.save()
-} catch {
-    fatalError("Failure to save context: \(error)")
-}
+try! moc.save() //TODO: implement error handling
 ```
 
 
