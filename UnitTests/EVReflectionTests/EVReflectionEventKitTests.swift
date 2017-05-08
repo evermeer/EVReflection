@@ -54,6 +54,7 @@ return
             
             for p in oc {
                 var value: Any? = nil
+                // Why can't we get the value like this!?
                 value = event.value(forKey: p)
                 print("\(p) = \(String(describing: value))")
             }

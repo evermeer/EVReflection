@@ -62,7 +62,7 @@ let moc: NSManagedObjectContext = EVReflectionTestsData().moc // Your code for g
 let obj = CoreDataPerson(context: moc, json: "{\"firstName\" : \"Edwin\", \"lastName\" : \"Vermeer\"}")
 
 do {
-    try data.moc.save()
+    try moc.save()
 } catch {
     fatalError("Failure to save context: \(error)")
 }
@@ -75,7 +75,7 @@ let moc: NSManagedObjectContext = EVReflectionTestsData().moc // Your code for g
 let arr = [CoreDataPerson](context: moc, json: "[{\"firstName\" : \"Edwin\", \"lastName\" : \"Vermeer\"},{\"firstName\" : \"Edwin 2\", \"lastName\" : \"Vermeer 2\"}]")
 
 do {
-    try data.moc.save()
+    try moc.save()
 } catch {
     fatalError("Failure to save context: \(error)")
 }
