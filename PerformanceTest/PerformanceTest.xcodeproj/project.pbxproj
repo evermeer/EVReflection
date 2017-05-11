@@ -41,7 +41,7 @@
 		7F6C9FB91CB90E6D00F19811 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7F6C9FBC1CB90E6D00F19811 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7F6C9FBE1CB90E6D00F19811 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		7FF9B86D1E23A1B50089A3A1 /* PerformanceTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PerformanceTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		7FF9B86D1E23A1B50089A3A1 /* Performance.Test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Performance.Test.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7FF9B8751E23B7230089A3A1 /* Pods_Demo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Pods_Demo.framework; path = "../../../../../Library/Developer/Xcode/DerivedData/EVReflection-eilzlmnqxgcrihduagopeottnnos/Build/Products/Debug-iphonesimulator/Pods_Demo.framework"; sourceTree = "<group>"; };
 		7FF9B8771E23BCF00089A3A1 /* Pods_PerformanceTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Pods_PerformanceTest.framework; path = "../../../../../Library/Developer/Xcode/DerivedData/EVReflection-eilzlmnqxgcrihduagopeottnnos/Build/Products/Debug-iphonesimulator/Pods_PerformanceTest.framework"; sourceTree = "<group>"; };
 		B1F64CFF84CC6A246842DD2C /* Pods-PerformanceTest.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PerformanceTest.release.xcconfig"; path = "../Pods/Target Support Files/Pods-PerformanceTest/Pods-PerformanceTest.release.xcconfig"; sourceTree = "<group>"; };
@@ -85,7 +85,7 @@
 				7F6C9FB11CB90E6D00F19811 /* EVReflectionTest */,
 				2AC2754D5005AFF91FD3A16D /* Pods */,
 				6B581D00DE30D4A9D56026F2 /* Frameworks */,
-				7FF9B86D1E23A1B50089A3A1 /* PerformanceTest.app */,
+				7FF9B86D1E23A1B50089A3A1 /* Performance.Test.app */,
 			);
 			sourceTree = "<group>";
 		};
@@ -107,9 +107,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		7F6C9FAF1CB90E6D00F19811 /* PerformanceTest */ = {
+		7F6C9FAF1CB90E6D00F19811 /* Performance.Test */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 7F6C9FBF1CB90E6D00F19811 /* Build configuration list for PBXNativeTarget "PerformanceTest" */;
+			buildConfigurationList = 7F6C9FBF1CB90E6D00F19811 /* Build configuration list for PBXNativeTarget "Performance.Test" */;
 			buildPhases = (
 				F00C3A074FB799B6C3C80311 /* [CP] Check Pods Manifest.lock */,
 				7F6C9FAC1CB90E6D00F19811 /* Sources */,
@@ -123,9 +123,9 @@
 			);
 			dependencies = (
 			);
-			name = PerformanceTest;
+			name = Performance.Test;
 			productName = EVReflectionTestApp;
-			productReference = 7FF9B86D1E23A1B50089A3A1 /* PerformanceTest.app */;
+			productReference = 7FF9B86D1E23A1B50089A3A1 /* Performance.Test.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -157,7 +157,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				7F6C9FAF1CB90E6D00F19811 /* PerformanceTest */,
+				7F6C9FAF1CB90E6D00F19811 /* Performance.Test */,
 			);
 		};
 /* End PBXProject section */
@@ -397,7 +397,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		7F6C9FBF1CB90E6D00F19811 /* Build configuration list for PBXNativeTarget "PerformanceTest" */ = {
+		7F6C9FBF1CB90E6D00F19811 /* Build configuration list for PBXNativeTarget "Performance.Test" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				7F6C9FC01CB90E6D00F19811 /* Debug */,

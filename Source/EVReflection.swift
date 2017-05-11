@@ -578,13 +578,13 @@ final public class EVReflection {
     
     fileprivate static func nameForBundle(_ bundle: Bundle) -> String {
         // get the bundle name from what is set in the infoDictionary
-        var appName = bundle.infoDictionary?[kCFBundleNameKey as String] as? String ?? ""
+        var appName = bundle.infoDictionary?[kCFBundleExecutableKey as String] as? String ?? ""
         
         // If it was not set, then use the bundleIdentifier (which is the same as kCFBundleIdentifierKey)
         if appName == "" {
             appName = bundle.bundleIdentifier ?? ""
+            appName = appName.characters.split(whereSeparator: {$0 == "."}).map({ String($0) }).last ?? ""
         }
-        appName = appName.characters.split(whereSeparator: {$0 == "."}).map({ String($0) }).last ?? ""
         
         // Clean up special characters
         return appName.components(separatedBy: illegalCharacterSet).joined(separator: "_")
@@ -1283,7 +1283,7 @@ final public class EVReflection {
         result.removeAll()
         
         for item in array {
-            let org = getTypeFor(anyObject: anyObject, key: key, type: type, item: item)
+            let org = getTypeFor(anyObject: anyObject, key: key, type: subtype, item: item)
             let (arrayObject, valid) = dictToObject(subtype, original:org, dict: item as? NSDictionary ?? NSDictionary(), conversionOptions: conversionOptions)
             if arrayObject != nil && valid {
                 result.append(arrayObject!)

@@ -487,12 +487,14 @@ class EVReflectionTests: XCTestCase {
         let json = "{\"array\":[[{\"openId\":\"value1\"},{\"openId\":\"value2\"}],[{\"openId\":\"value3\"},{\"openId\":\"value4\"}]]}"
         let obj = A81b(json: json)
         print(obj)
+        XCTAssert(obj.array[0].count == 2, "2 dimentional array should have 2 items inside the first item")
     }
 
     func testNestedNestedArray(){
         let json = "{\"array\":[[[{\"openId\":\"value1\"},{\"openId\":\"value2\"}],[{\"openId\":\"value3\"},{\"openId\":\"value4\"}]]]}"
         let obj = A81c(json: json)
         print(obj)
+        XCTAssert(obj.array[0][0].count == 2, "3 dimentional array should have 2 items inside the first item of the first item")
     }
 }
 
