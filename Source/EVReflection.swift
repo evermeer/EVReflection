@@ -772,11 +772,9 @@ final public class EVReflection {
                     let convertedValue = dictionaryConverter.convertDictionary(key!, dict: theValue)
                     return (convertedValue, valueType, false)
                 }
-            }
-            if valueType == "Foundation.Date" {
+            } else if valueType == "Foundation.Date" {
                 return (theValue as! NSDate, "NSDate", false)
-            }
-            if valueType == "Foundation.Data" {
+            } else if valueType == "Foundation.Data" {
                 return (theValue as! NSData, "NSData", false)
             }
             let structAsDict = convertStructureToDictionary(theValue, conversionOptions: conversionOptions, isCachable: isCachable, parents: parents)
@@ -927,6 +925,8 @@ final public class EVReflection {
             }
         } else if typeInObject == "UUID"  && (type == "String" || type == "NSString") {
             value = UUID(uuidString: value as? String ?? "") as AnyObject? ?? UUID() as AnyObject
+        } else if typeInObject == "NSURL" && (type == "String" || type == "NSString") {
+            value = NSURL(string: value as? String ?? "")! as AnyObject
         } else if (typeInObject == "NSDate" || typeInObject == "Date")  && (type == "String" || type == "NSString") {
             if let convertedValue = value as? String {
                 guard let date = getDateFormatter().date(from: convertedValue) else {

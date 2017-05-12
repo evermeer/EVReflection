@@ -29,6 +29,7 @@ class EVReflectionEventKitTests: XCTestCase {
     func testEventKit() {
 
 //TODO: fix
+// Needs a workaround. See http://stackoverflow.com/questions/43686690/mirror-of-ekevent-does-not-show-the-data
 return
         let exp = expectation(description: "eventStore")
         
