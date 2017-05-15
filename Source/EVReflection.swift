@@ -80,9 +80,17 @@ final public class EVReflection {
                 let useKey: String = (mapping ?? objectKey) as? String ?? ""
                 let original: Any? = getValue(anyObject, key: useKey)
                 let dictKey: String = cleanupKey(anyObject, key: objectKey, tryMatch: types) ?? ""
-                let (dictValue, valid) = dictionaryAndArrayConversion(anyObject, key: objectKey, fieldType: types[dictKey] as? String ?? types[useKey] as? String, original: original, theDictValue: v as Any?, conversionOptions: conversionOptions)
-                if dictValue != nil {
-                    let value: Any? = valid ? dictValue : (v as Any)
+                let valid : Bool
+                let dictValue : Any?
+                
+                if conversionOptions.contains(.PropertyConverter) && (anyObject as! EVReflectable).propertyConverters().filter({$0.0 == useKey}).first != nil {
+                    valid = false
+                    dictValue = nil
+                } else {
+                    (dictValue, valid) = dictionaryAndArrayConversion(anyObject, key: objectKey, fieldType: types[dictKey] as? String ?? types[useKey] as? String, original: original, theDictValue: v as Any?, conversionOptions: conversionOptions)
+                }
+                
+                if let value: Any = valid ? dictValue : (v as Any) {
                     if let custom = original as? EVCustomReflectable {
                         custom.constructWith(value: value)
                     }
