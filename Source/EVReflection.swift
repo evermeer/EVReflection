@@ -83,7 +83,7 @@ final public class EVReflection {
                 let valid : Bool
                 let dictValue : Any?
                 
-                if conversionOptions.contains(.PropertyConverter) && (anyObject as! EVReflectable).propertyConverters().filter({$0.0 == useKey}).first != nil {
+                if conversionOptions.contains(.PropertyConverter) && (anyObject as? EVReflectable)?.propertyConverters().filter({$0.0 == useKey}).first != nil {
                     valid = false
                     dictValue = nil
                 } else {

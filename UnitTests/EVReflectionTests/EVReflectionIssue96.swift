@@ -43,7 +43,7 @@ class TestIssue96: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
         super.tearDown()
     }
-    
+
     func testIssue96() {
         let numbersJson = "{\"numbers\": [1,2,3,4]}"
         let numbersObj = PayloadNumbers(json: numbersJson)
@@ -66,5 +66,5 @@ class TestIssue96: XCTestCase {
         let payloadObj = PayloadNews(json: payload)
         print(payloadObj)
     }
-    
+ 
 }

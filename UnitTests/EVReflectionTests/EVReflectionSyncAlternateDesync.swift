@@ -65,6 +65,8 @@ class z: EVObject {
     var arr: [y] = []
     
     override func propertyConverters() -> [(key: String, decodeConverter: ((Any?) -> ()), encodeConverter: (() -> Any?))] {
-        return [(key: "arr", decodeConverter: { self.arr = $0 as? [y] ?? [y]() }, encodeConverter: { return self.arr.map({$0.id}) })]
+        return [(key: "arr",
+                 decodeConverter: { self.arr = [y](dictionaryArray: $0 as? [NSDictionary] ?? [NSDictionary]())  },
+                 encodeConverter: { return self.arr.map({$0.id}) })]
     }
 }
