@@ -1132,7 +1132,10 @@ final public class EVReflection {
      - returns: the pascalCase string
      */
     internal static func PascalCaseToCamelCase(_ input: String) -> String {
-        return String(input.characters.first!).lowercased() + input.substring(from: input.characters.index(after: input.startIndex))
+        if input.characters.count > 1 {
+            return  firstCharacter = String(input.characters.first).lowercased() + input.substring(from: input.characters.index(after: input.startIndex))
+        }
+        return input.lowercased()
     }
     
     
