@@ -339,7 +339,16 @@ final public class EVReflection {
      - returns: The Data representation of the object
      */
     public class func toJsonData(_ theObject: NSObject, conversionOptions: ConversionOptions = .DefaultSerialize, prettyPrinted: Bool = false) -> Data {
-        var (dict, _) = EVReflection.toDictionary(theObject, conversionOptions: conversionOptions)
+        var dict: NSDictionary
+        
+        // Custom or standard toDictionary
+        if let v = theObject as? EVCustomReflectable {
+            dict = v.toCodableValue() as? NSDictionary ?? NSDictionary()
+        } else {
+            let (dictionary, _) = EVReflection.toDictionary(theObject, conversionOptions: conversionOptions)
+            dict = dictionary
+        }
+        
         dict = convertDictionaryForJsonSerialization(dict, theObject: theObject)
         do {
             if prettyPrinted {
@@ -1133,7 +1142,7 @@ final public class EVReflection {
      */
     internal static func PascalCaseToCamelCase(_ input: String) -> String {
         if input.characters.count > 1 {
-            return  firstCharacter = String(input.characters.first).lowercased() + input.substring(from: input.characters.index(after: input.startIndex))
+            return String(describing: input.characters.first).lowercased() + input.substring(from: input.characters.index(after: input.startIndex))
         }
         return input.lowercased()
     }

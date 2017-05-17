@@ -59,3 +59,30 @@ public extension NSDictionary {
         return Data()
     }
 }
+
+
+public extension NSMutableDictionary {
+    
+    /**
+     Merge a 2nd dictionary into this one
+     
+     - parameter dictionary: The 2nd dictionary that will be merged into this one
+     */
+    public func unionInPlace(dictionary: NSDictionary) {
+        for (key, value) in dictionary {
+            self[key] = value
+        }
+    }
+    
+    /**
+     Merge a sequence into this dictionary
+     
+     - parameter dictionary: The sequence that will be merged into this dictionary
+     */
+    public func unionInPlace<S: Sequence>(sequence: S) where
+        S.Iterator.Element == (Key,Value) {
+            for (key, value) in sequence {
+                self[key] = value
+            }
+    }
+}
