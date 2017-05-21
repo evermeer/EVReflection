@@ -31,9 +31,8 @@ class TestIssue202: XCTestCase {
         let obj = ChartConfigPojo(json: json, forKeyPath: "chartConfigs")
         print("obj = \(obj)")
         
-        XCTAssert(obj.background.count == 1, "Should have 1 background object")
-        XCTAssert(obj.background.keys.contains(where: { $0 == "0" }), "Should have an item with key '0'")
-        let bg = obj.background["0"]
+        XCTAssert(obj.background?.count == 1, "Should have 1 background object")
+        let bg = obj.background?["0"]
         XCTAssertNotNil(bg, "Should have a background object")
         XCTAssert(bg?.background_color ?? "" == "#feffea", "Should have #feffea background color")
     }
@@ -42,30 +41,30 @@ class TestIssue202: XCTestCase {
 
 
 class BackgroundPOJO : EVObject{
-    var background_color: String = ""
-    var border_color: String = ""
+    var background_color: String?
+    var border_color: String?
     var border_width: Float = 0.0
     var inner_radius: Float = 0.0
     var outer_radius: Float = 0.0
-    var shape: String = ""
+    var shape: String?
 }
 
 class ChartConfigPojo : EVObject{
-    var config_id: String = ""
+    var config_id: String?
     var autorefresh: Bool = false
-    var background : [String:BackgroundPOJO] = [:]
-    var chart_type: String = ""
+    var background : [String:BackgroundPOJO]?
+    var chart_type: String?
     
     override func setValue(_ value: Any!, forUndefinedKey key: String) {
         switch key {
         case "background":
+            background = [:]
             if let dict = value as? NSDictionary{
-                self.background = [:]
                 for (key,val) in dict {
                     let k = Int(key as? String ?? "-1") ?? -1
                     print("key = \(k), value = \(val)")
                     if let val = val as? NSDictionary {
-                        self.background["\(k)"] = BackgroundPOJO(dictionary: val)
+                        self.background?["\(k)"] = BackgroundPOJO(dictionary: val)
                     }
                 }
             }
