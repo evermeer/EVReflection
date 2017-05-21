@@ -31,8 +31,8 @@ class TestIssue202: XCTestCase {
         let obj = ChartConfigPojo(json: json, forKeyPath: "chartConfigs")
         print("obj = \(obj)")
         
-        XCTAssert(obj.background?.count == 1, "Should have 1 background object")
-        let bg = obj.background?["0"]
+        XCTAssert(obj.background.count == 1, "Should have 1 background object")
+        let bg = obj.background["0"]
         XCTAssertNotNil(bg, "Should have a background object")
         XCTAssert(bg?.background_color ?? "" == "#feffea", "Should have #feffea background color")
     }
@@ -52,7 +52,7 @@ class BackgroundPOJO : EVObject{
 class ChartConfigPojo : EVObject{
     var config_id: String?
     var autorefresh: Bool = false
-    var background : [String:BackgroundPOJO]?
+    var background : [String:BackgroundPOJO] = [:]
     var chart_type: String?
     
     override func setValue(_ value: Any!, forUndefinedKey key: String) {
@@ -61,15 +61,16 @@ class ChartConfigPojo : EVObject{
             background = [:]
             if let dict = value as? NSDictionary{
                 for (key,val) in dict {
-                    let k = Int(key as? String ?? "-1") ?? -1
-                    print("key = \(k), value = \(val)")
+                    print("key = \(key), value = \(val)")
                     if let val = val as? NSDictionary {
-                        self.background?["\(k)"] = BackgroundPOJO(dictionary: val)
+                        self.background["\(key)"] = BackgroundPOJO(dictionary: val)
                     }
                 }
             }
         default:
-            print("unhandled key \(key))")
+            print("⚠️ unhandled key '\(key)' in '\(type(of: self))'")
         }
     }
 }
+
+
