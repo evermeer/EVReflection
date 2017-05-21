@@ -30,6 +30,12 @@ class TestIssue202: XCTestCase {
         let json = "{\"chartConfigs\":{\"config_id\":\"651c3f71-3d44-11e7-b0b9-276d909080a8\",\"autorefresh\":false,\"background\":{\"0\":{\"background_color\":\"#feffea\",\"border_color\":\"#3264c8\",\"border_width\":2.0,\"inner_radius\":0.0,\"outer_radius\":0.0,\"shape\":\"\"}},\"chart_type\":\"Column and Bar Chart/Column with rotated labels\"}}"
         let obj = ChartConfigPojo(json: json, forKeyPath: "chartConfigs")
         print("obj = \(obj)")
+        
+        XCTAssert(obj.background.count == 1, "Should have 1 background object")
+        XCTAssert(obj.background.keys.contains(where: { $0 == "0" }), "Should have an item with key '0'")
+        let bg = obj.background["0"]
+        XCTAssertNotNil(bg, "Should have a background object")
+        XCTAssert(bg?.background_color ?? "" == "#feffea", "Should have #feffea background color")
     }
     
 }
@@ -47,7 +53,7 @@ class BackgroundPOJO : EVObject{
 class ChartConfigPojo : EVObject{
     var config_id: String = ""
     var autorefresh: Bool = false
-    var background : [Int:BackgroundPOJO] = [:]
+    var background : [String:BackgroundPOJO] = [:]
     var chart_type: String = ""
     
     override func setValue(_ value: Any!, forUndefinedKey key: String) {
@@ -59,7 +65,7 @@ class ChartConfigPojo : EVObject{
                     let k = Int(key as? String ?? "-1") ?? -1
                     print("key = \(k), value = \(val)")
                     if let val = val as? NSDictionary {
-                        self.background[k] = BackgroundPOJO(dictionary: val)
+                        self.background["\(k)"] = BackgroundPOJO(dictionary: val)
                     }
                 }
             }
