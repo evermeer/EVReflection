@@ -293,7 +293,7 @@ If you have JSON fields that are Swift keywords, then prefix the property with a
 ### Automatic keyword mapping PascalCase or camelCase to snake_case
 When creating objects from JSON EVReflection will automatically detect if snake_case (keys are all lowercase and words are separated by an underscore) should be converted to PascalCase or camelCase property names. See [Conversion options](https://github.com/evermeer/EVReflection#conversion-options) for when this function will be called.
 
-When exporting object to a dictionary or JSON string you will have an option to specify that you want a conversion to snace_case or not. The default is .DefaultDeserialize which will also convert to snake case.
+When exporting object to a dictionary or JSON string you will have an option to specify that you want a conversion to snake_case or not. The default is .DefaultDeserialize which will also convert to snake case.
 
 ```swift
 let jsonString = myObject.toJsonString([.DefaultSerialize])
