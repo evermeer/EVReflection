@@ -19,7 +19,7 @@ class EVReflectionEVCustomReflectable: XCTestCase {
     }
     
     func test() {
-        let jsonOriginal = "{\"id\":24,\"name\":\"Bob Jefferson\"}"
+        let jsonOriginal = "{\"id\":24,\"tst\":\"Encode this\",\"name\":\"Bob Jefferson\"}"
         let p = XObject(json: jsonOriginal)
         print(p.description)
         let jsonNew = p.toJsonString()
@@ -32,6 +32,7 @@ class EVReflectionEVCustomReflectable: XCTestCase {
 
 open class XObject: EVObject {
     var id: NSNumber = 0
+    var tst: String?
     
      // Contains all the attributes that do not have a defined key for an attribute
     fileprivate var attributes: NSMutableDictionary = NSMutableDictionary()
@@ -53,5 +54,16 @@ extension XObject : EVCustomReflectable {
         d.unionInPlace(dictionary: a)
         return d
     }
-    
+}
+
+
+
+extension String : EVCustomReflectable {
+    public  func constructWith(value: Any?) {
+        let x = value as? String ?? ""
+        print("should set self \(x)")
+    }
+    public func toCodableValue() -> Any {
+        return self
+    }
 }

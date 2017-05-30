@@ -92,5 +92,32 @@ class CoreDataTests: XCTestCase {
         XCTAssert(count + 2 == newCount, "Should have one extra record")
     }
     
-
+    func testCoreDataEnheritanceTest() {
+        let data = EVReflectionTestsData() // We use an in memory database here. So it's allwais empty.
+        
+        let count = data.listRecords(CoreDataPerson.self).count // should be 0
+        
+        // For this test also using moc (same as listRecords) because sync between boc and moc are on different threads.
+        let obj = CDUser(context: data.moc, json: "{\"id\" : \"11\", \"userProperty\" : \"Vermeer\"}")
+        do {
+            try data.moc.save()
+        } catch {
+            fatalError("Failure to save context: \(error)")
+        }
+        
+        // Just testing if the json parse was successfull
+        let status = obj.evReflectionStatus()
+        print("Json parse errors : \(status)")
+        XCTAssertEqual(status, .None, "We should have a .None status")
+        
+        // Read and dump all records, assert if the count was still 0
+        let list = data.listRecords(CDUser.self)
+        for person in list {
+            print("\(person.id ) \(person.userProperty )")
+        }
+        let newCount = list.count
+        XCTAssert(count + 1 == newCount, "Should have one extra record")
+        
+    }
 }
+

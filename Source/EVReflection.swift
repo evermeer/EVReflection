@@ -1499,6 +1499,8 @@ final public class EVReflection {
             return tempArray
         case let date as Date:
             return getDateFormatter().string(from: date) as NSString
+        case let reflectable as EVCustomReflectable:
+            return convertDictionaryForJsonSerialization(reflectable.toCodableValue() as? NSDictionary ?? NSDictionary(), theObject: theObject)
         case let reflectable as EVReflectable:
             return convertDictionaryForJsonSerialization(reflectable.toDictionary(), theObject: theObject)
         case let ok as NSDictionary:
