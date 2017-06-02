@@ -496,43 +496,17 @@ class EVReflectionTests: XCTestCase {
         print(obj)
         XCTAssert(obj.array[0][0].count == 2, "3 dimentional array should have 2 items inside the first item of the first item")
     }
-}
 
-
-class MKPolygon: NSObject { }
-extension MKPolygon: EVReflectable { }
-
-
-class A81a: EVObject {
-    var array: [A81] = []
-}
-
-//TODO: fix nested array bug
-class A81b: EVObject {
-    var array: [[A81]] = [[]]
-    
-    override func propertyConverters() -> [(key: String, decodeConverter: ((Any?) -> ()), encodeConverter: (() -> Any?))] {
-        return [(key: "-array",
-                 decodeConverter: {
-                    let x = $0
-                    let v = (((x as! NSArray)[0] as! NSArray)[0] as! NSDictionary)["openId"]!
-                    self.array = x as? [[A81]] ?? [[A81]]()
-                 }, encodeConverter: { return self.array })]
+    // Swift bug, class inside class works, class inside struct does not work.
+    func testNestedDefinition() {
+        let x = CogDirect.Model.BeaconsModel()
+        x.beacons.append(CogDirect.Model.BeaconModel())
+        let json = x.toJsonString()
+        print(json)
+        let nx = CogDirect.Model.BeaconsModel(json: json)
+        print(nx)
+        XCTAssert(nx.beacons.count == 1, "Should also have an object")
     }
-}
-
-class A81c: EVObject {
-    var array: [[[A81]]] = [[[]]]
-}
-
-class A81: EVObject {
-    var openId: String = ""
-}
-
-
-class MyObject : EVObject {
-    var id : Int = 0
-    var active: Bool = false
 }
 
 

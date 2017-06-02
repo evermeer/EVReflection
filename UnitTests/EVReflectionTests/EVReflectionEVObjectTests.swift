@@ -176,6 +176,15 @@ class EVReflectionEVObjectTests: XCTestCase {
         XCTAssert(out1?.id == "inner1")
     }
     
+    func testEvPrint() {
+        let dict: [String:Any] = ["x": "y"]
+        print("Now you will get an error:")
+        let _: [EVObject] = [EVObject](dictionary: dict as NSDictionary, forKeyPath: "na")
+        PrintOptions.Active = .None
+        print("Now you don't:")
+        let _: [EVObject] = [EVObject](dictionary: dict as NSDictionary, forKeyPath: "na")
+        PrintOptions.Active = .All
+    }
 }
 
 

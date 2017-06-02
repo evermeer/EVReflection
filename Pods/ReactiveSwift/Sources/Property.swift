@@ -38,6 +38,7 @@ extension PropertyProtocol {
 	///   - observer: An observer to send the events to.
 	///   - lifetime: A lifetime of the observing object.
 	@discardableResult
+	@available(*, deprecated, message:"Use `take(during:)` and `start` on the property producer instead. `observe(_:during:)` would be removed in ReactiveSwift 2.0.")
 	public func observe(_ observer: Observer<Value, NoError>, during lifetime: Lifetime) -> Disposable? {
 		return producer.observe(observer, during: lifetime)
 	}
@@ -531,7 +532,10 @@ public final class Property<Value>: PropertyProtocol {
 	///   - values: A producer that will start immediately and send values to
 	///             the property.
 	public convenience init(initial: Value, then values: SignalProducer<Value, NoError>) {
-		self.init(unsafeProducer: values.prefix(value: initial))
+		self.init(unsafeProducer: SignalProducer { observer, disposables in
+			observer.send(value: initial)
+			disposables += values.start(Observer(mappingInterruptedToCompleted: observer))
+		})
 	}
 
 	/// Initialize a composed property that first takes on `initial`, then each
@@ -541,7 +545,7 @@ public final class Property<Value>: PropertyProtocol {
 	///   - initialValue: Starting value for the property.
 	///   - values: A signal that will send values to the property.
 	public convenience init(initial: Value, then values: Signal<Value, NoError>) {
-		self.init(unsafeProducer: SignalProducer(values).prefix(value: initial))
+		self.init(initial: initial, then: SignalProducer(values))
 	}
 
 	/// Initialize a composed property by applying the unary `SignalProducer`
@@ -640,15 +644,10 @@ public final class MutableProperty<Value>: ComposableMutablePropertyProtocol {
 	/// followed by all changes over time, then complete when the property has
 	/// deinitialized.
 	public var producer: SignalProducer<Value, NoError> {
-		return SignalProducer { [atomic, weak self] producerObserver, producerDisposable in
+		return SignalProducer { [atomic, signal] producerObserver, producerDisposable in
 			atomic.withValue { value in
-				if let strongSelf = self {
-					producerObserver.send(value: value)
-					producerDisposable += strongSelf.signal.observe(producerObserver)
-				} else {
-					producerObserver.send(value: value)
-					producerObserver.sendCompleted()
-				}
+				producerObserver.send(value: value)
+				producerDisposable += signal.observe(Observer(mappingInterruptedToCompleted: producerObserver))
 			}
 		}
 	}
@@ -707,5 +706,18 @@ public final class MutableProperty<Value>: ComposableMutablePropertyProtocol {
 
 	deinit {
 		observer.sendCompleted()
+	}
+}
+
+private extension Observer {
+	convenience init(mappingInterruptedToCompleted observer: Observer<Value, Error>) {
+		self.init { event in
+			switch event {
+			case .value, .completed, .failed:
+				observer.action(event)
+			case .interrupted:
+				observer.sendCompleted()
+			}
+		}
 	}
 }

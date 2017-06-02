@@ -31,7 +31,10 @@ public enum Result<T, Error: Swift.Error>: ResultProtocol, CustomStringConvertib
 	public init(attempt f: () throws -> T) {
 		do {
 			self = .success(try f())
-		} catch {
+		} catch var error {
+			if Error.self == AnyError.self {
+				error = AnyError(error)
+			}
 			self = .failure(error as! Error)
 		}
 	}
@@ -171,9 +174,9 @@ public func `try`(_ function: String = #function, file: String = #file, line: In
 
 #endif
 
-// MARK: - ErrorProtocolConvertible conformance
+// MARK: - ErrorConvertible conformance
 	
-extension NSError: ErrorProtocolConvertible {
+extension NSError: ErrorConvertible {
 	public static func error(from error: Swift.Error) -> Self {
 		func cast<T: NSError>(_ error: Swift.Error) -> T {
 			return error as! T
@@ -211,7 +214,7 @@ public struct AnyError: Swift.Error {
 	}
 }
 
-extension AnyError: ErrorProtocolConvertible {
+extension AnyError: ErrorConvertible {
 	public static func error(from error: Error) -> AnyError {
 		return AnyError(error)
 	}

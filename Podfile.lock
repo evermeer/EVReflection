@@ -1,60 +1,60 @@
 PODS:
   - Alamofire (4.4.0)
-  - EVReflection/Alamofire (4.9.1):
+  - EVReflection/Alamofire (4.14.0):
     - Alamofire
     - EVReflection/Core
-  - EVReflection/AlamofireXML (4.9.1):
+  - EVReflection/AlamofireXML (4.14.0):
     - EVReflection/Alamofire
     - EVReflection/XML
-  - EVReflection/CloudKit (4.9.1):
+  - EVReflection/CloudKit (4.14.0):
     - EVReflection/Core
-  - EVReflection/Core (4.9.1)
-  - EVReflection/CoreData (4.9.1):
+  - EVReflection/Core (4.14.0)
+  - EVReflection/CoreData (4.14.0):
     - EVReflection/Core
-  - EVReflection/Moya (4.9.1):
+  - EVReflection/Moya (4.14.0):
     - EVReflection/Alamofire
     - Moya
-  - EVReflection/MoyaReactiveSwift (4.9.1):
+  - EVReflection/MoyaReactiveSwift (4.14.0):
     - EVReflection/Moya
     - Moya/ReactiveSwift
-  - EVReflection/MoyaReactiveSwiftXML (4.9.1):
+  - EVReflection/MoyaReactiveSwiftXML (4.14.0):
     - EVReflection/MoyaReactiveSwift
     - EVReflection/MoyaXML
-  - EVReflection/MoyaRxSwift (4.9.1):
+  - EVReflection/MoyaRxSwift (4.14.0):
     - EVReflection/Moya
     - Moya/RxSwift
-  - EVReflection/MoyaRxSwiftXML (4.9.1):
+  - EVReflection/MoyaRxSwiftXML (4.14.0):
     - EVReflection/MoyaRxSwift
     - EVReflection/MoyaXML
-  - EVReflection/MoyaXML (4.9.1):
+  - EVReflection/MoyaXML (4.14.0):
     - EVReflection/AlamofireXML
     - EVReflection/Moya
-  - EVReflection/Realm (4.9.1):
+  - EVReflection/Realm (4.14.0):
     - EVReflection/Core
     - RealmSwift
-  - EVReflection/XML (4.9.1):
+  - EVReflection/XML (4.14.0):
     - EVReflection/Core
     - XMLDictionary
-  - Moya (8.0.3):
-    - Moya/Core (= 8.0.3)
-  - Moya/Core (8.0.3):
+  - Moya (8.0.5):
+    - Moya/Core (= 8.0.5)
+  - Moya/Core (8.0.5):
     - Alamofire (~> 4.1)
     - Result (~> 3.0)
-  - Moya/ReactiveSwift (8.0.3):
+  - Moya/ReactiveSwift (8.0.5):
     - Moya/Core
-    - ReactiveSwift (~> 1.0)
-  - Moya/RxSwift (8.0.3):
+    - ReactiveSwift (~> 1.1)
+  - Moya/RxSwift (8.0.5):
     - Moya/Core
     - RxSwift (~> 3.0)
-  - ReactiveSwift (1.1.1):
+  - ReactiveSwift (1.1.3):
     - Result (~> 3.2)
   - Realm (2.7.0):
     - Realm/Headers (= 2.7.0)
   - Realm/Headers (2.7.0)
   - RealmSwift (2.7.0):
     - Realm (= 2.7.0)
-  - Result (3.2.1)
-  - RxSwift (3.4.1)
+  - Result (3.2.3)
+  - RxSwift (3.5.0)
   - XMLDictionary (1.4.1)
 
 DEPENDENCIES:
@@ -71,15 +71,15 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Alamofire: dc44b1600b800eb63da6a19039a0083d62a6a62d
-  EVReflection: f9c2c758227dc92822573a497279f1b8eae69ba7
-  Moya: d3721622e3cc0cc2f038d69a258686f0b66e7252
-  ReactiveSwift: 2489549e3231a6ff68ec99f3d320bb264f10ba0a
+  EVReflection: 2240feb20c87143c0028988e4e55962d3b3d5e5e
+  Moya: c37eec09a098ba9991b5a963b291fc5704bdb9ef
+  ReactiveSwift: f54ba12c2e799003432930fa55495315ae44f32b
   Realm: 07e5d3a9e0e41d65fd5f9f05150ed6295d0f093b
   RealmSwift: 6d06425d3900c86473c4f323bf6949b43fca22bc
-  Result: 2453a22e5c5b11c0c3a478736e82cd02f763b781
-  RxSwift: 656f8fbeca5bc372121a72d9ebdd3cd3bc0ffade
+  Result: 128640a6347e8d2ae48b142556739a2d13f90ce6
+  RxSwift: 18ee9d78b45edb3b0b7e79916b47a116e6dbc842
   XMLDictionary: fa07b6ff422b3a91d47a5de9bc82e3fc04fbd167
 
-PODFILE CHECKSUM: 9b7c9be271d26f50d715e1fbc73bfaa337566bad
+PODFILE CHECKSUM: eaa8159d42c6b29ea99735083e726fa404f1e5f0
 
 COCOAPODS: 1.2.1

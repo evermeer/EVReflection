@@ -293,3 +293,78 @@ open class NestedIUOObjectsArrayParent: EVObject {
     var iuoObjects: [NestedIUOObject]!
     var control: String?
 }
+
+class MKPolygon: NSObject { }
+extension MKPolygon: EVReflectable { }
+
+
+class A81a: EVObject {
+    var array: [A81] = []
+}
+
+//TODO: fix nested array bug
+class A81b: EVObject {
+    var array: [[A81]] = [[]]
+    
+    override func propertyConverters() -> [(key: String, decodeConverter: ((Any?) -> ()), encodeConverter: (() -> Any?))] {
+        return [(key: "-array",
+                 decodeConverter: {
+                    let x = $0
+                    let v = (((x as! NSArray)[0] as! NSArray)[0] as! NSDictionary)["openId"]!
+                    self.array = x as? [[A81]] ?? [[A81]]()
+        }, encodeConverter: { return self.array })]
+    }
+}
+
+class A81c: EVObject {
+    var array: [[[A81]]] = [[[]]]
+}
+
+class A81: EVObject {
+    var openId: String = ""
+}
+
+
+class MyObject : EVObject {
+    var id : Int = 0
+    var active: Bool = false
+}
+
+
+// Swift bug, class inside class works, class inside struct does not work.
+public class CogDirect {
+    public class Modules {
+    }
+    public class Model {
+        
+        class Model : EVObject {
+            // this part is just to circumvent having to use enums
+            public static let STATUS : [NSString] = [
+                "success",
+                "failed",
+                "unset"
+            ]
+            
+            public static let STATUS_SUCCESS : Int = 0
+            public static let STATUS_FAILED = 1
+            public static let STATUS_UNSET = 2
+            // end
+            
+            public var status : NSString = STATUS[STATUS_UNSET]
+            public var subject : NSString = "unset"
+            public var message : NSString = ""
+        }
+        
+        
+        class BeaconModel : EVObject {
+            public var uuid : NSString = ""
+            public var major : Int = -1
+            public var minor : Int = -1
+            public var accuracy : Double = -1
+        }
+        
+        class BeaconsModel : Model {
+            public var beacons : [BeaconModel] = [] // this part is not key-value coding compliant
+        }
+    }
+}

@@ -68,7 +68,7 @@ you should use for your Swift version.
 To integrate using Apple's Swift package manager, add the following as a dependency to your `Package.swift`:
 
 ```swift
-.Package(url: "https://github.com/Moya/Moya", majorVersion: 8)
+.Package(url: "https://github.com/Moya/Moya.git", majorVersion: 8)
 ```
 
 and then specify `.Target(name: "Moya")` as a dependency of the Target in which you wish to use Moya.
@@ -80,7 +80,7 @@ import PackageDescription
 let package = Package(
   name: "MyApp",
   dependencies: [
-    .Package(url: "https://github.com/Moya/Moya", majorVersion: 8)
+    .Package(url: "https://github.com/Moya/Moya.git", majorVersion: 8)
   ]
 )
 ```
@@ -249,24 +249,10 @@ for filtering out certain status codes. This means that you can place your code 
 handling API errors like 400's in the same places as code for handling invalid
 responses.
 
-Community Extensions
+Community Projects
 --------------------
 
-Moya has a great community around it and some people have created some very helpful extensions.
-
-- [Moya-ObjectMapper](https://github.com/ivanbruel/Moya-ObjectMapper) - ObjectMapper bindings for Moya for easier JSON serialization
-- [Moya-SwiftyJSONMapper](https://github.com/AvdLee/Moya-SwiftyJSONMapper) - SwiftyJSON bindings for Moya for easier JSON serialization
-- [Moya-Argo](https://github.com/wattson12/Moya-Argo) - Argo bindings for Moya for easier JSON serialization
-- [Moya-ModelMapper](https://github.com/sunshinejr/Moya-ModelMapper) - ModelMapper bindings for Moya for easier JSON serialization
-- [Moya-Gloss](https://github.com/spxrogers/Moya-Gloss) - Gloss bindings for Moya for easier JSON serialization
-- [Moya-JASON](https://github.com/DroidsOnRoids/Moya-JASON) - JASON bindings for Moya for easier JSON serialization
-- [Moya-JASONMapper](https://github.com/AvdLee/Moya-JASONMapper) - JASON bindings for Moya for easier JSON serialization
-- [Moya-Unbox](https://github.com/RyogaK/Moya-Unbox) - Unbox bindings for Moya for easier JSON serialization
-- [MoyaSugar](https://github.com/devxoul/MoyaSugar) – Syntactic sugar for Moya
-- [Moya-EVReflection](https://github.com/evermeer/EVReflection/tree/master/Source/Alamofire/Moya) - EVReflection bindings for Moya for easier JSON serialization (including subspecs for [RxSwift](https://github.com/evermeer/EVReflection/tree/master/Source/Alamofire/Moya/RxSwift) and [ReactiveCocoa](https://github.com/evermeer/EVReflection/tree/master/Source/Alamofire/Moya/ReactiveCocoa))
-- [Moya-Marshal](https://github.com/JARMourato/Moya-Marshal) - Marshal bindings for Moya for easier JSON serialization
-
-We appreciate all the work being done by the community around Moya. If you would like to have your extension featured in the list above, simply create a pull request adding your extensions to the list.
+[Moya has a great community around it and some people have created some very helpful extensions.](https://github.com/Moya/Moya/blob/master/docs/CommunityProjects.md)
 
 Contributing
 ------------
@@ -290,7 +276,7 @@ requests and help steer the ship :ship: You can read more details about that [in
 
 Moya's community has a tremendous positive energy, and the maintainers are committed to keeping things awesome. Like [in the CocoaPods community](https://github.com/CocoaPods/CocoaPods/wiki/Communication-&-Design-Rules), always assume positive intent; even if a comment sounds mean-spirited, give the person the benefit of the doubt.
 
-Please note that this project is released with a Contributor Code of Conduct. By participating in this project you agree to abide by [its terms](https://github.com/Moya/contributors/blob/master/Code of Conduct.md).
+Please note that this project is released with a Contributor Code of Conduct. By participating in this project you agree to abide by [its terms](https://github.com/Moya/contributors/blob/master/Code%20of%20Conduct.md).
 
 ### Adding new source files
 
@@ -299,4 +285,4 @@ If you add or remove a source file from Moya, a corresponding change needs to be
 License
 -------
 
-Moya is released under an MIT license. See License.md for more information.
+Moya is released under an MIT license. See [License.md](License.md) for more information.

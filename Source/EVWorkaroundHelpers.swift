@@ -77,7 +77,7 @@ public extension EVAssociated {
             if let associated = mirror.children.first {
                 return (associated.label!, associated.value)
             }
-            print("WARNING: Enum option of \(self) does not have an associated value")
+            evPrint(.EnumWithoutAssociatedValue, "WARNING: Enum option of \(self) does not have an associated value")
             return ("\(self)", nil)
         }
     }

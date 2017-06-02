@@ -17,7 +17,7 @@ class TestIssue197: XCTestCase {
     override func setUp() {
         super.setUp()
         // Put setup code here. This method is called before the invocation of each test method in the class.
-        EVReflection.setBundleIdentifier(DocumentDetails.self)
+        EVReflection.setBundleIdentifier(Base.self)
     }
     
     override func tearDown() {
@@ -26,13 +26,10 @@ class TestIssue197: XCTestCase {
     }
     
     func testIssue197() {
+        let jsonOriginal = "{\"id\":24,\"details\":[{\"id\":29,\"name\":\"Jen Jackson\"}],\"name\":\"Bob Jefferson\"}"
         
-        EVReflection.setBundleIdentifier(Base.self)
-        
-        let jsonOriginal = "{\"id\":24,\"name\":\"Bob Jefferson\",\"details\":[{\"id\": 29,\"name\":\"Jen Jackson\"}]}"
         let p = Master(json: jsonOriginal)
         p.details.forEach { print($0.description) }
-        
         
         let jsonNew = p.toJsonString()
         print("--- Original ----")
@@ -42,73 +39,20 @@ class TestIssue197: XCTestCase {
         print(jsonNew)
         print("  ")
         XCTAssertEqual(jsonOriginal, jsonNew, "The new json should be the same as the old.")
-        
     }
-    /* results
-     --- Original ----
-     {"id": 24, "name": "Bob Jefferson", "details": [{"id": 29, "name": "Jen Jackson"}]}
-     
-     --- Master is ok but  Details contains Attributes ----
-     {"id":24,"details":[{"attributes":{},"id":29,"name":"Jen Jackson"}],"name":"Bob Jefferson"}
-     
-     
-     */
-
-    public struct CogDirect {
-        public struct Modules {
-        }
-        public struct Model {
-    
-            class Model : EVObject {
-                // this part is just to circumvent having to use enums
-                public static let STATUS : [NSString] = [
-                    "success",
-                    "failed",
-                    "unset"
-                ]
-                
-                public static let STATUS_SUCCESS : Int = 0
-                public static let STATUS_FAILED = 1
-                public static let STATUS_UNSET = 2
-                // end
-                
-                public var status : NSString = STATUS[STATUS_UNSET]
-                public var subject : NSString = "unset"
-                public var message : NSString = ""
-            }
-            
-            
-            class BeaconModel : EVObject {
-                public var uuid : NSString = ""
-                public var major : Int = -1
-                public var minor : Int = -1
-                public var accuracy : Double = -1
-            }
-            
-            class BeaconsModel : Model {
-                public var beacons : [BeaconModel] = [] // this part is not key-value coding compliant
-            }
-        }
-    }
-
-    
-    func testXXX() {        
-        let x = CogDirect.Model.BeaconsModel()
-        x.beacons.append(CogDirect.Model.BeaconModel())
-        let json = x.toJsonString()
-        print(json)
-        let nx = CogDirect.Model.BeaconsModel(json: json)
-        print(nx)
-    }
-    
 }
 
 
+open class Master: Base197 {
+    var id: Int = 0
+    var name: String = ""
+    var details = [Detail]()
+}
 
-
-
-
-
+open class Detail: Base197 {
+    var id: Int = 0
+    var name: String = ""
+}
 
 
 
@@ -160,85 +104,37 @@ extension Base197 : EVCustomReflectable {
      - returns: Dictionary without custom properties key
      */
     public func toCodableValue() -> Any {
-        let originalDict: NSMutableDictionary = self.toDictionary() as! NSMutableDictionary
-        
-        let attributesDict: NSMutableDictionary = originalDict[Base197.kAttributesKey] as? NSMutableDictionary ?? NSMutableDictionary()
-        originalDict.removeObject(forKey: Base197.kAttributesKey)
-        
-        //---> Workaround because toCodableValue is not invoked for the details
-        originalDict.forEach {
-            if let key = $0.key as? String {
-                if let value = $0.value as? NSArray {
-                    originalDict[key] = toCodableValueArray(value)
+        let dict: NSMutableDictionary = self.toDictionary() as! NSMutableDictionary
+        return cleanupDict(dict)
+    }
+    
+    /**
+     Recursive clean dictionary, sub dictionaries, sub arrays with dictionaries
+     
+     - returns: Dictionary without custom properties key
+     */
+    private func cleanupDict(_ dict: NSMutableDictionary) -> NSDictionary {
+        let attributesDict: NSMutableDictionary = dict[Base197.kAttributesKey] as? NSMutableDictionary ?? NSMutableDictionary()
+        dict.removeObject(forKey: Base197.kAttributesKey)
+        for (key, value) in dict {
+            if let key = key as? String {
+                if let value = value as? NSArray {
+                    let array: NSMutableArray = NSMutableArray()
+                    for object in value {
+                        if let dict = object as? NSMutableDictionary {
+                            array.add(cleanupDict(dict))
+                        }
+                    }
+                    dict[key] = array
+                } else if let value = value as? NSMutableDictionary {
+                    dict[key] = cleanupDict(value)
                 }
             }
         }
-        //---------------------------
-        
-        originalDict.unionInPlace(dictionary: attributesDict)
-        return originalDict
-    }
-    
-    /**
-     Create a json string based on this dictionary
-     
-     - returns: json string
-     */
-    public func toJsonString(prettyPrinted: Bool = false) -> String {
-        let dict = self.toCodableValue() as? NSMutableDictionary
-        return dict?.toJsonString(prettyPrinted: prettyPrinted) ?? ""
-    }
-    
-    
-    /**
-     Create a json data based on this dictionary
-     
-     - parameter prettyPrinted: compact of pretty printed
-     */
-    public func toJsonData(prettyPrinted: Bool = false) -> Data {
-        let dict = self.toCodableValue() as? NSMutableDictionary
-        let data = dict?.toJsonData(prettyPrinted: prettyPrinted)
-        return data ?? Data()
-    }
-    
-    /**
-     Converts value if array contains Base elements
-     
-     - returns: Array contains all Base
-     */
-    
-    private func toCodableValueArray(_ value: NSArray) -> NSArray {
-        
-        let array: NSMutableArray = NSMutableArray()
-        value.forEach {
-            
-            //----> Here $0 is NSObject but must be Base !!?????
-            if let object = $0 as? Base197 {
-                let objectDict = object.toCodableValue() as? NSMutableDictionary
-                if let elementDict = objectDict {
-                    array.add(elementDict)
-                }
-            } else {
-                array.add($0)
-            }
-            
-        }
-        
-        return array
-    }
-    
+        dict.unionInPlace(dictionary: attributesDict)
+        return dict
+    }    
 }
 
-
-open class Master: Base197 {
-    var id: Int = 0
-    var name: String = ""
-    var details = [Detail]()
-}
-
-open class Detail: Base197 {
-    var id: Int = 0
-    var name: String = ""
-}
 
 

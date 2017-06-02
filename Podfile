@@ -11,7 +11,7 @@ def alllibraries
   pod 'EVReflection/CoreData', :path => "./"
 end
 
-target 'PerformanceTest' do
+target 'Performance.Test' do
   project 'PerformanceTest/PerformanceTest'
   platform :ios, '8.0'
   pod 'EVReflection/Core', :path => "./"

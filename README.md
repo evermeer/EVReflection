@@ -75,6 +75,7 @@ pod 'EVReflection/MoyaRxSwift'
 - [Custom type converters](https://github.com/evermeer/EVReflection#custom-type-converter)
 - [Skip the serialization or deserialization of specific values](https://github.com/evermeer/EVReflection#skip-the-serialization-or-deserialization-of-specific-values)
 - [Property validators](https://github.com/evermeer/EVReflection#property-validators)
+- [Print options](https://github.com/evermeer/EVReflection#print-options)
 - [Deserialization class level validations](https://github.com/evermeer/EVReflection#deserialization-class-level-validations)
 - [What to do when you use object inheritance](https://github.com/evermeer/EVReflection#what-to-do-when-you-use-object-inheritance)
 - [Known issues](https://github.com/evermeer/EVReflection#known-issues)
@@ -422,6 +423,26 @@ public class GameUser: EVObject {
    }
 }
 ```
+
+### Print options
+You should be able to solve all problems with parsing your json to an object. If you get warnings and you know they don't matter and you want to stop them from printin you can suppress all print warings by calling the followin line of code:
+
+```swift
+PrintOptions.Active = .None
+```
+
+If you then want to turn on the print output, then just call:
+
+```
+PrintOptions.Active = .All
+```
+
+It's also possible to enable printing for specific warning types. Here is the line of code that is equal to setting it to .All. Just leave out the type that you want to suppress.
+
+```
+PrintOptions.Active = [.UnknownKeypath, .IncorrectKey, .ShouldExtendNSObject, .IsInvalidJson, .MissingProtocol, .MissingKey, .InvalidType, .InvalidValue, .InvalidClass, .EnumWithoutAssociatedValue]
+```
+
 
 ### Deserialization class level validations
 There is also support for class level validation when deserializing to an object. There are helper functions for making keys required or not allowed. You can also add custom messages. Here is some sample code about how you can implement such a validation

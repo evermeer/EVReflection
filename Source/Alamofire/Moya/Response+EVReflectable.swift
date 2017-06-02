@@ -31,7 +31,7 @@ public extension Response {
         var json = try mapJSON()
         if forKeyPath != nil {
             guard let arr = (json as? NSDictionary)?.value(forKeyPath: forKeyPath!) else {
-                print("ERROR: The forKeyPath '\(forKeyPath ?? "")' did not return an array")
+                evPrint(.UnknownKeypath, "ERROR: The forKeyPath '\(forKeyPath ?? "")' did not return an array")
                 return []
             }
             json = arr
@@ -42,7 +42,7 @@ public extension Response {
         } else if let dict = json as? NSDictionary {
             array = [dict]
         } else {
-            print("ERROR: JSON mapping failed. Did not get a dictionary or array")
+            evPrint(.IsInvalidJson ,"ERROR: JSON mapping failed. Did not get a dictionary or array")
             return []
         }
         let parsedArray:[T] = array.map { map(from: $0 as? NSDictionary) } as [T]

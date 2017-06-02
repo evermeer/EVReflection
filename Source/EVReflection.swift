@@ -57,7 +57,7 @@ final public class EVReflection {
     public class func setPropertiesfromDictionary<T>(_ dictionary: NSDictionary, anyObject: T, conversionOptions: ConversionOptions = .DefaultDeserialize, forKeyPath: String? = nil) -> T where T: NSObject {
         
         guard let dict = ((forKeyPath == nil) ? dictionary : dictionary.value(forKeyPath: forKeyPath!) as? NSDictionary) else {
-            print("ERROR: The forKeyPath '\(forKeyPath ?? "")' did not return a dictionary")
+            evPrint(.UnknownKeypath, "ERROR: The forKeyPath '\(forKeyPath ?? "")' did not return a dictionary")
             return anyObject
         }
         
@@ -212,14 +212,14 @@ final public class EVReflection {
     public class func dictionaryFromJson(_ json: String?) -> NSDictionary {
         let result = NSMutableDictionary()
         if json == nil {
-            print("ERROR: nil is not valid json!")
+            evPrint(.IsInvalidJson, "ERROR: nil is not valid json!")
         } else if let jsonData = json!.data(using: String.Encoding.utf8) {
             do {
                 if let jsonDic = try JSONSerialization.jsonObject(with: jsonData, options: JSONSerialization.ReadingOptions.mutableContainers) as? NSDictionary {
                     return jsonDic
                 }
             } catch {
-                print("ERROR: Invalid json! \(error.localizedDescription)")
+                evPrint(.IsInvalidJson, "ERROR: Invalid json! \(error.localizedDescription)")
             }
         }
                 
@@ -236,14 +236,14 @@ final public class EVReflection {
     public class func dictionaryArrayFromJson(_ json: String?) -> [NSDictionary] {
         let result = [NSDictionary]()
         if json == nil {
-            print("ERROR: nil is not valid json!")
+            evPrint(.IsInvalidJson, "ERROR: nil is not valid json!")
         } else if let jsonData = json!.data(using: String.Encoding.utf8) {
             do {
                 if let jsonDic = try JSONSerialization.jsonObject(with: jsonData, options: JSONSerialization.ReadingOptions.mutableContainers) as? [NSDictionary] {
                     return jsonDic
                 }
             } catch {
-                print("ERROR: Invalid json! \(error.localizedDescription)")
+                evPrint(.IsInvalidJson, "ERROR: Invalid json! \(error.localizedDescription)")
             }
         }
         
@@ -263,7 +263,7 @@ final public class EVReflection {
     public class func arrayFromData<T>(_ theObject: NSObject? = nil, type: T, data: Data?, conversionOptions: ConversionOptions = .DefaultDeserialize, forKeyPath: String? = nil) -> [T] {
         var result = [T]()
         if data == nil {
-            print("ERROR: json data is nil!")
+            evPrint(.IsInvalidJson, "ERROR: json data is nil!")
             return result
         }
 
@@ -271,7 +271,7 @@ final public class EVReflection {
             var serialized = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers)
             if serialized is NSDictionary {
                 if forKeyPath == nil {
-                    print("ERROR: The root of the json is an object and not an array. Specify a forKeyPath to get an item as an array")
+                    evPrint(.IsInvalidJson, "ERROR: The root of the json is an object and not an array. Specify a forKeyPath to get an item as an array")
                     return result
                 } else {
                     serialized = (serialized as! NSDictionary).value(forKeyPath: forKeyPath!) as? [NSDictionary] ?? []
@@ -281,7 +281,7 @@ final public class EVReflection {
             if let jsonDic: [Dictionary<String, AnyObject>] = serialized as? [Dictionary<String, AnyObject>] {
                 let nsobjectype: NSObject.Type? = T.self as? NSObject.Type
                 if nsobjectype == nil {
-                    print("ERROR: EVReflection can only be used with types with NSObject as it's minimal base type")
+                    evPrint(.ShouldExtendNSObject, "ERROR: EVReflection can only be used with types with NSObject as it's minimal base type")
                     return result
                 }
                 result = jsonDic.map({
@@ -290,7 +290,7 @@ final public class EVReflection {
                 })
             }
         } catch {
-            print("ERROR: Invalid json! \(error.localizedDescription)")
+            evPrint(.IsInvalidJson, "ERROR: Invalid json! \(error.localizedDescription)")
         }
         return result
     }
@@ -307,11 +307,11 @@ final public class EVReflection {
     public class func arrayFromJson<T>(type: T, json: String?, conversionOptions: ConversionOptions = .DefaultDeserialize, forKeyPath: String? = nil) -> [T] {
         let result = [T]()
         if json == nil {
-            print("ERROR: nil is not valid json!")
+            evPrint(.IsInvalidJson, "ERROR: nil is not valid json!")
             return result
         }
         guard let data = json!.data(using: String.Encoding.utf8) else {
-            print("ERROR: Could not get Data from json string using utf8 encoding")
+            evPrint(.IsInvalidJson, "ERROR: Could not get Data from json string using utf8 encoding")
             return result
         }
         return arrayFromData(type: type, data: data, conversionOptions: conversionOptions, forKeyPath: forKeyPath)
@@ -384,7 +384,7 @@ final public class EVReflection {
         if let obj = theObject as? NSObject {
             return "\(swiftStringFromClass(obj)) = \(theObject.toJsonString(prettyPrinted: prettyPrinted))"
         }
-        print("ERROR: \(String(reflecting: theObject)) should have NSObject as it's base type.")
+        evPrint(.ShouldExtendNSObject, "ERROR: \(String(reflecting: theObject)) should have NSObject as it's base type.")
         return "\(String(reflecting: theObject))"
     }
 
@@ -762,7 +762,7 @@ final public class EVReflection {
                     return (convertedValue, valueType, false)
                 }
                 (parentObject as? EVReflectable)?.addStatusMessage(.MissingProtocol, message: "An object with a property of type Array with optional objects should implement the EVArrayConvertable protocol. type = \(valueType) for key \(key ?? "")")
-                print("WARNING: An object with a property of type Array with optional objects should implement the EVArrayConvertable protocol. type = \(valueType) for key \(key ?? "")")
+                evPrint(.MissingProtocol, "WARNING: An object with a property of type Array with optional objects should implement the EVArrayConvertable protocol. type = \(valueType) for key \(key ?? "")")
                 return (NSNull(), "NSNull", false)
             }
         } else if mi.displayStyle == .dictionary {
@@ -779,7 +779,7 @@ final public class EVReflection {
                     return (convertedValue, valueType, false)
                 }
                 (parentObject as? EVReflectable)?.addStatusMessage(.MissingProtocol, message: "An object with a property of type Set should implement the EVArrayConvertable protocol. type = \(valueType) for key \(key ?? "")")
-                print("WARNING: An object with a property of type Set should implement the EVArrayConvertable protocol. type = \(valueType) for key \(key ?? "")")
+                evPrint(.MissingProtocol, "WARNING: An object with a property of type Set should implement the EVArrayConvertable protocol. type = \(valueType) for key \(key ?? "")")
                 return (NSNull(), "NSNull", false)
             }
         } else if mi.displayStyle == .struct {
@@ -890,7 +890,7 @@ final public class EVReflection {
         }
         
         (parentObject as? EVReflectable)?.addStatusMessage(.InvalidType, message: "valueForAny unkown type \(valueType) for value: \(theValue).")
-        print("ERROR: valueForAny unkown type \(valueType) for key: \(key ?? "") and value: \(theValue).")
+        evPrint(.InvalidType, "ERROR: valueForAny unkown type \(valueType) for key: \(key ?? "") and value: \(theValue).")
         return (NSNull(), "NSNull", false)
     }
     
@@ -948,7 +948,7 @@ final public class EVReflection {
             if let convertedValue = value as? String {
                 guard let date = getDateFormatter().date(from: convertedValue) else {
                     (anyObject as? EVReflectable)?.addStatusMessage(.InvalidValue, message: "The dateformatter returend nil for value \(convertedValue)")
-                    print("WARNING: The dateformatter returend nil for value \(convertedValue)")
+                    evPrint(.InvalidValue, "WARNING: The dateformatter returend nil for value \(convertedValue)")
                     return
                 }                
                 value = date as AnyObject
@@ -976,7 +976,7 @@ final public class EVReflection {
                 anyObject.setValue(setValue, forKey: key)
             } catch _ {
                 (anyObject as? EVReflectable)?.addStatusMessage(.InvalidValue, message: "Not a valid value for object `\(NSStringFromClass(type(of: (anyObject as AnyObject))))`, type `\(type)`, key  `\(key)`, value `\(value)`")
-                print("INFO: Not a valid value for object `\(NSStringFromClass(type(of: (anyObject as AnyObject))))`, type `\(type)`, key  `\(key)`, value `\(value)`")
+                evPrint(.InvalidValue, "INFO: Not a valid value for object `\(NSStringFromClass(type(of: (anyObject as AnyObject))))`, type `\(type)`, key  `\(key)`, value `\(value)`")
             }
             
             /*  TODO: Do I dare? ... For nullable types like Int? we could use this instead of the workaround.
@@ -1207,8 +1207,8 @@ final public class EVReflection {
             } else if !type.hasPrefix("Swift.Array<") && !type.hasPrefix("Swift.Set<") {
                 if let array = dictValue as? NSArray {
                     if let org = anyObject as? EVReflectable {
-                        org.addStatusMessage(DeserializationStatus.InvalidType, message: "Did not expect an array for \(key). Will use the first item instead.")
-                        print("WARNING: Did not expect an array for \(key). Will use the first item instead.")
+                        org.addStatusMessage(.InvalidType, message: "Did not expect an array for \(key). Will use the first item instead.")
+                        evPrint(.InvalidType, "WARNING: Did not expect an array for \(key). Will use the first item instead.")
                     }
                     if array.count > 0 {
                         return (array[0] as AnyObject?, true)
@@ -1239,7 +1239,7 @@ final public class EVReflection {
             } else {
                 if type.contains("Dictionary<") == false && type != "Struct" {
                     (original as? EVReflectable)?.addStatusMessage(.InvalidClass, message: "Cannot set values on type \(type) from dictionary \(dict)")
-                    print("WARNING: Cannot set values on type \(type) from dictionary \(dict)")
+                    evPrint(.InvalidClass, "WARNING: Cannot set values on type \(type) from dictionary \(dict)")
                 }
                 return (returnObject, false)
             }
@@ -1271,7 +1271,7 @@ final public class EVReflection {
         
         if useType != "Struct" {
             (original as? EVReflectable)?.addStatusMessage(.InvalidClass, message: "Could not create an instance for type \(type)\ndict:\(dict)")
-            print("ERROR: Could not create an instance for type \(useType)\ndict:\(dict)")
+            evPrint(.InvalidClass, "ERROR: Could not create an instance for type \(useType)\ndict:\(dict)")
         }
         return (nil, false)
     }
@@ -1507,105 +1507,11 @@ final public class EVReflection {
             return convertDictionaryForJsonSerialization(ok, theObject: theObject)
         default:
             (theObject as? EVReflectable)?.addStatusMessage(.InvalidType, message: "Unexpected type while converting value for JsonSerialization: \(value)")
-            NSLog("ERROR: Unexpected type while converting value for JsonSerialization: \(value)")
+            evPrint(.InvalidType, "ERROR: Unexpected type while converting value for JsonSerialization: \(value)")
             return "\(value)" as AnyObject
         }
     }
 }
 
 
-/**
- For specifying what conversion options should be executed
- */
-public struct ConversionOptions: OptionSet, CustomStringConvertible {
-    /// The numeric representation of the options
-    public let rawValue: Int
-    /**
-     Initialize with a raw value
-     
-     - parameter rawValue: the numeric representation
-     
-     - returns: The ConversionOptions
-     */
-    public init(rawValue: Int) { self.rawValue = rawValue }
-    
-    /// No conversion options
-    public static let None = ConversionOptions(rawValue: 0)
-    /// Execute property converters
-    public static let PropertyConverter = ConversionOptions(rawValue: 1)
-    /// Execute property mapping
-    public static let PropertyMapping = ConversionOptions(rawValue: 2)
-    /// Skip specific property values
-    public static let SkipPropertyValue = ConversionOptions(rawValue: 4)
-    /// Do a key cleanup (CameCase, snake_case)
-    public static let KeyCleanup = ConversionOptions(rawValue: 8)
-    
-    /// Default used for NSCoding
-    public static var DefaultNSCoding: ConversionOptions = [None]
-    /// Default used for comparing / hashing functions
-    public static var DefaultComparing: ConversionOptions = [PropertyConverter, PropertyMapping, SkipPropertyValue]
-    /// Default used for deserialization
-    public static var DefaultDeserialize: ConversionOptions = [PropertyConverter, PropertyMapping, SkipPropertyValue, KeyCleanup]
-    /// Default used for serialization
-    public static var DefaultSerialize: ConversionOptions = [PropertyConverter, PropertyMapping, SkipPropertyValue]
-    
-    /// Get a nice description of the ConversionOptions
-    public var description: String {
-        let strings = ["PropertyConverter", "PropertyMapping", "SkipPropertyValue", "KeyCleanup"]
-        var members = [String]()
-        for (flag, string) in strings.enumerated() where contains(ConversionOptions(rawValue:1<<(flag + 1))) {
-            members.append(string)
-        }
-        if members.count == 0 {
-            members.append("None")
-        }
-        return members.description
-    }
 
-}
-
-/**
- Type of status messages after deserialization
- */
-public struct DeserializationStatus: OptionSet, CustomStringConvertible {
-    /// The numeric representation of the options
-    public let rawValue: Int
-    /**
-     Initialize with a raw value
-     
-     - parameter rawValue: the numeric representation
-     
-     - returns: the DeserializationStatus
-     */
-    public init(rawValue: Int) { self.rawValue = rawValue }
-
-    /// No status message
-    public static let None = DeserializationStatus(rawValue: 0)
-    /// Incorrect key error
-    public static let IncorrectKey  = DeserializationStatus(rawValue: 1)
-    /// Missing key error
-    public static let MissingKey  = DeserializationStatus(rawValue: 2)
-    /// Invalid type error
-    public static let InvalidType  = DeserializationStatus(rawValue: 4)
-    /// Invalid value error
-    public static let InvalidValue  = DeserializationStatus(rawValue: 8)
-    /// Invalid class error
-    public static let InvalidClass  = DeserializationStatus(rawValue: 16)
-    /// Missing protocol error
-    public static let MissingProtocol  = DeserializationStatus(rawValue: 32)
-    /// Custom status message
-    public static let Custom  = DeserializationStatus(rawValue: 64)
-    
-    /// Get a nice description of the DeserializationStatus
-    public var description: String {
-        let strings = ["IncorrectKey", "MissingKey", "InvalidType", "InvalidValue", "InvalidClass", "MissingProtocol", "Custom"]
-        var members = [String]()
-        for (flag, string) in strings.enumerated() where contains(DeserializationStatus(rawValue:1<<(flag))) {
-            members.append(string)
-        }
-        if members.count == 0 {
-            members.append("None")
-        }
-        return members.description
-    }
-}

@@ -21,5 +21,20 @@ public class CDUser: BaseEntity {
 
 public class BaseEntity: EVManagedObject {
     @NSManaged var id: String
+    
+    /* This works
+    override public func setValue(_ value: Any!, forUndefinedKey key: String) {
+        if key == "_id", let value = value as? String {
+            id = value
+        }
+    }
+    */
+    
+    // This will give a warning that _id cannot be found. Mirror for a NSManagedObject will not return the keys for fields that are not set yet.
+    override public func propertyMapping() -> [(keyInObject: String?, keyInResource: String?)] {
+        return [
+            ("id", "_id")
+        ]
+    }
 }
 

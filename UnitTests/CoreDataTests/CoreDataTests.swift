@@ -92,13 +92,15 @@ class CoreDataTests: XCTestCase {
         XCTAssert(count + 2 == newCount, "Should have one extra record")
     }
     
+    
+    //TODO: fix coredata propertymapping issue
     func testCoreDataEnheritanceTest() {
         let data = EVReflectionTestsData() // We use an in memory database here. So it's allwais empty.
         
         let count = data.listRecords(CoreDataPerson.self).count // should be 0
         
         // For this test also using moc (same as listRecords) because sync between boc and moc are on different threads.
-        let obj = CDUser(context: data.moc, json: "{\"id\" : \"11\", \"userProperty\" : \"Vermeer\"}")
+        let obj = CDUser(context: data.moc, json: "{\"_id\" : \"11\", \"userProperty\" : \"Vermeer\"}")
         do {
             try data.moc.save()
         } catch {

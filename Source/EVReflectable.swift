@@ -415,7 +415,7 @@ extension EVReflectable {
             let (reflected, _) = EVReflection.toDictionary(obj, conversionOptions: conversionOptions)
             return reflected
         }
-        print("ERROR: You should only extend object with EVReflectable that are derived from NSObject!")
+        evPrint(.ShouldExtendNSObject, "ERROR: You should only extend object with EVReflectable that are derived from NSObject!")
         return NSDictionary()
     }
     
@@ -430,7 +430,7 @@ extension EVReflectable {
         if let obj = self as? NSObject {
             return EVReflection.toJsonString(obj, conversionOptions: conversionOptions, prettyPrinted: prettyPrinted)
         }
-        print("ERROR: You should only extend object with EVReflectable that are derived from NSObject!")
+        evPrint(.ShouldExtendNSObject, "ERROR: You should only extend object with EVReflectable that are derived from NSObject!")
         return "{}"
     }
     
@@ -445,7 +445,7 @@ extension EVReflectable {
         if let obj = self as? NSObject {
             return EVReflection.toJsonData(obj, conversionOptions: conversionOptions, prettyPrinted: prettyPrinted)
         }
-        print("ERROR: You should only extend object with EVReflectable that are derived from NSObject!")
+        evPrint(.ShouldExtendNSObject, "ERROR: You should only extend object with EVReflectable that are derived from NSObject!")
         return Data()
     }
     

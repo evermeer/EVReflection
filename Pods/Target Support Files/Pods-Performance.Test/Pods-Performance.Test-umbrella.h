@@ -11,6 +11,6 @@
 #endif
 
 
-FOUNDATION_EXPORT double Pods_PerformanceTestVersionNumber;
-FOUNDATION_EXPORT const unsigned char Pods_PerformanceTestVersionString[];
+FOUNDATION_EXPORT double Pods_Performance_TestVersionNumber;
+FOUNDATION_EXPORT const unsigned char Pods_Performance_TestVersionString[];
 
