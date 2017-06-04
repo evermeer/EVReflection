@@ -73,6 +73,8 @@ pod 'EVReflection/MoyaRxSwift'
 - [Custom property converters](https://github.com/evermeer/EVReflection#custom-property-converters)
 - [Custom object converter](https://github.com/evermeer/EVReflection#custom-object-converter)
 - [Custom type converters](https://github.com/evermeer/EVReflection#custom-type-converter)
+- [Encoding and Decoding](https://github.com/evermeer/EVReflection#encoding-and-decoding) : For if you want class level functionality for encoding and decoding values (like base64, unicode, encription, ...)
+
 - [Skip the serialization or deserialization of specific values](https://github.com/evermeer/EVReflection#skip-the-serialization-or-deserialization-of-specific-values)
 - [Property validators](https://github.com/evermeer/EVReflection#property-validators)
 - [Print options](https://github.com/evermeer/EVReflection#print-options)
