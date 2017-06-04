@@ -273,12 +273,14 @@ With almost any EVReflection function you can specify what kind of conversion op
 - [PropertyMapping](https://github.com/evermeer/EVReflection#custom-keyword-mapping) : If specified the function propertyMapping on the EVObject will be called
 - [SkipPropertyValue](https://github.com/evermeer/EVReflection#skip-the-serialization-or-deserialization-of-specific-values) : If specified the function skipPropertyValue on the EVObject will be called
 - [KeyCleanup](https://github.com/evermeer/EVReflection#automatic-keyword-mapping-pascalcase-or-camelcase-to-snake_case) : If specified the automatic pascalCase and snake_case property key mapping will be called.
+- [Encoding](https://github.com/evermeer/EVReflection#encoding-and-decoding) : For if you want class level functionality for encoding values (like base64, unicode, encription, ...)
+- [Decoding](https://github.com/evermeer/EVReflection#encoding-and-decoding) : For if you want class level functionality for decoding values (like base64, unicode, encription, ...)
 
 In EVReflection all functions will use a default conversion option specific to it's function. The following 4 default conversion types are used: 
 - DefaultNSCoding = [None]
 - DefaultComparing = [PropertyConverter, PropertyMapping, SkipPropertyValue]
-- DefaultDeserialize = [PropertyConverter, PropertyMapping, SkipPropertyValue, KeyCleanup]
-- DefaultSerialize = [PropertyConverter, PropertyMapping, SkipPropertyValue]
+- DefaultDeserialize = [PropertyConverter, PropertyMapping, SkipPropertyValue, KeyCleanup, Decoding]
+- DefaultSerialize = [PropertyConverter, PropertyMapping, SkipPropertyValue, Encoding]
 
 If you want to change one of the default conversion types, then you can do that using something like:
 ```swift
@@ -335,6 +337,39 @@ public class TestObject6: EVObject {
     }
 }
 ```
+
+### Encoding and decoding
+You can add generic cod to encode or decode multiple or all properties in an object. This can be used for instance for base64, unicode and encription. Here is a base64 sample:
+
+```swift
+class SimleEncodingDecodingObject : EVObject{
+    var firstName: String?
+    var lastName: String?
+    var street: String?
+    var city: String?
+
+    override func decodePropertyValue(value: Any, key: String) -> Any {
+        return (value as? String)?.base64Decoded?.string ?? value
+    }
+
+    override func encodePropertyValue(value: Any, key: String) -> Any {
+        return (value as? String)?.base64Encoded.string ?? value
+    }
+}
+
+
+extension String {
+var data:          Data  { return Data(utf8) }
+var base64Encoded: Data  { return data.base64EncodedData() }
+var base64Decoded: Data? { return Data(base64Encoded: self) }
+}
+
+extension Data {
+var string: String? { return String(data: self, encoding: .utf8) }
+}
+```
+
+
 
 ### Custom object converter
 If you want to serialize an object to a dictionary or json but the structure should be different than the object itself, then instead of using propertyConverers, you can also convert the entire object by implementing the customConverter function. In the example below the entire object will be serialized to just a string. You could also return a dictionary that represents the custom structure or an array if the object should have been an array

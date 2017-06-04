@@ -137,6 +137,30 @@ open class EVObject: NSObject, NSCoding, EVReflectable  {
     }
     
     /**
+     You can add general value decoding to an object when you implement this function. You can for instance use it to base64 decode, url decode, html decode, unicode, etc.
+     
+     - parameter value:  The value that we will be decoded
+     - parameter key: The key for the value
+     
+     - returns: The decoded value
+     */
+    open func decodePropertyValue(value: Any, key: String) -> Any {
+        return value
+    }
+    
+    /**
+     You can add general value encoding to an object when you implement this function. You can for instance use it to base64 encode, url encode, html encode, unicode, etc.
+     
+     - parameter value:  The value that we will be encoded
+     - parameter key: The key for the value
+     
+     - returns: The encoded value.
+     */
+    open func encodePropertyValue(value: Any, key: String) -> Any {
+        return value
+    }
+    
+    /**
      This is a general functon where you can filter for specific values (like nil or empty string) when creating a dictionary
      
      - parameter value:  The value that we will test

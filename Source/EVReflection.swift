@@ -924,6 +924,10 @@ final public class EVReflection {
             }
         }
         
+        if conversionOptions.contains(.Decoding), let ro = anyObject as? EVReflectable {
+            value = ro.decodePropertyValue(value: value, key: key)
+        }
+        
         // Let us put a number into a string property by taking it's stringValue
         let (_, type, _) = valueForAny("", key: key, anyValue: value, conversionOptions: conversionOptions, isCachable: false, parents: parents)
         if (typeInObject == "String" || typeInObject == "NSString") && type == "NSNumber" {
@@ -1381,6 +1385,10 @@ final public class EVReflection {
                         unboxedValue = v.toCodableValue() as AnyObject
                         valueType = "String"
                         isObject = false
+                    }
+
+                    if conversionOptions.contains(.Encoding), let ro = theObject as? EVReflectable {
+                        unboxedValue = ro.encodePropertyValue(value: unboxedValue, key: originalKey) as AnyObject
                     }
 
                     if conversionOptions.contains(.PropertyConverter) {

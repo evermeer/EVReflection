@@ -52,6 +52,26 @@ public protocol EVReflectable: class, NSObjectProtocol  {
     func skipPropertyValue(_ value: Any, key: String) -> Bool
     
     /**
+     You can add general value decoding to an object when you implement this function. You can for instance use it to base64 decode, url decode, html decode, unicode, etc.
+     
+     - parameter value:  The value that we will be decoded
+     - parameter key: The key for the value
+     
+     - returns: The decoded value
+     */
+    func decodePropertyValue(value: Any, key: String) -> Any
+
+    /**
+     You can add general value encoding to an object when you implement this function. You can for instance use it to base64 encode, url encode, html encode, unicode, etc.
+     
+     - parameter value:  The value that we will be encoded
+     - parameter key: The key for the value
+     
+     - returns: The encoded value.
+     */
+    func encodePropertyValue(value: Any, key: String) -> Any
+    
+    /**
      Get the type of this object.
      
      - parameter dict: The dictionary for the specific type
@@ -230,8 +250,6 @@ extension EVReflectable where Self: NSObject {
         
     }
     
-    
-    
     /**
      Returns the hashvalue of this object
      
@@ -334,6 +352,30 @@ extension EVReflectable {
      */
     public func skipPropertyValue(_ value: Any, key: String) -> Bool {
         return false
+    }
+    
+    /**
+     You can add general value decoding to an object when you implement this function. You can for instance use it to base64 decode, url decode, html decode, unicode, etc.
+     
+     - parameter value:  The value that we will be decoded
+     - parameter key: The key for the value
+     
+     - returns: The decoded value
+     */
+    public func decodePropertyValue(value: Any, key: String) -> Any {
+        return value
+    }
+    
+    /**
+     You can add general value encoding to an object when you implement this function. You can for instance use it to base64 encode, url encode, html encode, unicode, etc.
+     
+     - parameter value:  The value that we will be encoded
+     - parameter key: The key for the value
+     
+     - returns: The encoded value.
+     */
+    public func encodePropertyValue(value: Any, key: String) -> Any {
+        return value
     }
     
     /**
