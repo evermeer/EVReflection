@@ -1095,14 +1095,20 @@ final public class EVReflection {
      - returns: processed string with illegal characters converted to underscores
      */
     internal static func processIllegalCharacters(_ input: String) -> String {
-        
-        if let cacheHit = processIllegalCharactersCache[input] {
-            return cacheHit
+        var p: String?
+        queue.sync {
+            p = processIllegalCharactersCache[input]
+        }
+        if let p = p {
+            return p
         }
         
         let output = input.components(separatedBy: illegalCharacterSet).joined(separator: "_")
         
-        processIllegalCharactersCache[input] = output
+        queue.sync {
+            processIllegalCharactersCache[input] = output
+        }
+
         return output
     }
 
@@ -1116,11 +1122,14 @@ final public class EVReflection {
      - returns: the underscore string
      */
     internal static func camelCaseToUnderscores(_ input: String) -> String {
-
-        if let cacheHit = camelCaseToUnderscoresCache[input] {
-            return cacheHit
+        var p: String?
+        queue.sync {
+            p = camelCaseToUnderscoresCache[input]
         }
-        
+        if let p = p {
+            return p
+        }
+
         var output: String = String(input.characters.first!).lowercased()
         let uppercase: CharacterSet = CharacterSet.uppercaseLetters
         for character in input.substring(from: input.characters.index(input.startIndex, offsetBy: 1)).characters {
@@ -1131,7 +1140,9 @@ final public class EVReflection {
             }
         }
         
-        camelCaseToUnderscoresCache[input] = output
+        queue.sync {
+            camelCaseToUnderscoresCache[input] = output
+        }
         return output
     }
 
