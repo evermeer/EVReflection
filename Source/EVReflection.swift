@@ -140,9 +140,8 @@ final public class EVReflection {
     }
     
     
-    private static var properiesCache = NSMutableDictionary()
-    private static var typesCache = NSMutableDictionary()
-    private static var queue = DispatchQueue(label: "nl.evict.evreflection.cache")
+    fileprivate static let properiesCache = NSCache<NSString, NSDictionary>()
+    fileprivate static let typesCache = NSCache<NSString, NSDictionary>()
     
     /**
      Convert an object to a dictionary while cleaning up the keys
@@ -170,33 +169,26 @@ final public class EVReflection {
         var theParents = parents
         theParents.append(theObject)
         
-        let key: String = "\(swiftStringFromClass(theObject)).\(conversionOptions.rawValue)"
-        if isCachable {
-            var p: NSDictionary?
-            var t: NSDictionary?
-            queue.sync {
-                p = properiesCache[key] as? NSDictionary
-                t = typesCache[key] as? NSDictionary
+        var p: NSDictionary = NSDictionary()
+        var t: NSDictionary = NSDictionary()
+        let key: NSString = "\(swiftStringFromClass(theObject)).\(conversionOptions.rawValue)" as NSString
+        if isCachable, let cachedVersionProperty = properiesCache.object(forKey: key), let cachedVersionTypes = typesCache.object(forKey: key) {
+            p = cachedVersionProperty
+            t = cachedVersionTypes
+        } else {
+            let reflected = Mirror(reflecting: theObject)
+            var (properties, types) =  reflectedSub(theObject, reflected: reflected, conversionOptions: conversionOptions, isCachable: isCachable, parents: theParents)
+            if conversionOptions.contains(.KeyCleanup) {
+                (properties, types) = cleanupKeysAndValues(theObject, properties:properties, types:types)
             }
-            if let p = p, let t = t {
-                return (p, t)
-            }
-        }
-        let reflected = Mirror(reflecting: theObject)
-        var (properties, types) =  reflectedSub(theObject, reflected: reflected, conversionOptions: conversionOptions, isCachable: isCachable, parents: theParents)
-        if conversionOptions.contains(.KeyCleanup) {
-             (properties, types) = cleanupKeysAndValues(theObject, properties:properties, types:types)
-        }
-        pdict = properties
-        tdict = types
-
-        if isCachable && typesCache[key] == nil {
-            queue.sync {
-                properiesCache[key] = pdict!
-                typesCache[key] = tdict!
+            p = properties
+            t = types
+            if isCachable {
+                properiesCache.setObject(p, forKey: key)
+                typesCache.setObject(t, forKey: key)
             }
         }
-        return (pdict!, tdict!)
+        return (p, t)
     }
     
     
@@ -1086,7 +1078,8 @@ final public class EVReflection {
     /// Character that will be replaced by _ from the keys in a dictionary / json
     fileprivate static let illegalCharacterSet = CharacterSet(charactersIn: " -&%#@!$^*()<>?.,:;")
     /// processIllegalCharacters Cache
-    fileprivate static var processIllegalCharactersCache = [ String : String ]()
+    fileprivate static var processIllegalCharactersCache = NSCache<NSString, NSString>()
+
     /**
      Replace illegal characters to an underscore
      
@@ -1095,25 +1088,21 @@ final public class EVReflection {
      - returns: processed string with illegal characters converted to underscores
      */
     internal static func processIllegalCharacters(_ input: String) -> String {
-        var p: String?
-        queue.sync {
-            p = processIllegalCharactersCache[input]
+        var p: NSString = ""
+        if let cachedVersion = processIllegalCharactersCache.object(forKey: input as NSString) {
+            // use the cached version
+            p = cachedVersion
+        } else {
+            // create it from scratch then store in the cache
+            p = input.components(separatedBy: illegalCharacterSet).joined(separator: "_") as NSString
+            processIllegalCharactersCache.setObject(p, forKey: input as NSString)
         }
-        if let p = p {
-            return p
-        }
-        
-        let output = input.components(separatedBy: illegalCharacterSet).joined(separator: "_")
-        
-        queue.sync {
-            processIllegalCharactersCache[input] = output
-        }
-
-        return output
+        return p as String
     }
 
     /// camelCaseToUnderscoresCache Cache
-    fileprivate static var camelCaseToUnderscoresCache = [ String : String ]()
+    fileprivate static var camelCaseToUnderscoresCache = NSCache<NSString, NSString>()
+    
     /**
      Convert a CamelCase to Underscores
      
@@ -1122,28 +1111,23 @@ final public class EVReflection {
      - returns: the underscore string
      */
     internal static func camelCaseToUnderscores(_ input: String) -> String {
-        var p: String?
-        queue.sync {
-            p = camelCaseToUnderscoresCache[input]
-        }
-        if let p = p {
-            return p
-        }
-
-        var output: String = String(input.characters.first!).lowercased()
-        let uppercase: CharacterSet = CharacterSet.uppercaseLetters
-        for character in input.substring(from: input.characters.index(input.startIndex, offsetBy: 1)).characters {
-            if uppercase.contains(UnicodeScalar(String(character).utf16.first!)!) {
-                output += "_\(String(character).lowercased())"
-            } else {
-                output += "\(String(character))"
+        var p: NSString = ""
+        if let cachedVersion = camelCaseToUnderscoresCache.object(forKey: input as NSString) {
+            p = cachedVersion
+        } else {
+            var output: String = String(input.characters.first!).lowercased()
+            let uppercase: CharacterSet = CharacterSet.uppercaseLetters
+            for character in input.substring(from: input.characters.index(input.startIndex, offsetBy: 1)).characters {
+                if uppercase.contains(UnicodeScalar(String(character).utf16.first!)!) {
+                    output += "_\(String(character).lowercased())"
+                } else {
+                    output += "\(String(character))"
+                }
             }
+            p = output as NSString
+            camelCaseToUnderscoresCache.setObject(p, forKey: input as NSString)
         }
-        
-        queue.sync {
-            camelCaseToUnderscoresCache[input] = output
-        }
-        return output
+        return p as String
     }
 
     
