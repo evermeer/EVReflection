@@ -17,7 +17,6 @@
 		131200E41EB31EA800A189C8 /* EVReflectionExtendingNSObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F7903C91E7D4F750086D111 /* EVReflectionExtendingNSObjects.swift */; };
 		131200E51EB31EC400A189C8 /* EVReflectionCustomConverterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FA506E31E68C953003D83E7 /* EVReflectionCustomConverterTests.swift */; };
 		131200E61EB31EC400A189C8 /* EVReflectionCustomConverterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FA506E31E68C953003D83E7 /* EVReflectionCustomConverterTests.swift */; };
-		131200E81EB3B47000A189C8 /* EVReflectionEventKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 131200E71EB3B47000A189C8 /* EVReflectionEventKitTests.swift */; };
 		131200E91EB3B47000A189C8 /* EVReflectionEventKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 131200E71EB3B47000A189C8 /* EVReflectionEventKitTests.swift */; };
 		131200EA1EB3B47000A189C8 /* EVReflectionEventKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 131200E71EB3B47000A189C8 /* EVReflectionEventKitTests.swift */; };
 		131200EB1EB4B58300A189C8 /* EVReflectionIssueAF39.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF953661E4A8237003B40A6 /* EVReflectionIssueAF39.swift */; };
@@ -973,7 +972,6 @@
 				7F41ECA51B91F2E0003A2236 /* TestObjects.swift in Sources */,
 				7F9E680C1C62396500F0F4D3 /* EVReflectionNestedObjectsTests.swift in Sources */,
 				7F41ECB31B91F306003A2236 /* EVReflectionWorkaroundSwiftGenericsTests.swift in Sources */,
-				131200E81EB3B47000A189C8 /* EVReflectionEventKitTests.swift in Sources */,
 				7F59F9D91C07986200C14CF9 /* EVReflectionAssociatedTests.swift in Sources */,
 				7F734AB71E53AE5E007A5688 /* EVReflectionIssue159.swift in Sources */,
 				7F479E1C1C84D7A000F03BEF /* EVReflectionSyncAlternateDesync.swift in Sources */,

@@ -27,13 +27,14 @@ class TestIssue202: XCTestCase {
     func testIssue202() {
         let json = "{\"chartConfigs\":{\"config_id\":\"651c3f71-3d44-11e7-b0b9-276d909080a8\",\"autorefresh\":false,\"background\":{\"0\":{\"background_color\":\"#feffea\",\"border_color\":\"#3264c8\",\"border_width\":2.0,\"inner_radius\":0.0,\"outer_radius\":0.0,\"shape\":\"\"}},\"chart_type\":\"Column and Bar Chart/Column with rotated labels\"}}"
         let obj = ChartConfigPojo(json: json, forKeyPath: "chartConfigs")
-        
+
         XCTAssert(obj.background.count == 1, "Should have 1 background object")
         let bg = obj.background["0"]
         XCTAssertNotNil(bg, "Should have a background object")
         XCTAssert(bg?.background_color ?? "" == "#feffea", "Should have #feffea background color")
-    
-        print("obj = \(obj)")
+ 
+        //TODO: This will result in a memory error
+        //print("obj = \(obj)")
         
         // Hmm... why do we get a:
         //objc[26840]: UnitTestsOSX.BackgroundPOJO object 0x101322c90 overreleased while already deallocating; break on objc_overrelease_during_dealloc_error to debug
@@ -66,7 +67,7 @@ class ChartConfigPojo : EVObject{
                 for (key,val) in dict {
                     if let val = val as? NSDictionary {
                        let pojo: BackgroundPOJO = BackgroundPOJO(dictionary: val)
-                       bg["\(key)"] = pojo
+                       bg[key as? String ?? ""] = pojo
                     }
                 }
             }
