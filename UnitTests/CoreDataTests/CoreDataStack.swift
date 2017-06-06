@@ -8,6 +8,7 @@
 
 import Foundation
 import CoreData
+import EVReflection
 
 class CoreDataStack {
     let mainContext: NSManagedObjectContext // Use this for reading data

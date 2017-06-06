@@ -21,15 +21,13 @@ extension List : EVCustomReflectable {
         }
     }
     public func toCodableValue() -> Any {
-        let e = self.enumerated()
-        let r = e.map { o -> NSDictionary in
-            if let b = o as? EVReflectable {
-                return b.toDictionary()
-            }
-            return NSDictionary()
+        var q = [NSDictionary]()
+        for case let e as Any in self {
+            q.append((e as? EVReflectable)?.toDictionary([.PropertyConverter, .KeyCleanup, .PropertyMapping, .DefaultSerialize]) ?? NSDictionary())
         }
-        return r
-        // Why do we need all this code? Should be the same as:
+        return q
+ 
+        // Why do we need all this code? Should be the same as this. But this crashes.
         //return self.enumerated().map { ($0.element as? EVReflectable)?.toDictionary() ?? NSDictionary() }
     }
 }
