@@ -60,6 +60,7 @@
 		13AC7EE31ED21DEE00BA89FB /* EVReflectionIssue197.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13AC7EE21ED21DED00BA89FB /* EVReflectionIssue197.swift */; };
 		13AC7EE41ED21E5600BA89FB /* EVReflectionIssue197.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13AC7EE21ED21DED00BA89FB /* EVReflectionIssue197.swift */; };
 		13AC7EE51ED21E5700BA89FB /* EVReflectionIssue197.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13AC7EE21ED21DED00BA89FB /* EVReflectionIssue197.swift */; };
+		13E937DF1EE74EB600541DC8 /* EVReflectionTests2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13E937DE1EE74EB600541DC8 /* EVReflectionTests2.swift */; };
 		13EF3F691EDDF63700CDBFF4 /* CDUser+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13EF3F671EDDF63700CDBFF4 /* CDUser+CoreDataClass.swift */; };
 		13EF3F6A1EDDF63700CDBFF4 /* CDUser+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13EF3F671EDDF63700CDBFF4 /* CDUser+CoreDataClass.swift */; };
 		13EF3F6B1EDDF63700CDBFF4 /* CDUser+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13EF3F671EDDF63700CDBFF4 /* CDUser+CoreDataClass.swift */; };
@@ -267,6 +268,7 @@
 		13AC7ECE1ECB929600BA89FB /* EVReflectionEVCustomReflectable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVReflectionEVCustomReflectable.swift; sourceTree = "<group>"; };
 		13AC7EDE1ED15A8E00BA89FB /* EVReflectionIssue202.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVReflectionIssue202.swift; sourceTree = "<group>"; };
 		13AC7EE21ED21DED00BA89FB /* EVReflectionIssue197.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVReflectionIssue197.swift; sourceTree = "<group>"; };
+		13E937DE1EE74EB600541DC8 /* EVReflectionTests2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVReflectionTests2.swift; sourceTree = "<group>"; };
 		13EF3F671EDDF63700CDBFF4 /* CDUser+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "CDUser+CoreDataClass.swift"; path = "CoreDataTests/CDUser+CoreDataClass.swift"; sourceTree = "<group>"; };
 		13F5E81C1EBC7AEE0038EDB4 /* EVReflectionTest.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = EVReflectionTest.xcdatamodel; sourceTree = "<group>"; };
 		16F24E2F358BA7E02E9739C7 /* Pods_UnitTestsOSX.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UnitTestsOSX.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -501,6 +503,7 @@
 			isa = PBXGroup;
 			children = (
 				7F41ECAA1B91F306003A2236 /* WorkaroundEnumTest.swift */,
+				13E937DE1EE74EB600541DC8 /* EVReflectionTests2.swift */,
 			);
 			name = TemporaryTests;
 			sourceTree = "<group>";
@@ -995,6 +998,7 @@
 				7F99301E1E2426B500792CF1 /* AlamofireXml2Tests.swift in Sources */,
 				13AC7ECF1ECB929600BA89FB /* EVReflectionEVCustomReflectable.swift in Sources */,
 				7F41ECAE1B91F306003A2236 /* EVReflectionJsonTests.swift in Sources */,
+				13E937DF1EE74EB600541DC8 /* EVReflectionTests2.swift in Sources */,
 				7FCD1D491D3FADA800F51BE0 /* EVReflectionIssue107.swift in Sources */,
 				131201131EBC4E6D00A189C8 /* CoreDataTests.swift in Sources */,
 				13345EDE1EC892F600912B37 /* EVReflectionIssueX.swift in Sources */,

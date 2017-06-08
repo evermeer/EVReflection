@@ -862,6 +862,11 @@ final public class EVReflection {
         if theValue is Array<Any> {
             return (theValue as AnyObject, valueType, false)
         }
+        if theValue is EVCustomReflectable {
+            let value: AnyObject = (theValue as! EVCustomReflectable).toCodableValue() as AnyObject
+            return (value, valueType, false)
+        }
+
         if theValue is EVReflectable && theValue is NSObject {
             if valueType.contains("<") {
                 return (theValue as! EVReflectable, swiftStringFromClass(theValue as! NSObject), true)
@@ -880,7 +885,7 @@ final public class EVReflection {
         if valueType.hasPrefix("Swift.Array<") && parentObject is EVArrayConvertable {
             return ((parentObject as! EVArrayConvertable).convertArray(key ?? "_unknownKey", array: theValue), valueType, false)
         }
-        
+
         (parentObject as? EVReflectable)?.addStatusMessage(.InvalidType, message: "valueForAny unkown type \(valueType) for value: \(theValue).")
         evPrint(.InvalidType, "ERROR: valueForAny unkown type \(valueType) for key: \(key ?? "") and value: \(theValue).")
         return (NSNull(), "NSNull", false)

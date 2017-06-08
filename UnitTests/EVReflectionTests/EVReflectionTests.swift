@@ -507,7 +507,10 @@ class EVReflectionTests: XCTestCase {
         print(nx)
         XCTAssert(nx.beacons.count == 1, "Should also have an object")
     }
+    
 }
+
+
 
 
 

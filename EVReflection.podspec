@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
   s.name         = "EVReflection"
   s.version      = "4.16.3"
-  s.summary      = "Reflection based (dictionary, JSON or XML) object mapping (including extensions for Alamofire and Moya with RxSwift or ReactiveSwift)"
+  s.summary      = "Reflection based (Dictionary, CKRecord, NSManagedObject, Realm, JSON and XML) object mapping with extensions for Alamofire and Moya with RxSwift or ReactiveSwift"
 
   s.description  = <<-EOS
 [Reflection](https://github.com/evermeer/EVReflection) based object mapping (dictionary, Json, XML, CKRecord)
