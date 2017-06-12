@@ -7,6 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		13B051261EEE6123002629F9 /* ConversionOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B051231EEE6123002629F9 /* ConversionOptions.swift */; };
+		13B051271EEE6123002629F9 /* DeserializationStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B051241EEE6123002629F9 /* DeserializationStatus.swift */; };
+		13B051281EEE6123002629F9 /* PrintOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B051251EEE6123002629F9 /* PrintOptions.swift */; };
+		13B051291EEE6130002629F9 /* ConversionOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B051231EEE6123002629F9 /* ConversionOptions.swift */; };
+		13B0512A1EEE6131002629F9 /* ConversionOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B051231EEE6123002629F9 /* ConversionOptions.swift */; };
+		13B0512B1EEE6132002629F9 /* ConversionOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B051231EEE6123002629F9 /* ConversionOptions.swift */; };
+		13B0512C1EEE6136002629F9 /* DeserializationStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B051241EEE6123002629F9 /* DeserializationStatus.swift */; };
+		13B0512D1EEE6136002629F9 /* DeserializationStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B051241EEE6123002629F9 /* DeserializationStatus.swift */; };
+		13B0512E1EEE6137002629F9 /* DeserializationStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B051241EEE6123002629F9 /* DeserializationStatus.swift */; };
+		13B0512F1EEE613B002629F9 /* PrintOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B051251EEE6123002629F9 /* PrintOptions.swift */; };
+		13B051301EEE613C002629F9 /* PrintOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B051251EEE6123002629F9 /* PrintOptions.swift */; };
+		13B051311EEE613D002629F9 /* PrintOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B051251EEE6123002629F9 /* PrintOptions.swift */; };
 		2DC8AA401C24215500FA6B8E /* EVReflection.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DC8AA3F1C24215500FA6B8E /* EVReflection.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2DC8AA661C242E0600FA6B8E /* EVReflectionOSX.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DC8AA651C242E0600FA6B8E /* EVReflectionOSX.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7F1C9D311E23CD6900A18776 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 7F1C9D301E23CD6900A18776 /* README.md */; };
@@ -39,6 +51,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		13B051231EEE6123002629F9 /* ConversionOptions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ConversionOptions.swift; path = ../Source/ConversionOptions.swift; sourceTree = "<group>"; };
+		13B051241EEE6123002629F9 /* DeserializationStatus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DeserializationStatus.swift; path = ../Source/DeserializationStatus.swift; sourceTree = "<group>"; };
+		13B051251EEE6123002629F9 /* PrintOptions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PrintOptions.swift; path = ../Source/PrintOptions.swift; sourceTree = "<group>"; };
 		2DC8AA3F1C24215500FA6B8E /* EVReflection.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EVReflection.h; sourceTree = "<group>"; };
 		2DC8AA411C24215500FA6B8E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2DC8AA651C242E0600FA6B8E /* EVReflectionOSX.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EVReflectionOSX.h; sourceTree = "<group>"; };
@@ -147,6 +162,9 @@
 		7FF9B8241E237F6F0089A3A1 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				13B051231EEE6123002629F9 /* ConversionOptions.swift */,
+				13B051241EEE6123002629F9 /* DeserializationStatus.swift */,
+				13B051251EEE6123002629F9 /* PrintOptions.swift */,
 				7FF9B8251E237F910089A3A1 /* EVArrayExtension.swift */,
 				7F75C54A1E463786003B08C5 /* EVDictionaryExtension.swift */,
 				7FF9B8261E237F910089A3A1 /* EVObject.swift */,
@@ -354,7 +372,10 @@
 				7FF9B83A1E237F910089A3A1 /* EVWorkaroundHelpers.swift in Sources */,
 				7F75C54B1E463786003B08C5 /* EVDictionaryExtension.swift in Sources */,
 				7FF9B82A1E237F910089A3A1 /* EVArrayExtension.swift in Sources */,
+				13B051281EEE6123002629F9 /* PrintOptions.swift in Sources */,
+				13B051261EEE6123002629F9 /* ConversionOptions.swift in Sources */,
 				7FF9B82E1E237F910089A3A1 /* EVObject.swift in Sources */,
+				13B051271EEE6123002629F9 /* DeserializationStatus.swift in Sources */,
 				7FF9B8321E237F910089A3A1 /* EVReflectable.swift in Sources */,
 				7FF9B8361E237F910089A3A1 /* EVReflection.swift in Sources */,
 			);
@@ -365,6 +386,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				7F75C54C1E4637A0003B08C5 /* EVDictionaryExtension.swift in Sources */,
+				13B0512F1EEE613B002629F9 /* PrintOptions.swift in Sources */,
+				13B0512C1EEE6136002629F9 /* DeserializationStatus.swift in Sources */,
+				13B051291EEE6130002629F9 /* ConversionOptions.swift in Sources */,
 				7FF9B83B1E237F910089A3A1 /* EVWorkaroundHelpers.swift in Sources */,
 				7FF9B82B1E237F910089A3A1 /* EVArrayExtension.swift in Sources */,
 				7FF9B82F1E237F910089A3A1 /* EVObject.swift in Sources */,
@@ -378,6 +402,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				7F75C54D1E4637A1003B08C5 /* EVDictionaryExtension.swift in Sources */,
+				13B051301EEE613C002629F9 /* PrintOptions.swift in Sources */,
+				13B0512D1EEE6136002629F9 /* DeserializationStatus.swift in Sources */,
+				13B0512A1EEE6131002629F9 /* ConversionOptions.swift in Sources */,
 				7FF9B83C1E237F910089A3A1 /* EVWorkaroundHelpers.swift in Sources */,
 				7FF9B82C1E237F910089A3A1 /* EVArrayExtension.swift in Sources */,
 				7FF9B8301E237F910089A3A1 /* EVObject.swift in Sources */,
@@ -391,6 +418,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				7F75C54E1E4637A2003B08C5 /* EVDictionaryExtension.swift in Sources */,
+				13B051311EEE613D002629F9 /* PrintOptions.swift in Sources */,
+				13B0512E1EEE6137002629F9 /* DeserializationStatus.swift in Sources */,
+				13B0512B1EEE6132002629F9 /* ConversionOptions.swift in Sources */,
 				7FF9B83D1E237F910089A3A1 /* EVWorkaroundHelpers.swift in Sources */,
 				7FF9B82D1E237F910089A3A1 /* EVArrayExtension.swift in Sources */,
 				7FF9B8311E237F910089A3A1 /* EVObject.swift in Sources */,
