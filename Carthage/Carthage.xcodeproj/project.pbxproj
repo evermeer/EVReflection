@@ -21,7 +21,6 @@
 		13B051311EEE613D002629F9 /* PrintOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B051251EEE6123002629F9 /* PrintOptions.swift */; };
 		2DC8AA401C24215500FA6B8E /* EVReflection.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DC8AA3F1C24215500FA6B8E /* EVReflection.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2DC8AA661C242E0600FA6B8E /* EVReflectionOSX.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DC8AA651C242E0600FA6B8E /* EVReflectionOSX.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7F1C9D311E23CD6900A18776 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 7F1C9D301E23CD6900A18776 /* README.md */; };
 		7F75C54B1E463786003B08C5 /* EVDictionaryExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F75C54A1E463786003B08C5 /* EVDictionaryExtension.swift */; };
 		7F75C54C1E4637A0003B08C5 /* EVDictionaryExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F75C54A1E463786003B08C5 /* EVDictionaryExtension.swift */; };
 		7F75C54D1E4637A1003B08C5 /* EVDictionaryExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F75C54A1E463786003B08C5 /* EVDictionaryExtension.swift */; };
@@ -368,7 +367,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7F1C9D311E23CD6900A18776 /* README.md in Sources */,
 				7FF9B83A1E237F910089A3A1 /* EVWorkaroundHelpers.swift in Sources */,
 				7F75C54B1E463786003B08C5 /* EVDictionaryExtension.swift in Sources */,
 				7FF9B82A1E237F910089A3A1 /* EVArrayExtension.swift in Sources */,
