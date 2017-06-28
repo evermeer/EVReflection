@@ -94,6 +94,16 @@ class Spot: Model {
     var contractable: Bool = false
     
     var profile = ResultArrayWrapper<Profile>()
+    
+    override func setValue(_ value: Any!, forUndefinedKey key: String) {
+        if key == "profile" {
+            if let value = value as? ResultArrayWrapper<Profile> {
+                self.profile = value
+                return
+            }
+        }
+        print("setValue forUndefinedKey \(key)")
+    }
 }
 
 class Profile: Model {
