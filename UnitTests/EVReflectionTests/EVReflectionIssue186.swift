@@ -39,5 +39,5 @@ class BlobResourcePojo : EVObject{
     var created_on: NSDate?
     var enable: Bool = true
     var name: String?
-    var resource : [UInt8] = []
+    var resource : [NSNumber] = []
 }

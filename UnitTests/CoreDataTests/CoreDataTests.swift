@@ -100,7 +100,7 @@ class CoreDataTests: XCTestCase {
         let count = data.listRecords(CoreDataPerson.self).count // should be 0
         
         // For this test also using moc (same as listRecords) because sync between boc and moc are on different threads.
-        let obj = CDUser(context: data.moc, json: "{\"_id\" : \"11\", \"userProperty\" : \"Vermeer\"}")
+        let obj = CDUser(context: data.moc, json: "{\"id\" : \"11\", \"userProperty\" : \"Vermeer\"}")
         do {
             try data.moc.save()
         } catch {

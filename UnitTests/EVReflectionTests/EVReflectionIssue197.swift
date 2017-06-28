@@ -28,16 +28,23 @@ class TestIssue197: XCTestCase {
     func testIssue197() {
         let jsonOriginal = "{\"id\":24,\"details\":[{\"id\":29,\"name\":\"Jen Jackson\"}],\"name\":\"Bob Jefferson\"}"
         
-        let p = Master(json: jsonOriginal)
-        p.details.forEach { print($0.description) }
-        
-        let jsonNew = p.toJsonString()
         print("--- Original ----")
         print(jsonOriginal)
         print("  ")
-        print("--- New with Details with Attributes ----")
+        
+        let p = Master(json: jsonOriginal)
+        XCTAssertEqual(p.details.count, 1, "There should be 1 detail records")
+        
+        print("--- Print detail items ----")
+        p.details.forEach { print($0.description) }
+        print("  ")
+        
+        
+        let jsonNew = p.toJsonString()
+        print("--- New with Details without Attributes ----")
         print(jsonNew)
         print("  ")
+        
         XCTAssertEqual(jsonOriginal, jsonNew, "The new json should be the same as the old.")
     }
 }
@@ -84,7 +91,6 @@ open class Base197: EVObject  {
 
 
 // MARK: - EKCustomReflectable protocol
-
 extension Base197 : EVCustomReflectable {
     
     /**
@@ -105,7 +111,14 @@ extension Base197 : EVCustomReflectable {
      */
     public func toCodableValue() -> Any {
         let dict: NSMutableDictionary = self.toDictionary() as! NSMutableDictionary
-        return cleanupDict(dict)
+        print("--------------")
+        print("Before cleanup:")
+        print(dict)
+        let dict2 = cleanupDict(dict)
+        print("After cleanup:")
+        print(dict2)
+        print("--------------")
+        return dict2
     }
     
     /**
@@ -113,26 +126,32 @@ extension Base197 : EVCustomReflectable {
      
      - returns: Dictionary without custom properties key
      */
-    private func cleanupDict(_ dict: NSMutableDictionary) -> NSDictionary {
+    private func cleanupDict(_ dict: NSDictionary) -> NSDictionary {
         let attributesDict: NSMutableDictionary = dict[Base197.kAttributesKey] as? NSMutableDictionary ?? NSMutableDictionary()
-        dict.removeObject(forKey: Base197.kAttributesKey)
+        let dictionary: NSMutableDictionary = NSMutableDictionary()
         for (key, value) in dict {
             if let key = key as? String {
-                if let value = value as? NSArray {
-                    let array: NSMutableArray = NSMutableArray()
-                    for object in value {
-                        if let dict = object as? NSMutableDictionary {
-                            array.add(cleanupDict(dict))
+                if key  != Base197.kAttributesKey {
+                    if let value = value as? NSArray {
+                        let array: NSMutableArray = NSMutableArray()
+                        for object in value {
+                            if let dict = object as? NSDictionary {
+                                array.add(cleanupDict(dict))
+                            } else {
+                                array.add(object)
+                            }
                         }
+                        dictionary[key] = array
+                    } else if let value = value as? NSMutableDictionary {
+                        dictionary[key] = cleanupDict(value)
+                    } else {
+                        dictionary[key] = value
                     }
-                    dict[key] = array
-                } else if let value = value as? NSMutableDictionary {
-                    dict[key] = cleanupDict(value)
                 }
             }
         }
-        dict.unionInPlace(dictionary: attributesDict)
-        return dict
+        dictionary.unionInPlace(dictionary: attributesDict)
+        return dictionary
     }    
 }
 
