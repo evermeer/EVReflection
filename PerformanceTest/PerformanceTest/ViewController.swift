@@ -26,6 +26,8 @@ class ViewController: UIViewController {
         usage = report_memory()
         curenMemoryUsage.text = "\(NSNumber(value: Int32(usage)).description(withLocale: NSLocale.current))"
         initialMemoryUsage.text = "\(NSNumber(value: Int32(usage)).description(withLocale: NSLocale.current))"
+        
+        testIssue213()
     }
     
     override func didReceiveMemoryWarning() {
@@ -106,7 +108,13 @@ class ViewController: UIViewController {
         }
     }
 
-
+    func testIssue213() {
+        let path: String = Bundle(for: type(of: self)).path(forResource: "test", ofType: "json") ?? ""
+        let content = try! String(contentsOfFile: path)
+        let data = ResultArrayWrapper<Spot>(json: content)
+        print("\(data)")
+    }
+    
 }
 
 
@@ -130,4 +138,95 @@ class TestObject2: EVObject {
     required init() {
         super.init()
     }
+}
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+class ResultArrayWrapper<T: Model>: EVObject, EVGenericsKVC {
+    required init() {
+        super.init()
+    }
+    var data: [T]?
+    
+    func setGenericValue(_ value: AnyObject!, forUndefinedKey key: String) {
+        switch key {
+        case "data":
+            data = value as? [T]
+            break;
+        case "meta":
+            
+            break;
+            
+        default:
+            print("---> setValue '\(value)' for key '\(key)' should be handled.")
+        }
+    }
+    
+    func getGenericType() -> NSObject {
+        return T() as NSObject
+    }
+}
+
+class XMeta<T: Model>: Model, EVGenericsKVC {
+    required init() {
+        super.init()
+    }
+    
+    var cursor: String?
+    
+    internal func setGenericValue(_ value: AnyObject!, forUndefinedKey key: String) {
+        if(key == "data") {
+            //data = value  as? [T]
+        }
+    }
+    
+    internal func getGenericType() -> NSObject {
+        return T() as NSObject
+    }
+}
+
+class Model: EVObject {
+    
+}
+
+class Spot: Model {
+    var id: String?
+    var firstName: String?
+    var lastName: String?
+    var username: String?
+    var email: String?
+    var phone: String?
+    var sex: String?
+    var canBook: Bool = false
+    var contractable: Bool = false
+    
+    var profile = ResultArrayWrapper<Profile>()
+    
+    override func setValue(_ value: Any!, forUndefinedKey key: String) {
+        if key == "profile" {
+            if let value = value as? ResultArrayWrapper<Profile> {
+                self.profile = value
+                return
+            }
+        }
+        print("setValue forUndefinedKey \(key)")
+    }
+}
+
+class Profile: Model {
+    var about: String?
+    var avatarUrl: String?
+    var coverUrl: String?
 }
