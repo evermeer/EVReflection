@@ -51,6 +51,12 @@
 		1387E85F1EA92A55007522BB /* EVReflectionIssue186.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1387E85E1EA92A55007522BB /* EVReflectionIssue186.swift */; };
 		1387E8621EA92D31007522BB /* EVReflectionIssue186.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1387E85E1EA92A55007522BB /* EVReflectionIssue186.swift */; };
 		1387E8631EA92D31007522BB /* EVReflectionIssue186.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1387E85E1EA92A55007522BB /* EVReflectionIssue186.swift */; };
+		1394D4A51F037D1C00825631 /* EVReflectionIssue213.json in Resources */ = {isa = PBXBuildFile; fileRef = 1394D4A31F037D1C00825631 /* EVReflectionIssue213.json */; };
+		1394D4A61F037D1C00825631 /* EVReflectionIssue213.json in Resources */ = {isa = PBXBuildFile; fileRef = 1394D4A31F037D1C00825631 /* EVReflectionIssue213.json */; };
+		1394D4A71F037D1C00825631 /* EVReflectionIssue213.json in Resources */ = {isa = PBXBuildFile; fileRef = 1394D4A31F037D1C00825631 /* EVReflectionIssue213.json */; };
+		1394D4A81F037D1C00825631 /* EVReflectionIssue213.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1394D4A41F037D1C00825631 /* EVReflectionIssue213.swift */; };
+		1394D4A91F037D1C00825631 /* EVReflectionIssue213.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1394D4A41F037D1C00825631 /* EVReflectionIssue213.swift */; };
+		1394D4AA1F037D1C00825631 /* EVReflectionIssue213.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1394D4A41F037D1C00825631 /* EVReflectionIssue213.swift */; };
 		13AC7ECF1ECB929600BA89FB /* EVReflectionEVCustomReflectable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13AC7ECE1ECB929600BA89FB /* EVReflectionEVCustomReflectable.swift */; };
 		13AC7ED01ECB93C500BA89FB /* EVReflectionEVCustomReflectable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13AC7ECE1ECB929600BA89FB /* EVReflectionEVCustomReflectable.swift */; };
 		13AC7ED11ECB93C600BA89FB /* EVReflectionEVCustomReflectable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13AC7ECE1ECB929600BA89FB /* EVReflectionEVCustomReflectable.swift */; };
@@ -265,6 +271,8 @@
 		13345EDD1EC892F600912B37 /* EVReflectionIssueX.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVReflectionIssueX.swift; sourceTree = "<group>"; };
 		13345EDF1EC8931100912B37 /* EVReflectionIssueX.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = EVReflectionIssueX.json; sourceTree = "<group>"; };
 		1387E85E1EA92A55007522BB /* EVReflectionIssue186.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVReflectionIssue186.swift; sourceTree = "<group>"; };
+		1394D4A31F037D1C00825631 /* EVReflectionIssue213.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = EVReflectionIssue213.json; sourceTree = "<group>"; };
+		1394D4A41F037D1C00825631 /* EVReflectionIssue213.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVReflectionIssue213.swift; sourceTree = "<group>"; };
 		13AC7ECE1ECB929600BA89FB /* EVReflectionEVCustomReflectable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVReflectionEVCustomReflectable.swift; sourceTree = "<group>"; };
 		13AC7EDE1ED15A8E00BA89FB /* EVReflectionIssue202.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVReflectionIssue202.swift; sourceTree = "<group>"; };
 		13AC7EE21ED21DED00BA89FB /* EVReflectionIssue197.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVReflectionIssue197.swift; sourceTree = "<group>"; };
@@ -582,6 +590,8 @@
 				13AC7EDE1ED15A8E00BA89FB /* EVReflectionIssue202.swift */,
 				13AC7EE21ED21DED00BA89FB /* EVReflectionIssue197.swift */,
 				13301E311EE427F000FD07FE /* EVReflectionIssue204.swift */,
+				1394D4A31F037D1C00825631 /* EVReflectionIssue213.json */,
+				1394D4A41F037D1C00825631 /* EVReflectionIssue213.swift */,
 			);
 			name = GitHubIssues;
 			sourceTree = "<group>";
@@ -695,7 +705,7 @@
 					};
 					7F3E31841BB9095C001E6788 = {
 						CreatedOnToolsVersion = 7.0;
-						DevelopmentTeam = 443FV7F3ZK;
+						DevelopmentTeam = WTH4QGEA23;
 						ProvisioningStyle = Automatic;
 					};
 					7F9336B61C28227400AF7076 = {
@@ -736,6 +746,7 @@
 				7F1C9D501E23D76D00A18776 /* sample_users_array_json in Resources */,
 				7F1C9D491E23D76D00A18776 /* ArrayConversionIssue_json in Resources */,
 				7F1C9D4F1E23D76D00A18776 /* sample_json in Resources */,
+				1394D4A51F037D1C00825631 /* EVReflectionIssue213.json in Resources */,
 				13345EE01EC8931100912B37 /* EVReflectionIssueX.json in Resources */,
 				7F99302E1E2426B500792CF1 /* sample3_xml in Resources */,
 				7F1D69511E28BF3B00F5AE15 /* coverage.png in Resources */,
@@ -757,6 +768,7 @@
 				7F9930251E2426B500792CF1 /* Issue4_xml in Resources */,
 				7F9930311E2426B500792CF1 /* sample_xml in Resources */,
 				7F99302F1E2426B500792CF1 /* sample3_xml in Resources */,
+				1394D4A61F037D1C00825631 /* EVReflectionIssue213.json in Resources */,
 				7F1D69521E28BF3B00F5AE15 /* coverage.png in Resources */,
 				131200EF1EB4B59000A189C8 /* EVReflectionIssue159.json in Resources */,
 				13345EE31EC8945200912B37 /* EVReflectionIssueX.json in Resources */,
@@ -773,6 +785,7 @@
 				7F1D69481E28B3A000F5AE15 /* Issue4_xml in Resources */,
 				7F1D694E1E28B3A600F5AE15 /* sample_xml in Resources */,
 				7F1D694D1E28B3A600F5AE15 /* sample3_xml in Resources */,
+				1394D4A71F037D1C00825631 /* EVReflectionIssue213.json in Resources */,
 				7F1D69531E28BF3C00F5AE15 /* coverage.png in Resources */,
 				131200F01EB4B59100A189C8 /* EVReflectionIssue159.json in Resources */,
 				13345EE41EC8945300912B37 /* EVReflectionIssueX.json in Resources */,
@@ -944,6 +957,7 @@
 				7F1D69381E267B1D00F5AE15 /* GitHubUser.swift in Sources */,
 				7F1C9D461E23D76D00A18776 /* AlamofireExternalTests.swift in Sources */,
 				1303F12C1EBC5AEF00D9182D /* CoreDataPerson+CoreDataClass.swift in Sources */,
+				1394D4A81F037D1C00825631 /* EVReflectionIssue213.swift in Sources */,
 				7F41ECB21B91F306003A2236 /* EVReflectionWorkaroundsTests.swift in Sources */,
 				7FD407AC1E0BF78100AEBF1B /* EVReflectionIssue145.swift in Sources */,
 				13AC7EDF1ED15A8E00BA89FB /* EVReflectionIssue202.swift in Sources */,
@@ -1037,6 +1051,7 @@
 				7F9336991C23F33700AF7076 /* EVReflectionNumbersTests.swift in Sources */,
 				422668021CB7802C00145E17 /* EVReflectionCustomInitTests.swift in Sources */,
 				7F3FF3B51CF9A0F800BAE767 /* EVReflectionIssue88.swift in Sources */,
+				1394D4A91F037D1C00825631 /* EVReflectionIssue213.swift in Sources */,
 				7F70E80F1D96C0AC0020DB2C /* EVReflectionIssueAF30.swift in Sources */,
 				7F1D69431E27974C00F5AE15 /* CloudKitTests.swift in Sources */,
 				7F1D694F1E28BC2900F5AE15 /* GitHubUser.swift in Sources */,
@@ -1112,6 +1127,7 @@
 				7F1D694B1E28B3A600F5AE15 /* Issue6Test.swift in Sources */,
 				7F1D69471E28B39B00F5AE15 /* AlamofireXml3Tests.swift in Sources */,
 				7F99300F1E241E9300792CF1 /* AlamofireTests.swift in Sources */,
+				1394D4AA1F037D1C00825631 /* EVReflectionIssue213.swift in Sources */,
 				7F98019D1E260AD000D6C5C0 /* MoyaRxSwiftTests.swift in Sources */,
 				7F9336D31C2822B700AF7076 /* EVReflectionNumbersTests.swift in Sources */,
 				7F1D69461E28B39800F5AE15 /* AlamofireXml2Tests.swift in Sources */,
@@ -1294,7 +1310,7 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = 443FV7F3ZK;
+				DEVELOPMENT_TEAM = WTH4QGEA23;
 				INFOPLIST_FILE = "EVReflectionTests/osx-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
@@ -1311,7 +1327,7 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = 443FV7F3ZK;
+				DEVELOPMENT_TEAM = WTH4QGEA23;
 				INFOPLIST_FILE = "EVReflectionTests/osx-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.11;

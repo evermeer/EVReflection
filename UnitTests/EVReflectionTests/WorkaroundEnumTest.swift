@@ -112,7 +112,7 @@ class EnumWorkaroundsTests: XCTestCase {
         print(json)
         let z2 = Z(json: json)
         print(z2)
-        XCTAssert(z2.x.rawValue == X.A.rawValue, "New value should also be X.A")
+        XCTAssert(z2.x.rawValue as! String == X.A.rawValue, "New value should also be X.A")
     }
 }
 
