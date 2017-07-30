@@ -1,6 +1,0 @@
-framework module ReactiveSwift {
-  umbrella header "ReactiveSwift-OSX-umbrella.h"
-
-  export *
-  module * { export * }
-}

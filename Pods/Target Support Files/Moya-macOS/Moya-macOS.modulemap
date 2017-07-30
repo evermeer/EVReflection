@@ -1,0 +1,6 @@
+framework module Moya {
+  umbrella header "Moya-macOS-umbrella.h"
+
+  export *
+  module * { export * }
+}

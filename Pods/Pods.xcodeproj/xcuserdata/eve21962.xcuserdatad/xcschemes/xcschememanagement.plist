@@ -4,17 +4,22 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>Alamofire-OSX.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>Alamofire-iOS.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Alamofire-macOS.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Alamofire-tvOS.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>EVReflection-0db607d1.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -29,22 +34,17 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>EVReflection-b7ab545b.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>EVReflection-e20423af.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>Moya-OSX.xcscheme</key>
+		<key>Moya-iOS.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>Moya-iOS.xcscheme</key>
+		<key>Moya-macOS.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -79,12 +79,12 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>ReactiveSwift-OSX.xcscheme</key>
+		<key>ReactiveSwift-iOS.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>ReactiveSwift-iOS.xcscheme</key>
+		<key>ReactiveSwift-macOS.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -94,12 +94,12 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>Realm-OSX.xcscheme</key>
+		<key>Realm-iOS.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>Realm-iOS.xcscheme</key>
+		<key>Realm-macOS.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -109,12 +109,12 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>RealmSwift-OSX.xcscheme</key>
+		<key>RealmSwift-iOS.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>RealmSwift-iOS.xcscheme</key>
+		<key>RealmSwift-macOS.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -124,12 +124,12 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>Result-OSX.xcscheme</key>
+		<key>Result-iOS.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>Result-iOS.xcscheme</key>
+		<key>Result-macOS.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -139,12 +139,12 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>RxSwift-OSX.xcscheme</key>
+		<key>RxSwift-iOS.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>RxSwift-iOS.xcscheme</key>
+		<key>RxSwift-macOS.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -154,12 +154,12 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>XMLDictionary-OSX.xcscheme</key>
+		<key>XMLDictionary-iOS.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>XMLDictionary-iOS.xcscheme</key>
+		<key>XMLDictionary-macOS.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -172,7 +172,7 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>002211800808A8894CB8A9C8BAEEE5EE</key>
+		<key>05CB07DE13EE28D9AB2D519F30F15DAD</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -207,11 +207,6 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>382E561C5692522A8AD8D95C6841218F</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>3B0930E9C13D01E0A51F6FAAF74D1B61</key>
 		<dict>
 			<key>primary</key>
@@ -227,12 +222,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>4B1F4FBE28532CD37D104393E1EDC642</key>
+		<key>4D8199C20C1BE5F5BCDBC8F8CB4BF089</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>4D8199C20C1BE5F5BCDBC8F8CB4BF089</key>
+		<key>53F8F676C66549010BD2A67A6368A016</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>5B720AE0244EEC1EEB2A7411130690AF</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -257,7 +257,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>89BB1D0BE2166E113E069FC0E9BF961E</key>
+		<key>7EB4CED27310E7AD0BC2F8BB9C06CCD3</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>8E40E8F888BAFBF3740C93652CD1115B</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>93EB5C653BD909479AA7A6535954110F</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -267,22 +277,22 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>99126A2ED619817A6929EC5C4188A8BF</key>
+		<key>9C711AA0E0FC9B2F227E8D3153064ED8</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>B93F993AE38C33760DCF89AB50324154</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>BEC8373539401C75B8E8EBD3FCCECBF3</key>
+		<key>C5AF750CD563C5198DD5A105629A67A2</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>CC0F2E5013779468F29F248780CADF7B</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>D535B31B1638AFD83B3040961F84AE36</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -297,7 +307,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>E142A960D529E382EED618239339E2E8</key>
+		<key>DFF56167F24BF7AEDFA25A01BB90F722</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -318,16 +328,6 @@
 			<true/>
 		</dict>
 		<key>F385FB8CC38AA91C5D701CA46FEAE6FD</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>F3CCC0F0D323EE5A82E60A6315F92E25</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>F8A23761E33335A40558D6502501BE59</key>
 		<dict>
 			<key>primary</key>
 			<true/>

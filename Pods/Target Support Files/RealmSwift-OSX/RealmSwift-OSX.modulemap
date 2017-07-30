@@ -1,6 +1,0 @@
-framework module RealmSwift {
-  umbrella header "RealmSwift-OSX-umbrella.h"
-
-  export *
-  module * { export * }
-}

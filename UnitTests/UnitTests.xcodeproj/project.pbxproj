@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1303DBCA1F2DFB550077E55C /* RealmTestIssue221.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1303DBC91F2DFB550077E55C /* RealmTestIssue221.swift */; };
+		1303DBCC1F2DFB850077E55C /* RealmTestIssue221.json in Resources */ = {isa = PBXBuildFile; fileRef = 1303DBCB1F2DFB850077E55C /* RealmTestIssue221.json */; };
+		1303DBCD1F2DFD540077E55C /* RealmTestIssue221.json in Resources */ = {isa = PBXBuildFile; fileRef = 1303DBCB1F2DFB850077E55C /* RealmTestIssue221.json */; };
+		1303DBCE1F2DFD550077E55C /* RealmTestIssue221.json in Resources */ = {isa = PBXBuildFile; fileRef = 1303DBCB1F2DFB850077E55C /* RealmTestIssue221.json */; };
+		1303DBCF1F2DFD5B0077E55C /* RealmTestIssue221.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1303DBC91F2DFB550077E55C /* RealmTestIssue221.swift */; };
+		1303DBD01F2DFD5B0077E55C /* RealmTestIssue221.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1303DBC91F2DFB550077E55C /* RealmTestIssue221.swift */; };
 		1303F12C1EBC5AEF00D9182D /* CoreDataPerson+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1303F12A1EBC5AEF00D9182D /* CoreDataPerson+CoreDataClass.swift */; };
 		1303F12E1EBC5AEF00D9182D /* CoreDataPerson+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1303F12A1EBC5AEF00D9182D /* CoreDataPerson+CoreDataClass.swift */; };
 		1303F1361EBC656600D9182D /* CoreDataPerson+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1303F12B1EBC5AEF00D9182D /* CoreDataPerson+CoreDataProperties.swift */; };
@@ -257,6 +263,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1303DBC91F2DFB550077E55C /* RealmTestIssue221.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmTestIssue221.swift; sourceTree = "<group>"; };
+		1303DBCB1F2DFB850077E55C /* RealmTestIssue221.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = RealmTestIssue221.json; sourceTree = "<group>"; };
 		1303F12A1EBC5AEF00D9182D /* CoreDataPerson+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "CoreDataPerson+CoreDataClass.swift"; path = "CoreDataTests/CoreDataPerson+CoreDataClass.swift"; sourceTree = "<group>"; };
 		1303F12B1EBC5AEF00D9182D /* CoreDataPerson+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "CoreDataPerson+CoreDataProperties.swift"; path = "CoreDataTests/CoreDataPerson+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		131200E71EB3B47000A189C8 /* EVReflectionEventKitTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVReflectionEventKitTests.swift; sourceTree = "<group>"; };
@@ -559,6 +567,8 @@
 			isa = PBXGroup;
 			children = (
 				7FC41DE71E8B8C2C0080DB80 /* RealmTests.swift */,
+				1303DBC91F2DFB550077E55C /* RealmTestIssue221.swift */,
+				1303DBCB1F2DFB850077E55C /* RealmTestIssue221.json */,
 			);
 			name = RealmTests;
 			sourceTree = "<group>";
@@ -753,6 +763,7 @@
 				7F9930301E2426B500792CF1 /* sample_xml in Resources */,
 				7F1C9D4C1E23D76D00A18776 /* NestedGenericsIssue25_json in Resources */,
 				7F1C9D2D1E23CABC00A18776 /* sample.json in Resources */,
+				1303DBCC1F2DFB850077E55C /* RealmTestIssue221.json in Resources */,
 				7F734AB91E53AF03007A5688 /* EVReflectionIssue159.json in Resources */,
 				7F99302C1E2426B500792CF1 /* sampl2_xml in Resources */,
 			);
@@ -764,6 +775,7 @@
 			files = (
 				7F1C9D2E1E23CABC00A18776 /* sample.json in Resources */,
 				7F99302D1E2426B500792CF1 /* sampl2_xml in Resources */,
+				1303DBCD1F2DFD540077E55C /* RealmTestIssue221.json in Resources */,
 				7F9930291E2426B500792CF1 /* Issue6_xml in Resources */,
 				7F9930251E2426B500792CF1 /* Issue4_xml in Resources */,
 				7F9930311E2426B500792CF1 /* sample_xml in Resources */,
@@ -781,6 +793,7 @@
 			files = (
 				7F1C9D2F1E23CABD00A18776 /* sample.json in Resources */,
 				7F1D694C1E28B3A600F5AE15 /* sampl2_xml in Resources */,
+				1303DBCE1F2DFD550077E55C /* RealmTestIssue221.json in Resources */,
 				7F1D694A1E28B3A600F5AE15 /* Issue6_xml in Resources */,
 				7F1D69481E28B3A000F5AE15 /* Issue4_xml in Resources */,
 				7F1D694E1E28B3A600F5AE15 /* sample_xml in Resources */,
@@ -801,9 +814,28 @@
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/../Pods/Target Support Files/Pods-UnitTestsTVOS/Pods-UnitTestsTVOS-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/EVReflection-18115d1d/EVReflection.framework",
+				"${BUILT_PRODUCTS_DIR}/Alamofire-tvOS/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/Moya-tvOS/Moya.framework",
+				"${BUILT_PRODUCTS_DIR}/ReactiveSwift-tvOS/ReactiveSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/Realm-tvOS/Realm.framework",
+				"${BUILT_PRODUCTS_DIR}/RealmSwift-tvOS/RealmSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/Result-tvOS/Result.framework",
+				"${BUILT_PRODUCTS_DIR}/RxSwift-tvOS/RxSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/XMLDictionary-tvOS/XMLDictionary.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/EVReflection.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Moya.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ReactiveSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Result.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/XMLDictionary.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -816,13 +848,16 @@
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-UnitTestsTVOS-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		250996FF6BCC8673ABE841DB /* [CP] Embed Pods Frameworks */ = {
@@ -831,9 +866,28 @@
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/../Pods/Target Support Files/Pods-UnitTestsOSX/Pods-UnitTestsOSX-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/EVReflection-0db607d1/EVReflection.framework",
+				"${BUILT_PRODUCTS_DIR}/Alamofire-macOS/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/Moya-macOS/Moya.framework",
+				"${BUILT_PRODUCTS_DIR}/ReactiveSwift-macOS/ReactiveSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/Realm-macOS/Realm.framework",
+				"${BUILT_PRODUCTS_DIR}/RealmSwift-macOS/RealmSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/Result-macOS/Result.framework",
+				"${BUILT_PRODUCTS_DIR}/RxSwift-macOS/RxSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/XMLDictionary-macOS/XMLDictionary.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/EVReflection.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Moya.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ReactiveSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Result.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/XMLDictionary.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -905,13 +959,16 @@
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-UnitTestsOSX-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		B5BC516995CDE69B4717E8DE /* [CP] Check Pods Manifest.lock */ = {
@@ -920,13 +977,16 @@
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-UnitTestsiOS-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		F3E03DBADC7424939D68203D /* [CP] Embed Pods Frameworks */ = {
@@ -935,9 +995,28 @@
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/../Pods/Target Support Files/Pods-UnitTestsiOS/Pods-UnitTestsiOS-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/EVReflection-e20423af/EVReflection.framework",
+				"${BUILT_PRODUCTS_DIR}/Alamofire-iOS/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/Moya-iOS/Moya.framework",
+				"${BUILT_PRODUCTS_DIR}/ReactiveSwift-iOS/ReactiveSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/Realm-iOS/Realm.framework",
+				"${BUILT_PRODUCTS_DIR}/RealmSwift-iOS/RealmSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/Result-iOS/Result.framework",
+				"${BUILT_PRODUCTS_DIR}/RxSwift-iOS/RxSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/XMLDictionary-iOS/XMLDictionary.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/EVReflection.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Moya.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ReactiveSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Result.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/XMLDictionary.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -976,6 +1055,7 @@
 				7F7903CA1E7D4F760086D111 /* EVReflectionExtendingNSObjects.swift in Sources */,
 				7F9930201E2426B500792CF1 /* AlamofireXml3Tests.swift in Sources */,
 				7F9801971E260A4D00D6C5C0 /* Owner.swift in Sources */,
+				1303DBCA1F2DFB550077E55C /* RealmTestIssue221.swift in Sources */,
 				7F41ECB01B91F306003A2236 /* ProfilePhotoUrlListTest.swift in Sources */,
 				7F9930261E2426B500792CF1 /* Issue4Test.swift in Sources */,
 				7F1C9D481E23D76D00A18776 /* ArrayConversionIssue.swift in Sources */,
@@ -1055,6 +1135,7 @@
 				7F70E80F1D96C0AC0020DB2C /* EVReflectionIssueAF30.swift in Sources */,
 				7F1D69431E27974C00F5AE15 /* CloudKitTests.swift in Sources */,
 				7F1D694F1E28BC2900F5AE15 /* GitHubUser.swift in Sources */,
+				1303DBCF1F2DFD5B0077E55C /* RealmTestIssue221.swift in Sources */,
 				7F9930211E2426B500792CF1 /* AlamofireXml3Tests.swift in Sources */,
 				7F1F1E481E3261C9002CCF02 /* Issue.swift in Sources */,
 				1303F1391EBC77CD00D9182D /* CoreDataPerson+CoreDataProperties.swift in Sources */,
@@ -1131,6 +1212,7 @@
 				7F98019D1E260AD000D6C5C0 /* MoyaRxSwiftTests.swift in Sources */,
 				7F9336D31C2822B700AF7076 /* EVReflectionNumbersTests.swift in Sources */,
 				7F1D69461E28B39800F5AE15 /* AlamofireXml2Tests.swift in Sources */,
+				1303DBD01F2DFD5B0077E55C /* RealmTestIssue221.swift in Sources */,
 				7F1D69501E28BC2900F5AE15 /* GitHubUser.swift in Sources */,
 				422668031CB7802D00145E17 /* EVReflectionCustomInitTests.swift in Sources */,
 				7F1F1E491E3261C9002CCF02 /* Issue.swift in Sources */,

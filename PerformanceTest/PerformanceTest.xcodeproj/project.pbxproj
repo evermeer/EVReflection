@@ -9,14 +9,13 @@
 /* Begin PBXBuildFile section */
 		05CEC8701CD53611007DA57A /* ArrayDeserializationPerformanceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05CEC86F1CD53611007DA57A /* ArrayDeserializationPerformanceTest.swift */; };
 		13E8825C1F0389C100F1DA7D /* test.json in Resources */ = {isa = PBXBuildFile; fileRef = 13E8825B1F0389C100F1DA7D /* test.json */; };
-		5D6FA0F8DA6B22B50655C983 /* Pods_Performance_Test.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E03C3E63ACB45E9C2207BE7 /* Pods_Performance_Test.framework */; };
+		40D73BC7D93EA6FAD66F533B /* Pods_Performance_Test.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E03C3E63ACB45E9C2207BE7 /* Pods_Performance_Test.framework */; };
 		7F1C9D331E23CDEF00A18776 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 7F1C9D321E23CDEF00A18776 /* README.md */; };
 		7F6C9FB31CB90E6D00F19811 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F6C9FB21CB90E6D00F19811 /* AppDelegate.swift */; };
 		7F6C9FB51CB90E6D00F19811 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F6C9FB41CB90E6D00F19811 /* ViewController.swift */; };
 		7F6C9FB81CB90E6D00F19811 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7F6C9FB61CB90E6D00F19811 /* Main.storyboard */; };
 		7F6C9FBA1CB90E6D00F19811 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7F6C9FB91CB90E6D00F19811 /* Assets.xcassets */; };
 		7F6C9FBD1CB90E6D00F19811 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7F6C9FBB1CB90E6D00F19811 /* LaunchScreen.storyboard */; };
-		9A58542A68AFE3C5479D2C75 /* Pods_PerformanceTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FB267A24136C7678158A114 /* Pods_PerformanceTest.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -35,6 +34,9 @@
 /* Begin PBXFileReference section */
 		05CEC86F1CD53611007DA57A /* ArrayDeserializationPerformanceTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayDeserializationPerformanceTest.swift; sourceTree = "<group>"; };
 		0E03C3E63ACB45E9C2207BE7 /* Pods_Performance_Test.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Performance_Test.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		13A5CEBB1F0EBEFC0026E46D /* Pods_Performance_Test.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Pods_Performance_Test.framework; path = "/Users/eve21962/Desktop/dev/GitHub/EVReflection/Pods/../build/Debug-iphoneos/Pods_Performance_Test.framework"; sourceTree = "<absolute>"; };
+		13A5CEBC1F0EBF0D0026E46D /* Pods_Performance_Test.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Pods_Performance_Test.framework; path = "/Users/eve21962/Desktop/dev/GitHub/EVReflection/Pods/../build/Debug-iphoneos/Pods_Performance_Test.framework"; sourceTree = "<absolute>"; };
+		13A5CEBD1F0EBF560026E46D /* Pods_Performance_Test.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Pods_Performance_Test.framework; path = "/Users/eve21962/Desktop/dev/GitHub/EVReflection/Pods/../build/Debug-iphoneos/Pods_Performance_Test.framework"; sourceTree = "<absolute>"; };
 		13E8825B1F0389C100F1DA7D /* test.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = test.json; sourceTree = "<group>"; };
 		3887AD29C606D45B6B036748 /* Pods-PerformanceTest.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PerformanceTest.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-PerformanceTest/Pods-PerformanceTest.debug.xcconfig"; sourceTree = "<group>"; };
 		4DF06A9E74E787DA7E58B411 /* Pods-Performance.Test.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Performance.Test.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-Performance.Test/Pods-Performance.Test.debug.xcconfig"; sourceTree = "<group>"; };
@@ -58,8 +60,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9A58542A68AFE3C5479D2C75 /* Pods_PerformanceTest.framework in Frameworks */,
-				5D6FA0F8DA6B22B50655C983 /* Pods_Performance_Test.framework in Frameworks */,
+				40D73BC7D93EA6FAD66F533B /* Pods_Performance_Test.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -80,6 +81,9 @@
 		6B581D00DE30D4A9D56026F2 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				13A5CEBB1F0EBEFC0026E46D /* Pods_Performance_Test.framework */,
+				13A5CEBC1F0EBF0D0026E46D /* Pods_Performance_Test.framework */,
+				13A5CEBD1F0EBF560026E46D /* Pods_Performance_Test.framework */,
 				7FF9B8771E23BCF00089A3A1 /* Pods_PerformanceTest.framework */,
 				7FF9B8751E23B7230089A3A1 /* Pods_Demo.framework */,
 				5FB267A24136C7678158A114 /* Pods_PerformanceTest.framework */,
@@ -210,9 +214,12 @@
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/../Pods/Target Support Files/Pods-Performance.Test/Pods-Performance.Test-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/EVReflection-Core/EVReflection.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/EVReflection.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -225,13 +232,16 @@
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Performance.Test-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
