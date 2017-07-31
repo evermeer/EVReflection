@@ -1,0 +1,22 @@
+{
+    "data": {
+        "users": [
+                  {
+                  "id": "427caa90-617e-11e7-a00d-edb263eeecfa",
+                  "name": "Mr. Columbus Abbott V",
+                  "email": "muller.lina@example.com",
+                  "facebook_id": null,
+                  "is_active": 0,
+                  "roles": [
+                            {
+                            "id": "bfaf0560-6188-11e7-99fb-f1ca409d45d5",
+                            "user_id": "427caa90-617e-11e7-a00d-edb263eeecfa",
+                            "role_id": "42840640-617e-11e7-97dc-21a43b954d9e",
+                            "building_id": "56482e40-6180-11e7-a6ce-1dcd684eab8f",
+                            "is_housekeeper": 1
+                            }
+                            ]
+                  }
+                  ]
+    }
+}

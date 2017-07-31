@@ -13,6 +13,12 @@
 		1303DBCE1F2DFD550077E55C /* RealmTestIssue221.json in Resources */ = {isa = PBXBuildFile; fileRef = 1303DBCB1F2DFB850077E55C /* RealmTestIssue221.json */; };
 		1303DBCF1F2DFD5B0077E55C /* RealmTestIssue221.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1303DBC91F2DFB550077E55C /* RealmTestIssue221.swift */; };
 		1303DBD01F2DFD5B0077E55C /* RealmTestIssue221.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1303DBC91F2DFB550077E55C /* RealmTestIssue221.swift */; };
+		1303DBD21F2E017B0077E55C /* RealmTestIssue219.json in Resources */ = {isa = PBXBuildFile; fileRef = 1303DBD11F2E017B0077E55C /* RealmTestIssue219.json */; };
+		1303DBD31F2E017B0077E55C /* RealmTestIssue219.json in Resources */ = {isa = PBXBuildFile; fileRef = 1303DBD11F2E017B0077E55C /* RealmTestIssue219.json */; };
+		1303DBD41F2E017B0077E55C /* RealmTestIssue219.json in Resources */ = {isa = PBXBuildFile; fileRef = 1303DBD11F2E017B0077E55C /* RealmTestIssue219.json */; };
+		1303DBD61F2E01990077E55C /* RealmTestIssue219.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1303DBD51F2E01990077E55C /* RealmTestIssue219.swift */; };
+		1303DBD71F2E01990077E55C /* RealmTestIssue219.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1303DBD51F2E01990077E55C /* RealmTestIssue219.swift */; };
+		1303DBD81F2E01990077E55C /* RealmTestIssue219.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1303DBD51F2E01990077E55C /* RealmTestIssue219.swift */; };
 		1303F12C1EBC5AEF00D9182D /* CoreDataPerson+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1303F12A1EBC5AEF00D9182D /* CoreDataPerson+CoreDataClass.swift */; };
 		1303F12E1EBC5AEF00D9182D /* CoreDataPerson+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1303F12A1EBC5AEF00D9182D /* CoreDataPerson+CoreDataClass.swift */; };
 		1303F1361EBC656600D9182D /* CoreDataPerson+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1303F12B1EBC5AEF00D9182D /* CoreDataPerson+CoreDataProperties.swift */; };
@@ -265,6 +271,8 @@
 /* Begin PBXFileReference section */
 		1303DBC91F2DFB550077E55C /* RealmTestIssue221.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmTestIssue221.swift; sourceTree = "<group>"; };
 		1303DBCB1F2DFB850077E55C /* RealmTestIssue221.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = RealmTestIssue221.json; sourceTree = "<group>"; };
+		1303DBD11F2E017B0077E55C /* RealmTestIssue219.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = RealmTestIssue219.json; sourceTree = "<group>"; };
+		1303DBD51F2E01990077E55C /* RealmTestIssue219.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmTestIssue219.swift; sourceTree = "<group>"; };
 		1303F12A1EBC5AEF00D9182D /* CoreDataPerson+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "CoreDataPerson+CoreDataClass.swift"; path = "CoreDataTests/CoreDataPerson+CoreDataClass.swift"; sourceTree = "<group>"; };
 		1303F12B1EBC5AEF00D9182D /* CoreDataPerson+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "CoreDataPerson+CoreDataProperties.swift"; path = "CoreDataTests/CoreDataPerson+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		131200E71EB3B47000A189C8 /* EVReflectionEventKitTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVReflectionEventKitTests.swift; sourceTree = "<group>"; };
@@ -569,6 +577,8 @@
 				7FC41DE71E8B8C2C0080DB80 /* RealmTests.swift */,
 				1303DBC91F2DFB550077E55C /* RealmTestIssue221.swift */,
 				1303DBCB1F2DFB850077E55C /* RealmTestIssue221.json */,
+				1303DBD51F2E01990077E55C /* RealmTestIssue219.swift */,
+				1303DBD11F2E017B0077E55C /* RealmTestIssue219.json */,
 			);
 			name = RealmTests;
 			sourceTree = "<group>";
@@ -762,6 +772,7 @@
 				7F1D69511E28BF3B00F5AE15 /* coverage.png in Resources */,
 				7F9930301E2426B500792CF1 /* sample_xml in Resources */,
 				7F1C9D4C1E23D76D00A18776 /* NestedGenericsIssue25_json in Resources */,
+				1303DBD21F2E017B0077E55C /* RealmTestIssue219.json in Resources */,
 				7F1C9D2D1E23CABC00A18776 /* sample.json in Resources */,
 				1303DBCC1F2DFB850077E55C /* RealmTestIssue221.json in Resources */,
 				7F734AB91E53AF03007A5688 /* EVReflectionIssue159.json in Resources */,
@@ -781,6 +792,7 @@
 				7F9930311E2426B500792CF1 /* sample_xml in Resources */,
 				7F99302F1E2426B500792CF1 /* sample3_xml in Resources */,
 				1394D4A61F037D1C00825631 /* EVReflectionIssue213.json in Resources */,
+				1303DBD31F2E017B0077E55C /* RealmTestIssue219.json in Resources */,
 				7F1D69521E28BF3B00F5AE15 /* coverage.png in Resources */,
 				131200EF1EB4B59000A189C8 /* EVReflectionIssue159.json in Resources */,
 				13345EE31EC8945200912B37 /* EVReflectionIssueX.json in Resources */,
@@ -799,6 +811,7 @@
 				7F1D694E1E28B3A600F5AE15 /* sample_xml in Resources */,
 				7F1D694D1E28B3A600F5AE15 /* sample3_xml in Resources */,
 				1394D4A71F037D1C00825631 /* EVReflectionIssue213.json in Resources */,
+				1303DBD41F2E017B0077E55C /* RealmTestIssue219.json in Resources */,
 				7F1D69531E28BF3C00F5AE15 /* coverage.png in Resources */,
 				131200F01EB4B59100A189C8 /* EVReflectionIssue159.json in Resources */,
 				13345EE41EC8945300912B37 /* EVReflectionIssueX.json in Resources */,
@@ -1046,6 +1059,7 @@
 				7F59F9DD1C079A7300C14CF9 /* EVReflectionNumbersTests.swift in Sources */,
 				7FB099E31D2F83C400D94204 /* EVReflectionIssue102.swift in Sources */,
 				7F9801911E260A4D00D6C5C0 /* MoyaGitHubAPI.swift in Sources */,
+				1303DBD61F2E01990077E55C /* RealmTestIssue219.swift in Sources */,
 				7FF4BEB51CF2DA8B0086F999 /* EVReflectionIssue86.swift in Sources */,
 				7F663C321D014D7B00642499 /* EVReflectionIssue91.swift in Sources */,
 				131C31C51EBF2D2700EF2039 /* EVReflectionTestData.swift in Sources */,
@@ -1122,6 +1136,7 @@
 				7F057CF11D4A851400F3053E /* EVReflectionIssue110.swift in Sources */,
 				7F3E31971BB909A7001E6788 /* EVReflectionWorkaroundSwiftGenericsTests.swift in Sources */,
 				7F9801921E260A4D00D6C5C0 /* MoyaGitHubAPI.swift in Sources */,
+				1303DBD71F2E01990077E55C /* RealmTestIssue219.swift in Sources */,
 				7FB099E41D2F83C500D94204 /* EVReflectionIssue102.swift in Sources */,
 				7FF4BEB61CF2DA8C0086F999 /* EVReflectionIssue86.swift in Sources */,
 				13AC7EE01ED15B3F00BA89FB /* EVReflectionIssue202.swift in Sources */,
@@ -1199,6 +1214,7 @@
 				7F9801931E260A4D00D6C5C0 /* MoyaGitHubAPI.swift in Sources */,
 				7FB099E51D2F83C500D94204 /* EVReflectionIssue102.swift in Sources */,
 				7FF4BEB71CF2DA8E0086F999 /* EVReflectionIssue86.swift in Sources */,
+				1303DBD81F2E01990077E55C /* RealmTestIssue219.swift in Sources */,
 				7F1D69451E28B39400F5AE15 /* AlamofireXmlTests.swift in Sources */,
 				7F663C341D014D7E00642499 /* EVReflectionIssue91.swift in Sources */,
 				13AC7EE11ED15B4000BA89FB /* EVReflectionIssue202.swift in Sources */,
