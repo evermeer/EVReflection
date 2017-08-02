@@ -31,3 +31,12 @@ extension List : EVCustomReflectable {
         //return self.enumerated().map { ($0.element as? EVReflectable)?.toDictionary() ?? NSDictionary() }
     }
 }
+
+extension Object : EVReflectable {
+    
+    open override func setValue(_ value: Any?, forUndefinedKey key: String) {
+        self.addStatusMessage(.IncorrectKey, message: "The class '\(EVReflection.swiftStringFromClass(self))' is not key value coding-compliant for the key '\(key)'")
+        
+        evPrint(.IncorrectKey, "\nWARNING: The class '\(EVReflection.swiftStringFromClass(self))' is not key value coding-compliant for the key '\(key)'\n")
+    }
+}
