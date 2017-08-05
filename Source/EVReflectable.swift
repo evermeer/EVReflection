@@ -469,11 +469,8 @@ extension EVReflectable {
      - returns: The json string
      */
     public func toJsonString(_ conversionOptions: ConversionOptions = .DefaultSerialize, prettyPrinted: Bool = false) -> String {
-        if let obj = self as? NSObject {
-            return EVReflection.toJsonString(obj, conversionOptions: conversionOptions, prettyPrinted: prettyPrinted)
-        }
-        evPrint(.ShouldExtendNSObject, "ERROR: You should only extend object with EVReflectable that are derived from NSObject!")
-        return "{}"
+        let data = self.toJsonData(conversionOptions, prettyPrinted: prettyPrinted)
+        return String(data: data, encoding: .utf8) ?? "{}"
     }
     
     /**
@@ -484,10 +481,25 @@ extension EVReflectable {
      - returns: The json Data
      */
     public func toJsonData(_ conversionOptions: ConversionOptions = .DefaultSerialize, prettyPrinted: Bool = false) -> Data {
-        if let obj = self as? NSObject {
-            return EVReflection.toJsonData(obj, conversionOptions: conversionOptions, prettyPrinted: prettyPrinted)
+        var dict: NSDictionary
+        
+        // Custom or standard toDictionary
+        if let v = self as? EVCustomReflectable {
+            dict = v.toCodableValue() as? NSDictionary ?? NSDictionary()
+        } else {
+            dict = self.toDictionary(conversionOptions)
         }
-        evPrint(.ShouldExtendNSObject, "ERROR: You should only extend object with EVReflectable that are derived from NSObject!")
+        
+        if let v = self as? NSObject {
+            dict = EVReflection.convertDictionaryForJsonSerialization(dict, theObject: v)
+        }
+        
+        do {
+            if prettyPrinted {
+                return try JSONSerialization.data(withJSONObject: dict, options: .prettyPrinted)
+            }
+            return try JSONSerialization.data(withJSONObject: dict, options: [])
+        } catch { }
         return Data()
     }
     

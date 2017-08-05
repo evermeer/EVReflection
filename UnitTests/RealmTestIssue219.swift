@@ -19,17 +19,22 @@ class Users: Object, EVReflectable {
     dynamic var id = ""
     dynamic var name = ""
     dynamic var email = ""
-    dynamic var isActive = false
+    dynamic var facebook_id = ""
+    dynamic var is_active = false
     var roles = List<UserRoles>()
     
 }
 
 class UserRoles: Object, EVReflectable {
     dynamic var id = ""
-    dynamic var userId = ""
-    dynamic var roleId = ""
-    dynamic var buildingId = ""
+    dynamic var user_id = ""
+    dynamic var role_id = ""
+    dynamic var building_id = ""
     dynamic var isHousekeeper = false
+    
+    open func propertyMapping() -> [(keyInObject: String?, keyInResource: String?)] {
+        return [(keyInObject: "isHousekeeper", keyInResource: "is_housekeeper")]
+    }
 }
 
 

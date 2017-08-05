@@ -37,14 +37,77 @@ open class EVManagedObject: NSManagedObject, EVReflectable {
         super.init(entity: entity, insertInto: context)
     }
     
+    // MARK: - overrides because no Mirror support
+    // overrides because Mirror is not supported for NSManagedObject. Instead we use obj.dictionaryWithValues(forKeys: obj.entity.attributesByName.keys)
+    
+    /**
+     Returns the pritty description of this object
+     
+     - returns: The pritty description
+     */
+    open override var description: String {
+        get {
+            return "\(EVReflection.swiftStringFromClass(self)) = \(self.toJsonString(prettyPrinted: true))"
+        }
+    }
+    
+    /**
+     Returns the pritty description of this object
+     
+     - returns: The pritty description
+     */
+    open override var debugDescription: String {
+        get {
+            return self.description
+        }
+    }
+    
+    open func toDictionary(_ conversionOptions: ConversionOptions = .DefaultSerialize) -> NSDictionary {
+        let keys = Array(self.entity.attributesByName.keys)
+        return self.dictionaryWithValues(forKeys: keys) as NSDictionary
+    }
+
+    // MARK: - copy of EVReflectable functions.
+
+    // These functions are also here becaue they would otherwise call the toDictionary in the protocol instead of here
+    
+    /**
+     Convert this object to a json string
+     
+     - parameter conversionOptions: Option set for the various conversion options.
+     
+     - returns: The json string
+     */
+    public func toJsonString(_ conversionOptions: ConversionOptions = .DefaultSerialize, prettyPrinted: Bool = false) -> String {
+        let data = self.toJsonData(conversionOptions, prettyPrinted: prettyPrinted)
+        return String(data: data, encoding: .utf8) ?? "{}"
+    }
+    
+    /**
+     Convert this object to a json Data
+     
+     - parameter conversionOptions: Option set for the various conversion options.
+     
+     - returns: The json Data
+     */
+    public func toJsonData(_ conversionOptions: ConversionOptions = .DefaultSerialize, prettyPrinted: Bool = false) -> Data {
+        let dict: NSDictionary = self.toDictionary(conversionOptions)
+        do {
+            if prettyPrinted {
+                return try JSONSerialization.data(withJSONObject: dict, options: .prettyPrinted)
+            }
+            return try JSONSerialization.data(withJSONObject: dict, options: [])
+        } catch {
+            evPrint(.IsInvalidJson, "ERROR: Could not create json data from dictionary")
+        }
+        return Data()
+    }
     
     // MARK: - copy of EVObject functions.
     
     // Below is a copy of all functions that are also implemented in EVObject. These are also here because we cannot have multiple enheritence. (Both NSManagedObject and EVObject) Only the init() has to be removed
     
-    
-    
-    
+
     
     /**
      Implementation of the setValue forUndefinedKey so that we can catch exceptions for when we use an optional Type like Int? in our object. Instead of using Int? you should use NSNumber?
@@ -64,27 +127,7 @@ open class EVManagedObject: NSManagedObject, EVReflectable {
         }
     }
     
-    /**
-     Returns the pritty description of this object
-     
-     - returns: The pritty description
-     */
-    open override var description: String {
-        get {
-            return EVReflection.description(self, prettyPrinted: true)
-        }
-    }
-    
-    /**
-     Returns the pritty description of this object
-     
-     - returns: The pritty description
-     */
-    open override var debugDescription: String {
-        get {
-            return EVReflection.description(self, prettyPrinted: true)
-        }
-    }
+
     
     /**
      Decode any object

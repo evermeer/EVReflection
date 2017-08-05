@@ -45,3 +45,49 @@ class EVReflectionPropertyMappingTests: XCTestCase {
         XCTAssertEqual(s2, "{\"is_great\":\"Nah\"}", "The json should contain 'Nah'")
     }
 }
+
+
+/**
+ For testing the custom property maping
+ */
+open class TestObject5: EVObject {
+    var Name: String = "" // Using the default mapping
+    var propertyInObject: String = "" // will be written to or read from keyInJson
+    var ignoredProperty: String = "" // Will not be written or read to/from json
+    
+    override open func propertyMapping() -> [(keyInObject: String?, keyInResource: String?)] {
+        return [(keyInObject: "ignoredProperty", keyInResource: nil),
+                (keyInObject: nil, keyInResource: "ignoredProperty"),
+                (keyInObject: "propertyInObject", keyInResource: "keyInJson")]
+    }
+}
+
+
+
+/**
+ For testing the custom property conversion
+ */
+open class TestObject6: EVObject {
+    var isGreat: Bool = false
+    
+    override open func propertyConverters() -> [(key: String, decodeConverter: ((Any?) -> ()), encodeConverter: (() -> Any?))] {
+        return [( // We want a custom converter for the field isGreat
+            key: "isGreat",
+            // isGreat will be true if the json says 'Sure'
+            decodeConverter: { self.isGreat = ($0 as? String == "Sure") },
+            // The json will say 'Sure  if isGreat is true, otherwise it will say 'Nah'
+            encodeConverter: { return self.isGreat ? "Sure": "Nah"})]
+    }
+}
+
+open class TestObject6child: EVObject {
+    var seconOverride: String?
+    override open func propertyConverters() -> [(key: String, decodeConverter: ((Any?) -> ()), encodeConverter: (() -> Any?))] {
+        return [( // We want a custom converter for the field isGreat
+            key: "seconOverride",
+            // isGreat will be true if the json says 'Sure'
+            decodeConverter: { self.seconOverride = ($0 as? String ?? "") },
+            // The json will say 'Sure  if isGreat is true, otherwise it will say 'Nah'
+            encodeConverter: { return self.seconOverride })] //.append(contentsOf: super.propertyConverters())
+    }
+}

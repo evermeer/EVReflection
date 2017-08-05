@@ -40,7 +40,7 @@ class CoreDataTests: XCTestCase {
         let count = data.listRecords(CoreDataPerson.self).count // should be 0
         
         // For this test also using moc (same as listRecords) because sync between boc and moc are on different threads.
-        let obj = CoreDataPerson(context: data.moc, json: "{\"firstName\" : \"Edwin\", \"lastName\" : \"Vermeer\"}")
+        let obj: CoreDataPerson = CoreDataPerson(context: data.moc, json: "{\"firstName\" : \"Edwin\", \"lastName\" : \"Vermeer\"}")
         do {
             try data.moc.save()
         } catch {
@@ -51,7 +51,8 @@ class CoreDataTests: XCTestCase {
         let status = obj.evReflectionStatus()
         print("Json parse errors : \(status)")
         XCTAssertEqual(status, .None, "We should have a .None status")
-
+        
+        print("To Json  = \(obj.toJsonString())")
         // Read and dump all records, assert if the count was still 0
         let list = data.listRecords(CoreDataPerson.self)
         for person in list {

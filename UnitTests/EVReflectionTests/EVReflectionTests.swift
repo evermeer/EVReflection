@@ -351,7 +351,7 @@ class EVReflectionTests: XCTestCase {
         // Test aditional key
         let json2 = "{\"requiredKey1\": \"Value1\", \"requiredKey2\":\"Value2\", \"requiredKey3\":\"Value3\", \"randomKey\":\"Value4\"}"
         let test2 = ValidateObject(json: json2)
-        XCTAssertNotEqual(test.evReflectionStatus(), .none, "We should have a not .None status")
+        XCTAssertNotEqual(test2.evReflectionStatus(), .none, "We should have a not .None status")
         XCTAssertEqual(test2.evReflectionStatuses.count, 1, "We should have 1 validation result")
         for (status, message) in test2.evReflectionStatuses {
             print("Validation result: Status = \(status), Message = \(message)")

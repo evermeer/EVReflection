@@ -113,7 +113,6 @@ class MoyaRxSwiftTests: XCTestCase {
         }
     }
     
-    
     func testDownloadWheatherResponseRxSwiftXML() {
         let expectation = self.expectation(description: "evermeer")
         
