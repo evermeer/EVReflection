@@ -19,14 +19,14 @@ import EVReflection
 
 //: I. Define the data entities
 
-class Person: Object, EVReflectable {
+class Person: Object {
     dynamic var name = ""
     dynamic var age = 0
     dynamic var spouse: Person?
     let cars = List<Car>()
 }
 
-class Car: Object, EVReflectable {
+class Car: Object {
     dynamic var brand = ""
     dynamic var name: String?
     dynamic var year = 0

@@ -15,17 +15,16 @@ import EVReflection
 
 //: I. Define the data entities
 
-class Users: Object, EVReflectable {
+class Users: Object {
     dynamic var id = ""
     dynamic var name = ""
     dynamic var email = ""
     dynamic var facebook_id = ""
     dynamic var is_active = false
     var roles = List<UserRoles>()
-    
 }
 
-class UserRoles: Object, EVReflectable {
+class UserRoles: Object {
     dynamic var id = ""
     dynamic var user_id = ""
     dynamic var role_id = ""

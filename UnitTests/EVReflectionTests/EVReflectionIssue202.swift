@@ -34,7 +34,7 @@ class TestIssue202: XCTestCase {
         XCTAssert(bg?.background_color ?? "" == "#feffea", "Should have #feffea background color")
  
         //TODO: This will result in a memory error
-        //print("obj = \(obj)")
+        print("obj = \(obj)")
         
         // Hmm... why do we get a:
         //objc[26840]: UnitTestsOSX.BackgroundPOJO object 0x101322c90 overreleased while already deallocating; break on objc_overrelease_during_dealloc_error to debug
