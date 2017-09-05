@@ -28,16 +28,6 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "D06F6D7C1F5E414B0061ACB2"
-               BuildableName = "EVReflection_CloudKitTests.xctest"
-               BlueprintName = "EVReflection_CloudKitTests"
-               ReferencedContainer = "container:Carthage.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference
