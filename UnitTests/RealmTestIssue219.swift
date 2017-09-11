@@ -16,20 +16,20 @@ import EVReflection
 //: I. Define the data entities
 
 class Users: Object {
-    dynamic var id = ""
-    dynamic var name = ""
-    dynamic var email = ""
-    dynamic var facebook_id = ""
-    dynamic var is_active = false
+    @objc dynamic var id = ""
+    @objc dynamic var name = ""
+    @objc dynamic var email = ""
+    @objc dynamic var facebook_id = ""
+    @objc dynamic var is_active = false
     var roles = List<UserRoles>()
 }
 
 class UserRoles: Object {
-    dynamic var id = ""
-    dynamic var user_id = ""
-    dynamic var role_id = ""
-    dynamic var building_id = ""
-    dynamic var isHousekeeper = false
+    @objc dynamic var id = ""
+    @objc dynamic var user_id = ""
+    @objc dynamic var role_id = ""
+    @objc dynamic var building_id = ""
+    @objc dynamic var isHousekeeper = false
     
     open func propertyMapping() -> [(keyInObject: String?, keyInResource: String?)] {
         return [(keyInObject: "isHousekeeper", keyInResource: "is_housekeeper")]

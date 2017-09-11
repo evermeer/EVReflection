@@ -17,15 +17,15 @@ import EVReflection
 
 class CategoryModel: Object {
     
-    dynamic var children = ""
-    dynamic var id = ""
-    dynamic var isRoot =  false
+    @objc dynamic var children = ""
+    @objc dynamic var id = ""
+    @objc dynamic var isRoot =  false
     let name =  List<NameCategoryModel>()
 }
 
 class NameCategoryModel: Object {
-    dynamic var locale = ""
-    dynamic var value = ""
+    @objc dynamic var locale = ""
+    @objc dynamic var value = ""
 }
 
 
