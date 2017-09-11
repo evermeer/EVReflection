@@ -445,7 +445,6 @@ final public class EVReflection {
         return dictionariesAreEqual(lhsdict, rhsdict: rhsdict)
     }
     
-
     /**
      Compare 2 dictionaries
      

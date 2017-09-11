@@ -8,6 +8,7 @@
 
 import CoreData
 
+@objcMembers
 open class EVManagedObject: NSManagedObject, EVReflectable {
     
     /**

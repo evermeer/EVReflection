@@ -20,16 +20,16 @@ import EVReflection
 //: I. Define the data entities
 
 class Person: Object {
-    dynamic var name = ""
-    dynamic var age = 0
-    dynamic var spouse: Person?
+    @objc dynamic var name = ""
+    @objc dynamic var age = 0
+    @objc dynamic var spouse: Person?
     let cars = List<Car>()
 }
 
 class Car: Object {
-    dynamic var brand = ""
-    dynamic var name: String?
-    dynamic var year = 0
+    @objc dynamic var brand = ""
+    @objc dynamic var name: String?
+    @objc dynamic var year = 0
 }
 
 
