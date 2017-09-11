@@ -968,9 +968,11 @@ final public class EVReflection {
             
             // Call your own object validators that comply to the format: validate<Key>:Error:
             do {
-                var setValue: AnyObject? = value as AnyObject?
-                try anyObject.validateValue(&setValue, forKey: key)
-                anyObject.setValue(setValue, forKey: key)
+                if !(value is NSNull) {
+                    var setValue: AnyObject? = value as AnyObject?
+                    try anyObject.validateValue(&setValue, forKey: key)
+                    anyObject.setValue(setValue, forKey: key)
+                }
             } catch _ {
                 (anyObject as? EVReflectable)?.addStatusMessage(.InvalidValue, message: "Not a valid value for object `\(NSStringFromClass(type(of: (anyObject as AnyObject))))`, type `\(type)`, key  `\(key)`, value `\(value)`")
                 evPrint(.InvalidValue, "INFO: Not a valid value for object `\(NSStringFromClass(type(of: (anyObject as AnyObject))))`, type `\(type)`, key  `\(key)`, value `\(value)`")
@@ -1171,6 +1173,19 @@ final public class EVReflection {
     /// List of swift keywords for cleaning up keys
     fileprivate static let keywords = ["self", "description", "class", "deinit", "enum", "extension", "func", "import", "init", "let", "protocol", "static", "struct", "subscript", "typealias", "var", "break", "case", "continue", "default", "do", "else", "fallthrough", "if", "in", "for", "return", "switch", "where", "while", "as", "dynamicType", "is", "new", "super", "Self", "Type", "__COLUMN__", "__FILE__", "__FUNCTION__", "__LINE__", "associativity", "didSet", "get", "infix", "inout", "left", "mutating", "none", "nonmutating", "operator", "override", "postfix", "precedence", "prefix", "right", "set", "unowned", "unowned", "safe", "unowned", "unsafe", "weak", "willSet", "private", "public", "internal", "zone"]
     
+    
+    fileprivate static func arrayConversion(_ anyObject: NSObject, key: String, fieldType: String?, original: Any?, theDictValue: Any?, conversionOptions: ConversionOptions = .DefaultDeserialize) -> NSArray {
+        //Swift.Array<Swift.Array<Swift.Array<A81>>>
+        var dictValue: NSArray? = theDictValue as? NSArray
+        if fieldType?.hasPrefix("Swift.Array<Swift.Array<") ?? false && theDictValue is NSArray {
+            for item in dictValue! {
+                print("Have to convert here... NSArray to \(fieldType ?? "")")
+                
+            }
+        }
+        return dictValue!
+    }
+    
     /**
      Convert a value in the dictionary to the correct type for the object
      
@@ -1187,6 +1202,9 @@ final public class EVReflection {
         var dictValue = theDictValue
         var valid = true
         if let type = fieldType {
+            if type.hasPrefix("Swift.Array<") && dictValue is NSArray {
+                dictValue = arrayConversion(anyObject, key: key, fieldType: fieldType, original: original, theDictValue: theDictValue, conversionOptions: conversionOptions)
+            }
             if type.hasPrefix("Swift.Array<") && dictValue as? NSDictionary != nil {
                 if (dictValue as? NSDictionary)?.count == 1 {
                     // XMLDictionary fix

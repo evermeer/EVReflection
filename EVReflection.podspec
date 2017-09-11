@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "EVReflection"
-  s.version      = "4.18.0"
+  s.version      = "4.19.0"
   s.summary      = "Reflection based (Dictionary, CKRecord, NSManagedObject, Realm, JSON and XML) object mapping with extensions for Alamofire and Moya with RxSwift or ReactiveSwift"
 
   s.description  = <<-EOS
@@ -43,6 +43,10 @@ EOS
 
 # Extending EVReflection with mapping functions for CKRecord (CloudKit)
   s.subspec "CloudKit" do |ss|
+    ss.watchos.deployment_target = '3.0'
+    ss.ios.deployment_target = '8.0'
+    ss.osx.deployment_target = '10.11'
+    ss.tvos.deployment_target = '9.0'
     ss.source_files  = "Source/CloudKit/*.swift"
     ss.dependency "EVReflection/Core"
     ss.framework  = "CloudKit"

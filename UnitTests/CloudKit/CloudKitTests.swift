@@ -66,11 +66,8 @@ class CloudKitTests: XCTestCase {
      */
     func testCloudkitSmokeTest() {
         // A news object
-        let news = CloudNews()
-        news.Subject = "the title"
-        news.Body = "The body text"
-        news.ActionUrl = "https://github.com/evermeer"
-
+        let news = CloudNews(json: "{\"subject\":\"The title\",\"body\":\"The body text\",\"actionUrl\":\"https://github.com/evermeer\"}")
+        
         // Add an image asset
         if let path = Bundle(for: CloudKitTests.self).path(forResource: "coverage", ofType: "png") {
             let asset = Asset(name: "coverage", type: "png", url: URL(fileURLWithPath: path))
@@ -98,4 +95,3 @@ class CloudKitTests: XCTestCase {
     }
 }
 
- 

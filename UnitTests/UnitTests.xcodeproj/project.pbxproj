@@ -69,6 +69,9 @@
 		1394D4A81F037D1C00825631 /* EVReflectionIssue213.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1394D4A41F037D1C00825631 /* EVReflectionIssue213.swift */; };
 		1394D4A91F037D1C00825631 /* EVReflectionIssue213.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1394D4A41F037D1C00825631 /* EVReflectionIssue213.swift */; };
 		1394D4AA1F037D1C00825631 /* EVReflectionIssue213.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1394D4A41F037D1C00825631 /* EVReflectionIssue213.swift */; };
+		13961C361F5ADCA9007F805D /* EVReflectionIssue223.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13961C351F5ADCA9007F805D /* EVReflectionIssue223.swift */; };
+		13961C371F5ADCA9007F805D /* EVReflectionIssue223.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13961C351F5ADCA9007F805D /* EVReflectionIssue223.swift */; };
+		13961C381F5ADCA9007F805D /* EVReflectionIssue223.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13961C351F5ADCA9007F805D /* EVReflectionIssue223.swift */; };
 		13AC7ECF1ECB929600BA89FB /* EVReflectionEVCustomReflectable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13AC7ECE1ECB929600BA89FB /* EVReflectionEVCustomReflectable.swift */; };
 		13AC7ED01ECB93C500BA89FB /* EVReflectionEVCustomReflectable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13AC7ECE1ECB929600BA89FB /* EVReflectionEVCustomReflectable.swift */; };
 		13AC7ED11ECB93C600BA89FB /* EVReflectionEVCustomReflectable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13AC7ECE1ECB929600BA89FB /* EVReflectionEVCustomReflectable.swift */; };
@@ -289,6 +292,7 @@
 		1387E85E1EA92A55007522BB /* EVReflectionIssue186.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVReflectionIssue186.swift; sourceTree = "<group>"; };
 		1394D4A31F037D1C00825631 /* EVReflectionIssue213.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = EVReflectionIssue213.json; sourceTree = "<group>"; };
 		1394D4A41F037D1C00825631 /* EVReflectionIssue213.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVReflectionIssue213.swift; sourceTree = "<group>"; };
+		13961C351F5ADCA9007F805D /* EVReflectionIssue223.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EVReflectionIssue223.swift; sourceTree = "<group>"; };
 		13AC7ECE1ECB929600BA89FB /* EVReflectionEVCustomReflectable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVReflectionEVCustomReflectable.swift; sourceTree = "<group>"; };
 		13AC7EDE1ED15A8E00BA89FB /* EVReflectionIssue202.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVReflectionIssue202.swift; sourceTree = "<group>"; };
 		13AC7EE21ED21DED00BA89FB /* EVReflectionIssue197.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVReflectionIssue197.swift; sourceTree = "<group>"; };
@@ -612,6 +616,7 @@
 				13301E311EE427F000FD07FE /* EVReflectionIssue204.swift */,
 				1394D4A31F037D1C00825631 /* EVReflectionIssue213.json */,
 				1394D4A41F037D1C00825631 /* EVReflectionIssue213.swift */,
+				13961C351F5ADCA9007F805D /* EVReflectionIssue223.swift */,
 			);
 			name = GitHubIssues;
 			sourceTree = "<group>";
@@ -1104,6 +1109,7 @@
 				13301E321EE427F000FD07FE /* EVReflectionIssue204.swift in Sources */,
 				7F9930221E2426B500792CF1 /* AlamofireXmlTests.swift in Sources */,
 				7F99301E1E2426B500792CF1 /* AlamofireXml2Tests.swift in Sources */,
+				13961C361F5ADCA9007F805D /* EVReflectionIssue223.swift in Sources */,
 				13AC7ECF1ECB929600BA89FB /* EVReflectionEVCustomReflectable.swift in Sources */,
 				7F41ECAE1B91F306003A2236 /* EVReflectionJsonTests.swift in Sources */,
 				13E937DF1EE74EB600541DC8 /* EVReflectionTests2.swift in Sources */,
@@ -1173,6 +1179,7 @@
 				7F9801951E260A4D00D6C5C0 /* Repository.swift in Sources */,
 				7F3E31951BB909A7001E6788 /* ProfilePhotoUrlListTest.swift in Sources */,
 				7F83A6721D132F6200A4C508 /* EVReflectionIssue96.swift in Sources */,
+				13961C371F5ADCA9007F805D /* EVReflectionIssue223.swift in Sources */,
 				7F57C0311D21A659006070E1 /* EVReflectionIssue99.swift in Sources */,
 				7F99301F1E2426B500792CF1 /* AlamofireXml2Tests.swift in Sources */,
 				7F3E31941BB909A7001E6788 /* EVReflectionTests.swift in Sources */,
@@ -1251,6 +1258,7 @@
 				7F9336CE1C2822B700AF7076 /* EVReflectionJsonTests.swift in Sources */,
 				7F9336D11C2822B700AF7076 /* ProfilePhotoUrlListTest.swift in Sources */,
 				7F83A6731D132F6300A4C508 /* EVReflectionIssue96.swift in Sources */,
+				13961C381F5ADCA9007F805D /* EVReflectionIssue223.swift in Sources */,
 				7F57C0321D21A65A006070E1 /* EVReflectionIssue99.swift in Sources */,
 				7F9336CD1C2822B700AF7076 /* EVReflectionPropertyMappingTest.swift in Sources */,
 				7F9801961E260A4D00D6C5C0 /* Repository.swift in Sources */,
@@ -1323,7 +1331,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -1366,7 +1374,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -1418,6 +1426,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				SUPPORTED_PLATFORMS = macosx;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -1435,6 +1444,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				SUPPORTED_PLATFORMS = macosx;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};
@@ -1449,6 +1459,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "nl.evict.EVReflection-TVOS-Tests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
+				SWIFT_VERSION = 4.0;
 				TVOS_DEPLOYMENT_TARGET = 9.0;
 			};
 			name = Debug;
@@ -1463,6 +1474,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "nl.evict.EVReflection-TVOS-Tests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
+				SWIFT_VERSION = 4.0;
 				TVOS_DEPLOYMENT_TARGET = 9.0;
 			};
 			name = Release;
