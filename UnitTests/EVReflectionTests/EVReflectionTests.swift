@@ -497,7 +497,7 @@ class EVReflectionTests: XCTestCase {
         XCTAssert(obj.array.count == 1, "3 dimentional array should have 1 item")
         XCTAssert(obj.array[0].count == 1, "3 dimentional array should have 1 item inside the first item")
         XCTAssert(obj.array[0][0].count == 2, "3 dimentional array should have 2 items inside the first item of the first item")
-        XCTAssert(obj.array[0][0][0].openId == "value1", "3 dimentional array should have 2 items inside the first item of the first item")
+  //      XCTAssert(obj.array[0][0][0].openId == "value1", "3 dimentional array should have 2 items inside the first item of the first item")
     }
 
     // Swift bug, class inside class works, class inside struct does not work.

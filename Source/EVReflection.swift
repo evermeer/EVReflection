@@ -977,7 +977,6 @@ final public class EVReflection {
                 (anyObject as? EVReflectable)?.addStatusMessage(.InvalidValue, message: "Not a valid value for object `\(NSStringFromClass(type(of: (anyObject as AnyObject))))`, type `\(type)`, key  `\(key)`, value `\(value)`")
                 evPrint(.InvalidValue, "INFO: Not a valid value for object `\(NSStringFromClass(type(of: (anyObject as AnyObject))))`, type `\(type)`, key  `\(key)`, value `\(value)`")
             }
-            
             /*  TODO: Do I dare? ... For nullable types like Int? we could use this instead of the workaround.
              // Asign pointerToField based on specific type
              
