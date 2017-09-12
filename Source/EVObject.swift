@@ -12,7 +12,6 @@ import Foundation
  Object that implements EVReflectable and NSCoding. Use this object as your base class
  instead of NSObject and you wil automatically have support for all these protocols.
  */
-@objcMembers
 open class EVObject: NSObject, NSCoding, EVReflectable  {
     // These are redundant in Swift 2+: CustomDebugStringConvertible, CustomStringConvertible, Hashable, Equatable
     
