@@ -1119,6 +1119,10 @@ final public class EVReflection {
      - returns: the underscore string
      */
     internal static func camelCaseToUnderscores(_ input: String) -> String {
+	if input.characters.count == 0 {
+            return input
+        }
+	    
         var p: NSString = ""
         if let cachedVersion = camelCaseToUnderscoresCache.object(forKey: input as NSString) {
             p = cachedVersion
