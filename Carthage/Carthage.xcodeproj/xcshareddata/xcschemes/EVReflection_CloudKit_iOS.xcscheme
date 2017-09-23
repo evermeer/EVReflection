@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "D06F6D741F5E414B0061ACB2"
-               BuildableName = "EVReflection_CloudKit_iOS.framework"
+               BuildableName = "EVReflection_CloudKit.framework"
                BlueprintName = "EVReflection_CloudKit_iOS"
                ReferencedContainer = "container:Carthage.xcodeproj">
             </BuildableReference>
@@ -34,7 +34,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "D06F6D741F5E414B0061ACB2"
-            BuildableName = "EVReflection_CloudKit_iOS.framework"
+            BuildableName = "EVReflection_CloudKit.framework"
             BlueprintName = "EVReflection_CloudKit_iOS"
             ReferencedContainer = "container:Carthage.xcodeproj">
          </BuildableReference>
@@ -57,7 +57,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "D06F6D741F5E414B0061ACB2"
-            BuildableName = "EVReflection_CloudKit_iOS.framework"
+            BuildableName = "EVReflection_CloudKit.framework"
             BlueprintName = "EVReflection_CloudKit_iOS"
             ReferencedContainer = "container:Carthage.xcodeproj">
          </BuildableReference>
@@ -75,7 +75,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "D06F6D741F5E414B0061ACB2"
-            BuildableName = "EVReflection_CloudKit_iOS.framework"
+            BuildableName = "EVReflection_CloudKit.framework"
             BlueprintName = "EVReflection_CloudKit_iOS"
             ReferencedContainer = "container:Carthage.xcodeproj">
          </BuildableReference>
