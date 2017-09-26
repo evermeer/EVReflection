@@ -1572,7 +1572,7 @@ extension Date {
             return nil
         }
         
-        let dateString = (fromDateTimeString as NSString).substring(with: match.rangeAt(1))     // Extract milliseconds
+        let dateString = (fromDateTimeString as NSString).substring(with: match.range(at: 1))     // Extract milliseconds
         let timeStamp = Double(dateString)! / 1000.0 // Convert to UNIX timestamp in seconds
         
         self.init(timeIntervalSince1970: timeStamp) // Create Date from timestamp
