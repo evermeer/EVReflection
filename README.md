@@ -54,8 +54,9 @@ There are extension available for using EVReflection with [XMLDictionairy](https
 All these extens can be installed by adding something like this in your podfile:
 
 ```
-pod 'EVReflection/MoyaRxSwift'
+pod 'EVReflection/MoyaRxSwift', :git => 'https://github.com/evermeer/EVReflection.git'
 ```
+
 
 p.s. When using Moya, then for the moment you need to specify a version 10 branch to use in your podfile like this:
 
