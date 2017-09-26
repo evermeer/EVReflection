@@ -943,12 +943,15 @@ final public class EVReflection {
             value = NSURL(string: value as? String ?? "")! as AnyObject
         } else if (typeInObject == "NSDate" || typeInObject == "Date")  && (type == "String" || type == "NSString") {
             if let convertedValue = value as? String {
-                guard let date = getDateFormatter().date(from: convertedValue) else {
+                if let date = getDateFormatter().date(from: convertedValue) {
+                    value = date as AnyObject
+                } else if let date = Date(fromDateTimeString: convertedValue) {
+                    value = date as AnyObject
+                } else {
                     (anyObject as? EVReflectable)?.addStatusMessage(.InvalidValue, message: "The dateformatter returend nil for value \(convertedValue)")
                     evPrint(.InvalidValue, "WARNING: The dateformatter returend nil for value \(convertedValue)")
                     return
                 }                
-                value = date as AnyObject
             }
         } else if typeInObject == "AnyObject" {
             
@@ -1119,6 +1122,10 @@ final public class EVReflection {
      - returns: the underscore string
      */
     internal static func camelCaseToUnderscores(_ input: String) -> String {
+	if input.characters.count == 0 {
+            return input
+        }
+	    
         var p: NSString = ""
         if let cachedVersion = camelCaseToUnderscoresCache.object(forKey: input as NSString) {
             p = cachedVersion
@@ -1555,5 +1562,21 @@ final public class EVReflection {
     }
 }
 
+extension Date {
+    public init?(fromDateTimeString: String) {
+        
+        let pattern = "\\\\?/Date\\((\\d+)(([+-]\\d{2})(\\d{2}))?\\)\\\\?/"
+        let regex = try! NSRegularExpression(pattern: pattern)
+        guard let match = regex.firstMatch(in: fromDateTimeString, range: NSRange(location: 0, length: fromDateTimeString.utf16.count)) else {
+            //            Rosewood.info("Failed to find a match")
+            return nil
+        }
+        
+        let dateString = (fromDateTimeString as NSString).substring(with: match.rangeAt(1))     // Extract milliseconds
+        let timeStamp = Double(dateString)! / 1000.0 // Convert to UNIX timestamp in seconds
+        
+        self.init(timeIntervalSince1970: timeStamp) // Create Date from timestamp
+    }
+}
 
 
