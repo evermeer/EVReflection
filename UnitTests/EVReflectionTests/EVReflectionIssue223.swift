@@ -41,13 +41,13 @@ class TestDate : EVObject{
         return [(keyInObject: "dateCreated", keyInResource: "created")]
     }
     
-    override func decodePropertyValue(value: Any, key: String) -> Any {
+    override func decodePropertyValue(value: Any, key: String) -> Any? {
         if key == "dateCreated" {
             let dateFormatter = DateFormatter()
             dateFormatter.locale = Locale(identifier: "en_US_POSIX")
             dateFormatter.timeZone = TimeZone(secondsFromGMT: 0)
             dateFormatter.dateFormat = "yyyy'-'MM'-'dd' 'HH':'mm':'ssZ"
-            let date: Any = dateFormatter.date(from: value as? String ?? "") ?? NSNull()
+            let date: Any? = dateFormatter.date(from: value as? String ?? "")
             return date
         }
         return value

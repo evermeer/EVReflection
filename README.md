@@ -356,7 +356,7 @@ class SimleEncodingDecodingObject : EVObject{
     var street: String?
     var city: String?
 
-    override func decodePropertyValue(value: Any, key: String) -> Any {
+    override func decodePropertyValue(value: Any, key: String) -> Any? {
         return (value as? String)?.base64Decoded?.string ?? value
     }
 

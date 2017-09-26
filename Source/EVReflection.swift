@@ -918,7 +918,9 @@ final public class EVReflection {
         }
         
         if conversionOptions.contains(.Decoding), let ro = anyObject as? EVReflectable {
-            value = ro.decodePropertyValue(value: value, key: key)
+            if let v = ro.decodePropertyValue(value: value, key: key) {
+                value = v
+            }
         }
         
         // Let us put a number into a string property by taking it's stringValue

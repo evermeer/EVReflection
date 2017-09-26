@@ -145,7 +145,7 @@ open class EVObject: NSObject, NSCoding, EVReflectable  {
      
      - returns: The decoded value
      */
-    open func decodePropertyValue(value: Any, key: String) -> Any {
+    open func decodePropertyValue(value: Any, key: String) -> Any? {
         return value
     }
     
