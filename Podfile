@@ -4,6 +4,10 @@ workspace 'EVReflection'
 
 # Our Libraries (just include everything for the demo)
 def alllibraries
+    #temp Swift 4 force version
+    #pod 'RxSwift', :git => 'https://github.com/ReactiveX/RxSwift.git', :branch => 'rxswift4.0-swift4.0'
+  pod 'Moya', :git => 'https://github.com/Moya/Moya.git', :branch => '10.0.0-dev'
+  
   pod 'EVReflection/MoyaRxSwiftXML', :path => "./"
   pod 'EVReflection/MoyaReactiveSwiftXML', :path => "./"
   pod 'EVReflection/Realm', :path => "./"

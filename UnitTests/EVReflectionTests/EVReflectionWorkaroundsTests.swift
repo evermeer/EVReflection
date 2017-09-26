@@ -150,7 +150,7 @@ class WorkaroundObject: EVObject, EVArrayConvertable {
             if let enumList = value as? NSArray {
                 self.enumList = []
                 for item in enumList {
-                    if let rawValue = item as? NSNumber, let statusType = StatusType(rawValue: Int(rawValue)) {
+                    if let rawValue = item as? NSNumber, let statusType = StatusType(rawValue: Int(truncating: rawValue)) {
                         self.enumList.append(statusType)
                     }
                 }
@@ -172,7 +172,7 @@ class WorkaroundObject: EVObject, EVArrayConvertable {
         case "structType":
             if let dict = value as? NSDictionary {
                 if let x = dict["x"] as? NSNumber, let y = dict["y"] as? NSNumber {
-                    structType = CGPoint(x: CGFloat(x), y: CGFloat(y))
+                    structType = CGPoint(x: CGFloat(truncating: x), y: CGFloat(truncating: y))
                 }
             }
         default:

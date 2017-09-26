@@ -26,14 +26,21 @@ public enum GitHub {
     case repo(String)
     case issues(String)
     case xml
+    case nestedArray
 }
 
 extension GitHub: TargetType {
+    public var headers: [String : String]? {
+        return nil
+    }
+    
     
     public var baseURL: URL {
         switch self {
         case .xml:
             return URL(string: "http://raw.githubusercontent.com/evermeer/AlamofireXmlToObjects/master/AlamofireXmlToObjectsTests")!
+        case .nestedArray:
+            return URL(string: "http://raw.githubusercontent.com/evermeer/EVReflection/UnitTests/MoyaTests")!
         default:
             return URL(string: "https://api.github.com")!
         }
@@ -53,6 +60,8 @@ extension GitHub: TargetType {
             return "/repos/\(repositoryName)/issues"
         case .xml:
             return "/sample_xml"
+        case .nestedArray:
+            return "/nestedArrayData_json"
         }
     }
     
@@ -74,7 +83,7 @@ extension GitHub: TargetType {
     }
 
     public var task: Task {
-        return .request
+        return .requestPlain
     }
     
     public var sampleData: Data {
@@ -91,6 +100,8 @@ extension GitHub: TargetType {
             return "{\"id\": 132942471, \"number\": 405, \"title\": \"Updates example with fix to String extension by changing to Optional\", \"body\": \"Fix it pls.\"}".data(using: .utf8)!
         case .xml:
             return "<wheather><location>Toronto, Canada</location></wheather>".data(using: String.Encoding.utf8)!
+        case .nestedArray:
+            return "[[{\"id\":1},{\"id\":2}]]".data(using: String.Encoding.utf8)!
         }
     }
 }
