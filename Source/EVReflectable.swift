@@ -59,7 +59,7 @@ public protocol EVReflectable: class, NSObjectProtocol  {
      
      - returns: The decoded value
      */
-    func decodePropertyValue(value: Any, key: String) -> Any
+    func decodePropertyValue(value: Any, key: String) -> Any?
 
     /**
      You can add general value encoding to an object when you implement this function. You can for instance use it to base64 encode, url encode, html encode, unicode, etc.
@@ -362,7 +362,7 @@ extension EVReflectable {
      
      - returns: The decoded value
      */
-    public func decodePropertyValue(value: Any, key: String) -> Any {
+    public func decodePropertyValue(value: Any, key: String) -> Any? {
         return value
     }
     

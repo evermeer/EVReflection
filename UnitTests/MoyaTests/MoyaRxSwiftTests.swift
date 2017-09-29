@@ -23,24 +23,26 @@ class MoyaRxSwiftTests: XCTestCase {
     var disposeBag = DisposeBag()
     
     func testDownloadRepositories() {
-        let expectation = self.expectation(description: "evermeer")
+        let expectation = self.expectation(description: "testDownloadRepositories")
         
-        GitHubRxMoyaProvider.request(.userRepositories("evermeer"))
-            .map(toArray: Repository.self)
-            .subscribe { event -> Void in
-                switch event {
-                case .next(let repos):
-                    print("result = \(repos)")
-                    let evr = repos.first { $0.name == "EVReflection"}
+        GitHubRxMoyaProvider.request(.userRepositories("evermeer")) { (result) in
+            switch result {
+            case .success(let response):
+                do {
+                    let parsed = try response.RmapArray(to: Repository.self)
+                    print("result = \(parsed)")
+                    let evr = parsed.first { $0.name == "EVReflection"}
                     XCTAssert(evr?.owner?.login == "evermeer", "This should have been my library!")
                     expectation.fulfill()
-                case .error(let error):
-                    print("error = \(error)")
+                } catch let error {
+                    print("parse error = \(error)")
                     XCTAssert(false, "no result from service")
-                default:
-                    break
                 }
-            }.addDisposableTo(disposeBag)
+            case .failure(let error):
+                print("request error = \(error)")
+                XCTAssert(false, "no result from service")
+            }
+        }
         
         waitForExpectations(timeout: 10) { error in
             XCTAssertNil(error, "\(error?.localizedDescription ?? "" )")
@@ -48,21 +50,24 @@ class MoyaRxSwiftTests: XCTestCase {
     }
 
     func testDownloadUserProfile() {
-        let expectation = self.expectation(description: "evermeer")
-        GitHubRxMoyaProvider.request(.userProfile("evermeer"))
-            .map(to: GitHubUser.self)
-            .subscribe { event -> Void in
-                switch event {
-                case .next(let result):
-                    print(result)
+        let expectation = self.expectation(description: "testDownloadUserProfile")
+        
+        GitHubRxMoyaProvider.request(.userProfile("evermeer")) { (result) in
+            switch result {
+            case .success(let response):
+                do {
+                    let parsed = try response.Rmap(to: GitHubUser.self)
+                    print("result = \(parsed)")
                     expectation.fulfill()
-                case .error(let error):
+                } catch let error {
+                    print("parse error = \(error)")
                     XCTAssert(false, "no result from service")
-                    print(error)
-                default:
-                    break
                 }
-            }.addDisposableTo(disposeBag)
+            case .failure(let error):
+                print("request error = \(error)")
+                XCTAssert(false, "no result from service")
+            }
+        }
         
         waitForExpectations(timeout: 10) { error in
             XCTAssertNil(error, "\(error?.localizedDescription ?? "")")
@@ -70,21 +75,24 @@ class MoyaRxSwiftTests: XCTestCase {
     }
 
     func testDownloadRepositoryInfo() {
-        let expectation = self.expectation(description: "EVReflection")
-        GitHubRxMoyaProvider.request(.repo("evermeer/EVReflection"))
-            .map(to: Repository.self)
-            .subscribe { event -> Void in
-                switch event {
-                case .next(let result):
-                    print(result)
+        let expectation = self.expectation(description: "testDownloadRepositoryInfo")
+        
+         GitHubRxMoyaProvider.request(.repo("evermeer/EVReflection")) { (result) in
+            switch result {
+            case .success(let response):
+                do {
+                    let parsed = try response.Rmap(to: Repository.self)
+                    print("result = \(parsed)")
                     expectation.fulfill()
-                case .error(let error):
+                } catch let error {
+                    print("parse error = \(error)")
                     XCTAssert(false, "no result from service")
-                    print(error)
-                default:
-                    break
                 }
-            }.addDisposableTo(disposeBag)
+            case .failure(let error):
+                print("request error = \(error)")
+                XCTAssert(false, "no result from service")
+            }
+        }
         
         waitForExpectations(timeout: 10) { error in
             XCTAssertNil(error, "\(error?.localizedDescription ?? "")")
@@ -92,21 +100,24 @@ class MoyaRxSwiftTests: XCTestCase {
     }
 
     func testDownloadRepositoryIssues() {
-        let expectation = self.expectation(description: "EVReflection")
-        GitHubRxMoyaProvider.request(.issues("evermeer/EVReflection"))
-            .map(toArray: Issue.self)
-            .subscribe { event -> Void in
-                switch event {
-                case .next(let result):
-                    print(result)
+        let expectation = self.expectation(description: "testDownloadRepositoryIssues")
+        
+        GitHubRxMoyaProvider.request(.issues("evermeer/EVReflection")) { (result) in
+            switch result {
+            case .success(let response):
+                do {
+                    let parsed = try response.RmapArray(to: Issue.self)
+                    print("result = \(parsed)")
                     expectation.fulfill()
-                case .error(let error):
+                } catch let error {
+                    print("parse error = \(error)")
                     XCTAssert(false, "no result from service")
-                    print(error)
-                default:
-                    break
                 }
-            }.addDisposableTo(disposeBag)
+            case .failure(let error):
+                print("request error = \(error)")
+                XCTAssert(false, "no result from service")
+            }
+        }
         
         waitForExpectations(timeout: 10) { error in
             XCTAssertNil(error, "\(error?.localizedDescription ?? "")")
@@ -114,22 +125,24 @@ class MoyaRxSwiftTests: XCTestCase {
     }
     
     func testDownloadWheatherResponseRxSwiftXML() {
-        let expectation = self.expectation(description: "evermeer")
+        let expectation = self.expectation(description: "testDownloadWheatherResponseRxSwiftXML")
         
-        GitHubRxMoyaProvider.request(.xml)
-            .mapXml(to: WeatherResponse.self)
-            .subscribe { event -> Void in
-                switch event {
-                case .next(let result):
-                    print(result)
+         GitHubRxMoyaProvider.request(.xml) { (result) in
+            switch result {
+            case .success(let response):
+                do {
+                    let parsed = try response.RmapXml(to: WeatherResponse.self)
+                    print("result = \(parsed)")
                     expectation.fulfill()
-                case .error(let error):
+                } catch let error {
+                    print("parse error = \(error)")
                     XCTAssert(false, "no result from service")
-                    print(error)
-                default:
-                    break
                 }
-            }.addDisposableTo(disposeBag)
+            case .failure(let error):
+                print("request error = \(error)")
+                XCTAssert(false, "no result from service")
+            }
+        }
         
         waitForExpectations(timeout: 10) { error in
             XCTAssertNil(error, "\(error?.localizedDescription ?? "")")
@@ -137,7 +150,7 @@ class MoyaRxSwiftTests: XCTestCase {
     }
 
     func testDownloadWeatherResponseXML() {
-        let expectation = self.expectation(description: "evermeer")
+        let expectation = self.expectation(description: "testDownloadWeatherResponseXML")
         
         GitHubMoyaProvider.request(.xml, completion: { result in
             var success = true
@@ -145,7 +158,7 @@ class MoyaRxSwiftTests: XCTestCase {
             switch result {
             case let .success(response):
                 do {
-                    let repos: WeatherResponse? = try response.mapXml(to: WeatherResponse.self)
+                    let repos: WeatherResponse? = try response.RmapXml(to: WeatherResponse.self)
                     if repos != nil {
                         print("WeatherResponse = \(repos!)")
                         expectation.fulfill()
@@ -172,23 +185,45 @@ class MoyaRxSwiftTests: XCTestCase {
     
     
     func testDownloadZen() {
-        let expectation = self.expectation(description: "evermeer")
+        let expectation = self.expectation(description: "testDownloadZen")
 
-        GitHubRxMoyaProvider.request(.zen)
-            .subscribe { event -> Void in
-                switch event {
-                case .next(let result):
-                    let message = (try? result.mapString()) ?? "Couldn't access API"
-                    print(message)
+        GitHubRxMoyaProvider.request(.zen) { (result) in
+            switch result {
+            case .success(let response):
+                let message = (try? response.mapString()) ?? "Couldn't access API"
+                print(message)
+                expectation.fulfill()
+            case .failure(let error):
+                print("request error = \(error)")
+                XCTAssert(false, "no result from service")
+            }
+        }
+
+        waitForExpectations(timeout: 10) { error in
+            XCTAssertNil(error, "\(error?.localizedDescription ?? "")")
+        }
+    }
+    
+    func testNestedArray() {
+        let expectation = self.expectation(description: "testNestedArray")
+        
+        GitHubRxMoyaProvider.request(.nestedArray) { (result) in
+            switch result {
+            case .success(let response):
+                do {
+                    let parsed = try response.RmapNestedArray(to: Issue.self)
+                    print("result = \(parsed)")
                     expectation.fulfill()
-                case .error(let error):
+                } catch let error {
+                    print("parse error = \(error)")
                     XCTAssert(false, "no result from service")
-                    print(error)
-                default:
-                    break
                 }
-            }.addDisposableTo(disposeBag)
-
+            case .failure(let error):
+                print("request error = \(error)")
+                XCTAssert(false, "no result from service")
+            }
+        }
+        
         waitForExpectations(timeout: 10) { error in
             XCTAssertNil(error, "\(error?.localizedDescription ?? "")")
         }

@@ -36,7 +36,7 @@ public extension DataRequest {
         return returnError
     }
     
-    internal func EVReflectionSerializer<T: EVObject>(_ keyPath: String?, mapToObject object: T? = nil) -> DataResponseSerializer<T> {
+    internal func EVReflectionSerializer<T: NSObject>(_ keyPath: String?, mapToObject object: T? = nil) -> DataResponseSerializer<T> where T: EVReflectable {
         return DataResponseSerializer { request, response, data, error in
             guard error == nil else {
                 return .failure(error!)
@@ -98,14 +98,14 @@ public extension DataRequest {
      - returns: The request.
      */
     @discardableResult
-    public func responseObject<T: EVObject>(queue: DispatchQueue? = nil, keyPath: String? = nil, mapToObject object: T? = nil, completionHandler: @escaping (DataResponse<T>) -> Void) -> Self {
+    public func responseObject<T: NSObject>(queue: DispatchQueue? = nil, keyPath: String? = nil, mapToObject object: T? = nil, completionHandler: @escaping (DataResponse<T>) -> Void) -> Self where T: EVReflectable {
         
         let serializer = self.EVReflectionSerializer(keyPath, mapToObject: object)
         return response(queue: queue, responseSerializer: serializer, completionHandler: completionHandler)
     }
     
     
-    internal func EVReflectionArraySerializer<T: EVObject>(_ keyPath: String?, mapToObject object: T? = nil) -> DataResponseSerializer<[T]> {
+    internal func EVReflectionArraySerializer<T: NSObject>(_ keyPath: String?, mapToObject object: T? = nil) -> DataResponseSerializer<[T]> where T: EVReflectable {
         return DataResponseSerializer { request, response, data, error in
             guard error == nil else {
                 return .failure(error!)
@@ -164,7 +164,7 @@ public extension DataRequest {
      - returns: The request.
      */
     @discardableResult
-    public func responseArray<T: EVObject>(queue: DispatchQueue? = nil, keyPath: String? = nil, mapToObject object: T? = nil, completionHandler: @escaping (DataResponse<[T]>) -> Void) -> Self {
+    public func responseArray<T: NSObject>(queue: DispatchQueue? = nil, keyPath: String? = nil, mapToObject object: T? = nil, completionHandler: @escaping (DataResponse<[T]>) -> Void) -> Self where T: EVReflectable {
         let serializer = self.EVReflectionArraySerializer(keyPath, mapToObject: object)
         return response(queue: queue, responseSerializer: serializer, completionHandler: completionHandler)
     }

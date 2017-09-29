@@ -918,7 +918,9 @@ final public class EVReflection {
         }
         
         if conversionOptions.contains(.Decoding), let ro = anyObject as? EVReflectable {
-            value = ro.decodePropertyValue(value: value, key: key)
+            if let v = ro.decodePropertyValue(value: value, key: key) {
+                value = v
+            }
         }
         
         // Let us put a number into a string property by taking it's stringValue
@@ -977,8 +979,8 @@ final public class EVReflection {
                     anyObject.setValue(setValue, forKey: key)
                 }
             } catch _ {
-                (anyObject as? EVReflectable)?.addStatusMessage(.InvalidValue, message: "Not a valid value for object `\(NSStringFromClass(type(of: (anyObject as AnyObject))))`, type `\(type)`, key  `\(key)`, value `\(value)`")
-                evPrint(.InvalidValue, "INFO: Not a valid value for object `\(NSStringFromClass(type(of: (anyObject as AnyObject))))`, type `\(type)`, key  `\(key)`, value `\(value)`")
+                (anyObject as? EVReflectable)?.addStatusMessage(.InvalidValue, message: "Not a valid value for object `\(NSStringFromClass(Swift.type(of: (anyObject as AnyObject))))`, type `\(type)`, key  `\(key)`, value `\(value)`")
+                evPrint(.InvalidValue, "INFO: Not a valid value for object `\(NSStringFromClass(Swift.type(of: (anyObject as AnyObject))))`, type `\(type)`, key  `\(key)`, value `\(value)`")
             }
             /*  TODO: Do I dare? ... For nullable types like Int? we could use this instead of the workaround.
              // Asign pointerToField based on specific type
@@ -1182,10 +1184,10 @@ final public class EVReflection {
     
     fileprivate static func arrayConversion(_ anyObject: NSObject, key: String, fieldType: String?, original: Any?, theDictValue: Any?, conversionOptions: ConversionOptions = .DefaultDeserialize) -> NSArray {
         //Swift.Array<Swift.Array<Swift.Array<A81>>>
-        var dictValue: NSArray? = theDictValue as? NSArray
+        let dictValue: NSArray? = theDictValue as? NSArray
         if fieldType?.hasPrefix("Swift.Array<Swift.Array<") ?? false && theDictValue is NSArray {
             for item in dictValue! {
-                print("Have to convert here... NSArray to \(fieldType ?? "")")
+                print("Have to convert here... NSArray to \(fieldType ?? "") \(item)")
                 
             }
         }
@@ -1572,7 +1574,7 @@ extension Date {
             return nil
         }
         
-        let dateString = (fromDateTimeString as NSString).substring(with: match.rangeAt(1))     // Extract milliseconds
+        let dateString = (fromDateTimeString as NSString).substring(with: match.range(at: 1))     // Extract milliseconds
         let timeStamp = Double(dateString)! / 1000.0 // Convert to UNIX timestamp in seconds
         
         self.init(timeIntervalSince1970: timeStamp) // Create Date from timestamp

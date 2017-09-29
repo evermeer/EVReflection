@@ -10,7 +10,7 @@ import XMLDictionary
 import Alamofire
 
 public extension DataRequest {
-    internal func EVReflectionXMLSerializer<T: EVReflectable>(_ keyPath: String?, mapToObject object: T? = nil) -> DataResponseSerializer<T> where T: NSObject {
+    internal func EVReflectionXMLSerializer<T: NSObject>(_ keyPath: String?, mapToObject object: T? = nil) -> DataResponseSerializer<T> where T: EVReflectable {
         return DataResponseSerializer { request, response, data, error in
             guard error == nil else {
                 return .failure(error!)
@@ -44,7 +44,7 @@ public extension DataRequest {
      - returns: The request.
      */
     @discardableResult
-    public func responseObjectFromXML<T: EVObject>(queue: DispatchQueue? = nil, keyPath: String? = nil, mapToObject object: T? = nil, completionHandler: @escaping (DataResponse<T>) -> Void) -> Self {
+    public func responseObjectFromXML<T: NSObject>(queue: DispatchQueue? = nil, keyPath: String? = nil, mapToObject object: T? = nil, completionHandler: @escaping (DataResponse<T>) -> Void) -> Self where T: EVReflectable{
         
         let serializer = self.EVReflectionXMLSerializer(keyPath, mapToObject: object)
         return response(queue: queue, responseSerializer: serializer, completionHandler: completionHandler)

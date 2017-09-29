@@ -293,6 +293,7 @@
 		1394D4A31F037D1C00825631 /* EVReflectionIssue213.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = EVReflectionIssue213.json; sourceTree = "<group>"; };
 		1394D4A41F037D1C00825631 /* EVReflectionIssue213.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVReflectionIssue213.swift; sourceTree = "<group>"; };
 		13961C351F5ADCA9007F805D /* EVReflectionIssue223.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EVReflectionIssue223.swift; sourceTree = "<group>"; };
+		139834721F703ECB00A58E96 /* nestedArrayData_json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = nestedArrayData_json; sourceTree = "<group>"; };
 		13AC7ECE1ECB929600BA89FB /* EVReflectionEVCustomReflectable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVReflectionEVCustomReflectable.swift; sourceTree = "<group>"; };
 		13AC7EDE1ED15A8E00BA89FB /* EVReflectionIssue202.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVReflectionIssue202.swift; sourceTree = "<group>"; };
 		13AC7EE21ED21DED00BA89FB /* EVReflectionIssue197.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVReflectionIssue197.swift; sourceTree = "<group>"; };
@@ -541,6 +542,7 @@
 			children = (
 				7F9801901E260A4D00D6C5C0 /* API */,
 				7F98019A1E260AD000D6C5C0 /* MoyaRxSwiftTests.swift */,
+				139834721F703ECB00A58E96 /* nestedArrayData_json */,
 			);
 			name = MoyaTests;
 			sourceTree = "<group>";
@@ -719,13 +721,13 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0730;
-				LastUpgradeCheck = 0800;
+				LastUpgradeCheck = 0900;
 				ORGANIZATIONNAME = evict;
 				TargetAttributes = {
 					7F07C5711AF101A9000DF1F3 = {
 						CreatedOnToolsVersion = 6.3.1;
 						DevelopmentTeam = WTH4QGEA23;
-						LastSwiftMigration = 0800;
+						LastSwiftMigration = 0900;
 						TestTargetID = 7F07C55C1AF101A9000DF1F3;
 					};
 					7F3E31841BB9095C001E6788 = {
@@ -1294,14 +1296,20 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -1331,6 +1339,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1345,14 +1354,20 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -1374,6 +1389,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;

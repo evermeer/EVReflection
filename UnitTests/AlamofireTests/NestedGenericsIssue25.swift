@@ -82,7 +82,7 @@ class NewsHeader: BaseModel {
 }
 
 protocol ResponseListener: class {
-    func onResponseSuccess<T: BaseModel>(result: ResponseModel<T>)
+    func onResponseSuccess<T>(result: ResponseModel<T>)
     func onResponseFail(error: NSError)
 }
 
@@ -126,7 +126,7 @@ class NewsHeaderService: BaseWebServices<PagerModel<NewsHeader>>, ResponseListen
     }
 
 
-    func onResponseSuccess<T: BaseModel>(result response: ResponseModel<T>) {
+    func onResponseSuccess<T>(result response: ResponseModel<T>) {
         continueTest?()
     }
 

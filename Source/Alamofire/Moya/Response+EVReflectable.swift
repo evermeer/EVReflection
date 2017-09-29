@@ -12,7 +12,7 @@ public extension Response {
     
     /// Maps data received from the signal into an object which implements the EVReflectable protocol.
     /// If the conversion fails, the signal errors.
-    public func map<T: EVReflectable>(to type:T.Type, forKeyPath: String? = nil) throws -> T where T: NSObject {
+    public func Rmap<T: NSObject>(to type:T.Type, forKeyPath: String? = nil) throws -> T where T: EVReflectable {
         let json = try mapJSON()
         var dict: NSDictionary = NSDictionary()
         if let d = json as? NSDictionary {
@@ -20,12 +20,12 @@ public extension Response {
         } else if let a = json as? NSArray {
             dict = ["": a]
         }
-        return map(from: dict, forKeyPath: forKeyPath)
+        return dictMap(from: dict, forKeyPath: forKeyPath)
     }
     
     /// Maps data received from the signal into an array of objects which implement the ALSwiftyJSONAble protocol
     /// If the conversion fails, the signal errors.
-    public func map<T: EVReflectable>(toArray type:T.Type, forKeyPath: String? = nil) throws -> [T] where T: NSObject {
+    public func RmapArray<T: NSObject>(to type:T.Type, forKeyPath: String? = nil) throws -> [T] where T: EVReflectable {
         var array: NSArray = NSArray()
         
         var json = try mapJSON()
@@ -45,12 +45,12 @@ public extension Response {
             evPrint(.IsInvalidJson ,"ERROR: JSON mapping failed. Did not get a dictionary or array")
             return []
         }
-        let parsedArray:[T] = array.map { map(from: $0 as? NSDictionary) } as [T]
+        let parsedArray:[T] = array.map { dictMap(from: $0 as? NSDictionary) } as [T]
         return parsedArray
     }
     
     /// Create the object from the dictionary
-    internal func map<T: EVReflectable>(from: NSDictionary?, forKeyPath: String? = nil) -> T where T: NSObject {
+    internal func dictMap<T: NSObject>(from: NSDictionary?, forKeyPath: String? = nil) -> T where T: EVReflectable{
         let instance: T = T()
         let parsedObject: T = ((instance.getSpecificType(from ?? NSDictionary()) as? T) ?? instance)
         let _ = EVReflection.setPropertiesfromDictionary(from ?? NSDictionary(), anyObject: parsedObject, forKeyPath: forKeyPath)
@@ -58,6 +58,35 @@ public extension Response {
             instance.addStatusMessage(DeserializationStatus.Custom, message: "HTTP status code: \(self.statusCode)")
         }
         return parsedObject
+    }
+    
+    public func RmapNestedArray<T: NSObject>(to type:T.Type, forKeyPath: String? = nil) throws -> [[T]] where T: EVReflectable {
+        var array: NSArray = NSArray()
+        
+        var json = try mapJSON()
+        if forKeyPath != nil {
+            guard let arr = (json as? NSDictionary)?.value(forKeyPath: forKeyPath!) else {
+                evPrint(.UnknownKeypath, "ERROR: The forKeyPath '\(forKeyPath ?? "")' did not return an array")
+                return []
+            }
+            json = arr
+        }
+        
+        if let a = json as? NSArray {
+            array = a
+        } else if let dict = json as? NSDictionary {
+            array = [dict]
+        } else {
+            evPrint(.IsInvalidJson ,"ERROR: JSON mapping failed. Did not get a dictionary or array")
+            return []
+        }
+        let parsedArray:[[T]] = array.map { RmapInnerArray(array: $0 as? NSArray ?? NSArray())}
+        
+        return parsedArray
+    }
+    
+    public func RmapInnerArray<T: NSObject>(array: NSArray) -> [T] where T: EVReflectable {
+        return array.map { dictMap(from: $0 as? NSDictionary) } as [T]
     }
 }
 

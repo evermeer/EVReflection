@@ -35,7 +35,7 @@ extension Reactive where Base: NotificationCenter {
 				observer.send(value: notification)
 			}
 
-			return ActionDisposable {
+			return AnyDisposable {
 				base.removeObserver(notificationObserver)
 			}
 		}
@@ -63,7 +63,7 @@ extension Reactive where Base: URLSession {
 	///         side error (i.e. when a response with status code other than
 	///         200...299 is received).
 	public func data(with request: URLRequest) -> SignalProducer<(Data, URLResponse), AnyError> {
-		return SignalProducer { [base = self.base] observer, disposable in
+		return SignalProducer { [base = self.base] observer, lifetime in
 			let task = base.dataTask(with: request) { data, response, error in
 				if let data = data, let response = response {
 					observer.send(value: (data, response))
@@ -73,9 +73,7 @@ extension Reactive where Base: URLSession {
 				}
 			}
 
-			disposable += {
-				task.cancel()
-			}
+			lifetime.observeEnded(task.cancel)
 			task.resume()
 		}
 	}
@@ -89,31 +87,61 @@ extension Date {
 
 extension DispatchTimeInterval {
 	internal var timeInterval: TimeInterval {
-		switch self {
-		case let .seconds(s):
-			return TimeInterval(s)
-		case let .milliseconds(ms):
-			return TimeInterval(TimeInterval(ms) / 1000.0)
-		case let .microseconds(us):
-			return TimeInterval( UInt64(us) * NSEC_PER_USEC ) / TimeInterval(NSEC_PER_SEC)
-		case let .nanoseconds(ns):
-			return TimeInterval(ns) / TimeInterval(NSEC_PER_SEC)
-		}
+		#if swift(>=3.2)
+			switch self {
+			case let .seconds(s):
+				return TimeInterval(s)
+			case let .milliseconds(ms):
+				return TimeInterval(TimeInterval(ms) / 1000.0)
+			case let .microseconds(us):
+				return TimeInterval(Int64(us) * Int64(NSEC_PER_USEC)) / TimeInterval(NSEC_PER_SEC)
+			case let .nanoseconds(ns):
+				return TimeInterval(ns) / TimeInterval(NSEC_PER_SEC)
+			case .never:
+				return .infinity
+			}
+		#else
+			switch self {
+			case let .seconds(s):
+				return TimeInterval(s)
+			case let .milliseconds(ms):
+				return TimeInterval(TimeInterval(ms) / 1000.0)
+			case let .microseconds(us):
+				return TimeInterval(Int64(us) * Int64(NSEC_PER_USEC)) / TimeInterval(NSEC_PER_SEC)
+			case let .nanoseconds(ns):
+				return TimeInterval(ns) / TimeInterval(NSEC_PER_SEC)
+			}
+		#endif
 	}
 
 	// This was added purely so that our test scheduler to "go backwards" in
 	// time. See `TestScheduler.rewind(by interval: DispatchTimeInterval)`.
 	internal static prefix func -(lhs: DispatchTimeInterval) -> DispatchTimeInterval {
-		switch lhs {
-		case let .seconds(s):
-			return .seconds(-s)
-		case let .milliseconds(ms):
-			return .milliseconds(-ms)
-		case let .microseconds(us):
-			return .microseconds(-us)
-		case let .nanoseconds(ns):
-			return .nanoseconds(-ns)
-		}
+		#if swift(>=3.2)
+			switch lhs {
+			case let .seconds(s):
+				return .seconds(-s)
+			case let .milliseconds(ms):
+				return .milliseconds(-ms)
+			case let .microseconds(us):
+				return .microseconds(-us)
+			case let .nanoseconds(ns):
+				return .nanoseconds(-ns)
+			case .never:
+				return .never
+			}
+		#else
+			switch lhs {
+			case let .seconds(s):
+				return .seconds(-s)
+			case let .milliseconds(ms):
+				return .milliseconds(-ms)
+			case let .microseconds(us):
+				return .microseconds(-us)
+			case let .nanoseconds(ns):
+				return .nanoseconds(-ns)
+			}
+		#endif
 	}
 
 	/// Scales a time interval by the given scalar specified in `rhs`.

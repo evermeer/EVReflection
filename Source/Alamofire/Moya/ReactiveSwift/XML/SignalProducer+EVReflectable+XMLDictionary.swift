@@ -13,7 +13,7 @@ extension SignalProducerProtocol where Value == Moya.Response, Error == MoyaErro
     
     /// Maps data received from the signal into an object which implements the Mappable protocol.
     /// If the conversion fails, the signal errors.
-    public func mapXml<T: EVReflectable>(to type: T.Type) -> SignalProducer<T, Error> where T: NSObject {
+    public func mapXml<T: NSObject>(to type: T.Type) -> SignalProducer<T, Error> where T: EVReflectable {
         return producer.flatMap(.latest) { response -> SignalProducer<T, Error> in
             if let result = T(xmlData: response.data) {
                 return SignalProducer(value: result)

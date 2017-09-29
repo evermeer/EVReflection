@@ -27,7 +27,7 @@ public enum LoggingEvent {
 	}
 }
 
-private func defaultEventLog(identifier: String, event: String, fileName: String, functionName: String, lineNumber: Int) {
+public func defaultEventLog(identifier: String, event: String, fileName: String, functionName: String, lineNumber: Int) {
 	print("[\(identifier)] \(event) fileName: \(fileName), functionName: \(functionName), lineNumber: \(lineNumber)")
 }
 
@@ -46,7 +46,7 @@ public typealias EventLogger = (
 	_ lineNumber: Int
 ) -> Void
 
-extension SignalProtocol {
+extension Signal {
 	/// Logs all events that the receiver sends. By default, it will print to 
 	/// the standard output.
 	///
@@ -69,16 +69,16 @@ extension SignalProtocol {
 
 		return self.on(
 			failed: log(.failed),
-			completed: log(.completed),
-			interrupted: log(.interrupted),
-			terminated: log(.terminated),
-			disposed: log(.disposed),
+			completed: log(.completed) as ((()) -> Void)?,
+			interrupted: log(.interrupted) as ((()) -> Void)?,
+			terminated: log(.terminated) as ((()) -> Void)?,
+			disposed: log(.disposed) as ((()) -> Void)?,
 			value: log(.value)
 		)
 	}
 }
 
-extension SignalProducerProtocol {
+extension SignalProducer {
 	/// Logs all events that the receiver sends. By default, it will print to 
 	/// the standard output.
 	///
@@ -106,13 +106,13 @@ extension SignalProducerProtocol {
 		}
 
 		return self.on(
-			starting: log(.starting),
-			started: log(.started),
+			starting: log(.starting) as ((()) -> Void)?,
+			started: log(.started) as ((()) -> Void)?,
 			failed: log(.failed),
-			completed: log(.completed),
-			interrupted: log(.interrupted),
-			terminated: log(.terminated),
-			disposed: log(.disposed),
+			completed: log(.completed) as ((()) -> Void)?,
+			interrupted: log(.interrupted) as ((()) -> Void)?,
+			terminated: log(.terminated) as ((()) -> Void)?,
+			disposed: log(.disposed) as ((()) -> Void)?,
 			value: log(.value)
 		)
 	}

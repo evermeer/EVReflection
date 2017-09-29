@@ -65,7 +65,7 @@ class EnumWorkaroundsTests: XCTestCase {
     func testArrayNotNullable() {
         var testArray: [myClass] = [myClass]()
         testArray.append(myClass())
-        let newArray: [myClass] = (testArray.filter { $0 != nil })  // Yes, you will ge a warning, but we do have to test this. reflection could have messed things up
+        let newArray: [myClass] = (testArray.filter { $0 != nil })  // Yes, you will get a warning, but we do have to test this. reflection could have messed things up
         XCTAssertTrue(newArray.count == 1, "We should have 1 object in the array")
     }
     

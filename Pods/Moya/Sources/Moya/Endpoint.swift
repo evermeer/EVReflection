@@ -1,5 +1,4 @@
 import Foundation
-import Alamofire
 
 /// Used for stubbing responses.
 public enum EndpointSampleResponse {
@@ -19,61 +18,33 @@ open class Endpoint<Target> {
     public typealias SampleResponseClosure = () -> EndpointSampleResponse
 
     open let url: String
-    open let method: Moya.Method
     open let sampleResponseClosure: SampleResponseClosure
-    open let parameters: [String: Any]?
-    open let parameterEncoding: Moya.ParameterEncoding
+    open let method: Moya.Method
+    open let task: Task
     open let httpHeaderFields: [String: String]?
 
     /// Main initializer for `Endpoint`.
     public init(url: String,
                 sampleResponseClosure: @escaping SampleResponseClosure,
-                method: Moya.Method = Moya.Method.get,
-                parameters: [String: Any]? = nil,
-                parameterEncoding: Moya.ParameterEncoding = URLEncoding.default,
-                httpHeaderFields: [String: String]? = nil) {
+                method: Moya.Method,
+                task: Task,
+                httpHeaderFields: [String: String]?) {
 
         self.url = url
         self.sampleResponseClosure = sampleResponseClosure
         self.method = method
-        self.parameters = parameters
-        self.parameterEncoding = parameterEncoding
+        self.task = task
         self.httpHeaderFields = httpHeaderFields
-    }
-
-    /// Convenience method for creating a new `Endpoint` with the same properties as the receiver, but with added parameters.
-    open func adding(newParameters: [String: Any]) -> Endpoint<Target> {
-        return adding(parameters: newParameters)
     }
 
     /// Convenience method for creating a new `Endpoint` with the same properties as the receiver, but with added HTTP header fields.
     open func adding(newHTTPHeaderFields: [String: String]) -> Endpoint<Target> {
-        return adding(httpHeaderFields: newHTTPHeaderFields)
+        return Endpoint(url: url, sampleResponseClosure: sampleResponseClosure, method: method, task: task, httpHeaderFields: add(httpHeaderFields: newHTTPHeaderFields))
     }
 
-    /// Convenience method for creating a new `Endpoint` with the same properties as the receiver, but with another parameter encoding.
-    open func adding(newParameterEncoding: Moya.ParameterEncoding) -> Endpoint<Target> {
-        return adding(parameterEncoding: newParameterEncoding)
-    }
-
-    /// Convenience method for creating a new `Endpoint`, with changes only to the properties we specify as parameters
-    open func adding(parameters: [String: Any]? = nil, httpHeaderFields: [String: String]? = nil, parameterEncoding: Moya.ParameterEncoding? = nil)  -> Endpoint<Target> {
-        let newParameters = add(parameters: parameters)
-        let newHTTPHeaderFields = add(httpHeaderFields: httpHeaderFields)
-        let newParameterEncoding = parameterEncoding ?? self.parameterEncoding
-        return Endpoint(url: url, sampleResponseClosure: sampleResponseClosure, method: method, parameters: newParameters, parameterEncoding: newParameterEncoding, httpHeaderFields: newHTTPHeaderFields)
-    }
-
-    fileprivate func add(parameters: [String: Any]?) -> [String: Any]? {
-        guard let unwrappedParameters = parameters, unwrappedParameters.isEmpty == false else {
-            return self.parameters
-        }
-
-        var newParameters = self.parameters ?? [:]
-        unwrappedParameters.forEach { key, value in
-            newParameters[key] = value
-        }
-        return newParameters
+    /// Convenience method for creating a new `Endpoint` with the same properties as the receiver, but with replaced `task` parameter.
+    open func replacing(task: Task) -> Endpoint<Target> {
+        return Endpoint(url: url, sampleResponseClosure: sampleResponseClosure, method: method, task: task, httpHeaderFields: httpHeaderFields)
     }
 
     fileprivate func add(httpHeaderFields headers: [String: String]?) -> [String: String]? {
@@ -89,30 +60,60 @@ open class Endpoint<Target> {
     }
 }
 
-/// Extension for converting an `Endpoint` into an optional `URLRequest`.
+/// Extension for converting an `Endpoint` into a `URLRequest`.
 extension Endpoint {
-    /// Returns the `Endpoint` converted to a `URLRequest` if valid. Returns `nil` otherwise.
-    public var urlRequest: URLRequest? {
-        guard let requestURL = Foundation.URL(string: url) else { return nil }
+    /// Returns the `Endpoint` converted to a `URLRequest` if valid. Throws an error otherwise.
+    public func urlRequest() throws -> URLRequest {
+        guard let requestURL = Foundation.URL(string: url) else {
+            throw MoyaError.requestMapping(url)
+        }
 
         var request = URLRequest(url: requestURL)
         request.httpMethod = method.rawValue
         request.allHTTPHeaderFields = httpHeaderFields
 
-        return try? parameterEncoding.encode(request, with: parameters)
+        do {
+            switch task {
+            case .requestPlain, .uploadFile, .uploadMultipart, .downloadDestination:
+                return request
+            case .requestData(let data):
+                request.httpBody = data
+                return request
+            case let .requestParameters(parameters, parameterEncoding):
+                return try parameterEncoding.encode(request, with: parameters)
+            case let .uploadCompositeMultipart(_, urlParameters):
+                return try URLEncoding(destination: .queryString).encode(request, with: urlParameters)
+            case let .downloadParameters(parameters, parameterEncoding, _):
+                return try parameterEncoding.encode(request, with: parameters)
+            case let .requestCompositeData(bodyData: bodyData, urlParameters: urlParameters):
+                request.httpBody = bodyData
+                return try URLEncoding(destination: .queryString).encode(request, with: urlParameters)
+            case let .requestCompositeParameters(bodyParameters: bodyParameters, bodyEncoding: bodyParameterEncoding, urlParameters: urlParameters):
+                if bodyParameterEncoding is URLEncoding { fatalError("URLEncoding is disallowed as bodyEncoding.") }
+                let bodyfulRequest = try bodyParameterEncoding.encode(request, with: bodyParameters)
+                return try URLEncoding(destination: .queryString).encode(bodyfulRequest, with: urlParameters)
+            }
+        } catch {
+            throw MoyaError.parameterEncoding(error)
+        }
     }
 }
 
 /// Required for using `Endpoint` as a key type in a `Dictionary`.
 extension Endpoint: Equatable, Hashable {
     public var hashValue: Int {
-        return urlRequest?.hashValue ?? url.hashValue
+        let request = try? urlRequest()
+        return request?.hashValue ?? url.hashValue
     }
 
+    /// Note: If both Endpoints fail to produce a URLRequest the comparison will
+    /// fall back to comparing each Endpoint's hashValue.
     public static func == <T>(lhs: Endpoint<T>, rhs: Endpoint<T>) -> Bool {
-        if lhs.urlRequest != nil, rhs.urlRequest == nil { return false }
-        if lhs.urlRequest == nil, rhs.urlRequest != nil { return false }
-        if lhs.urlRequest == nil, rhs.urlRequest == nil { return lhs.hashValue == rhs.hashValue }
-        return (lhs.urlRequest == rhs.urlRequest)
+        let lhsRequest = try? lhs.urlRequest()
+        let rhsRequest = try? rhs.urlRequest()
+        if lhsRequest != nil, rhsRequest == nil { return false }
+        if lhsRequest == nil, rhsRequest != nil { return false }
+        if lhsRequest == nil, rhsRequest == nil { return lhs.hashValue == rhs.hashValue }
+        return (lhsRequest == rhsRequest)
     }
 }
