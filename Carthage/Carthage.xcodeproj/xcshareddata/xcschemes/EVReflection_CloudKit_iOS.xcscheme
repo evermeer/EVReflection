@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "2DC8AA621C242E0600FA6B8E"
-               BuildableName = "EVReflection.framework"
-               BlueprintName = "EVReflection_OSX"
+               BlueprintIdentifier = "D06F6D741F5E414B0061ACB2"
+               BuildableName = "EVReflection_CloudKit.framework"
+               BlueprintName = "EVReflection_CloudKit_iOS"
                ReferencedContainer = "container:Carthage.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -30,6 +30,15 @@
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
       </Testables>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "D06F6D741F5E414B0061ACB2"
+            BuildableName = "EVReflection_CloudKit.framework"
+            BlueprintName = "EVReflection_CloudKit_iOS"
+            ReferencedContainer = "container:Carthage.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>
@@ -47,9 +56,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "2DC8AA621C242E0600FA6B8E"
-            BuildableName = "EVReflection.framework"
-            BlueprintName = "EVReflection_OSX"
+            BlueprintIdentifier = "D06F6D741F5E414B0061ACB2"
+            BuildableName = "EVReflection_CloudKit.framework"
+            BlueprintName = "EVReflection_CloudKit_iOS"
             ReferencedContainer = "container:Carthage.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -65,9 +74,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "2DC8AA621C242E0600FA6B8E"
-            BuildableName = "EVReflection.framework"
-            BlueprintName = "EVReflection_OSX"
+            BlueprintIdentifier = "D06F6D741F5E414B0061ACB2"
+            BuildableName = "EVReflection_CloudKit.framework"
+            BlueprintName = "EVReflection_CloudKit_iOS"
             ReferencedContainer = "container:Carthage.xcodeproj">
          </BuildableReference>
       </MacroExpansion>

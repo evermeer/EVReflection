@@ -52,37 +52,51 @@ ready for production use.
 
 ### Moya version vs Swift version.
 
-Because of the many Swift versions Moya supports, it might be confusing to
-find the version of Moya that you need. Below is a table that shows which version of Moya
-you should use for your Swift version.
+Below is a table that shows which version of Moya you should use for
+your Swift version.
 
-| Swift version | Moya version  |
-| ------------- | ------------- |
-| 3.X           | >= 8.0.0      |
-| 2.3           | 7.0.2 - 7.0.4 |
-| 2.2           | <= 7.0.1      |
+| Swift | Moya          | RxMoya        | ReactiveMoya  |
+| ----- | ------------- |---------------|---------------|
+| 4.X   | >= 9.0        | -             | >= 9.0        |
+| 3.X   | 8.0.0 - 8.0.5 | 8.0.0 - 8.0.5 | 8.0.0 - 8.0.5 |
+| 2.3   | 7.0.2 - 7.0.4 | 7.0.2 - 7.0.4 | 7.0.2 - 7.0.4 |
+| 2.2   | <= 7.0.1      | <= 7.0.1      | <= 7.0.1      |
 
 ### Swift Package Manager
 
 To integrate using Apple's Swift package manager, add the following as a dependency to your `Package.swift`:
 
 ```swift
-.Package(url: "https://github.com/Moya/Moya.git", majorVersion: 9)
+.package(url: "https://github.com/Moya/Moya.git", .branch("10.0.0-dev"))
 ```
 
-and then specify `.Target(name: "Moya")` as a dependency of the Target in which you wish to use Moya.
+and then specify `"Moya"` as a dependency of the Target in which you wish to use Moya.
+If you want to use reactive extensions, add also `"ReactiveMoya"` or `"RxMoya"` as your Target dependency respectively.
 Here's an example `PackageDescription`:
 
 ```swift
+// swift-tools-version:4.0
 import PackageDescription
 
 let package = Package(
-    name: "MyApp",
+    name: "MyPackage",
+    products: [
+        .library(
+            name: "MyPackage",
+            targets: ["MyPackage"]),
+    ],
     dependencies: [
-        .Package(url: "https://github.com/Moya/Moya.git", majorVersion: 9)
+        .package(url: "https://github.com/Moya/Moya.git", .branch("10.0.0-dev"))
+    ],
+    targets: [
+        .target(
+            name: "MyPackage",
+            dependencies: ["Moya", "ReactiveMoya"])
     ]
 )
 ```
+
+Note that as of Moya 10, SPM only works with Swift 4 toolchain and greater.
 
 ### CocoaPods
 

@@ -4,7 +4,7 @@ import Moya
 // MARK: - Provider setup (One without and one with Rx support)
 let GitHubMoyaProvider = MoyaProvider<GitHub>(plugins: [NetworkLoggerPlugin(verbose: true, responseDataFormatter: JSONResponseDataFormatter)])
 
-let GitHubRxMoyaProvider = RxMoyaProvider<GitHub>(plugins: [NetworkLoggerPlugin(verbose: true, responseDataFormatter: JSONResponseDataFormatter)])
+let GitHubRxMoyaProvider = MoyaProvider<GitHub>(plugins: [NetworkLoggerPlugin(verbose: true, responseDataFormatter: JSONResponseDataFormatter)])
 
 private func JSONResponseDataFormatter(_ data: Data) -> Data {
     do {

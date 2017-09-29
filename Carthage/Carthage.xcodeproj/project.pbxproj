@@ -20,7 +20,7 @@
 		13B051301EEE613C002629F9 /* PrintOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B051251EEE6123002629F9 /* PrintOptions.swift */; };
 		13B051311EEE613D002629F9 /* PrintOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B051251EEE6123002629F9 /* PrintOptions.swift */; };
 		2DC8AA401C24215500FA6B8E /* EVReflection.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DC8AA3F1C24215500FA6B8E /* EVReflection.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		2DC8AA661C242E0600FA6B8E /* EVReflectionOSX.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DC8AA651C242E0600FA6B8E /* EVReflectionOSX.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2DC8AA661C242E0600FA6B8E /* EVReflectionMacOS.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DC8AA651C242E0600FA6B8E /* EVReflectionMacOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7F75C54B1E463786003B08C5 /* EVDictionaryExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F75C54A1E463786003B08C5 /* EVDictionaryExtension.swift */; };
 		7F75C54C1E4637A0003B08C5 /* EVDictionaryExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F75C54A1E463786003B08C5 /* EVDictionaryExtension.swift */; };
 		7F75C54D1E4637A1003B08C5 /* EVDictionaryExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F75C54A1E463786003B08C5 /* EVDictionaryExtension.swift */; };
@@ -46,7 +46,7 @@
 		7FF9B83B1E237F910089A3A1 /* EVWorkaroundHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF9B8291E237F910089A3A1 /* EVWorkaroundHelpers.swift */; };
 		7FF9B83C1E237F910089A3A1 /* EVWorkaroundHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF9B8291E237F910089A3A1 /* EVWorkaroundHelpers.swift */; };
 		7FF9B83D1E237F910089A3A1 /* EVWorkaroundHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF9B8291E237F910089A3A1 /* EVWorkaroundHelpers.swift */; };
-		D06F6D851F5E414B0061ACB2 /* EVReflection_CloudKit.h in Headers */ = {isa = PBXBuildFile; fileRef = D06F6D771F5E414B0061ACB2 /* EVReflection_CloudKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D06F6D851F5E414B0061ACB2 /* EVReflectionCloudKitIOS.h in Headers */ = {isa = PBXBuildFile; fileRef = D06F6D771F5E414B0061ACB2 /* EVReflectionCloudKitIOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D06F6D901F5E42D30061ACB2 /* CKDataObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06F6D8D1F5E42D30061ACB2 /* CKDataObject.swift */; };
 		D06F6D911F5E42D30061ACB2 /* CKRecord+EVReflectable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06F6D8E1F5E42D30061ACB2 /* CKRecord+EVReflectable.swift */; };
 		D06F6D931F5E43000061ACB2 /* EVObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF9B8261E237F910089A3A1 /* EVObject.swift */; };
@@ -59,6 +59,18 @@
 		D06F6D9A1F5E43890061ACB2 /* EVArrayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF9B8251E237F910089A3A1 /* EVArrayExtension.swift */; };
 		D06F6D9B1F5E43A70061ACB2 /* EVDictionaryExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F75C54A1E463786003B08C5 /* EVDictionaryExtension.swift */; };
 		D097DC901DD663990020CA9A /* EVReflectionTVOS.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F9336B01C28227400AF7076 /* EVReflectionTVOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D09860F31F76DE7700275D18 /* EVReflectionCloudKitMacOS.h in Headers */ = {isa = PBXBuildFile; fileRef = D09860F11F76DE7700275D18 /* EVReflectionCloudKitMacOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D09860F71F76DF5900275D18 /* CKDataObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06F6D8D1F5E42D30061ACB2 /* CKDataObject.swift */; };
+		D09860F81F76DF5C00275D18 /* CKRecord+EVReflectable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06F6D8E1F5E42D30061ACB2 /* CKRecord+EVReflectable.swift */; };
+		D09860F91F76DF6400275D18 /* ConversionOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B051231EEE6123002629F9 /* ConversionOptions.swift */; };
+		D09860FA1F76DF6400275D18 /* DeserializationStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B051241EEE6123002629F9 /* DeserializationStatus.swift */; };
+		D09860FB1F76DF6400275D18 /* PrintOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B051251EEE6123002629F9 /* PrintOptions.swift */; };
+		D09860FC1F76DF6400275D18 /* EVArrayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF9B8251E237F910089A3A1 /* EVArrayExtension.swift */; };
+		D09860FD1F76DF6400275D18 /* EVDictionaryExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F75C54A1E463786003B08C5 /* EVDictionaryExtension.swift */; };
+		D09860FE1F76DF6400275D18 /* EVObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF9B8261E237F910089A3A1 /* EVObject.swift */; };
+		D09860FF1F76DF6400275D18 /* EVReflectable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF9B8271E237F910089A3A1 /* EVReflectable.swift */; };
+		D09861001F76DF6400275D18 /* EVReflection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF9B8281E237F910089A3A1 /* EVReflection.swift */; };
+		D09861011F76DF6400275D18 /* EVWorkaroundHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF9B8291E237F910089A3A1 /* EVWorkaroundHelpers.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -67,7 +79,7 @@
 		13B051251EEE6123002629F9 /* PrintOptions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PrintOptions.swift; path = ../Source/PrintOptions.swift; sourceTree = "<group>"; };
 		2DC8AA3F1C24215500FA6B8E /* EVReflection.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EVReflection.h; sourceTree = "<group>"; };
 		2DC8AA411C24215500FA6B8E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		2DC8AA651C242E0600FA6B8E /* EVReflectionOSX.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EVReflectionOSX.h; sourceTree = "<group>"; };
+		2DC8AA651C242E0600FA6B8E /* EVReflectionMacOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EVReflectionMacOS.h; sourceTree = "<group>"; };
 		2DC8AA671C242E0600FA6B8E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7F1C9D291E23C6C100A18776 /* EVReflection.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = EVReflection.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7F1C9D2A1E23C6C100A18776 /* EVReflection.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = EVReflection.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -85,10 +97,13 @@
 		7FF9B8281E237F910089A3A1 /* EVReflection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EVReflection.swift; path = ../Source/EVReflection.swift; sourceTree = "<group>"; };
 		7FF9B8291E237F910089A3A1 /* EVWorkaroundHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EVWorkaroundHelpers.swift; path = ../Source/EVWorkaroundHelpers.swift; sourceTree = "<group>"; };
 		D06F6D751F5E414B0061ACB2 /* EVReflection_CloudKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = EVReflection_CloudKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		D06F6D771F5E414B0061ACB2 /* EVReflection_CloudKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EVReflection_CloudKit.h; sourceTree = "<group>"; };
+		D06F6D771F5E414B0061ACB2 /* EVReflectionCloudKitIOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EVReflectionCloudKitIOS.h; sourceTree = "<group>"; };
 		D06F6D781F5E414B0061ACB2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D06F6D8D1F5E42D30061ACB2 /* CKDataObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CKDataObject.swift; sourceTree = "<group>"; };
 		D06F6D8E1F5E42D30061ACB2 /* CKRecord+EVReflectable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CKRecord+EVReflectable.swift"; sourceTree = "<group>"; };
+		D09860EF1F76DE7700275D18 /* EVReflection_CloudKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = EVReflection_CloudKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D09860F11F76DE7700275D18 /* EVReflectionCloudKitMacOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EVReflectionCloudKitMacOS.h; sourceTree = "<group>"; };
+		D09860F21F76DE7700275D18 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -127,6 +142,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		D09860EB1F76DE7700275D18 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -139,13 +161,13 @@
 			path = EVReflectionIOS;
 			sourceTree = "<group>";
 		};
-		2DC8AA641C242E0600FA6B8E /* EVReflectionOSX */ = {
+		2DC8AA641C242E0600FA6B8E /* EVReflectionMacOS */ = {
 			isa = PBXGroup;
 			children = (
-				2DC8AA651C242E0600FA6B8E /* EVReflectionOSX.h */,
+				2DC8AA651C242E0600FA6B8E /* EVReflectionMacOS.h */,
 				2DC8AA671C242E0600FA6B8E /* Info.plist */,
 			);
-			path = EVReflectionOSX;
+			path = EVReflectionMacOS;
 			sourceTree = "<group>";
 		};
 		7F07C5541AF101A9000DF1F3 = {
@@ -154,15 +176,17 @@
 				7F1C9D301E23CD6900A18776 /* README.md */,
 				7FF9B8241E237F6F0089A3A1 /* Source */,
 				2DC8AA3E1C24215500FA6B8E /* EVReflectionIOS */,
-				2DC8AA641C242E0600FA6B8E /* EVReflectionOSX */,
+				2DC8AA641C242E0600FA6B8E /* EVReflectionMacOS */,
 				7F9336AF1C28227400AF7076 /* EVReflectionTVOS */,
 				7FD67D8C1C288B560071234B /* EVReflectionWatchOS */,
-				D06F6D761F5E414B0061ACB2 /* EVReflection_CloudKit */,
+				D06F6D761F5E414B0061ACB2 /* EVReflectionCloudKitIOS */,
+				D09860F01F76DE7700275D18 /* EVReflectionCloudKitMacOS */,
 				7F1C9D291E23C6C100A18776 /* EVReflection.framework */,
 				7F1C9D2A1E23C6C100A18776 /* EVReflection.framework */,
 				7F1C9D2B1E23C6C100A18776 /* EVReflection.framework */,
 				7F1C9D2C1E23C6C100A18776 /* EVReflection.framework */,
 				D06F6D751F5E414B0061ACB2 /* EVReflection_CloudKit.framework */,
+				D09860EF1F76DE7700275D18 /* EVReflection_CloudKit.framework */,
 			);
 			sourceTree = "<group>";
 		};
@@ -201,13 +225,13 @@
 			name = Source;
 			sourceTree = "<group>";
 		};
-		D06F6D761F5E414B0061ACB2 /* EVReflection_CloudKit */ = {
+		D06F6D761F5E414B0061ACB2 /* EVReflectionCloudKitIOS */ = {
 			isa = PBXGroup;
 			children = (
-				D06F6D771F5E414B0061ACB2 /* EVReflection_CloudKit.h */,
+				D06F6D771F5E414B0061ACB2 /* EVReflectionCloudKitIOS.h */,
 				D06F6D781F5E414B0061ACB2 /* Info.plist */,
 			);
-			path = EVReflection_CloudKit;
+			path = EVReflectionCloudKitIOS;
 			sourceTree = "<group>";
 		};
 		D06F6D8C1F5E42D30061ACB2 /* CloudKit */ = {
@@ -218,6 +242,15 @@
 			);
 			name = CloudKit;
 			path = ../Source/CloudKit;
+			sourceTree = "<group>";
+		};
+		D09860F01F76DE7700275D18 /* EVReflectionCloudKitMacOS */ = {
+			isa = PBXGroup;
+			children = (
+				D09860F11F76DE7700275D18 /* EVReflectionCloudKitMacOS.h */,
+				D09860F21F76DE7700275D18 /* Info.plist */,
+			);
+			path = EVReflectionCloudKitMacOS;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -235,7 +268,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2DC8AA661C242E0600FA6B8E /* EVReflectionOSX.h in Headers */,
+				2DC8AA661C242E0600FA6B8E /* EVReflectionMacOS.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -259,7 +292,15 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D06F6D851F5E414B0061ACB2 /* EVReflection_CloudKit.h in Headers */,
+				D06F6D851F5E414B0061ACB2 /* EVReflectionCloudKitIOS.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D09860EC1F76DE7700275D18 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D09860F31F76DE7700275D18 /* EVReflectionCloudKitMacOS.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -284,9 +325,9 @@
 			productReference = 7F1C9D291E23C6C100A18776 /* EVReflection.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		2DC8AA621C242E0600FA6B8E /* EVReflection_OSX */ = {
+		2DC8AA621C242E0600FA6B8E /* EVReflection_MacOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 2DC8AA741C242E0600FA6B8E /* Build configuration list for PBXNativeTarget "EVReflection_OSX" */;
+			buildConfigurationList = 2DC8AA741C242E0600FA6B8E /* Build configuration list for PBXNativeTarget "EVReflection_MacOS" */;
 			buildPhases = (
 				2DC8AA5E1C242E0600FA6B8E /* Sources */,
 				2DC8AA5F1C242E0600FA6B8E /* Frameworks */,
@@ -297,7 +338,7 @@
 			);
 			dependencies = (
 			);
-			name = EVReflection_OSX;
+			name = EVReflection_MacOS;
 			productName = EVReflectionOSX;
 			productReference = 7F1C9D2A1E23C6C100A18776 /* EVReflection.framework */;
 			productType = "com.apple.product-type.framework";
@@ -338,9 +379,9 @@
 			productReference = 7F1C9D2C1E23C6C100A18776 /* EVReflection.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		D06F6D741F5E414B0061ACB2 /* EVReflection_CloudKit */ = {
+		D06F6D741F5E414B0061ACB2 /* EVReflection_CloudKit_iOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D06F6D8A1F5E414B0061ACB2 /* Build configuration list for PBXNativeTarget "EVReflection_CloudKit" */;
+			buildConfigurationList = D06F6D8A1F5E414B0061ACB2 /* Build configuration list for PBXNativeTarget "EVReflection_CloudKit_iOS" */;
 			buildPhases = (
 				D06F6D701F5E414B0061ACB2 /* Sources */,
 				D06F6D711F5E414B0061ACB2 /* Frameworks */,
@@ -351,9 +392,27 @@
 			);
 			dependencies = (
 			);
-			name = EVReflection_CloudKit;
+			name = EVReflection_CloudKit_iOS;
 			productName = EVReflection_CloudKit;
 			productReference = D06F6D751F5E414B0061ACB2 /* EVReflection_CloudKit.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		D09860EE1F76DE7700275D18 /* EVReflection_CloudKit_MacOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D09860F41F76DE7700275D18 /* Build configuration list for PBXNativeTarget "EVReflection_CloudKit_MacOS" */;
+			buildPhases = (
+				D09860EA1F76DE7700275D18 /* Sources */,
+				D09860EB1F76DE7700275D18 /* Frameworks */,
+				D09860EC1F76DE7700275D18 /* Headers */,
+				D09860ED1F76DE7700275D18 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = EVReflection_CloudKit_MacOS;
+			productName = EVReflectionCloudKitMacOS;
+			productReference = D09860EF1F76DE7700275D18 /* EVReflection_CloudKit.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
@@ -385,6 +444,11 @@
 						DevelopmentTeam = RHYN2UNUC3;
 						ProvisioningStyle = Automatic;
 					};
+					D09860EE1F76DE7700275D18 = {
+						CreatedOnToolsVersion = 9.0;
+						DevelopmentTeam = RHYN2UNUC3;
+						ProvisioningStyle = Automatic;
+					};
 				};
 			};
 			buildConfigurationList = 7F07C5581AF101A9000DF1F3 /* Build configuration list for PBXProject "Carthage" */;
@@ -401,10 +465,11 @@
 			projectRoot = "";
 			targets = (
 				2DC8AA3C1C24215500FA6B8E /* EVReflection_iOS */,
-				2DC8AA621C242E0600FA6B8E /* EVReflection_OSX */,
+				2DC8AA621C242E0600FA6B8E /* EVReflection_MacOS */,
 				7F9336AD1C28227400AF7076 /* EVReflection_TVOS */,
 				7FD67D8A1C288B560071234B /* EVReflection_WatchOS */,
-				D06F6D741F5E414B0061ACB2 /* EVReflection_CloudKit */,
+				D06F6D741F5E414B0061ACB2 /* EVReflection_CloudKit_iOS */,
+				D09860EE1F76DE7700275D18 /* EVReflection_CloudKit_MacOS */,
 			);
 		};
 /* End PBXProject section */
@@ -439,6 +504,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		D06F6D731F5E414B0061ACB2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D09860ED1F76DE7700275D18 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -530,6 +602,24 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		D09860EA1F76DE7700275D18 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D09860FC1F76DF6400275D18 /* EVArrayExtension.swift in Sources */,
+				D09860F71F76DF5900275D18 /* CKDataObject.swift in Sources */,
+				D09860FD1F76DF6400275D18 /* EVDictionaryExtension.swift in Sources */,
+				D09860FE1F76DF6400275D18 /* EVObject.swift in Sources */,
+				D09860FA1F76DF6400275D18 /* DeserializationStatus.swift in Sources */,
+				D09860F81F76DF5C00275D18 /* CKRecord+EVReflectable.swift in Sources */,
+				D09861011F76DF6400275D18 /* EVWorkaroundHelpers.swift in Sources */,
+				D09860F91F76DF6400275D18 /* ConversionOptions.swift in Sources */,
+				D09860FB1F76DF6400275D18 /* PrintOptions.swift in Sources */,
+				D09860FF1F76DF6400275D18 /* EVReflectable.swift in Sources */,
+				D09861001F76DF6400275D18 /* EVReflection.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
@@ -591,12 +681,12 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = EVReflectionOSX/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/EVReflectionMacOS/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				MODULE_NAME = EVReflection;
-				PRODUCT_BUNDLE_IDENTIFIER = nl.evict.EVReflectionOSX;
+				PRODUCT_BUNDLE_IDENTIFIER = nl.evict.EVReflectionMacOS;
 				PRODUCT_NAME = EVReflection;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
@@ -617,12 +707,12 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = EVReflectionOSX/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/EVReflectionMacOS/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				MODULE_NAME = EVReflection;
-				PRODUCT_BUNDLE_IDENTIFIER = nl.evict.EVReflectionOSX;
+				PRODUCT_BUNDLE_IDENTIFIER = nl.evict.EVReflectionMacOS;
 				PRODUCT_NAME = EVReflection;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
@@ -856,12 +946,12 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = EVReflection_CloudKit/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/EVReflectionCloudKitIOS/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.justinstanley.EVReflection-CloudKit";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = nl.evict.EVReflectionCloudKitIOS;
+				PRODUCT_NAME = EVReflection_CloudKit;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_VERSION = 4.0;
@@ -883,12 +973,89 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = EVReflection_CloudKit/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/EVReflectionCloudKitIOS/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.justinstanley.EVReflection-CloudKit";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = nl.evict.EVReflectionCloudKitIOS;
+				PRODUCT_NAME = EVReflection_CloudKit;
+				SKIP_INSTALL = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		D09860F51F76DE7700275D18 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = RHYN2UNUC3;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_VERSION = A;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = EVReflectionCloudKitMacOS/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				PRODUCT_BUNDLE_IDENTIFIER = nl.evict.EVReflectionCloudKitMacOS;
+				PRODUCT_NAME = EVReflection_CloudKit;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		D09860F61F76DE7700275D18 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = RHYN2UNUC3;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_VERSION = A;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = EVReflectionCloudKitMacOS/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				PRODUCT_BUNDLE_IDENTIFIER = nl.evict.EVReflectionCloudKitMacOS;
+				PRODUCT_NAME = EVReflection_CloudKit;
+				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 4.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -908,7 +1075,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		2DC8AA741C242E0600FA6B8E /* Build configuration list for PBXNativeTarget "EVReflection_OSX" */ = {
+		2DC8AA741C242E0600FA6B8E /* Build configuration list for PBXNativeTarget "EVReflection_MacOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2DC8AA751C242E0600FA6B8E /* Debug */,
@@ -944,11 +1111,20 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		D06F6D8A1F5E414B0061ACB2 /* Build configuration list for PBXNativeTarget "EVReflection_CloudKit" */ = {
+		D06F6D8A1F5E414B0061ACB2 /* Build configuration list for PBXNativeTarget "EVReflection_CloudKit_iOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D06F6D861F5E414B0061ACB2 /* Debug */,
 				D06F6D871F5E414B0061ACB2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D09860F41F76DE7700275D18 /* Build configuration list for PBXNativeTarget "EVReflection_CloudKit_MacOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D09860F51F76DE7700275D18 /* Debug */,
+				D09860F61F76DE7700275D18 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
