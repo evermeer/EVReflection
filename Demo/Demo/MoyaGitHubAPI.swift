@@ -40,7 +40,7 @@ extension GitHub: TargetType {
         case .xml:
             return URL(string: "http://raw.githubusercontent.com/evermeer/AlamofireXmlToObjects/master/AlamofireXmlToObjectsTests")!
         case .nestedArray:
-            return URL(string: "http://raw.githubusercontent.com/evermeer/EVReflection/UnitTests/MoyaTests")!
+            return URL(string: "https://raw.githubusercontent.com/evermeer/EVReflection/master/UnitTests/")!
         default:
             return URL(string: "https://api.github.com")!
         }
