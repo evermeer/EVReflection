@@ -68,7 +68,8 @@ class RealmTests: XCTestCase {
         let wife = Person(json: "{\"name\": \"Jennifer\", \"age\": \"47\", \"cars\": [{\"brand\": \"DeLorean\", \"name\": \"Outatime\", \"year\": 1981} , {\"brand\": \"Volkswagen\", \"year\": 2014}], \"spouse\": {\"name\": \"Marty\", \"age\": \"48\"}}")
 
         // set the circular reference: The spouse of my spouse is me
-        wife.spouse?.spouse = wife
+//Recursive objects in Realm will cause a crash!
+//        wife.spouse?.spouse = wife
         
         // You will see _EVReflection_parent_ with the value 1 to indicate that there is a circular reference to it's parent 1 level up.
         print("wife = \(wife.toJsonString())")

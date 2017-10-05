@@ -14,7 +14,7 @@ class MoyaViewController: BaseViewController {
             switch result {
             case let .success(response):
                 do {
-                    let repos: [Repository]? = try response.map(toArray: Repository.self)
+                    let repos: [Repository]? = try response.RmapArray(to: Repository.self)
                     if let repos = repos {
                         // Presumably, you'd parse the JSON into a model object. This is just a demo, so we'll keep it as-is.
                         self.repos = repos
@@ -26,10 +26,7 @@ class MoyaViewController: BaseViewController {
                 }
                 self.tableView.reloadData()
             case let .failure(error):
-                guard let error = error as? CustomStringConvertible else {
-                    break
-                }
-                message = error.description
+                message = (error  as CustomStringConvertible).description
                 success = false
             }
             
