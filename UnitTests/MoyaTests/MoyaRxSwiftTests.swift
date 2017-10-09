@@ -25,6 +25,7 @@ class MoyaRxSwiftTests: XCTestCase {
     func testDownloadRepositories() {
         let expectation = self.expectation(description: "testDownloadRepositories")
         
+        //        GitHubRxMoyaProvider.rx.request(.userRepositories("evermeer")).subscribe { (result) in
         GitHubRxMoyaProvider.request(.userRepositories("evermeer")) { (result) in
             switch result {
             case .success(let response):
@@ -51,7 +52,9 @@ class MoyaRxSwiftTests: XCTestCase {
 
     func testDownloadUserProfile() {
         let expectation = self.expectation(description: "testDownloadUserProfile")
-        
+
+        //        GitHubRxMoyaProvider.rx.request(.userProfile("evermeer")).subscribe { (result) in
+
         GitHubRxMoyaProvider.request(.userProfile("evermeer")) { (result) in
             switch result {
             case .success(let response):
@@ -76,8 +79,9 @@ class MoyaRxSwiftTests: XCTestCase {
 
     func testDownloadRepositoryInfo() {
         let expectation = self.expectation(description: "testDownloadRepositoryInfo")
-        
-         GitHubRxMoyaProvider.request(.repo("evermeer/EVReflection")) { (result) in
+
+        //         GitHubRxMoyaProvider.rx.request(.repo("evermeer/EVReflection")).subscribe { (result) in
+        GitHubRxMoyaProvider.request(.repo("evermeer/EVReflection")) { (result) in
             switch result {
             case .success(let response):
                 do {

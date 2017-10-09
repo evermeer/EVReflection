@@ -30,5 +30,21 @@
             breakpointStackSelectionBehavior = "1">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Source/EVReflection.swift"
+            timestampString = "528970890.544025"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1187"
+            endingLineNumber = "1187"
+            landmarkName = "arrayConversion(_:key:fieldType:original:theDictValue:conversionOptions:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

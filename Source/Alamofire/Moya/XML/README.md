@@ -54,29 +54,18 @@ class Repository: EVObject {
 ```
 
 ```swift
-GitHubProvider.request(.userRepositories(username), completion: { result in
-    var success = true
-    var message = "Unable to fetch from GitHub"
-
+GitHubRxMoyaProvider.request(.xml) { (result) in
     switch result {
-        case let .success(response):
+        case .success(let response):
             do {
-                if let repos = try response.mapArray(Repository) {
-                    self.repos = repos
-                } else {
-                    success = false
-                }
-            } catch {
-                success = false
+                let parsed = try response.RmapXml(to: WeatherResponse.self)
+                print("result = \(parsed)")
+            } catch let error {
+                print("parse error = \(error)")
             }
-            self.tableView.reloadData()
-        case let .failure(error):
-            guard let error = error as? CustomStringConvertible else {
-                break
-            }
-            message = error.description
-            success = false
+        case .failure(let error):
+            print("request error = \(error)")
+        }
     }
-})
 
 ```

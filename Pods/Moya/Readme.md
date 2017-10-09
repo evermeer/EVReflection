@@ -5,9 +5,16 @@
 [![Swift Package Manager compatible](https://img.shields.io/badge/Swift%20Package%20Manager-compatible-brightgreen.svg)](https://github.com/apple/swift-package-manager)
 
 
+
 <p align="center">
   <img height="160" src="web/logo_github.png" />
 </p>
+
+## Documentation in Chinese
+
+**All docs in "docs_CN". [Go](Readme_CN.md)**
+
+
 
 You're a smart developer. You probably use [Alamofire](https://github.com/Alamofire/Alamofire) to abstract away access to
 `URLSession` and all those nasty details you don't really care about. But then,
@@ -289,15 +296,24 @@ following:
 
 If any of that sounds cool to you, send a pull request! After a few
 contributions, we'll add you as an admin to the repo so you can merge pull
-requests and help steer the ship :ship: You can read more details about that [in our contributor guidelines](https://github.com/Moya/contributors).
+requests and help steer the ship :ship: You can read more details about that [in our contributor guidelines](https://github.com/Moya/Moya/blob/master/Contributing.md).
 
 Moya's community has a tremendous positive energy, and the maintainers are committed to keeping things awesome. Like [in the CocoaPods community](https://github.com/CocoaPods/CocoaPods/wiki/Communication-&-Design-Rules), always assume positive intent; even if a comment sounds mean-spirited, give the person the benefit of the doubt.
 
-Please note that this project is released with a Contributor Code of Conduct. By participating in this project you agree to abide by [its terms](https://github.com/Moya/contributors/blob/master/Code%20of%20Conduct.md).
+Please note that this project is released with a Contributor Code of Conduct. By participating in this project you agree to abide by [its terms](https://github.com/Moya/Moya/blob/master/Code%20of%20Conduct.md).
 
 ### Adding new source files
 
 If you add or remove a source file from Moya, a corresponding change needs to be made to the `Moya.xcodeproj` project at the root of this repository. This project is used for Carthage. Don't worry, you'll get an automated warning when submitting a pull request if you forget.
+
+### Help us improve Moya documentation
+Whether you’re a core member or a user trying it out for the first time, you can make a valuable contribution to Moya by improving the documentation. Help us by:
+
+- sending us feedback about something you thought was confusing or simply missing
+- suggesting better wording or ways of explaining certain topics
+- sending us a pull request via GitHub
+- improving the [Chinese documentation](Readme_CN.md)
+
 
 ## License
 
