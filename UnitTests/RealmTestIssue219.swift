@@ -15,7 +15,7 @@ import EVReflection
 
 //: I. Define the data entities
 
-class Users: Object {
+class Users: Object, EVReflectable {
     @objc dynamic var id = ""
     @objc dynamic var name = ""
     @objc dynamic var email = ""
@@ -24,7 +24,7 @@ class Users: Object {
     var roles = List<UserRoles>()
 }
 
-class UserRoles: Object {
+class UserRoles: Object, EVReflectable {
     @objc dynamic var id = ""
     @objc dynamic var user_id = ""
     @objc dynamic var role_id = ""

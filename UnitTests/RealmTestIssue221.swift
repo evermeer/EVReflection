@@ -15,7 +15,7 @@ import EVReflection
 
 //: I. Define the data entities
 
-class CategoryModel: Object {
+class CategoryModel: Object, EVReflectable {
     
     @objc dynamic var children = ""
     @objc dynamic var id = ""
@@ -23,7 +23,7 @@ class CategoryModel: Object {
     let name =  List<NameCategoryModel>()
 }
 
-class NameCategoryModel: Object {
+class NameCategoryModel: Object, EVReflectable {
     @objc dynamic var locale = ""
     @objc dynamic var value = ""
 }

@@ -19,17 +19,25 @@ import EVReflection
 
 //: I. Define the data entities
 
-class Person: Object {
+class Person: Object, EVReflectable {
     @objc dynamic var name = ""
     @objc dynamic var age = 0
     @objc dynamic var spouse: Person?
     let cars = List<Car>()
 }
 
-class Car: Object {
+class Car: Object, EVReflectable {
     @objc dynamic var brand = ""
     @objc dynamic var name: String?
     @objc dynamic var year = 0
+    
+    open func propertyConverters() -> [(key: String, decodeConverter: ((Any?) -> ()), encodeConverter: (() -> Any?))] {
+        return [(key: "brand", decodeConverter: { value in
+            self.brand = value as? String ?? ""
+        }, encodeConverter: {
+            return self.brand
+        })]
+    }
 }
 
 
