@@ -1,38 +1,38 @@
 PODS:
   - Alamofire (4.5.1)
-  - EVReflection/Alamofire (5.1.0):
+  - EVReflection/Alamofire (5.1.1):
     - Alamofire
     - EVReflection/Core
-  - EVReflection/AlamofireXML (5.1.0):
+  - EVReflection/AlamofireXML (5.1.1):
     - EVReflection/Alamofire
     - EVReflection/XML
-  - EVReflection/CloudKit (5.1.0):
+  - EVReflection/CloudKit (5.1.1):
     - EVReflection/Core
-  - EVReflection/Core (5.1.0)
-  - EVReflection/CoreData (5.1.0):
+  - EVReflection/Core (5.1.1)
+  - EVReflection/CoreData (5.1.1):
     - EVReflection/Core
-  - EVReflection/Moya (5.1.0):
+  - EVReflection/Moya (5.1.1):
     - EVReflection/Alamofire
-    - Moya (= 10.0.0-beta.1)
-  - EVReflection/MoyaReactiveSwift (5.1.0):
+    - Moya
+  - EVReflection/MoyaReactiveSwift (5.1.1):
     - EVReflection/Moya
     - Moya/ReactiveSwift
-  - EVReflection/MoyaReactiveSwiftXML (5.1.0):
+  - EVReflection/MoyaReactiveSwiftXML (5.1.1):
     - EVReflection/MoyaReactiveSwift
     - EVReflection/MoyaXML
-  - EVReflection/MoyaRxSwift (5.1.0):
+  - EVReflection/MoyaRxSwift (5.1.1):
     - EVReflection/Moya
     - Moya/RxSwift
-  - EVReflection/MoyaRxSwiftXML (5.1.0):
+  - EVReflection/MoyaRxSwiftXML (5.1.1):
     - EVReflection/MoyaRxSwift
     - EVReflection/MoyaXML
-  - EVReflection/MoyaXML (5.1.0):
+  - EVReflection/MoyaXML (5.1.1):
     - EVReflection/AlamofireXML
     - EVReflection/Moya
-  - EVReflection/Realm (5.1.0):
+  - EVReflection/Realm (5.1.1):
     - EVReflection/Core
     - RealmSwift
-  - EVReflection/XML (5.1.0):
+  - EVReflection/XML (5.1.1):
     - EVReflection/Core
     - XMLDictionary
   - Moya (10.0.0-beta.1):
@@ -48,11 +48,11 @@ PODS:
     - RxSwift (= 4.0.0-rc.0)
   - ReactiveSwift (2.0.1):
     - Result (~> 3.2)
-  - Realm (2.10.2):
-    - Realm/Headers (= 2.10.2)
-  - Realm/Headers (2.10.2)
-  - RealmSwift (2.10.2):
-    - Realm (= 2.10.2)
+  - Realm (3.0.0):
+    - Realm/Headers (= 3.0.0)
+  - Realm/Headers (3.0.0)
+  - RealmSwift (3.0.0):
+    - Realm (= 3.0.0)
   - Result (3.2.4)
   - RxSwift (4.0.0-rc.0)
   - XMLDictionary (1.4.1)
@@ -80,11 +80,11 @@ CHECKOUT OPTIONS:
 
 SPEC CHECKSUMS:
   Alamofire: 2d95912bf4c34f164fdfc335872e8c312acaea4a
-  EVReflection: 92e801928b5417d31e581f4e8a7cf12b8b3ddff5
+  EVReflection: 58a17e6d2fb561ba6c47b0a88139ce05080615cd
   Moya: 88d6dcee6a0d8d4e493088a600c7773a077f0d08
   ReactiveSwift: 60a29ff35988a964fd2bb759755cb6594de523fc
-  Realm: 0ef72b837fb67e9f4b098bac771ddd72c7fdbb69
-  RealmSwift: 07a9ae0505091eda6b2ee7c190c3786d6e90a7b0
+  Realm: dec0de73be8c57506e39db72694d513c189493b3
+  RealmSwift: 44a7090b16d1b22a406c6bf129bdd602db1bbecc
   Result: d2d07204ce72856f1fd9130bbe42c35a7b0fea10
   RxSwift: 1dd09ceb11531c39adff4efe23556b1484e16967
   XMLDictionary: fa07b6ff422b3a91d47a5de9bc82e3fc04fbd167

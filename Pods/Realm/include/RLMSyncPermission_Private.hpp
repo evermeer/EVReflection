@@ -16,12 +16,14 @@
 //
 ////////////////////////////////////////////////////////////////////////////
 
-#import "RLMSyncPermissionResults.h"
+#import "RLMSyncPermission.h"
 
-#import "results.hpp"
+#import "sync/sync_permission.hpp"
 
-@interface RLMSyncPermissionResults ()
+@interface RLMSyncPermission ()
 
-- (instancetype)initWithResults:(realm::Results)results;
+- (instancetype)initWithPermission:(realm::Permission)permission;
+
+- (realm::Permission)rawPermission;
 
 @end

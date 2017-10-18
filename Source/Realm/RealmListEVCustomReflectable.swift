@@ -24,7 +24,7 @@ extension Object {
             kvc.setGenericValue(value as AnyObject!, forUndefinedKey: key)
         } else {
             (self as? EVReflectable)?.addStatusMessage(.IncorrectKey, message: "The class '\(EVReflection.swiftStringFromClass(self))' is not key value coding-compliant for the key '\(key)'")
-            evPrint(.IncorrectKey, "WARNING: The class '\(EVReflection.swiftStringFromClass(self))' is not key value coding-compliant for the key '\(key)'\n❓ This could be a strange Realm List issue where tee key is reported undefined but it's still set.\n")
+            evPrint(.IncorrectKey, "WARNING: The class '\(EVReflection.swiftStringFromClass(self))' is not key value coding-compliant for the key '\(key)'\n❓ This could be a strange Realm List issue where the key is reported undefined but it's still set.\n")
         }
     }
 }
@@ -57,7 +57,7 @@ extension Object: EVCustomReflectable {
             guard let value = self.value(forKey:property) else { continue }
             if let detachable = value as? Object {
                 newDict.setValue(detachable.toCodableValue(), forKey: property)
-            } else if let detachable = value as? List {
+            } else if let detachable = value as? List<Object> {
                 let result = NSMutableArray()
                 detachable.forEach {
                     result.add($0.toCodableValue())
@@ -82,10 +82,12 @@ extension List : EVCustomReflectable {
         if let array = value as? [NSDictionary] {
             self.removeAll()
             for dict in array {
-                if let element: T = EVReflection.fromDictionary(dict, anyobjectTypeString: _rlmArray.objectClassName) as? T {
+                let className: String = (_rlmArray.objectClassName as String?) ?? ""
+                if let element: Element = EVReflection.fromDictionary(dict, anyobjectTypeString: className) as? Element {
                     self.append(element)
                 }
             }
+            
         }
     }
     

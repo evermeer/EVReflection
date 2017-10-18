@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////
 //
-// Copyright 2016 Realm Inc.
+// Copyright 2017 Realm Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -16,27 +16,25 @@
 //
 ////////////////////////////////////////////////////////////////////////////
 
-#import "RLMSyncPermissionOffer.h"
+#ifndef REALM_OS_PARTIAL_SYNC_HPP
+#define REALM_OS_PARTIAL_SYNC_HPP
 
-NS_ASSUME_NONNULL_BEGIN
+#include <functional>
+#include <memory>
+#include <string>
 
-@interface RLMSyncPermissionOffer()
+namespace realm {
 
-@property (readwrite) NSString *id;
-@property (readwrite) NSDate *createdAt;
-@property (readwrite) NSDate *updatedAt;
-@property (nullable, readwrite) NSNumber<RLMInt> *statusCode;
-@property (nullable, readwrite) NSString *statusMessage;
+class Realm;
+class Results;
 
-@property (nullable, readwrite) NSString *token;
-@property (readwrite) NSString *realmUrl;
+namespace partial_sync {
 
-@property (readwrite) BOOL mayRead;
-@property (readwrite) BOOL mayWrite;
-@property (readwrite) BOOL mayManage;
+void register_query(std::shared_ptr<Realm>, const std::string &object_class,
+                    const std::string &query,
+                    std::function<void (Results, std::exception_ptr)>);
 
-@property (nullable, readwrite) NSDate *expiresAt;
+} // namespace partial_sync
+} // namespace realm
 
-@end
-
-NS_ASSUME_NONNULL_END
+#endif // REALM_OS_PARTIAL_SYNC_HPP

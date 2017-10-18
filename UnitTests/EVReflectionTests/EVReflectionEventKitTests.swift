@@ -21,7 +21,22 @@ import EVReflection
  Testing EVReflection with EKEvent
  */
 
-extension EKObject : EVReflectable { }
+extension EKObject : EVReflectable {
+    open override func setValue(_ value: Any!, forUndefinedKey key: String) {
+        if let kvc = self as? EVGenericsKVC {
+            kvc.setGenericValue(value as AnyObject!, forUndefinedKey: key)
+        } else {
+            self.addStatusMessage(.IncorrectKey, message: "The class '\(EVReflection.swiftStringFromClass(self))' is not key value coding-compliant for the key '\(key)'")
+            evPrint(.IncorrectKey, "\nWARNING: The class '\(EVReflection.swiftStringFromClass(self))' is not key value coding-compliant for the key '\(key)'\n There is no support for optional type, array of optionals or enum properties.\nAs a workaround you can implement the function 'setValue forUndefinedKey' for this. See the unit tests for more information\n")
+            
+        }
+    }
+    
+    override open func value(forUndefinedKey key: String) -> Any? {
+        evPrint(.IncorrectKey, "\nWARNING: The class '\(EVReflection.swiftStringFromClass(self))' is not key value coding-compliant for the key '\(key)'\n")
+        return nil
+    }
+}
 
 let store = EKEventStore()
 
