@@ -2,7 +2,7 @@ Please take notice that:
 
 I switched master to Swift 4
 
-Unfortunately I'm not allowed to push a new version for this to cocoapods because there now is a dependency to Moya 10.0 which is still in beta. 
+Unfortunately I'm not allowed to push a new version for this to cocoapods. I hope to fix this issue soon
 
 In order to use this using cocoapods you have to specify the git pad so that it will use master
 `pod 'EVReflection', :git => 'https://github.com/evermeer/EVReflection.git'`

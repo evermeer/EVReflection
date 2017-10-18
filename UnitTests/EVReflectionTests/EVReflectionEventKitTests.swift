@@ -79,7 +79,7 @@ class EVReflectionEventKitTests: XCTestCase {
         var propertyNames = [String]()
         let intCount = Int(count)
         for i in 0 ..< intCount {
-            let property : objc_property_t = properties![i]!
+            let property : objc_property_t = properties![i]
             guard let propertyName = NSString(utf8String: property_getName(property)) as String? else {
                 debugPrint("Couldn't unwrap property name for \(property)")
                 break

@@ -41,14 +41,6 @@
       "frameworks": "Foundation"
     },
     {
-      "name": "ReactiveCocoa",
-      "dependencies": {
-        "Moya/ReactiveSwift": [
-
-        ]
-      }
-    },
-    {
       "name": "ReactiveSwift",
       "source_files": "Sources/ReactiveMoya/",
       "dependencies": {

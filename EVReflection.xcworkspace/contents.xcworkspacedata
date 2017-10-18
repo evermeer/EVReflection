@@ -17,6 +17,9 @@
       location = "group:Podfile">
    </FileRef>
    <FileRef
+      location = "group:ISSUE_TEMPLATE.md">
+   </FileRef>
+   <FileRef
       location = "group:Source">
    </FileRef>
    <FileRef

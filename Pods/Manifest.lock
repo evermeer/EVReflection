@@ -1,38 +1,38 @@
 PODS:
   - Alamofire (4.5.1)
-  - EVReflection/Alamofire (5.0.4):
+  - EVReflection/Alamofire (5.1.0):
     - Alamofire
     - EVReflection/Core
-  - EVReflection/AlamofireXML (5.0.4):
+  - EVReflection/AlamofireXML (5.1.0):
     - EVReflection/Alamofire
     - EVReflection/XML
-  - EVReflection/CloudKit (5.0.4):
+  - EVReflection/CloudKit (5.1.0):
     - EVReflection/Core
-  - EVReflection/Core (5.0.4)
-  - EVReflection/CoreData (5.0.4):
+  - EVReflection/Core (5.1.0)
+  - EVReflection/CoreData (5.1.0):
     - EVReflection/Core
-  - EVReflection/Moya (5.0.4):
+  - EVReflection/Moya (5.1.0):
     - EVReflection/Alamofire
     - Moya (= 10.0.0-beta.1)
-  - EVReflection/MoyaReactiveSwift (5.0.4):
+  - EVReflection/MoyaReactiveSwift (5.1.0):
     - EVReflection/Moya
     - Moya/ReactiveSwift
-  - EVReflection/MoyaReactiveSwiftXML (5.0.4):
+  - EVReflection/MoyaReactiveSwiftXML (5.1.0):
     - EVReflection/MoyaReactiveSwift
     - EVReflection/MoyaXML
-  - EVReflection/MoyaRxSwift (5.0.4):
+  - EVReflection/MoyaRxSwift (5.1.0):
     - EVReflection/Moya
     - Moya/RxSwift
-  - EVReflection/MoyaRxSwiftXML (5.0.4):
+  - EVReflection/MoyaRxSwiftXML (5.1.0):
     - EVReflection/MoyaRxSwift
     - EVReflection/MoyaXML
-  - EVReflection/MoyaXML (5.0.4):
+  - EVReflection/MoyaXML (5.1.0):
     - EVReflection/AlamofireXML
     - EVReflection/Moya
-  - EVReflection/Realm (5.0.4):
+  - EVReflection/Realm (5.1.0):
     - EVReflection/Core
     - RealmSwift
-  - EVReflection/XML (5.0.4):
+  - EVReflection/XML (5.1.0):
     - EVReflection/Core
     - XMLDictionary
   - Moya (10.0.0-beta.1):
@@ -64,15 +64,24 @@ DEPENDENCIES:
   - EVReflection/MoyaReactiveSwiftXML (from `./`)
   - EVReflection/MoyaRxSwiftXML (from `./`)
   - EVReflection/Realm (from `./`)
+  - Moya (from `https://github.com/Moya/Moya.git`, branch `10.0.0-dev`)
 
 EXTERNAL SOURCES:
   EVReflection:
     :path: ./
+  Moya:
+    :branch: 10.0.0-dev
+    :git: https://github.com/Moya/Moya.git
+
+CHECKOUT OPTIONS:
+  Moya:
+    :commit: a951eeab47ad7f4ef780b63e085704b576bbc3be
+    :git: https://github.com/Moya/Moya.git
 
 SPEC CHECKSUMS:
   Alamofire: 2d95912bf4c34f164fdfc335872e8c312acaea4a
-  EVReflection: f40709029497436e26a3d1178e230c7f7603fc90
-  Moya: 7fb3c51aa9b3fdf5ea7d9412e03b63edb9559fb3
+  EVReflection: 92e801928b5417d31e581f4e8a7cf12b8b3ddff5
+  Moya: 88d6dcee6a0d8d4e493088a600c7773a077f0d08
   ReactiveSwift: 60a29ff35988a964fd2bb759755cb6594de523fc
   Realm: 0ef72b837fb67e9f4b098bac771ddd72c7fdbb69
   RealmSwift: 07a9ae0505091eda6b2ee7c190c3786d6e90a7b0
@@ -80,6 +89,6 @@ SPEC CHECKSUMS:
   RxSwift: 1dd09ceb11531c39adff4efe23556b1484e16967
   XMLDictionary: fa07b6ff422b3a91d47a5de9bc82e3fc04fbd167
 
-PODFILE CHECKSUM: f8ae6ec1faef22d8adc930a19ece3b10f676f74f
+PODFILE CHECKSUM: 5ece3aa5717f557b2c4b092bf3cf16b8f48d766f
 
 COCOAPODS: 1.4.0.beta.1

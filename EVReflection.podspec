@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "EVReflection"
-  s.version      = "5.1.0"
+  s.version      = "5.1.1"
   s.summary      = "Reflection based (Dictionary, CKRecord, NSManagedObject, Realm, JSON and XML) object mapping with extensions for Alamofire and Moya with RxSwift or ReactiveSwift"
 
   s.description  = <<-EOS
@@ -13,7 +13,7 @@ EOS
   s.author             = { "Edwin Vermeer" => "edwin@evict.nl" }
   s.social_media_url   = "http://twitter.com/evermeer"
 
-  s.ios.deployment_target = '9.0'
+  s.ios.deployment_target = '8.0'
   s.osx.deployment_target = '10.11'
   s.watchos.deployment_target = '2.0'
   s.tvos.deployment_target = '9.0'
@@ -43,7 +43,7 @@ EOS
 
 # Extending EVReflection with mapping functions for CKRecord (CloudKit)
   s.subspec "CloudKit" do |ss|
-    ss.ios.deployment_target = '9.0'
+    ss.ios.deployment_target = '8.0'
     ss.osx.deployment_target = '10.11'
     ss.watchos.deployment_target = '3.0'
     ss.tvos.deployment_target = '9.0'
@@ -76,7 +76,7 @@ EOS
 # Adding easy Json to object mapping to Moya using EVReflection
   s.subspec "Moya" do |ss|
     ss.source_files  = "Source/Alamofire/Moya/*.swift"
-    ss.dependency "Moya", "10.0.0-beta.1"
+    ss.dependency "Moya"
     ss.dependency "EVReflection/Alamofire"
   end
 

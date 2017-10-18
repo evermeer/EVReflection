@@ -34,8 +34,7 @@ class AlamofireTests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
         super.tearDown()
     }
-
-
+    
     func testResponseObject() {
         // This is an example of a functional test case.
         let URL: URLConvertible = "http://raw.githubusercontent.com/evermeer/AlamofireJsonToObjects/master/AlamofireJsonToObjectsTests/sample_json"
