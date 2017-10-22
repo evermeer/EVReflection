@@ -1,38 +1,38 @@
 PODS:
   - Alamofire (4.5.1)
-  - EVReflection/Alamofire (5.1.2):
+  - EVReflection/Alamofire (5.1.3):
     - Alamofire
     - EVReflection/Core
-  - EVReflection/AlamofireXML (5.1.2):
+  - EVReflection/AlamofireXML (5.1.3):
     - EVReflection/Alamofire
     - EVReflection/XML
-  - EVReflection/CloudKit (5.1.2):
+  - EVReflection/CloudKit (5.1.3):
     - EVReflection/Core
-  - EVReflection/Core (5.1.2)
-  - EVReflection/CoreData (5.1.2):
+  - EVReflection/Core (5.1.3)
+  - EVReflection/CoreData (5.1.3):
     - EVReflection/Core
-  - EVReflection/Moya (5.1.2):
+  - EVReflection/Moya (5.1.3):
     - EVReflection/Alamofire
     - Moya
-  - EVReflection/MoyaReactiveSwift (5.1.2):
+  - EVReflection/MoyaReactiveSwift (5.1.3):
     - EVReflection/Moya
     - Moya/ReactiveSwift
-  - EVReflection/MoyaReactiveSwiftXML (5.1.2):
+  - EVReflection/MoyaReactiveSwiftXML (5.1.3):
     - EVReflection/MoyaReactiveSwift
     - EVReflection/MoyaXML
-  - EVReflection/MoyaRxSwift (5.1.2):
+  - EVReflection/MoyaRxSwift (5.1.3):
     - EVReflection/Moya
     - Moya/RxSwift
-  - EVReflection/MoyaRxSwiftXML (5.1.2):
+  - EVReflection/MoyaRxSwiftXML (5.1.3):
     - EVReflection/MoyaRxSwift
     - EVReflection/MoyaXML
-  - EVReflection/MoyaXML (5.1.2):
+  - EVReflection/MoyaXML (5.1.3):
     - EVReflection/AlamofireXML
     - EVReflection/Moya
-  - EVReflection/Realm (5.1.2):
+  - EVReflection/Realm (5.1.3):
     - EVReflection/Core
     - RealmSwift
-  - EVReflection/XML (5.1.2):
+  - EVReflection/XML (5.1.3):
     - EVReflection/Core
     - XMLDictionary
   - Moya (10.0.0):
@@ -71,7 +71,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Alamofire: 2d95912bf4c34f164fdfc335872e8c312acaea4a
-  EVReflection: e6ff665fb398384964b566f549be5e4af9aec6ba
+  EVReflection: c8ada3253b9dc4d545dc2d0a2ab5ce54e7ffa3ae
   Moya: adb58b0f4e58430db43cc6e2f6ebab1836501186
   ReactiveSwift: 60a29ff35988a964fd2bb759755cb6594de523fc
   Realm: dec0de73be8c57506e39db72694d513c189493b3
