@@ -4,10 +4,6 @@ workspace 'EVReflection'
 
 # Our Libraries (just include everything for the demo)
 def alllibraries
-    #temp Swift 4 force version
-    # pod 'RxSwift', :git => 'https://github.com/ReactiveX/RxSwift.git', :branch => '4.0.0-rc.0'
-    pod 'Moya', :git => 'https://github.com/Moya/Moya.git', :branch => '10.0.0-dev'
-  
   pod 'EVReflection/MoyaRxSwiftXML', :path => "./"
   pod 'EVReflection/MoyaReactiveSwiftXML', :path => "./"
   pod 'EVReflection/Realm', :path => "./"
@@ -17,14 +13,13 @@ end
 
 target 'Performance.Test' do
   project 'PerformanceTest/PerformanceTest'
-  platform :ios, '9.0'
+  platform :ios, '8.0'
   pod 'EVReflection/Core', :path => "./"
 end
 
-
 target 'UnitTestsiOS' do
     project 'UnitTests/UnitTests'
-    platform :ios, '9.0'
+    platform :ios, '8.0'
     alllibraries
 end
 
@@ -42,7 +37,7 @@ end
 
 target 'Demo' do
     project 'Demo/Demo'
-    platform :ios, '9.0'
+    platform :ios, '8.0'
     alllibraries
 end
 
