@@ -87,7 +87,12 @@ extension List : EVCustomReflectable {
                     self.append(element)
                 }
             }
-            
+        } else if let array = value as? NSArray {
+            for item in array {
+                if let element: Element = item as? Element {
+                    self.append(element)
+                }
+            }
         }
     }
     

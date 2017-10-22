@@ -17,7 +17,7 @@ import EVReflection
 
 class CategoryModel: Object, EVReflectable {
     
-    @objc dynamic var children = ""
+    let children = List<String>()
     @objc dynamic var id = ""
     @objc dynamic var isRoot =  false
     let name =  List<NameCategoryModel>()

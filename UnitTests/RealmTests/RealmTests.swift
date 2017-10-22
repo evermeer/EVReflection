@@ -40,6 +40,10 @@ class Car: Object, EVReflectable {
     }
 }
 
+class PrimitiveListsObject: Object, EVReflectable {
+    let strings = List<String>()
+    let optionalInt = RealmOptional<Int>()
+}
 
 
 /**
@@ -135,8 +139,12 @@ class RealmTests: XCTestCase {
         print("Number of persons in database after delete = \(realm.objects(Person.self).count)")
         //: Thanks! To learn more about Realm go to https://realm.io    
     }
+    
+    func testPrimitiveLists() {
+        let obj = PrimitiveListsObject(json: "{\"strings\":[\"a\",\"b\",\"c\"]}")
+        print("The object: \(obj)")
+    }
 }
-
 
 
 

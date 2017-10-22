@@ -1251,6 +1251,9 @@ final public class EVReflection {
                 valid = isValid
             } else if !type.hasPrefix("Swift.Array<") && !type.hasPrefix("Swift.Set<") {
                 if let array = dictValue as? NSArray {
+                    if anyObject is EVCustomReflectable {
+                        return (array, true)
+                    }
                     if let org = anyObject as? EVReflectable {
                         org.addStatusMessage(.InvalidType, message: "Did not expect an array for \(key). Will use the first item instead.")
                         evPrint(.InvalidType, "WARNING: Did not expect an array for \(key). Will use the first item instead.")
