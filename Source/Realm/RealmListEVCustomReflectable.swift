@@ -1,6 +1,5 @@
 //
 //  RealmListEVReflectable.swift
-//  UnitTests
 //
 //  Created by Edwin Vermeer on 29/03/2017.
 //  Copyright © 2017 evict. All rights reserved.
@@ -113,3 +112,5 @@ extension List : EVCustomReflectable {
         //return self.enumerated().map { ($0.element as? EVReflectable)?.toDictionary() ?? NSDictionary() }
     }
 }
+
+

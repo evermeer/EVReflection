@@ -59,6 +59,10 @@ class Car: Object, EVReflectable {
    dynamic var year = 0
 }
 
+class PrimitiveListAndOptionalObject: Object, EVReflectable {
+   let strings = List<String>()
+   let optionalInt = RealmOptional<Int>()
+}
 ```
 
 You can then..:
@@ -127,6 +131,13 @@ func testRealmSmokeTest() {
 
    print("Number of persons in database after delete = \(realm.objects(Person.self).count)")
    // Thanks! To learn more about Realm go to https://realm.io    
+}
+
+func testPrimitiveLists() {
+   let obj = PrimitiveListsObject(json: "{\"strings\":[\"a\",\"b\",\"c\"],\"optionalInt\":3}")
+   XCTAssertEqual(obj.strings.count, 3, "The strings array should have 3 values")
+   XCTAssertEqual(obj.optionalInt.value, 3, "The optional int should have been set to 3")
+   print("The object: \(obj)")
 }
 ```
 
