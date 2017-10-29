@@ -122,7 +122,36 @@ class ViewController: UIViewController {
 
 
 class TestObject1: EVObject {
-    var name: String? = "Object1 Name"
+    var name1: String? = "Object1 Name1"
+    var name2: String? = "Object1 Name2"
+    var name3: String? = "Object1 Name3"
+    var name4: String? = "Object1 Name4"
+    var name5: String? = "Object1 Name5"
+    var name6: String? = "Object1 Name6"
+    var name7: String? = "Object1 Name7"
+    var name8: String? = "Object1 Name8"
+    var name9: String? = "Object1 Name9"
+    var name10: String? = "Object1 Name10"
+    var name11: String? = "Object1 Name11"
+    var name12: String? = "Object1 Name12"
+    var name13: String? = "Object1 Name13"
+    var name14: String? = "Object1 Name14"
+    var name15: String? = "Object1 Name15"
+    var name16: String? = "Object1 Name16"
+    var name17: String? = "Object1 Name17"
+    var name18: String? = "Object1 Name18"
+    var name19: String? = "Object1 Name19"
+    var name20: String? = "Object1 Name20"
+    var name21: String? = "Object1 Name21"
+    var name22: String? = "Object1 Name22"
+    var name23: String? = "Object1 Name23"
+    var name24: String? = "Object1 Name24"
+    var name25: String? = "Object1 Name25"
+    var name26: String? = "Object1 Name26"
+    var name27: String? = "Object1 Name27"
+    var name28: String? = "Object1 Name28"
+    var name29: String? = "Object1 Name29"
+    var name30: String? = "Object1 Name30"
     var listObject2: [TestObject2]? = []
 }
 
