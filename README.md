@@ -143,7 +143,7 @@ If you want to do the same but you have XML, then you can achieve that using the
 
 ```swift
 let xml = "<user><id>27</id><name>Bob</name><friends><user><id>20</id><name>Jen</name></user></friends></user>"
-let user = User(xml: xml)
+let user = User(xmlString: xml)
 ```
 
 ## Using EVReflection in your own App 

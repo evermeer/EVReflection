@@ -11,7 +11,7 @@ extension EVReflectable where Self: NSObject {
     /**
      Convenience init for creating an object whith an XML string
      
-     - parameter xml: The xml string that will be used to create this object
+     - parameter xmlString: The xml string that will be used to create this object
      - parameter conversionOptions: Option set for the various conversion options.
      */
     public init?(xmlString: String, conversionOptions: ConversionOptions = .DefaultDeserialize, forKeyPath: String? = nil) {
