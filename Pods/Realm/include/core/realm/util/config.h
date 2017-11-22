@@ -13,6 +13,8 @@
 #define REALM_ENABLE_MEMDEBUG 0
 #define REALM_VALGRIND 0
 #define REALM_METRICS 1
+#define REALM_ASAN 0
+#define REALM_TSAN 0
 
 #define REALM_INSTALL_PREFIX "/usr/local"
 #define REALM_INSTALL_INCLUDEDIR "include"

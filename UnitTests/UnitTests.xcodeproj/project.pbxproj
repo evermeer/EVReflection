@@ -85,6 +85,7 @@
 		13EF3F691EDDF63700CDBFF4 /* CDUser+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13EF3F671EDDF63700CDBFF4 /* CDUser+CoreDataClass.swift */; };
 		13EF3F6A1EDDF63700CDBFF4 /* CDUser+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13EF3F671EDDF63700CDBFF4 /* CDUser+CoreDataClass.swift */; };
 		13EF3F6B1EDDF63700CDBFF4 /* CDUser+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13EF3F671EDDF63700CDBFF4 /* CDUser+CoreDataClass.swift */; };
+		1A0222E332CA330C2093A72E /* Pods_UnitTestsiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F65C8B938B44FD44F26FD855 /* Pods_UnitTestsiOS.framework */; };
 		422668011CB77DD800145E17 /* EVReflectionCustomInitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422667FF1CB77DD000145E17 /* EVReflectionCustomInitTests.swift */; };
 		422668021CB7802C00145E17 /* EVReflectionCustomInitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422667FF1CB77DD000145E17 /* EVReflectionCustomInitTests.swift */; };
 		422668031CB7802D00145E17 /* EVReflectionCustomInitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422667FF1CB77DD000145E17 /* EVReflectionCustomInitTests.swift */; };
@@ -267,7 +268,6 @@
 		7FF4BEB71CF2DA8E0086F999 /* EVReflectionIssue86.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF4BEB31CF2DA6E0086F999 /* EVReflectionIssue86.swift */; };
 		7FF953671E4A8237003B40A6 /* EVReflectionIssueAF39.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF953661E4A8237003B40A6 /* EVReflectionIssueAF39.swift */; };
 		BD2BFCDD3A3E46AF3E7AC341 /* Pods_UnitTestsOSX.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 16F24E2F358BA7E02E9739C7 /* Pods_UnitTestsOSX.framework */; };
-		CEBCAD0ACFB5064E90E04896 /* Pods_UnitTestsiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F65C8B938B44FD44F26FD855 /* Pods_UnitTestsiOS.framework */; };
 		ED61C31F4CFB3DAA6E8CEFF0 /* Pods_UnitTestsTVOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 47E08CAF57F8BB1CBE89AD73 /* Pods_UnitTestsTVOS.framework */; };
 /* End PBXBuildFile section */
 
@@ -394,7 +394,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				131200FF1EB9307B00A189C8 /* Pods_UnitTestsiOS.framework in Frameworks */,
-				CEBCAD0ACFB5064E90E04896 /* Pods_UnitTestsiOS.framework in Frameworks */,
+				1A0222E332CA330C2093A72E /* Pods_UnitTestsiOS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

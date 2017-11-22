@@ -11,6 +11,6 @@ import CoreData
 import EVReflection
 
 @objc(CoreDataPerson)
-public class CoreDataPerson: EVManagedObject {
+open class CoreDataPerson: EVManagedObject {
 
 }

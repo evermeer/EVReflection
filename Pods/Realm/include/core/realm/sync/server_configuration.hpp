@@ -60,6 +60,7 @@ struct Configuration {
     util::Optional<std::string> feature_token;
     util::Optional<std::string> feature_token_path;
     bool enable_download_log_compaction = true;
+    size_t max_download_size = 0x20000; // 128 KB
 };
 
 #if !REALM_MOBILE

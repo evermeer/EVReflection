@@ -98,9 +98,6 @@ class EVReflectionWorkaroundsTests: XCTestCase {
         let event2 = WorkaroundObject(json: json)
         print(event2)
         
-        //TODO: This is a Swift 3 bug for which I don't have a workaround (yet?)
-        //See https://bugs.swift.org/browse/SR-3083
-        //this is failing because Mirror is returning the displayStyle .class for the items in the array instead of displayStyle .enum.
         XCTAssertEqual(event.enumList.count, event2.enumList.count, "Now the list should also have 4 items")
         if event2.enumList.count == 4 {
             XCTAssertEqual(event2.enumList[0], StatusType.ok, "The first item should be .OK")

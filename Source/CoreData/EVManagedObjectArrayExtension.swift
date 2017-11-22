@@ -50,8 +50,8 @@ public extension Array where Element: EVManagedObject {
     public func getTypeInstance<T: EVManagedObject>(context: NSManagedObjectContext) -> T {
         let nsobjectype: EVManagedObject.Type = T.self
         let name = EVReflection.swiftStringFromClass(nsobjectype)
-        let entity = NSEntityDescription.entity(forEntityName: name, in: context)
-        let nsobject: EVManagedObject = nsobjectype.init(entity: entity!, insertInto: context)
+        guard let entity = NSEntityDescription.entity(forEntityName: name, in: context) else { return T() }
+        let nsobject: EVManagedObject = nsobjectype.init(entity: entity, insertInto: context)
         
         if let obj =  nsobject as? T {
             return obj

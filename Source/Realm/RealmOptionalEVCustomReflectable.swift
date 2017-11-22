@@ -25,10 +25,10 @@ extension RealmOptional : EVCustomReflectable {
      - returns: Dictionary without custom properties key
      */
     public func toCodableValue() -> Any {
-        return self.value ?? ""
+        return self.value as Any
     }
     
-    // Bridge cast the Any value to the RealmOptional value
+    // Bridge cast the Any value to the RealmOptional value (function is copy from Realm's Util.swift)
     internal func dynamicBridgeCast<T>(fromObjectiveC x: Any) -> T {
         if T.self == DynamicObject.self {
             return unsafeBitCast(x as AnyObject, to: T.self)

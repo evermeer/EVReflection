@@ -61,7 +61,7 @@ let moc: NSManagedObjectContext = EVReflectionTestsData().moc // Your code for g
 
 let obj = CoreDataPerson(context: moc, json: "{\"firstName\" : \"Edwin\", \"lastName\" : \"Vermeer\"}")
 
-try! moc.save() //TODO: implement error handling
+try! moc.save() //You should implement error handling
 ```
 
 Parsing an object array is just as easy:
@@ -70,12 +70,9 @@ let moc: NSManagedObjectContext = EVReflectionTestsData().moc // Your code for g
 
 let arr = [CoreDataPerson](context: moc, json: "[{\"firstName\" : \"Edwin\", \"lastName\" : \"Vermeer\"},{\"firstName\" : \"Edwin 2\", \"lastName\" : \"Vermeer 2\"}]")
 
-try! moc.save() //TODO: implement error handling
+try! moc.save() //You should implement error handling
 ```
 
-
-TODO:
-- sub objects and relationships
 
 
 

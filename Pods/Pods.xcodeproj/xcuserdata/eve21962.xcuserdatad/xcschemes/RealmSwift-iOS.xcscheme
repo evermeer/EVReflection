@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "257DB0BB459702A60B524BABB0CD5C9D"
+               BlueprintIdentifier = "1E53827462C5F5B8D0B44453A2681698"
                BuildableName = "RealmSwift.framework"
                BlueprintName = "RealmSwift-iOS"
                ReferencedContainer = "container:Pods.xcodeproj">
@@ -47,7 +47,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "257DB0BB459702A60B524BABB0CD5C9D"
+            BlueprintIdentifier = "1E53827462C5F5B8D0B44453A2681698"
             BuildableName = "RealmSwift.framework"
             BlueprintName = "RealmSwift-iOS"
             ReferencedContainer = "container:Pods.xcodeproj">

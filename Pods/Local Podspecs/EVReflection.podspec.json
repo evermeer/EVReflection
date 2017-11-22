@@ -1,6 +1,6 @@
 {
   "name": "EVReflection",
-  "version": "5.1.4",
+  "version": "5.1.6",
   "summary": "Reflection based (Dictionary, CKRecord, NSManagedObject, Realm, JSON and XML) object mapping with extensions for Alamofire and Moya with RxSwift or ReactiveSwift",
   "description": "[Reflection](https://github.com/evermeer/EVReflection) based object mapping (dictionary, Json, XML, CKRecord)\nincluding extensions for [Alamofire](https://github.com/Alamofire/Alamofire) and [Moya](https://github.com/Moya/Moya) for network abstraction. And on top of that extension for [RxSwift](https://github.com/ReactiveX/RxSwift/) and [ReactiveSwift]",
   "homepage": "https://github.com/evermeer/EVReflection",
@@ -23,7 +23,7 @@
   },
   "source": {
     "git": "https://github.com/evermeer/EVReflection.git",
-    "tag": "5.1.4"
+    "tag": "5.1.6"
   },
   "default_subspecs": "Core",
   "subspecs": [

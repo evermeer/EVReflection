@@ -160,6 +160,7 @@ enum class ProtocolError {
     diverging_histories          = 211, // Diverging histories (IDENT)
     bad_changeset                = 212, // Bad changeset (UPLOAD)
     disabled_session             = 213, // Disabled session
+    partial_sync_disabled        = 214, // Partial sync disabled (BIND)
 };
 
 inline constexpr bool is_session_level_error(ProtocolError error)

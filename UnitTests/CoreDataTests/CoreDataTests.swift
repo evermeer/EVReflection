@@ -94,7 +94,6 @@ class CoreDataTests: XCTestCase {
     }
     
     
-    //TODO: fix coredata propertymapping issue
     func testCoreDataEnheritanceTest() {
         let data = EVReflectionTestsData() // We use an in memory database here. So it's allwais empty.
         

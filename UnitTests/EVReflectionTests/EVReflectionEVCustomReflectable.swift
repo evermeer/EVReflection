@@ -56,15 +56,4 @@ extension XObject : EVCustomReflectable {
     }
 }
 
-/* TODO: ??
-extension String : EVCustomReflectable {
-    public  func constructWith(value: Any?) {
-        let x = value as? String ?? ""
-        print("should set self \(x)")
-    }
-    public func toCodableValue() -> Any {
-        return self
-    }
-}
-*/
  
