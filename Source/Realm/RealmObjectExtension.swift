@@ -22,9 +22,21 @@ extension Object {
         if let kvc = self as? EVGenericsKVC {
             kvc.setGenericValue(value as AnyObject!, forUndefinedKey: key)
         } else {
-            super.setValue(value, forUndefinedKey: key)
-            (self as? EVReflectable)?.addStatusMessage(.IncorrectKey, message: "The class '\(EVReflection.swiftStringFromClass(self))' is not key value coding-compliant for the key '\(key)'")
-            evPrint(.IncorrectKey, "WARNING: The class '\(EVReflection.swiftStringFromClass(self))' is not key value coding-compliant for the key '\(key)'\n❓ This could be a strange Realm List issue where the key is reported undefined but it's still set.\n")
+            if let current = super.value(forKey: key) {
+                if current is NSNumber, value is NSString {
+                    //If we do have key and the types are different, then this is called from EVReflection
+                    let num = NSNumber(value: Int("\(value as! NSString)") ?? 0)
+                    super.setValue(num, forUndefinedKey: key)
+                } else if type(of: current) == type(of: value!)
+                    || (String(describing: type(of: current)).hasPrefix("List<") && value! is NSArray) {
+                    super.setValue(value, forUndefinedKey: key)
+                } else {
+                    (self as? EVReflectable)?.addStatusMessage(.InvalidType, message: "Invalid type for the key '\(key)' in the class '\(EVReflection.swiftStringFromClass(self))'")
+                    evPrint(.IncorrectKey, "WARNING: the type (\(type(of: current)) of the The key '\(key)' in class '\(EVReflection.swiftStringFromClass(self))' does not corresponds to the type (\(type(of: value!)) in the json or Realm database.\n")
+                }
+            } else {
+                super.setValue(value, forUndefinedKey: key)
+            }
         }
     }
 }
