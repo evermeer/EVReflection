@@ -74,4 +74,6 @@ class Repository: EVObject { // Could also use any NSObject with EVReflectable b
   var language: String?
   var hasPages: Bool = false
   var hasProjects: Bool = false
+  var license: License?
+  var archived: String?
 }

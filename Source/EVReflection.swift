@@ -1089,7 +1089,7 @@ final public class EVReflection {
     }
     
     /// Character that will be replaced by _ from the keys in a dictionary / json
-    fileprivate static let illegalCharacterSet = CharacterSet(charactersIn: " -&%#@!$^*()<>?.,:;")
+    fileprivate static let illegalCharacterSet = CharacterSet(charactersIn: " -&%#@!$^*()<>?.,:;1234567890")
     /// processIllegalCharacters Cache
     fileprivate static var processIllegalCharactersCache = NSCache<NSString, NSString>()
 
@@ -1573,7 +1573,7 @@ extension Date {
         let pattern = "\\\\?/Date\\((\\d+)(([+-]\\d{2})(\\d{2}))?\\)\\\\?/"
         let regex = try! NSRegularExpression(pattern: pattern)
         guard let match = regex.firstMatch(in: fromDateTimeString, range: NSRange(location: 0, length: fromDateTimeString.utf16.count)) else {
-            //            Rosewood.info("Failed to find a match")
+            //            evPrint("Failed to find a match")
             return nil
         }
         

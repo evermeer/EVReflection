@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		13FEBE801FE101BE008716AA /* License.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13FEBE7F1FE101BE008716AA /* License.swift */; };
 		306F6BF71D22BCEB00F727A6 /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 306F6BF61D22BCEB00F727A6 /* Repository.swift */; };
 		306F6BF91D22BCF400F727A6 /* Owner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 306F6BF81D22BCF400F727A6 /* Owner.swift */; };
 		5EC197E61A1BB16D00F4DFD4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EC197E51A1BB16D00F4DFD4 /* AppDelegate.swift */; };
@@ -22,10 +23,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		13FEBE7F1FE101BE008716AA /* License.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = License.swift; sourceTree = "<group>"; };
 		1A8B0F00D6903A046FE40BCE /* Pods-Demo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Demo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Demo/Pods-Demo.debug.xcconfig"; sourceTree = "<group>"; };
 		306F6BF61D22BCEB00F727A6 /* Repository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
 		306F6BF81D22BCF400F727A6 /* Owner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Owner.swift; sourceTree = "<group>"; };
-		5EC197E01A1BB16D00F4DFD4 /* Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Demo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		5EC197E01A1BB16D00F4DFD4 /* 4Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = 4Demo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5EC197E41A1BB16D00F4DFD4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5EC197E51A1BB16D00F4DFD4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5EC197E71A1BB16D00F4DFD4 /* MoyaViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoyaViewController.swift; sourceTree = "<group>"; };
@@ -92,7 +94,7 @@
 		5EC197E11A1BB16D00F4DFD4 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				5EC197E01A1BB16D00F4DFD4 /* Demo.app */,
+				5EC197E01A1BB16D00F4DFD4 /* 4Demo.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -127,6 +129,7 @@
 				5EC198071A1BB24600F4DFD4 /* MoyaGitHubAPI.swift */,
 				306F6BF61D22BCEB00F727A6 /* Repository.swift */,
 				306F6BF81D22BCF400F727A6 /* Owner.swift */,
+				13FEBE7F1FE101BE008716AA /* License.swift */,
 			);
 			name = API;
 			sourceTree = "<group>";
@@ -145,9 +148,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		5EC197DF1A1BB16D00F4DFD4 /* Demo */ = {
+		5EC197DF1A1BB16D00F4DFD4 /* 4Demo */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 5EC198011A1BB16D00F4DFD4 /* Build configuration list for PBXNativeTarget "Demo" */;
+			buildConfigurationList = 5EC198011A1BB16D00F4DFD4 /* Build configuration list for PBXNativeTarget "4Demo" */;
 			buildPhases = (
 				9B2248C62406490041BDC8AD /* [CP] Check Pods Manifest.lock */,
 				5EC197DC1A1BB16D00F4DFD4 /* Sources */,
@@ -160,9 +163,9 @@
 			);
 			dependencies = (
 			);
-			name = Demo;
+			name = 4Demo;
 			productName = Demo;
-			productReference = 5EC197E01A1BB16D00F4DFD4 /* Demo.app */;
+			productReference = 5EC197E01A1BB16D00F4DFD4 /* 4Demo.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -196,7 +199,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				5EC197DF1A1BB16D00F4DFD4 /* Demo */,
+				5EC197DF1A1BB16D00F4DFD4 /* 4Demo */,
 			);
 		};
 /* End PBXProject section */
@@ -297,6 +300,7 @@
 				7FC775E01E211F34003D436E /* BaseViewController.swift in Sources */,
 				7F1C9D351E23CE5100A18776 /* README.md in Sources */,
 				306F6BF71D22BCEB00F727A6 /* Repository.swift in Sources */,
+				13FEBE801FE101BE008716AA /* License.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -378,7 +382,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = nl.evict.Demo;
+				PRODUCT_BUNDLE_IDENTIFIER = nl.evict.4Demo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 			};
@@ -442,7 +446,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = nl.evict.Demo;
+				PRODUCT_BUNDLE_IDENTIFIER = nl.evict.4Demo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 			};
@@ -460,7 +464,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		5EC198011A1BB16D00F4DFD4 /* Build configuration list for PBXNativeTarget "Demo" */ = {
+		5EC198011A1BB16D00F4DFD4 /* Build configuration list for PBXNativeTarget "4Demo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				5EC198031A1BB16D00F4DFD4 /* Release */,
