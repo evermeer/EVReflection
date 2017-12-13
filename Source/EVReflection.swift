@@ -591,6 +591,11 @@ final public class EVReflection {
             appName = appName.characters.split(whereSeparator: {$0 == "."}).map({ String($0) }).last ?? ""
         }
         
+        // First character may not be a number
+        if appName.prefix(1) >= "0" && appName.prefix(1) <= "9" {
+            appName = "_" + String(appName.characters.dropFirst())
+        }
+        
         // Clean up special characters
         return appName.components(separatedBy: illegalCharacterSet).joined(separator: "_")
     }
@@ -1089,7 +1094,7 @@ final public class EVReflection {
     }
     
     /// Character that will be replaced by _ from the keys in a dictionary / json
-    fileprivate static let illegalCharacterSet = CharacterSet(charactersIn: " -&%#@!$^*()<>?.,:;1234567890")
+    fileprivate static let illegalCharacterSet = CharacterSet(charactersIn: " -&%#@!$^*()<>?.,:;")
     /// processIllegalCharacters Cache
     fileprivate static var processIllegalCharactersCache = NSCache<NSString, NSString>()
 
