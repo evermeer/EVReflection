@@ -15,7 +15,11 @@ extension RealmOptional : EVCustomReflectable {
      - parameter value: The dictionary that will be converted to an object
      */
     public func constructWith(value: Any?) {
-        self.value = value.map(dynamicBridgeCast)
+        if value is NSNull {
+            self.value = nil
+        } else {
+            self.value = value.map(dynamicBridgeCast)
+        }
     }
     
     /**
