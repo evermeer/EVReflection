@@ -588,12 +588,12 @@ final public class EVReflection {
         // If it was not set, then use the bundleIdentifier (which is the same as kCFBundleIdentifierKey)
         if appName == "" {
             appName = bundle.bundleIdentifier ?? ""
-            appName = appName.characters.split(whereSeparator: {$0 == "."}).map({ String($0) }).last ?? ""
+            appName = appName.split(whereSeparator: {$0 == "."}).map({ String($0) }).last ?? ""
         }
         
         // First character may not be a number
         if appName.prefix(1) >= "0" && appName.prefix(1) <= "9" {
-            appName = "_" + String(appName.characters.dropFirst())
+            appName = "_" + String(appName.dropFirst())
         }
         
         // Clean up special characters
@@ -718,7 +718,7 @@ final public class EVReflection {
             } else if mi.children.count == 0 {
                 valueType = String(reflecting:type(of: theValue))
                 var subtype: String = valueType.substring(from: (valueType.components(separatedBy: "<") [0] + "<").endIndex)
-                subtype = subtype.substring(to: subtype.characters.index(before: subtype.endIndex))
+                subtype = subtype.substring(to: subtype.index(before: subtype.endIndex))
                 valueType = convertToInternalSwiftRepresentation(type: subtype)
                 return (NSNull(), valueType, false)
             }
@@ -735,7 +735,7 @@ final public class EVReflection {
                 theValue = enumValue
             } else if valueType.hasPrefix("Swift.ImplicitlyUnwrappedOptional<") { // Implicitly Unwrapped Optionals are actually fancy enums
                 var subtype: String = valueType.substring(from: (valueType.components(separatedBy: "<") [0] + "<").endIndex)
-                subtype = subtype.substring(to: subtype.characters.index(before: subtype.endIndex))
+                subtype = subtype.substring(to: subtype.index(before: subtype.endIndex))
                 valueType = convertToInternalSwiftRepresentation(type: subtype)
 
                 if mi.children.count == 0 {
@@ -801,7 +801,7 @@ final public class EVReflection {
             // Remove the Array or Set prefix
             let prefix = type.components(separatedBy: "<") [0] + "<"
             var subtype = type.substring(from: prefix.endIndex)
-            subtype = subtype.substring(to: subtype.characters.index(before: subtype.endIndex))
+            subtype = subtype.substring(to: subtype.index(before: subtype.endIndex))
             return prefix + convertToInternalSwiftRepresentation(type: subtype) + ">"
         }
 
@@ -811,10 +811,10 @@ final public class EVReflection {
                 return parts[1]
             }
             let c = String(repeating:"C", count: parts.count - 1)
-            var rv = "_Tt\(c)\(parts[0].characters.count)\(parts[0])"
+            var rv = "_Tt\(c)\(parts[0].count)\(parts[0])"
             parts.remove(at: 0)
             for part in parts {
-                rv = "\(rv)\(part.characters.count)\(part)"
+                rv = "\(rv)\(part.count)\(part)"
             }
             return rv
         }
@@ -1046,9 +1046,9 @@ final public class EVReflection {
         }
         
         // Step 1 - clean up keywords
-        if newKey.characters.first == "_" {
-            if keywords.contains(newKey.substring(from: newKey.characters.index(newKey.startIndex, offsetBy: 1))) {
-                newKey = newKey.substring(from: newKey.characters.index(newKey.startIndex, offsetBy: 1))
+        if newKey.first == "_" {
+            if keywords.contains(newKey.substring(from: newKey.index(newKey.startIndex, offsetBy: 1))) {
+                newKey = newKey.substring(from: newKey.index(newKey.startIndex, offsetBy: 1))
                 if tryMatch?[newKey] != nil {
                     return newKey
                 }
@@ -1129,7 +1129,7 @@ final public class EVReflection {
      - returns: the underscore string
      */
     internal static func camelCaseToUnderscores(_ input: String) -> String {
-	if input.characters.count == 0 {
+	if input.count == 0 {
             return input
         }
 	    
@@ -1137,9 +1137,9 @@ final public class EVReflection {
         if let cachedVersion = camelCaseToUnderscoresCache.object(forKey: input as NSString) {
             p = cachedVersion
         } else {
-            var output: String = String(input.characters.first!).lowercased()
+            var output: String = String(input.first!).lowercased()
             let uppercase: CharacterSet = CharacterSet.uppercaseLetters
-            for character in input.substring(from: input.characters.index(input.startIndex, offsetBy: 1)).characters {
+            for character in input.substring(from: input.index(input.startIndex, offsetBy: 1)) {
                 if uppercase.contains(UnicodeScalar(String(character).utf16.first!)!) {
                     output += "_\(String(character).lowercased())"
                 } else {
@@ -1162,8 +1162,8 @@ final public class EVReflection {
      - returns: the pascalCase string
      */
     internal static func PascalCaseToCamelCase(_ input: String) -> String {
-        if input.characters.count > 1 {
-            return String(describing: input.characters.first!).lowercased() + input.substring(from: input.characters.index(after: input.startIndex))
+        if input.count > 1 {
+            return String(describing: input.first!).lowercased() + input.substring(from: input.index(after: input.startIndex))
         }
         return input.lowercased()
     }
@@ -1177,8 +1177,8 @@ final public class EVReflection {
      - returns: the pascalCase string
      */
     internal static func CamelCaseToPascalCase(_ input: String) -> String {
-        if input.characters.count > 1 {
-            return String(describing: input.characters.first!).uppercased() + input.substring(from: input.characters.index(after: input.startIndex))
+        if input.count > 1 {
+            return String(describing: input.first!).uppercased() + input.substring(from: input.index(after: input.startIndex))
         }
         return input.uppercased()
     }
@@ -1303,7 +1303,7 @@ final public class EVReflection {
         var useType = type
         if type.hasPrefix("Swift.Optional<") {
             var subtype: String = type.substring(from: (type.components(separatedBy: "<") [0] + "<").endIndex)
-            subtype = subtype.substring(to: subtype.characters.index(before: subtype.endIndex))
+            subtype = subtype.substring(to: subtype.index(before: subtype.endIndex))
             useType = subtype
         }
         
@@ -1343,12 +1343,12 @@ final public class EVReflection {
         if type.components(separatedBy: "<").count > 1 {
             // Remove the Array prefix
             subtype = type.substring(from: (type.components(separatedBy: "<") [0] + "<").endIndex)
-            subtype = subtype.substring(to: subtype.characters.index(before: subtype.endIndex))
+            subtype = subtype.substring(to: subtype.index(before: subtype.endIndex))
             
             // Remove the optional prefix from the subtype
             if subtype.hasPrefix("Optional<") {
                 subtype = subtype.substring(from: (subtype.components(separatedBy: "<") [0] + "<").endIndex)
-                subtype = subtype.substring(to: subtype.characters.index(before: subtype.endIndex))
+                subtype = subtype.substring(to: subtype.index(before: subtype.endIndex))
             }
         }
         
