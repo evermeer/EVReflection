@@ -35,7 +35,7 @@ target 'UnitTestsTVOS' do
     alllibraries
 end
 
-target 'Demo' do
+target '44Demo5' do
     project 'Demo/Demo'
     platform :ios, '8.0'
     alllibraries
