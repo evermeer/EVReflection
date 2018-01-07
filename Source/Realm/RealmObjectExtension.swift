@@ -26,7 +26,7 @@ extension Object {
                 //If we do have key and the types are different, then this is called from EVReflection
                 let num = NSNumber(value: Int("\(value as! NSString)") ?? 0)
                 super.setValue(num, forUndefinedKey: key)
-            } else if type(of: current) == type(of: value)
+            } else if type(of: current) == type(of: value!)
                 || (String(describing: type(of: current)).hasPrefix("List<") && value! is NSArray) {
                 super.setValue(value, forUndefinedKey: key)
             } else {

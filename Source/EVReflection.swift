@@ -1574,10 +1574,9 @@ final public class EVReflection {
 
 extension Date {
     public init?(fromDateTimeString: String) {
-        
         let pattern = "\\\\?/Date\\((\\d+)(([+-]\\d{2})(\\d{2}))?\\)\\\\?/"
         let regex = try! NSRegularExpression(pattern: pattern)
-        guard let match = regex.firstMatch(in: fromDateTimeString, range: NSRange(location: 0, length: fromDateTimeString.utf16.count)) else {
+        guard let match: NSTextCheckingResult = regex.firstMatch(in: fromDateTimeString, range: NSRange(location: 0, length: fromDateTimeString.utf16.count)) else {
             //            evPrint("Failed to find a match")
             return nil
         }
