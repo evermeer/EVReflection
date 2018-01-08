@@ -512,5 +512,11 @@ class EVReflectionTests: XCTestCase {
         XCTAssert(nx.beacons.count == 1, "Should also have an object")
     }
     
+    func testDate() {
+        let date = Date(fromDateTimeString: "/Date(1268123281843)/")
+        XCTAssertNotNil(date)
+        let date2 = Date(fromDateTimeString: "1268123281843")
+        XCTAssertNotNil(date2)
+    }
 }
 

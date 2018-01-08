@@ -1576,20 +1576,16 @@ extension Date {
     public init?(fromDateTimeString: String) {
         let pattern = "\\\\?/Date\\((\\d+)(([+-]\\d{2})(\\d{2}))?\\)\\\\?/"
         let regex = try! NSRegularExpression(pattern: pattern)
-        guard let match: NSTextCheckingResult = regex.firstMatch(in: fromDateTimeString, range: NSRange(location: 0, length: fromDateTimeString.utf16.count)) else {
-            //            evPrint("Failed to find a match")
-            return nil
+        let match: NSRange = regex.rangeOfFirstMatch(in: fromDateTimeString, range: NSRange(location: 0, length: fromDateTimeString.utf16.count))
+        var dateString: String = ""
+        if match.location == NSNotFound {
+            dateString = fromDateTimeString
+        } else {
+            dateString = (fromDateTimeString as NSString).substring(with: match)     // Extract milliseconds
         }
-        
-        #if swift(>=4.0)
-            let dateString = (fromDateTimeString as NSString).substring(with: match.range(at: 1))     // Extract milliseconds
-        #else
-            let dateString = (fromDateTimeString as NSString).substring(with: match.rangeAt(1))     // Extract milliseconds
-        #endif
-
-        let timeStamp = Double(dateString)! / 1000.0 // Convert to UNIX timestamp in seconds
-        
-        self.init(timeIntervalSince1970: timeStamp) // Create Date from timestamp
+        let substrings = dateString.components(separatedBy: CharacterSet.decimalDigits.inverted)
+        guard let timeStamp = (substrings.flatMap { Double($0) }.first) else { return nil }
+        self.init(timeIntervalSince1970: timeStamp / 1000.0) // Create Date from timestamp
     }
 }
 
