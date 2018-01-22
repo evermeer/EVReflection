@@ -40,5 +40,10 @@ extension Object {
             evPrint(.IncorrectKey, "WARNING: The class '\(EVReflection.swiftStringFromClass(self))' is not key value coding-compliant for the key '\(key)'\n❓ This could be a strange Realm List issue where the key is reported undefined but it's still set.\n")
         }
     }
+
+    // To make sure that we can get a value without crashing
+    override open func value(forUndefinedKey key: String) -> Any? {
+        return nil
+    }
 }
 
