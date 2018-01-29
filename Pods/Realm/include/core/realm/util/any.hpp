@@ -16,8 +16,8 @@
 //
 ////////////////////////////////////////////////////////////////////////////
 
-#ifndef REALM_OS_UTIL_ANY_HPP
-#define REALM_OS_UTIL_ANY_HPP
+#ifndef REALM_UTIL_ANY_HPP
+#define REALM_UTIL_ANY_HPP
 
 #include <memory>
 #include <stdexcept>
@@ -158,4 +158,4 @@ inline void swap(realm::util::Any& lhs, realm::util::Any& rhs) noexcept
 }
 } // namespace std
 
-#endif // REALM_OS_UTIL_ANY_HPP
+#endif // REALM_UTIL_ANY_HPP

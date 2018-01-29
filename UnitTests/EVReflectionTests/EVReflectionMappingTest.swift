@@ -60,14 +60,14 @@ class EVReflectionMappingTests: XCTestCase {
         let name = "It's Me"
         let gamesPlayed = 42
         
-        let json = "{ \"name\": \"\(name)\", \"objectIsNotAValue\": \"shouldBeObject\", \"memberSince\": \"1\", \"gamesPlayed\": \(gamesPlayed)," +
+        let json = "{ \"name\": \"\(name)\", \"objectIsNotAValue\": \"shouldBeObject\", \"memberSince\": \"NoDate\", \"gamesPlayed\": \(gamesPlayed)," +
                       "\"rating\": {\"score\": 111, \"rank\": 122 } }"
-        print("==> You will now get 2 warnings. (rating should be a number but we are getting an object and a number cannot be converted to a date)")
+        print("==> You will now get 2 warnings. (rating should be a number but we are getting an object and aa is not a date)")
         let player = GamePlayer(json: json)
         XCTAssertEqual(player.name, name)
         XCTAssertEqual(player.gamesPlayed, gamesPlayed)
         
-        XCTAssertNil(player.memberSince) //"yyyy'-'MM'-'dd'T'HH':'mm':'ssZ"
+        XCTAssertNil(player.memberSince)
         XCTAssertEqual(player.rating, 0)
     }
 }

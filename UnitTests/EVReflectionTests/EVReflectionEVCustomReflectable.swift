@@ -42,10 +42,11 @@ open class XObject: EVObject {
 }
 
 extension XObject : EVCustomReflectable {
-    public func constructWith(value: Any?) {
+    public func constructWith(value: Any?) -> EVCustomReflectable {
         if let jsonDict = value as? NSDictionary {
             EVReflection.setPropertiesfromDictionary(jsonDict, anyObject: self)
         }
+        return self
     }
     public func toCodableValue() -> Any {
         let d: NSMutableDictionary = self.toDictionary() as? NSMutableDictionary ?? NSMutableDictionary()

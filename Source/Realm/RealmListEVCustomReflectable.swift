@@ -15,7 +15,7 @@ extension List : EVCustomReflectable {
      
      - parameter value: The dictionary that will be converted to an object
      */
-    public func constructWith(value: Any?) {
+    public func constructWith(value: Any?) -> EVCustomReflectable {
         if let array = value as? [NSDictionary] {
             self.removeAll()
             for dict in array {
@@ -31,6 +31,7 @@ extension List : EVCustomReflectable {
                 }
             }
         }
+        return self
     }
     
     /**

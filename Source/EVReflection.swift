@@ -79,8 +79,8 @@ final public class EVReflection {
                 }
                 
                 if let value: Any = valid ? dictValue : (v as Any) {
-                    if let custom = original as? EVCustomReflectable {
-                        custom.constructWith(value: value)
+                    if var custom = original as? EVCustomReflectable {
+                        custom = custom.constructWith(value: value)
                     }
                     setObjectValue(anyObject, key: keyInObject!, theValue: value, typeInObject: types[keyInObject!] as? String, valid: valid, conversionOptions: conversionOptions)
                 }
@@ -1564,6 +1564,8 @@ final public class EVReflection {
             return convertDictionaryForJsonSerialization(reflectable.toDictionary(), theObject: theObject)
         case let ok as NSDictionary:
             return convertDictionaryForJsonSerialization(ok, theObject: theObject)
+        case let d as Data:
+            return d.base64EncodedString() as AnyObject
         default:
             (theObject as? EVReflectable)?.addStatusMessage(.InvalidType, message: "Unexpected type while converting value for JsonSerialization: \(value)")
             evPrint(.InvalidType, "ERROR: Unexpected type while converting value for JsonSerialization: \(value)")

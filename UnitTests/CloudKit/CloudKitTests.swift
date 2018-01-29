@@ -92,6 +92,10 @@ class CloudKitTests: XCTestCase {
         
         let newNews2 = record2!.toDataObject()
         print("\(newNews2?.description ?? "")")
+        
+        let json = news.toJsonString()
+        let newNews3 = CloudNews(json: json)
+        print (newNews3)
     }
 }
 

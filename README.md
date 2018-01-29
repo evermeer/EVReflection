@@ -36,7 +36,7 @@ EVReflection is used in [EVCloudKitDao](https://github.com/evermeer/EVCloudKitDa
 In most cases EVReflection is very easy to use. Just take a look the section [It's easy to use](https://github.com/evermeer/EVReflection#its-easy-to-use). But if you do want to do non standard specific things, then EVReflection will offer you an extensive range of functionality. 
 
 ### Available extensions
-There are extension available for using EVReflection with [XMLDictionairy](https://github.com/nicklockwood/XMLDictionary), [CloudKit](https://developer.apple.com/library/content/documentation/DataManagement/Conceptual/CloudKitQuickStart/Introduction/Introduction.html), [Alamofire](https://github.com/Alamofire/Alamofire) and [Moya](https://github.com/Moya/Moya) with [RxSwift](https://github.com/ReactiveX/RxSwift) or [ReactiveSwift](https://github.com/ReactiveSwift/ReactiveSwift)
+There are extension available for using EVReflection with [XMLDictionairy](https://github.com/nicklockwood/XMLDictionary), [Realm](https://realm.io), [CloudKit](https://developer.apple.com/library/content/documentation/DataManagement/Conceptual/CloudKitQuickStart/Introduction/Introduction.html), [Alamofire](https://github.com/Alamofire/Alamofire) and [Moya](https://github.com/Moya/Moya) with [RxSwift](https://github.com/ReactiveX/RxSwift) or [ReactiveSwift](https://github.com/ReactiveSwift/ReactiveSwift)
 
 - [XML](https://github.com/evermeer/EVReflection/tree/master/Source/XML)
 - [CloudKit](https://github.com/evermeer/EVReflection/tree/master/Source/CloudKit)
@@ -60,7 +60,6 @@ pod 'EVReflection/MoyaRxSwift'
 ## Index
 
 - [Main features of EVReflection](https://github.com/evermeer/EVReflection#main-features-of-evreflection)
-- [Quick start](https://github.com/evermeer/EVReflection#quick-start)
 - [It's easy to use](https://github.com/evermeer/EVReflection#its-easy-to-use)
 - [If you have XML instead of JSON](https://github.com/evermeer/EVReflection#if-you-have-xml-instead-of-json)
 - [Using EVReflection in your own App](https://github.com/evermeer/EVReflection#using-evreflection-in-your-own-app)
@@ -90,9 +89,6 @@ pod 'EVReflection/MoyaRxSwift'
 - Supporting Printable, Hashable and Equatable while using all properties.
 - Mapping objects from one type to an other
 - Support for property mapping, converters, validators and key cleanup
-
-## Quick start
-For a quick start have a look at this [YouTube tutorial](https://www.youtube.com/watch?v=LPWsQD2nxqg).
 
 ## It's easy to use:
 
@@ -387,7 +383,7 @@ If you have a custom type that requires special conversion, then you can extend 
 
 ```swift
 extension List : EVCustomReflectable {
-    public func constructWith(value: Any?) {
+    public func constructWith(value: Any?) -> EVCustomReflectable {
         if let array = value as? [NSDictionary] {
             self.removeAll()
             for dict in array {
@@ -396,6 +392,7 @@ extension List : EVCustomReflectable {
                 }
             }
         }
+        return self
     }
     public func toCodableValue() -> Any {
         return self.enumerated().map { ($0.element as? EVReflectable)?.toDictionary() ?? NSDictionary() }

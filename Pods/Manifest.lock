@@ -1,38 +1,38 @@
 PODS:
   - Alamofire (4.6.0)
-  - EVReflection/Alamofire (5.4.1):
+  - EVReflection/Alamofire (5.4.5):
     - Alamofire
     - EVReflection/Core
-  - EVReflection/AlamofireXML (5.4.1):
+  - EVReflection/AlamofireXML (5.4.5):
     - EVReflection/Alamofire
     - EVReflection/XML
-  - EVReflection/CloudKit (5.4.1):
+  - EVReflection/CloudKit (5.4.5):
     - EVReflection/Core
-  - EVReflection/Core (5.4.1)
-  - EVReflection/CoreData (5.4.1):
+  - EVReflection/Core (5.4.5)
+  - EVReflection/CoreData (5.4.5):
     - EVReflection/Core
-  - EVReflection/Moya (5.4.1):
+  - EVReflection/Moya (5.4.5):
     - EVReflection/Alamofire
     - Moya
-  - EVReflection/MoyaReactiveSwift (5.4.1):
+  - EVReflection/MoyaReactiveSwift (5.4.5):
     - EVReflection/Moya
     - Moya/ReactiveSwift
-  - EVReflection/MoyaReactiveSwiftXML (5.4.1):
+  - EVReflection/MoyaReactiveSwiftXML (5.4.5):
     - EVReflection/MoyaReactiveSwift
     - EVReflection/MoyaXML
-  - EVReflection/MoyaRxSwift (5.4.1):
+  - EVReflection/MoyaRxSwift (5.4.5):
     - EVReflection/Moya
     - Moya/RxSwift
-  - EVReflection/MoyaRxSwiftXML (5.4.1):
+  - EVReflection/MoyaRxSwiftXML (5.4.5):
     - EVReflection/MoyaRxSwift
     - EVReflection/MoyaXML
-  - EVReflection/MoyaXML (5.4.1):
+  - EVReflection/MoyaXML (5.4.5):
     - EVReflection/AlamofireXML
     - EVReflection/Moya
-  - EVReflection/Realm (5.4.1):
+  - EVReflection/Realm (5.4.5):
     - EVReflection/Core
     - RealmSwift
-  - EVReflection/XML (5.4.1):
+  - EVReflection/XML (5.4.5):
     - EVReflection/Core
     - XMLDictionary
   - Moya (10.0.1):
@@ -48,13 +48,13 @@ PODS:
     - RxSwift (~> 4.0)
   - ReactiveSwift (2.0.1):
     - Result (~> 3.2)
-  - Realm (3.0.2):
-    - Realm/Headers (= 3.0.2)
-  - Realm/Headers (3.0.2)
-  - RealmSwift (3.0.2):
-    - Realm (= 3.0.2)
+  - Realm (3.1.0):
+    - Realm/Headers (= 3.1.0)
+  - Realm/Headers (3.1.0)
+  - RealmSwift (3.1.0):
+    - Realm (= 3.1.0)
   - Result (3.2.4)
-  - RxSwift (4.1.0)
+  - RxSwift (4.1.1)
   - XMLDictionary (1.4.1)
 
 DEPENDENCIES:
@@ -71,13 +71,13 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Alamofire: f41a599bd63041760b26d393ec1069d9d7b917f4
-  EVReflection: 6818779bed02c86bb5e62e6e601b1c4ece0d04da
+  EVReflection: a3f282fe526781b06a88d3a2823d1839464c8151
   Moya: 9e621707ff754eeb51ff3ec51a3d54e517c0733a
   ReactiveSwift: 60a29ff35988a964fd2bb759755cb6594de523fc
-  Realm: 6f23fd1f178a09342eac21bfa7c2bf4312a7a180
-  RealmSwift: 695393add1b8f9d5fa75dd16e6355cf3935f71e2
+  Realm: 09513d7c054678d65cd02ce09871f805b0d758ac
+  RealmSwift: e868fee9b10e5490ad94b6b6ecd9027944da1824
   Result: d2d07204ce72856f1fd9130bbe42c35a7b0fea10
-  RxSwift: 4219941c1244c88002901bd87a69d3aea9ae71f0
+  RxSwift: c6e3b1c7b325c7d121cd4327e9d98b7ed746b570
   XMLDictionary: fa07b6ff422b3a91d47a5de9bc82e3fc04fbd167
 
 PODFILE CHECKSUM: e4a7466c5b38806b825e545608a3a6a3c5846e37

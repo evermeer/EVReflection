@@ -8,12 +8,6 @@
 
 import Foundation
 
-// Protocol that can be used for sub objects to define that parsing will be done in the parent using the 'setValue forKey' function
-public protocol EVCustomReflectable {
-    func constructWith(value: Any?)
-    func toCodableValue() -> Any
-}
-
 // MARK: - Protocol with the overridable functions. All functionality is added to this in the extension below.
 public protocol EVReflectable: class, NSObjectProtocol  {
     /**
@@ -156,7 +150,7 @@ extension EVReflectable where Self: NSObject {
     public init(dictionary: NSDictionary, conversionOptions: ConversionOptions = .DefaultDeserialize, forKeyPath: String? = nil) {
         self.init()
         if let v = self as? EVCustomReflectable {
-            v.constructWith(value: dictionary)
+            let _ = v.constructWith(value: dictionary)
         } else {
             EVReflection.setPropertiesfromDictionary(dictionary, anyObject: self, conversionOptions: conversionOptions, forKeyPath: forKeyPath)
         }
@@ -172,7 +166,7 @@ extension EVReflectable where Self: NSObject {
         self.init()
         let dictionary = EVReflection.dictionaryFromJson(json)
         if let v = self as? EVCustomReflectable {
-            v.constructWith(value: dictionary)
+            let _ = v.constructWith(value: dictionary)
         } else {
             EVReflection.setPropertiesfromDictionary(dictionary, anyObject: self, conversionOptions: conversionOptions, forKeyPath: forKeyPath)
         }
@@ -188,7 +182,7 @@ extension EVReflectable where Self: NSObject {
         self.init()
         let dictionary: NSDictionary = (((try! JSONSerialization.jsonObject(with: data, options: []) as? NSDictionary))  ?? NSDictionary())!
         if let v = self as? EVCustomReflectable {
-            v.constructWith(value: dictionary)
+            let _ = v.constructWith(value: dictionary)
         } else {
             EVReflection.setPropertiesfromDictionary(dictionary, anyObject: self, conversionOptions: conversionOptions, forKeyPath: forKeyPath)
         }
@@ -207,7 +201,7 @@ extension EVReflectable where Self: NSObject {
         if let temp = NSKeyedUnarchiver.unarchiveObject(withFile: filePath) as? EVReflectable {
             if let v = self as? EVCustomReflectable {
                 let dictionary = temp.toDictionary(conversionOptions)
-                v.constructWith(value: dictionary)
+                let _ = v.constructWith(value: dictionary)
             } else {
                 EVReflection.setPropertiesfromDictionary( temp.toDictionary(conversionOptions), anyObject: self, conversionOptions: conversionOptions)
             }
@@ -226,7 +220,7 @@ extension EVReflectable where Self: NSObject {
         if let temp = NSKeyedUnarchiver.unarchiveObject(withFile: filePath) as? EVReflectable {
             if let v = self as? EVCustomReflectable {
                 let dictionary = temp.toDictionary(conversionOptions)
-                v.constructWith(value: dictionary)
+                let _ = v.constructWith(value: dictionary)
             } else {
                 EVReflection.setPropertiesfromDictionary( temp.toDictionary(conversionOptions), anyObject: self, conversionOptions: conversionOptions)
             }
@@ -243,7 +237,7 @@ extension EVReflectable where Self: NSObject {
         self.init()
         let dict = usingValuesFrom.toDictionary()
         if let v = self as? EVCustomReflectable {
-            v.constructWith(value: dict)
+            let _ = v.constructWith(value: dict)
         } else {
             EVReflection.setPropertiesfromDictionary(dict, anyObject: self, conversionOptions: conversionOptions)
         }

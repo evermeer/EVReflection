@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "EVReflection"
-  s.version      = "5.4.5"
+  s.version      = "5.5.0"
   s.summary      = "Reflection based object mapping. (Dictionary, CKRecord, NSManagedObject, Realm, JSON, XML, Alamofire, Moya, RxSwift, ReactiveSwift)"
 
   s.description  = <<-EOS

@@ -98,10 +98,11 @@ extension Base197 : EVCustomReflectable {
      
      - parameter value: The dictionary that will be converted to an object
      */
-    public func constructWith(value: Any?) {
+    public func constructWith(value: Any?) -> EVCustomReflectable {
         if let jsonDict = value as? NSDictionary {
             EVReflection.setPropertiesfromDictionary(jsonDict, anyObject: self)
         }
+        return self
     }
     
     /**

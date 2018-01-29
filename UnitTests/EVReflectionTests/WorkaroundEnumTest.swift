@@ -142,9 +142,10 @@ public class EnumWrapper: NSObject, EVCustomReflectable {
         self.value = value
     }
     
-    public func constructWith(value: Any?) {
+    public func constructWith(value: Any?) -> EVCustomReflectable {
         self.value = nil
         self.raw = value
+        return self
     }
     
     public func toCodableValue() -> Any {
