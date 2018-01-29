@@ -134,11 +134,15 @@ open class CKDataObject: EVObject {
                 if value is NSNull {
                     // record.setValue(nil, forKey: key) // Swift can not set a value on a nulable type.
                 } else if let dict = value as? NSDictionary {
-                    dictToCKRecord(record, dict: dict, types: types[key] as! NSDictionary, root: "\(root)\(key as! String)__")
+                    print("get types dictionary for key \(key) for type \(types[key] ?? "")")
+                    if let obj: NSObject = EVReflection.swiftClassFromString(types[key] as? String ?? "") {
+                        let (_, types) = EVReflection.toDictionary(obj)
+                        dictToCKRecord(record, dict: dict, types: types, root: "\(root)\(key as! String)__")
+                    }
                 } else if key as! String != "recordID" {
                     if types[key] as? String == "CKRecordID" {
                         record.setValue(CKRecordID(recordName: value as? String ?? ""), forKey: "\(root)\(key as! String)")
-                    } else if types[key] as? String == "CKRefference" {
+                    } else if types[key] as? String == "CKReference" {
                         record.setValue(CKReference(recordID: CKRecordID(recordName: value as? String ?? ""), action: CKReferenceAction.none), forKey: "\(root)\(key as! String)")
                     } else {
                         record.setValue(value, forKey: "\(root)\(key as! String)")
