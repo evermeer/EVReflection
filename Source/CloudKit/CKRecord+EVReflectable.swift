@@ -26,8 +26,8 @@ public extension CKRecord {
         } else {
             self.init(recordType: EVReflection.swiftStringFromClass(dataObject), recordID: dataObject.recordID)
         }
-        let (fromDict, _) = EVReflection.toDictionary(dataObject)
-        dataObject.dictToCKRecord(self, dict: fromDict)
+        let (fromDict, fromTypes) = EVReflection.toDictionary(dataObject)
+        dataObject.dictToCKRecord(self, dict: fromDict, types: fromTypes)
     }
     
     

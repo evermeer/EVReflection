@@ -115,8 +115,8 @@ open class CKDataObject: EVObject {
         if record == nil {
             record = CKRecord(recordType: EVReflection.swiftStringFromClass(self), recordID: self.recordID)
         }
-        let (fromDict, _) = EVReflection.toDictionary(self)
-        dictToCKRecord(record, dict: fromDict)
+        let (fromDict, fromTypes) = EVReflection.toDictionary(self)
+        dictToCKRecord(record, dict: fromDict, types: fromTypes)
         
         return record
     }
@@ -128,15 +128,21 @@ open class CKDataObject: EVObject {
      - parameter dict:   the dictionary
      - parameter root:   used for expanding the property name
      */
-    internal func dictToCKRecord(_ record: CKRecord, dict: NSDictionary, root: String = "") {
+    internal func dictToCKRecord(_ record: CKRecord, dict: NSDictionary, types: NSDictionary, root: String = "") {
         for (key, value) in dict {
             if !(["recordID", "recordType", "creationDate", "creatorUserRecordID", "modificationDate", "lastModifiedUserRecordID", "recordChangeTag", "encodedSystemFields"]).contains(key as! String) {
                 if value is NSNull {
                     // record.setValue(nil, forKey: key) // Swift can not set a value on a nulable type.
                 } else if let dict = value as? NSDictionary {
-                    dictToCKRecord(record, dict: dict, root: "\(root)\(key as! String)__")
+                    dictToCKRecord(record, dict: dict, types: types[key] as! NSDictionary, root: "\(root)\(key as! String)__")
                 } else if key as! String != "recordID" {
-                    record.setValue(value, forKey: "\(root)\(key as! String)")
+                    if types[key] as? String == "CKRecordID" {
+                        record.setValue(CKRecordID(recordName: value as? String ?? ""), forKey: "\(root)\(key as! String)")
+                    } else if types[key] as? String == "CKRefference" {
+                        record.setValue(CKReference(recordID: CKRecordID(recordName: value as? String ?? ""), action: CKReferenceAction.none), forKey: "\(root)\(key as! String)")
+                    } else {
+                        record.setValue(value, forKey: "\(root)\(key as! String)")
+                    }
                 }
             }
         }
