@@ -21,6 +21,16 @@
 		13B051311EEE613D002629F9 /* PrintOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B051251EEE6123002629F9 /* PrintOptions.swift */; };
 		2DC8AA401C24215500FA6B8E /* EVReflection.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DC8AA3F1C24215500FA6B8E /* EVReflection.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2DC8AA661C242E0600FA6B8E /* EVReflectionMacOS.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DC8AA651C242E0600FA6B8E /* EVReflectionMacOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7F71D42520206F400034D8D1 /* CKRecordID+EVCustomReflectable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F71D42320206F3F0034D8D1 /* CKRecordID+EVCustomReflectable.swift */; };
+		7F71D42620206F400034D8D1 /* CKRecordID+EVCustomReflectable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F71D42320206F3F0034D8D1 /* CKRecordID+EVCustomReflectable.swift */; };
+		7F71D42720206F400034D8D1 /* CKReference+EVCustomReflectable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F71D42420206F3F0034D8D1 /* CKReference+EVCustomReflectable.swift */; };
+		7F71D42820206F400034D8D1 /* CKReference+EVCustomReflectable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F71D42420206F3F0034D8D1 /* CKReference+EVCustomReflectable.swift */; };
+		7F71D42A20206F750034D8D1 /* EVCustomReflectable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F71D42920206F750034D8D1 /* EVCustomReflectable.swift */; };
+		7F71D42B20206F750034D8D1 /* EVCustomReflectable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F71D42920206F750034D8D1 /* EVCustomReflectable.swift */; };
+		7F71D42C20206F750034D8D1 /* EVCustomReflectable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F71D42920206F750034D8D1 /* EVCustomReflectable.swift */; };
+		7F71D42D20206F750034D8D1 /* EVCustomReflectable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F71D42920206F750034D8D1 /* EVCustomReflectable.swift */; };
+		7F71D42E20206F750034D8D1 /* EVCustomReflectable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F71D42920206F750034D8D1 /* EVCustomReflectable.swift */; };
+		7F71D42F20206F750034D8D1 /* EVCustomReflectable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F71D42920206F750034D8D1 /* EVCustomReflectable.swift */; };
 		7F75C54B1E463786003B08C5 /* EVDictionaryExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F75C54A1E463786003B08C5 /* EVDictionaryExtension.swift */; };
 		7F75C54C1E4637A0003B08C5 /* EVDictionaryExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F75C54A1E463786003B08C5 /* EVDictionaryExtension.swift */; };
 		7F75C54D1E4637A1003B08C5 /* EVDictionaryExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F75C54A1E463786003B08C5 /* EVDictionaryExtension.swift */; };
@@ -86,6 +96,9 @@
 		7F1C9D2B1E23C6C100A18776 /* EVReflection.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = EVReflection.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7F1C9D2C1E23C6C100A18776 /* EVReflection.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = EVReflection.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7F1C9D301E23CD6900A18776 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		7F71D42320206F3F0034D8D1 /* CKRecordID+EVCustomReflectable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CKRecordID+EVCustomReflectable.swift"; sourceTree = "<group>"; };
+		7F71D42420206F3F0034D8D1 /* CKReference+EVCustomReflectable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CKReference+EVCustomReflectable.swift"; sourceTree = "<group>"; };
+		7F71D42920206F750034D8D1 /* EVCustomReflectable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EVCustomReflectable.swift; path = ../Source/EVCustomReflectable.swift; sourceTree = "<group>"; };
 		7F75C54A1E463786003B08C5 /* EVDictionaryExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EVDictionaryExtension.swift; path = ../Source/EVDictionaryExtension.swift; sourceTree = "<group>"; };
 		7F9336B01C28227400AF7076 /* EVReflectionTVOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EVReflectionTVOS.h; sourceTree = "<group>"; };
 		7F9336B21C28227400AF7076 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -216,6 +229,7 @@
 				13B051241EEE6123002629F9 /* DeserializationStatus.swift */,
 				13B051251EEE6123002629F9 /* PrintOptions.swift */,
 				7FF9B8251E237F910089A3A1 /* EVArrayExtension.swift */,
+				7F71D42920206F750034D8D1 /* EVCustomReflectable.swift */,
 				7F75C54A1E463786003B08C5 /* EVDictionaryExtension.swift */,
 				7FF9B8261E237F910089A3A1 /* EVObject.swift */,
 				7FF9B8271E237F910089A3A1 /* EVReflectable.swift */,
@@ -239,6 +253,8 @@
 			children = (
 				D06F6D8D1F5E42D30061ACB2 /* CKDataObject.swift */,
 				D06F6D8E1F5E42D30061ACB2 /* CKRecord+EVReflectable.swift */,
+				7F71D42320206F3F0034D8D1 /* CKRecordID+EVCustomReflectable.swift */,
+				7F71D42420206F3F0034D8D1 /* CKReference+EVCustomReflectable.swift */,
 			);
 			name = CloudKit;
 			path = ../Source/CloudKit;
@@ -529,6 +545,7 @@
 				13B051261EEE6123002629F9 /* ConversionOptions.swift in Sources */,
 				7FF9B82E1E237F910089A3A1 /* EVObject.swift in Sources */,
 				13B051271EEE6123002629F9 /* DeserializationStatus.swift in Sources */,
+				7F71D42A20206F750034D8D1 /* EVCustomReflectable.swift in Sources */,
 				7FF9B8321E237F910089A3A1 /* EVReflectable.swift in Sources */,
 				7FF9B8361E237F910089A3A1 /* EVReflection.swift in Sources */,
 			);
@@ -545,6 +562,7 @@
 				7FF9B83B1E237F910089A3A1 /* EVWorkaroundHelpers.swift in Sources */,
 				7FF9B82B1E237F910089A3A1 /* EVArrayExtension.swift in Sources */,
 				7FF9B82F1E237F910089A3A1 /* EVObject.swift in Sources */,
+				7F71D42B20206F750034D8D1 /* EVCustomReflectable.swift in Sources */,
 				7FF9B8331E237F910089A3A1 /* EVReflectable.swift in Sources */,
 				7FF9B8371E237F910089A3A1 /* EVReflection.swift in Sources */,
 			);
@@ -561,6 +579,7 @@
 				7FF9B83C1E237F910089A3A1 /* EVWorkaroundHelpers.swift in Sources */,
 				7FF9B82C1E237F910089A3A1 /* EVArrayExtension.swift in Sources */,
 				7FF9B8301E237F910089A3A1 /* EVObject.swift in Sources */,
+				7F71D42C20206F750034D8D1 /* EVCustomReflectable.swift in Sources */,
 				7FF9B8341E237F910089A3A1 /* EVReflectable.swift in Sources */,
 				7FF9B8381E237F910089A3A1 /* EVReflection.swift in Sources */,
 			);
@@ -577,6 +596,7 @@
 				7FF9B83D1E237F910089A3A1 /* EVWorkaroundHelpers.swift in Sources */,
 				7FF9B82D1E237F910089A3A1 /* EVArrayExtension.swift in Sources */,
 				7FF9B8311E237F910089A3A1 /* EVObject.swift in Sources */,
+				7F71D42D20206F750034D8D1 /* EVCustomReflectable.swift in Sources */,
 				7FF9B8351E237F910089A3A1 /* EVReflectable.swift in Sources */,
 				7FF9B8391E237F910089A3A1 /* EVReflection.swift in Sources */,
 			);
@@ -588,7 +608,10 @@
 			files = (
 				D06F6D9B1F5E43A70061ACB2 /* EVDictionaryExtension.swift in Sources */,
 				D06F6D961F5E43200061ACB2 /* DeserializationStatus.swift in Sources */,
+				7F71D42720206F400034D8D1 /* CKReference+EVCustomReflectable.swift in Sources */,
 				D06F6D981F5E43520061ACB2 /* EVWorkaroundHelpers.swift in Sources */,
+				7F71D42520206F400034D8D1 /* CKRecordID+EVCustomReflectable.swift in Sources */,
+				7F71D42E20206F750034D8D1 /* EVCustomReflectable.swift in Sources */,
 				D06F6D901F5E42D30061ACB2 /* CKDataObject.swift in Sources */,
 				D06F6D991F5E43730061ACB2 /* PrintOptions.swift in Sources */,
 				D06F6D971F5E432B0061ACB2 /* EVReflection.swift in Sources */,
@@ -606,7 +629,10 @@
 			files = (
 				D09860FC1F76DF6400275D18 /* EVArrayExtension.swift in Sources */,
 				D09860F71F76DF5900275D18 /* CKDataObject.swift in Sources */,
+				7F71D42820206F400034D8D1 /* CKReference+EVCustomReflectable.swift in Sources */,
 				D09860FD1F76DF6400275D18 /* EVDictionaryExtension.swift in Sources */,
+				7F71D42620206F400034D8D1 /* CKRecordID+EVCustomReflectable.swift in Sources */,
+				7F71D42F20206F750034D8D1 /* EVCustomReflectable.swift in Sources */,
 				D09860FE1F76DF6400275D18 /* EVObject.swift in Sources */,
 				D09860FA1F76DF6400275D18 /* DeserializationStatus.swift in Sources */,
 				D09860F81F76DF5C00275D18 /* CKRecord+EVReflectable.swift in Sources */,
