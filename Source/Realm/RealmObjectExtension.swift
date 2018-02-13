@@ -43,6 +43,10 @@ extension Object {
 
     // To make sure that we can get a value without crashing
     override open func value(forUndefinedKey key: String) -> Any? {
+        if objectSchema.properties.map({$0.name}).contains(key) == true {
+            return super.value(forUndefinedKey: key)
+        }
+        
         return nil
     }
 }
