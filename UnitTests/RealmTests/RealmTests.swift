@@ -148,8 +148,28 @@ class RealmTests: XCTestCase {
         //XCTAssertEqual(obj.optionalInt.value, 3, "The optional int should have been set to 3")
         print("The object: \(obj)")
     }
+    
+    func testIssue270() {
+        // will crash when xrow is renamed to row!?
+
+        let json = "{\"row\":[{\"potato\":\"hello\"},{\"potato\":\"goodby\"}]}"
+        let obj = Issue270TestObject(json: json)
+        print("The object: \(obj)")
+        
+        let details = ["row" : [ ["potato" : "hello"], ["potato" : "goodbye"]] ] as NSDictionary
+        let object = Issue270TestObject(dictionary: details)
+        print("The object: \(object)")
+    }
 }
 
+class Issue270TestObject: Object, EVReflectable {
+    // will crash when xrow is renamed to row!?
+    let row = List<Issue270TestRowObject>()
+}
+
+class Issue270TestRowObject: Object, EVReflectable {
+    @objc dynamic var potato: String?
+}
 
 
 
