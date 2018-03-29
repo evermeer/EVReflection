@@ -41,9 +41,9 @@ extension List : EVCustomReflectable {
      - returns: Dictionary without custom properties key
      */
     public func toCodableValue() -> Any {
-        var q = [NSDictionary]()
+        var q:[Any] = []
         for case let e as Any in self {
-            q.append((e as? EVReflectable)?.toDictionary([.PropertyConverter, .KeyCleanup, .PropertyMapping, .DefaultSerialize]) ?? NSDictionary())
+            q.append((e as? EVReflectable)?.toDictionary([.PropertyConverter, .KeyCleanup, .PropertyMapping, .DefaultSerialize]) ?? e)
         }
         return q
  

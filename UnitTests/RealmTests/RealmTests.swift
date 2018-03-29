@@ -88,7 +88,6 @@ class RealmTests: XCTestCase {
         // Now the object printed using Realm output functionality which just repeats itself until maximum depth is exeeded
         print("wife = \(wife)")
         
-        
         //: IV. Write objects to the realm
         
         try! realm.write {
@@ -147,6 +146,13 @@ class RealmTests: XCTestCase {
         //TODO: Fix Crash introduced after adding super.setValue(value, forUndefinedKey: key) in the Object extension
         //XCTAssertEqual(obj.optionalInt.value, 3, "The optional int should have been set to 3")
         print("The object: \(obj)")
+        
+        // Test to and from dictionary
+        let dict = obj.toDictionary()
+        print("dict = \(dict)")
+        let newObj = PrimitiveListsObject(dictionary: dict)
+        print("newObj = \(newObj)")
+
     }
     
     func testIssue270() {
