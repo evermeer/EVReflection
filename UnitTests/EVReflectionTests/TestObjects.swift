@@ -271,7 +271,11 @@ class A81b: EVObject {
     override func propertyConverters() -> [(key: String, decodeConverter: ((Any?) -> ()), encodeConverter: (() -> Any?))] {
         return [(key: "array",
                  decodeConverter: {
-                    self.array = (($0 as? NSArray)?.map { (($0 as? NSArray)?.map { A81(dictionary: ($0 as? NSDictionary ?? NSDictionary()))}) ?? [] }) ?? [[]]
+                    self.array = (($0 as? NSArray)?.map {
+                        (($0 as? NSArray)?.map {
+                            A81(dictionary: ($0 as? NSDictionary ?? NSDictionary()))
+                        }) ?? []
+                    }) ?? [[]]
         }, encodeConverter: { return self.array })]
     }
 }
@@ -284,7 +288,13 @@ class A81c: EVObject {
     override func propertyConverters() -> [(key: String, decodeConverter: ((Any?) -> ()), encodeConverter: (() -> Any?))] {
         return [(key: "array",
                  decodeConverter: {
-                    self.array = (($0 as? NSArray)?.map { (($0 as? NSArray)?.map { (($0 as? NSArray)?.map { A81(dictionary: ($0 as? NSDictionary ?? NSDictionary()))}) ?? [] }) ?? [[]] }) ?? [[[]]]
+                    self.array = (($0 as? NSArray)?.map {
+                        (($0 as? NSArray)?.map {
+                            (($0 as? NSArray)?.map {
+                                A81(dictionary: ($0 as? NSDictionary ?? NSDictionary()))
+                            }) ?? []
+                        }) ?? [[]]
+                    }) ?? [[[]]]
         }, encodeConverter: { return self.array })]
     }
 }

@@ -484,6 +484,7 @@ class EVReflectionTests: XCTestCase {
     }
 
     func testNestedArray(){
+        // For now using the propertyConverters workaround.
         let json = "{\"array\":[[{\"openId\":\"value1\"},{\"openId\":\"value2\"}],[{\"openId\":\"value3\"},{\"openId\":\"value4\"}]]}"
         let obj = A81b(json: json)
         print(obj)
@@ -492,6 +493,7 @@ class EVReflectionTests: XCTestCase {
     }
 
     func testNestedNestedArray(){
+        // For now using the propertyConverters workaround.
         let json = "{\"array\":[[[{\"openId\":\"value1\"},{\"openId\":\"value2\"},{\"openId\":\"value3\"}],[{\"openId\":\"value3\"},{\"openId\":\"value4\"}]]]}"
         let obj = A81c(json: json)
         print(obj)
