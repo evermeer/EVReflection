@@ -342,7 +342,7 @@ class EVReflectionTests: XCTestCase {
         // Test missing required key
         let json = "{\"requiredKey1\": \"Value1\", \"requiredKey2\":\"Value2\"}"
         let test = ValidateObject(json: json)
-        XCTAssertNotEqual(test.evReflectionStatus(), .none, "We should have a not .None status")
+        XCTAssertNotEqual(test.evReflectionStatus(), DeserializationStatus.None, "We should have a not .None status")
         XCTAssertEqual(test.evReflectionStatuses.count, 1, "We should have 1 validation result")
         for (status, message) in test.evReflectionStatuses {
             print("Validation result: Status = \(status), Message = \(message)")
@@ -351,7 +351,7 @@ class EVReflectionTests: XCTestCase {
         // Test aditional key
         let json2 = "{\"requiredKey1\": \"Value1\", \"requiredKey2\":\"Value2\", \"requiredKey3\":\"Value3\", \"randomKey\":\"Value4\"}"
         let test2 = ValidateObject(json: json2)
-        XCTAssertNotEqual(test2.evReflectionStatus(), .none, "We should have a not .None status")
+        XCTAssertNotEqual(test2.evReflectionStatus(), DeserializationStatus.None, "We should have a not .None status")
         XCTAssertEqual(test2.evReflectionStatuses.count, 1, "We should have 1 validation result")
         for (status, message) in test2.evReflectionStatuses {
             print("Validation result: Status = \(status), Message = \(message)")
@@ -488,17 +488,17 @@ class EVReflectionTests: XCTestCase {
         let obj = A81b(json: json)
         print(obj)
         XCTAssert(obj.array[0].count == 2, "2 dimentional array should have 2 items inside the first item")
+        XCTAssert(obj.array[0][0].openId == "value1", "openId should have value value1")
     }
 
     func testNestedNestedArray(){
-        let json = "{\"array\":[[[{\"openId\":\"value1\"},{\"openId\":\"value2\"}],[{\"openId\":\"value3\"},{\"openId\":\"value4\"}]]]}"
+        let json = "{\"array\":[[[{\"openId\":\"value1\"},{\"openId\":\"value2\"},{\"openId\":\"value3\"}],[{\"openId\":\"value3\"},{\"openId\":\"value4\"}]]]}"
         let obj = A81c(json: json)
         print(obj)
         XCTAssert(obj.array.count == 1, "3 dimentional array should have 1 item")
-        // Failure should be fixed for https://github.com/evermeer/EVReflection/issues/212
-        //XCTAssert(obj.array[0].count == 1, "3 dimentional array should have 1 item inside the first item")
-        //XCTAssert(obj.array[0][0].count == 2, "3 dimentional array should have 2 items inside the first item of the first item")
-  //      XCTAssert(obj.array[0][0][0].openId == "value1", "3 dimentional array should have 2 items inside the first item of the first item")
+        XCTAssert(obj.array[0].count == 2, "3 dimentional array should have 2 items inside the first item")
+        XCTAssert(obj.array[0][0].count == 3, "3 dimentional array should have 3 items inside the first item of the first item")
+        XCTAssert(obj.array[0][0][0].openId == "value1", "3 dimentional array should have openId with a value of value1 in the first item of the first item in the first item")
     }
 
     // Swift bug, class inside class works, class inside struct does not work.

@@ -266,18 +266,27 @@ class A81a: EVObject {
 class A81b: EVObject {
     var array: [[A81]] = [[]]
     
+    // Now only working using this workaround
+    // Failure should be fixed for https://github.com/evermeer/EVReflection/issues/212
     override func propertyConverters() -> [(key: String, decodeConverter: ((Any?) -> ()), encodeConverter: (() -> Any?))] {
-        return [(key: "-array",
+        return [(key: "array",
                  decodeConverter: {
-                    let x = $0
-                    let v = (((x as! NSArray)[0] as! NSArray)[0] as! NSDictionary)["openId"]!
-                    self.array = x as? [[A81]] ?? [[A81]]()
+                    self.array = (($0 as? NSArray)?.map { (($0 as? NSArray)?.map { A81(dictionary: ($0 as? NSDictionary ?? NSDictionary()))}) ?? [] }) ?? [[]]
         }, encodeConverter: { return self.array })]
     }
 }
 
 class A81c: EVObject {
     var array: [[[A81]]] = [[[]]]
+
+    // Now only working using this workaround
+    // Failure should be fixed for https://github.com/evermeer/EVReflection/issues/212
+    override func propertyConverters() -> [(key: String, decodeConverter: ((Any?) -> ()), encodeConverter: (() -> Any?))] {
+        return [(key: "array",
+                 decodeConverter: {
+                    self.array = (($0 as? NSArray)?.map { (($0 as? NSArray)?.map { (($0 as? NSArray)?.map { A81(dictionary: ($0 as? NSDictionary ?? NSDictionary()))}) ?? [] }) ?? [[]] }) ?? [[[]]]
+        }, encodeConverter: { return self.array })]
+    }
 }
 
 class A81: EVObject {
