@@ -270,12 +270,8 @@ class A81b: EVObject {
     // Failure should be fixed for https://github.com/evermeer/EVReflection/issues/212
     override func propertyConverters() -> [(key: String, decodeConverter: ((Any?) -> ()), encodeConverter: (() -> Any?))] {
         return [(key: "array",
-                 decodeConverter: {
-                    self.array = (($0 as? NSArray)?.map {
-                        (($0 as? NSArray)?.map {
-                            A81(dictionary: ($0 as? NSDictionary ?? NSDictionary()))
-                        }) ?? []
-                    }) ?? [[]]
+            decodeConverter: {
+                self.array = ($0 as? NSArray)?.nestedArrayMap { A81(dictionary: $0) } ?? [[]]
         }, encodeConverter: { return self.array })]
     }
 }
@@ -288,13 +284,22 @@ class A81c: EVObject {
     override func propertyConverters() -> [(key: String, decodeConverter: ((Any?) -> ()), encodeConverter: (() -> Any?))] {
         return [(key: "array",
                  decodeConverter: {
-                    self.array = (($0 as? NSArray)?.map {
-                        (($0 as? NSArray)?.map {
-                            (($0 as? NSArray)?.map {
-                                A81(dictionary: ($0 as? NSDictionary ?? NSDictionary()))
-                            }) ?? []
-                        }) ?? [[]]
-                    }) ?? [[[]]]
+                    self.array = ($0 as? NSArray)?.doubleNestedArrayMap { A81(dictionary: $0) } ?? [[]]
+        }, encodeConverter: { return self.array })]
+    }
+}
+
+class A81d: EVObject {
+    // Skipping the triple, quadruple, quintuple nestedArrayMap and go strait to the sextuple
+    // You should not want something like this
+    var array: [[[[[[[A81]]]]]]] = [[[[[[[]]]]]]]
+    
+    // Now only working using this workaround
+    // Failure should be fixed for https://github.com/evermeer/EVReflection/issues/212
+    override func propertyConverters() -> [(key: String, decodeConverter: ((Any?) -> ()), encodeConverter: (() -> Any?))] {
+        return [(key: "array",
+                 decodeConverter: {
+                    self.array = ($0 as? NSArray)?.sextupleNestedArrayMap { A81(dictionary: $0) } ?? [[[[[[]]]]]]
         }, encodeConverter: { return self.array })]
     }
 }

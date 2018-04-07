@@ -502,6 +502,21 @@ class EVReflectionTests: XCTestCase {
         XCTAssert(obj.array[0][0].count == 3, "3 dimentional array should have 3 items inside the first item of the first item")
         XCTAssert(obj.array[0][0][0].openId == "value1", "3 dimentional array should have openId with a value of value1 in the first item of the first item in the first item")
     }
+    
+    func testSuperNested(){
+        // For now using the propertyConverters workaround.
+        let json = "{\"array\":[[[[[[[{\"openId\":\"value1\"},{\"openId\":\"value2\"},{\"openId\":\"value3\"}],[{\"openId\":\"value3\"},{\"openId\":\"value4\"}]]]]]]]}"
+        let obj = A81d(json: json)
+        print(obj)
+        XCTAssert(obj.array.count == 1, "6 dimentional array should have 1 item")
+        XCTAssert(obj.array[0].count == 1, "6 dimentional array should have 1 item on nesting 1")
+        XCTAssert(obj.array[0][0].count == 1, "6 dimentional array should have 1 item on nesting 2")
+        XCTAssert(obj.array[0][0][0].count == 1, "6 dimentional array should have 1 item on nesting 3")
+        XCTAssert(obj.array[0][0][0][0].count == 1, "6 dimentional array should have 1 item on nesting 4")
+        XCTAssert(obj.array[0][0][0][0][0].count == 2, "6 dimentional array should have 2 item on nesting 5")
+        XCTAssert(obj.array[0][0][0][0][0][0].count == 3, "6 dimentional array should have 3 items inside nesting 6")
+        XCTAssert(obj.array[0][0][0][0][0][0][0].openId == "value1", "6 dimentional array should have openId with a value of value1 in the first available item")
+    }
 
     // Swift bug, class inside class works, class inside struct does not work.
     func testNestedDefinition() {

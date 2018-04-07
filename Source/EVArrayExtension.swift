@@ -190,3 +190,47 @@ public extension Array where Element: NSDictionary {
     }
 
 }
+
+public extension NSArray {
+    func nestedArrayMap<T>(_ element: (NSDictionary)->T) -> [[T]] {
+        return (self.map {
+            (($0 as? NSArray)?.map {
+                element($0 as? NSDictionary ?? NSDictionary())
+                }) ?? []
+        })
+    }
+    
+    func doubleNestedArrayMap<T>(_ element: (NSDictionary)->T) -> [[[T]]] {
+        return (self.map {
+            (($0 as? NSArray)?.nestedArrayMap { element($0) }) ?? [[]]
+        })
+    }
+    
+    func tripleNestedArrayMap<T>(_ element: (NSDictionary)->T) -> [[[[T]]]] {
+        return (self.map {
+            (($0 as? NSArray)?.doubleNestedArrayMap { element($0) }) ?? [[[]]]
+        })
+    }
+    
+    func quadrupleNestedArrayMap<T>(_ element: (NSDictionary)->T) -> [[[[[T]]]]] {
+        return (self.map {
+            (($0 as? NSArray)?.tripleNestedArrayMap { element($0) }) ?? [[[[]]]]
+        })
+    }
+    
+    func quintupleNestedArrayMap<T>(_ element: (NSDictionary)->T) -> [[[[[[T]]]]]] {
+        return (self.map {
+            (($0 as? NSArray)?.quadrupleNestedArrayMap { element($0) }) ?? [[[[[]]]]]
+        })
+    }
+    
+    func sextupleNestedArrayMap<T>(_ element: (NSDictionary)->T) -> [[[[[[[T]]]]]]] {
+        return (self.map {
+            (($0 as? NSArray)?.quintupleNestedArrayMap { element($0) }) ?? [[[[[[]]]]]]
+        })
+    }
+    
+    // If you need deeper nesting, whell, then you probably see the pattern above that you need to implement :-)
+    // just name them septuple, octuple, nonuple and decuple
+    // I'm not sure how far swift can handle it, but you should not want something like that.
+}
