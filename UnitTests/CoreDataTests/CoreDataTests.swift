@@ -116,6 +116,7 @@ class CoreDataTests: XCTestCase {
         let list = data.listRecords(CDUser.self)
         for person in list {
             print("\(person.id ) \(person.userProperty )")
+            print("\(person.debugDescription)")
         }
         let newCount = list.count
         XCTAssert(count + 1 == newCount, "Should have one extra record")

@@ -37,6 +37,8 @@ public struct ConversionOptions: OptionSet, CustomStringConvertible {
     /// Execute an encoding function on all values
     public static let Encoding = ConversionOptions(rawValue: 32)
     
+    // Just for bein able to show all
+    public static var All: ConversionOptions = [PropertyConverter, PropertyMapping, SkipPropertyValue, KeyCleanup, Decoding, Encoding]
     /// Default used for NSCoding
     public static var DefaultNSCoding: ConversionOptions = [None]
     /// Default used for comparing / hashing functions

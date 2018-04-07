@@ -158,11 +158,11 @@ class RealmTests: XCTestCase {
     func testIssue270() {
         // will crash when xrow is renamed to row!?
 
-        let json = "{\"row\":[{\"potato\":\"hello\"},{\"potato\":\"goodby\"}]}"
+        let json = "{\"xrow\":[{\"potato\":\"hello\"},{\"potato\":\"goodby\"}]}"
         let obj = Issue270TestObject(json: json)
         print("The object: \(obj)")
         
-        let details = ["row" : [ ["potato" : "hello"], ["potato" : "goodbye"]] ] as NSDictionary
+        let details = ["xrow" : [ ["potato" : "hello"], ["potato" : "goodbye"]] ] as NSDictionary
         let object = Issue270TestObject(dictionary: details)
         print("The object: \(object)")
     }
@@ -170,7 +170,7 @@ class RealmTests: XCTestCase {
 
 class Issue270TestObject: Object, EVReflectable {
     // will crash when xrow is renamed to row!?
-    let row = List<Issue270TestRowObject>()
+    let xrow = List<Issue270TestRowObject>()
 }
 
 class Issue270TestRowObject: Object, EVReflectable {

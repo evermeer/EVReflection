@@ -52,7 +52,7 @@ public struct PrintOptions: OptionSet, CustomStringConvertible {
     /// The active print options
     public static var Active: PrintOptions = All
     
-    /// Get a nice description of the ConversionOptions
+    /// Get a nice description of the PrintOptions
     public var description: String {
         let strings = ["UnknownKeypath", "IncorrectKey", "ShouldExtendNSObject", "IsInvalidJson", "MissingProtocol", "MissingKey", "InvalidType", "InvalidValue", "InvalidClass", "EnumWithoutAssociatedValue"]
         var members = [String]()

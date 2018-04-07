@@ -37,6 +37,7 @@ class EVReflectionConversionOptionsTest: XCTestCase {
      Test the conversion from string to number and from number to string
      */
     func testSkiptValues() {
+        print("All available conversion options are: \(ConversionOptions.All.description)")
         let a = TestObjectSkipValues()
         a.value1 = "test1"
         a.value2 = ""
