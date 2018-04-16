@@ -288,18 +288,12 @@ extension Signal where Value: SignalProducerConvertible, Error == Value.Error {
 	fileprivate func concurrent(limit: UInt) -> Signal<Value.Value, Error> {
 		precondition(limit > 0, "The concurrent limit must be greater than zero.")
 
-		return Signal<Value.Value, Error> { relayObserver in
-			let disposable = CompositeDisposable()
-			let relayDisposable = CompositeDisposable()
-
-			disposable += relayDisposable
-			disposable += self.observeConcurrent(relayObserver, limit, relayDisposable)
-
-			return disposable
+		return Signal<Value.Value, Error> { relayObserver, lifetime in
+			lifetime += self.observeConcurrent(relayObserver, limit, lifetime)
 		}
 	}
 
-	fileprivate func observeConcurrent(_ observer: Signal<Value.Value, Error>.Observer, _ limit: UInt, _ disposable: CompositeDisposable) -> Disposable? {
+	fileprivate func observeConcurrent(_ observer: Signal<Value.Value, Error>.Observer, _ limit: UInt, _ lifetime: Lifetime) -> Disposable? {
 		let state = Atomic(ConcurrentFlattenState<Value.Value, Error>(limit: limit))
 
 		func startNextIfNeeded() {
@@ -308,7 +302,7 @@ extension Signal where Value: SignalProducerConvertible, Error == Value.Error {
 				let deinitializer = ScopedDisposable(AnyDisposable(producerState.deinitialize))
 
 				producer.startWithSignal { signal, inner in
-					let handle = disposable.add(inner)
+					let handle = lifetime += inner
 
 					signal.observe { event in
 						switch event {
@@ -329,7 +323,7 @@ extension Signal where Value: SignalProducerConvertible, Error == Value.Error {
 							}
 
 						case .value, .failed:
-							observer.action(event)
+							observer.send(event)
 						}
 					}
 				}
@@ -371,12 +365,10 @@ extension SignalProducer where Value: SignalProducerConvertible, Error == Value.
 		precondition(limit > 0, "The concurrent limit must be greater than zero.")
 
 		return SignalProducer<Value.Value, Error> { relayObserver, lifetime in
-			self.startWithSignal { signal, signalDisposable in
-				let disposables = CompositeDisposable()
-				lifetime.observeEnded(signalDisposable.dispose)
-				lifetime.observeEnded(disposables.dispose)
+			self.startWithSignal { signal, interruptHandle in
+				lifetime += interruptHandle
 
-				_ = signal.observeConcurrent(relayObserver, limit, disposables)
+				_ = signal.observeConcurrent(relayObserver, limit, lifetime)
 			}
 		}
 	}
@@ -403,6 +395,17 @@ extension SignalProducer {
 	///            completion will emit a `value`.
 	public func concat(value: Value) -> SignalProducer<Value, Error> {
 		return self.concat(SignalProducer(value: value))
+	}
+
+	/// `concat`s `error` onto `self`.
+	///
+	/// - parameters:
+	///   - error: An error to concat onto `self`.
+	///
+	/// - returns: A producer that, when started, will emit own values and on
+	///            completion will emit an `error`.
+	public func concat(error: Error) -> SignalProducer<Value, Error> {
+		return self.concat(SignalProducer(error: error))
 	}
 
 	/// `concat`s `self` onto initial `previous`.
@@ -533,14 +536,10 @@ extension Signal where Value: SignalProducerConvertible, Error == Value.Error {
 	/// - note: The returned signal completes when `signal` and the latest inner
 	///         signal have both completed.
 	fileprivate func switchToLatest() -> Signal<Value.Value, Error> {
-		return Signal<Value.Value, Error> { observer in
-			let composite = CompositeDisposable()
+		return Signal<Value.Value, Error> { observer, lifetime in
 			let serial = SerialDisposable()
-
-			composite += serial
-			composite += self.observeSwitchToLatest(observer, serial)
-
-			return composite
+			lifetime += serial
+			lifetime += self.observeSwitchToLatest(observer, serial)
 		}
 	}
 
@@ -592,7 +591,7 @@ extension Signal where Value: SignalProducerConvertible, Error == Value.Error {
 							}
 
 						case .value, .failed:
-							observer.action(event)
+							observer.send(event)
 						}
 					}
 				}
@@ -618,25 +617,22 @@ extension Signal where Value: SignalProducerConvertible, Error == Value.Error {
 }
 
 extension SignalProducer where Value: SignalProducerConvertible, Error == Value.Error {
-	/// - warning: An error sent on `signal` or the latest inner signal will be
-	///            sent on the returned signal.
+	/// - warning: An error sent on `self` or the latest inner producer will be
+	///            sent on the returned producer.
 	///
-	/// - note: The returned signal completes when `signal` and the latest inner
-	///         signal have both completed.
+	/// - note: The returned producer completes when `self` and the latest inner
+	///         producer have both completed.
 	///
-	/// - returns: A signal that forwards values from the latest signal sent on
-	///            `signal`, ignoring values sent on previous inner signal.
+	/// - returns: A producer that forwards values from the latest producer sent
+	///            on `self`, ignoring values sent on previous inner producer.
 	fileprivate func switchToLatest() -> SignalProducer<Value.Value, Error> {
 		return SignalProducer<Value.Value, Error> { observer, lifetime in
 			let latestInnerDisposable = SerialDisposable()
-			lifetime.observeEnded(latestInnerDisposable.dispose)
+			lifetime += latestInnerDisposable
 
 			self.startWithSignal { signal, signalDisposable in
-				lifetime.observeEnded(signalDisposable.dispose)
-
-				if let disposable = signal.observeSwitchToLatest(observer, latestInnerDisposable) {
-					lifetime.observeEnded(disposable.dispose)
-				}
+				lifetime += signalDisposable
+				lifetime += signal.observeSwitchToLatest(observer, latestInnerDisposable)
 			}
 		}
 	}
@@ -658,14 +654,10 @@ extension Signal where Value: SignalProducerConvertible, Error == Value.Error {
 	///
 	/// The returned signal completes when `self` and the winning inner signal have both completed.
 	fileprivate func race() -> Signal<Value.Value, Error> {
-		return Signal<Value.Value, Error> { observer in
-			let composite = CompositeDisposable()
+		return Signal<Value.Value, Error> { observer, lifetime in
 			let relayDisposable = CompositeDisposable()
-
-			composite += relayDisposable
-			composite += self.observeRace(observer, relayDisposable)
-
-			return composite
+			lifetime += relayDisposable
+			lifetime += self.observeRace(observer, relayDisposable)
 		}
 	}
 
@@ -720,7 +712,7 @@ extension Signal where Value: SignalProducerConvertible, Error == Value.Error {
 							}
 
 						case .value, .failed, .interrupted:
-							observer.action(event)
+							observer.send(event)
 						}
 					}
 				}
@@ -756,14 +748,11 @@ extension SignalProducer where Value: SignalProducerConvertible, Error == Value.
 	fileprivate func race() -> SignalProducer<Value.Value, Error> {
 		return SignalProducer<Value.Value, Error> { observer, lifetime in
 			let relayDisposable = CompositeDisposable()
-			lifetime.observeEnded(relayDisposable.dispose)
+			lifetime += relayDisposable
 
 			self.startWithSignal { signal, signalDisposable in
-				lifetime.observeEnded(signalDisposable.dispose)
-
-				if let disposable = signal.observeRace(observer, relayDisposable) {
-					lifetime.observeEnded(disposable.dispose)
-				}
+				lifetime += signalDisposable
+				lifetime += signal.observeRace(observer, relayDisposable)
 			}
 		}
 	}
@@ -905,8 +894,8 @@ extension Signal {
 	///   - transform: A closure that accepts emitted error and returns a signal
 	///                producer with a different type of error.
 	public func flatMapError<F>(_ transform: @escaping (Error) -> SignalProducer<Value, F>) -> Signal<Value, F> {
-		return Signal<Value, F> { observer in
-			self.observeFlatMapError(transform, observer, SerialDisposable())
+		return Signal<Value, F> { observer, lifetime in
+			lifetime += self.observeFlatMapError(transform, observer, SerialDisposable())
 		}
 	}
 
@@ -939,7 +928,7 @@ extension SignalProducer {
 	public func flatMapError<F>(_ transform: @escaping (Error) -> SignalProducer<Value, F>) -> SignalProducer<Value, F> {
 		return SignalProducer<Value, F> { observer, lifetime in
 			let serialDisposable = SerialDisposable()
-			lifetime.observeEnded(serialDisposable.dispose)
+			lifetime += serialDisposable
 
 			self.startWithSignal { signal, signalDisposable in
 				serialDisposable.inner = signalDisposable

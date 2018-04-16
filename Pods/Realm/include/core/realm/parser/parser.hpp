@@ -19,19 +19,25 @@
 #ifndef REALM_PARSER_HPP
 #define REALM_PARSER_HPP
 
-#include <vector>
+#include <memory>
 #include <string>
+#include <vector>
 
 namespace realm {
 
 namespace parser {
+
+struct Predicate;
+
 struct Expression
 {
-    enum class Type { None, Number, String, KeyPath, Argument, True, False, Null, Timestamp, Base64 } type;
-    enum class KeyPathOp { None, Min, Max, Avg, Sum, Count, Size } collection_op;
+    enum class Type { None, Number, String, KeyPath, Argument, True, False, Null, Timestamp, Base64, SubQuery } type;
+    enum class KeyPathOp { None, Min, Max, Avg, Sum, Count, SizeString, SizeBinary } collection_op;
     std::string s;
     std::vector<std::string> time_inputs;
     std::string op_suffix;
+    std::string subquery_path, subquery_var;
+    std::shared_ptr<Predicate> subquery;
     Expression(Type t = Type::None, std::string input = "") : type(t), collection_op(KeyPathOp::None), s(input) {}
     Expression(std::vector<std::string>&& timestamp) : type(Type::Timestamp), collection_op(KeyPathOp::None), time_inputs(timestamp) {}
     Expression(std::string prefix, KeyPathOp op, std::string suffix) : type(Type::KeyPath), collection_op(op), s(prefix), op_suffix(suffix) {}
@@ -60,7 +66,8 @@ struct Predicate
         BeginsWith,
         EndsWith,
         Contains,
-        Like
+        Like,
+        In
     };
 
     enum class OperatorOption
@@ -69,11 +76,20 @@ struct Predicate
         CaseInsensitive,
     };
 
+    enum class ComparisonType
+    {
+        Unspecified,
+        Any,
+        All,
+        None,
+    };
+
     struct Comparison
     {
         Operator op = Operator::None;
         OperatorOption option = OperatorOption::None;
         Expression expr[2] = {{Expression::Type::None, ""}, {Expression::Type::None, ""}};
+        ComparisonType compare_type = ComparisonType::Unspecified;
     };
 
     struct Compound
@@ -89,7 +105,31 @@ struct Predicate
     Predicate(Type t, bool n = false) : type(t), negate(n) {}
 };
 
-Predicate parse(const std::string &query);
+struct DescriptorOrderingState
+{
+    struct PropertyState
+    {
+        std::string key_path;
+        bool ascending;
+    };
+    struct SingleOrderingState
+    {
+        std::vector<PropertyState> properties;
+        bool is_distinct;
+    };
+    std::vector<SingleOrderingState> orderings;
+};
+
+struct ParserResult
+{
+    ParserResult(Predicate p, DescriptorOrderingState o)
+    : predicate(p)
+    , ordering(o) {}
+    Predicate predicate;
+    DescriptorOrderingState ordering;
+};
+
+ParserResult parse(const std::string &query);
 
 // run the analysis tool to check for cycles in the grammar
 // returns the number of problems found and prints some info to std::cout

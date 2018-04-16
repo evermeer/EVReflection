@@ -209,6 +209,10 @@ public final class Variable<Element> {
     ///
     /// - parameter value: Initial variable value.
     public init(_ value: Element) {
+        #if DEBUG
+            DeprecationWarner.warnIfNeeded(.variable)
+        #endif
+
         _value = value
         _subject = BehaviorSubject(value: value)
     }

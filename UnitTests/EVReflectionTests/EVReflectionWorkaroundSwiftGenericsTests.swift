@@ -33,18 +33,18 @@ class EVReflectionWorkaroundSwiftGenericsTests: XCTestCase {
 
     func testSetValueGenericClass() {
         let a = MyGenericObject<NSString>()
-        a.setGenericValue("data" as AnyObject!, forUndefinedKey: "data")
+        a.setGenericValue("data" as AnyObject?, forUndefinedKey: "data")
         NSLog("\n\n===>You will get a warning that you should implement setValue forUndefinedKey")
-        a.setGenericValue("gone" as AnyObject!, forUndefinedKey: "wrongKey")
+        a.setGenericValue("gone" as AnyObject?, forUndefinedKey: "wrongKey")
         XCTAssertEqual(a.data as String, "data", "data should contain data")
     }
 
     func testSetValueIncorrectGenericClass() {
         let a = MyIncorrectGenericObject<NSString>()
         NSLog("\n\n===>You will get a warning that you should implement setValue forUndefinedKey")
-        a.setGenericValue("data" as AnyObject!, forUndefinedKey: "data")
+        a.setGenericValue("data" as AnyObject?, forUndefinedKey: "data")
         NSLog("\n\n===>You will get a warning. one that you should implement setValue forUndefinedKey")
-        a.setGenericValue("gone" as AnyObject!, forUndefinedKey: "wrongKey")
+        a.setGenericValue("gone" as AnyObject?, forUndefinedKey: "wrongKey")
         XCTAssertEqual(a.data, "", "data should still be an empty string")
     }
     

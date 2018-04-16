@@ -11,20 +11,22 @@ precedencegroup BindingPrecedence {
 
 infix operator <~ : BindingPrecedence
 
-// FIXME: Swift 4 - associated type arbitrary requirements
+// FIXME: Swift 4.x - Conditional Conformance
 // public protocol BindingSource: SignalProducerConvertible where Error == NoError {}
+// extension Signal: BindingSource where Error == NoError {}
+// extension SignalProducer: BindingSource where Error == NoError {}
 
 /// Describes a source which can be bound.
 public protocol BindingSource: SignalProducerConvertible {
 	// FIXME: Swift 4 compiler regression.
 	// All requirements are replicated to workaround the type checker issue.
 	// https://bugs.swift.org/browse/SR-5090
-
 	associatedtype Value
-	associatedtype Error
+	associatedtype Error: Swift.Error
 
 	var producer: SignalProducer<Value, Error> { get }
 }
+
 extension Signal: BindingSource {}
 extension SignalProducer: BindingSource {}
 
@@ -147,7 +149,6 @@ public struct BindingTarget<Value>: BindingTargetProvider {
 		}
 	}
 
-	#if swift(>=3.2)
 	/// Creates a binding target which consumes values on the specified scheduler.
 	///
 	/// If no scheduler is specified, the binding target would consume the value
@@ -161,5 +162,4 @@ public struct BindingTarget<Value>: BindingTargetProvider {
 	public init<Object: AnyObject>(on scheduler: Scheduler = ImmediateScheduler(), lifetime: Lifetime, object: Object, keyPath: WritableKeyPath<Object, Value>) {
 		self.init(on: scheduler, lifetime: lifetime) { [weak object] in object?[keyPath: keyPath] = $0 }
 	}
-	#endif
 }

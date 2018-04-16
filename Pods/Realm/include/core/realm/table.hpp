@@ -164,6 +164,10 @@ public:
     // Whether or not elements can be null.
     bool is_nullable(size_t col_ndx) const;
 
+    // Returns the link type for the given column.
+    // Throws an LogicError if target column is not a link column.
+    LinkType get_link_type(size_t col_ndx) const;
+
     //@{
     /// Conventience functions for inspecting the dynamic table type.
     ///
@@ -173,6 +177,8 @@ public:
     DataType get_column_type(size_t column_ndx) const noexcept;
     StringData get_column_name(size_t column_ndx) const noexcept;
     size_t get_column_index(StringData name) const noexcept;
+    typedef util::Optional<std::pair<ConstTableRef, size_t>> BacklinkOrigin;
+    BacklinkOrigin find_backlink_origin(StringData origin_table_name, StringData origin_col_name) const noexcept;
     //@}
 
     //@{
@@ -780,8 +786,33 @@ public:
         return Query(*this, lv);
     }
 
-    Table& link(size_t link_column);
+    //@{
+    /// WARNING: The link() and backlink() methods will alter a state on the Table object and return a reference to itself.
+    /// Be aware if assigning the return value of link() to a variable; this might be an error!
+
+    /// This is an error:
+
+    /// Table& cats = owners->link(1);
+    /// auto& dogs = owners->link(2);
+
+    /// Query q = person_table->where()
+    /// .and_query(cats.column<String>(5).equal("Fido"))
+    /// .Or()
+    /// .and_query(dogs.column<String>(6).equal("Meowth"));
+
+    /// Instead, do this:
+
+    /// Query q = owners->where()
+    /// .and_query(person_table->link(1).column<String>(5).equal("Fido"))
+    /// .Or()
+    /// .and_query(person_table->link(2).column<String>(6).equal("Meowth"));
+
+    /// The two calls to link() in the errorneous example will append the two values 0 and 1 to an internal vector in the
+    /// owners table, and we end up with three references to that same table: owners, cats and dogs. They are all the same
+    /// table, its vector has the values {0, 1}, so a query would not make any sense.
+    Table& link(size_t link_column);    
     Table& backlink(const Table& origin, size_t origin_col_ndx);
+    //@}
 
     // Optimizing. enforce == true will enforce enumeration of all string columns;
     // enforce == false will auto-evaluate if they should be enumerated or not
@@ -1568,6 +1599,7 @@ private:
     friend class ParentNode;
     template <class>
     friend class SequentialGetter;
+    friend struct util::serializer::SerialisationState;
     friend class RowBase;
     friend class LinksToNode;
     friend class LinkMap;
@@ -1917,15 +1949,15 @@ inline Columns<T> Table::column(size_t column_ndx)
 
     realm::DataType ct = table->get_column_type(column_ndx);
     if (std::is_same<T, int64_t>::value && ct != type_Int)
-        throw(LogicError::type_mismatch);
+        throw LogicError(LogicError::type_mismatch);
     else if (std::is_same<T, bool>::value && ct != type_Bool)
-        throw(LogicError::type_mismatch);
+        throw LogicError(LogicError::type_mismatch);
     else if (std::is_same<T, realm::OldDateTime>::value && ct != type_OldDateTime)
-        throw(LogicError::type_mismatch);
+        throw LogicError(LogicError::type_mismatch);
     else if (std::is_same<T, float>::value && ct != type_Float)
-        throw(LogicError::type_mismatch);
+        throw LogicError(LogicError::type_mismatch);
     else if (std::is_same<T, double>::value && ct != type_Double)
-        throw(LogicError::type_mismatch);
+        throw LogicError(LogicError::type_mismatch);
 
     if (std::is_same<T, Link>::value || std::is_same<T, LinkList>::value || std::is_same<T, BackLink>::value) {
         link_chain.push_back(column_ndx);
@@ -1964,7 +1996,6 @@ SubQuery<T> Table::column(const Table& origin, size_t origin_col_ndx, Query subq
     return SubQuery<T>(column<T>(origin, origin_col_ndx), std::move(subquery));
 }
 
-// For use by queries
 inline Table& Table::link(size_t link_column)
 {
     m_link_chain.push_back(link_column);

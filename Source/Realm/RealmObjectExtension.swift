@@ -20,7 +20,7 @@ extension Object {
      */
     open override func setValue(_ value: Any!, forUndefinedKey key: String) {
         if let kvc = self as? EVGenericsKVC {
-            kvc.setGenericValue(value as AnyObject!, forUndefinedKey: key)
+            kvc.setGenericValue(value as AnyObject?, forUndefinedKey: key)
         } else if let current = super.value(forKey: key) {
             if current is NSNumber, value is NSString {
                 //If we do have key and the types are different, then this is called from EVReflection

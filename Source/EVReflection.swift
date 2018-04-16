@@ -1586,7 +1586,7 @@ extension Date {
             dateString = (fromDateTimeString as NSString).substring(with: match)     // Extract milliseconds
         }
         let substrings = dateString.components(separatedBy: CharacterSet.decimalDigits.inverted)
-        guard let timeStamp = (substrings.flatMap { Double($0) }.first) else { return nil }
+        guard let timeStamp = (substrings.compactMap { Double($0) }.first) else { return nil }
         self.init(timeIntervalSince1970: timeStamp / 1000.0) // Create Date from timestamp
     }
 }

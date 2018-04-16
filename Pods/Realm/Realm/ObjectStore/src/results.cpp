@@ -436,7 +436,10 @@ void Results::clear()
             return;
         case Mode::Table:
             validate_write();
-            m_table->clear();
+            if (m_realm->is_partial())
+                Results(m_realm, m_table->where()).clear();
+            else
+                m_table->clear();
             break;
         case Mode::Query:
             // Not using Query:remove() because building the tableview and
@@ -610,6 +613,24 @@ Results Results::sort(SortDescriptor&& sort) const
 Results Results::filter(Query&& q) const
 {
     return Results(m_realm, get_query().and_query(std::move(q)), m_descriptor_ordering);
+}
+
+Results Results::apply_ordering(DescriptorOrdering&& ordering)
+{
+    DescriptorOrdering new_order = m_descriptor_ordering;
+    for (size_t i = 0; i < ordering.size(); ++i) {
+        const CommonDescriptor* desc = ordering[i];
+        if (const SortDescriptor* sort = dynamic_cast<const SortDescriptor*>(desc)) {
+            new_order.append_sort(std::move(*sort));
+            continue;
+        }
+        if (const DistinctDescriptor* distinct = dynamic_cast<const DistinctDescriptor*>(desc)) {
+            new_order.append_distinct(std::move(*distinct));
+            continue;
+        }
+        REALM_COMPILER_HINT_UNREACHABLE();
+    }
+    return Results(m_realm, get_query(), std::move(new_order));
 }
 
 Results Results::distinct(DistinctDescriptor&& uniqueness) const

@@ -5,12 +5,10 @@
 </p>
 <br />
 
-[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](#carthage) [![CocoaPods compatible](https://img.shields.io/cocoapods/v/ReactiveSwift.svg)](#cocoapods) [![SwiftPM compatible](https://img.shields.io/badge/SwiftPM-compatible-orange.svg)](#swift-package-manager) [![GitHub release](https://img.shields.io/github/release/ReactiveCocoa/ReactiveSwift.svg)](https://github.com/ReactiveCocoa/ReactiveSwift/releases) ![Swift 3.0.x](https://img.shields.io/badge/Swift-3.0.x-orange.svg) ![platforms](https://img.shields.io/badge/platform-iOS%20%7C%20macOS%20%7C%20tvOS%20%7C%20watchOS%20%7C%20Linux-lightgrey.svg)
+[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](#carthage) [![CocoaPods compatible](https://img.shields.io/cocoapods/v/ReactiveSwift.svg)](#cocoapods) [![SwiftPM compatible](https://img.shields.io/badge/SwiftPM-compatible-orange.svg)](#swift-package-manager) [![GitHub release](https://img.shields.io/github/release/ReactiveCocoa/ReactiveSwift.svg)](https://github.com/ReactiveCocoa/ReactiveSwift/releases) ![Swift 4.0](https://img.shields.io/badge/Swift-4.0-orange.svg) ![platforms](https://img.shields.io/badge/platform-iOS%20%7C%20macOS%20%7C%20tvOS%20%7C%20watchOS%20%7C%20Linux-lightgrey.svg)
 
-☕️ [Looking for Cocoa extensions?][ReactiveCocoa]
-🎉 [Getting Started](#getting-started)
+🎉 [Getting Started](#getting-started) 🚄 [Release Roadmap](#release-roadmap)
 
-🚄 [Release Roadmap](#release-roadmap)
 ## What is ReactiveSwift?
 __ReactiveSwift__ offers composable, declarative and flexible primitives that are built around the grand concept of ___streams of values over time___.
 
@@ -29,6 +27,12 @@ code and state to bridge the gap.
 1. **[Basic Operators][]**
 
    An overview of the operators provided to compose and transform streams of values.
+   
+1. **[ReactiveCocoa][ReactiveCocoa]**
+
+   Building on top of ReactiveSwift, **ReactiveCocoa** extends Cocoa platform frameworks with reactive bindings and extensions.
+   
+   [![GitHub release](https://img.shields.io/github/release/ReactiveCocoa/ReactiveCocoa.svg)](https://github.com/ReactiveCocoa/ReactiveCocoa/releases)[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/ReactiveCocoa/ReactiveCocoa/#carthage) [![CocoaPods compatible](https://img.shields.io/cocoapods/v/ReactiveCocoa.svg)](https://github.com/ReactiveCocoa/ReactiveCocoa/#cocoapods)
 
 1. **[How does ReactiveSwift relate to RxSwift?][]**
 
@@ -68,7 +72,7 @@ If you use [Carthage][] to manage your dependencies, simply add
 ReactiveSwift to your `Cartfile`:
 
 ```
-github "ReactiveCocoa/ReactiveSwift" ~> 2.0
+github "ReactiveCocoa/ReactiveSwift" ~> 3.0
 ```
 
 If you use Carthage to build your dependencies, make sure you have added `ReactiveSwift.framework`, and `Result.framework` to the "_Linked Frameworks and Libraries_" section of your target, and have included them in your Carthage framework copying build phase.
@@ -79,7 +83,7 @@ If you use [CocoaPods][] to manage your dependencies, simply add
 ReactiveSwift to your `Podfile`:
 
 ```
-pod 'ReactiveSwift', '~> 2.0'
+pod 'ReactiveSwift', '~> 3.0'
 ```
 
 #### Swift Package Manager
@@ -88,7 +92,7 @@ If you use Swift Package Manager, simply add ReactiveSwift as a dependency
 of your package in `Package.swift`:
 
 ```
-.Package(url: "https://github.com/ReactiveCocoa/ReactiveSwift.git", majorVersion: 2)
+.Package(url: "https://github.com/ReactiveCocoa/ReactiveSwift.git", majorVersion: 3)
 ```
 
 #### Git submodule
@@ -125,17 +129,9 @@ If you need any help, please visit our [GitHub issues][] or [Stack Overflow][]. 
 ## Release Roadmap
 **Current Stable Release:**<br />[![GitHub release](https://img.shields.io/github/release/ReactiveCocoa/ReactiveSwift.svg)](https://github.com/ReactiveCocoa/ReactiveSwift/releases)
 
-#### Swift 3.2 and Swift 4.0 compatibility
-While the development would be Swift 3.2 and Swift 4.0 aware, ReactiveSwift 2.0 would not declare official support until Swift 3.2 and Swift 4.0 launch.
-
-The official release for Swift 3.2 and Swift 4.0 is expected to be a minor 2.x release with full API compatibility.
-
 ### Plan of Record
-#### ReactiveCollections
-Collection support in ReactiveSwift is currently being iterated in [ReactiveCollections](https://github.com/RACCommunity/ReactiveCollections/). Contributions are welcomed.
-
-#### ReactiveSwift 3.0
-ReactiveSwift 3.0 is expected to declare library ABI stability as it adopts generics features arriving in a later Swift 4 release, e.g. conditional conformance. There is no ETA for now.
+#### ABI stability release
+ReactiveSwift is expected to declare library ABI stability when Swift rolls out resilence support. Until then, ReactiveSwift would incrementally adopt new language features that help move towards to goal. The ETA is Swift 5.
 
 [Core Reactive Primitives]: Documentation/ReactivePrimitives.md
 [Basic Operators]: Documentation/BasicOperators.md
