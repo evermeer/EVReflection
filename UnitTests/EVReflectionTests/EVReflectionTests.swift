@@ -478,9 +478,17 @@ class EVReflectionTests: XCTestCase {
     }
 
     func testWrappedArray(){
+        // auto detect wrapped array
         let json = "{\"array\":{ \"data\":[{\"openId\":\"value1\"},{\"openId\":\"value2\"}]}}"
         let obj = A81a(json: json)
         print(obj)
+        // Can also be fetched using keypath
+        let objArray = [A81](json: json, forKeyPath: "array.data")
+        XCTAssert(obj.array == objArray, "result of array should be the same")
+
+        let json2 = "{\"array\": [\"openId\",\"value1\",\"openId\",\"value2\"]}}"
+        let objArray2 = [A81](json: json2, forKeyPath: "array")
+        XCTAssert(objArray2.count == 0, "Cannot put strings in objects")
     }
 
     func testNestedArray(){
