@@ -487,6 +487,8 @@ class EVReflectionTests: XCTestCase {
         XCTAssert(obj.array == objArray, "result of array should be the same")
 
         let json2 = "{\"array\": [\"openId\",\"value1\",\"openId\",\"value2\"]}}"
+        let obj2 = A81a(json: json2)
+        XCTAssert(obj2.array.count == 0, "Cannot put strings in objects")
         let objArray2 = [A81](json: json2, forKeyPath: "array")
         XCTAssert(objArray2.count == 0, "Cannot put strings in objects")
     }
