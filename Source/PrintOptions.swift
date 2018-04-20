@@ -44,17 +44,19 @@ public struct PrintOptions: OptionSet, CustomStringConvertible {
     public static let InvalidClass  = PrintOptions(rawValue: 256)
     /// print enum without associated value
     public static let EnumWithoutAssociatedValue  = PrintOptions(rawValue: 512)
-    
+    /// print enum without associated value
+    public static let UseWorkaround  = PrintOptions(rawValue: 1024)
+
     
     /// All the options
-    public static var All: PrintOptions = [UnknownKeypath, IncorrectKey, ShouldExtendNSObject, IsInvalidJson, MissingProtocol, MissingKey, InvalidType, InvalidValue, InvalidClass, EnumWithoutAssociatedValue]
+    public static var All: PrintOptions = [UnknownKeypath, IncorrectKey, ShouldExtendNSObject, IsInvalidJson, MissingProtocol, MissingKey, InvalidType, InvalidValue, InvalidClass, EnumWithoutAssociatedValue, UseWorkaround]
     
     /// The active print options
     public static var Active: PrintOptions = All
     
     /// Get a nice description of the PrintOptions
     public var description: String {
-        let strings = ["UnknownKeypath", "IncorrectKey", "ShouldExtendNSObject", "IsInvalidJson", "MissingProtocol", "MissingKey", "InvalidType", "InvalidValue", "InvalidClass", "EnumWithoutAssociatedValue"]
+        let strings = ["UnknownKeypath", "IncorrectKey", "ShouldExtendNSObject", "IsInvalidJson", "MissingProtocol", "MissingKey", "InvalidType", "InvalidValue", "InvalidClass", "EnumWithoutAssociatedValue", "UseWorkaround"]
         var members = [String]()
         for (flag, string) in strings.enumerated() where contains(PrintOptions(rawValue:1<<(flag + 1))) {
             members.append(string)

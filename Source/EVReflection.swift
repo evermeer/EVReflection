@@ -1191,9 +1191,9 @@ final public class EVReflection {
         //Swift.Array<Swift.Array<Swift.Array<A81>>>
         let dictValue: NSArray? = theDictValue as? NSArray
         if fieldType?.hasPrefix("Swift.Array<Swift.Array<") ?? false && theDictValue is NSArray {
+            evPrint(.UseWorkaround, "TODO: You have to implement a workaround for double nested arrays. See https://github.com/evermeer/EVReflection/issues/212")
             for item in dictValue! {
-                print("Have to convert here... NSArray to \(fieldType ?? "") \(item)")
-                
+                evPrint(.UseWorkaround, "TODO: Have to convert here... NSArray to \(fieldType ?? "") \(item)")
             }
         }
         return dictValue!
