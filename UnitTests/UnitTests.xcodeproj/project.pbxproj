@@ -159,6 +159,7 @@
 		7F41ECB21B91F306003A2236 /* EVReflectionWorkaroundsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F41ECAB1B91F306003A2236 /* EVReflectionWorkaroundsTests.swift */; };
 		7F41ECB31B91F306003A2236 /* EVReflectionWorkaroundSwiftGenericsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F41ECAC1B91F306003A2236 /* EVReflectionWorkaroundSwiftGenericsTests.swift */; };
 		7F44151C1E2A84E00077F033 /* CKAsset+UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F44151B1E2A84E00077F033 /* CKAsset+UIImage.swift */; };
+		7F4763F62096DC3E0014936C /* EVReflectionIssue285.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F4763F52096DC3E0014936C /* EVReflectionIssue285.swift */; };
 		7F479E1C1C84D7A000F03BEF /* EVReflectionSyncAlternateDesync.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F479E1A1C84D6FC00F03BEF /* EVReflectionSyncAlternateDesync.swift */; };
 		7F479E1D1C84D7A100F03BEF /* EVReflectionSyncAlternateDesync.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F479E1A1C84D6FC00F03BEF /* EVReflectionSyncAlternateDesync.swift */; };
 		7F479E1E1C84D7A200F03BEF /* EVReflectionSyncAlternateDesync.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F479E1A1C84D6FC00F03BEF /* EVReflectionSyncAlternateDesync.swift */; };
@@ -343,6 +344,7 @@
 		7F41ECAB1B91F306003A2236 /* EVReflectionWorkaroundsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVReflectionWorkaroundsTests.swift; sourceTree = "<group>"; };
 		7F41ECAC1B91F306003A2236 /* EVReflectionWorkaroundSwiftGenericsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVReflectionWorkaroundSwiftGenericsTests.swift; sourceTree = "<group>"; };
 		7F44151B1E2A84E00077F033 /* CKAsset+UIImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CKAsset+UIImage.swift"; sourceTree = "<group>"; };
+		7F4763F52096DC3E0014936C /* EVReflectionIssue285.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EVReflectionIssue285.swift; sourceTree = "<group>"; };
 		7F479E1A1C84D6FC00F03BEF /* EVReflectionSyncAlternateDesync.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVReflectionSyncAlternateDesync.swift; sourceTree = "<group>"; };
 		7F57C02E1D21A639006070E1 /* EVReflectionIssue99.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = EVReflectionIssue99.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		7F59F9D81C07986200C14CF9 /* EVReflectionAssociatedTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVReflectionAssociatedTests.swift; sourceTree = "<group>"; };
@@ -629,6 +631,7 @@
 				1394D4A41F037D1C00825631 /* EVReflectionIssue213.swift */,
 				13961C351F5ADCA9007F805D /* EVReflectionIssue223.swift */,
 				7F247F89206CA365009838A6 /* EVReflectionIssue276.swift */,
+				7F4763F52096DC3E0014936C /* EVReflectionIssue285.swift */,
 			);
 			name = GitHubIssues;
 			sourceTree = "<group>";
@@ -1075,6 +1078,7 @@
 				7F057CF01D4A851300F3053E /* EVReflectionIssue110.swift in Sources */,
 				7F59F9DD1C079A7300C14CF9 /* EVReflectionNumbersTests.swift in Sources */,
 				7FB099E31D2F83C400D94204 /* EVReflectionIssue102.swift in Sources */,
+				7F4763F62096DC3E0014936C /* EVReflectionIssue285.swift in Sources */,
 				7F9801911E260A4D00D6C5C0 /* MoyaGitHubAPI.swift in Sources */,
 				1303DBD61F2E01990077E55C /* RealmTestIssue219.swift in Sources */,
 				7FF4BEB51CF2DA8B0086F999 /* EVReflectionIssue86.swift in Sources */,
