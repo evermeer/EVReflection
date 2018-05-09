@@ -797,9 +797,9 @@ final public class EVReflection {
     }
     
     public class func convertToInternalSwiftRepresentation(type: String) -> String {
-        if type.components(separatedBy: "<").count > 1 {
+        if type.split(separator: "<").count > 1 {
             // Remove the Array or Set prefix
-            let prefix = type.components(separatedBy: "<") [0] + "<"
+            let prefix = type.split(separator: "<") [0] + "<"
             var subtype = String(type[prefix.endIndex...])
             subtype = String(subtype[..<subtype.index(before: subtype.endIndex)])
             return prefix + convertToInternalSwiftRepresentation(type: subtype) + ">"

@@ -128,13 +128,27 @@ public extension Array where Element: EVReflectable {
      Convert this array to a json string
      
      - parameter conversionOptions: Option set for the various conversion options.
-     
+     - parameter prettyPrinted: Define if you want enters and indents
+
      - returns: The json string
      */
     public func toJsonString(_ conversionOptions: ConversionOptions = .DefaultSerialize, prettyPrinted: Bool = false) -> String {
         return "[\n" + self.map({($0).toJsonString(conversionOptions, prettyPrinted: prettyPrinted)}).joined(separator: ", \n") + "\n]"
     }
 
+    /**
+     Convert this array to a json data
+     
+     - parameter conversionOptions: Option set for the various conversion options.
+     - parameter prettyPrinted: Define if you want enters and indents
+     - parameter encoding: The string encoding defaulsts to .utf8
+     
+     - returns: The json data
+     */
+    public func toJsonData(_ conversionOptions: ConversionOptions = .DefaultSerialize, prettyPrinted: Bool = false, encoding: String.Encoding = .utf8) -> Data {
+        return self.toJsonString(conversionOptions, prettyPrinted: prettyPrinted).data(using: encoding) ?? Data()
+    }
+    
     /**
      Returns the dictionary representation of this array.
      
