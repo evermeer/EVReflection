@@ -980,7 +980,10 @@ final public class EVReflection {
             do {
                 if !(value is NSNull) {
                     var setValue: AnyObject? = value as AnyObject?
-                    try anyObject.validateValue(&setValue, forKey: key)
+                    let validateFunction = "validate" + key.prefix(1).uppercased() + key.dropFirst() + ":error:"
+                    if (anyObject as AnyObject).responds(to: Selector(validateFunction)) {
+                        try anyObject.validateValue(&setValue, forKey: key)
+                    }
                     anyObject.setValue(setValue, forKey: key)
                 }
             } catch _ {

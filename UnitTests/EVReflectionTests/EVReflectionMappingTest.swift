@@ -70,6 +70,13 @@ class EVReflectionMappingTests: XCTestCase {
         XCTAssertNil(player.memberSince)
         XCTAssertEqual(player.rating, 0)
     }
+    
+    func testValidationFunction() {
+        let user = GameUser(json: "{\"name\":\"Yo\"}")
+        XCTAssertNil(user.name, "Name should not have been set to Yo")
+        let user2 = GameUser(json: "{\"name\":\"Yol\"}")
+        XCTAssertEqual(user2.name, "Yol", "Name should have been set to Yol")
+    }
 }
 
 enum MyValidationError: Error {
