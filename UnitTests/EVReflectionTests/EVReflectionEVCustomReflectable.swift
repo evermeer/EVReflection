@@ -42,7 +42,10 @@ open class XObject: EVObject {
 }
 
 extension XObject : EVCustomReflectable {
-    public func constructWith(value: Any?) -> EVCustomReflectable {
+    public static func constructWith(value: Any?) -> EVCustomReflectable? {
+        return XObject().constructWith(value: value)
+    }
+    public func constructWith(value: Any?) -> EVCustomReflectable? {
         if let jsonDict = value as? NSDictionary {
             EVReflection.setPropertiesfromDictionary(jsonDict, anyObject: self)
         }

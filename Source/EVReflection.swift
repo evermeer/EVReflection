@@ -78,9 +78,12 @@ final public class EVReflection {
                     (dictValue, valid) = dictionaryAndArrayConversion(anyObject, key: keyInObject!, fieldType: types[dictKey] as? String ?? types[keyInObject!] as? String, original: original, theDictValue: v as Any?, conversionOptions: conversionOptions)
                 }
                 
-                if let value: Any = valid ? dictValue : (v as Any) {
-                    if var custom = original as? EVCustomReflectable {
-                        custom = custom.constructWith(value: value)
+                if var value: Any = valid ? dictValue : (v as Any) {
+                    if let type: String = types[k as! String] as? String {
+                        let t: AnyClass? = swiftClassTypeFromString(type)
+                        if let c = t as? EVCustomReflectable {
+                            value = c.constructWith(value: value)!
+                        }
                     }
                     setObjectValue(anyObject, key: keyInObject!, theValue: value, typeInObject: types[keyInObject!] as? String, valid: valid, conversionOptions: conversionOptions)
                 }
@@ -1437,7 +1440,7 @@ final public class EVReflection {
 
                     if let v = value as? EVCustomReflectable {
                         unboxedValue = v.toCodableValue() as AnyObject
-                        valueType = "String"
+                        valueType = String(describing: type(of: v))
                         isObject = false
                     }
 

@@ -11,12 +11,16 @@ import CloudKit
 
 // We have to use custom reflection for a CKRecordID because its a special type
 extension CKRecordID: EVCustomReflectable  {
-    public func constructWith(value: Any?) -> EVCustomReflectable {
+    public static func constructWith(value: Any?) -> EVCustomReflectable? {
         if let dict = value as? NSDictionary {
             return CKRecordID(recordName: dict["recordName"] as? String ?? "")
         }
         print("ERROR: Could not create CKRecordID for \(String(describing: value))")
-        return self
+        return nil
+    }
+    
+    public func constructWith(value: Any?) -> EVCustomReflectable? {
+        return CKRecordID.constructWith(value: value)
     }
     
     public func toCodableValue() -> Any {

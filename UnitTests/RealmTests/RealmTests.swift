@@ -152,7 +152,6 @@ class RealmTests: XCTestCase {
         print("dict = \(dict)")
         let newObj = PrimitiveListsObject(dictionary: dict)
         print("newObj = \(newObj)")
-
     }
     
     func testIssue270() {
