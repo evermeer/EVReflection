@@ -457,6 +457,7 @@
 					};
 					D06F6D741F5E414B0061ACB2 = {
 						CreatedOnToolsVersion = 8.3.3;
+						LastSwiftMigration = 1000;
 						ProvisioningStyle = Automatic;
 					};
 					D09860EE1F76DE7700275D18 = {
@@ -975,7 +976,7 @@
 				PRODUCT_NAME = EVReflection_CloudKit;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -1000,6 +1001,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = nl.evict.EVReflectionCloudKitIOS;
 				PRODUCT_NAME = EVReflection_CloudKit;
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.2;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};

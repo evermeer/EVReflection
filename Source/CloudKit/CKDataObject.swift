@@ -15,7 +15,7 @@ open class CKDataObject: EVObject {
     /**
      The unique ID of the record.
      */
-    open var recordID: CKRecordID = CKRecordID(recordName: UUID().uuidString)
+    open var recordID: CKRecord.ID = CKRecord.ID(recordName: UUID().uuidString)
     
     /**
      The app-defined string that identifies the type of the record.
@@ -30,7 +30,7 @@ open class CKDataObject: EVObject {
     /**
      The ID of the user who created the record.
      */
-    open var creatorUserRecordID: CKRecordID?
+    open var creatorUserRecordID: CKRecord.ID?
     
     /**
      The time when the record was last saved to the server.
@@ -40,7 +40,7 @@ open class CKDataObject: EVObject {
     /**
      The ID of the user who last modified the record.
      */
-    open var lastModifiedUserRecordID: CKRecordID?
+    open var lastModifiedUserRecordID: CKRecord.ID?
     
     /**
      A string containing the server change token for the record.
@@ -140,9 +140,9 @@ open class CKDataObject: EVObject {
                     }
                 } else if key as! String != "recordID" {
                     if types[key] as? String == "CKRecordID" {
-                        record.setValue(CKRecordID(recordName: value as? String ?? ""), forKey: "\(root)\(key as! String)")
+                        record.setValue(CKRecord.ID(recordName: value as? String ?? ""), forKey: "\(root)\(key as! String)")
                     } else if types[key] as? String == "CKReference" {
-                        record.setValue(CKReference(recordID: CKRecordID(recordName: value as? String ?? ""), action: CKReferenceAction.none), forKey: "\(root)\(key as! String)")
+                        record.setValue(CKRecord.Reference(recordID: CKRecord.ID(recordName: value as? String ?? ""), action: CKRecord.Reference.Action.none), forKey: "\(root)\(key as! String)")
                     } else {
                         record.setValue(value, forKey: "\(root)\(key as! String)")
                     }
