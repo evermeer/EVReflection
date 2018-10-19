@@ -114,7 +114,7 @@ class EVReflectionTests: XCTestCase {
         NSLog("object = \(nsobject.debugDescription), objectValue = \(nsobject?.objectValue ?? "")")
         XCTAssert(theObject == nsobject, "Pass")
     }
-
+    
     /**
     Test the convenience methods for getting a dictionary and creating an object based on a dictionary.
     */

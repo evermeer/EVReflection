@@ -81,8 +81,10 @@ final public class EVReflection {
                 if var value: Any = valid ? dictValue : (v as Any) {
                     if let type: String = types[k as! String] as? String {
                         let t: AnyClass? = swiftClassTypeFromString(type)
-                        if let c = t as? EVCustomReflectable {
-                            value = c.constructWith(value: value)!
+                        if let c = t as? EVCustomReflectable.Type {
+                            if let v = c.constructWith(value: value) {
+                                value = v
+                            }
                         }
                     }
                     setObjectValue(anyObject, key: keyInObject!, theValue: value, typeInObject: types[keyInObject!] as? String, valid: valid, conversionOptions: conversionOptions)

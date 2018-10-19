@@ -103,6 +103,7 @@ class RealmTests: XCTestCase {
             .filter("cars.@count > 1 && spouse != nil && name IN %@", favorites)
             .sorted(byKeyPath: "age")
         
+        // Update: this can actually crash sometimes in an invinite loop
         print("object = \(favoritePeopleWithSpousesAndCars.first?.toJsonString() ?? "")")
         
         for person in favoritePeopleWithSpousesAndCars {
