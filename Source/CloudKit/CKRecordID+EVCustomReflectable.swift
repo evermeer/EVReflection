@@ -10,17 +10,17 @@ import CoreLocation
 import CloudKit
 
 // We have to use custom reflection for a CKRecordID because its a special type
-extension CKRecordID: EVCustomReflectable  {
+extension CKRecord.ID: EVCustomReflectable  {
     public static func constructWith(value: Any?) -> EVCustomReflectable? {
         if let dict = value as? NSDictionary {
-            return CKRecordID(recordName: dict["recordName"] as? String ?? "")
+            return CKRecord.ID(recordName: dict["recordName"] as? String ?? "")
         }
         print("ERROR: Could not create CKRecordID for \(String(describing: value))")
         return nil
     }
     
     public func constructWith(value: Any?) -> EVCustomReflectable? {
-        return CKRecordID.constructWith(value: value)
+        return CKRecord.ID.constructWith(value: value)
     }
     
     public func toCodableValue() -> Any {
