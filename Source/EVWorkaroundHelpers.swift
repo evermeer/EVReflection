@@ -75,7 +75,7 @@ public extension EVAssociated {
         get {
             let mirror = Mirror(reflecting: self)
             if let associated = mirror.children.first {
-                return (associated.label!, associated.value)
+                return (associated.label!, Mirror(reflecting: associated.value).children.first?.value)
             }
             evPrint(.EnumWithoutAssociatedValue, "WARNING: Enum option of \(self) does not have an associated value")
             return ("\(self)", nil)
