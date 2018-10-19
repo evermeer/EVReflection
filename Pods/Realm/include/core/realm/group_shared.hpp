@@ -407,13 +407,18 @@ public:
     /// The name of the temporary file is formed by appending
     /// ".tmp_compaction_space" to the name of the database
     ///
+    /// If the output_encryption_key is `none` then the file's existing key will
+    /// be used (if any). If the output_encryption_key is nullptr, the resulting
+    /// file will be unencrypted. Any other value will change the encryption of
+    /// the file to the new 64 byte key.
+    ///
     /// FIXME: This function is not yet implemented in an exception-safe manner,
     /// therefore, if it throws, the application should not attempt to
     /// continue. If may not even be safe to destroy the SharedGroup object.
     ///
     /// WARNING / FIXME: compact() should NOT be exposed publicly on Windows
     /// because it's not crash safe! It may corrupt your database if something fails
-    bool compact();
+    bool compact(bool bump_version_number = false, util::Optional<const char*> output_encryption_key = util::none);
 
 #ifdef REALM_DEBUG
     void test_ringbuf();
@@ -1009,10 +1014,6 @@ inline void SharedGroup::rollback_and_continue_as_read(O* observer)
     if (!hist)
         throw LogicError(LogicError::no_history);
 
-    // Mark all managed space (beyond the attached file) as free.
-    using gf = _impl::GroupFriend;
-    gf::reset_free_space_tracking(m_group); // Throws
-
     BinaryData uncommitted_changes = hist->get_uncommitted_changes();
 
     // FIXME: We are currently creating two transaction log parsers, one here,
@@ -1028,6 +1029,10 @@ inline void SharedGroup::rollback_and_continue_as_read(O* observer)
         parser.parse(reversed_in, *observer); // Throws
         observer->parse_complete();           // Throws
     }
+
+    // Mark all managed space (beyond the attached file) as free.
+    using gf = _impl::GroupFriend;
+    gf::reset_free_space_tracking(m_group); // Throws
 
     ref_type top_ref = m_read_lock.m_top_ref;
     size_t file_size = m_read_lock.m_file_size;

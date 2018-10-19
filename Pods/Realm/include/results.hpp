@@ -120,6 +120,9 @@ public:
     Results distinct(DistinctDescriptor&& uniqueness) const;
     Results distinct(std::vector<std::string> const& keypaths) const;
 
+    // Create a new Results with only the first `max_count` entries
+    Results limit(size_t max_count) const;
+
     // Create a new Results by adding sort and distinct combinations
     Results apply_ordering(DescriptorOrdering&& ordering);
 
@@ -186,6 +189,11 @@ public:
         UnsupportedColumnTypeException(size_t column, const Table* table, const char* operation);
     };
 
+    // The requested operation is valid, but has not yet been implemented
+    struct UnimplementedOperationException : public std::logic_error {
+        UnimplementedOperationException(const char *message);
+    };
+
     // Create an async query from this Results
     // The query will be run on a background thread and delivered to the callback,
     // and then rerun after each commit (if needed) and redelivered if it changed
@@ -242,7 +250,8 @@ private:
     void validate_read() const;
     void validate_write() const;
 
-    void prepare_async();
+    using ForCallback = util::TaggedBool<class ForCallback>;
+    void prepare_async(ForCallback);
 
     template<typename T>
     util::Optional<T> try_get(size_t);

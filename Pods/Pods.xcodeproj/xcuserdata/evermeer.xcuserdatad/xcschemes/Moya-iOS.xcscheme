@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0700"
+   LastUpgradeVersion = "0930"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "C25F41391850FCCAEAB6332456E000C6"
+               BlueprintIdentifier = "87F0666C2B4E651B81DDA19C8A83EF70"
                BuildableName = "Moya.framework"
                BlueprintName = "Moya-iOS"
                ReferencedContainer = "container:Pods.xcodeproj">
@@ -45,7 +45,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "C25F41391850FCCAEAB6332456E000C6"
+            BlueprintIdentifier = "87F0666C2B4E651B81DDA19C8A83EF70"
             BuildableName = "Moya.framework"
             BlueprintName = "Moya-iOS"
             ReferencedContainer = "container:Pods.xcodeproj">

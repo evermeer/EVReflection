@@ -202,4 +202,12 @@ static RLMSyncManager *s_sharedManager = nil;
     SyncManager::shared().reset_for_testing();
 }
 
+- (RLMNetworkRequestOptions *)networkRequestOptions {
+    RLMNetworkRequestOptions *options = [[RLMNetworkRequestOptions alloc] init];
+    options.authorizationHeaderName = self.authorizationHeaderName;
+    options.customHeaders = self.customRequestHeaders;
+    options.pinnedCertificatePaths = self.pinnedCertificatePaths;
+    return options;
+}
+
 @end

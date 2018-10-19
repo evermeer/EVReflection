@@ -13,7 +13,7 @@ import CloudKit
 extension CKRecord.Reference: EVCustomReflectable  {
     public static func constructWith(value: Any?) -> EVCustomReflectable? {
         if let dict = value as? NSDictionary {
-            return CKRecord.Reference(recordID: CKRecord.ID(recordName: dict["recordName"] as? String ?? ""), action: CKRecord.Reference.Action.none)
+            return CKRecord.Reference(recordID: CKRecord.ID(recordName: dict["recordName"] as? String ?? ""), action: CKRecord_Reference_Action.none)
         }
         print("ERROR: Could not create CKReference for \(String(describing: value))")
         return nil

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0700"
+   LastUpgradeVersion = "0930"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "4D8199C20C1BE5F5BCDBC8F8CB4BF089"
+               BlueprintIdentifier = "A4A44D1A5CDD960F8E04681AFE771E72"
                BuildableName = "Alamofire.framework"
                BlueprintName = "Alamofire-iOS"
                ReferencedContainer = "container:Pods.xcodeproj">
@@ -45,7 +45,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "4D8199C20C1BE5F5BCDBC8F8CB4BF089"
+            BlueprintIdentifier = "A4A44D1A5CDD960F8E04681AFE771E72"
             BuildableName = "Alamofire.framework"
             BlueprintName = "Alamofire-iOS"
             ReferencedContainer = "container:Pods.xcodeproj">

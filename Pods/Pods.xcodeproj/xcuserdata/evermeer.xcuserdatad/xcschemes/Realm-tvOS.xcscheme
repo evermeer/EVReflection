@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0700"
+   LastUpgradeVersion = "0930"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "D99C5D93D344B95351138E28D4A90559"
+               BlueprintIdentifier = "E45304E583337F23A20FE846D0E95D0F"
                BuildableName = "Realm.framework"
                BlueprintName = "Realm-tvOS"
                ReferencedContainer = "container:Pods.xcodeproj">
@@ -45,7 +45,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "D99C5D93D344B95351138E28D4A90559"
+            BlueprintIdentifier = "E45304E583337F23A20FE846D0E95D0F"
             BuildableName = "Realm.framework"
             BlueprintName = "Realm-tvOS"
             ReferencedContainer = "container:Pods.xcodeproj">

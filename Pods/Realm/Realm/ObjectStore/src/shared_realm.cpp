@@ -727,11 +727,11 @@ bool Realm::compact()
         throw InvalidTransactionException("Can't compact a Realm within a write transaction");
     }
 
-    Group& group = read_group();
-    for (auto &object_schema : m_schema) {
-        ObjectStore::table_for_object_type(group, object_schema.name)->optimize();
+    verify_open();
+    // FIXME: when enum columns are ready, optimise all tables in a write transaction
+    if (m_group) {
+        m_shared_group->end_read();
     }
-    m_shared_group->end_read();
     m_group = nullptr;
 
     return m_shared_group->compact();
@@ -961,6 +961,7 @@ T Realm::resolve_thread_safe_reference(ThreadSafeReference<T> reference)
         if (reference_version < current_version) {
             // Duplicate config for uncached Realm so we don't advance the user's Realm
             Realm::Config config = m_coordinator->get_config();
+            config.automatic_change_notifications = false;
             config.cache = false;
             config.schema = util::none;
             SharedRealm temporary_realm = m_coordinator->get_realm(config);
@@ -1095,4 +1096,9 @@ Group& RealmFriend::read_group_to(Realm& realm, VersionID version)
         realm.m_shared_group->end_read();
     realm.begin_read(version);
     return *realm.m_group;
+}
+
+std::size_t Realm::compute_size() {
+    Group& group = read_group();
+    return group.compute_aggregated_byte_size();
 }

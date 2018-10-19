@@ -53,14 +53,11 @@ RLMSyncSystemErrorKind errorKindForSyncError(SyncError error) {
         return RLMSyncSystemErrorKindUnknown;
     }
 }
-}
 
-static BOOL isValidRealmURL(NSURL *url) {
+BOOL isValidRealmURL(NSURL *url) {
     NSString *scheme = [url scheme];
-    if (![scheme isEqualToString:@"realm"] && ![scheme isEqualToString:@"realms"]) {
-        return NO;
-    }
-    return YES;
+    return [scheme isEqualToString:@"realm"] || [scheme isEqualToString:@"realms"];
+}
 }
 
 @interface RLMSyncConfiguration () {
@@ -94,7 +91,7 @@ static BOOL isValidRealmURL(NSURL *url) {
     return [self.realmURL isEqual:that.realmURL]
         && [self.user isEqual:that.user]
         && self.stopPolicy == that.stopPolicy
-        && self.isPartial == that.isPartial;
+        && self.fullSynchronization == that.fullSynchronization;
 }
 
 - (void)setEnableSSLValidation:(BOOL)enableSSLValidation {
@@ -109,8 +106,38 @@ static BOOL isValidRealmURL(NSURL *url) {
     _config->is_partial = (bool)isPartial;
 }
 
+- (NSURL *)pinnedCertificateURL {
+    if (auto& path = _config->ssl_trust_certificate_path) {
+        return [NSURL fileURLWithPath:RLMStringDataToNSString(*path)];
+    }
+    return nil;
+}
+
+- (void)setPinnedCertificateURL:(NSURL *)pinnedCertificateURL {
+    if (pinnedCertificateURL) {
+        if ([pinnedCertificateURL respondsToSelector:@selector(UTF8String)]) {
+            _config->ssl_trust_certificate_path = std::string([(id)pinnedCertificateURL UTF8String]);
+        }
+        else {
+            _config->ssl_trust_certificate_path = std::string(pinnedCertificateURL.path.UTF8String);
+        }
+    }
+    else {
+        _config->ssl_trust_certificate_path = util::none;
+    }
+}
+
+
 - (BOOL)isPartial {
     return (BOOL)_config->is_partial;
+}
+
+- (void)setFullSynchronization:(BOOL)fullSynchronization {
+    _config->is_partial = !(bool)fullSynchronization;
+}
+
+- (BOOL)fullSynchronization {
+    return !(BOOL)_config->is_partial;
 }
 
 - (realm::SyncConfig)rawConfiguration {
@@ -129,6 +156,21 @@ static BOOL isValidRealmURL(NSURL *url) {
     _config->stop_policy = translateStopPolicy(stopPolicy);
 }
 
+- (NSString *)urlPrefix {
+    if (_config->url_prefix) {
+        return @(_config->url_prefix->c_str());
+    }
+    return nil;
+}
+
+- (void)setUrlPrefix:(NSString *)urlPrefix {
+    if (urlPrefix) {
+        _config->url_prefix.emplace(urlPrefix.UTF8String);
+    } else {
+        _config->url_prefix = none;
+    }
+}
+
 - (NSURL *)realmURL {
     NSString *rawStringURL = @(_config->reference_realm_url.c_str());
     return [NSURL URLWithString:rawStringURL];
@@ -141,6 +183,25 @@ static BOOL isValidRealmURL(NSURL *url) {
                     isPartial:NO
                    stopPolicy:RLMSyncStopPolicyAfterChangesUploaded
                  errorHandler:nullptr];
+}
+
+- (instancetype)initWithUser:(RLMSyncUser *)user
+                    realmURL:(NSURL *)url
+                   isPartial:(BOOL)isPartial
+                   urlPrefix:(NSString *)urlPrefix
+                  stopPolicy:(RLMSyncStopPolicy)stopPolicy
+         enableSSLValidation:(BOOL)enableSSLValidation
+             certificatePath:(nullable NSURL *)certificatePath {
+    auto config = [self initWithUser:user
+                            realmURL:url
+                       customFileURL:nil
+                           isPartial:isPartial
+                          stopPolicy:stopPolicy
+                        errorHandler:nullptr];
+    config.urlPrefix = urlPrefix;
+    config.enableSSLValidation = enableSSLValidation;
+    config.pinnedCertificateURL = certificatePath;
+    return config;
 }
 
 - (instancetype)initWithUser:(RLMSyncUser *)user
@@ -192,6 +253,16 @@ static BOOL isValidRealmURL(NSURL *url) {
         _config->bind_session_handler = std::move(bindHandler);
         _config->error_handler = std::move(errorHandler);
         _config->is_partial = isPartial;
+
+        if (NSString *authorizationHeaderName = [RLMSyncManager sharedManager].authorizationHeaderName) {
+            _config->authorization_header_name.emplace(authorizationHeaderName.UTF8String);
+        }
+        if (NSDictionary<NSString *, NSString *> *customRequestHeaders = [RLMSyncManager sharedManager].customRequestHeaders) {
+            for (NSString *key in customRequestHeaders) {
+                _config->custom_http_headers.emplace(key.UTF8String, customRequestHeaders[key].UTF8String);
+            }
+        }
+
         self.customFileURL = customFileURL;
         return self;
     }

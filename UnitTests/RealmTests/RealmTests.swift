@@ -75,8 +75,11 @@ class RealmTests: XCTestCase {
      Get the string name for a class and then generate a class based on that string
      */
     func testRealmSmokeTest() {
-        //: III. Create the objects
+        //TODO: We should fix this. It now crashes in an infinite recursive loop.
+        XCTFail()
+        return
 
+        //: III. Create the objects
         let wife = Person(json: "{\"name\": \"Jennifer\", \"age\": \"47\", \"cars\": [{\"brand\": \"DeLorean\", \"name\": \"Outatime\", \"year\": 1981} , {\"brand\": \"Volkswagen\", \"year\": 2014}], \"spouse\": {\"name\": \"Marty\", \"age\": \"48\"}}")
 
         // set the circular reference: The spouse of my spouse is me

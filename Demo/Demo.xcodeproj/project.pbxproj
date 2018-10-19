@@ -171,7 +171,6 @@
 				5EC197DD1A1BB16D00F4DFD4 /* Frameworks */,
 				5EC197DE1A1BB16D00F4DFD4 /* Resources */,
 				9C291DA5D8E32DC7E23D2181 /* [CP] Embed Pods Frameworks */,
-				F04DFE5CA20273999AD3505F /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -195,7 +194,7 @@
 				TargetAttributes = {
 					5EC197DF1A1BB16D00F4DFD4 = {
 						CreatedOnToolsVersion = 6.1.1;
-						DevelopmentTeam = NFYKDD8CR4;
+						DevelopmentTeam = 6Z7QY98HTS;
 						LastSwiftMigration = 0800;
 					};
 				};
@@ -256,7 +255,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/../Pods/Target Support Files/Pods-44Demo5/Pods-44Demo5-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-44Demo5/Pods-44Demo5-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/EVReflection-e20423af/EVReflection.framework",
 				"${BUILT_PRODUCTS_DIR}/Alamofire-iOS/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/Moya-iOS/Moya.framework",
@@ -281,22 +280,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/../Pods/Target Support Files/Pods-44Demo5/Pods-44Demo5-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		F04DFE5CA20273999AD3505F /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/../Pods/Target Support Files/Pods-44Demo5/Pods-44Demo5-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-44Demo5/Pods-44Demo5-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -395,7 +379,7 @@
 			baseConfigurationReference = 0F0D6CA7C294B3C0AA010B59 /* Pods-44Demo5.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = NFYKDD8CR4;
+				DEVELOPMENT_TEAM = 6Z7QY98HTS;
 				INFOPLIST_FILE = Demo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -461,7 +445,7 @@
 			baseConfigurationReference = 112570B554091674C1C64845 /* Pods-44Demo5.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = NFYKDD8CR4;
+				DEVELOPMENT_TEAM = 6Z7QY98HTS;
 				INFOPLIST_FILE = Demo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

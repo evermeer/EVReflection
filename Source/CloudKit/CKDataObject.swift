@@ -142,7 +142,7 @@ open class CKDataObject: EVObject {
                     if types[key] as? String == "CKRecordID" {
                         record.setValue(CKRecord.ID(recordName: value as? String ?? ""), forKey: "\(root)\(key as! String)")
                     } else if types[key] as? String == "CKReference" {
-                        record.setValue(CKRecord.Reference(recordID: CKRecord.ID(recordName: value as? String ?? ""), action: CKRecord.Reference.Action.none), forKey: "\(root)\(key as! String)")
+                        record.setValue(CKRecord.Reference(recordID: CKRecord.ID(recordName: value as? String ?? ""), action: CKRecord_Reference_Action.none), forKey: "\(root)\(key as! String)")
                     } else {
                         record.setValue(value, forKey: "\(root)\(key as! String)")
                     }

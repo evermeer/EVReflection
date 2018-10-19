@@ -132,7 +132,6 @@
 				7F6C9FAE1CB90E6D00F19811 /* Resources */,
 				7F6C9FC91CB92D3C00F19811 /* Embed Frameworks */,
 				C63D63083B0688143BDDA78B /* [CP] Embed Pods Frameworks */,
-				99F0DAE5CBB1FB84AFB34851 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -155,7 +154,7 @@
 				TargetAttributes = {
 					7F6C9FAF1CB90E6D00F19811 = {
 						CreatedOnToolsVersion = 7.3;
-						DevelopmentTeam = NFYKDD8CR4;
+						DevelopmentTeam = 6Z7QY98HTS;
 					};
 				};
 			};
@@ -193,28 +192,13 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		99F0DAE5CBB1FB84AFB34851 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/../Pods/Target Support Files/Pods-Performance.Test/Pods-Performance.Test-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		C63D63083B0688143BDDA78B /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/../Pods/Target Support Files/Pods-Performance.Test/Pods-Performance.Test-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-Performance.Test/Pods-Performance.Test-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/EVReflection-Core/EVReflection.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -223,7 +207,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/../Pods/Target Support Files/Pods-Performance.Test/Pods-Performance.Test-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Performance.Test/Pods-Performance.Test-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		F00C3A074FB799B6C3C80311 /* [CP] Check Pods Manifest.lock */ = {
@@ -398,7 +382,7 @@
 				CLANG_ANALYZER_NONNULL = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = NFYKDD8CR4;
+				DEVELOPMENT_TEAM = 6Z7QY98HTS;
 				INFOPLIST_FILE = PerformanceTest/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = nl.evict.PerformanceTest;
@@ -415,7 +399,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ANALYZER_NONNULL = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				DEVELOPMENT_TEAM = NFYKDD8CR4;
+				DEVELOPMENT_TEAM = 6Z7QY98HTS;
 				INFOPLIST_FILE = PerformanceTest/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = nl.evict.PerformanceTest;

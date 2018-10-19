@@ -676,7 +676,6 @@
 				7F07C5701AF101A9000DF1F3 /* Resources */,
 				7F36405E1CC9F37A00D7F055 /* SwiftLint */,
 				F3E03DBADC7424939D68203D /* [CP] Embed Pods Frameworks */,
-				8A372AFA365D66E07FB26510 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -696,7 +695,6 @@
 				7F3E31821BB9095C001E6788 /* Frameworks */,
 				7F3E31831BB9095C001E6788 /* Resources */,
 				250996FF6BCC8673ABE841DB /* [CP] Embed Pods Frameworks */,
-				26F88B2ADD872D0BBA93145C /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -716,7 +714,6 @@
 				7F9336B41C28227400AF7076 /* Frameworks */,
 				7F9336B51C28227400AF7076 /* Resources */,
 				05C4BB78E5CAC65CAF20D6F9 /* [CP] Embed Pods Frameworks */,
-				671F8FB59CA52EBF967CFC30 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -739,18 +736,18 @@
 				TargetAttributes = {
 					7F07C5711AF101A9000DF1F3 = {
 						CreatedOnToolsVersion = 6.3.1;
-						DevelopmentTeam = WTH4QGEA23;
+						DevelopmentTeam = 6Z7QY98HTS;
 						LastSwiftMigration = 0900;
 						TestTargetID = 7F07C55C1AF101A9000DF1F3;
 					};
 					7F3E31841BB9095C001E6788 = {
 						CreatedOnToolsVersion = 7.0;
-						DevelopmentTeam = WTH4QGEA23;
+						DevelopmentTeam = 6Z7QY98HTS;
 						ProvisioningStyle = Automatic;
 					};
 					7F9336B61C28227400AF7076 = {
 						CreatedOnToolsVersion = 7.2;
-						DevelopmentTeam = WTH4QGEA23;
+						DevelopmentTeam = 6Z7QY98HTS;
 						LastSwiftMigration = 0810;
 					};
 				};
@@ -847,7 +844,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/../Pods/Target Support Files/Pods-UnitTestsTVOS/Pods-UnitTestsTVOS-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-UnitTestsTVOS/Pods-UnitTestsTVOS-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/EVReflection-18115d1d/EVReflection.framework",
 				"${BUILT_PRODUCTS_DIR}/Alamofire-tvOS/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/Moya-tvOS/Moya.framework",
@@ -872,7 +869,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/../Pods/Target Support Files/Pods-UnitTestsTVOS/Pods-UnitTestsTVOS-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-UnitTestsTVOS/Pods-UnitTestsTVOS-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		16505E64A6E76577D8F61609 /* [CP] Check Pods Manifest.lock */ = {
@@ -899,7 +896,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/../Pods/Target Support Files/Pods-UnitTestsOSX/Pods-UnitTestsOSX-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-UnitTestsOSX/Pods-UnitTestsOSX-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/EVReflection-0db607d1/EVReflection.framework",
 				"${BUILT_PRODUCTS_DIR}/Alamofire-macOS/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/Moya-macOS/Moya.framework",
@@ -924,37 +921,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/../Pods/Target Support Files/Pods-UnitTestsOSX/Pods-UnitTestsOSX-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		26F88B2ADD872D0BBA93145C /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/../Pods/Target Support Files/Pods-UnitTestsOSX/Pods-UnitTestsOSX-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		671F8FB59CA52EBF967CFC30 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/../Pods/Target Support Files/Pods-UnitTestsTVOS/Pods-UnitTestsTVOS-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-UnitTestsOSX/Pods-UnitTestsOSX-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		7F36405E1CC9F37A00D7F055 /* SwiftLint */ = {
@@ -970,21 +937,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "#SwiftLint only enabled\nif which swiftlint >/dev/null; then\n   echo \"Start SwiftLint\"\n   #swiftlint\nelse\n   echo \"WARNING: installing SwiftLint not installed (start dowload using brew)\"\n   #brew install swiftlint\n   if which swiftlint >/dev/null; then\n      echo \"Start SwiftLint\"\n      #swiftlint\n   else\n      echo \"WARNING: SwiftLint could not be installed. Download it from https://github.com/realm/SwiftLint\"\n   fi\nfi\n";
-		};
-		8A372AFA365D66E07FB26510 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/../Pods/Target Support Files/Pods-UnitTestsiOS/Pods-UnitTestsiOS-resources.sh\"\n";
-			showEnvVarsInLog = 0;
 		};
 		9E5503782213ADE86D640B9C /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1028,7 +980,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/../Pods/Target Support Files/Pods-UnitTestsiOS/Pods-UnitTestsiOS-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-UnitTestsiOS/Pods-UnitTestsiOS-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/EVReflection-e20423af/EVReflection.framework",
 				"${BUILT_PRODUCTS_DIR}/Alamofire-iOS/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/Moya-iOS/Moya.framework",
@@ -1053,7 +1005,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/../Pods/Target Support Files/Pods-UnitTestsiOS/Pods-UnitTestsiOS-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-UnitTestsiOS/Pods-UnitTestsiOS-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -1424,7 +1376,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 8AF55D93C0A4446596F7BB1E /* Pods-UnitTestsiOS.debug.xcconfig */;
 			buildSettings = {
-				DEVELOPMENT_TEAM = WTH4QGEA23;
+				DEVELOPMENT_TEAM = 6Z7QY98HTS;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -1442,7 +1394,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 6B0BBA6E27DA1405434D8881 /* Pods-UnitTestsiOS.release.xcconfig */;
 			buildSettings = {
-				DEVELOPMENT_TEAM = WTH4QGEA23;
+				DEVELOPMENT_TEAM = 6Z7QY98HTS;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "EVReflectionTests/ios-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -1458,7 +1410,7 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = WTH4QGEA23;
+				DEVELOPMENT_TEAM = 6Z7QY98HTS;
 				INFOPLIST_FILE = "EVReflectionTests/osx-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
@@ -1476,7 +1428,7 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = WTH4QGEA23;
+				DEVELOPMENT_TEAM = 6Z7QY98HTS;
 				INFOPLIST_FILE = "EVReflectionTests/osx-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
@@ -1493,7 +1445,7 @@
 			baseConfigurationReference = D84A591B41596A5F1C0BD756 /* Pods-UnitTestsTVOS.debug.xcconfig */;
 			buildSettings = {
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = WTH4QGEA23;
+				DEVELOPMENT_TEAM = 6Z7QY98HTS;
 				INFOPLIST_FILE = "EVReflectionTests/tvos-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "nl.evict.EVReflection-TVOS-Tests";
@@ -1508,7 +1460,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = C1DB04455B4C047E59F00D6D /* Pods-UnitTestsTVOS.release.xcconfig */;
 			buildSettings = {
-				DEVELOPMENT_TEAM = WTH4QGEA23;
+				DEVELOPMENT_TEAM = 6Z7QY98HTS;
 				INFOPLIST_FILE = "EVReflectionTests/tvos-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "nl.evict.EVReflection-TVOS-Tests";

@@ -26,6 +26,7 @@
 
 #include <realm/sync/instruction_applier.hpp>
 #include <realm/sync/object_id.hpp>
+#include <realm/sync/object.hpp>
 
 #include <realm/table_view.hpp>
 
@@ -223,10 +224,15 @@ inline constexpr uint_least32_t operator~(Privilege p)
 }
 
 struct PermissionsCache {
+    /// Each element is the index of a row in the `class___Roles` table.
+    using RoleList = std::vector<std::size_t>;
+
     PermissionsCache(const Group& g, StringData user_identity, bool is_admin = false);
 
-
     bool is_admin() const noexcept;
+
+    /// Leaves out any role that has no permission objects linking to it.
+    RoleList get_users_list_of_roles();
 
     /// Get Realm-level privileges for the current user.
     ///
@@ -275,6 +281,9 @@ struct PermissionsCache {
     /// permissions. See `can()`.
     uint_least32_t get_object_privileges(GlobalID);
 
+    /// Get object-level privileges without adding it to the cache.
+    uint_least32_t get_object_privileges_nocache(GlobalID);
+
     //@{
     /// Check permissions for the object, taking all levels of permission into
     /// account.
@@ -304,8 +313,13 @@ struct PermissionsCache {
     /// Invalidate all cached permissions.
     void clear();
 
+    /// Check that all cache permissions correspond to the current permission
+    /// state in the database.
+    void verify();
+
 private:
     const Group& group;
+    TableInfoCache cache;
     std::string user_id;
     bool m_is_admin;
     util::Optional<uint_least32_t> realm_privileges;
@@ -314,6 +328,7 @@ private:
 
     // uint_least32_t get_default_object_privileges(ConstTableRef);
     uint_least32_t get_privileges_for_permissions(ConstLinkViewRef);
+    friend struct InstructionApplierWithPermissionCheck;
 };
 
 inline bool PermissionsCache::is_admin() const noexcept

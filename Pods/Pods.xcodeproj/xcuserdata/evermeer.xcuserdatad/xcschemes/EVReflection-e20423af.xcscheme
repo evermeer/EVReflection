@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0700"
+   LastUpgradeVersion = "0930"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "C30B1A0E419B12FB2E732B66BC5F429F"
+               BlueprintIdentifier = "FD8142B9165543E212D932E28EF67411"
                BuildableName = "EVReflection.framework"
                BlueprintName = "EVReflection-e20423af"
                ReferencedContainer = "container:Pods.xcodeproj">
@@ -45,7 +45,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "C30B1A0E419B12FB2E732B66BC5F429F"
+            BlueprintIdentifier = "FD8142B9165543E212D932E28EF67411"
             BuildableName = "EVReflection.framework"
             BlueprintName = "EVReflection-e20423af"
             ReferencedContainer = "container:Pods.xcodeproj">
