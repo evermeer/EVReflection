@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "EVReflection"
-  s.version      = "5.9.0"
+  s.version      = "5.9.1"
   s.summary      = "Reflection based object mapping. (Dictionary, CKRecord, NSManagedObject, Realm, JSON, XML, Alamofire, Moya, RxSwift, ReactiveSwift)"
 
   s.description  = <<-EOS
@@ -14,7 +14,7 @@ EOS
 
   s.ios.deployment_target = '8.0'
   s.osx.deployment_target = '10.11'
-  s.watchos.deployment_target = '2.0'
+  s.watchos.deployment_target = '3.0'
   s.tvos.deployment_target = '9.0'
 
   s.pod_target_xcconfig = { 'SWIFT_VERSION' => '4.2' }
