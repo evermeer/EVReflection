@@ -11,24 +11,10 @@ precedencegroup BindingPrecedence {
 
 infix operator <~ : BindingPrecedence
 
-// FIXME: Swift 4.x - Conditional Conformance
-// public protocol BindingSource: SignalProducerConvertible where Error == NoError {}
-// extension Signal: BindingSource where Error == NoError {}
-// extension SignalProducer: BindingSource where Error == NoError {}
-
 /// Describes a source which can be bound.
-public protocol BindingSource: SignalProducerConvertible {
-	// FIXME: Swift 4 compiler regression.
-	// All requirements are replicated to workaround the type checker issue.
-	// https://bugs.swift.org/browse/SR-5090
-	associatedtype Value
-	associatedtype Error: Swift.Error
-
-	var producer: SignalProducer<Value, Error> { get }
-}
-
-extension Signal: BindingSource {}
-extension SignalProducer: BindingSource {}
+public protocol BindingSource: SignalProducerConvertible where Error == NoError {}
+extension Signal: BindingSource where Error == NoError {}
+extension SignalProducer: BindingSource where Error == NoError {}
 
 /// Describes an entity which be bond towards.
 public protocol BindingTargetProvider {
@@ -71,7 +57,7 @@ extension BindingTargetProvider {
 	public static func <~
 		<Source: BindingSource>
 		(provider: Self, source: Source) -> Disposable?
-		where Source.Value == Value, Source.Error == NoError
+		where Source.Value == Value
 	{
 		return source.producer
 			.take(during: provider.bindingTarget.lifetime)
@@ -111,7 +97,7 @@ extension BindingTargetProvider {
 	public static func <~
 		<Source: BindingSource>
 		(provider: Self, source: Source) -> Disposable?
-		where Value == Source.Value?, Source.Error == NoError
+		where Value == Source.Value?
 	{
 		return provider <~ source.producer.optionalize()
 	}
@@ -161,5 +147,18 @@ public struct BindingTarget<Value>: BindingTargetProvider {
 	///   - keyPath: The key path of the object that consumes values.
 	public init<Object: AnyObject>(on scheduler: Scheduler = ImmediateScheduler(), lifetime: Lifetime, object: Object, keyPath: WritableKeyPath<Object, Value>) {
 		self.init(on: scheduler, lifetime: lifetime) { [weak object] in object?[keyPath: keyPath] = $0 }
+	}
+}
+
+extension Optional: BindingTargetProvider where Wrapped: BindingTargetProvider {
+	public typealias Value = Wrapped.Value
+
+	public var bindingTarget: BindingTarget<Wrapped.Value> {
+		switch self {
+		case let .some(provider):
+			return provider.bindingTarget
+		case .none:
+			return BindingTarget(lifetime: .empty, action: { _ in })
+		}
 	}
 }

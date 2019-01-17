@@ -22,7 +22,6 @@
 		7FC775DE1E211D70003D436E /* MoyaRxViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FC775DD1E211D70003D436E /* MoyaRxViewController.swift */; };
 		7FC775E01E211F34003D436E /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FC775DF1E211F34003D436E /* BaseViewController.swift */; };
 		8D04635AFFA1A664FE1E4309 /* Pods_44Demo5.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C68491FBE0DB12F9562176A /* Pods_44Demo5.framework */; };
-		E2777E31B8D1805B52475D7A /* Pods_Demo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F085545331D285A743E7F1A /* Pods_Demo.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -65,7 +64,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E2777E31B8D1805B52475D7A /* Pods_Demo.framework in Frameworks */,
 				8D04635AFFA1A664FE1E4309 /* Pods_44Demo5.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -263,6 +261,7 @@
 				"${BUILT_PRODUCTS_DIR}/Realm-iOS/Realm.framework",
 				"${BUILT_PRODUCTS_DIR}/RealmSwift-iOS/RealmSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/Result-iOS/Result.framework",
+				"${BUILT_PRODUCTS_DIR}/RxAtomic-iOS/RxAtomic.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwift-iOS/RxSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/XMLDictionary-iOS/XMLDictionary.framework",
 			);
@@ -275,6 +274,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Result.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxAtomic.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/XMLDictionary.framework",
 			);
@@ -386,7 +386,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = nl.evict.4Demo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Release;
 		};
@@ -452,7 +452,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = nl.evict.4Demo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Debug;
 		};

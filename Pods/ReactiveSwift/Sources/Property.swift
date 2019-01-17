@@ -3,13 +3,17 @@ import Darwin.POSIX.pthread
 #else
 import Glibc
 #endif
-import enum Result.NoError
+import Result
+
+// FIXME: The `Error == NoError` constraint is retained for Swift 4.0.x
+//        compatibility, since `BindingSource` did not impose such constraint
+//        due to the absence of conditional conformance.
 
 /// Represents a property that allows observation of its changes.
 ///
 /// Only classes can conform to this protocol, because having a signal
 /// for changes over time implies the origin must have a unique identity.
-public protocol PropertyProtocol: class, BindingSource where Error == NoError {
+public protocol PropertyProtocol: class, BindingSource {
 	/// The current value of the property.
 	var value: Value { get }
 
@@ -101,6 +105,16 @@ extension PropertyProtocol {
 	public func map<U>(_ transform: @escaping (Value) -> U) -> Property<U> {
 		return lift { $0.map(transform) }
 	}
+	
+	/// Map the current value and all susequent values to a new constant property.
+	///
+	/// - parameters:
+	///   - value: A new value.
+	///
+	/// - returns: A property that holds a mapped value from `self`.
+	public func map<U>(value: U) -> Property<U> {
+		return lift { $0.map(value: value) }
+	}
 
 	/// Maps the current value and all subsequent values to a new property
 	/// by applying a key path.
@@ -111,6 +125,20 @@ extension PropertyProtocol {
 	/// - returns: A property that holds a mapped value from `self`.
 	public func map<U>(_ keyPath: KeyPath<Value, U>) -> Property<U> {
 		return lift { $0.map(keyPath) }
+	}
+
+	/// Passes only the values of the property that pass the given predicate
+	/// to a new property.
+	///
+	/// - parameters:
+	///   - initial: A `Property` always needs a `value`. The initial `value` is necessary in case the
+	///              predicate excludes the first (or all) `value`s of this `Property`
+	///   - predicate: A closure that accepts value and returns `Bool` denoting
+	///                whether current `value` of this `Property`  has passed the test.
+	///
+	/// - returns: A property that holds only values from `self` passing the given predicate.
+	public func filter(initial: Value, _ predicate: @escaping (Value) -> Bool) -> Property<Value> {
+		return Property(initial: initial, then: self.producer.filter(predicate))
 	}
 
 	/// Combines the current value and the subsequent values of two `Property`s in
@@ -492,14 +520,15 @@ public final class Property<Value>: PropertyProtocol {
 		})
 	}
 
-	/// Initialize a composed property that first takes on `initial`, then each
-	/// value sent on `signal`.
+	/// Initializes a composed property that first takes on `initial`, then each
+	/// value sent on a signal created by `producer`.
 	///
 	/// - parameters:
-	///   - initialValue: Starting value for the property.
-	///   - values: A signal that will send values to the property.
-	public convenience init(initial: Value, then values: Signal<Value, NoError>) {
-		self.init(initial: initial, then: SignalProducer(values))
+	///   - initial: Starting value for the property.
+	///   - values: A producer that will start immediately and send values to
+	///             the property.
+	public convenience init<Values: SignalProducerConvertible>(initial: Value, then values: Values) where Values.Value == Value, Values.Error == NoError {
+		self.init(initial: initial, then: values.producer)
 	}
 
 	/// Initialize a composed property from a producer that promises to send
@@ -586,14 +615,15 @@ extension Property where Value: OptionalProtocol {
 		self.init(initial: initial, then: values.map(Value.init(reconstructing:)))
 	}
 
-	/// Initialize a composed property that first takes on `initial`, then each
-	/// value sent on `signal`.
+	/// Initializes a composed property that first takes on `initial`, then each
+	/// value sent on a signal created by `producer`.
 	///
 	/// - parameters:
-	///   - initialValue: Starting value for the property.
-	///   - values: A signal that will send values to the property.
-	public convenience init(initial: Value, then values: Signal<Value.Wrapped, NoError>) {
-		self.init(initial: initial, then: SignalProducer(values))
+	///   - initial: Starting value for the property.
+	///   - values: A producer that will start immediately and send values to
+	///             the property.
+	public convenience init<Values: SignalProducerConvertible>(initial: Value, then values: Values) where Values.Value == Value.Wrapped, Values.Error == NoError {
+		self.init(initial: initial, then: values.producer)
 	}
 }
 

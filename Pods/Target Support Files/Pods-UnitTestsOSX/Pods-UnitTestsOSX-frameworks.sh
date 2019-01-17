@@ -155,6 +155,7 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/Realm-macOS/Realm.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/RealmSwift-macOS/RealmSwift.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Result-macOS/Result.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/RxAtomic-macOS/RxAtomic.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/RxSwift-macOS/RxSwift.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/XMLDictionary-macOS/XMLDictionary.framework"
 fi
@@ -166,6 +167,7 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/Realm-macOS/Realm.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/RealmSwift-macOS/RealmSwift.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Result-macOS/Result.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/RxAtomic-macOS/RxAtomic.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/RxSwift-macOS/RxSwift.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/XMLDictionary-macOS/XMLDictionary.framework"
 fi

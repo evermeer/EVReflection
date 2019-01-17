@@ -94,6 +94,9 @@
 		422668011CB77DD800145E17 /* EVReflectionCustomInitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422667FF1CB77DD000145E17 /* EVReflectionCustomInitTests.swift */; };
 		422668021CB7802C00145E17 /* EVReflectionCustomInitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422667FF1CB77DD000145E17 /* EVReflectionCustomInitTests.swift */; };
 		422668031CB7802D00145E17 /* EVReflectionCustomInitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422667FF1CB77DD000145E17 /* EVReflectionCustomInitTests.swift */; };
+		7F0266F2217B679C000F2143 /* EVReflectionIssue292.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F0266F1217B679C000F2143 /* EVReflectionIssue292.swift */; };
+		7F0266F3217B679C000F2143 /* EVReflectionIssue292.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F0266F1217B679C000F2143 /* EVReflectionIssue292.swift */; };
+		7F0266F4217B679C000F2143 /* EVReflectionIssue292.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F0266F1217B679C000F2143 /* EVReflectionIssue292.swift */; };
 		7F057CF01D4A851300F3053E /* EVReflectionIssue110.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F057CEE1D4A84F500F3053E /* EVReflectionIssue110.swift */; };
 		7F057CF11D4A851400F3053E /* EVReflectionIssue110.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F057CEE1D4A84F500F3053E /* EVReflectionIssue110.swift */; };
 		7F057CF21D4A851400F3053E /* EVReflectionIssue110.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F057CEE1D4A84F500F3053E /* EVReflectionIssue110.swift */; };
@@ -258,6 +261,12 @@
 		7FCD1D491D3FADA800F51BE0 /* EVReflectionIssue107.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FCD1D471D3FAD0900F51BE0 /* EVReflectionIssue107.swift */; };
 		7FCD1D4A1D3FADA900F51BE0 /* EVReflectionIssue107.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FCD1D471D3FAD0900F51BE0 /* EVReflectionIssue107.swift */; };
 		7FCD1D4B1D3FADAB00F51BE0 /* EVReflectionIssue107.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FCD1D471D3FAD0900F51BE0 /* EVReflectionIssue107.swift */; };
+		7FD0CEA321F0C98F004D7AB2 /* EVReflectionIssue20190117.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FD0CEA221F0C98F004D7AB2 /* EVReflectionIssue20190117.swift */; };
+		7FD0CEA521F0C9B4004D7AB2 /* EVReflectionIssue20190117.json in Resources */ = {isa = PBXBuildFile; fileRef = 7FD0CEA421F0C9B4004D7AB2 /* EVReflectionIssue20190117.json */; };
+		7FD0CEA621F0C9BC004D7AB2 /* EVReflectionIssue20190117.json in Resources */ = {isa = PBXBuildFile; fileRef = 7FD0CEA421F0C9B4004D7AB2 /* EVReflectionIssue20190117.json */; };
+		7FD0CEA721F0C9BD004D7AB2 /* EVReflectionIssue20190117.json in Resources */ = {isa = PBXBuildFile; fileRef = 7FD0CEA421F0C9B4004D7AB2 /* EVReflectionIssue20190117.json */; };
+		7FD0CEA821F0C9C1004D7AB2 /* EVReflectionIssue20190117.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FD0CEA221F0C98F004D7AB2 /* EVReflectionIssue20190117.swift */; };
+		7FD0CEA921F0C9C1004D7AB2 /* EVReflectionIssue20190117.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FD0CEA221F0C98F004D7AB2 /* EVReflectionIssue20190117.swift */; };
 		7FD407AC1E0BF78100AEBF1B /* EVReflectionIssue145.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FD407AA1E0BE8BE00AEBF1B /* EVReflectionIssue145.swift */; };
 		7FD407AD1E0BF78200AEBF1B /* EVReflectionIssue145.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FD407AA1E0BE8BE00AEBF1B /* EVReflectionIssue145.swift */; };
 		7FD407AE1E0BF78300AEBF1B /* EVReflectionIssue145.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FD407AA1E0BE8BE00AEBF1B /* EVReflectionIssue145.swift */; };
@@ -312,6 +321,7 @@
 		422667FF1CB77DD000145E17 /* EVReflectionCustomInitTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = EVReflectionCustomInitTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		47E08CAF57F8BB1CBE89AD73 /* Pods_UnitTestsTVOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UnitTestsTVOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6B0BBA6E27DA1405434D8881 /* Pods-UnitTestsiOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UnitTestsiOS.release.xcconfig"; path = "../Pods/Target Support Files/Pods-UnitTestsiOS/Pods-UnitTestsiOS.release.xcconfig"; sourceTree = "<group>"; };
+		7F0266F1217B679C000F2143 /* EVReflectionIssue292.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EVReflectionIssue292.swift; sourceTree = "<group>"; };
 		7F057CEE1D4A84F500F3053E /* EVReflectionIssue110.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVReflectionIssue110.swift; sourceTree = "<group>"; };
 		7F07C5771AF101A9000DF1F3 /* ios-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ios-Info.plist"; sourceTree = "<group>"; };
 		7F1C9D381E23D61F00A18776 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
@@ -380,6 +390,8 @@
 		7FB099E11D2F82DE00D94204 /* EVReflectionIssue102.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVReflectionIssue102.swift; sourceTree = "<group>"; };
 		7FC41DE71E8B8C2C0080DB80 /* RealmTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RealmTests.swift; path = RealmTests/RealmTests.swift; sourceTree = "<group>"; };
 		7FCD1D471D3FAD0900F51BE0 /* EVReflectionIssue107.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVReflectionIssue107.swift; sourceTree = "<group>"; };
+		7FD0CEA221F0C98F004D7AB2 /* EVReflectionIssue20190117.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EVReflectionIssue20190117.swift; sourceTree = "<group>"; };
+		7FD0CEA421F0C9B4004D7AB2 /* EVReflectionIssue20190117.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = EVReflectionIssue20190117.json; sourceTree = "<group>"; };
 		7FD407AA1E0BE8BE00AEBF1B /* EVReflectionIssue145.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVReflectionIssue145.swift; sourceTree = "<group>"; };
 		7FDC390D1DC3582F0091D27E /* sample.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = sample.json; sourceTree = "<group>"; };
 		7FE271641DDDCF8400C8B4CD /* EVReflectionIssue141.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVReflectionIssue141.swift; sourceTree = "<group>"; };
@@ -632,6 +644,9 @@
 				13961C351F5ADCA9007F805D /* EVReflectionIssue223.swift */,
 				7F247F89206CA365009838A6 /* EVReflectionIssue276.swift */,
 				7F4763F52096DC3E0014936C /* EVReflectionIssue285.swift */,
+				7F0266F1217B679C000F2143 /* EVReflectionIssue292.swift */,
+				7FD0CEA221F0C98F004D7AB2 /* EVReflectionIssue20190117.swift */,
+				7FD0CEA421F0C9B4004D7AB2 /* EVReflectionIssue20190117.json */,
 			);
 			name = GitHubIssues;
 			sourceTree = "<group>";
@@ -777,6 +792,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7FD0CEA521F0C9B4004D7AB2 /* EVReflectionIssue20190117.json in Resources */,
 				7F9930241E2426B500792CF1 /* Issue4_xml in Resources */,
 				7F9930281E2426B500792CF1 /* Issue6_xml in Resources */,
 				7F1C9D4E1E23D76D00A18776 /* sample_array_json in Resources */,
@@ -812,6 +828,7 @@
 				1303DBD31F2E017B0077E55C /* RealmTestIssue219.json in Resources */,
 				7F1D69521E28BF3B00F5AE15 /* coverage.png in Resources */,
 				131200EF1EB4B59000A189C8 /* EVReflectionIssue159.json in Resources */,
+				7FD0CEA621F0C9BC004D7AB2 /* EVReflectionIssue20190117.json in Resources */,
 				13345EE31EC8945200912B37 /* EVReflectionIssueX.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -831,6 +848,7 @@
 				1303DBD41F2E017B0077E55C /* RealmTestIssue219.json in Resources */,
 				7F1D69531E28BF3C00F5AE15 /* coverage.png in Resources */,
 				131200F01EB4B59100A189C8 /* EVReflectionIssue159.json in Resources */,
+				7FD0CEA721F0C9BD004D7AB2 /* EVReflectionIssue20190117.json in Resources */,
 				13345EE41EC8945300912B37 /* EVReflectionIssueX.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -852,6 +870,7 @@
 				"${BUILT_PRODUCTS_DIR}/Realm-tvOS/Realm.framework",
 				"${BUILT_PRODUCTS_DIR}/RealmSwift-tvOS/RealmSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/Result-tvOS/Result.framework",
+				"${BUILT_PRODUCTS_DIR}/RxAtomic-tvOS/RxAtomic.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwift-tvOS/RxSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/XMLDictionary-tvOS/XMLDictionary.framework",
 			);
@@ -864,6 +883,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Result.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxAtomic.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/XMLDictionary.framework",
 			);
@@ -904,6 +924,7 @@
 				"${BUILT_PRODUCTS_DIR}/Realm-macOS/Realm.framework",
 				"${BUILT_PRODUCTS_DIR}/RealmSwift-macOS/RealmSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/Result-macOS/Result.framework",
+				"${BUILT_PRODUCTS_DIR}/RxAtomic-macOS/RxAtomic.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwift-macOS/RxSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/XMLDictionary-macOS/XMLDictionary.framework",
 			);
@@ -916,6 +937,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Result.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxAtomic.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/XMLDictionary.framework",
 			);
@@ -988,6 +1010,7 @@
 				"${BUILT_PRODUCTS_DIR}/Realm-iOS/Realm.framework",
 				"${BUILT_PRODUCTS_DIR}/RealmSwift-iOS/RealmSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/Result-iOS/Result.framework",
+				"${BUILT_PRODUCTS_DIR}/RxAtomic-iOS/RxAtomic.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwift-iOS/RxSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/XMLDictionary-iOS/XMLDictionary.framework",
 			);
@@ -1000,6 +1023,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Result.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxAtomic.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/XMLDictionary.framework",
 			);
@@ -1045,8 +1069,10 @@
 				7F41ECB01B91F306003A2236 /* ProfilePhotoUrlListTest.swift in Sources */,
 				7F9930261E2426B500792CF1 /* Issue4Test.swift in Sources */,
 				7F1C9D481E23D76D00A18776 /* ArrayConversionIssue.swift in Sources */,
+				7FD0CEA321F0C98F004D7AB2 /* EVReflectionIssue20190117.swift in Sources */,
 				13FEBE8A1FE105D7008716AA /* Owner.swift in Sources */,
 				422668011CB77DD800145E17 /* EVReflectionCustomInitTests.swift in Sources */,
+				7F0266F2217B679C000F2143 /* EVReflectionIssue292.swift in Sources */,
 				7F3FF3B41CF9A0F600BAE767 /* EVReflectionIssue88.swift in Sources */,
 				7F70E80E1D96C0AB0020DB2C /* EVReflectionIssueAF30.swift in Sources */,
 				7F59F9DB1C07999300C14CF9 /* EVReflectionEVObjectTests.swift in Sources */,
@@ -1107,6 +1133,7 @@
 				7F3E31961BB909A7001E6788 /* EVReflectionWorkaroundsTests.swift in Sources */,
 				7FD407AD1E0BF78200AEBF1B /* EVReflectionIssue145.swift in Sources */,
 				131200E91EB3B47000A189C8 /* EVReflectionEventKitTests.swift in Sources */,
+				7F0266F3217B679C000F2143 /* EVReflectionIssue292.swift in Sources */,
 				7FD41E0B1CDF441600746FB8 /* EVObjectDescription.swift in Sources */,
 				7F9930231E2426B500792CF1 /* AlamofireXmlTests.swift in Sources */,
 				7F057CF11D4A851400F3053E /* EVReflectionIssue110.swift in Sources */,
@@ -1131,6 +1158,7 @@
 				7F1F1E481E3261C9002CCF02 /* Issue.swift in Sources */,
 				1303F1391EBC77CD00D9182D /* CoreDataPerson+CoreDataProperties.swift in Sources */,
 				7F3E31931BB909A7001E6788 /* EVReflectionJsonTests.swift in Sources */,
+				7FD0CEA921F0C9C1004D7AB2 /* EVReflectionIssue20190117.swift in Sources */,
 				13301E331EE4296C00FD07FE /* EVReflectionIssue204.swift in Sources */,
 				131200ED1EB4B58800A189C8 /* EVReflectionIssue159.swift in Sources */,
 				7F9336981C23F2FD00AF7076 /* EVRelfectionInheritanceTests.swift in Sources */,
@@ -1188,6 +1216,7 @@
 				7FD41E0C1CDF441800746FB8 /* EVObjectDescription.swift in Sources */,
 				7F9930321E24273B00792CF1 /* NestedGenericsIssue25.swift in Sources */,
 				131200EA1EB3B47000A189C8 /* EVReflectionEventKitTests.swift in Sources */,
+				7F0266F4217B679C000F2143 /* EVReflectionIssue292.swift in Sources */,
 				7F057CF21D4A851400F3053E /* EVReflectionIssue110.swift in Sources */,
 				7F9336CA1C2822B700AF7076 /* EVReflectionTests.swift in Sources */,
 				7F9801931E260A4D00D6C5C0 /* MoyaGitHubAPI.swift in Sources */,
@@ -1212,6 +1241,7 @@
 				422668031CB7802D00145E17 /* EVReflectionCustomInitTests.swift in Sources */,
 				7F1F1E491E3261C9002CCF02 /* Issue.swift in Sources */,
 				7F3FF3B61CF9A0F900BAE767 /* EVReflectionIssue88.swift in Sources */,
+				7FD0CEA821F0C9C1004D7AB2 /* EVReflectionIssue20190117.swift in Sources */,
 				13301E341EE4296D00FD07FE /* EVReflectionIssue204.swift in Sources */,
 				131200EE1EB4B58900A189C8 /* EVReflectionIssue159.swift in Sources */,
 				7F70E8101D96C0AC0020DB2C /* EVReflectionIssueAF30.swift in Sources */,
@@ -1386,7 +1416,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "nl.evict.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Debug;
 		};
@@ -1400,7 +1430,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "nl.evict.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Release;
 		};

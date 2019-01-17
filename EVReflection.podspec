@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "EVReflection"
-  s.version      = "5.7.0"
+  s.version      = "5.9.0"
   s.summary      = "Reflection based object mapping. (Dictionary, CKRecord, NSManagedObject, Realm, JSON, XML, Alamofire, Moya, RxSwift, ReactiveSwift)"
 
   s.description  = <<-EOS
@@ -17,7 +17,7 @@ EOS
   s.watchos.deployment_target = '2.0'
   s.tvos.deployment_target = '9.0'
 
-  s.pod_target_xcconfig = { 'SWIFT_VERSION' => '4.0' }
+  s.pod_target_xcconfig = { 'SWIFT_VERSION' => '4.2' }
 
   s.source       = { :git => "https://github.com/evermeer/EVReflection.git", :tag => s.version }
   s.default_subspec = "Core"

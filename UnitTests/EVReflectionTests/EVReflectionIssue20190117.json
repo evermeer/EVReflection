@@ -1,0 +1,32 @@
+{
+    "BarColors": {
+        "navBar": "0C3A84",
+        "toolBar": "FFFFFF"
+    },
+    "ButtonColors": {
+        "buttonBackground": "0C3A84",
+        "buttonText": "FFFFFF",
+        "locationTint":"0C3A84"
+    },
+    "TextColors": {
+        "title": "000000",
+        "label": "0C3A84",
+        "dark": "272727",
+        "textfield": "272727",
+        "placeholder": "272727",
+        "navigationTitle": "0C3A84"
+    },
+    "ViewColors": {
+        "background": "E6E6E6",
+        "leftMenuBackground": "2C2C2C",
+        "textfieldBackground": "FFFFFF",
+        "lineBackground": "F1F2F2",
+        "calendarContainerBg":"FFFFFF",
+        "blankViewBg": "0C3A84",
+        "dot":"0C3A84",
+        "empty":"000000"
+    },
+    "BorderColors": {
+        "textfield": "B8B8B8"
+    }
+}

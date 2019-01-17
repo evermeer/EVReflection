@@ -57,6 +57,12 @@ All these extens can be installed by adding something like this in your podfile:
 pod 'EVReflection/MoyaRxSwift'
 ```
 
+For Carthage there is not (yet) an extension for all above extension. If needed, please let me know. For carthage you can use:
+
+```
+github "evermeer/EVReflection" 
+```
+
 ## Index
 
 - [Main features of EVReflection](https://github.com/evermeer/EVReflection#main-features-of-evreflection)

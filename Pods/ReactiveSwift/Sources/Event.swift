@@ -1,5 +1,6 @@
 import Result
 import Foundation
+import Dispatch
 
 extension Signal {
 	/// Represents a signal event.
@@ -138,6 +139,8 @@ extension Signal.Event where Value: Equatable, Error: Equatable {
 		}
 	}
 }
+
+extension Signal.Event: Equatable where Value: Equatable, Error: Equatable {}
 
 extension Signal.Event: CustomStringConvertible {
 	public var description: String {
@@ -347,7 +350,7 @@ extension Signal.Event where Error == AnyError {
 
 	internal static func attemptMap<U>(_ transform: @escaping (Value) throws -> U) -> Transformation<U, AnyError> {
 		return attemptMap { value in
-			ReactiveSwift.materialize { try transform(value) }
+			Result { try transform(value) }
 		}
 	}
 }
@@ -816,17 +819,7 @@ extension Signal.Event {
 				}
 
 				schedulerDisposable.inner = scheduler.schedule(after: scheduleDate) {
-					let pendingValue: Value? = state.modify { state in
-						defer {
-							if state.pendingValue != nil {
-								state.pendingValue = nil
-								state.previousDate = scheduleDate
-							}
-						}
-						return state.pendingValue
-					}
-
-					if let pendingValue = pendingValue {
+					if let pendingValue = state.modify({ $0.retrieveValue(date: scheduleDate) }) {
 						action(.value(pendingValue))
 					}
 				}
@@ -834,8 +827,10 @@ extension Signal.Event {
 		}
 	}
 
-	internal static func debounce(_ interval: TimeInterval, on scheduler: DateScheduler) -> Transformation<Value, Error> {
+	internal static func debounce(_ interval: TimeInterval, on scheduler: DateScheduler, discardWhenCompleted: Bool) -> Transformation<Value, Error> {
 		precondition(interval >= 0)
+		
+		let state: Atomic<ThrottleState<Value>> = Atomic(ThrottleState(previousDate: scheduler.currentDate, pendingValue: nil))
 
 		return { action, lifetime in
 			let d = SerialDisposable()
@@ -848,12 +843,34 @@ extension Signal.Event {
 			return { event in
 				switch event {
 				case let .value(value):
+					state.modify { state in
+						state.pendingValue = value
+					}
 					let date = scheduler.currentDate.addingTimeInterval(interval)
 					d.inner = scheduler.schedule(after: date) {
-						action(.value(value))
+						if let pendingValue = state.modify({ $0.retrieveValue(date: date) }) {
+							action(.value(pendingValue))
+						}
+					}
+					
+				case .completed:
+					d.inner = scheduler.schedule {
+						let pending: (value: Value, previousDate: Date)? = state.modify { state in
+							defer { state.pendingValue = nil }
+							guard let pendingValue = state.pendingValue, let previousDate = state.previousDate else { return nil }
+							return (pendingValue, previousDate)
+						}
+						if !discardWhenCompleted, let (pendingValue, previousDate) = pending {
+							scheduler.schedule(after: previousDate.addingTimeInterval(interval)) {
+								action(.value(pendingValue))
+								action(.completed)
+							}
+						} else {
+							action(.completed)
+						}
 					}
 
-				case .completed, .failed, .interrupted:
+				case .failed, .interrupted:
 					d.inner = scheduler.schedule {
 						action(event)
 					}
@@ -861,11 +878,78 @@ extension Signal.Event {
 			}
 		}
 	}
+	
+	internal static func collect(every interval: DispatchTimeInterval, on scheduler: DateScheduler, skipEmpty: Bool, discardWhenCompleted: Bool) -> Transformation<[Value], Error> {
+		return { action, lifetime in
+			let state = Atomic<CollectEveryState<Value>>(.init(skipEmpty: skipEmpty))
+			let d = SerialDisposable()
+			
+			d.inner = scheduler.schedule(after: scheduler.currentDate.addingTimeInterval(interval), interval: interval, leeway: interval * 0.1) {
+				let (currentValues, isCompleted) = state.modify { ($0.collect(), $0.isCompleted) }
+				if let currentValues = currentValues {
+					action(.value(currentValues))
+				}
+				if isCompleted {
+					action(.completed)
+				}
+			}
+			
+			lifetime.observeEnded {
+				d.dispose()
+				scheduler.schedule { action(.interrupted) }
+			}
+
+			return { event in
+				switch event {
+				case let .value(value):
+					state.modify { $0.values.append(value) }
+				case let .failed(error):
+					d.inner = scheduler.schedule { action(.failed(error)) }
+				case .completed where !discardWhenCompleted:
+					state.modify { $0.isCompleted = true }
+				case .completed:
+					d.inner = scheduler.schedule { action(.completed) }
+				case .interrupted:
+					d.inner = scheduler.schedule { action(.interrupted) }
+				}
+			}
+		}
+	}
+}
+
+private struct CollectEveryState<Value> {
+	let skipEmpty: Bool
+	var values: [Value] = []
+	var isCompleted: Bool = false
+	
+	init(skipEmpty: Bool) {
+		self.skipEmpty = skipEmpty
+	}
+	
+	var hasValues: Bool {
+		return !values.isEmpty || !skipEmpty
+	}
+	
+	mutating func collect() -> [Value]? {
+		guard hasValues else { return nil }
+		defer { values.removeAll() }
+		return values
+	}
 }
 
 private struct ThrottleState<Value> {
 	var previousDate: Date?
 	var pendingValue: Value?
+	
+	mutating func retrieveValue(date: Date) -> Value? {
+		defer {
+			if pendingValue != nil {
+				pendingValue = nil
+				previousDate = date
+			}
+		}
+		return pendingValue
+	}
 }
 
 extension Signal.Event where Error == NoError {

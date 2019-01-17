@@ -111,8 +111,8 @@ public final class UIScheduler: Scheduler {
 	}()
 
 	deinit {
-		queueLength.deinitialize()
-		queueLength.deallocate(capacity: 1)
+		queueLength.deinitialize(count: 1)
+		queueLength.deallocate()
 	}
 	#endif
 
@@ -193,6 +193,7 @@ private final class DispatchSourceTimerWrapper: Hashable {
 	}
 	
 	fileprivate static func ==(lhs: DispatchSourceTimerWrapper, rhs: DispatchSourceTimerWrapper) -> Bool {
+		// Note that this isn't infinite recursion thanks to `===`.
 		return lhs === rhs
 	}
 }

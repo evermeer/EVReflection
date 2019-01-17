@@ -1,7 +1,7 @@
 CONFIGURATION_BUILD_DIR = ${PODS_CONFIGURATION_BUILD_DIR}/EVReflection-e20423af
-FRAMEWORK_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/Alamofire-iOS" "${PODS_CONFIGURATION_BUILD_DIR}/Moya-iOS" "${PODS_CONFIGURATION_BUILD_DIR}/ReactiveSwift-iOS" "${PODS_CONFIGURATION_BUILD_DIR}/Realm-iOS" "${PODS_CONFIGURATION_BUILD_DIR}/RealmSwift-iOS" "${PODS_CONFIGURATION_BUILD_DIR}/Result-iOS" "${PODS_CONFIGURATION_BUILD_DIR}/RxSwift-iOS" "${PODS_CONFIGURATION_BUILD_DIR}/XMLDictionary-iOS"
+FRAMEWORK_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/Alamofire-iOS" "${PODS_CONFIGURATION_BUILD_DIR}/Moya-iOS" "${PODS_CONFIGURATION_BUILD_DIR}/ReactiveSwift-iOS" "${PODS_CONFIGURATION_BUILD_DIR}/Realm-iOS" "${PODS_CONFIGURATION_BUILD_DIR}/RealmSwift-iOS" "${PODS_CONFIGURATION_BUILD_DIR}/Result-iOS" "${PODS_CONFIGURATION_BUILD_DIR}/RxAtomic-iOS" "${PODS_CONFIGURATION_BUILD_DIR}/RxSwift-iOS" "${PODS_CONFIGURATION_BUILD_DIR}/XMLDictionary-iOS"
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
-OTHER_LDFLAGS = $(inherited) -l"c++" -l"z" -framework "Alamofire" -framework "CloudKit" -framework "CoreData" -framework "Foundation" -framework "Moya" -framework "ReactiveSwift" -framework "Realm" -framework "RealmSwift" -framework "Result" -framework "RxSwift" -framework "Security" -framework "XMLDictionary"
+OTHER_LDFLAGS = $(inherited) -l"c++" -l"z" -framework "Alamofire" -framework "CloudKit" -framework "CoreData" -framework "Foundation" -framework "Moya" -framework "ReactiveSwift" -framework "Realm" -framework "RealmSwift" -framework "Result" -framework "RxAtomic" -framework "RxSwift" -framework "Security" -framework "XMLDictionary"
 OTHER_SWIFT_FLAGS = $(inherited) -D COCOAPODS
 PODS_BUILD_DIR = ${BUILD_DIR}
 PODS_CONFIGURATION_BUILD_DIR = ${PODS_BUILD_DIR}/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)
@@ -9,4 +9,4 @@ PODS_ROOT = ${SRCROOT}
 PODS_TARGET_SRCROOT = ${PODS_ROOT}/..
 PRODUCT_BUNDLE_IDENTIFIER = org.cocoapods.${PRODUCT_NAME:rfc1034identifier}
 SKIP_INSTALL = YES
-SWIFT_VERSION = 4.0
+SWIFT_VERSION = 4.2

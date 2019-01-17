@@ -16,11 +16,11 @@ class CloudNews: CKDataObject {
     var ActionUrl: String = ""
     
     // When using a CKReference, then also store a string representation of the recordname for simplifying predecate queries that also can be used agains an object array.
-    var Asset: CKReference?
+    var Asset: CKRecord.Reference?
     var Asset_ID: String = ""
     func setAssetFields(_ asset: Asset) {
         self.Asset_ID = asset.recordID.recordName
-        self.Asset = CKReference(recordID: CKRecordID(recordName: asset.recordID.recordName), action: CKReferenceAction.none)
+        self.Asset = CKRecord.Reference(recordID: CKRecord.ID(recordName: asset.recordID.recordName), action: CKRecord_Reference_Action.none)
     }
 }
 
