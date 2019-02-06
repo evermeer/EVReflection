@@ -15,7 +15,7 @@ public extension ObservableType where E == Response {
     /// Maps data received from the signal into an object
     /// which implements the Mappable protocol and returns the result back
     /// If the conversion fails, the signal errors.
-    public func RmapXml<T: NSObject>(to type: T.Type) -> Observable<T> where T: EVReflectable {
+    func RmapXml<T: NSObject>(to type: T.Type) -> Observable<T> where T: EVReflectable {
         return flatMap { response -> Observable<T> in
             let result = try response.RmapXml(to: T.self)
             return Observable.just(result)
@@ -29,7 +29,7 @@ public extension PrimitiveSequence where TraitType == SingleTrait, ElementType =
     /// Maps data received from the signal into an object (on the default Background thread) which
     /// implements the EVReflectable protocol and returns the result back on the MainScheduler.
     /// If the conversion fails, the signal errors.
-    public func RmapXml<T: NSObject>(to type: T.Type, forKeyPath: String? = nil) -> Single<T> where T: EVReflectable {
+    func RmapXml<T: NSObject>(to type: T.Type, forKeyPath: String? = nil) -> Single<T> where T: EVReflectable {
         return observeOn(ConcurrentDispatchQueueScheduler(qos: .background))
             .flatMap { response -> Single<T> in
                 return Single.just(try response.RmapXml(to: type, forKeyPath: forKeyPath))

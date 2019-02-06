@@ -226,8 +226,8 @@ class AlamofireTests: XCTestCase {
 
 
 enum Router: URLRequestConvertible {
-    case list1()
-    case list2()
+    case list
+    case list2
     
     static let baseURLString = "http://raw.githubusercontent.com/evermeer/AlamofireJsonToObjects/master/AlamofireJsonToObjectsTests/"
     static let perPage = 50

@@ -71,7 +71,7 @@ public extension EVAssociated {
      
      :returns: The label of the enum plus the associated value
      */
-    public var associated: (label: String, value: Any?) {
+    var associated: (label: String, value: Any?) {
         get {
             let mirror = Mirror(reflecting: self)
             if let associated = mirror.children.first {

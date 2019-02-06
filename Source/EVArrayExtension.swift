@@ -19,7 +19,7 @@ public extension Array where Element: NSObject {
     - parameter json: The json string
     - parameter conversionOptions: Option set for the various conversion options.
     */
-    public init(json: String?, conversionOptions: ConversionOptions = .DefaultDeserialize, forKeyPath: String? = nil) {
+    init(json: String?, conversionOptions: ConversionOptions = .DefaultDeserialize, forKeyPath: String? = nil) {
         self.init()
         let arrayTypeInstance = getArrayTypeInstance(self)
         let newArray = EVReflection.arrayFromJson(type: arrayTypeInstance, json: json, conversionOptions: conversionOptions, forKeyPath: forKeyPath)
@@ -35,7 +35,7 @@ public extension Array where Element: NSObject {
      - parameter json: The json string
      - parameter conversionOptions: Option set for the various conversion options.
      */
-    public init(data: Data?, conversionOptions: ConversionOptions = .DefaultDeserialize, forKeyPath: String? = nil) {
+    init(data: Data?, conversionOptions: ConversionOptions = .DefaultDeserialize, forKeyPath: String? = nil) {
         self.init()
         let arrayTypeInstance = getArrayTypeInstance(self)
         let newArray = EVReflection.arrayFromData(nil, type:arrayTypeInstance, data: data, conversionOptions: conversionOptions, forKeyPath: forKeyPath)
@@ -50,7 +50,7 @@ public extension Array where Element: NSObject {
      - parameter json: The json string
      - parameter conversionOptions: Option set for the various conversion options.
      */
-    public init(dictionaryArray: [NSDictionary], conversionOptions: ConversionOptions = .DefaultDeserialize) {
+    init(dictionaryArray: [NSDictionary], conversionOptions: ConversionOptions = .DefaultDeserialize) {
         self.init()
         for item in dictionaryArray {
             let arrayTypeInstance = getArrayTypeInstance(self)
@@ -65,7 +65,7 @@ public extension Array where Element: NSObject {
      - parameter json: The json string
      - parameter conversionOptions: Option set for the various conversion options.
      */
-    public init(dictionary: NSDictionary, forKeyPath: String, conversionOptions: ConversionOptions = .DefaultDeserialize) {
+    init(dictionary: NSDictionary, forKeyPath: String, conversionOptions: ConversionOptions = .DefaultDeserialize) {
         self.init()
         
         guard let dictionaryArray = dictionary.value(forKeyPath: forKeyPath) as? [NSDictionary] else {
@@ -88,7 +88,7 @@ public extension Array where Element: NSObject {
     
     - returns: The object type
     */
-    public func getArrayTypeInstance<T: NSObject>(_ arr: Array<T>) -> T {
+    func getArrayTypeInstance<T: NSObject>(_ arr: Array<T>) -> T {
         return arr.getTypeInstance()
     }
     
@@ -97,7 +97,7 @@ public extension Array where Element: NSObject {
     
     - returns: The object type
     */
-    public func getTypeInstance<T: NSObject>(
+    func getTypeInstance<T: NSObject>(
         ) -> T {
         let nsobjectype: NSObject.Type = T.self
         let nsobject: NSObject = nsobjectype.init()
@@ -113,7 +113,7 @@ public extension Array where Element: NSObject {
      
      - returns: The object type
      */
-    public func getTypeAsString() -> String {
+    func getTypeAsString() -> String {
         let item = self.getTypeInstance()
         return NSStringFromClass(type(of:item))
     }
@@ -132,7 +132,7 @@ public extension Array where Element: EVReflectable {
 
      - returns: The json string
      */
-    public func toJsonString(_ conversionOptions: ConversionOptions = .DefaultSerialize, prettyPrinted: Bool = false) -> String {
+    func toJsonString(_ conversionOptions: ConversionOptions = .DefaultSerialize, prettyPrinted: Bool = false) -> String {
         return "[\n" + self.map({($0).toJsonString(conversionOptions, prettyPrinted: prettyPrinted)}).joined(separator: ", \n") + "\n]"
     }
 
@@ -145,7 +145,7 @@ public extension Array where Element: EVReflectable {
      
      - returns: The json data
      */
-    public func toJsonData(_ conversionOptions: ConversionOptions = .DefaultSerialize, prettyPrinted: Bool = false, encoding: String.Encoding = .utf8) -> Data {
+    func toJsonData(_ conversionOptions: ConversionOptions = .DefaultSerialize, prettyPrinted: Bool = false, encoding: String.Encoding = .utf8) -> Data {
         return self.toJsonString(conversionOptions, prettyPrinted: prettyPrinted).data(using: encoding) ?? Data()
     }
     
@@ -156,7 +156,7 @@ public extension Array where Element: EVReflectable {
      
      - returns: The array of dictionaries
      */
-    public func toDictionaryArray(_ conversionOptions: ConversionOptions = .DefaultSerialize) -> NSArray {
+    func toDictionaryArray(_ conversionOptions: ConversionOptions = .DefaultSerialize) -> NSArray {
         return self.map({($0).toDictionary(conversionOptions)}) as NSArray
     }
 }
@@ -172,7 +172,7 @@ public extension Array where Element: NSDictionary {
      
      - parameter json: The json string
      */
-    public init(jsonArray: String) {
+    init(jsonArray: String) {
         self.init()
 
         let dictArray = EVReflection.dictionaryArrayFromJson(jsonArray)
@@ -187,7 +187,7 @@ public extension Array where Element: NSDictionary {
      
      - parameter json: The json string
      */
-    public init(dataArray: Data) {
+    init(dataArray: Data) {
         self.init(jsonArray: String(data: dataArray, encoding: .utf8) ?? "")
     }
     
@@ -198,7 +198,7 @@ public extension Array where Element: NSDictionary {
      
      - returns: The json string
      */
-    public func toJsonStringArray(prettyPrinted: Bool = false) -> String {
+    func toJsonStringArray(prettyPrinted: Bool = false) -> String {
         let jsonArray: [String] = self.map { ($0 as NSDictionary).toJsonString(prettyPrinted: prettyPrinted) as String }
         return "[\n" + jsonArray.joined(separator: ", \n") + "\n]"
     }

@@ -18,7 +18,6 @@
 		5EC197EF1A1BB16D00F4DFD4 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5EC197EE1A1BB16D00F4DFD4 /* Images.xcassets */; };
 		5EC197F21A1BB16D00F4DFD4 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5EC197F01A1BB16D00F4DFD4 /* LaunchScreen.xib */; };
 		5EC198081A1BB24600F4DFD4 /* MoyaGitHubAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EC198071A1BB24600F4DFD4 /* MoyaGitHubAPI.swift */; };
-		7F1C9D351E23CE5100A18776 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 7F1C9D341E23CE5000A18776 /* README.md */; };
 		7FC775DE1E211D70003D436E /* MoyaRxViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FC775DD1E211D70003D436E /* MoyaRxViewController.swift */; };
 		7FC775E01E211F34003D436E /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FC775DF1E211F34003D436E /* BaseViewController.swift */; };
 		8D04635AFFA1A664FE1E4309 /* Pods_44Demo5.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C68491FBE0DB12F9562176A /* Pods_44Demo5.framework */; };
@@ -297,7 +296,6 @@
 				5EC198081A1BB24600F4DFD4 /* MoyaGitHubAPI.swift in Sources */,
 				306F6BF91D22BCF400F727A6 /* Owner.swift in Sources */,
 				7FC775E01E211F34003D436E /* BaseViewController.swift in Sources */,
-				7F1C9D351E23CE5100A18776 /* README.md in Sources */,
 				306F6BF71D22BCEB00F727A6 /* Repository.swift in Sources */,
 				13FEBE801FE101BE008716AA /* License.swift in Sources */,
 				13FEBE821FE10539008716AA /* GitHubUser.swift in Sources */,
@@ -386,7 +384,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = nl.evict.4Demo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
@@ -452,7 +450,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = nl.evict.4Demo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};

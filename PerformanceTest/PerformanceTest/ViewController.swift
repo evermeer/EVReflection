@@ -163,7 +163,7 @@ class TestObject2: EVObject {
         name = "Object2 Name \(id)"
     }
     //workaround
-    @available(*, deprecated: 0.0.1, message: "init isn't supported, use init(id:) instead")
+    @available(*, deprecated, message: "init isn't supported, use init(id:) instead")
     required init() {
         super.init()
     }
@@ -199,7 +199,7 @@ class ResultArrayWrapper<T: Model>: EVObject, EVGenericsKVC {
             break;
             
         default:
-            print("---> setValue '\(value)' for key '\(key)' should be handled.")
+            print("---> setValue '\(value ?? [] as AnyObject)' for key '\(key)' should be handled.")
         }
     }
     

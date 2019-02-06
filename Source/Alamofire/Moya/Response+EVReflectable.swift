@@ -12,7 +12,7 @@ public extension Response {
     
     /// Maps data received from the signal into an object which implements the EVReflectable protocol.
     /// If the conversion fails, the signal errors.
-    public func Rmap<T: NSObject>(to type:T.Type, forKeyPath: String? = nil) throws -> T where T: EVReflectable {
+    func Rmap<T: NSObject>(to type:T.Type, forKeyPath: String? = nil) throws -> T where T: EVReflectable {
         let json = try mapJSON()
         var dict: NSDictionary = NSDictionary()
         if let d = json as? NSDictionary {
@@ -25,7 +25,7 @@ public extension Response {
     
     /// Maps data received from the signal into an array of objects which implement the ALSwiftyJSONAble protocol
     /// If the conversion fails, the signal errors.
-    public func RmapArray<T: NSObject>(to type:T.Type, forKeyPath: String? = nil) throws -> [T] where T: EVReflectable {
+    func RmapArray<T: NSObject>(to type:T.Type, forKeyPath: String? = nil) throws -> [T] where T: EVReflectable {
         var array: NSArray = NSArray()
         
         var json = try mapJSON()
@@ -60,7 +60,7 @@ public extension Response {
         return parsedObject
     }
     
-    public func RmapNestedArray<T: NSObject>(to type:T.Type, forKeyPath: String? = nil) throws -> [[T]] where T: EVReflectable {
+    func RmapNestedArray<T: NSObject>(to type:T.Type, forKeyPath: String? = nil) throws -> [[T]] where T: EVReflectable {
         var array: NSArray = NSArray()
         
         var json = try mapJSON()
@@ -85,7 +85,7 @@ public extension Response {
         return parsedArray
     }
     
-    public func RmapInnerArray<T: NSObject>(array: NSArray) -> [T] where T: EVReflectable {
+    func RmapInnerArray<T: NSObject>(array: NSArray) -> [T] where T: EVReflectable {
         return array.map { dictMap(from: $0 as? NSDictionary) } as [T]
     }
 }

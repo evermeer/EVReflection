@@ -1,38 +1,38 @@
 PODS:
   - Alamofire (4.8.1)
-  - EVReflection/Alamofire (5.8.0):
+  - EVReflection/Alamofire (5.9.0):
     - Alamofire
     - EVReflection/Core
-  - EVReflection/AlamofireXML (5.8.0):
+  - EVReflection/AlamofireXML (5.9.0):
     - EVReflection/Alamofire
     - EVReflection/XML
-  - EVReflection/CloudKit (5.8.0):
+  - EVReflection/CloudKit (5.9.0):
     - EVReflection/Core
-  - EVReflection/Core (5.8.0)
-  - EVReflection/CoreData (5.8.0):
+  - EVReflection/Core (5.9.0)
+  - EVReflection/CoreData (5.9.0):
     - EVReflection/Core
-  - EVReflection/Moya (5.8.0):
+  - EVReflection/Moya (5.9.0):
     - EVReflection/Alamofire
     - Moya
-  - EVReflection/MoyaReactiveSwift (5.8.0):
+  - EVReflection/MoyaReactiveSwift (5.9.0):
     - EVReflection/Moya
     - Moya/ReactiveSwift
-  - EVReflection/MoyaReactiveSwiftXML (5.8.0):
+  - EVReflection/MoyaReactiveSwiftXML (5.9.0):
     - EVReflection/MoyaReactiveSwift
     - EVReflection/MoyaXML
-  - EVReflection/MoyaRxSwift (5.8.0):
+  - EVReflection/MoyaRxSwift (5.9.0):
     - EVReflection/Moya
     - Moya/RxSwift
-  - EVReflection/MoyaRxSwiftXML (5.8.0):
+  - EVReflection/MoyaRxSwiftXML (5.9.0):
     - EVReflection/MoyaRxSwift
     - EVReflection/MoyaXML
-  - EVReflection/MoyaXML (5.8.0):
+  - EVReflection/MoyaXML (5.9.0):
     - EVReflection/AlamofireXML
     - EVReflection/Moya
-  - EVReflection/Realm (5.8.0):
+  - EVReflection/Realm (5.9.0):
     - EVReflection/Core
     - RealmSwift
-  - EVReflection/XML (5.8.0):
+  - EVReflection/XML (5.9.0):
     - EVReflection/Core
     - XMLDictionary
   - Moya (12.0.1):
@@ -85,7 +85,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Alamofire: 16ce2c353fb72865124ddae8a57c5942388f4f11
-  EVReflection: bd84ca5ff98d2479966df23d41787b08137b3f8d
+  EVReflection: 52aa00a9035145b1fcf99acae01b782ecc4adad7
   Moya: cf730b3cd9e005401ef37a85143aa141a12fd38f
   ReactiveSwift: a2bb9ace428a109e9c0209615645d9d286c8c433
   Realm: 50071da38fe079e0735e47c9f2eae738c68c5996
@@ -97,4 +97,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: e4a7466c5b38806b825e545608a3a6a3c5846e37
 
-COCOAPODS: 1.6.0.beta.1
+COCOAPODS: 1.6.0.rc.2
