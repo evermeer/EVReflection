@@ -85,7 +85,7 @@ open class ApiResponse<T>: ApiGenericBase39, EVGenericsKVC where T:NSObject {
         case "data":
             data = value as? [T] ?? [T]()
         default:
-            print("---> setGenericValue '\(value)' forUndefinedKey '\(key)' should be handled.")
+            print("---> setGenericValue '\(value ?? [] as AnyObject)' forUndefinedKey '\(key)' should be handled.")
         }
     }
     

@@ -87,13 +87,13 @@ class EVReflectionNumbersTests: XCTestCase {
         let (value1, _, _) = EVReflection.valueForAny("", key: "", anyValue: test1)
         XCTAssert(value1 as? NSNumber == NSNumber(value: Double(Int.max) as Double), "Values should be same for type NSNumber")
         
-        let test2: Float = 458347978508
+        let test2: Float = 458347970560
         let (value2, _, _) = EVReflection.valueForAny("", key: "", anyValue: test2)
-        XCTAssert(value2 as? NSNumber == NSNumber(value: 458347978508 as Float), "Values should be same for type Float")
+        XCTAssert(value2 as? NSNumber == NSNumber(value: 458347970560 as Float), "Values should be same for type Float")
         
-        let test3: Double = 458347978508
+        let test3: Double = 458347970560
         let (value3, _, _) = EVReflection.valueForAny("", key: "", anyValue: test3)
-        XCTAssert(value3 as? NSNumber == NSNumber(value: 458347978508 as Double), "Values should be same for type Double")
+        XCTAssert(value3 as? NSNumber == NSNumber(value: 458347970560 as Double), "Values should be same for type Double")
         
         let test4: Int64 = Int64.max
         let (value4, _, _) = EVReflection.valueForAny("", key: "", anyValue: test4)

@@ -90,6 +90,7 @@
 		13FEBE881FE1059F008716AA /* License.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13FEBE851FE1059E008716AA /* License.swift */; };
 		13FEBE891FE105D2008716AA /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F98018E1E260A4D00D6C5C0 /* Repository.swift */; };
 		13FEBE8A1FE105D7008716AA /* Owner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F98018F1E260A4D00D6C5C0 /* Owner.swift */; };
+		3F79808E03C5A5F333E0562B /* Pods_UnitTestsiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F65C8B938B44FD44F26FD855 /* Pods_UnitTestsiOS.framework */; };
 		422668011CB77DD800145E17 /* EVReflectionCustomInitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422667FF1CB77DD000145E17 /* EVReflectionCustomInitTests.swift */; };
 		422668021CB7802C00145E17 /* EVReflectionCustomInitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422667FF1CB77DD000145E17 /* EVReflectionCustomInitTests.swift */; };
 		422668031CB7802D00145E17 /* EVReflectionCustomInitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422667FF1CB77DD000145E17 /* EVReflectionCustomInitTests.swift */; };
@@ -415,6 +416,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				131200FF1EB9307B00A189C8 /* Pods_UnitTestsiOS.framework in Frameworks */,
+				3F79808E03C5A5F333E0562B /* Pods_UnitTestsiOS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
