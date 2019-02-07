@@ -60,7 +60,7 @@ open class EVObjectDescription {
             className = classPath.last!
         } else {
             // Root objects will already have a . notation
-            classPath = swiftClassID.characters.split(whereSeparator: {$0 == "."}).map({String($0)})
+            classPath = swiftClassID.split(whereSeparator: {$0 == "."}).map({String($0)})
             if classPath.count > 1 {
                 bundleName = classPath[0]
                 className = classPath.last!
@@ -76,8 +76,7 @@ open class EVObjectDescription {
     - parameter classString: the string representation of a class
     */
     fileprivate func parseTypes(_ classString: String) {
-        let characters = Array(classString.characters)
-        let type: String = String(characters[0])
+        let type = String(classString.prefix(1))
         if Int(type) == nil {
             let ot: ObjectType = ObjectType(rawValue: type)!
             if ot == .isTarget {
@@ -98,17 +97,19 @@ open class EVObjectDescription {
     
     */
     fileprivate func parseNames(_ classString: String) {
-        let characters = Array(classString.characters)
-        var numForName = ""
+        var startNum = ""
         var index = 0
-        while Int(String(characters[index])) != nil {
-            numForName = "\(numForName)\(characters[index])"
-            index += 1
+        for letter in classString.unicodeScalars {
+            if 48...57 ~= letter.value {
+                startNum.append(String(letter))
+                index += 1
+            } else { break }
         }
-        //let range = Range<String.Index>(start:classString.startIndex.advancedBy(index), end:classString.startIndex.advancedBy((Int(numForName) ?? 0) + index))
-        let range = classString.characters.index(classString.startIndex, offsetBy: index)..<classString.characters.index(classString.startIndex, offsetBy: (Int(numForName) ?? 0) + index)
-        
-        let name = classString.substring(with: range)
+        let startIndex = classString.index(classString.startIndex, offsetBy: index)
+        let endPosition = index + (Int(startNum) ?? 0)
+        let endIndex = classString.index(classString.startIndex, offsetBy: endPosition)
+        let name = String(classString[startIndex...endIndex])
+
         classPath.append(name)
         if name == "" {
             return
@@ -140,8 +141,8 @@ open class EVObjectDescription {
                 index = index + 7
             }            
         }
-        if characters.count > index + Int(numForName)! {
-            parseNames((classString as NSString).substring(from: index + Int(numForName)!))
+        if classString.lengthOfBytes(using: .utf8) > endPosition {
+            parseNames((classString as NSString).substring(from: endPosition))
         }
     }
 }

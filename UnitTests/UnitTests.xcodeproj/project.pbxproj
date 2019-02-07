@@ -90,7 +90,6 @@
 		13FEBE881FE1059F008716AA /* License.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13FEBE851FE1059E008716AA /* License.swift */; };
 		13FEBE891FE105D2008716AA /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F98018E1E260A4D00D6C5C0 /* Repository.swift */; };
 		13FEBE8A1FE105D7008716AA /* Owner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F98018F1E260A4D00D6C5C0 /* Owner.swift */; };
-		1A0222E332CA330C2093A72E /* Pods_UnitTestsiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F65C8B938B44FD44F26FD855 /* Pods_UnitTestsiOS.framework */; };
 		422668011CB77DD800145E17 /* EVReflectionCustomInitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422667FF1CB77DD000145E17 /* EVReflectionCustomInitTests.swift */; };
 		422668021CB7802C00145E17 /* EVReflectionCustomInitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422667FF1CB77DD000145E17 /* EVReflectionCustomInitTests.swift */; };
 		422668031CB7802D00145E17 /* EVReflectionCustomInitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422667FF1CB77DD000145E17 /* EVReflectionCustomInitTests.swift */; };
@@ -416,7 +415,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				131200FF1EB9307B00A189C8 /* Pods_UnitTestsiOS.framework in Frameworks */,
-				1A0222E332CA330C2093A72E /* Pods_UnitTestsiOS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -751,13 +749,14 @@
 				TargetAttributes = {
 					7F07C5711AF101A9000DF1F3 = {
 						CreatedOnToolsVersion = 6.3.1;
-						DevelopmentTeam = 6Z7QY98HTS;
+						DevelopmentTeam = X356V8CMHF;
 						LastSwiftMigration = 0900;
+						ProvisioningStyle = Automatic;
 						TestTargetID = 7F07C55C1AF101A9000DF1F3;
 					};
 					7F3E31841BB9095C001E6788 = {
 						CreatedOnToolsVersion = 7.0;
-						DevelopmentTeam = 6Z7QY98HTS;
+						DevelopmentTeam = X356V8CMHF;
 						ProvisioningStyle = Automatic;
 					};
 					7F9336B61C28227400AF7076 = {
@@ -1406,7 +1405,9 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 8AF55D93C0A4446596F7BB1E /* Pods-UnitTestsiOS.debug.xcconfig */;
 			buildSettings = {
-				DEVELOPMENT_TEAM = 6Z7QY98HTS;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = X356V8CMHF;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -1416,6 +1417,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "nl.evict.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
@@ -1424,12 +1426,15 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 6B0BBA6E27DA1405434D8881 /* Pods-UnitTestsiOS.release.xcconfig */;
 			buildSettings = {
-				DEVELOPMENT_TEAM = 6Z7QY98HTS;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = X356V8CMHF;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "EVReflectionTests/ios-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "nl.evict.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
@@ -1440,7 +1445,7 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = 6Z7QY98HTS;
+				DEVELOPMENT_TEAM = X356V8CMHF;
 				INFOPLIST_FILE = "EVReflectionTests/osx-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
@@ -1458,7 +1463,7 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = 6Z7QY98HTS;
+				DEVELOPMENT_TEAM = X356V8CMHF;
 				INFOPLIST_FILE = "EVReflectionTests/osx-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.11;

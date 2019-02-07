@@ -70,7 +70,7 @@ class TestObjectSkipValues: EVObject {
     
     // Put this in your own base class if you want to have this logic in all your classes
     override func skipPropertyValue(_ value: Any, key: String) -> Bool {
-        if let value = value as? String, value.characters.count == 0 || value == "null" {
+        if let value = value as? String, value.lengthOfBytes(using: String.Encoding.utf8) == 0 || value == "null" {
             print("Ignoring empty string for key \(key)")
             return true
         } else if let value = value as? NSArray, value.count == 0 {
