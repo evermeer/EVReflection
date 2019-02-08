@@ -27,9 +27,12 @@ class TestIssue213: XCTestCase {
     
     func testIssue213() {
         let path: String = Bundle(for: type(of: self)).path(forResource: "EVReflectionIssue213", ofType: "json") ?? ""
-        let content = try! String(contentsOfFile: path)
-        let data = ResultArrayWrapper<Spot>(json: content)
-        print("\(data)")
+        if let content = try? String(contentsOfFile: path) {
+            let data = ResultArrayWrapper<Spot>(json: content)
+            print("\(data)")
+        } else {
+            XCTAssert(true, "Could not read file")
+        }
     }
     
 }
@@ -51,7 +54,7 @@ class ResultArrayWrapper<T: Model>: EVObject, EVGenericsKVC {
             break;
             
         default:
-            print("---> setValue '\(value)' for key '\(key)' should be handled.")
+            print("---> setValue '\(value ?? [] as AnyObject)' for key '\(key)' should be handled.")
         }
     }
     

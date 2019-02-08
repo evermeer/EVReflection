@@ -108,7 +108,7 @@ open class EVObjectDescription {
         let startIndex = classString.index(classString.startIndex, offsetBy: index)
         let endPosition = index + (Int(startNum) ?? 0)
         let endIndex = classString.index(classString.startIndex, offsetBy: endPosition)
-        let name = String(classString[startIndex...endIndex])
+        let name = String(classString[startIndex..<endIndex])
 
         classPath.append(name)
         if name == "" {

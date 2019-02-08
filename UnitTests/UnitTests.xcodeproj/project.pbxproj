@@ -38,7 +38,6 @@
 		131200EF1EB4B59000A189C8 /* EVReflectionIssue159.json in Resources */ = {isa = PBXBuildFile; fileRef = 7F734AB81E53AF03007A5688 /* EVReflectionIssue159.json */; };
 		131200F01EB4B59100A189C8 /* EVReflectionIssue159.json in Resources */ = {isa = PBXBuildFile; fileRef = 7F734AB81E53AF03007A5688 /* EVReflectionIssue159.json */; };
 		131200F81EB8B04500A189C8 /* CloudKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F1D69411E27974C00F5AE15 /* CloudKitTests.swift */; };
-		131200FF1EB9307B00A189C8 /* Pods_UnitTestsiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 131200F21EB5039600A189C8 /* Pods_UnitTestsiOS.framework */; };
 		131201131EBC4E6D00A189C8 /* CoreDataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 131201121EBC4E6D00A189C8 /* CoreDataTests.swift */; };
 		131201141EBC4E6D00A189C8 /* CoreDataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 131201121EBC4E6D00A189C8 /* CoreDataTests.swift */; };
 		131201151EBC4E6D00A189C8 /* CoreDataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 131201121EBC4E6D00A189C8 /* CoreDataTests.swift */; };
@@ -90,7 +89,6 @@
 		13FEBE881FE1059F008716AA /* License.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13FEBE851FE1059E008716AA /* License.swift */; };
 		13FEBE891FE105D2008716AA /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F98018E1E260A4D00D6C5C0 /* Repository.swift */; };
 		13FEBE8A1FE105D7008716AA /* Owner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F98018F1E260A4D00D6C5C0 /* Owner.swift */; };
-		3F79808E03C5A5F333E0562B /* Pods_UnitTestsiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F65C8B938B44FD44F26FD855 /* Pods_UnitTestsiOS.framework */; };
 		422668011CB77DD800145E17 /* EVReflectionCustomInitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422667FF1CB77DD000145E17 /* EVReflectionCustomInitTests.swift */; };
 		422668021CB7802C00145E17 /* EVReflectionCustomInitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422667FF1CB77DD000145E17 /* EVReflectionCustomInitTests.swift */; };
 		422668031CB7802D00145E17 /* EVReflectionCustomInitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422667FF1CB77DD000145E17 /* EVReflectionCustomInitTests.swift */; };
@@ -261,6 +259,7 @@
 		7FCD1D491D3FADA800F51BE0 /* EVReflectionIssue107.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FCD1D471D3FAD0900F51BE0 /* EVReflectionIssue107.swift */; };
 		7FCD1D4A1D3FADA900F51BE0 /* EVReflectionIssue107.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FCD1D471D3FAD0900F51BE0 /* EVReflectionIssue107.swift */; };
 		7FCD1D4B1D3FADAB00F51BE0 /* EVReflectionIssue107.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FCD1D471D3FAD0900F51BE0 /* EVReflectionIssue107.swift */; };
+		7FCD4B01220D8B6000CBA34E /* Pods_UnitTestsiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7FCD4B00220D8B6000CBA34E /* Pods_UnitTestsiOS.framework */; };
 		7FD0CEA321F0C98F004D7AB2 /* EVReflectionIssue20190117.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FD0CEA221F0C98F004D7AB2 /* EVReflectionIssue20190117.swift */; };
 		7FD0CEA521F0C9B4004D7AB2 /* EVReflectionIssue20190117.json in Resources */ = {isa = PBXBuildFile; fileRef = 7FD0CEA421F0C9B4004D7AB2 /* EVReflectionIssue20190117.json */; };
 		7FD0CEA621F0C9BC004D7AB2 /* EVReflectionIssue20190117.json in Resources */ = {isa = PBXBuildFile; fileRef = 7FD0CEA421F0C9B4004D7AB2 /* EVReflectionIssue20190117.json */; };
@@ -390,9 +389,13 @@
 		7FB099E11D2F82DE00D94204 /* EVReflectionIssue102.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVReflectionIssue102.swift; sourceTree = "<group>"; };
 		7FC41DE71E8B8C2C0080DB80 /* RealmTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RealmTests.swift; path = RealmTests/RealmTests.swift; sourceTree = "<group>"; };
 		7FCD1D471D3FAD0900F51BE0 /* EVReflectionIssue107.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVReflectionIssue107.swift; sourceTree = "<group>"; };
+		7FCD4AFC220D603F00CBA34E /* Pods_UnitTestsiOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Pods_UnitTestsiOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7FCD4AFE220D855700CBA34E /* Pods_UnitTestsiOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Pods_UnitTestsiOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7FCD4B00220D8B6000CBA34E /* Pods_UnitTestsiOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Pods_UnitTestsiOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7FD0CEA221F0C98F004D7AB2 /* EVReflectionIssue20190117.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EVReflectionIssue20190117.swift; sourceTree = "<group>"; };
 		7FD0CEA421F0C9B4004D7AB2 /* EVReflectionIssue20190117.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = EVReflectionIssue20190117.json; sourceTree = "<group>"; };
 		7FD407AA1E0BE8BE00AEBF1B /* EVReflectionIssue145.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVReflectionIssue145.swift; sourceTree = "<group>"; };
+		7FD4116E220CE3D7005B966D /* Pods_UnitTestsiOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Pods_UnitTestsiOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7FDC390D1DC3582F0091D27E /* sample.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = sample.json; sourceTree = "<group>"; };
 		7FE271641DDDCF8400C8B4CD /* EVReflectionIssue141.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVReflectionIssue141.swift; sourceTree = "<group>"; };
 		7FF4BEAD1CF0FB920086F999 /* EVReflectionIssue84.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVReflectionIssue84.swift; sourceTree = "<group>"; };
@@ -415,8 +418,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				131200FF1EB9307B00A189C8 /* Pods_UnitTestsiOS.framework in Frameworks */,
-				3F79808E03C5A5F333E0562B /* Pods_UnitTestsiOS.framework in Frameworks */,
+				7FCD4B01220D8B6000CBA34E /* Pods_UnitTestsiOS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -667,6 +669,10 @@
 		F74D54681A9B21542590F1C6 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7FCD4B00220D8B6000CBA34E /* Pods_UnitTestsiOS.framework */,
+				7FCD4AFE220D855700CBA34E /* Pods_UnitTestsiOS.framework */,
+				7FCD4AFC220D603F00CBA34E /* Pods_UnitTestsiOS.framework */,
+				7FD4116E220CE3D7005B966D /* Pods_UnitTestsiOS.framework */,
 				1312010F1EB9331D00A189C8 /* EVReflection.framework */,
 				131200FC1EB9292F00A189C8 /* EVReflection.framework */,
 				131200F91EB8B09C00A189C8 /* Pods_UnitTestsTVOS.framework */,

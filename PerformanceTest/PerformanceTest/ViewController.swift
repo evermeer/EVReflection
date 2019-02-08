@@ -110,9 +110,12 @@ class ViewController: UIViewController {
 
     func testIssue213() {
         let path: String = Bundle(for: type(of: self)).path(forResource: "test", ofType: "json") ?? ""
-        let content = try! String(contentsOfFile: path)
-        let data = ResultArrayWrapper<Spot>(json: content)
-        print("\(data)")
+        if let content = try? String(contentsOfFile: path) {
+            let data = ResultArrayWrapper<Spot>(json: content)
+            print("\(data)")
+        } else {
+            assert(true)
+        }
     }
     
 }
