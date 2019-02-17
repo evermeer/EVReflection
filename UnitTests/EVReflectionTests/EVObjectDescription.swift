@@ -106,7 +106,7 @@ open class EVObjectDescription {
             } else { break }
         }
         let startIndex = classString.index(classString.startIndex, offsetBy: index)
-        let endPosition = index + (Int(startNum) ?? 0)
+        var endPosition = index + (Int(startNum) ?? 0)
         let endIndex = classString.index(classString.startIndex, offsetBy: endPosition)
         let name = String(classString[startIndex..<endIndex])
 
@@ -136,9 +136,9 @@ open class EVObjectDescription {
             
             // New in Swift 2.3              FT_T_L_
             if classString.contains("FS0_") {
-                index = index + 11
+                endPosition = endPosition + 11
             } else {
-                index = index + 7
+                endPosition = endPosition + 7
             }            
         }
         if classString.lengthOfBytes(using: .utf8) > endPosition {

@@ -45,7 +45,7 @@ class EnumWorkaroundsTests: XCTestCase {
         let varTest4 = MyEnumFour.notOK(message: "realy wrong")
         let test4 = getRawValue(varTest4) as? String
         XCTAssertTrue(varTest4.associated.label == "notOK", "Could nog get the label value using a generic function")
-        XCTAssertTrue(varTest4.associated.value as? String == "realy wrong", "Could nog get the associated value using a generic function")
+        XCTAssertTrue(varTest4.associated.values[0] as? String == "realy wrong", "Could nog get the associated value using a generic function")
         XCTAssertTrue(test4 == "realy wrong", "Could nog get the associated value using a generic function")
         let varTest5 = MyEnumFour.ok(level: 3)
         let test5 = getRawValue(varTest5) as? Int
@@ -102,7 +102,7 @@ class EnumWorkaroundsTests: XCTestCase {
     }
     
     func getRawValue(_ theEnum: Any) -> Any {        
-        let (val, _, _) = EVReflection.valueForAny(self, key: "a", anyValue: theEnum)
+        let (val, _, _) = EVReflection.valueForAny(self, key: "", anyValue: theEnum)
         return val
     }
     
