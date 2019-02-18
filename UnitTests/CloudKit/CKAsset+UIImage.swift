@@ -11,7 +11,8 @@ import UIKit
 
 public extension CKAsset {
     func image() -> UIImage? {
-        if let url = self.fileURL, let data = try? Data(contentsOf: url) {
+        let url = self.fileURL
+        if let data = try? Data(contentsOf: url) {
             return UIImage(data: data)
         }
         return nil

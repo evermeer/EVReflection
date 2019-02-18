@@ -54,8 +54,8 @@ PODS:
   - RealmSwift (3.13.1):
     - Realm (= 3.13.1)
   - Result (4.1.0)
-  - RxAtomic (4.4.0)
-  - RxSwift (4.4.0):
+  - RxAtomic (4.4.1)
+  - RxSwift (4.4.1):
     - RxAtomic (~> 4.4)
   - XMLDictionary (1.4.1)
 
@@ -91,10 +91,10 @@ SPEC CHECKSUMS:
   Realm: 50071da38fe079e0735e47c9f2eae738c68c5996
   RealmSwift: 8a1e6a02b7a08cd17a31e3115143fb69fe5f3fb9
   Result: bd966fac789cc6c1563440b348ab2598cc24d5c7
-  RxAtomic: eacf60db868c96bfd63320e28619fe29c179656f
-  RxSwift: 5976ecd04fc2fefd648827c23de5e11157faa973
+  RxAtomic: f8d6adc1ccb87a767811269e4875887bc74dbf19
+  RxSwift: 92fcf68dfef21f3e2ab1965363d9e7b3d787597e
   XMLDictionary: fa07b6ff422b3a91d47a5de9bc82e3fc04fbd167
 
-PODFILE CHECKSUM: e4a7466c5b38806b825e545608a3a6a3c5846e37
+PODFILE CHECKSUM: df2a70b11777d457966cfd407256116fcd1e2bdf
 
 COCOAPODS: 1.6.0
