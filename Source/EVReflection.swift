@@ -735,9 +735,9 @@ final public class EVReflection {
             if let value = theValue as? EVRaw {
                 theValue = value.anyRawValue
             } else if let value = theValue as? EVAssociated {
-                let (enumValue, enumType, _) = valueForAny(theValue, key: value.associated.label, anyValue: value.associated.value as Any, conversionOptions: conversionOptions, isCachable: isCachable, parents: parents)
-                valueType = enumType
-                theValue = enumValue
+                //let (enumValue, enumType, _) = valueForAny(theValue, key: value.associated.label, anyValue: value.associated.value as Any, conversionOptions: conversionOptions, isCachable: isCachable, parents: parents)
+                valueType = "Array<Any>"
+                theValue = value.associated.values
             } else if valueType.hasPrefix("Swift.ImplicitlyUnwrappedOptional<") { // Implicitly Unwrapped Optionals are actually fancy enums
                 var subtype: String = String(valueType[(valueType.components(separatedBy: "<") [0] + "<").endIndex...])
                 subtype = String(subtype[..<subtype.index(before: subtype.endIndex)])

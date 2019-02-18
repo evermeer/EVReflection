@@ -44,7 +44,7 @@ public extension DataRequest {
      - returns: The request.
      */
     @discardableResult
-    public func responseObjectFromXML<T: NSObject>(queue: DispatchQueue? = nil, keyPath: String? = nil, mapToObject object: T? = nil, completionHandler: @escaping (DataResponse<T>) -> Void) -> Self where T: EVReflectable{
+    func responseObjectFromXML<T: NSObject>(queue: DispatchQueue? = nil, keyPath: String? = nil, mapToObject object: T? = nil, completionHandler: @escaping (DataResponse<T>) -> Void) -> Self where T: EVReflectable{
         
         let serializer = self.EVReflectionXMLSerializer(keyPath, mapToObject: object)
         return response(queue: queue, responseSerializer: serializer, completionHandler: completionHandler)

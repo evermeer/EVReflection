@@ -39,7 +39,7 @@ public extension NSDictionary {
      
      - parameter prettyPrinted: compact of pretty printed
      */
-    public func toJsonString(prettyPrinted: Bool = false) -> String {
+    func toJsonString(prettyPrinted: Bool = false) -> String {
         let data = self.toJsonData(prettyPrinted: prettyPrinted)
         return String(data: data, encoding: .utf8) ?? ""
     }
@@ -49,7 +49,7 @@ public extension NSDictionary {
      
      - parameter prettyPrinted: compact of pretty printed
      */
-    public func toJsonData(prettyPrinted: Bool = false) -> Data {
+    func toJsonData(prettyPrinted: Bool = false) -> Data {
         do {
             if prettyPrinted {
                 return try JSONSerialization.data(withJSONObject: self, options: .prettyPrinted)
@@ -68,7 +68,7 @@ public extension NSMutableDictionary {
      
      - parameter dictionary: The 2nd dictionary that will be merged into this one
      */
-    public func unionInPlace(dictionary: NSDictionary) {
+    func unionInPlace(dictionary: NSDictionary) {
         for (key, value) in dictionary {
             self[key] = value
         }
@@ -79,7 +79,7 @@ public extension NSMutableDictionary {
      
      - parameter dictionary: The sequence that will be merged into this dictionary
      */
-    public func unionInPlace<S: Sequence>(sequence: S) where
+    func unionInPlace<S: Sequence>(sequence: S) where
         S.Iterator.Element == (Key,Value) {
             for (key, value) in sequence {
                 self[key] = value

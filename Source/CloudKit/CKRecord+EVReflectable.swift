@@ -18,7 +18,7 @@ public extension CKRecord {
      
      - parameter dataObject: The CKDataObject
      */
-    public convenience init?(_ dataObject: CKDataObject) {
+    convenience init?(_ dataObject: CKDataObject) {
         if let fields = dataObject.encodedSystemFields {
             let coder = NSKeyedUnarchiver(forReadingWith: fields)
             self.init(coder: coder)
@@ -37,7 +37,7 @@ public extension CKRecord {
      - parameter record: The CKRecord that will be converted to an object
      :return: The object that is created from the record
      */
-    public func toDataObject() -> CKDataObject? {
+    func toDataObject() -> CKDataObject? {
         if let theObject = EVReflection.fromDictionary(self.toDictionary(), anyobjectTypeString: self.recordType) as? CKDataObject {
             theObject.recordID = self.recordID
             theObject.recordType = self.recordType
@@ -62,7 +62,7 @@ public extension CKRecord {
      
      :return: The dictionary that is created from the record
      */
-    public func toDictionary() -> NSDictionary {
+    func toDictionary() -> NSDictionary {
         let dictionary = NSMutableDictionary()
         for key in self.allKeys() {
             if let value = self.object(forKey: key) {

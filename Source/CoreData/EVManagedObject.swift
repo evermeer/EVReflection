@@ -10,7 +10,7 @@ import CoreData
 
 @objcMembers
 @objc open class EVManagedObject: NSManagedObject, EVReflectable {
-    
+
     /**
      Implementation of a required initializer which is required by NSManagedObject
      

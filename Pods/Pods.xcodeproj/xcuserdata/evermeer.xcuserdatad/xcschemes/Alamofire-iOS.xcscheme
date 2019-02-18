@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "A4A44D1A5CDD960F8E04681AFE771E72"
+               BlueprintIdentifier = "9FA0D3F2F380C88414707C800CAB82D9"
                BuildableName = "Alamofire.framework"
                BlueprintName = "Alamofire-iOS"
                ReferencedContainer = "container:Pods.xcodeproj">
@@ -45,7 +45,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "A4A44D1A5CDD960F8E04681AFE771E72"
+            BlueprintIdentifier = "9FA0D3F2F380C88414707C800CAB82D9"
             BuildableName = "Alamofire.framework"
             BlueprintName = "Alamofire-iOS"
             ReferencedContainer = "container:Pods.xcodeproj">

@@ -71,14 +71,23 @@ public extension EVAssociated {
      
      :returns: The label of the enum plus the associated value
      */
-    public var associated: (label: String, value: Any?) {
+    var associated: (label: String, value: Any?, values: [Any]) {
         get {
             let mirror = Mirror(reflecting: self)
-            if let associated = mirror.children.first {
-                return (associated.label!, Mirror(reflecting: associated.value).children.first?.value)
+            if mirror.displayStyle == .enum {
+                if let associated = mirror.children.first {
+                    let values = Mirror(reflecting: associated.value).children
+                    var valuesArray = [Any]()
+                    for item in values {
+                        valuesArray.append(item.value)
+                    }
+                    return (associated.label!, associated.value, valuesArray)
+                }
+                print("WARNING: Enum option of \(self) does not have an associated value")
+                return ("\(self)", nil, [])
             }
-            evPrint(.EnumWithoutAssociatedValue, "WARNING: Enum option of \(self) does not have an associated value")
-            return ("\(self)", nil)
+            print("WARNING: You can only extend an enum with the EnumExtension")
+            return ("\(self)", nil, [])
         }
     }
 }

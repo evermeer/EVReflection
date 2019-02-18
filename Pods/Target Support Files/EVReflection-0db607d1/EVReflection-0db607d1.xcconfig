@@ -2,7 +2,6 @@ CODE_SIGN_IDENTITY =
 CONFIGURATION_BUILD_DIR = ${PODS_CONFIGURATION_BUILD_DIR}/EVReflection-0db607d1
 FRAMEWORK_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/Alamofire-macOS" "${PODS_CONFIGURATION_BUILD_DIR}/Moya-macOS" "${PODS_CONFIGURATION_BUILD_DIR}/ReactiveSwift-macOS" "${PODS_CONFIGURATION_BUILD_DIR}/Realm-macOS" "${PODS_CONFIGURATION_BUILD_DIR}/RealmSwift-macOS" "${PODS_CONFIGURATION_BUILD_DIR}/Result-macOS" "${PODS_CONFIGURATION_BUILD_DIR}/RxAtomic-macOS" "${PODS_CONFIGURATION_BUILD_DIR}/RxSwift-macOS" "${PODS_CONFIGURATION_BUILD_DIR}/XMLDictionary-macOS"
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
-OTHER_LDFLAGS = $(inherited) -l"c++" -l"z" -framework "Alamofire" -framework "CloudKit" -framework "CoreData" -framework "Foundation" -framework "Moya" -framework "ReactiveSwift" -framework "Realm" -framework "RealmSwift" -framework "Result" -framework "RxAtomic" -framework "RxSwift" -framework "Security" -framework "XMLDictionary"
 OTHER_SWIFT_FLAGS = $(inherited) -D COCOAPODS
 PODS_BUILD_DIR = ${BUILD_DIR}
 PODS_CONFIGURATION_BUILD_DIR = ${PODS_BUILD_DIR}/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)

@@ -98,7 +98,7 @@ public extension DataRequest {
      - returns: The request.
      */
     @discardableResult
-    public func responseObject<T: NSObject>(queue: DispatchQueue? = nil, keyPath: String? = nil, mapToObject object: T? = nil, completionHandler: @escaping (DataResponse<T>) -> Void) -> Self where T: EVReflectable {
+    func responseObject<T: NSObject>(queue: DispatchQueue? = nil, keyPath: String? = nil, mapToObject object: T? = nil, completionHandler: @escaping (DataResponse<T>) -> Void) -> Self where T: EVReflectable {
         
         let serializer = self.EVReflectionSerializer(keyPath, mapToObject: object)
         return response(queue: queue, responseSerializer: serializer, completionHandler: completionHandler)
@@ -164,7 +164,7 @@ public extension DataRequest {
      - returns: The request.
      */
     @discardableResult
-    public func responseArray<T: NSObject>(queue: DispatchQueue? = nil, keyPath: String? = nil, mapToObject object: T? = nil, completionHandler: @escaping (DataResponse<[T]>) -> Void) -> Self where T: EVReflectable {
+    func responseArray<T: NSObject>(queue: DispatchQueue? = nil, keyPath: String? = nil, mapToObject object: T? = nil, completionHandler: @escaping (DataResponse<[T]>) -> Void) -> Self where T: EVReflectable {
         let serializer = self.EVReflectionArraySerializer(keyPath, mapToObject: object)
         return response(queue: queue, responseSerializer: serializer, completionHandler: completionHandler)
     }

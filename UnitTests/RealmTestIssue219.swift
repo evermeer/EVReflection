@@ -68,9 +68,12 @@ class RealmTestsIssue219: XCTestCase {
      */
     func testRealmSmokeTest() {
         let path: String = Bundle(for: type(of: self)).path(forResource: "RealmTestIssue219", ofType: "json") ?? ""
-        let content = try! String(contentsOfFile: path)
-        let data = [Users](json: content, forKeyPath: "data.users")
-        print("\(data)")
+        if let content = try? String(contentsOfFile: path) {
+            let data = [Users](json: content, forKeyPath: "data.users")
+            print("\(data)")
+        } else {
+            XCTAssert(true, "Could not read file")
+        }
     }
 }
 

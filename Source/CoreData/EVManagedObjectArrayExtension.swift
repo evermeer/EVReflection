@@ -20,7 +20,7 @@ public extension Array where Element: EVManagedObject {
      - parameter json: The json string
      - parameter conversionOptions: Option set for the various conversion options.
      */
-    public init(context: NSManagedObjectContext, json: String?, conversionOptions: ConversionOptions = .DefaultDeserialize) {
+    init(context: NSManagedObjectContext, json: String?, conversionOptions: ConversionOptions = .DefaultDeserialize) {
         self.init()
         let dictArray: [NSDictionary] = EVReflection.dictionaryArrayFromJson(json)
         for item in dictArray {
@@ -38,7 +38,7 @@ public extension Array where Element: EVManagedObject {
      
      - returns: The object type
      */
-    public func getArrayTypeInstance<T: EVManagedObject>(_ arr: Array<T>, context: NSManagedObjectContext) -> T {
+    func getArrayTypeInstance<T: EVManagedObject>(_ arr: Array<T>, context: NSManagedObjectContext) -> T {
         return arr.getTypeInstance(context: context)
     }
     
@@ -47,7 +47,7 @@ public extension Array where Element: EVManagedObject {
      
      - returns: The object type
      */
-    public func getTypeInstance<T: EVManagedObject>(context: NSManagedObjectContext) -> T {
+    func getTypeInstance<T: EVManagedObject>(context: NSManagedObjectContext) -> T {
         let nsobjectype: EVManagedObject.Type = T.self
         let name = EVReflection.swiftStringFromClass(nsobjectype)
         guard let entity = NSEntityDescription.entity(forEntityName: name, in: context) else { return T() }
@@ -65,7 +65,7 @@ public extension Array where Element: EVManagedObject {
      
      - returns: The object type
      */
-    public func getTypeAsString() -> String {
+    func getTypeAsString() -> String {
         let item = self.getTypeInstance()
         return NSStringFromClass(type(of:item))
     }

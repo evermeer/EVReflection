@@ -89,7 +89,8 @@ public protocol EVReflectable: class, NSObjectProtocol  {
      - returns: The custom object that will be parsed (single value, dictionary or array)
      */
     func customConverter() -> AnyObject?
-    
+
+/*
     /**
      Declaration for Equatable ==
      
@@ -109,7 +110,7 @@ public protocol EVReflectable: class, NSObjectProtocol  {
      - returns: False if the objects are the the same, otherwise true.
      */
     static func !=(lhs: EVReflectable, rhs: EVReflectable) -> Bool
-    
+*/
     /**
      Protocol container property for the reflection statusses
      */

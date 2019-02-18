@@ -118,7 +118,7 @@ class AlamofireTests: XCTestCase {
         
         let exp = expectation(description: "router")
         
-        Alamofire.request(Router.list1())
+        Alamofire.request(Router.list1)
             .responseObject { (response: DataResponse<WeatherResponse>) in
                 
             if let result = response.result.value {
@@ -226,8 +226,8 @@ class AlamofireTests: XCTestCase {
 
 
 enum Router: URLRequestConvertible {
-    case list1()
-    case list2()
+    case list1
+    case list2
     
     static let baseURLString = "http://raw.githubusercontent.com/evermeer/AlamofireJsonToObjects/master/AlamofireJsonToObjectsTests/"
     static let perPage = 50

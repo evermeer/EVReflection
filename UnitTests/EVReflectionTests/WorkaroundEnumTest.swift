@@ -43,14 +43,14 @@ class EnumWorkaroundsTests: XCTestCase {
         let test3 = getRawValue(MyEnumThree.ok)
         XCTAssertTrue(test3 as? NSNumber == 1, "Could nog get the rawvalue using a generic function. As a workaround just add the EVRaw protocol")
         let varTest4 = MyEnumFour.notOK(message: "realy wrong")
-        let test4 = getRawValue(varTest4) as? String
         XCTAssertTrue(varTest4.associated.label == "notOK", "Could nog get the label value using a generic function")
-        XCTAssertTrue(varTest4.associated.value as? String == "realy wrong", "Could nog get the associated value using a generic function")
-        XCTAssertTrue(test4 == "realy wrong", "Could nog get the associated value using a generic function")
+        XCTAssertTrue(varTest4.associated.values[0] as? String == "realy wrong", "Could nog get the associated value using a generic function")
+        let test4 = getRawValue(varTest4)
+        XCTAssertTrue((test4 as? [String])?[0] ?? "" == "realy wrong", "Could nog get the associated value using a generic function")
         let varTest5 = MyEnumFour.ok(level: 3)
-        let test5 = getRawValue(varTest5) as? Int
         XCTAssertTrue(varTest5.associated.label == "ok", "Could nog get the rawvalue using a generic function")
-        XCTAssertTrue(test5 == 3, "Could nog get the associated value using a generic function")
+        let test5 = getRawValue(varTest5)
+        XCTAssertTrue((test5 as? [Int])?[0] ?? 0 == 3, "Could nog get the associated value using a generic function")
         let test6 = getRawValue(MyEnumFive.ok)
         XCTAssertTrue(test6 as? String == "ok", "So we could get the raw value? Otherwise this would fail")
     }

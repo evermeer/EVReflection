@@ -43,7 +43,7 @@ open class CustomPropertyClass: EVObject {
      `@available` attribute to "deprecate" it, which will produce a warning message if it's
       used directly but _not_ if a convenience initializer is used. ;)
     */
-    @available(*, deprecated: 0.0.1, message: "init isn't supported, use init(number:) instead")
+    @available(*, deprecated, message: "init isn't supported, use init(number:) instead")
     public required init() {
         number = 0
         super.init()

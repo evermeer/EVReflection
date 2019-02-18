@@ -110,9 +110,12 @@ class ViewController: UIViewController {
 
     func testIssue213() {
         let path: String = Bundle(for: type(of: self)).path(forResource: "test", ofType: "json") ?? ""
-        let content = try! String(contentsOfFile: path)
-        let data = ResultArrayWrapper<Spot>(json: content)
-        print("\(data)")
+        if let content = try? String(contentsOfFile: path) {
+            let data = ResultArrayWrapper<Spot>(json: content)
+            print("\(data)")
+        } else {
+            assert(true)
+        }
     }
     
 }
@@ -163,7 +166,7 @@ class TestObject2: EVObject {
         name = "Object2 Name \(id)"
     }
     //workaround
-    @available(*, deprecated: 0.0.1, message: "init isn't supported, use init(id:) instead")
+    @available(*, deprecated, message: "init isn't supported, use init(id:) instead")
     required init() {
         super.init()
     }
@@ -199,7 +202,7 @@ class ResultArrayWrapper<T: Model>: EVObject, EVGenericsKVC {
             break;
             
         default:
-            print("---> setValue '\(value)' for key '\(key)' should be handled.")
+            print("---> setValue '\(value ?? [] as AnyObject)' for key '\(key)' should be handled.")
         }
     }
     

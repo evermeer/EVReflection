@@ -28,9 +28,12 @@ class TestIssue159: XCTestCase {
     
     func testIssue159() {
         let path: String = Bundle(for: type(of: self)).path(forResource: "EVReflectionIssue159", ofType: "json") ?? ""
-        let content = try! String(contentsOfFile: path)
-        let data = DocumentDetails(json: content)
-        print("\(data)")
+        if let content = try? String(contentsOfFile: path) {
+            let data = DocumentDetails(json: content)
+            print("\(data)")
+        } else {
+            XCTAssert(true, "Could not read file")
+        }
     }
     
 }
