@@ -33,7 +33,7 @@ Please update to cocoapods 1.7.0 for now you could do that using
 sudo gem install cocoapods --pre
 ```
 This is required for libraries that want to support other swift versions besides 5.0
-For more information see the [cocoapods blog])http://blog.cocoapods.org/CocoaPods-1.7.0-beta/)
+For more information see the [cocoapods blog](http://blog.cocoapods.org/CocoaPods-1.7.0-beta/)
 
 EVReflection is used in [EVCloudKitDao](https://github.com/evermeer/EVCloudKitDao) and [EVWordPressAPI](https://github.com/evermeer/EVWordPressAPI)
 
