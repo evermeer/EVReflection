@@ -28,6 +28,13 @@
 At this moment the master branch is tested with Swift 4.2 and 5.0 beta If you want to continue using EVReflection in an older version, then use the corresponding branch.
 Run the unit tests to see EVReflection in action.
 
+Please update to cocoapods 1.7.0 for now you could do that using
+```
+sudo gem install cocoapods --pre
+```
+This is required for libraries that want to support other swift versions besides 5.0
+For more information see the [cocoapods blog])http://blog.cocoapods.org/CocoaPods-1.7.0-beta/)
+
 EVReflection is used in [EVCloudKitDao](https://github.com/evermeer/EVCloudKitDao) and [EVWordPressAPI](https://github.com/evermeer/EVWordPressAPI)
 
 In most cases EVReflection is very easy to use. Just take a look the section [It's easy to use](https://github.com/evermeer/EVReflection#its-easy-to-use). But if you do want to do non standard specific things, then EVReflection will offer you an extensive range of functionality. 
