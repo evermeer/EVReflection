@@ -26,25 +26,32 @@
 #include <stdexcept>
 #include <string>
 #include <streambuf>
+#include <iostream>
 
 #ifndef _WIN32
 #include <dirent.h> // POSIX.1-2001
 #endif
 
 #if defined(_MSC_VER) && _MSC_VER >= 1900 // compiling with at least Visual Studio 2015
+#if _MSVC_LANG >= 201703L
+#include <filesystem>
+#else
+#define _SILENCE_EXPERIMENTAL_FILESYSTEM_DEPRECATION_WARNING // switch to <filesystem> once we switch to C++17
 #include <experimental/filesystem>
 namespace std {
     namespace filesystem = std::experimental::filesystem::v1;
 }
+#endif
 #define REALM_HAVE_STD_FILESYSTEM 1
 #else
 #define REALM_HAVE_STD_FILESYSTEM 0
 #endif
 
 #include <realm/utilities.hpp>
+#include <realm/util/assert.hpp>
 #include <realm/util/backtrace.hpp>
 #include <realm/util/features.h>
-#include <realm/util/assert.hpp>
+#include <realm/util/function_ref.hpp>
 #include <realm/util/safe_int_ops.hpp>
 
 
@@ -300,7 +307,7 @@ public:
     ///
     /// \sa prealloc()
     /// \sa is_prealloc_supported()
-    void prealloc_if_supported(SizeType offset, size_t size);
+    bool prealloc_if_supported(SizeType offset, size_t size);
 
     /// See prealloc_if_supported().
     static bool is_prealloc_supported();
@@ -361,7 +368,7 @@ public:
 
     /// Get the encryption key set by set_encryption_key(),
     /// null_ptr if no key set.
-    const char* get_encryption_key();
+    const char* get_encryption_key() const;
     enum {
         /// If possible, disable opportunistic flushing of dirted
         /// pages of a memory mapped file to physical medium. On some
@@ -393,7 +400,8 @@ public:
     /// Calling this function with a size that is greater than the
     /// size of the file has undefined behavior.
     void* map(AccessMode, size_t size, int map_flags = 0, size_t offset = 0) const;
-
+    void* map_fixed(AccessMode, void* address, size_t size, int map_flags = 0, size_t offset = 0) const;
+    void* map_reserve(AccessMode, size_t size, size_t offset) const;
     /// The same as unmap(old_addr, old_size) followed by map(a,
     /// new_size, map_flags), but more efficient on some systems.
     ///
@@ -411,6 +419,9 @@ public:
 
 #if REALM_ENABLE_ENCRYPTION
     void* map(AccessMode, size_t size, EncryptedFileMapping*& mapping, int map_flags = 0, size_t offset = 0) const;
+    void* map_fixed(AccessMode, void* address, size_t size, EncryptedFileMapping* mapping, int map_flags = 0,
+                    size_t offset = 0) const;
+    void* map_reserve(AccessMode, size_t size, size_t offset, EncryptedFileMapping*& mapping) const;
 #endif
     /// Unmap the specified address range which must have been
     /// previously returned by map().
@@ -521,7 +532,7 @@ public:
     /// string is interpreted as a relative path.
     static std::string resolve(const std::string& path, const std::string& base_dir);
 
-    using ForEachHandler = std::function<bool(const std::string& file, const std::string& dir)>;
+    using ForEachHandler = util::FunctionRef<bool(const std::string& file, const std::string& dir)>;
 
     /// Scan the specified directory recursivle, and report each file
     /// (nondirectory entry) via the specified handler.
@@ -542,15 +553,30 @@ public:
 #ifdef _WIN32 // Windows version
 // FIXME: This is not implemented for Windows
 #else
+        UniqueID()
+            : device(0)
+            , inode(0)
+        {
+        }
+        UniqueID(dev_t d, ino_t i)
+            : device(d)
+            , inode(i)
+        {
+        }
         // NDK r10e has a bug in sys/stat.h dev_t ino_t are 4 bytes,
         // but stat.st_dev and st_ino are 8 bytes. So we just use uint64 instead.
-        uint_fast64_t device;
+        dev_t device;
         uint_fast64_t inode;
 #endif
     };
     // Return the unique id for the current opened file descriptor.
     // Same UniqueID means they are the same file.
     UniqueID get_unique_id() const;
+    // Return the file descriptor for the file
+    FileDesc get_descriptor() const;
+    // Return the path of the open file, or an empty string if
+    // this file has never been opened.
+    std::string get_path() const;
     // Return false if the file doesn't exist. Otherwise uid will be set.
     static bool get_unique_id(const std::string& path, UniqueID& uid);
 
@@ -580,13 +606,15 @@ private:
     int m_fd;
 #endif
     std::unique_ptr<const char[]> m_encryption_key = nullptr;
+    std::string m_path;
 
     bool lock(bool exclusive, bool non_blocking);
     void open_internal(const std::string& path, AccessMode, CreateMode, int flags, bool* success);
 
     struct MapBase {
         void* m_addr = nullptr;
-        size_t m_size = 0;
+        mutable size_t m_size = 0;
+        size_t m_offset = 0;
         FileDesc m_fd;
 
         MapBase() noexcept;
@@ -597,12 +625,13 @@ private:
         MapBase(const MapBase&) = delete;
         MapBase& operator=(const MapBase&) = delete;
 
+        // Use
         void map(const File&, AccessMode, size_t size, int map_flags, size_t offset = 0);
         void remap(const File&, AccessMode, size_t size, int map_flags);
         void unmap() noexcept;
         void sync();
 #if REALM_ENABLE_ENCRYPTION
-        util::EncryptedFileMapping* m_encrypted_mapping = nullptr;
+        mutable util::EncryptedFileMapping* m_encrypted_mapping = nullptr;
         inline util::EncryptedFileMapping* get_encrypted_mapping() const
         {
             return m_encrypted_mapping;
@@ -692,19 +721,26 @@ public:
     Map& operator=(const Map&) = delete;
 
     /// Move the mapping from another Map object to this Map object
-    File::Map<T>& operator=(File::Map<T>&& other)
+    File::Map<T>& operator=(File::Map<T>&& other) noexcept
     {
         if (m_addr)
             unmap();
         m_addr = other.get_addr();
         m_size = other.m_size;
-        other.m_addr = 0;
+        m_offset = other.m_offset;
+        m_fd = other.m_fd;
+        other.m_offset = 0;
+        other.m_addr = nullptr;
         other.m_size = 0;
 #if REALM_ENABLE_ENCRYPTION
         m_encrypted_mapping = other.m_encrypted_mapping;
         other.m_encrypted_mapping = nullptr;
 #endif
         return *this;
+    }
+    Map(Map&& other) noexcept
+    {
+        *this = std::move(other);
     }
 
     /// See File::map().
@@ -853,7 +889,7 @@ private:
 /// Only output is supported at this point.
 class File::Streambuf : public std::streambuf {
 public:
-    explicit Streambuf(File*);
+    explicit Streambuf(File*, size_t = 4096);
     ~Streambuf() noexcept;
 
     // Disable copying
@@ -861,8 +897,6 @@ public:
     Streambuf& operator=(const Streambuf&) = delete;
 
 private:
-    static const size_t buffer_size = 4096;
-
     File& m_file;
     std::unique_ptr<char[]> const m_buffer;
 
@@ -872,10 +906,9 @@ private:
     void flush();
 };
 
-
 /// Used for any I/O related exception. Note the derived exception
 /// types that are used for various specific types of errors.
-class File::AccessError : public std::runtime_error {
+class File::AccessError : public ExceptionWithBacktrace<std::runtime_error> {
 public:
     AccessError(const std::string& msg, const std::string& path);
 
@@ -883,8 +916,17 @@ public:
     /// no associated file system path, or if the file system path is unknown.
     std::string get_path() const;
 
+    const char* message() const noexcept
+    {
+        m_buffer = std::runtime_error::what();
+        if (m_path.size() > 0)
+            m_buffer += (std::string(" Path: ") + m_path);
+        return m_buffer.c_str();
+    }
+
 private:
     std::string m_path;
+    mutable std::string m_buffer;
 };
 
 
@@ -1061,6 +1103,7 @@ inline bool File::try_lock_shared()
 inline File::MapBase::MapBase() noexcept
 {
     m_addr = nullptr;
+    m_size = 0;
 }
 
 inline File::MapBase::~MapBase() noexcept
@@ -1068,45 +1111,6 @@ inline File::MapBase::~MapBase() noexcept
     unmap();
 }
 
-inline void File::MapBase::map(const File& f, AccessMode a, size_t size, int map_flags, size_t offset)
-{
-    REALM_ASSERT(!m_addr);
-#if REALM_ENABLE_ENCRYPTION
-    m_addr = f.map(a, size, m_encrypted_mapping, map_flags, offset);
-#else
-    m_addr = f.map(a, size, map_flags, offset);
-#endif
-    m_size = size;
-    m_fd = f.m_fd;
-}
-
-inline void File::MapBase::unmap() noexcept
-{
-    if (!m_addr)
-        return;
-    File::unmap(m_addr, m_size);
-    m_addr = nullptr;
-#if REALM_ENABLE_ENCRYPTION
-    m_encrypted_mapping = nullptr;
-#endif
-    m_fd = 0;
-}
-
-inline void File::MapBase::remap(const File& f, AccessMode a, size_t size, int map_flags)
-{
-    REALM_ASSERT(m_addr);
-
-    m_addr = f.remap(m_addr, m_size, a, size, map_flags);
-    m_size = size;
-    m_fd = f.m_fd;
-}
-
-inline void File::MapBase::sync()
-{
-    REALM_ASSERT(m_addr);
-
-    File::sync_map(m_fd, m_addr, m_size);
-}
 
 template <class T>
 inline File::Map<T>::Map(const File& f, AccessMode a, size_t size, int map_flags)
@@ -1146,7 +1150,11 @@ inline void File::Map<T>::unmap() noexcept
 template <class T>
 inline T* File::Map<T>::remap(const File& f, AccessMode a, size_t size, int map_flags)
 {
-    MapBase::remap(f, a, size, map_flags);
+    //MapBase::remap(f, a, size, map_flags);
+    // missing sync() here?
+    unmap();
+    map(f, a, size, map_flags);
+
     return static_cast<T*>(m_addr);
 }
 
@@ -1184,7 +1192,7 @@ inline T* File::Map<T>::release() noexcept
 }
 
 
-inline File::Streambuf::Streambuf(File* f)
+inline File::Streambuf::Streambuf(File* f, size_t buffer_size)
     : m_file(*f)
     , m_buffer(new char[buffer_size])
 {
@@ -1239,7 +1247,7 @@ inline void File::Streambuf::flush()
 }
 
 inline File::AccessError::AccessError(const std::string& msg, const std::string& path)
-    : std::runtime_error(msg)
+    : ExceptionWithBacktrace<std::runtime_error>(msg)
     , m_path(path)
 {
 }

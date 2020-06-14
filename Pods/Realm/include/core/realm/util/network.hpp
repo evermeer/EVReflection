@@ -53,7 +53,7 @@
 //
 // Require Linux kernel version >= 2.6.27 such that we have epoll_create1(),
 // `O_CLOEXEC`, and `EPOLLRDHUP`.
-#if defined(__linux__)
+#if defined(__linux__) && !REALM_ANDROID
 #  include <linux/version.h>
 #  if !defined(REALM_HAVE_EPOLL)
 #    if !defined(REALM_DISABLE_UTIL_NETWORK_EPOLL)
@@ -1362,8 +1362,9 @@ private:
 /// operation is guaranteed to never throw.
 ///
 /// The function is guaranteed to not be called after the Trigger object is
-/// destroyed. It is safe, though, to destroy the Trigger object during the
-/// execution of the function.
+/// destroyed.
+///
+/// It is safe to destroy the Trigger object during execution of the function.
 ///
 /// Note that even though the trigger() function is thread-safe, the Trigger
 /// object, as a whole, is not. In particular, construction and destruction must

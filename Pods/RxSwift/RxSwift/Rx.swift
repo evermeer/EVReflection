@@ -7,27 +7,27 @@
 //
 
 #if TRACE_RESOURCES
-    fileprivate var resourceCount = AtomicInt(0)
+    private let resourceCount = AtomicInt(0)
 
     /// Resource utilization information
     public struct Resources {
         /// Counts internal Rx resource allocations (Observables, Observers, Disposables, etc.). This provides a simple way to detect leaks during development.
         public static var total: Int32 {
-            return load(&resourceCount)
+            return load(resourceCount)
         }
 
         /// Increments `Resources.total` resource count.
         ///
         /// - returns: New resource count
         public static func incrementTotal() -> Int32 {
-            return increment(&resourceCount)
+            return increment(resourceCount)
         }
 
         /// Decrements `Resources.total` resource count
         ///
         /// - returns: New resource count
         public static func decrementTotal() -> Int32 {
-            return decrement(&resourceCount)
+            return decrement(resourceCount)
         }
     }
 #endif
@@ -38,7 +38,6 @@ func rxAbstractMethod(file: StaticString = #file, line: UInt = #line) -> Swift.N
 }
 
 func rxFatalError(_ lastMessage: @autoclosure () -> String, file: StaticString = #file, line: UInt = #line) -> Swift.Never  {
-    // The temptation to comment this line is great, but please don't, it's for your own good. The choice is yours.
     fatalError(lastMessage(), file: file, line: line)
 }
 
@@ -101,7 +100,7 @@ func decrementChecked(_ i: inout Int) throws -> Int {
                     "  > Interpretation: This could mean that there is some kind of unexpected cyclic dependency in your code,\n" +
                     "    or that the system is not behaving in the expected way.\n" +
                     "  > Remedy: If this is the expected behavior this message can be suppressed by adding `.observeOn(MainScheduler.asyncInstance)`\n" +
-                    "    or by enqueing sequence events in some other way.\n"
+                    "    or by enqueuing sequence events in some other way.\n"
                 )
             }
             

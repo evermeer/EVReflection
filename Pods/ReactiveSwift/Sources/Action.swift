@@ -1,6 +1,5 @@
 import Dispatch
 import Foundation
-import Result
 
 /// `Action` represents a repeatable work like `SignalProducer`. But on top of the
 /// isolation of produced `Signal`s from a `SignalProducer`, `Action` provides
@@ -29,8 +28,8 @@ public final class Action<Input, Output, Error: Swift.Error> {
 	}
 
 	private let execute: (Action<Input, Output, Error>, Input) -> SignalProducer<Output, ActionError<Error>>
-	private let eventsObserver: Signal<Signal<Output, Error>.Event, NoError>.Observer
-	private let disabledErrorsObserver: Signal<(), NoError>.Observer
+	private let eventsObserver: Signal<Signal<Output, Error>.Event, Never>.Observer
+	private let disabledErrorsObserver: Signal<(), Never>.Observer
 
 	private let deinitToken: Lifetime.Token
 
@@ -41,28 +40,28 @@ public final class Action<Input, Output, Error: Swift.Error> {
 	///
 	/// In other words, this sends every `Event` from every unit of work that the `Action`
 	/// executes.
-	public let events: Signal<Signal<Output, Error>.Event, NoError>
+	public let events: Signal<Signal<Output, Error>.Event, Never>
 
 	/// A signal of all values generated from all units of work of the `Action`.
 	///
 	/// In other words, this sends every value from every unit of work that the `Action`
 	/// executes.
-	public let values: Signal<Output, NoError>
+	public let values: Signal<Output, Never>
 
 	/// A signal of all errors generated from all units of work of the `Action`.
 	///
 	/// In other words, this sends every error from every unit of work that the `Action`
 	/// executes.
-	public let errors: Signal<Error, NoError>
+	public let errors: Signal<Error, Never>
 
 	/// A signal of all failed attempts to start a unit of work of the `Action`.
-	public let disabledErrors: Signal<(), NoError>
+	public let disabledErrors: Signal<(), Never>
 
 	/// A signal of all completed events generated from applications of the action.
 	///
 	/// In other words, this will send completed events from every signal generated
 	/// by each SignalProducer returned from apply().
-	public let completed: Signal<(), NoError>
+	public let completed: Signal<(), Never>
 
 	/// Whether the action is currently executing.
 	public let isExecuting: Property<Bool>
@@ -100,12 +99,12 @@ public final class Action<Input, Output, Error: Swift.Error> {
 		// `Action` retains its state property.
 		lifetime.observeEnded { _ = state }
 
-		(events, eventsObserver) = Signal<Signal<Output, Error>.Event, NoError>.pipe()
-		(disabledErrors, disabledErrorsObserver) = Signal<(), NoError>.pipe()
+		(events, eventsObserver) = Signal<Signal<Output, Error>.Event, Never>.pipe()
+		(disabledErrors, disabledErrorsObserver) = Signal<(), Never>.pipe()
 
-		values = events.filterMap { $0.value }
-		errors = events.filterMap { $0.error }
-		completed = events.filterMap { $0.isCompleted ? () : nil }
+		values = events.compactMap { $0.value }
+		errors = events.compactMap { $0.error }
+		completed = events.compactMap { $0.isCompleted ? () : nil }
 
 		let actionState = MutableProperty(ActionState<State.Value>(isUserEnabled: true, isExecuting: false, value: state.value))
 
@@ -219,6 +218,24 @@ public final class Action<Input, Output, Error: Swift.Error> {
 		}
 	}
 
+	/// Initializes an `Action` that uses a `ValidatingProperty` as its state.
+	///
+	/// When the `Action` is asked to start executing, a unit of work (represented by
+	/// a `SignalProducer`) is created by invoking `execute` with the latest value
+	/// of the state and the `input` that was passed to `apply()`.
+	///
+	/// If the `ValidatingProperty` does not hold a valid value, the `Action` would be
+	/// disabled until it's valid.
+	///
+	/// - parameters:
+	///   - state: A `ValidatingProperty` to be the state of the `Action`.
+	///   - execute: A closure that produces a unit of work, as `SignalProducer`, to
+	///              be executed by the `Action`.
+	public convenience init<T, E>(validated state: ValidatingProperty<T, E>, execute: @escaping (T, Input) -> SignalProducer<Output, Error>) {
+		self.init(unwrapping: state.result.map { $0.value }, execute: execute)
+	}
+	
+
 	/// Initializes an `Action` that would always be enabled.
 	///
 	/// When the `Action` is asked to start the execution with an input value, a unit of
@@ -289,6 +306,25 @@ extension Action where Input == Void {
 	///              be executed by the `Action`.
 	public convenience init<P: PropertyProtocol, T>(unwrapping state: P, execute: @escaping (T) -> SignalProducer<Output, Error>) where P.Value == T? {
 		self.init(unwrapping: state) { state, _ in
+			execute(state)
+		}
+	}
+	
+	/// Initializes an `Action` that uses a `ValidatingProperty` as its state.
+	///
+	/// When the `Action` is asked to start executing, a unit of work (represented by
+	/// a `SignalProducer`) is created by invoking `execute` with the latest value
+	/// of the state and the `input` that was passed to `apply()`.
+	///
+	/// If the `ValidatingProperty` does not hold a valid value, the `Action` would be
+	/// disabled until it's valid.
+	///
+	/// - parameters:
+	///   - state: A `ValidatingProperty` to be the state of the `Action`.
+	///   - execute: A closure that produces a unit of work, as `SignalProducer`, to
+	///              be executed by the `Action`.
+	public convenience init<T, E>(validated state: ValidatingProperty<T, E>, execute: @escaping (T) -> SignalProducer<Output, Error>) {
+		self.init(validated: state) { state, _ in
 			execute(state)
 		}
 	}

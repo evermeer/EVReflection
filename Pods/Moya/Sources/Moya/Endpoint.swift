@@ -72,10 +72,10 @@ open class Endpoint {
 }
 
 /// Extension for converting an `Endpoint` into a `URLRequest`.
-extension Endpoint {
+public extension Endpoint {
     // swiftlint:disable cyclomatic_complexity
     /// Returns the `Endpoint` converted to a `URLRequest` if valid. Throws an error otherwise.
-    public func urlRequest() throws -> URLRequest {
+    func urlRequest() throws -> URLRequest {
         guard let requestURL = Foundation.URL(string: url) else {
             throw MoyaError.requestMapping(url)
         }
@@ -119,9 +119,12 @@ extension Endpoint {
 
 /// Required for using `Endpoint` as a key type in a `Dictionary`.
 extension Endpoint: Equatable, Hashable {
-    public var hashValue: Int {
-        let request = try? urlRequest()
-        return request?.hashValue ?? url.hashValue
+    public func hash(into hasher: inout Hasher) {
+        guard let request = try? urlRequest() else {
+            hasher.combine(url)
+            return
+        }
+        hasher.combine(request)
     }
 
     /// Note: If both Endpoints fail to produce a URLRequest the comparison will

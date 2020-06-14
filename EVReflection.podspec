@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "EVReflection"
-  s.version      = "5.10.1"
+  s.version      = "5.11.0"
   s.summary      = "Reflection based object mapping. (Dictionary, CKRecord, NSManagedObject, Realm, JSON, XML, Alamofire, Moya, RxSwift, ReactiveSwift)"
 
   s.description  = <<-EOS
@@ -12,13 +12,13 @@ EOS
   s.author             = { "Edwin Vermeer" => "edwin@evict.nl" }
   s.social_media_url   = "http://twitter.com/evermeer"
 
-  s.ios.deployment_target = '8.0'
-  s.osx.deployment_target = '10.11'
+  s.ios.deployment_target = '10.0'
+  s.osx.deployment_target = '10.12'
   s.watchos.deployment_target = '3.0'
-  s.tvos.deployment_target = '9.0'
+  s.tvos.deployment_target = '10.0'
 
-  s.pod_target_xcconfig = { 'SWIFT_VERSION' => '4.2' }
-  s.swift_versions = ['4.0', '4.2', '5.0']
+  s.pod_target_xcconfig = { 'SWIFT_VERSION' => '5.0' }
+  s.swift_versions = ['5.0']
 
   s.source       = { :git => "https://github.com/evermeer/EVReflection.git", :tag => s.version }
   s.default_subspec = "Core"
@@ -46,10 +46,10 @@ EOS
 # Extending EVReflection with mapping functions for CKRecord (CloudKit)
   s.subspec "CloudKit" do |ss|
     # CloudKit needs Watch OS version 3.0
-    ss.ios.deployment_target = '8.0'
-    ss.osx.deployment_target = '10.11'
+    ss.ios.deployment_target = '10.0'
+    ss.osx.deployment_target = '10.12'
     ss.watchos.deployment_target = '3.0'
-    ss.tvos.deployment_target = '9.0'
+    ss.tvos.deployment_target = '10.0'
     ss.source_files  = "Source/CloudKit/*.swift"
     ss.dependency "EVReflection/Core"
     ss.framework  = "CloudKit"
