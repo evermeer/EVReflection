@@ -282,7 +282,7 @@ extension EVReflectable {
      
      - returns: True if the objects are the same, otherwise false.
      */
-    static public func == (lhs: EVReflectable, rhs: EVReflectable) -> Bool {
+    static public func == (lhs: Self, rhs: Self) -> Bool {
         if let lhso = lhs as? NSObject, let rhso = rhs as? NSObject {
             return EVReflection.areEqual(lhso, rhs: rhso)
         }
@@ -297,7 +297,7 @@ extension EVReflectable {
      
      - returns: False if the objects are the the same, otherwise true.
      */
-    static public func != (lhs: EVReflectable, rhs: EVReflectable) -> Bool {
+    static public func != (lhs: Self, rhs: Self) -> Bool {
         if let lhso = lhs as? NSObject, let rhso = rhs as? NSObject {
             return !EVReflection.areEqual(lhso, rhs: rhso)
         }
